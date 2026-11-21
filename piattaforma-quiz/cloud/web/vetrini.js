@@ -322,6 +322,30 @@ async function immagineIntera(v) {
   return cv;
 }
 
+// zona del vetrino (pixel del livello pieno x0, y0, w, h) ridotta di f (pixel del vetrino per pixel dell'immagine): le tessere
+// del livello DICOM più vicino, a gruppi di 12 (non migliaia di richieste insieme); colore come nella vista
+async function regione(V, stato, x0, y0, w, h, f, avanza) {
+  const cw = Math.max(1, Math.round(w / f)), ch = Math.max(1, Math.round(h / f));
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch; const g = cv.getContext('2d');
+  g.fillStyle = V.mono ? '#000' : '#f3f3f3'; g.fillRect(0, 0, cw, ch); g.imageSmoothingQuality = 'high';
+  const L = [...V.livelli].reverse().find((q) => q.ds <= f * 1.01) || V.livelli[0], s = L.ds / f;
+  const a0 = Math.max(0, Math.floor(x0 / L.ds / L.tw)), a1 = Math.floor((x0 + w - 1) / L.ds / L.tw), b0 = Math.max(0, Math.floor(y0 / L.ds / L.th)), b1 = Math.floor((y0 + h - 1) / L.ds / L.th);
+  const lav = []; for (let b = b0; b <= b1; b++) for (let a = a0; a <= a1; a++) lav.push([a, b]);
+  let fatti = 0, falliti = 0;
+  for (let i = 0; i < lav.length; i += 12) {
+    await Promise.all(lav.slice(i, i + 12).map(async ([a, b]) => {
+      try { const bm = await immagineTessera(V, L, a, b, stato); if (bm) { g.drawImage(bm, (a * L.tw * L.ds - x0) / f, (b * L.th * L.ds - y0) / f, L.tw * s, L.th * s); if (V.mono || bm._tmp) bm.close?.(); } }
+      catch { falliti++; }
+      fatti++;
+    }));
+    avanza?.(fatti, lav.length);
+  }
+  if (lav.length && falliti === lav.length) throw new Error('tessere del vetrino non leggibili');
+  if (!neutro(stato.colore)) applicaColore(g, cw, ch, stato.colore, V.mono);
+  return cv;
+}
+const MAX_LATO = 12000, MAX_PIXEL = 16e6;   // canvas che tutti i browser (anche Safari su iPad) sanno creare e salvare
+
 // ---------------------------------------------------------------- colore: luminosità, contrasto, gamma, ematossilina / DAB
 const neutro = (c) => !c || (c.lum === 0 && c.con === 1 && c.gam === 1 && c.modo === 'rgb');
 // vettori di colore di ematossilina e DAB (Ruifrok e Johnston, Anal Quant Cytol Histol 2001), terzo vettore ortogonale;
@@ -365,7 +389,10 @@ const STRUMENTI = [['dist', '📏', 'Distanza', 'trascina da un punto all\'altro
 const COLORI_ANN = { dist: '#ffd400', freccia: '#ff5a1f', poligono: '#00e5ff', ellisse: '#7cff4f', hpf: '#ff4fd8', punto: '#ff2b2b' };
 const scarica = (blob, nome) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); };
 
-export async function apriVetrino(box, V, { OSD, conPaziente = false, client = true, tr = null, tutti = null, indice = 0, lento = false, dicomParser = globalThis.dicomParser } = {}) {
+// onChiave(canvas, info) → numero di immagini chiave: 📸 e tasto K (anche dal ritaglio); onReferto(): 📝 apre il referto;
+// onMisure(frasi): tasto I e «Misure nel referto»; credito: archivio, collezione e licenza (didascalie del ritaglio)
+export async function apriVetrino(box, V, { OSD, conPaziente = false, client = true, tr = null, tutti = null, indice = 0, lento = false, dicomParser = globalThis.dicomParser,
+  onChiave = null, onReferto = null, onMisure = null, credito = '' } = {}) {
   const A = await import('./vetrini-ann.js');
   if (!tr) { const t = await import('./i18n.js').then((m) => m.tr, () => null); tr = (s) => (t && t(s)) ?? s; }
   const altri = (tutti || []).map((v, k) => [v, k]).filter(([, k]) => k !== indice);
@@ -377,12 +404,16 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
       <button type="button" class="vt-intero" title="${tr('Schermo intero')} (F)">⛶</button></span>
       <button type="button" class="vt-colore-b" aria-expanded="false">🎨 ${tr('Colore')}</button>
       <button type="button" class="vt-foto" title="${tr('Immagine della vista con la barra di scala, per un referto o una presentazione')}">📷 ${tr('Istantanea')}</button>
+      <button type="button" class="vt-ritaglia" title="${tr('Ritaglia: trascina un rettangolo sulla zona e salvala in JPEG o PNG, anche alla risoluzione piena della scansione')} (X)">✂ ${tr('Ritaglia')}</button>
+      ${onChiave ? `<button type="button" class="vt-chiave" title="${tr('Immagine chiave: la vista con annotazioni e barra di scala, per il referto')} (K)">📸 ${tr('Chiave')}<b class="vt-chiave-n"></b></button>` : ''}
+      ${onReferto ? `<button type="button" class="vt-referto" title="${tr('Apri il referto')}">📝 ${tr('Referto')}</button>` : ''}
       ${altri.length ? `<select class="vt-affianca" title="${tr('Mostra un secondo vetrino accanto, sincronizzato')}"><option value="">⧉ ${tr('Affianca un vetrino…')}</option>${altri.map(([v, k]) => `<option value="${k}">${esc(v.descrizione || tr('Vetrino') + ' ' + (k + 1))}</option>`).join('')}</select>` : ''}
       ${client && V.panoramica ? `<button type="button" class="vt-panoramica" title="${tr('Panoramica del vetrino')}">🗺 ${tr('Panoramica')}</button>` : ''}
       ${client && V.etichetta ? `<button type="button" class="vt-etichetta" title="${tr('Etichetta del vetrino (può contenere i dati del paziente)')}">🏷 ${tr('Etichetta')}</button>` : ''}
       <span class="vt-info muted small"></span></div>
     <div class="vt-strumenti">${STRUMENTI.map(([s, ico, nome, aiuto]) => `<button type="button" class="vt-s${s === 'dist' ? ' vt-misura' : ''}" data-s="${s}" title="${tr(nome)}: ${tr(aiuto)}. Esc ${tr('per smettere')}">${ico} ${tr(nome)}</button>`).join('')}
       <select class="vt-hpf-d" title="${tr('Diametro del campo ad alto ingrandimento')}">${HPF.map((d) => `<option value="${d}"${d === 0.55 ? ' selected' : ''}>Ø ${String(d).replace('.', ',')} mm = ${(Math.PI * (d / 2) ** 2).toFixed(3).replace('.', ',')} mm²</option>`).join('')}</select>
+      ${onMisure ? `<button type="button" class="vt-al-referto" title="${tr('Distanze, aree e conteggi nel referto')} (I)">↳ ${tr('Misure nel referto')}</button>` : ''}
       <button type="button" class="vt-annulla" title="${tr('Togli l\'ultima annotazione')} (Canc)">↩ ${tr('Annulla')}</button><button type="button" class="vt-cancella">🗑 ${tr('Cancella tutto')}</button>
       <button type="button" class="vt-esporta" title="${tr('Annotazioni in formato DICOM (Microscopy Bulk Simple Annotations), leggibili da altri visualizzatori di vetrini')}">💾 ${tr('Esporta DICOM')}</button>
       <label class="vt-importa cl-btn-piccolo" title="${tr('Apri un file DICOM di annotazioni di questo vetrino')}">📂 ${tr('Importa')}<input type="file" accept=".dcm,application/dicom" hidden></label>
@@ -486,6 +517,12 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   function termina(P) {
     if (!inCorso || inCorso.P !== P) return;
     const a = inCorso.a;
+    if (a.t === 'ritaglio') {
+      inCorso = null; scegli('ritaglio'); disegna(P);
+      const [p, q] = a.p, x0 = Math.max(0, Math.min(p[0], q[0])), y0 = Math.max(0, Math.min(p[1], q[1])), x1 = Math.min(P.V.W, Math.max(p[0], q[0])), y1 = Math.min(P.V.H, Math.max(p[1], q[1]));
+      if ((x1 - x0) * pxSch(P) > 8 && (y1 - y0) * pxSch(P) > 8) apriRitaglio(P, [x0, y0, x1 - x0, y1 - y0]);
+      return;
+    }
     if (a.t === 'poligono') { inCorso.giu = false; if (inCorso.libero && a.p.length >= 8) chiudiPoligono(P); return; }   // a mano libera: si chiude alzando il dito
     inCorso = null;
     if (a.t === 'ellisse') { delete a.o; if (a.rx * pxSch(P) > 2 && a.ry * pxSch(P) > 2) aggiungi(P, a); else disegna(P); return; }
@@ -500,24 +537,25 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   function aggiungi(P, a) { P.ann.push(a); salva(P); disegna(P); riepilogo(); }
   function scegli(s) {
     strumento = strumento === s ? null : s; inCorso = null;
-    box.querySelectorAll('.vt-s').forEach((b) => b.classList.toggle('on', b.dataset.s === strumento));
+    box.querySelectorAll('.vt-s').forEach((b) => b.classList.toggle('on', b.dataset.s === strumento)); $('.vt-ritaglia')?.classList.toggle('on', strumento === 'ritaglio');
     for (const P of pannelli) { P.svg.style.pointerEvents = strumento ? 'auto' : 'none'; P.svg.style.cursor = strumento ? 'crosshair' : ''; P.svg.style.touchAction = strumento ? 'none' : ''; P.viewer.setMouseNavEnabled(!strumento); disegna(P); }
-    $('.vt-aiuto').textContent = strumento ? tr(STRUMENTI.find((x) => x[0] === strumento)[3]) : '';
+    $('.vt-aiuto').textContent = !strumento ? '' : strumento === 'ritaglio' ? tr('trascina un rettangolo sulla zona da salvare; Esc per smettere') : tr(STRUMENTI.find((x) => x[0] === strumento)[3]);
   }
 
   // ------------------------------------------------ disegno: forme in coordinate dello schermo, per l'SVG e per l'istantanea
-  function forme(P) {
-    const sp = P.sp || 1, cal = !!P.sp, out = [], l = inCorso?.P === P ? [...P.ann, inCorso.a] : P.ann;
+  function forme(P, map = (q) => aSch(P, q), conInCorso = true) {
+    const sp = P.sp || 1, cal = !!P.sp, out = [], l = conInCorso && inCorso?.P === P ? [...P.ann, inCorso.a] : P.ann;
     for (const a of l) {
       const col = COLORI_ANN[a.t];
-      if (a.t === 'punto') { out.push({ k: 'punto', c: aSch(P, a.p[0]), col }); continue; }
+      if (a.t === 'ritaglio') { const [p, q] = a.p; out.push({ k: 'area', p: [[p[0], p[1]], [q[0], p[1]], [q[0], q[1]], [p[0], q[1]]].map(map), col: '#ffffff', tratteggio: true }); continue; }
+      if (a.t === 'punto') { out.push({ k: 'punto', c: map(a.p[0]), col }); continue; }
       if (a.t === 'dist' || a.t === 'freccia') {
-        const p = a.p.map((q) => aSch(P, q)); out.push({ k: a.t === 'freccia' ? 'freccia' : 'linea', p, col });
+        const p = a.p.map(map); out.push({ k: a.t === 'freccia' ? 'freccia' : 'linea', p, col });
         if (a.t === 'dist') out.push({ k: 'testo', x: p[1][0] + 7, y: p[1][1] - 7, s: fmt(A.lunghezza(a, sp), cal) });
         continue;
       }
       const pts = a.t === 'poligono' ? a.p : A.puntiEllisse(a.c, a.rx, a.ry);
-      const p = pts.map((q) => aSch(P, q)), aperto = a === inCorso?.a && a.t === 'poligono';
+      const p = pts.map(map), aperto = a === inCorso?.a && a.t === 'poligono';
       out.push({ k: aperto ? 'linea' : 'area', p, col, tratteggio: a.t === 'hpf' });
       if (!aperto && pts.length >= 3) {
         const top = p.reduce((m, q) => (q[1] < m[1] ? q : m), p[0]);
@@ -538,14 +576,14 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
     if (x.k === 'linea' && x.p.length === 2) s += x.p.map((q) => `<circle cx="${q[0]}" cy="${q[1]}" r="3" style="fill:${x.col};stroke:#000"/>`).join('');
     return s;
   }).join('');
-  function suCanvas(g, f) {   // le stesse forme dell'SVG, disegnate sul canvas dell'istantanea
+  function suCanvas(g, f, k = 1) {   // le stesse forme dell'SVG, disegnate sul canvas dell'istantanea (k: spessori e testi più grandi)
     for (const x of f) {
-      if (x.k === 'testo') { g.font = '600 13px system-ui,sans-serif'; g.lineWidth = 3; g.strokeStyle = '#000'; g.strokeText(x.s, x.x, x.y); g.fillStyle = '#fff'; g.fillText(x.s, x.x, x.y); continue; }
-      g.lineWidth = 2.5; g.strokeStyle = x.col; g.fillStyle = x.col;
-      if (x.k === 'punto') { g.beginPath(); g.arc(x.c[0], x.c[1], 6, 0, 2 * Math.PI); g.stroke(); g.beginPath(); g.arc(x.c[0], x.c[1], 1.8, 0, 2 * Math.PI); g.fill(); continue; }
-      g.setLineDash(x.tratteggio ? [7, 5] : []); g.beginPath(); x.p.forEach((q, i) => (i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1])));
+      if (x.k === 'testo') { g.font = `600 ${Math.round(13 * k)}px system-ui,sans-serif`; g.lineWidth = 3 * k; g.strokeStyle = '#000'; g.strokeText(x.s, x.x, x.y); g.fillStyle = '#fff'; g.fillText(x.s, x.x, x.y); continue; }
+      g.lineWidth = 2.5 * k; g.strokeStyle = x.col; g.fillStyle = x.col;
+      if (x.k === 'punto') { g.beginPath(); g.arc(x.c[0], x.c[1], 6 * k, 0, 2 * Math.PI); g.stroke(); g.beginPath(); g.arc(x.c[0], x.c[1], 1.8 * k, 0, 2 * Math.PI); g.fill(); continue; }
+      g.setLineDash(x.tratteggio ? [7 * k, 5 * k] : []); g.beginPath(); x.p.forEach((q, i) => (i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1])));
       if (x.k === 'area') { g.closePath(); g.fillStyle = x.col + '22'; g.fill(); } g.stroke(); g.setLineDash([]);
-      if (x.k === 'freccia') { const [a, b] = x.p, ang = Math.atan2(b[1] - a[1], b[0] - a[0]), L = 14; g.fillStyle = x.col; g.beginPath(); g.moveTo(b[0], b[1]); g.lineTo(b[0] - L * Math.cos(ang - 0.45), b[1] - L * Math.sin(ang - 0.45)); g.lineTo(b[0] - L * Math.cos(ang + 0.45), b[1] - L * Math.sin(ang + 0.45)); g.closePath(); g.fill(); }
+      if (x.k === 'freccia') { const [a, b] = x.p, ang = Math.atan2(b[1] - a[1], b[0] - a[0]), L = 14 * k; g.fillStyle = x.col; g.beginPath(); g.moveTo(b[0], b[1]); g.lineTo(b[0] - L * Math.cos(ang - 0.45), b[1] - L * Math.sin(ang - 0.45)); g.lineTo(b[0] - L * Math.cos(ang + 0.45), b[1] - L * Math.sin(ang + 0.45)); g.closePath(); g.fill(); }
     }
   }
   function scalaDi(P) {   // barra di scala: la lunghezza «tonda» più vicina a 120 pixel dello schermo
@@ -622,7 +660,7 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   }
 
   // ------------------------------------------------ istantanea: la vista (uno o due vetrini) con annotazioni, barra di scala e didascalia
-  async function istantanea() {
+  function vistaCanvas() {
     const dpr = devicePixelRatio || 1, larg = pannelli.reduce((s, P) => s + P.el.clientWidth, 0), alt = Math.max(...pannelli.map((P) => P.el.clientHeight)), piede = 34;
     const cv = document.createElement('canvas'); cv.width = Math.round(larg * dpr); cv.height = Math.round((alt + piede) * dpr); const g = cv.getContext('2d'); g.scale(dpr, dpr);
     g.fillStyle = '#fff'; g.fillRect(0, 0, larg, alt + piede); let x0 = 0;
@@ -637,10 +675,128 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
     const m = attivo && ingrAttuale(attivo);
     g.fillStyle = '#111'; g.font = '13px system-ui,sans-serif';
     g.fillText([pannelli.map((P) => P.V.descrizione).join(' | '), m ? `${tr('ingrandimento')} ≈ ${Math.round(m)}×` : ''].filter(Boolean).join(' · ').slice(0, 220), 10, alt + 22);
-    const blob = await new Promise((ok) => cv.toBlob(ok, 'image/png'));
+    return cv;
+  }
+  async function istantanea() {
+    const cv = vistaCanvas(), blob = await new Promise((ok) => cv.toBlob(ok, 'image/png'));
     if (blob) scarica(blob, `vetrino-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.png`);
     return blob;
   }
+
+
+  // ------------------------------------------------ vista attuale (per le immagini chiave: un clic la riporta)
+  const indiceDi = (P) => { const k = (tutti || []).indexOf(P.V); return k >= 0 ? k : indice; };
+  function vista(P = attivo) {
+    const vp = P.viewer.viewport, c = vp.viewportToImageCoordinates(vp.getCenter(true)), iz = P.izoom();
+    return { i: indiceDi(P), c: [Math.round(c.x), Math.round(c.y)], ...(P.sp ? { um: +(P.sp / iz).toPrecision(5) } : { s: +(1 / iz).toPrecision(5) }), r: Math.round(vp.getRotation(true)) % 360, z: P.stato.z };
+  }
+  function vaiVista(v, P = P0) {
+    if (!v || !P.viewer.world.getItemCount()) return false;
+    const vp = P.viewer.viewport, iz = P.sp && v.um ? P.sp / v.um : 1 / (v.s || 1);
+    if (Number.isInteger(v.z) && v.z !== P.stato.z && P === P0) vaiZ(v.z);
+    vp.setRotation(v.r || 0, true); vp.zoomTo(vp.imageToViewportZoom(iz), null, true); vp.panTo(vp.imageToViewportCoordinates(new OSD.Point(v.c[0], v.c[1])), true); vp.applyConstraints(true);
+    disegna(P); aggiornaIngr(); return true;
+  }
+  const ingrTesto = (P) => { const m = ingrAttuale(P); return m ? `${m < 10 ? m.toFixed(1).replace('.', ',') : Math.round(m)}×` : ''; };
+
+  // ------------------------------------------------ misure nel referto: distanze, aree, campi HPF e conteggi
+  function frasiMisure(P = attivo) {
+    const sp = P.sp || 1, cal = !!P.sp, out = [];
+    for (const a of P.ann) {
+      if (a.t === 'dist') out.push(`${tr('distanza')} ${fmt(A.lunghezza(a, sp), cal)}`);
+      else if (a.t === 'poligono' || a.t === 'ellisse') out.push(`${tr('area')} ${fmtA(A.area(a, sp), cal)} (${tr('perimetro')} ${fmt(A.perimetro(a, sp), cal)})`);
+    }
+    const r = A.riepilogo(P.ann, sp);
+    if (r.campi) out.push(`${r.nelCampi} ${tr('elementi contati in')} ${r.campi} ${tr(r.campi === 1 ? 'campo HPF' : 'campi HPF')} (${fmtA(r.areaCampi * 1e6, cal)})${cal && r.areaCampi ? ` = ${(r.nelCampi / r.areaCampi).toFixed(1).replace('.', ',')}/mm²` : ''}`);
+    else if (r.aree && r.punti) out.push(`${r.nelleAree} ${tr('elementi contati in')} ${fmtA(r.areaAree * 1e6, cal)}${cal && r.areaAree ? ` = ${(r.nelleAree / r.areaAree).toFixed(1).replace('.', ',')}/mm²` : ''}`);
+    else if (r.punti) out.push(`${r.punti} ${tr('elementi contati')}`);
+    return out;
+  }
+
+  // ------------------------------------------------ ritaglio: una zona del vetrino in JPEG o PNG, alla risoluzione scelta
+  // rett: [x, y, larghezza, altezza] in pixel del livello pieno. f = pixel del vetrino per pixel dell'immagine.
+  // La rotazione della vista (multipli di 90°) si applica all'immagine; annotazioni, barra di scala e didascalia a scelta.
+  async function componi(P, rett, { f = 1, conAnn = true, conScala = true, conDid = true, avanza = null } = {}) {
+    const [x0, y0, w, h] = rett, img = await regione(P.V, P.stato, x0, y0, w, h, f, avanza);
+    const r = ((Math.round(P.viewer.viewport.getRotation(true) / 90) * 90) % 360 + 360) % 360, gira = r % 180 !== 0;
+    const ow = gira ? img.height : img.width, oh = gira ? img.width : img.height, k = Math.max(1, Math.min(8, Math.max(ow, oh) / 1100));
+    const did = conDid ? [P.V.descrizione, P.sp ? `${fmt(w * P.sp)} × ${fmt(h * P.sp)}` : `${Math.round(w)} × ${Math.round(h)} px`, P.sp ? `${(P.sp * f).toFixed(3).replace('.', ',')} µm/pixel` : '', credito].filter(Boolean).join(' · ') : '';
+    const piede = did ? Math.round(30 * k) : 0, cv = document.createElement('canvas'); cv.width = ow; cv.height = oh + piede;
+    const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+    g.save(); g.translate(ow / 2, oh / 2); g.rotate((r * Math.PI) / 180); g.drawImage(img, -img.width / 2, -img.height / 2); g.restore();
+    const cs = Math.cos((r * Math.PI) / 180), sn = Math.sin((r * Math.PI) / 180);
+    const mappa = (q) => { const dx = (q[0] - x0) / f - img.width / 2, dy = (q[1] - y0) / f - img.height / 2; return [dx * cs - dy * sn + ow / 2, dx * sn + dy * cs + oh / 2]; };
+    if (conAnn && P.ann.length) { g.save(); g.beginPath(); g.rect(0, 0, ow, oh); g.clip(); suCanvas(g, forme(P, mappa, false), k); g.restore(); }
+    if (conScala && P.sp) {
+      const umPx = P.sp * f, passi = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000], um = [...passi].reverse().find((x) => x / umPx <= ow * 0.25) || 1, px = um / umPx;
+      g.fillStyle = 'rgba(255,255,255,.88)'; g.fillRect(12 * k, oh - 44 * k, Math.max(px, 60 * k) + 16 * k, 32 * k);
+      g.fillStyle = '#111'; g.font = `600 ${Math.round(12 * k)}px system-ui,sans-serif`; g.fillText(fmt(um), 20 * k, oh - 28 * k); g.fillRect(20 * k, oh - 22 * k, px, 5 * k);
+    }
+    if (did) { g.fillStyle = '#111'; g.font = `${Math.round(13 * k)}px system-ui,sans-serif`; g.fillText(did.slice(0, 240), 10 * k, oh + 21 * k); }
+    return cv;
+  }
+  // fattori di riduzione proposti: come sullo schermo, piena risoluzione, metà, un quarto (oltre i limiti del browser: non disponibili)
+  function risoluzioni(P, rett) {
+    const [, , w, h] = rett, dpr = devicePixelRatio || 1, schermo = Math.max(1, 1 / (P.izoom() * dpr));
+    const voci = [['schermo', schermo, tr('come sullo schermo')], ['piena', 1, tr('piena (scansione)')], ['meta', 2, tr('metà')], ['quarto', 4, tr('un quarto')]];
+    return voci.map(([id, f, nome]) => {
+      const ow = Math.round(w / f), oh = Math.round(h / f), ok = ow <= MAX_LATO && oh <= MAX_LATO && ow * oh <= MAX_PIXEL;
+      return { id, f, nome, ow, oh, ok, um: P.sp ? P.sp * f : null };
+    });
+  }
+  function apriRitaglio(P, rett) {
+    const d = document.createElement('dialog'); d.className = 'vt-dlg vt-rit';
+    const ris = risoluzioni(P, rett), prima = ris.find((x) => x.id === 'piena' && x.ok) ? 'piena' : 'schermo';
+    const mis = P.sp ? `${fmt(rett[2] * P.sp)} × ${fmt(rett[3] * P.sp)}` : `${Math.round(rett[2])} × ${Math.round(rett[3])} px`;
+    d.innerHTML = `<h3>✂ ${tr('Ritaglio')} <span class="muted small">${mis}</span></h3><div class="vt-rit-ant"><p class="muted small">${tr('Anteprima…')}</p></div>
+      <div class="vt-rit-opz"><label>${tr('Risoluzione')} <select class="vt-rit-ris">${ris.map((x) => `<option value="${x.id}"${x.ok ? '' : ' disabled'}${x.id === prima ? ' selected' : ''}>${x.nome}: ${x.ow.toLocaleString()} × ${x.oh.toLocaleString()} px${x.um ? ` (${x.um.toFixed(2).replace('.', ',')} µm/pixel)` : ''}${x.ok ? '' : ' — ' + tr('troppo grande')}</option>`).join('')}</select></label>
+      <label>${tr('Formato')} <select class="vt-rit-fmt"><option value="jpeg">JPEG</option><option value="png">PNG (${tr('senza perdita, file più grande')})</option></select></label>
+      <label class="vt-rit-q">${tr('Qualità JPEG')} <input type="range" min="0.6" max="1" step="0.02" value="0.92"> <b>92%</b></label>
+      <label><input type="checkbox" class="vt-rit-ann"${P.ann.length ? ' checked' : ' disabled'}> ${tr('annotazioni')}</label>
+      <label><input type="checkbox" class="vt-rit-scala"${P.sp ? ' checked' : ' disabled'}> ${tr('barra di scala')}</label>
+      <label><input type="checkbox" class="vt-rit-did" checked> ${tr('didascalia')}</label></div>
+      <p class="vt-rit-stato muted small"></p>
+      <p class="vt-rit-az"><button type="button" class="primario vt-rit-scarica">⬇ ${tr('Scarica')}</button>${onChiave ? `<button type="button" class="vt-rit-chiave">📸 ${tr('Immagine chiave')}</button>` : ''}<button type="button" class="vt-rit-annulla">${tr('Chiudi')}</button></p>`;
+    box.append(d); d.onclose = () => d.remove(); d.showModal();
+    const q = (x) => d.querySelector(x), stato = q('.vt-rit-stato');
+    q('.vt-rit-q input').oninput = (e) => { q('.vt-rit-q b').textContent = Math.round(e.target.value * 100) + '%'; };
+    q('.vt-rit-fmt').onchange = () => { q('.vt-rit-q').hidden = q('.vt-rit-fmt').value !== 'jpeg'; };
+    const opz = () => ({ f: ris.find((x) => x.id === q('.vt-rit-ris').value).f, conAnn: q('.vt-rit-ann').checked, conScala: q('.vt-rit-scala').checked, conDid: q('.vt-rit-did').checked });
+    let anteprima = null;
+    const rifaiAnt = async () => {   // anteprima alla risoluzione dello schermo (veloce, tessere già caricate)
+      try { const o = opz(), cv = await componi(P, rett, { ...o, f: ris[0].f }); cv.className = 'vt-img'; const a = q('.vt-rit-ant'); a.innerHTML = ''; a.append(cv); anteprima = cv; } catch (e) { q('.vt-rit-ant').textContent = e.message; }
+    };
+    ['.vt-rit-ann', '.vt-rit-scala', '.vt-rit-did'].forEach((x) => { q(x).onchange = rifaiAnt; }); rifaiAnt();
+    const crea = async () => {
+      const o = opz(); stato.textContent = tr('Compongo l\'immagine…'); d.querySelectorAll('.vt-rit-az button').forEach((b) => { b.disabled = true; });
+      try { return await componi(P, rett, { ...o, avanza: (n, t) => { stato.textContent = `${tr('Tessere')} ${n} / ${t}`; } }); }
+      finally { d.querySelectorAll('.vt-rit-az button').forEach((b) => { b.disabled = false; }); }
+    };
+    q('.vt-rit-scarica').onclick = async () => {
+      try {
+        const cv = await crea(), jpeg = q('.vt-rit-fmt').value === 'jpeg';
+        const blob = await new Promise((ok) => cv.toBlob(ok, jpeg ? 'image/jpeg' : 'image/png', jpeg ? +q('.vt-rit-q input').value : undefined));
+        if (!blob) throw new Error(tr('il browser non è riuscito a creare il file'));
+        const nome = `vetrino-${(P.V.descrizione || 'ritaglio').replace(/[^\w.-]+/g, '_').slice(0, 40)}-${cv.width}x${cv.height}.${jpeg ? 'jpg' : 'png'}`;
+        scarica(blob, nome); stato.textContent = `${tr('Salvato')}: ${nome} (${(blob.size / 1e6).toFixed(1).replace('.', ',')} MB)`; API.ultimoRitaglio = { blob, w: cv.width, h: cv.height, nome };
+      } catch (e) { stato.textContent = tr('Ritaglio non riuscito') + ': ' + e.message; }
+    };
+    q('.vt-rit-chiave')?.addEventListener('click', async () => {
+      try { const cv = anteprima || await crea(); const n = await onChiave(cv, infoChiave(P, { ritaglio: rett })); segnaChiavi(n); stato.textContent = `📸 ${tr('Immagine chiave')} ${n}`; } catch (e) { stato.textContent = e.message; }
+    });
+    q('.vt-rit-annulla').onclick = () => d.close();
+    return d;
+  }
+
+  // ------------------------------------------------ immagini chiave
+  const infoChiave = (P, extra = {}) => ({ descrizione: P.V.descrizione || tr('Vetrino'), vista: { ...vista(P), ...(extra.ritaglio ? { rit: extra.ritaglio.map(Math.round) } : {}) }, ingr: ingrTesto(P), misure: frasiMisure(P) });
+  const segnaChiavi = (n) => { const b = $('.vt-chiave-n'); if (b && Number.isFinite(n)) b.textContent = n ? ` ${n}` : ''; };
+  async function chiave() {
+    if (!onChiave || !attivo) return;
+    try { const n = await onChiave(vistaCanvas(), infoChiave(attivo)); segnaChiavi(n); $('.vt-aiuto').textContent = `📸 ${tr('Immagine chiave')} ${n ?? ''}`; }
+    catch (e) { $('.vt-aiuto').textContent = e.message; }
+  }
+  const misureAlReferto = () => { if (!onMisure || !attivo) return; const l = frasiMisure(attivo); if (!l.length) { $('.vt-aiuto').textContent = tr('Nessuna misura: usa distanza, area, ellisse, campo HPF o conta'); return; } onMisure(l); };
 
   // ------------------------------------------------ comandi
   const P0 = await creaPannello(V); pannelli.push(P0); attiva(P0);
@@ -664,6 +820,10 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   let tCol = 0; box.querySelectorAll('.vt-colore input, .vt-colore select').forEach((x) => { x.oninput = () => { clearTimeout(tCol); tCol = setTimeout(colore, 120); }; });
   $('.vt-col-zero').onclick = () => { $('.vt-lum').value = 0; $('.vt-con').value = 1; $('.vt-gam').value = 1; $('.vt-modo').value = 'rgb'; colore(); };
   $('.vt-foto').onclick = () => istantanea().catch((e) => { $('.vt-aiuto').textContent = tr('Istantanea non riuscita') + ': ' + e.message; });
+  $('.vt-ritaglia').onclick = () => scegli('ritaglio');
+  if ($('.vt-chiave')) $('.vt-chiave').onclick = chiave;
+  if ($('.vt-referto')) $('.vt-referto').onclick = () => onReferto();
+  if ($('.vt-al-referto')) $('.vt-al-referto').onclick = misureAlReferto;
   const sel = $('.vt-affianca'); if (sel) sel.onchange = () => affianca(sel.value).catch((e) => { $('.vt-aiuto').textContent = e.message; });
   box.querySelectorAll('.vt-s').forEach((b) => { b.onclick = () => scegli(b.dataset.s); });
   const annulla = () => { const P = attivo; if (inCorso) { inCorso = null; disegna(P); return; } if (P.ann.length) { P.ann.pop(); salva(P); disegna(P); riepilogo(); } };
@@ -716,11 +876,15 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
     if (k === 'r' || k === 'R') { vp.setRotation((vp.getRotation() + (e.shiftKey ? -90 : 90) + 360) % 360); fatto(); return; }
     if (k === 'f' || k === 'F') { intero(); fatto(); return; }
     if (k === 'b' || k === 'B') { indietro(); fatto(); return; }
+    if ((k === 'k' || k === 'K') && onChiave) { chiave(); fatto(); return; }
+    if ((k === 'i' || k === 'I') && onMisure) { misureAlReferto(); fatto(); return; }
+    if (k === 'x' || k === 'X') { scegli('ritaglio'); fatto(); return; }
     if (V.piani.length > 1 && (k === 'PageUp' || k === 'PageDown')) { vaiZ(P0.stato.z + (k === 'PageUp' ? 1 : -1)); fatto(); }
   };
   document.addEventListener('keydown', tasti);
   riepilogo();
   const API = {
+    vista: () => vista(), vaiVista: (v) => vaiVista(v), chiave, frasiMisure: () => frasiMisure(), apriRitaglio: (r) => apriRitaglio(attivo, r), componi: (r, o) => componi(attivo, r, o), risoluzioni: (r) => risoluzioni(attivo, r), segnaChiavi,
     get viewer() { return pannelli[0].viewer; }, get misure() { return P0.ann; }, get ann() { return attivo.ann; }, stato: P0.stato, vaiZ, sp, V, pannelli,
     scegli, vaiIngr, ingrAttuale: () => ingrAttuale(attivo), istantanea, affianca, indietro, aImg: (x, y) => { const s = attivo.svg.getBoundingClientRect(); return aImg(attivo, { clientX: x + s.left, clientY: y + s.top }); },
     _lung: (a) => A.lunghezza(a, sp || 1), riepilogo: () => A.riepilogo(attivo.ann, attivo.sp || 1), creaANN: () => A.creaANN(attivo.V, attivo.ann, attivo.sp), leggiANN: A.leggiANN,

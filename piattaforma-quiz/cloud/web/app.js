@@ -284,7 +284,7 @@ function dettagliTraccia() {
     ...(T.comunicazione ? { comunicazione: T.comunicazione } : {}),
     profili: T.profili, sottrazione: T.sottrazione, note: T.note,
     // immagini chiave: serie, immagine, note, didascalia e la vista (finestra, zoom, spostamento, rotazione) per riaprirla dal docente
-    chiavi: (V.chiavi || []).map((c) => ({ s: c.s, i: c.idx + 1, n: c.note, d: c.d || '', si: c.serie, wc: Math.round(c.wc), ww: Math.round(c.ww), z: +(+c.zoom || 1).toFixed(3), px: Math.round(c.panX || 0), py: Math.round(c.panY || 0), r: c.rot || 0, f: c.fl ? 1 : 0 })) };
+    chiavi: (V.chiavi || []).map((c) => c.vt ? { s: c.s, i: 1, n: [], d: c.d || '', vt: c.vt } : ({ s: c.s, i: c.idx + 1, n: c.note, d: c.d || '', si: c.serie, wc: Math.round(c.wc), ww: Math.round(c.ww), z: +(+c.zoom || 1).toFixed(3), px: Math.round(c.panX || 0), py: Math.round(c.panY || 0), r: c.rot || 0, f: c.fl ? 1 : 0 })) };
 }
 
 // ---------------------------------------------------------------- DICOM
@@ -1925,6 +1925,7 @@ function aggiornaGrafico() {
 function disegnaChiavi() { const box = $('#chiavi'); if (box) box.hidden = true; }   // ora c'è la striscia 📸 (anche nella piattaforma)
 async function vaiIC(c) {
   if (!c) return;
+  if (c.vt) { await vaiVistaVetrino(c.vt); return; }
   if (c.vista) { await vaiChiave(c.vista); return; }
   if (c.sIdx == null || !V.serie[c.sIdx]) { avvisoBreve('La serie di questa immagine chiave non è aperta'); return; }
   if (MPR.attivo) modo2D();
@@ -4611,6 +4612,7 @@ $('#ws-prec').addEventListener('change', () => { const on = qs1('#ws-mg .on'); i
 
 // F11: visualizzatore a schermo intero; Ctrl+J: sincronizza i riquadri (di nuovo Ctrl+J: toglie la sincronizzazione)
 window.addEventListener('keydown', (e) => {
+  if (vetrinoDavanti()) return;
   if ($('#vista-caso').hidden || [...qsAll('dialog[open]')].some((d) => !d.classList.contains('affiancato'))) return;
   if (e.key === 'F11' && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); e.stopImmediatePropagation(); $('#btn-schermo')?.click(); return; }
   if (e.ctrlKey && !e.metaKey && !e.altKey && (e.key === 'j' || e.key === 'J' || e.code === 'KeyJ')) {
@@ -4621,6 +4623,7 @@ window.addEventListener('keydown', (e) => {
   }
 }, true);
 window.addEventListener('keydown', (e) => {
+  if (vetrinoDavanti()) return;
   if ($('#vista-caso').hidden || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || document.activeElement.isContentEditable || [...qsAll('dialog[open]')].some((d) => !d.classList.contains('affiancato'))) return;
   if ((e.ctrlKey || e.metaKey) && !e.altKey && MPR.attivo && /^[zZyY]$/.test(e.key)) {
     e.preventDefault(); if (e.key.toLowerCase() === 'y' || e.shiftKey) MPR.modulo?.ripetiMPR?.(); else MPR.modulo?.annullaMPR?.(); aggiornaStoriaMPR(); return;
@@ -10080,7 +10083,9 @@ async function mostraAiuto(ancora = '') {
   const mio = !UTENTE && CLOUD ? ['tutti', 'specializzando'] : ADMIN ? null : DOCENTE ? ['tutti', 'docente', 'specializzando'] : ['tutti', 'specializzando'];
   setTimeout(() => { if (ancora) document.getElementById('aiuto-' + ancora)?.scrollIntoView(); }, 50);
   const sez = AIUTO.sezioni.filter((z) => !mio || mio.includes(z.per));
-  const blocco = (b) => (Array.isArray(b) ? `<ul>${b.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p>${esc(b)}</p>`);
+  const blocco = (b) => (b && b.video   // video tutorial: si scarica solo quando si preme play
+    ? `<figure class="aiuto-video"><video controls playsinline preload="none" src="${esc(b.video)}" poster="${esc(b.poster || '')}"></video><figcaption><b>${esc(b.titolo)}</b><br>${esc(b.testo || '')}</figcaption></figure>`
+    : Array.isArray(b) ? `<ul>${b.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p>${esc(b)}</p>`);
   $('#aiuto-indice').innerHTML = sez.map((z) => `<a href="#/aiuto" data-v="${z.id}">${esc(z.titolo)}</a>`).join('');
   // piattaforma di un'azienda: titolare del trattamento è l'azienda (l'informativa qui sotto descrive il servizio)
   const avvisoAz = (z) => (AZIENDA() && (z.id === 'dati' || z.id === 'condizioni' || z.id === 'privacy') ? `<p class="avviso">In questa piattaforma il titolare del trattamento dei dati è <b>${esc(ISTANZA.nome || 'l\'azienda')}</b>${ISTANZA.contatto ? ` (contatto: ${esc(ISTANZA.contatto)})` : ''}: valgono l'informativa e le regole dell'azienda. Il testo che segue descrive il servizio Quiz Radiologia nella versione pubblica e va letto alla luce di queste.</p>` : '');
@@ -10694,7 +10699,7 @@ async function caricaClient(files, { aggiungi = false } = {}) {
     st(`Leggo ${vetriniFile.length === 1 ? 'il vetrino' : `${vetriniFile.length} file di vetrini`}…`);
     try { const { preparaVetrini } = await import('./vetrini.js'); CL.vetrini.push(...await preparaVetrini(vetriniFile)); } catch (e) { console.warn('vetrini', e); st('Vetrino non leggibile: ' + esc(e.message), 'errore'); }
     aggiornaBottoneVetrini();
-    if (!perSerie.size && CL.vetrini.length) { st(`<b>${CL.vetrini.length === 1 ? 'Vetrino digitale' : CL.vetrini.length + ' vetrini digitali'}</b> (anatomia patologica): si apre la vista a ingrandimento.`, 'ok'); apriVetrinoClient(0); return; }
+    if (!perSerie.size && CL.vetrini.length) { try { caricaIC(); } catch {} st(`<b>${CL.vetrini.length === 1 ? 'Vetrino digitale' : CL.vetrini.length + ' vetrini digitali'}</b> (anatomia patologica): si apre la vista a ingrandimento.`, 'ok'); apriVetrinoClient(0); return; }
   }
   if (!perSerie.size) { st('Nessuna immagine DICOM visualizzabile' + (Object.keys(esclusi).length ? ': ' + Object.entries(esclusi).map(([m, n]) => `${n} ${m}`).join(', ') : '.'), 'errore'); return; }
   // decodificatori delle compressioni presenti, una volta sola (poi funzionano anche senza rete)
@@ -11450,11 +11455,13 @@ async function disposizioneClient() {
 // Immagine chiave: la vista del riquadro attivo come si vede (finestra, zoom, misure, frecce), sempre anonima: il testo impresso
 // viene annerito e i dati del paziente non compaiono mai. Si esportano come DICOM Secondary Capture o PDF, e finiscono nel referto.
 const IC = { lista: [] };
-const icChiave = () => 'rq-chiave:' + (CL.chiave || 'x');
+// solo vetrini (nessun esame radiologico): la chiave è data dai vetrini aperti (serie o descrizione e dimensioni)
+const chiaveICClient = () => CL.chiave || (CLIENT && !(V.serie || []).length && CL.vetrini?.length ? 'vt:' + CL.vetrini.map((v) => `${v.serie || v.descrizione || ''}|${v.W}x${v.H}`).join(',') : '');
+const icChiave = () => 'rq-chiave:' + (chiaveICClient() || 'x');
 function salvaIC() {
   // piattaforma: le immagini restano in questa pagina; al docente arrivano le viste, con la didascalia tra le note
   if (!CLIENT) { V.chiavi = IC.lista.filter((c) => c.vista).map((c) => ({ ...c.vista, d: c.didascalia?.trim() || '' })); return; }
-  if (!CL.chiave || CL.finestra) return;
+  if (!chiaveICClient() || CL.finestra) return;
   try { localStorage.setItem(icChiave(), JSON.stringify(IC.lista)); IC.avvisoSpazio = false; }
   catch { if (!IC.avvisoSpazio) { IC.avvisoSpazio = true; avvisoBreve('Immagini chiave troppe per la memoria del browser: restano fino alla chiusura (esportale)'); } }
 }
@@ -11478,7 +11485,7 @@ async function catturaChiave() {
 }
 // didascalia proposta: serie, piano e immagine; mai l'età o altri dati del paziente (l'etichetta dello studio li ha)
 const senzaEta = (t) => String(t || '').replace(/\s*·?\s*\d{1,3}\s*ann[io]\b/gi, '').replace(/^\s*·\s*|\s*·\s*$/g, '').replace(/·\s*·/g, '·').trim();
-function didascaliaBase(c) { return `${senzaEta(c.serie)}${c.piano ? ' (' + c.piano + ')' : ''}, img ${c.idx + 1}/${c.n}`; }
+function didascaliaBase(c) { return c.vt ? `${senzaEta(c.serie)}${c.ingr ? ', ' + c.ingr : ''}` : `${senzaEta(c.serie)}${c.piano ? ' (' + c.piano + ')' : ''}, img ${c.idx + 1}/${c.n}`; }
 function disegnaIC() {
   try { aggiornaSegniSlider(true); } catch {}
   const n = IC.lista.length, el = $('#ic-striscia'); if (!el) return;
@@ -11686,12 +11693,13 @@ function azzeraRefertoPiatt() {
   REFP.caso = null; REFP.ultimo = null; REFP.d = null;
   const d = $('#dlg-referto'); if (d?.open) { try { FIN_REF.win?.close(); } catch {} try { d.close(); } catch {} }
 }
+const soloVetriniClient = () => CLIENT && !(V.serie || []).length && !!CL.vetrini?.length;
 async function apriReferto() {
   const dlg = $('#dlg-referto');
   try { MODELLI_CL ||= (await fetch('modelli-referto.json').then((r) => r.json())).modelli; } catch { MODELLI_CL = []; }
   const sel = $('#ref-modello');
   { const d0 = CLIENT ? await datiDalleImmagini().catch(() => ({})) : null;
-    const met = CLIENT ? ({ CT: 'TC', MR: 'RM', CR: 'RX', DX: 'RX', MG: 'Mammografia', US: 'Ecografia', PT: 'Medicina nucleare', NM: 'Medicina nucleare', XA: 'Angiografia' }[d0.modalita] || '') : metodicaDi(V.caso || {});
+    const met = CLIENT ? ({ CT: 'TC', MR: 'RM', CR: 'RX', DX: 'RX', MG: 'Mammografia', US: 'Ecografia', PT: 'Medicina nucleare', NM: 'Medicina nucleare', XA: 'Angiografia', SM: 'Vetrini' }[d0.modalita] || (soloVetriniClient() ? 'Vetrini' : '')) : metodicaDi(V.caso || {});
     const dis = CLIENT ? (modelloPer(met, normal([d0.descrizione, d0.parte].join(' ')))?.distretti?.[0] || '') : V.caso?.distretto || '';
     sel.innerHTML = opzioniModelli(MODELLI_CL, met, dis, { vuota: '<option value="">— testo libero —</option>', stella: false }); }
   if (!CLIENT) await preparaRefertoPiatt(sel);
@@ -11703,7 +11711,7 @@ async function apriReferto() {
   else {
     v('nome', d.nome); v('cf', d.cf); v('nascita', dataLeggibile(d.nascita)); v('sesso', DIZ_SESSO[d.sesso] || d.sesso); v('id', d.id); v('data', dataLeggibile(d.data)); v('accesso', d.accesso);
     v('esame', d.descrizione || CL.studio?.caso.titolo || ''); v('struttura', d.struttura); v('richiedente', d.richiedente); v('quesito', ''); v('firma', '');
-    const met = { CT: 'TC', MR: 'RM', CR: 'RX', DX: 'RX', MG: 'Mammografia', US: 'Ecografia', PT: 'Medicina nucleare', NM: 'Medicina nucleare', XA: 'Angiografia' }[d.modalita] || '';
+    const met = { CT: 'TC', MR: 'RM', CR: 'RX', DX: 'RX', MG: 'Mammografia', US: 'Ecografia', PT: 'Medicina nucleare', NM: 'Medicina nucleare', XA: 'Angiografia', SM: 'Vetrini' }[d.modalita] || (soloVetriniClient() ? 'Vetrini' : '');
     const testo = normal([d.descrizione, d.parte].join(' '));
     const m = modelloPer(met, testo);
     sel.value = m?.id || ''; impostaEditor(m ? htmlDaTesto(m.testo.replace(/…/g, '')) : '');
@@ -12036,6 +12044,34 @@ function chiudiVetrinoIncorporato() {
   if (VT_APERTO && b.contains(VT_APERTO.viewer?.element || null)) { VT_APERTO.chiudi(); VT_APERTO = null; }
   b.remove(); document.body.classList.remove('solo-vetrino');
 }
+// 1.294: immagini chiave dal vetrino (vista o ritaglio, con annotazioni e barra di scala): stessa striscia, stesso referto e,
+// sulla piattaforma, la vista arriva al docente (vetrino, centro, scala in µm, rotazione, piano focale) per riaprirla
+const creditoVetrino = () => { if (CLIENT) return ''; const f = V.caso?.fonte || {}; return ['radio-quiz.it', f.archivio, f.collezione, f.licenza].filter(Boolean).join(' · ').slice(0, 160); };
+function riduciCanvas(cv, lato = 1600) {
+  const k = Math.min(1, lato / Math.max(cv.width, cv.height)); if (k >= 1) return cv;
+  const o = document.createElement('canvas'); o.width = Math.round(cv.width * k); o.height = Math.round(cv.height * k);
+  const g = o.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(cv, 0, 0, o.width, o.height); return o;
+}
+async function aggiungiChiaveVetrino(cv, info) {
+  if (!CLIENT && IC.lista.length >= 12) throw new Error('Al massimo 12 immagini chiave per caso');
+  const c = riduciCanvas(cv);
+  IC.nascosta = false;
+  IC.lista.push({ id: Date.now().toString(36), url: c.toDataURL('image/jpeg', 0.9), w: c.width, h: c.height, didascalia: '', serie: info.descrizione, sIdx: null, idx: 0, n: 1, piano: '',
+    misure: info.misure || [], vt: info.vista, ingr: info.ingr || '', vista: CLIENT ? null : { vt: info.vista, s: info.descrizione } });
+  salvaIC(); disegnaIC();
+  avvisoBreve(`📸 Immagine chiave ${IC.lista.length} salvata (vetrino)`);
+  return IC.lista.length;
+}
+async function misureVetrinoAlReferto(frasi) {
+  if (!$('#dlg-referto')?.open && (CLIENT || !$('#q-referto'))) await apriReferto();
+  if (inserisciNelReferto(frasi.join('; '))) { T.misureReferto = (T.misureReferto || 0) + frasi.length; avvisoBreve(`Nel referto: ${frasi.join('; ')}`); }
+}
+// riapre il vetrino della vista salvata e ci va (aspetta che il vetrino sia caricato)
+async function vaiVistaVetrino(vt) {
+  await apriVetrinoClient(vt?.i || 0, { incorporato: !!V.soloVetrino });
+  for (let t = 0; t < 100 && !VT_APERTO?.vaiVista(vt); t++) await new Promise((r) => setTimeout(r, 100));
+}
+const vetrinoDavanti = () => (!!qs1('#vista-vetrino') && !qs1('#vista-vetrino').hidden) || document.body.classList.contains('solo-vetrino');
 async function apriVetrinoClient(i = 0, { incorporato = false } = {}) {
   let box = $(incorporato ? '#vt-incorporato' : '#vista-vetrino');
   if (!box && incorporato) { box = document.createElement('div'); box.id = 'vt-incorporato'; box.className = 'vista-vetrino incorporato'; qs1('#vista-caso .viewer').append(box); }
@@ -12044,7 +12080,9 @@ async function apriVetrinoClient(i = 0, { incorporato = false } = {}) {
   try {
     const lista = await vetriniDisponibili(), V0 = lista[i]; if (!V0) throw new Error('vetrino non leggibile');
     const [OSD, M] = await Promise.all([caricaOSD(), import('./vetrini.js')]);
-    VT_APERTO = await M.apriVetrino(box, V0, { OSD, conPaziente: CLIENT && !!V.datiPaziente, client: CLIENT, tutti: lista, indice: i, lento: risparmioDati(), dicomParser: window.dicomParser });
+    VT_APERTO = await M.apriVetrino(box, V0, { OSD, conPaziente: CLIENT && !!V.datiPaziente, client: CLIENT, tutti: lista, indice: i, lento: risparmioDati(), dicomParser: window.dicomParser,
+      onChiave: aggiungiChiaveVetrino, onReferto: () => apriReferto(), onMisure: misureVetrinoAlReferto, credito: creditoVetrino() });
+    VT_APERTO.segnaChiavi?.(IC.lista.filter((c) => c.vt).length);
     if (lista.length > 1) {
       const sel = document.createElement('select'); sel.className = 'vt-scegli';
       sel.innerHTML = lista.map((v, k) => `<option value="${k}"${k === i ? ' selected' : ''}>${esc(v.descrizione || 'Vetrino ' + (k + 1))}</option>`).join('');
@@ -12161,7 +12199,7 @@ $('#slider-segni')?.addEventListener('click', (e) => { const b = e.target.closes
 // ---- immagini chiave degli studenti viste dal docente: didascalia, serie, immagine e note; «Apri» porta alla stessa vista
 function htmlChiaviDoc(lista, caso) {
   return `<ul class="ch-doc">${(lista || []).map((k, j) => `<li><button type="button" class="ghost piccolo ch-vai" data-caso="${esc(caso || '')}" data-k="${esc(JSON.stringify(k))}" title="Apre il caso su questa immagine, con la finestra e lo zoom scelti dallo studente">👁 Apri</button>
-    <span>📸 ${j + 1}${k.d ? ` <b>${esc(k.d)}</b> ·` : ''} ${esc(k.s || '')} · img ${k.i}${k.n?.length ? ` · «${esc(k.n.join('; '))}»` : ''}</span></li>`).join('')}</ul>`;
+    <span>📸 ${j + 1}${k.d ? ` <b>${esc(k.d)}</b> ·` : ''} ${esc(k.s || '')} · ${k.vt ? '🔬 vetrino' : 'img ' + k.i}${k.n?.length ? ` · «${esc(k.n.join('; '))}»` : ''}</span></li>`).join('')}</ul>`;
 }
 document.addEventListener('click', (e) => {
   const b = e.target.closest?.('.ch-vai'); if (!b) return;
@@ -12171,6 +12209,7 @@ document.addEventListener('click', (e) => {
   location.hash = `#/caso/${encodeURIComponent(b.dataset.caso)}`;
 });
 async function vaiChiaveDoc(k) {
+  if (k.vt) { await vaiVistaVetrino(k.vt); avvisoBreve(`📸 Immagine chiave dello studente (vetrino)${k.d ? ': ' + k.d : ''}`); return; }
   let i = k.si != null ? V.serie.findIndex((s) => String(s._i) === String(k.si)) : -1;
   if (i < 0) i = V.serie.findIndex((s) => nomeSerie(s) === k.s);
   if (i < 0) { avvisoBreve('Serie dell\'immagine chiave non trovata in questo caso'); return; }
@@ -12224,7 +12263,7 @@ if (document.documentElement.lang === 'en') {
   for (const [c, h] of [['bold', '<b>B</b>'], ['italic', '<i>I</i>'], ['underline', '<u>U</u>']]) { const b = qs1(`.ref-barra [data-cmd="${c}"]`); if (b) { b.innerHTML = h; b.classList.add('no-tr'); } }
 }
 
-if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && (location.search.includes('prova') || CLIENT)) window.__dbg = { apriVetrinoClient, get VT() { return VT_APERTO; }, salvaAnnotazioni, misureMPREsporta, pixelDa, risultatiEco, immagineDi, normaleDi, ETICHETTE, statisticheROI, vistaDi, misureSR, graficiMisura, sommaMisureRecist, GPU2D, CPRS, CAC, CFIA, FIN_REF, vaiNoduloIA, calcioDa, mostraDi, anteprimaDi, esportaSEG, RAW, disegna, ricordaManiglie, fileDaManiglie, riapriUltimo, esportaGSPS, datiSessione, applicaSessione, CL, caricaClient, esportaClient, decodificaDicom, caricaCodec, misuraSotto, V, P, FUS, MPR, htmlSchede, elencoProfilo, impostaRiquadri, selezionaSerie, sincronizzaDa, collegaPunto, COLL, geometriaDi, aSchermo, aImmagine, volumeDa, seguiNelTempo, ANAT, cheStruttura, rispostaAnatomia, vaiAllaStruttura, etichetteImmagine, ECO, puntoEco, chiudiEco, geometria, mostra, isMultiEco, isCine, verificaEco, ME, CMR, autoCmr, puntoCmr, cifreCmr, recistDaMaschere, registraArchivio, ULTIMO, NOD, NODC, rett: rettangolo, puntiOMP, raddrizzaEncefalo, volumeDi, vaiPunto: async (w, k = V.attivo) => { const p = P(k); const t = await fettaVicina(p.frames, w, null).catch(() => null); if (t) await mostraDi(k, t.i); }, attiva: (k) => { V.attivo = k; } };
+if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && (location.search.includes('prova') || CLIENT)) window.__dbg = { apriVetrinoClient, get VT() { return VT_APERTO; }, IC, vaiIC, didascaliaBase, vaiChiaveDoc, dettagliTraccia, salvaAnnotazioni, misureMPREsporta, pixelDa, risultatiEco, immagineDi, normaleDi, ETICHETTE, statisticheROI, vistaDi, misureSR, graficiMisura, sommaMisureRecist, GPU2D, CPRS, CAC, CFIA, FIN_REF, vaiNoduloIA, calcioDa, mostraDi, anteprimaDi, esportaSEG, RAW, disegna, ricordaManiglie, fileDaManiglie, riapriUltimo, esportaGSPS, datiSessione, applicaSessione, CL, caricaClient, esportaClient, decodificaDicom, caricaCodec, misuraSotto, V, P, FUS, MPR, htmlSchede, elencoProfilo, impostaRiquadri, selezionaSerie, sincronizzaDa, collegaPunto, COLL, geometriaDi, aSchermo, aImmagine, volumeDa, seguiNelTempo, ANAT, cheStruttura, rispostaAnatomia, vaiAllaStruttura, etichetteImmagine, ECO, puntoEco, chiudiEco, geometria, mostra, isMultiEco, isCine, verificaEco, ME, CMR, autoCmr, puntoCmr, cifreCmr, recistDaMaschere, registraArchivio, ULTIMO, NOD, NODC, rett: rettangolo, puntiOMP, raddrizzaEncefalo, volumeDi, vaiPunto: async (w, k = V.attivo) => { const p = P(k); const t = await fettaVicina(p.frames, w, null).catch(() => null); if (t) await mostraDi(k, t.i); }, attiva: (k) => { V.attivo = k; } };
 
 $('#btn-vertebre')?.addEventListener('click', () => attivaVertebre(!VERT.attivo));
 $('#mpr-vertebre')?.addEventListener('click', () => attivaVertebre(!VERT.attivo));

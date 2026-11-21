@@ -31,6 +31,44 @@
    ]
   },
   {
+   "id": "video",
+   "titolo": "Video tutorial",
+   "per": "tutti",
+   "blocchi": [
+    "Brevi video (circa un minuto ciascuno, senza voce, con didascalie) che mostrano la piattaforma in uso sul telefono. Si scaricano solo quando premi play.",
+    {
+     "video": "/video/tutorial-1-primo-caso.mp4",
+     "poster": "/video/tutorial-1-primo-caso.jpg",
+     "titolo": "Il tuo primo caso",
+     "testo": "Dalla scelta del caso alla correzione: visualizzatore, reperti con il livello di sicurezza, diagnosi e discussione."
+    },
+    {
+     "video": "/video/tutorial-2-visualizzatore.mp4",
+     "poster": "/video/tutorial-2-visualizzatore.jpg",
+     "titolo": "Il visualizzatore DICOM",
+     "testo": "Scorrimento degli strati, finestre polmone, osso e mediastino, zoom, misure in millimetri e confronto tra serie."
+    },
+    {
+     "video": "/video/tutorial-3-mpr-3d.mp4",
+     "poster": "/video/tutorial-3-mpr-3d.jpg",
+     "titolo": "MPR e 3D",
+     "testo": "Assiale, sagittale e coronale insieme, con il punto che li collega, e il volume 3D da ruotare."
+    },
+    {
+     "video": "/video/tutorial-4-referto-statistiche.mp4",
+     "poster": "/video/tutorial-4-referto-statistiche.jpg",
+     "titolo": "Referto e statistiche",
+     "testo": "Modalità «Solo referto», confronto con il referto atteso, «Mostra il reperto», progressi e statistiche."
+    },
+    {
+     "video": "/video/tutorial-5-vetrini.mp4",
+     "poster": "/video/tutorial-5-vetrini.jpg",
+     "titolo": "I vetrini digitali",
+     "testo": "Vetrini di anatomia patologica dal piccolo al forte ingrandimento, misure in micrometri, diagnosi istologica."
+    }
+   ]
+  },
+  {
    "id": "ruoli",
    "titolo": "Ruoli",
    "per": "tutti",

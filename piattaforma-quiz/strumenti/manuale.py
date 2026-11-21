@@ -105,6 +105,8 @@ def costruisci():
         for b in sez['blocchi']:
             if isinstance(b, str):
                 blocco.append(Paragraph(pulisci(b), ST['p']))
+            elif isinstance(b, dict) and b.get('video'):          # video tutorial: nel PDF titolo, descrizione e indirizzo
+                blocco.append(Paragraph(pulisci(f"Video «{b.get('titolo', '')}»: {b.get('testo', '')} (radio-quiz.it{b['video']})"), ST['p']))
             else:
                 blocco.append(ListFlowable([ListItem(Paragraph(pulisci(x), ST['li']), leftIndent=12, value='•') for x in b],
                                            bulletType='bullet', bulletFontName='Sans', bulletFontSize=9, leftIndent=12, spaceAfter=6))

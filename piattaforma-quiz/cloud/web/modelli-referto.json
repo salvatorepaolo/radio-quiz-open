@@ -209,6 +209,15 @@
    "testo": "FINESTRE E QUALITÀ: …\nVENTRICOLO SINISTRO (DIMENSIONI, FE): …\nCINETICA SEGMENTARIA: …\nFUNZIONE DIASTOLICA: …\nVENTRICOLO DESTRO: …\nATRI: …\nVALVOLE: …\nPERICARDIO: …\nAORTA E VENA CAVA: …\nCONCLUSIONI: …"
   },
   {
+   "id": "anatomia-patologica",
+   "nome": "Anatomia patologica (vetrino)",
+   "metodiche": [
+    "Vetrini"
+   ],
+   "distretti": [],
+   "testo": "MATERIALE: …\nDESCRIZIONE MICROSCOPICA: …\nISTOTIPO: …\nGRADO: …\nMITOSI: …\nINVASIONE LINFOVASCOLARE E PERINEURALE: …\nMARGINI: …\nIMMUNOISTOCHIMICA: …\nDIAGNOSI: …"
+  },
+  {
    "id": "rm-generica",
    "nome": "Schema generico",
    "metodiche": [],

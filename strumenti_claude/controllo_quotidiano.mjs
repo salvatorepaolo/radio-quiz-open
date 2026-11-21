@@ -112,6 +112,22 @@ try {
     await ctx.close(); }
 } catch (e) { problemi.push('controllo interrotto: ' + e.message); }
 await b.close();
+// 6. firewall (1.293): la regola «limite-api-per-indirizzo» (3000 chiamate /api/ in 5 minuti per indirizzo) per ora conta soltanto.
+// Se resta a zero per qualche giorno si può passare al blocco; se conta richieste di uso normale (es. un'aula dietro un solo indirizzo), alzare il limite.
+try {
+  const { execFileSync } = await import('node:child_process');
+  const acl = (fs.readFileSync('/Volumes/Caloggero/piattaforma-quiz/cloud/.segreti', 'utf8').match(/^WEB_ACL="?([^"\n]*)/m) || [])[1] || '';
+  const nome = acl.split('/').at(-2);
+  if (nome) {
+    const fine = new Date(), inizio = new Date(fine - 86400e3);
+    const out = execFileSync('aws', ['cloudwatch', 'get-metric-statistics', '--region', 'us-east-1', '--namespace', 'AWS/WAFV2', '--metric-name', 'CountedRequests',
+      '--dimensions', `Name=WebACL,Value=${nome}`, 'Name=Rule,Value=limite-api-per-indirizzo', '--start-time', inizio.toISOString(), '--end-time', fine.toISOString(),
+      '--period', '86400', '--statistics', 'Sum', '--output', 'json'], { encoding: 'utf8', timeout: 30000, env: { ...process.env, PATH: '/opt/homebrew/bin:' + process.env.PATH } });
+    const n = JSON.parse(out).Datapoints.reduce((a, d) => a + d.Sum, 0);
+    if (n > 0) problemi.push(`[firewall] la regola sul limite di chiamate per indirizzo avrebbe bloccato ${n} richieste nelle ultime 24 ore: controllare se erano uso normale`);
+    else note.push('firewall: nessuna richiesta oltre il limite per indirizzo nelle ultime 24 ore');
+  }
+} catch (e) { note.push('firewall: conteggio non letto (' + e.message.split('\n')[0].slice(0, 80) + ')'); }
 const testo = `Controllo automatico di ${B} (${new Date().toLocaleString('it-IT')}):\n` + (problemi.length ? [...new Set(problemi)].map((x) => '- ' + x).join('\n') : 'tutto a posto.') + '\n' + note.map((x) => '  · ' + x).join('\n');
 fs.writeFileSync('/tmp/controllo_quotidiano.txt', testo + '\n'); console.log(testo);
 process.exit(problemi.length ? 1 : 0);

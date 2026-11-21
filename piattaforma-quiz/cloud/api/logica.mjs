@@ -287,7 +287,7 @@ export function statisticheStudente(mie, casiPerId, visibili) {
     perEsame, perTema, matrice: matrice.map(({ tema, nome, zona, prove, errori, perc }) => ({ tema, nome, zona, prove, errori, perc })), deboli, andamento };
 }
 const numero = (v, max) => { const n = Number(v); return Number.isFinite(n) && n >= 0 ? Math.min(n, max) : 0; };
-function pulisciDettagli(d) {
+export function pulisciDettagli(d) {
   d = d && typeof d === 'object' ? d : {};
   return {
     tempo: Math.round(numero(d.tempo, 86400)), tempoAttivo: Math.round(numero(d.tempoAttivo, 86400)),
@@ -311,7 +311,9 @@ function pulisciDettagli(d) {
       ...(x?.si != null && String(x.si).length <= 40 ? { si: String(x.si) } : {}),
       ...(Number.isFinite(+x?.ww) && +x.ww > 0 ? { wc: Math.round(Math.max(-100000, Math.min(100000, +x.wc || 0))), ww: Math.round(Math.min(200000, +x.ww)) } : {}),
       ...(Number.isFinite(+x?.z) && +x.z > 0 ? { z: Math.round(Math.min(50, +x.z) * 1000) / 1000, px: Math.round(Math.max(-1e5, Math.min(1e5, +x.px || 0))), py: Math.round(Math.max(-1e5, Math.min(1e5, +x.py || 0))) } : {}),
-      ...([90, 180, 270].includes(+x?.r) ? { r: +x.r } : {}), ...(x?.f ? { f: 1 } : {}) })),
+      ...([90, 180, 270].includes(+x?.r) ? { r: +x.r } : {}), ...(x?.f ? { f: 1 } : {}),
+      // 1.294: immagine chiave di un vetrino (indice, centro in pixel, µm per pixel dello schermo o scala, rotazione, piano focale, ritaglio)
+      ...(x?.vt && typeof x.vt === 'object' ? { vt: vistaVetrino(x.vt) } : {}) })),
   };
 }
 
@@ -505,6 +507,15 @@ const TEORIA_SBAGLIATA = /\b(sempre|mai|serve|servono|richied\w*|influisc\w*|si 
 const PAROLE_VUOTE_R = new Set([...PAROLE_VUOTE].map((w) => w.slice(0, 6)));
 // modelli di referto strutturato: i titoli in MAIUSCOLO a inizio riga («PARENCHIMA POLMONARE:») e i segnaposto «…»
 // non sono reperti scritti dallo studente e non contano (né per il punteggio né per la lunghezza minima)
+function vistaVetrino(v) {
+  const int = (x, max) => Math.round(Math.max(0, Math.min(max, Number(x) || 0)));
+  const c = Array.isArray(v.c) ? v.c.slice(0, 2).map((x) => int(x, 1e7)) : [0, 0];
+  const out = { i: int(v.i, 50), c, r: [90, 180, 270].includes(+v.r) ? +v.r : 0, z: int(v.z, 200) };
+  if (Number.isFinite(+v.um) && +v.um > 0) out.um = Math.round(Math.min(1000, Math.max(0.001, +v.um)) * 1e5) / 1e5;
+  else if (Number.isFinite(+v.s) && +v.s > 0) out.s = Math.round(Math.min(1e4, Math.max(0.001, +v.s)) * 1e4) / 1e4;
+  if (Array.isArray(v.rit) && v.rit.length === 4) out.rit = v.rit.map((x) => int(x, 1e7));
+  return out;
+}
 export function togliModello(testo) {
   return String(testo || '').split('\n').map((r) => r.replace(/^[ \t]*[A-ZÀÈÉÌÒÙ][A-ZÀÈÉÌÒÙ0-9 ,/'’()\-]{1,60}:/, '').replace(/…|\.{3}/g, ' ').trim()).filter(Boolean).join('\n');
 }
