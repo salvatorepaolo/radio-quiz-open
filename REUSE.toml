@@ -1,0 +1,82 @@
+# Licenze dei file del repository, nel formato REUSE (https://reuse.software): chi riusa un singolo file sa con quale
+# licenza può farlo. I testi completi sono nella cartella LICENSES/. Controllo: reuse lint (vedi piattaforma-quiz/qualita).
+# Fra le regole che valgono per lo stesso file vince l'ultima.
+version = 1
+SPDX-PackageName = "Quiz Radiologia (radio-quiz.it)"
+SPDX-PackageSupplier = "Salvatore Paolo Buemi <info@radio-quiz.it>"
+SPDX-PackageDownloadLocation = "https://github.com/salvatorepaolo/radio-quiz-open"
+
+# codice, configurazioni, test e strumenti
+[[annotations]]
+path = "**"
+SPDX-FileCopyrightText = "2026 Salvatore Paolo Buemi <info@radio-quiz.it>"
+SPDX-License-Identifier = "EUPL-1.2"
+
+# contenuti didattici: casi, traduzioni, percorsi, schede, protocolli, modelli di referto, aiuto, manuali
+[[annotations]]
+path = [
+  "piattaforma-quiz/casi-free/**", "piattaforma-quiz/i18n/**", "piattaforma-quiz/cloud/web/lingua/casi/**",
+  "piattaforma-quiz/cloud/web/aiuto.json", "piattaforma-quiz/cloud/web/percorsi.json", "piattaforma-quiz/cloud/web/schede.json",
+  "piattaforma-quiz/cloud/web/protocolli.json", "piattaforma-quiz/cloud/web/modelli-referto.json",
+  "piattaforma-quiz/cloud/web/lingua/en/**", "piattaforma-quiz/cloud/web/manuale-client.html",
+  "piattaforma-quiz/cloud/web/manuale-client.en.html", "piattaforma-quiz/cloud/web/manuale.pdf",
+]
+SPDX-FileCopyrightText = "2026 Salvatore Paolo Buemi <info@radio-quiz.it>"
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# immagini della home: ricavate da collezioni di The Cancer Imaging Archive (citazioni in licenze.html)
+[[annotations]]
+path = ["piattaforma-quiz/cloud/web/img/galleria/**", "piattaforma-quiz/cloud/web/img/anteprima-caso*", "piattaforma-quiz/cloud/web/img/condivisione.jpg"]
+SPDX-FileCopyrightText = "The Cancer Imaging Archive, collezioni citate in piattaforma-quiz/cloud/web/licenze.html"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# librerie di terzi distribuite con il sito (testi accanto, LICENSE-*)
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/dicomParser.min.js"
+SPDX-FileCopyrightText = "Chris Hafey and contributors"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/lossless-min.js"
+SPDX-FileCopyrightText = "RII-UTHSCSA"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/mp4-muxer.js"
+SPDX-FileCopyrightText = "Vanilagy"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/mpr3d.js"
+SPDX-FileCopyrightText = "Open Health Imaging Foundation; Kitware; dcmjs-org; nodeca; Google (vedi lib/LICENSE-mpr3d.txt)"
+SPDX-License-Identifier = "MIT AND BSD-3-Clause AND Zlib AND Apache-2.0"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/openseadragon.min.js"
+SPDX-FileCopyrightText = "CodePlex Foundation; OpenSeadragon contributors"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/webllm.js"
+SPDX-FileCopyrightText = "MLC AI"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/codec/charlswasm_decode.*"
+SPDX-FileCopyrightText = ["Chris Hafey", "Jan de Vaan and Victor Derks (Team CharLS)"]
+SPDX-License-Identifier = "MIT AND BSD-3-Clause"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/codec/libjpegturbowasm_decode.*"
+SPDX-FileCopyrightText = ["Open Health Imaging Foundation", "libjpeg-turbo contributors; Independent JPEG Group"]
+SPDX-License-Identifier = "MIT AND IJG AND BSD-3-Clause AND Zlib"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/codec/openjpegwasm_decode.*"
+SPDX-FileCopyrightText = ["Open Health Imaging Foundation", "Université catholique de Louvain and contributors"]
+SPDX-License-Identifier = "MIT AND BSD-2-Clause"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/codec/jpegimage.js"
+SPDX-FileCopyrightText = ["Chris Hafey", "Mozilla Foundation"]
+SPDX-License-Identifier = "MIT AND Apache-2.0"

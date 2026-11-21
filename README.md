@@ -41,7 +41,13 @@ Le immagini dei casi sono anonime e provengono da archivi pubblici (The Cancer I
 - **Contenuti didattici** (domande, risposte, discussioni, percorsi, guide): Creative Commons BY-SA 4.0 (`LICENSE-contenuti.txt`).
 - **Librerie e modelli di terzi:** con le loro licenze (`piattaforma-quiz/cloud/web/lib/`, `modelli-ia/`).
 
-I dettagli sono in `LICENZE.md`.
+I dettagli sono in `LICENZE.md`. Il repository segue lo standard [REUSE](https://reuse.software): la licenza e l'autore di ogni file sono in `REUSE.toml`, i testi completi nella cartella `LICENSES/` (controllo: `reuse lint`).
+
+## Modelli di intelligenza artificiale
+
+I file dei modelli non sono nel repository perché troppo grandi; si scaricano quando si usa la funzione che li richiede e girano nel browser, sul computer di chi li usa:
+- **noduli polmonari:** MONAI `lung_nodule_ct_detection` (Apache-2.0, addestrato su LUNA16) convertito in ONNX con `strumenti_claude/noduli_onnx/`, eseguito con onnxruntime-web (MIT); su https://radio-quiz.it/modelli-ia/noduli-v2/, con le licenze accanto;
+- **referto con l'IA nel browser:** Qwen3-4B (Apache-2.0) nella versione quantizzata di MLC, scaricato da WebLLM (Apache-2.0).
 
 © 2026 Ing. Salvatore Paolo Buemi · info@radio-quiz.it
 

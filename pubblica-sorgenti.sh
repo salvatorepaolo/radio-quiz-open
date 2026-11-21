@@ -21,7 +21,9 @@ if [ -n "$MIA" ] && grep -rIl --exclude-dir=.git -F "$MIA" "$PUB" >/dev/null; th
 DICOM=$(find "$PUB" -type f ! -path '*/.git/*' -size +132c -exec sh -c 'for f; do if [ "$(dd if="$f" bs=1 skip=128 count=4 2>/dev/null)" = DICM ]; then echo "$f"; fi; done' _ {} +) || true
 [ -z "$DICOM" ] || { echo "✖ file DICOM: $DICOM"; exit 1; }
 gitleaks dir --no-banner --redact -c .gitleaks.toml "$PUB" >/dev/null 2>&1 || { echo "✖ gitleaks: possibile segreto (gitleaks dir -c .gitleaks.toml $PUB -v)"; exit 1; }
-echo "✓ nessun segreto, nessuna email personale, nessun DICOM"
+REUSE="${RADICE}/piattaforma-quiz/qualita/.venv-reuse/bin/reuse"
+if [ -x "$REUSE" ]; then "$REUSE" --root "$PUB" lint >/dev/null 2>&1 || { echo "✖ REUSE: un file senza licenza dichiarata ($REUSE --root $PUB lint)"; exit 1; }; fi
+echo "✓ nessun segreto, nessuna email personale, nessun DICOM; licenze di ogni file dichiarate (REUSE)"
 cd "$PUB"; git add -A
 if git diff --cached --quiet; then echo "· niente di nuovo da salvare"
 else git -c user.name="Salvatore Paolo Buemi" -c user.email="info@radio-quiz.it" commit -q -m "radio-quiz 1.${VER} (dal commit ${COMMIT})"; fi
