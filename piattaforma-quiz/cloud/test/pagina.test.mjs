@@ -96,3 +96,25 @@ test('qualità del software: pagina italiana e inglese con la stessa struttura, 
   assert.ok(index.includes('href="/qualita.html"'), 'collegamento nel piede del sito');
   assert.ok(fs.readFileSync(path.join(WEB, 'i18n.js'), 'utf8').includes("a.href = '/qualita.en.html'"), 'in inglese il piede porta alla pagina inglese');
 });
+
+// open source (21/11): ogni libreria o modello distribuito con il sito ha accanto il testo della sua licenza,
+// e i collegamenti della pagina Licenze e crediti a file del sito non sono rotti
+test('librerie e modelli distribuiti: ognuno con il testo della sua licenza', () => {
+  const LICENZA = {
+    'lib/dicomParser.min.js': 'lib/LICENSE-dicomParser', 'lib/lossless-min.js': 'lib/LICENSE-jpeg-lossless-decoder',
+    'lib/mp4-muxer.js': 'lib/LICENSE-mp4-muxer', 'lib/mpr3d.js': 'lib/LICENSE-mpr3d.txt', 'lib/openseadragon.min.js': 'lib/LICENSE-openseadragon',
+    'lib/webllm.js': 'lib/LICENSE-web-llm', 'lib/codec/jpegimage.js': 'lib/codec/LICENSE-jpegimage',
+    'lib/codec/charlswasm_decode': 'lib/codec/LICENSE-codec-charls', 'lib/codec/libjpegturbowasm_decode': 'lib/codec/LICENSE-codec-libjpeg-turbo',
+    'lib/codec/openjpegwasm_decode': 'lib/codec/LICENSE-codec-openjpeg',
+    'modelli-ia/noduli-v2/ort': 'modelli-ia/noduli-v2/LICENSE-onnxruntime-web.txt', 'modelli-ia/noduli-v2/noduli.onnx': 'modelli-ia/noduli-v2/LICENSE-MONAI-lung_nodule_ct_detection.txt',
+  };
+  const file = [];
+  for (const d of ['lib', 'lib/codec', 'modelli-ia/noduli-v2']) {
+    if (!fs.existsSync(path.join(WEB, d))) continue;
+    for (const f of fs.readdirSync(path.join(WEB, d))) if (/\.(js|mjs|wasm|onnx)$/.test(f)) file.push(`${d}/${f}`);
+  }
+  const senza = file.filter((f) => { const k = Object.keys(LICENZA).find((p) => f.startsWith(p)); return !k || !fs.existsSync(path.join(WEB, LICENZA[k])); });
+  assert.deepEqual(senza, [], 'aggiungi accanto il testo della licenza (LICENSE-…) e la riga in questa prova e in licenze.html');
+  const rotti = [...leggi('licenze.html').matchAll(/href="((?:lib|modelli-ia)\/[^"#?]+)"/g)].map((m) => m[1]).filter((f) => !fs.existsSync(path.join(WEB, f)));
+  assert.deepEqual(rotti, [], 'collegamenti a file che non esistono in licenze.html');
+});

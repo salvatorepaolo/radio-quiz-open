@@ -1,1 +1,1 @@
-{"name":"a11y","private":true,"dependencies":{"axe-core":"^4.10.3"}}
+{"name":"a11y","license":"EUPL-1.2","private":true,"dependencies":{"axe-core":"^4.10.3"}}

@@ -67,7 +67,7 @@
       <tr><td><a href="https://github.com/Project-MONAI/model-zoo/tree/dev/models/lung_nodule_ct_detection">MONAI lung_nodule_ct_detection</a></td><td>MONAI Consortium (dati di addestramento LUNA16 / LIDC-IDRI, CC BY)</td><td class="lic">Apache-2.0</td><td>modello RetinaNet 3D dei noduli polmonari, convertito in ONNX (seconda lettura online e, facoltativo, nel visualizzatore scaricabile)</td></tr>
       <tr><td><a href="https://github.com/mlc-ai/web-llm">WebLLM</a></td><td>MLC AI (Carnegie Mellon University e collaboratori)</td><td class="lic">Apache-2.0</td><td>esegue un modello linguistico nel browser con WebGPU (correzione del referto, sperimentale)</td></tr>
       <tr><td><a href="https://huggingface.co/Qwen/Qwen3-4B">Qwen3-4B</a> (pesi quantizzati <a href="https://huggingface.co/mlc-ai/Qwen3-4B-q4f16_1-MLC">MLC</a>)</td><td>Qwen Team, Alibaba Cloud</td><td class="lic">Apache-2.0</td><td>modello linguistico che corregge il referto sul computer di chi lo usa: il testo non viene inviato a nessun servizio; scaricato dal browser da Hugging Face</td></tr>
-      <tr><td>Strumenti scritti per la piattaforma</td><td>sviluppatori di Quiz Radiologia</td><td class="lic">—</td><td>misure, scale, anonimizzazione nel browser, contorno semiautomatico del ventricolo sinistro (senza modelli addestrati), radiomica didattica</td></tr>
+      <tr><td>Strumenti scritti per la piattaforma</td><td>sviluppatori di Quiz Radiologia</td><td class="lic">EUPL-1.2</td><td>misure, scale, anonimizzazione nel browser, contorno semiautomatico del ventricolo sinistro (senza modelli addestrati), radiomica didattica</td></tr>
     </tbody>
   </table></div>
 
@@ -97,6 +97,7 @@
 
   <h2>Immagini da archivi pubblici</h2>
   <p>I casi della versione gratuita (radio-quiz.it) usano immagini di <a href="https://www.cancerimagingarchive.net">The Cancer Imaging Archive (TCIA)</a>, già anonimizzate dall'archivio e ricontrollate da noi (intestazioni e testo nei pixel). Usiamo solo collezioni con licenza Creative Commons Attribution (CC BY), che consente anche l'uso commerciale; le collezioni non commerciali o ad accesso controllato sono escluse. Ogni caso indica la fonte; collezione e DOI compaiono dopo la risposta, perché potrebbero suggerire la diagnosi. Chi riusa queste immagini deve rispettare la <a href="https://www.cancerimagingarchive.net/data-usage-policies-and-restrictions/">politica d'uso dei dati TCIA</a>, che vieta tra l'altro di tentare di identificare i pazienti.</p>
+  <p><b>Modifiche alle immagini</b> (come richiedono le licenze CC BY e ODbL): rispetto agli originali le immagini sono state ricontrollate e, se serviva, ripulite dai dati identificativi rimasti; possono essere selezionate (solo alcune serie o immagini), ricompresse senza perdita o con perdita minima per la rete, convertite di formato, ritagliate o ridotte per le anteprime. I valori dei pixel restano quelli originali, salvo i casi dichiarati «simulati», dove la modifica è scritta nel caso. Le annotazioni, le domande e le spiegazioni sono nostre (CC BY-SA 4.0).</p>
   <div class="scorri"><table class="tab">
     <thead><tr><th>Collezione</th><th>Citazione dei dati</th><th>Licenza</th></tr></thead>
     <tbody>
@@ -154,7 +155,7 @@
 
   <h2>Scelte sulle licenze</h2>
   <p>Usiamo un modello di IA solo se sono liberi il codice, i pesi e i dati con cui è stato addestrato, per l'uso che ne facciamo. Per questo non usiamo i compiti di TotalSegmentator che richiedono una licenza, né modelli addestrati su dati concessi solo per la ricerca o per usi non commerciali (per esempio EchoNet-Dynamic, CAMUS, il classificatore mammografico NYU): le misure ecocardiografiche si fanno con uno strumento semiautomatico scritto per la piattaforma.</p>
-  <p class="muto">Le licenze complete delle librerie distribuite con il sito sono nella cartella <a href="lib/LICENSE-mpr3d.txt">lib/</a>. Segnalazioni: privacy@radio-quiz.it.</p>
+  <p class="muto">I testi completi delle licenze delle librerie distribuite con il sito: <a href="lib/LICENSE-mpr3d.txt">Cornerstone3D, vtk.js e dipendenze</a>, <a href="lib/LICENSE-openseadragon">OpenSeadragon</a>, <a href="lib/LICENSE-dicomParser">dicomParser</a>, <a href="lib/LICENSE-jpeg-lossless-decoder">JPEGLosslessDecoderJS</a>, <a href="lib/LICENSE-mp4-muxer">mp4-muxer</a>, <a href="lib/LICENSE-web-llm">WebLLM</a>, <a href="lib/codec/LICENSE-codec-openjpeg">OpenJPEG</a>, <a href="lib/codec/LICENSE-codec-charls">CharLS</a>, <a href="lib/codec/LICENSE-codec-libjpeg-turbo">libjpeg-turbo</a>, <a href="lib/codec/LICENSE-jpegimage">JpegImage e pdf.js</a>, <a href="modelli-ia/noduli-v2/LICENSE-onnxruntime-web.txt">onnxruntime-web</a>, <a href="modelli-ia/noduli-v2/LICENSE-MONAI-lung_nodule_ct_detection.txt">modello MONAI</a> e <a href="modelli-ia/noduli-v2/LICENSE-dati-addestramento.txt">i suoi dati di addestramento</a>. Il codice della piattaforma: <a href="https://github.com/salvatorepaolo/radio-quiz-open/blob/main/LICENSE">EUPL-1.2</a>; i contenuti didattici: <a href="https://github.com/salvatorepaolo/radio-quiz-open/blob/main/LICENSE-contenuti.txt">CC BY-SA 4.0</a>. Segnalazioni: privacy@radio-quiz.it.</p>
 </main>
 </body>
 </html>

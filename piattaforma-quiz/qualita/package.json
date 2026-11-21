@@ -1,5 +1,6 @@
 {
   "name": "radio-quiz-qualita",
+  "license": "EUPL-1.2",
   "private": true,
   "type": "module",
   "description": "Controlli di qualita del codice (solo sul Mac, non pubblicati)",

@@ -1,5 +1,6 @@
 {
   "name": "radio-quiz-test",
+  "license": "EUPL-1.2",
   "private": true,
   "description": "Test di non regressione di radio-quiz.it (lanciati da pubblica.command)",
   "type": "module",
