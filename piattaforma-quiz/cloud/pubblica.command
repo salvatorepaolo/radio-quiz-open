@@ -611,6 +611,13 @@ if [ -n "${URL_FUN}" ] && [ "${URL_FUN}" != "None" ]; then
   else errore "L'API risponde anche senza passare da CloudFront: controlla SEGRETO_ORIGINE"; PROVE_OK=0; fi
 else info "indirizzo diretto dell'API non trovato: controllo saltato"; fi
 
+# copia pubblica del codice (github.com/salvatorepaolo/radio-quiz-open): l'ultimo commit, senza storia, dopo i controlli
+# di pubblica-sorgenti.sh. Solo per la vetrina; se non riesce il sito resta pubblicato. Per saltarla: SALTA_SORGENTI=1
+if [ "${MODO}" = "vetrina" ] && [ "${SALTA_SORGENTI:-}" != "1" ] && [ -f ../../pubblica-sorgenti.sh ]; then
+  if bash ../../pubblica-sorgenti.sh > .log-sorgenti.txt 2>&1; then ok "codice pubblico: $(tail -1 .log-sorgenti.txt | sed 's/^[✓·] *//')"
+  else info "copia pubblica del codice non aggiornata (dettaglio in cloud/.log-sorgenti.txt)"; tail -3 .log-sorgenti.txt; fi
+fi
+
 # ---------- fatto ----------
 printf "\n\033[1m──────────────────────────────────────────────\n"
 [ "${PROVE_OK}" = "1" ] && printf "  PUBBLICATO\n" || printf "  PUBBLICATO, MA QUALCHE VERIFICA NON È PASSATA (vedi sopra)\n"
