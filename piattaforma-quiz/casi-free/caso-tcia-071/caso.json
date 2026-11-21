@@ -1,0 +1,144 @@
+{
+ "titolo": "RM cardiaca: volontario sano di 25 anni",
+ "titolo_interno": "RM cardiaca normale: anatomia e funzione alle cine bSSFP (Stanford HV_005)",
+ "distretto": "Cuore",
+ "modalita": "RM",
+ "difficolta": "Base",
+ "quesito": "normale",
+ "anamnesi": "Uomo di 25 anni, volontario sano (1,70 m, 68 kg). RM cardiaca a 3 T: cine bSSFP in 3 camere, 4 assi lunghi radiali e pila di 12 asse corto (30 fasi per ciclo).",
+ "domanda": "Riconosci le viste e le strutture; descrivi la cinetica e indica come misureresti la frazione di eiezione.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Metodo",
+   "domanda": "Come si misurano volumi e funzione?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Conclusione",
+   "singola": true
+  }
+ ],
+ "spiegazione": "Caso di riferimento normale. Le cine bSSFP mostrano il sangue chiaro e il miocardio scuro con ottimo contrasto. Le viste standard: 4 camere, 2 camere, 3 camere (tratto di efflusso e valvola aortica) e pila di asse corto dalla base all'apice; qui ci sono anche assi lunghi radiali ruotati di 36° attorno all'asse del ventricolo.\nLa frazione di eiezione si calcola dai volumi telediastolico e telesistolico ottenuti sommando le aree contornate sulla pila di asse corto (Simpson). Valori normali indicativi nell'adulto: FE VS circa 55-70%, spessore telediastolico < 12 mm. Nel referto si descrive la cinetica segmentaria secondo il modello AHA a 17 segmenti (scheda «bull's eye» Σ).",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Volontario sano arruolato nello studio Stanford (nessuna patologia cardiaca nota)."
+ },
+ "fonte": {
+  "archivio": "Stanford Digital Repository",
+  "collezione": "Human MRI Data to Quantify Cardiac Performance",
+  "doi": "10.25740/xt223hz2438",
+  "licenza": "ODbL 1.0",
+  "licenza_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "citazione": "Cardiac Magnetic Research Group (2026). Human MRI Data to Quantify Cardiac Performance (Version 9) [Data set]. Stanford Digital Repository. https://doi.org/10.25740/xt223hz2438",
+  "url": "https://purl.stanford.edu/xt223hz2438",
+  "soggetto": "Healthy_Volunteer_005"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  12
+ ],
+ "vista": {
+  "serie": 12,
+  "idx": 0,
+  "zoom": 1.5,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Asse corto medio-ventricolare (livello dei muscoli papillari)"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Esame normale."
+ },
+ "regola": "RM cardiaca: FE e volumi dalla pila di asse corto, non da una sola vista.",
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini (3 camere 30 fasi, pila di asse corto completa): ventricoli di dimensioni normali, pareti sottili, ispessimento sistolico uniforme, nessun versamento; testi corretti. Spostata la vista iniziale dall'asse corto 6/12 (medio-apicale) all'8/12, che è il vero livello medio-ventricolare con i muscoli papillari.\nStanford «Human MRI Data to Quantify Cardiac Performance» (ODbL 1.0), Healthy_Volunteer_005: M25, 3 T; importate le cine bSSFP (3ch, 4 radiali, 12 SAX, 30 fasi). La raccolta dichiara misure di volume e massa ma non le ho trovate nei file: la normalità è quella dichiarata (volontario sano) più la valutazione visiva di Claude. [verifica 25/10/2026] Rivisto sulle immagini (3 camere 30 fasi, radiale +72°, asse corto 6/12 in tutte le fasi): ventricoli di dimensioni normali, ispessimento sistolico uniforme, pareti sottili, nessun versamento pericardico. In protosistole (fase 5 della 3 camere) piccolo artefatto di flusso al bordo sinistro dell'immagine, sull'aorta ascendente, senza getti valvolari.",
+ "id": "caso-tcia-071",
+ "visibile": true,
+ "opzioni": [
+  {
+   "testo": "Ventricoli di dimensioni normali, con ispessimento sistolico uniforme di tutte le pareti del ventricolo sinistro e funzione biventricolare conservata alla valutazione visiva",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0
+  },
+  {
+   "testo": "Spessore parietale del ventricolo sinistro normale (in telediastole < 12 mm), senza versamento pericardico",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Valvole senza vuoti di segnale patologici",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Acinesia del setto anteriore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Tutte le pareti si ispessiscono in sistole: guarda la pila di asse corto in cine."
+  },
+  {
+   "testo": "Ventricolo sinistro dilatato con funzione ridotta",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Volumi e frazione di eiezione si misurano contornando l'endocardio sulla pila di asse corto in telediastole e telesistole (metodo di Simpson); la massa contornando anche l'epicardio",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "I valori si indicizzano per superficie corporea e si confrontano con i riferimenti per età e sesso",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "La frazione di eiezione si misura su una sola immagine 4 camere, con il metodo area-lunghezza",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il metodo su un solo piano assume una forma ellissoide del ventricolo: è meno preciso della pila di asse corto."
+  },
+  {
+   "testo": "La cine 3 camere serve per misurare la massa ventricolare sinistra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "RM cardiaca nei limiti: dimensioni, spessori e funzione biventricolare conservati",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Cardiomiopatia dilatativa con ventricolo sinistro ingrandito e frazione di eiezione ridotta",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Cardiomiopatia ipertrofica con setto interventricolare ispessito oltre 15 mm",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "aggiornato": "2026-11-05 20:27"
+}

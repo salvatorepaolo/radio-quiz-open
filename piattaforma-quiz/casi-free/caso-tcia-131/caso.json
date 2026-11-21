@@ -1,0 +1,163 @@
+{
+ "id": "caso-tcia-131",
+ "visibile": true,
+ "aggiornato": "2026-11-06 05:29",
+ "titolo": "Ecografia del fegato prima di una biopsia: paziente con carcinoma del colon-retto",
+ "titolo_interno": "Noduli epatici solidi ipoecogeni multipli (il bersaglio circa 2,2 × 1,6 cm) in paziente della collezione di carcinoma colorettale: probabili metastasi; biopsia ecoguidata con ago e materiale emostatico nel tramite (CMB-CRC MSB-00567)",
+ "distretto": "Addome",
+ "quesito": "oncologico",
+ "modalita": "Ecografia",
+ "difficolta": "Base",
+ "anamnesi": "Paziente con carcinoma del colon-retto (età e sesso non noti), nell'ambito di un programma di biobanca che raccoglie tessuto tumorale. Ecografia del fegato eseguita prima e durante una biopsia percutanea ecoguidata. Sede del tumore primitivo e terapie non sono fornite dai dati pubblici della collezione.",
+ "domanda": "Descrivi il fegato e la lesione bersaglio, poi interpreta.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi nel fegato?"
+  },
+  {
+   "nome": "Procedura",
+   "domanda": "Che cosa mostrano le immagini della seconda parte dell'esame?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è l'interpretazione più probabile?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Noduli solidi ipoecogeni multipli nel fegato, di circa 2 cm, a margini sfumati (il bersaglio circa 2,2 × 1,6 cm)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Si vedono nelle scansioni iniziali «LIVER» (immagini 0-7): più noduli distinti (almeno tre), per esempio nelle immagini 0-3 (circa 2-2,3 cm) e quello bersaglio nelle immagini 6-7 (circa 2,2 × 1,6 cm); altri più piccoli nell'immagine 1."
+  },
+  {
+   "testo": "Parenchima di fondo senza segni evidenti di epatopatia cronica",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Ecostruttura di fondo omogenea; nelle immagini non si vedono profilo nodulare né segni di ipertensione portale (la superficie è vista solo in parte)."
+  },
+  {
+   "testo": "Formazioni anecogene con rinforzo posteriore (cisti semplici)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "I noduli hanno echi interni (sono solidi, ipoecogeni) e non mostrano rinforzo posteriore."
+  },
+  {
+   "testo": "Dilatazione delle vie biliari intraepatiche",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Non ci sono strutture tubulari anecogene parallele ai rami portali."
+  },
+  {
+   "testo": "Ago da biopsia (linea iperecogena) inserito fino al nodulo bersaglio, con più passaggi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Immagine 8: pianificazione sul nodulo; immagini 9-15: la linea iperecogena dell'ago arriva nel nodulo («PASS 1», «PASS 2»). Le scritte «Bx 10.6cm» e «Bx 11.1cm» sono indicazioni della guida per biopsia dell'ecografo."
+  },
+  {
+   "testo": "Materiale iperecogeno lungo il tramite dell'ago dopo il prelievo (agente emostatico riassorbibile)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Le immagini segnate «GEL FOAM» (16-20) mostrano materiale iperecogeno con cono d'ombra lungo il tramite, verosimilmente spugna di gelatina riassorbibile per ridurre il rischio di sanguinamento; nelle immagini «POST» (21-23) non si vede una raccolta evidente."
+  },
+  {
+   "testo": "Grande ematoma sottocapsulare iperecogeno comparso dopo il prelievo, da segnalare subito",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Nelle immagini finali non si vede una raccolta sottocapsulare né periepatica evidente."
+  },
+  {
+   "testo": "Drenaggio percutaneo di un ascesso con catetere a pigtail lasciato in sede",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Non c'è una cavità fluida da drenare né un catetere: è un prelievo con ago su un nodulo solido."
+  },
+  {
+   "testo": "Metastasi epatiche multiple, probabili, da carcinoma colorettale: la biopsia serve a confermarle e a raccogliere tessuto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Emangiomi epatici multipli iperecogeni a margini netti, tipici all'ecografia: lesioni benigne, nessun approfondimento né biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Gli emangiomi tipici sono iperecogeni e ben definiti; noduli ipoecogeni multipli in un paziente con tumore del colon sono metastasi fino a prova contraria."
+  },
+  {
+   "testo": "Ascessi epatici multipli a contenuto corpuscolato: drenaggio e terapia antibiotica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Gli ascessi hanno di solito contenuto fluido o corpuscolato, parete spessa e un contesto clinico settico; qui i noduli sono solidi."
+  },
+  {
+   "testo": "Aree di risparmio adiposo in un fegato steatosico, senza lesioni vere: biopsia inutile",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Il risparmio focale ha sedi tipiche (vicino alla colecisti, davanti alla biforcazione portale), forma geografica e non forma noduli rotondi multipli; inoltre il fegato di fondo non è iperecogeno."
+  }
+ ],
+ "spiegazione": "Il fegato è la sede più frequente di metastasi del carcinoma colorettale (drenaggio portale). In ecografia le metastasi del colon sono spesso ipoecogene o «a bersaglio» con alone ipoecogeno; a volte iperecogene o con calcificazioni (forme mucinose). Noduli solidi multipli in un paziente con tumore noto sono metastasi fino a prova contraria.\n\nTrappole: non confondere i noduli ipoecogeni con cisti (anecogene, rinforzo posteriore) o con aree di risparmio adiposo (sedi tipiche, forma geografica, nessun effetto massa). L'ecografia è poco sensibile per le lesioni piccole: la stadiazione si fa con TC con mezzo di contrasto e, prima di una resezione epatica, con RM con contrasto epatospecifico e diffusione.\n\nIn questo esame l'ecografia guida la biopsia: si sceglie il nodulo più accessibile, si documenta la punta dell'ago nella lesione per ogni passaggio e si controlla alla fine che non ci sia sanguinamento. L'istologia conferma la natura metastatica e fornisce tessuto per i test molecolari (per esempio RAS, BRAF, instabilità dei microsatelliti) che orientano la terapia.",
+ "regola": "Noduli epatici solidi multipli in un paziente con carcinoma colorettale: metastasi fino a prova contraria; la biopsia ecoguidata conferma e dà tessuto per i test molecolari.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Dati della collezione CMB-CRC (Cancer Moonshot Biobank): paziente con carcinoma colorettale; ecografia eseguita per una biopsia del fegato. Istologia del campione, età e sesso non sono pubblici nei dati aperti."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CMB-CRC (Cancer Moonshot Biobank – Colorectal Cancer Collection)",
+  "soggetto": "MSB-00567",
+  "doi": "10.7937/DJG7-GZ87",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Cancer Moonshot Biobank. (2022). Cancer Moonshot Biobank – Colorectal Cancer Collection (CMB-CRC) [dataset]. The Cancer Imaging Archive. https://doi.org/10.7937/djg7-gz87. Data used in this publication were generated by the National Cancer Institute's Cancer Moonshot Biobank.",
+  "url": "https://www.cancerimagingarchive.net/collection/cmb-crc/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "vista": {
+  "serie": 0,
+  "idx": 6,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 518,
+    "y": 460
+   },
+   "b": {
+    "x": 641,
+    "y": 460
+   }
+  },
+  "nota": "Nodulo ipoecogeno bersaglio, circa 2,2 × 1,6 cm"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "metastasi"
+  ],
+  "motivo": "Esame eseguito per la biopsia in un paziente con tumore noto: basta il referto."
+ },
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: Anonimato dei pixel controllato su tutte le 24 immagini intere (solo scritte tecniche) e intestazioni anonime; verificati noduli ipoecogeni multipli, bersaglio circa 2,2 x 1,6 cm, ago e materiale emostatico; corretti «il maggiore» in «il bersaglio», riferimenti alle immagini, scritte Bx, anamnesi resa neutra (sesso non noto). Testi prudenti («probabili metastasi»). Reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione). CMB-CRC (IDC, CC BY 4.0), paziente MSB-00567, serie «US GUIDED LIVER BIOPSY» (Philips iU22, 26 immagini): escluse le 2 immagini color Doppler (anonimizza.py esclude le immagini a colori); le 24 in scala di grigi anonimizzate con anonimizza.py (tenute solo le regioni ecografiche dichiarate; striscia d'intestazione, già oscurata da TCIA, annerita anche prima). Restano nei pixel solo scritte tecniche: «LIVER», «Bx 11.1cm», «PASS 1/2», «GEL FOAM», «POST». Dubbi: 1) il paziente MSB-00567 NON compare nel sottoinsieme aperto dei dati clinici (CCDC, studio NCT04314401): la diagnosi di carcinoma colorettale deriva solo dall'appartenenza alla collezione CMB-CRC; età, sesso, sede del primitivo e istologia del prelievo non sono noti; 2) «metastasi» è un'interpretazione: l'istologia non è pubblica; 3) misura del nodulo bersaglio (immagine 6, circa 2,2 × 1,6 cm) fatta sulla calibrazione dell'ecografo (PixelSpacing 0,184 mm/pixel nelle immagini 3-8 a 10 cm di profondità, 0,217 nelle altre a 12 cm); 4) «GEL FOAM» interpretato come embolizzazione del tramite con spugna di gelatina; 5) parenchima di fondo giudicato senza segni di epatopatia su immagini parziali. Revisione indipendente: anonimato dei pixel controllato su tutte le 24 immagini intere e sui bordi a piena risoluzione (striscia superiore nera; restano solo «LIVER», «Bx 10.6/11.1cm», «PASS 1/2», «GEL FOAM», «POST», profondità, marcatori «P»/«D»); intestazioni DICOM anonime. Corretti «il maggiore» in «il bersaglio» (altri noduli hanno dimensioni simili), i riferimenti alle immagini dell'ago, l'interpretazione delle scritte «Bx» e l'anamnesi (sesso non noto)."
+}

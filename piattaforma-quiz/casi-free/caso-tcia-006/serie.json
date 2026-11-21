@@ -1,0 +1,20 @@
+[
+ {
+  "descrizione": "LCC (sinistra)",
+  "numero": 1,
+  "files": [
+   "serie/0001_LCC/img_00003.dcm"
+  ],
+  "eta": 54,
+  "anteprima": "serie/0001_LCC/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "LMLO (sinistra)",
+  "numero": 2,
+  "files": [
+   "serie/0002_LMLO/img_00003.dcm"
+  ],
+  "eta": 54,
+  "anteprima": "serie/0002_LMLO/anteprima.rqa.gz"
+ }
+]

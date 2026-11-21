@@ -1,0 +1,192 @@
+{
+ "id": "caso-tcia-117",
+ "titolo": "Mammografia bilaterale",
+ "titolo_interno": "Mammografia: gruppo di microcalcificazioni fini pleomorfe di circa 1-1,5 cm nel QSE destro vicino al capezzolo; carcinoma (Luminal B)",
+ "distretto": "Mammella",
+ "quesito": "mammografia",
+ "modalita": "Mammografia",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 33 anni. Mammografia bilaterale in due proiezioni (CC e MLO). Quesito clinico non disponibile.",
+ "domanda": "Referta in ordine: composizione, reperti, conclusione con categoria BI-RADS.",
+ "sezioni": [
+  {
+   "nome": "Composizione",
+   "domanda": "Composizione: cosa osservi?"
+  },
+  {
+   "nome": "Reperti",
+   "domanda": "Reperti: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Composizione mammaria ACR C: mammella eterogeneamente densa, che può nascondere piccole masse",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Composizione mammaria ACR A: mammella quasi completamente adiposa, sensibilità elevata",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Mammella destra: gruppo di microcalcificazioni fini pleomorfe (di forma e dimensioni diverse), a distribuzione raggruppata in un'area di circa 1-1,5 cm, nel quadrante supero-esterno, vicino al capezzolo (terzo anteriore, circa 2-2,5 cm dal capezzolo), visibile in CC e in MLO",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessuna massa chiaramente associata al gruppo di calcificazioni in mammografia",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "In una mammella densa una massa può essere nascosta: l'ecografia mirata resta utile.",
+   "sezione": 1
+  },
+  {
+   "testo": "Calcificazioni grossolane «a pop-corn» di fibroadenoma involuto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Calcificazioni «a latte di calce» che si stratificano nella MLO (cisti)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Calcificazioni vascolari lineari «a binario»",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Gruppo di calcificazioni nel quadrante infero-interno della mammella sinistra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Microcalcificazioni fini pleomorfe raggruppate: BI-RADS 4C (accettabili 4B-5); biopsia stereotassica sotto vuoto",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Calcificazioni di aspetto benigno (BI-RADS 2): ritorno al controllo di screening",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Calcificazioni probabilmente benigne (BI-RADS 3): controllo mammografico a 6 mesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Basta l'ecografia mirata della mammella: se non mostra lesioni corrispondenti, controllo mammografico tra un anno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Le microcalcificazioni si vedono male in ecografia: un'ecografia negativa non le esclude.",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Le calcificazioni si valutano per morfologia e distribuzione (BI-RADS 5ª edizione).\nMorfologia: le calcificazioni tipicamente benigne (cutanee, vascolari, grossolane a pop-corn, a latte di calce, a guscio d'uovo, distrofiche) non richiedono approfondimento; quelle sospette sono amorfe, grossolane eterogenee, fini pleomorfe e fini lineari o lineari ramificate (le più sospette).\nDistribuzione: diffusa (in genere benigna), regionale, raggruppata (un gruppo entro circa 2 cm), lineare e segmentaria (le più sospette, seguono un dotto).\nQui ci sono calcificazioni fini pleomorfe raggruppate in un'area di circa 1-1,5 cm: BI-RADS 4C (probabilità di malignità tra 50% e 95%; anche 4B o 5 sono scelte accettabili). Si procede con la biopsia stereotassica sotto vuoto, controllando con la radiografia dei frustoli che le calcificazioni siano state prelevate.\nL'ecografia non serve a escludere: le microcalcificazioni si vedono male e una ecografia negativa non cambia l'indicazione alla biopsia.\nNelle MLO si vedono linfonodi ascellari bilaterali densi, in parte confluenti, senza ilo adiposo ben riconoscibile e di aspetto simile ai due lati: in mammografia non si possono giudicare con sicurezza; dopo la diagnosi l'ecografia ascellare (soprattutto a destra) completa la stadiazione.\nEsito della collezione: carcinoma mammario, sottotipo Luminal B.",
+ "regola": "Calcificazioni fini pleomorfe o lineari raggruppate o segmentarie: biopsia stereotassica, anche se l'ecografia è negativa.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma mammario destro confermato da biopsia, sottotipo molecolare Luminal B (dati clinici CMMD)."
+ },
+ "scale": [
+  {
+   "id": "mammella",
+   "valori": {
+    "sede": {
+     "lato": "dx",
+     "ora": 10,
+     "quad": "quadrante supero-esterno (QSE)",
+     "breve": "QSE",
+     "x": 74.0,
+     "y": 107.0,
+     "testo": "mammella destra, quadrante supero-esterno (QSE), ore 10"
+    },
+    "acr": "c",
+    "dist": 25,
+    "prof": "anteriore",
+    "d": 13,
+    "br": "4c"
+   },
+   "valore": "BI-RADS 4C",
+   "testo": "Mammella destra, quadrante supero-esterno, ore 10, a circa 2-2,5 cm dal capezzolo, terzo anteriore; gruppo di microcalcificazioni di circa 1-1,5 cm. Composizione ACR C. BI-RADS 4C: biopsia stereotassica (accettabili 4B e 5)."
+  }
+ ],
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CMMD (Chinese Mammography Database)",
+  "soggetto": "D2-0063",
+  "doi": "10.7937/tcia.eqde-4b16",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Cui C., Li L., Cai H., Fan Z., Zhang L., Dan T., Li J., Wang J. (2021). The Chinese Mammography Database (CMMD): An online mammography database with biopsy confirmed types for machine diagnosis of breast. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/cmmd/"
+ },
+ "disposizione": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "riquadri": 4,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 3,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 1400,
+    "y": 860
+   },
+   "b": {
+    "x": 1660,
+    "y": 1110
+   }
+  },
+  "nota": "Gruppo di microcalcificazioni fini pleomorfe della mammella destra (RCC)"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "biopsia",
+   "calcificazioni"
+  ],
+  "motivo": "Reperto sospetto che richiede biopsia: il medico va informato, ma non è un esito critico immediato."
+ },
+ "nota_docente": "Caso importato da TCIA (CMMD, D2-0063) il 25/10/2026 (bozza). Controllato il 25/10/2026: immagini, sedi e testi rivisti da un revisore indipendente. Reperti letti da Claude sulle immagini.\nGruppo trovato con un filtro top-hat e guardato a piena risoluzione: RCC centro x 1531 y 985, RMLO centro x 1469 y 1347; estensione circa 1,1 cm in CC e 1,2-1,3 cm in MLO. Sede dall'orientamento DICOM (RCC P/L: il basso è mediale; RMLO P/FL: il basso è inferiore): circa 1,4 cm laterale e 2 cm sopra il capezzolo, circa 2-2,5 cm dal capezzolo → QSE, ore 10, terzo anteriore. Mammella sinistra densa senza reperti sospetti evidenti a una lettura d'insieme.\nMisure indicative: spaziatura dichiarata da CMMD 0,094 mm (immagini convertite da TIFF a DICOM dalla collezione, 8 bit). Finestra iniziale calcolata dai percentili della mammella. [revisione indipendente 25/10/2026] Controllati: lato destro (RCC P/L, RMLO P/FL); gruppo di numerose microcalcificazioni fini pleomorfe raggruppate visibile in CC e MLO, circa 1 cm sotto la cute retroareolare, laterale e superiore al capezzolo (circa 1-1,5 cm) → QSE ore 10 vicino al capezzolo, estensione circa 1-1,3 cm: testi e scheda coerenti. ACR C corretto. BI-RADS 4C (accettabili 4B-5) e biopsia stereotassica coerenti con l'esito (carcinoma Luminal B). Distrattori corretti; titolo neutro; intestazioni anonimizzate. Correzione: aggiunta nella spiegazione una frase sui linfonodi ascellari bilaterali densi senza ilo ben visibile nelle MLO (prima non citati), con indicazione all'ecografia ascellare; non inseriti tra le risposte perché simmetrici e non giudicabili in mammografia.",
+ "visibile": true
+}

@@ -1,0 +1,107 @@
+# Repository del codice di radio-quiz: SOLO codice, testi dei casi e strumenti.
+# Mai immagini dei pazienti, dati grezzi, segreti o copie di lavoro.
+/*
+!/.gitignore
+!/.github/
+!/.githooks/
+!/.gitleaks.toml
+!/LICENSE
+!/LICENSE-contenuti.txt
+!/LICENZE.md
+!/README.md
+!/pubblica-sorgenti.sh
+!/piattaforma-quiz/
+!/strumenti_claude/
+
+# dati e immagini
+*.dcm
+*.DCM
+*.nii
+*.nii.gz
+*.nrrd
+*.zip
+*.tgz
+*.gz
+*.mp4
+*.mov
+*.png
+*.jpg
+*.jpeg
+!/piattaforma-quiz/cloud/web/**/*.png
+!/piattaforma-quiz/cloud/web/**/*.jpg
+/piattaforma-quiz/casi-free/**/serie/
+/piattaforma-quiz/casi-free/**/_rimosse/
+/piattaforma-quiz/casi-free/**/ia/
+/piattaforma-quiz/cloud/web/casi/
+/piattaforma-quiz/clinici/
+/piattaforma-quiz/_anteprime/
+/piattaforma-quiz/_backup*/
+/piattaforma-quiz/strumenti_claude/
+
+# segreti, uscite, log
+.segreti*
+.uscite*
+.log*
+*.pem
+*.key
+.env*
+
+# dipendenze e compilati
+node_modules/
+cdk.out/
+.venv/
+venv*/
+__pycache__/
+*.pyc
+.chromium-pronto
+
+# copie di lavoro
+*.bak*
+backup_vista/
+/strumenti_claude/backup*/
+/strumenti_claude/_viste/
+*~
+*.orig
+.DS_Store
+
+# risultati di lavoro rigenerabili (modelli 3D, volumi, dati scaricati)
+/strumenti_claude/analisi3d/lavoro/
+/strumenti_claude/analisi3d/out/
+*.glb
+*.rotto
+*.npy
+*.npz
+*.h5
+*.safetensors
+/strumenti_claude/nuovi/*/
+
+# modelli IA scaricabili (grandi, binari): si rifanno con strumenti_claude/noduli_onnx/esporta.py e npm pack onnxruntime-web@1.31.1
+*.onnx
+/piattaforma-quiz/cloud/web/modelli-ia/**/*.wasm
+/piattaforma-quiz/cloud/web/modelli-ia/**/*.mjs
+/strumenti_claude/noduli_onnx/ort/
+# esame di esempio per il visualizzatore scaricabile (TCIA Pancreas-CT, CC BY 3.0): si rifà con strumenti_claude/esempio_client/prepara.sh
+/piattaforma-quiz/cloud/web/esempi/*.zip
+
+# copia ridotta da pubblicare (pubblica.command)
+/piattaforma-quiz/cloud/.web-pub/
+/piattaforma-quiz/cloud/.mappe/
+
+# strumenti per dividere app.js (dipendenze npm)
+/strumenti_claude/divisione/node_modules/
+/piattaforma-quiz/cloud/.br-cache/
+# controlli di qualità: dipendenze e rapporti generati
+piattaforma-quiz/qualita/node_modules/
+piattaforma-quiz/qualita/copertura/
+piattaforma-quiz/qualita/.c8-tmp/
+piattaforma-quiz/qualita/copertura-browser/
+piattaforma-quiz/qualita/.copertura-browser/
+piattaforma-quiz/qualita/mutazioni/
+piattaforma-quiz/cloud/.stryker-tmp/
+piattaforma-quiz/cloud/reports/
+
+# metadati delle serie generati alla pubblicazione (strumenti/meta_serie.py)
+/piattaforma-quiz/casi-free/*/serie-meta.json
+/piattaforma-quiz/cloud/.casi-br/
+/piattaforma-quiz/cloud/.casi-pk/
+/_sorgenti-pubbliche/

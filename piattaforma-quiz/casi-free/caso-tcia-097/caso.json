@@ -1,0 +1,123 @@
+{
+ "distretto": "Muscolo-scheletrico",
+ "modalita": "RX",
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  1
+ ],
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "fonte": {
+  "archivio": "figshare (Scientific Data), non TCIA",
+  "collezione": "GRAZPEDWRI-DX",
+  "doi": "10.6084/m9.figshare.14825193",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Nagy E., Janisch M., Hržić F., Sorantin E., Tschauner S. (2022). A pediatric wrist trauma X-ray dataset (GRAZPEDWRI-DX) for machine learning. Scientific Data 9, 222. https://doi.org/10.1038/s41597-022-01328-z",
+  "url": "https://doi.org/10.6084/m9.figshare.14825193",
+  "nota": "Immagini convertite da PNG a 16 bit in DICOM da radio-quiz.it: non sono DICOM originali. Nessuna modifica dei pixel."
+ },
+ "titolo": "RX polso destro dopo trauma: bambino di 10 anni",
+ "titolo_interno": "Polso pediatrico senza fratture visibili (GRAZPEDWRI-DX paziente 1377, nessuna frattura annotata): trappola delle fisi",
+ "quesito": "trauma del polso",
+ "difficolta": "Intermedio",
+ "anamnesi": "Bambino di 10 anni con dolore al polso destro dopo un trauma (dinamica non fornita dalla collezione). Prima radiografia, AP e laterale.",
+ "domanda": "C'è una frattura?",
+ "opzioni": [
+  {
+   "testo": "Nessuna frattura visibile: corticali metafisarie a profilo regolare in AP e in laterale",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0
+  },
+  {
+   "testo": "Fisi distali di radio e ulna aperte, di spessore regolare e simmetrico: aspetto normale per l'età",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Le fisi sono bande radiotrasparenti normali nel bambino: non vanno lette come linee di frattura."
+  },
+  {
+   "testo": "Allineamento radio-carpico conservato in laterale",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Linea radiotrasparente trasversa del radio distale: frattura",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È la fisi."
+  },
+  {
+   "testo": "Frattura a toro della metafisi radiale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Nuclei di ossificazione del carpo in numero ridotto: frammenti di frattura",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Nessuna frattura evidente; se il dolore persiste sulla tabacchiera o sul radio distale, controllo clinico ed eventualmente radiografico a 7-10 giorni",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Frattura Salter-Harris I del radio distale con lieve allargamento della fisi: gesso antibrachiometacarpale per 4 settimane",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Sospetta frattura dello scafoide: TC del polso urgente prima di dimettere",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Il polso del bambino ha molte strutture radiotrasparenti normali: le fisi di radio e ulna, gli spazi tra i nuclei di ossificazione del carpo (che compaiono a età diverse) e lo spazio tra epifisi e metafisi. Prima di dire «frattura» controlla che la linea non sia una fisi (bande regolari, simmetriche, in sede tipica) e confronta lo spessore delle fisi tra loro. Il reperto più frequente da non perdere è la frattura a toro: segui il profilo della corticale in entrambe le proiezioni. Una radiografia negativa non esclude una frattura occulta (scafoide, Salter-Harris I senza spostamento): se il dolore persiste si ricontrolla.",
+ "regola": "Una linea radiotrasparente nel polso del bambino è prima di tutto una fisi: frattura solo se interrompe la corticale o se la fisi è slargata o scivolata.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Nella collezione GRAZPEDWRI-DX questo studio non ha fratture annotate né segni indiretti (primo esame, nessun gesso). È un'annotazione radiologica, non un controllo clinico a distanza."
+ },
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1.4,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Fisi distali regolari"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Esame negativo: basta il referto."
+ },
+ "nota_docente": "Controllato il 25/10/2026: radiografia negativa verificata in AP e laterale. Caso nuovo 25/10/2026 (Claude). GRAZPEDWRI-DX paziente 1377 (1377_0952285405_01_WRI-R1_M010 AP, 1377_0952285468_01_WRI-R2_M010 laterale); età 10,3, maschio, polso destro, primo esame; nessuna classificazione AO, fracture_visible vuoto. Convertite da PNG 16 bit in DICOM. Scartato come negativo il paziente 4046: in laterale piccolo frammento dorsale al carpo (possibile avulsione del piramidale) non annotato. [revisione indipendente 25/10/2026] Corticali metafisarie di radio e ulna a profilo regolare in entrambe le proiezioni, fisi aperte e regolari, allineamento radio-carpico conservato, marcatore R coerente, nessun testo personale. Correzione: titolo «dopo trauma».",
+ "id": "caso-tcia-097",
+ "visibile": true
+}

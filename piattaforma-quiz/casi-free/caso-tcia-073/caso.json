@@ -1,0 +1,135 @@
+{
+ "titolo": "RX torace in terapia intensiva: polmonite COVID-19, controllo al giorno 8",
+ "titolo_interno": "ARDS da COVID-19 con pneumotorace destro comparso al giorno 8 (COVID-19-AR-16439192)",
+ "distretto": "Torace",
+ "modalita": "RX",
+ "difficolta": "Intermedio",
+ "quesito": "polmonite",
+ "anamnesi": "Uomo di 64 anni con polmonite COVID-19, ricoverato in terapia intensiva. Radiografie del torace a letto ai giorni 0, 6, 8 e 9. Al giorno 8 peggioramento respiratorio improvviso.",
+ "domanda": "Confronta la radiografia del giorno 8 con quella del giorno 6: che cosa è cambiato e che cosa fai?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Che cosa fai?",
+   "singola": true
+  }
+ ],
+ "spiegazione": "Il pneumotorace è una complicanza dell'ARDS da COVID-19 (danno alveolare, ventilazione a pressione positiva). Nella RX a letto il segno classico è la linea pleurica viscerale con aria senza trama oltre; con il paziente supino l'aria si raccoglie davanti e in basso: seno costofrenico profondo e ipertrasparente (segno del solco profondo), margini del cuore e del diaframma troppo netti.\nSegni di tensione: spostamento del mediastino verso il lato opposto, appiattimento o inversione dell'emidiaframma, slargamento degli spazi intercostali. Il pneumotorace in un paziente ventilato è un esito critico: si comunica subito, a voce.\nDiagnosi differenziale: piega cutanea (si estende oltre il polmone, la trama continua), bordo della scapola, bolla enfisematosa.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "COVID-19 con 4 ricoveri in terapia intensiva, vivo (dati della collezione COVID-19-AR). Pneumotorace destro al giorno 8 dal referto originale della collezione."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "COVID-19-AR",
+  "doi": "10.7937/tcia.2020.py71-5978",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Desai S., Baghal A., Wongsurawat T., et al. (2020). Data from Chest imaging with clinical and genomic correlates representing a rural COVID-19 positive population [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/tcia.2020.py71-5978",
+  "url": "https://www.cancerimagingarchive.net/collection/covid-19-ar/",
+  "soggetto": "COVID-19-AR-16439192"
+ },
+ "serie_iniziale": 2,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  2
+ ],
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "pneumotorace",
+   "destro"
+  ],
+  "motivo": "Pneumotorace nuovo in paziente di terapia intensiva: esito critico da comunicare subito."
+ },
+ "regola": "RX a letto in rianimazione: cerca sempre il pneumotorace (apice, parete laterale, solco profondo) e confronta con la precedente.",
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini a piena risoluzione: al giorno 8 apice destro ipertrasparente senza trama con linea pleurica viscerale apicale-laterale alta, assente al giorno 6 (pneumotorace destro, coerente con il referto della collezione); opacità bilaterali diffuse ai giorni 6-9, simili tra loro. Nessuna correzione.\nCOVID-19-AR (IDC, CC BY 4.0) paziente 16439192: DX AP dei giorni 0, 6, 8, 9 (ne esistono altre). Pneumotorace dal referto originale del giorno 8; entità e sede lette da Claude (apice e parete laterale destra). Scritte sovrimpresse solo di posizione («semi-upright», «portable», L). [verifica 25/10/2026] Rivisto sulle immagini: al giorno 8 (serie 3) apice destro ipertrasparente senza trama vascolare con linea pleurica viscerale curva apicale-laterale alta, assente ai giorni 0 e 6; opacità bilaterali diffuse ai giorni 6-9. Il pneumotorace è piccolo-moderato: sede corretta in «apicale e laterale alto» (prima «apice e parete laterale»). Aggiunta la vista sul giorno 8. Comunicazione immediata (urgente accettabile) coerente con valutaComunicazione.",
+ "id": "caso-tcia-073",
+ "visibile": true,
+ "opzioni": [
+  {
+   "testo": "Al giorno 8 pneumotorace destro apicale e laterale alto: sottile linea pleurica viscerale con zona ipertrasparente senza trama vascolare tra la linea e la parete",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Referto originale: «comparsa di pneumotorace destro di entità moderata». Nella RX a letto (paziente semiseduto o supino) l'aria si raccoglie anche anteriormente e alla base (segno del solco profondo): cercalo sempre."
+  },
+  {
+   "testo": "Opacità polmonari bilaterali diffuse a chiazze, invariate rispetto al giorno 6",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Al giorno 9 le opacità sono stabili",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Referto originale del giorno 9: opacità stabili, senza menzione di pneumotorace residuo."
+  },
+  {
+   "testo": "Opacità invariate, nessun reperto nuovo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "La differenza del giorno 8 è la zona apicale e laterale destra senza trama polmonare."
+  },
+  {
+   "testo": "Pneumotorace sinistro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "La linea all'apice destro è una piega cutanea",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Una piega cutanea prosegue oltre il torace o incrocia le coste, e al di là si vedono ancora i vasi polmonari; qui oltre la linea non c'è trama."
+  },
+  {
+   "testo": "Pneumotorace destro in paziente con ARDS: esito critico, comunicazione immediata al rianimatore (drenaggio, valutare segni di tensione e parametri del ventilatore)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessuna comunicazione urgente: in un paziente con ARDS in ventilazione è un reperto atteso della polmonite grave; si descrive nel referto e si rivaluta al prossimo controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Reperto stabile: controllo radiografico a letto tra una settimana",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Versamento pleurico destro: toracentesi ecoguidata",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "vista": {
+  "serie": 2,
+  "idx": 0,
+  "zoom": 1.8,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Pneumotorace apicale destro"
+ },
+ "aggiornato": "2026-11-05 20:27"
+}

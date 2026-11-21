@@ -1,0 +1,136 @@
+{
+ "titolo": "TC dei reni in tre fasi: piccola massa renale destra",
+ "titolo_interno": "Carcinoma renale a cellule chiare di 2,3 cm, polo inferiore del rene destro, versante medio-anteriore: nefrectomia parziale (KiTS-00022)",
+ "distretto": "Rene",
+ "modalita": "TC",
+ "difficolta": "Avanzato",
+ "quesito": "massa renale",
+ "anamnesi": "Donna di 66 anni. TC dei reni senza mezzo di contrasto, in fase corticomidollare e in fase tardiva. Altri dati clinici non disponibili.",
+ "domanda": "Trova la lesione, caratterizzala nelle tre fasi e descrivi ciò che serve al chirurgo per una nefrectomia parziale.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "spiegazione": "Le piccole masse renali (≤ 4 cm, cT1a) sono spesso scoperte per caso. La TC in più fasi deve: dimostrare l'impregnazione (> 20 HU rispetto alla fase basale), escludere il grasso (angiomiolipoma), descrivere i rapporti per il chirurgo.\nIl carcinoma a cellule chiare è ipervascolare: in fase corticomidollare può avere la stessa densità della corticale e passare inosservato. La fase nefrografica o tardiva lo mostra più ipodenso del parenchima.\nIl punteggio RENAL (Radius, Exophytic/endophytic, Nearness al sistema collettore, Anterior/posterior, Location rispetto alle linee polari) e il PADUA quantificano la complessità della nefrectomia parziale. Inseriscili nella scheda Σ.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma renale a cellule chiare, ISUP 1, pT1a N0 M0, 2,3 cm; nefrectomia parziale robotica (dati della collezione C4KC-KiTS)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00022",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  2
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 83,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 2,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Nodulo del polo inferiore destro"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Piccola massa renale senza complicanze: basta il referto."
+ },
+ "regola": "Piccola massa renale: confronta le fasi; in corticomidollare si mimetizza con la corticale.",
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle tre fasi: nodulo di circa 2-2,3 cm al versante medio-anteriore del polo inferiore del rene destro (corticomidollare img 79-85, ipodenso in tardiva img 59-63), impregnato quasi come la corticale, senza grasso in basale. Corretti il titolo interno («mesorenale» contraddiceva «polo inferiore») e l'opzione sui rapporti (componente esofitica non misurabile con certezza: «in parte intraparenchimale, in parte sporgente dal profilo mediale»).\nC4KC-KiTS KiTS-00022 (CC BY 3.0, scaricato da IDC): noncontrast 5 mm, arterial 0,5 mm mediata a 2 mm (4 strati), late 3 mm; tutte ritagliate in z da -620 a -300. Clinica: F66, ccRCC ISUP 1, pT1a, 2,3 cm, nefrectomia parziale robotica. Sede, rapporti e componente esofitica: lettura di Claude sulla SEG; RENAL e PADUA non compilati (da fare dal docente). [verifica 25/10/2026] Rivisto sulle immagini (fase corticomidollare, basale, tardiva): rene destro con piccola bozza nodulare medio-anteriore del polo inferiore, impregnata quasi come la corticale (immagini 81-85 della corticomidollare), coerente con la sede della SEG; nessun grasso nella basale. La serie corticomidollare era ordinata dai piedi alla testa, al contrario delle altre due: invertito l'ordine in serie.json (vista 83). RENAL e PADUA restano da compilare a cura del docente: senza la SEG a portata di mano la percentuale esofitica e la distanza dal seno non sono misurabili con sicurezza.",
+ "id": "caso-tcia-069",
+ "visibile": true,
+ "opzioni": [
+  {
+   "testo": "Nodulo solido di circa 2,3 cm del polo inferiore del rene destro, sul versante mediale e anteriore, con impregnazione intensa in fase corticomidollare, quasi come la corticale",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Segmentazione della collezione: circa 6 mL. In fase corticomidollare si confonde con la corticale: va cercato confrontando con le altre fasi e seguendo il contorno del rene."
+  },
+  {
+   "testo": "Il nodulo è in parte intraparenchimale e in parte sporge dal profilo mediale del polo inferiore, vicino al seno renale",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Sono le informazioni che servono per il punteggio RENAL o PADUA e per decidere la nefrectomia parziale."
+  },
+  {
+   "testo": "Nessun grasso macroscopico nella fase senza mezzo di contrasto; vena renale pervia; nessuna linfoadenopatia",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Rene destro di forma, dimensioni e impregnazione normali, senza lesioni focali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "La lesione c'è: in fase corticomidollare si mimetizza con la corticale, ma deforma il profilo mediale del polo inferiore."
+  },
+  {
+   "testo": "Cisti renale iperdensa in basale (Bosniak II), senza impregnazione dopo il contrasto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Una cisti iperdensa non si impregna; questo nodulo aumenta nettamente di densità dopo il mezzo di contrasto."
+  },
+  {
+   "testo": "Angiomiolipoma con grasso macroscopico (densità negativa) già visibile in basale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo solido del polo inferiore del rene destro, ipervascolare (cT1a): carcinoma a cellule chiare la prima ipotesi; candidata a nefrectomia parziale (o sorveglianza attiva/ablazione secondo età e comorbilità)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Oncocitoma certo per l'impregnazione intensa, omogenea e i margini netti: lesione benigna, nessun trattamento né sorveglianza attiva, nessuna biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Carcinoma renale cT1a: nefrectomia radicale obbligatoria per la vicinanza al seno renale e la sede mediale anteriore, la nefrectomia parziale, l'ablazione e la sorveglianza attiva non sono possibili",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Per i tumori T1a la nefrectomia parziale è lo standard quando tecnicamente fattibile: conserva funzione renale."
+  },
+  {
+   "testo": "Pseudotumore renale (colonna di Bertin ipertrofica), con impregnazione uguale alla corticale in tutte le fasi: nessun accertamento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La colonna di Bertin è in continuità con la corticale e ha la stessa impregnazione in tutte le fasi; questo nodulo deforma il profilo del rene."
+  }
+ ],
+ "aggiornato": "2026-11-05 20:26"
+}

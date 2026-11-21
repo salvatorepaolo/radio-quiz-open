@@ -1,0 +1,79 @@
+# Test automatici su GitHub (minuti gratuiti del piano free; senza metodo di pagamento non si può spendere nulla:
+# finiti i minuti del mese, i test qui si fermano e restano quelli sul Mac).
+# Qui girano i controlli che non hanno bisogno delle immagini dei casi (che non sono in git):
+# segreti, ESLint, shellcheck e tutti i test node e Python. I test nel browser e la suite completa restano sul Mac
+# (strumenti_claude/tutti_i_test.sh e pubblica.command).
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  controlli:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20          # un test bloccato non consuma i minuti del mese
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0         # serve la storia per cercare i segreti nei commit nuovi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Strumenti (gitleaks, tesseract, librerie)
+        run: |
+          curl -sSfL -o /tmp/gl.tgz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          tar -xzf /tmp/gl.tgz -C /tmp gitleaks && sudo mv /tmp/gitleaks /usr/local/bin/
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr > /dev/null
+          python -m pip install -q pydicom numpy pillow
+          (cd piattaforma-quiz/qualita && npm ci --no-audit --no-fund)
+          (cd piattaforma-quiz/cloud/test && npm ci --ignore-scripts --no-audit --no-fund)   # fast-check (playwright resta senza browser: i test nel browser non girano qui)
+          echo "PYTHON_RQ=$(which python)" >> "$GITHUB_ENV"
+
+      - name: Segreti nei commit nuovi (gitleaks)
+        run: |
+          PRIMA="${{ github.event.before }}"
+          if [ -n "$PRIMA" ] && [ "$PRIMA" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$PRIMA" 2>/dev/null; then
+            gitleaks git --no-banner --redact -c .gitleaks.toml --log-opts="$PRIMA..${{ github.sha }}" .
+          elif [ "${{ github.ref }}" != "refs/heads/main" ] && git fetch -q --depth=200 origin main && git merge-base origin/main HEAD >/dev/null; then
+            # ramo nuovo (per esempio una proposta di Dependabot): solo i commit che non sono già in main
+            gitleaks git --no-banner --redact -c .gitleaks.toml --log-opts="origin/main..${{ github.sha }}" .
+          else
+            gitleaks git --no-banner --redact -c .gitleaks.toml .
+          fi
+
+      - name: Nessun file DICOM in git
+        run: |
+          trovati=0
+          while IFS= read -r -d '' f; do
+            [ -f "$f" ] && [ "$(dd if="$f" bs=1 skip=128 count=4 2>/dev/null)" = "DICM" ] && { echo "::error file=$f::file DICOM in git"; trovati=1; }
+          done < <(git ls-files -z)
+          exit $trovati
+
+      - name: ESLint
+        run: bash piattaforma-quiz/qualita/lint.sh
+
+      - name: shellcheck
+        run: git ls-files -z '*.sh' '*.command' '.githooks/*' | xargs -0 shellcheck -s bash -S warning
+
+      - name: Test node e Python (senza browser)
+        working-directory: piattaforma-quiz/cloud/test
+        run: |
+          node --test pagina.test.mjs scale.test.mjs anonimizza.test.mjs anonimizza-fuzz.test.mjs anonimizza-py.test.mjs strumenti-py.test.mjs moduli.test.mjs \
+            analisi.test.mjs referto.test.mjs logica.test.mjs logica-avvisi.test.mjs proprieta.test.mjs casi.test.mjs traduzioni.test.mjs api.test.mjs api-iscrizione.test.mjs api-proposte.test.mjs api-fuzz.test.mjs date.test.mjs formati.test.mjs \
+            azienda.test.mjs limiti.test.mjs automazione.test.mjs account_admin.test.mjs cmr.test.mjs t2star.test.mjs

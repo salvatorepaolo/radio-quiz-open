@@ -1,0 +1,113 @@
+{
+ "id": "caso-tcia-041",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:21",
+ "titolo": "TC torace: ricerca di noduli",
+ "titolo_interno": "TC torace negativa: nessun nodulo per nessuno dei 4 radiologi LIDC",
+ "distretto": "Torace",
+ "quesito": "nodulo polmonare",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "TC del torace senza mezzo di contrasto, strato 1,25 mm, eseguita per la ricerca di noduli polmonari. Nessuna TC precedente.",
+ "domanda": "Scorri tutto il volume in finestra polmonare e decidi se ci sono noduli.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Cosa osservi nei polmoni?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nessun nodulo polmonare: le immagini rotonde che compaiono nelle singole fette continuano nelle fette vicine come vasi",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Un nodulo compare e scompare in poche fette; un vaso si allunga e si ramifica. Le MIP a strato spesso aiutano.",
+   "sezione": 0
+  },
+  {
+   "testo": "Parenchima polmonare senza consolidazioni, vetro smerigliato o enfisema significativo",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo solido di circa 6 mm nel lobo inferiore destro, visibile su più fette consecutive",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Errore frequente: scambiare un vaso visto di taglio per un nodulo.",
+   "sezione": 0
+  },
+  {
+   "testo": "Noduli multipli bilaterali di pochi millimetri, a distribuzione casuale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "TC negativa per noduli polmonari: nessun controllo per noduli",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Piccoli noduli sotto 6 mm: controllo TC a 12 mesi secondo Fleischner",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Noduli indeterminati: PET-TC per caratterizzarli",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Un esame negativo va letto con la stessa cura di uno positivo: lo scopo è dire «niente» con sicurezza, senza inventare reperti (falsi positivi) e senza fermarsi troppo presto.\nMetodo: scorrere tutto il volume in finestra polmonare, un polmone alla volta, dall'apice alla base; seguire ogni immagine rotonda nelle fette vicine (un vaso continua e si ramifica, un nodulo compare e scompare); controllare le zone dove i noduli si nascondono: apici, regioni paramediastiniche, dietro il cuore, basi vicino al diaframma, sotto la pleura.\nQuesta TC viene dalla collezione LIDC-IDRI, in cui 4 radiologi toracici hanno letto ogni esame in due tempi: nessuno ha segnato noduli, nemmeno sotto i 3 mm.",
+ "regola": "Vaso: continua e si ramifica. Nodulo: compare e scompare. Nessun nodulo = dillo con sicurezza.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Esame negativo per noduli: nessun nodulo (né ≥ 3 mm né < 3 mm) segnato dai 4 radiologi della collezione LIDC-IDRI."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "LIDC-IDRI",
+  "soggetto": "LIDC-IDRI-0731",
+  "doi": "10.7937/K9/TCIA.2015.LO9QL9SX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Armato III S.G. et al. (2015). Data From LIDC-IDRI [Data set]. The Cancer Imaging Archive. The authors acknowledge the National Cancer Institute and the Foundation for the National Institutes of Health, and their critical role in the creation of the free publicly available LIDC/IDRI Database used in this study.",
+  "url": "https://www.cancerimagingarchive.net/collection/lidc-idri/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 210,
+  "wc": -600,
+  "ww": 1500,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Finestra polmonare"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: verificato sulle immagini (18 livelli dall'apice alla base in finestra polmonare e mediastinica, dettagli a 60-340): nessun nodulo, consolidazione o enfisema; coerente con le 4 letture LIDC negative, nessuna correzione.\nCaso negativo vero, importato da TCIA il 18/10/2026. LIDC-IDRI-0731: nessun nodulo e nessun «non-nodulo» nelle 4 letture LIDC (file XML). Controllato da Claude su campioni di fette in finestra polmonare e mediastinica: nessun reperto rilevante. Età e sesso non disponibili. Scartate come negativi: LIDC-0760 (fibrosi polmonare con honeycombing, senza diagnosi nei dati), LIDC-0564 (formazione rotonda all'angolo cardiofrenico destro), LIDC-0540 (formazioni mammarie non caratterizzate).\n[verificato da Claude il 20/10/2026 e pubblicato su richiesta dell'amministratore («verifica i casi» → «si»)]",
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "TC negativa: nessuna comunicazione."
+ }
+}

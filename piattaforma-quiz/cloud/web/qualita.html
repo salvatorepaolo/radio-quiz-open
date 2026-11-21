@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qualità e sicurezza del software — Quiz Radiologia</title>
+<meta name="description" content="Come radio-quiz.it protegge la privacy, verifica la correttezza dei casi e controlla il software prima di ogni pubblicazione.">
+<link rel="icon" href="logo.svg">
+<link rel="alternate" hreflang="en" href="qualita.en.html">
+<style>
+  :root { --sf: #ffffff; --txt: #1d2430; --muto: #5b6575; --bord: #d9dee6; --acc: #1a62bb; --riga: #f4f6f9; --ok: #1d7a46; }
+  @media (prefers-color-scheme: dark) { :root { --sf: #12161d; --txt: #e6e9ee; --muto: #9aa4b2; --bord: #2b3340; --acc: #6ea2ff; --riga: #1a2029; --ok: #5cc48a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--sf); color: var(--txt); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  header img { width: 44px; height: 44px; }
+  h1 { font-size: 1.6rem; margin: 0; line-height: 1.25; }
+  h2 { font-size: 1.15rem; margin: 36px 0 8px; color: var(--acc); }
+  h3 { font-size: 1rem; margin: 20px 0 4px; }
+  a { color: var(--acc); }
+  .muto { color: var(--muto); }
+  ul { padding-left: 1.2em; } li { margin: 4px 0; }
+  .nota { border-left: 3px solid var(--acc); background: var(--riga); padding: 10px 14px; border-radius: 6px; }
+  .breve { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 16px 0 4px; padding: 0; list-style: none; }
+  .breve li { margin: 0; border: 1px solid var(--bord); border-radius: 8px; padding: 10px 12px; background: var(--riga); }
+  .breve b { display: block; margin-bottom: 2px; }
+  .indice { columns: 2; column-gap: 24px; padding-left: 1.2em; margin-top: 0; }
+  .indice li { margin: 0 0 6px; break-inside: avoid; }
+  @media (max-width: 600px) { .indice { columns: 1; } }
+  .tab { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  .tab th, .tab td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--bord); }
+  .tab th { font-weight: 600; background: var(--riga); }
+  .scorri { overflow-x: auto; }
+  .lic { white-space: nowrap; font-weight: 600; }
+  .num { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ok); }
+  @media (max-width: 600px) {
+    .tab thead { display: none; }
+    .tab tr { display: block; border-bottom: 1px solid var(--bord); padding: 8px 0; }
+    .tab td { display: block; border: 0; padding: 2px 0; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="logo.svg" alt=""><h1>Qualità e sicurezza del software</h1></header>
+  <p><b>radio-quiz.it</b> · <a href="./">← Torna a Quiz Radiologia</a> · <a href="qualita.en.html" hreflang="en" lang="en">English</a></p>
+
+  <p>Questa pagina spiega come proteggiamo i dati, come verifichiamo che i casi e la loro correzione siano giusti e come controlliamo il software prima di ogni pubblicazione. I controlli descritti sono automatici e si ripetono a ogni modifica: non sono promesse, ma prove che il software deve superare per andare online.</p>
+  <p class="nota"><b>Strumento didattico, non dispositivo medico.</b> Quiz Radiologia serve alla formazione su casi anonimi. Non è certificato come dispositivo medico e non va usato per diagnosi, refertazione o decisioni cliniche. I controlli di questa pagina riguardano la correttezza didattica, la privacy e la sicurezza del software, non l'uso clinico.</p>
+
+  <ul class="breve">
+    <li><b>🔒 Dati che non escono</b>Immagini anonimizzate prima della pubblicazione; il visualizzatore sul computer non fa richieste di rete, e un test lo verifica.</li>
+    <li><b>✅ Ogni caso ricorretto</b>A ogni modifica la correzione di tutti i casi viene ricalcolata con risposte tipo e confrontata con quella attesa.</li>
+    <li><b>🚦 Pubblicazione bloccata</b>Se anche un solo controllo fallisce, il sito non si aggiorna.</li>
+    <li><b>🔓 Tutto open source</b>Software, modelli di IA e strumenti di controllo sono open source, con licenze verificate.</li>
+  </ul>
+
+  <h2>Indice</h2>
+  <ol class="indice">
+    <li><a href="#privacy">Privacy fin dalla progettazione</a></li>
+    <li><a href="#casi">Correttezza dei casi e della correzione</a></li>
+    <li><a href="#prove">Come si prova il software</a></li>
+    <li><a href="#codice">Qualità del codice</a></li>
+    <li><a href="#sicurezza">Sicurezza</a></li>
+    <li><a href="#pubblicazione">Come si pubblica una nuova versione</a></li>
+    <li><a href="#limiti">Limiti noti</a></li>
+    <li><a href="#strumenti">Strumenti usati</a></li>
+    <li><a href="#segnalazioni">Segnalazioni</a></li>
+  </ol>
+
+  <h2 id="privacy">1. Privacy fin dalla progettazione</h2>
+  <h3>Le immagini dei casi</h3>
+  <ul>
+    <li><b>Anonimizzazione a lista bianca.</b> Dei file DICOM si tengono solo i campi tecnici che servono a vedere e misurare l'immagine. Tutto il resto viene tolto: nome, codici, indirizzo, medici, struttura, campi privati dei costruttori. Le date sono ridotte a mese e anno e gli identificativi (UID) vengono rigenerati.</li>
+    <li><b>Testo impresso nell'immagine.</b> Un controllo con riconoscimento del testo (OCR) cerca nomi e date scritti nei pixel. Le zone trovate vengono coperte nei pixel stessi, prima che il file esca dal computer.</li>
+    <li><b>Ecografie.</b> Si tiene solo l'interno delle regioni d'immagine dichiarate dall'ecografo; tutto il resto, dove l'apparecchio scrive nome, struttura e data, viene annerito.</li>
+    <li><b>Esclusioni prudenti.</b> Non si pubblicano le immagini che non si possono anonimizzare con certezza: schermate di riepilogo, referti strutturati, immagini «secondary capture» e «for processing». I referti originali non vengono mai caricati.</li>
+    <li><b>Verifica dopo l'anonimizzazione.</b> Ogni file prodotto viene riletto alla ricerca delle parole del paziente e dei campi sospetti. Prima di rendere visibile un caso, le intestazioni di tutte le sue immagini e un campione dei pixel vengono ricontrollati.</li>
+  </ul>
+  <h3>Il visualizzatore sul computer</h3>
+  <ul>
+    <li>I file aperti nel visualizzatore client restano sul computer: non vengono inviati al sito né ad altri servizi.</li>
+    <li>Un test automatico apre il visualizzatore in un browser vero e controlla che, durante l'uso, <b>non parta nessuna richiesta di rete</b>.</li>
+    <li>L'anonimizzazione dei file che un docente prepara per un nuovo caso avviene nel browser: i dati del paziente non lasciano il computer.</li>
+  </ul>
+  <h3>Intelligenza artificiale</h3>
+  <ul>
+    <li>Si usano solo modelli open source, che lavorano nel browser o offline sui casi già anonimi. Nessuna immagine viene inviata a servizi di IA esterni.</li>
+  </ul>
+  <h3>Come lo proviamo</h3>
+  <p>Con file DICOM sintetici che contengono <b>dati inventati</b> (mai dati veri). I test controllano, anche cercando nei byte del file:</p>
+  <ul>
+    <li>che nessun dato del paziente sopravviva;</li>
+    <li>che i pixel e i campi tecnici restino identici;</li>
+    <li>che il testo impresso venga coperto, anche nelle immagini compresse, senza che i pixel originali restino nel file;</li>
+    <li>che nelle ecografie tutto ciò che è fuori dalle regioni d'immagine diventi nero;</li>
+    <li>che l'anonimizzazione nel browser e quella sul computer di preparazione diano gli stessi identificativi.</li>
+  </ul>
+  <p>A ogni modifica si aggiungono <b>mille file generati a caso</b>, con dati inventati in campi e forme sempre diverse, e file volutamente rovinati (tagliati o con byte alterati). Su nessuno un dato del paziente deve passare. Questa prova ha già permesso di chiudere due falle che i test scritti a mano non vedevano: un file con una lunghezza sbagliata poteva nascondere il nome dentro un campo tecnico, e un campo di commento libero tra quelli tecnici restava nel file. Ora un file malformato viene escluso.</p>
+
+  <h2 id="casi">2. Correttezza dei casi e della correzione</h2>
+  <ul>
+    <li><b>Ogni caso ricorretto a ogni modifica.</b> Per ognuno degli oltre <span class="num">130</span> casi un test simula le risposte tipo. Controlla che:
+      <ul>
+        <li>tutte le risposte giuste valgano 100 e nessuna risposta valga 0;</li>
+        <li>scegliere un distrattore abbassi il punteggio;</li>
+        <li>un referto con i reperti attesi passi e uno con affermazioni sbagliate no;</li>
+        <li>la comunicazione dell'esito fatta come atteso valga 100;</li>
+        <li>il segno messo al centro del reperto risulti «centrato».</li>
+      </ul>
+      Ogni punteggio viene poi confrontato con quello salvato: se una modifica al caso o al codice lo cambia, il test dice quale caso e quale risposta.</li>
+    <li><b>Scale e classificazioni.</b> Le scale cliniche usate nei casi sono provate con casi di esempio e con circa <span class="num">4.000</span> combinazioni, confrontate con i risultati attesi.</li>
+    <li><b>Casi completi.</b> Nessun caso visibile può avere testi ancora «da compilare» o mancare di risposte corrette.</li>
+    <li><b>Analisi per i docenti.</b> I calcoli sono provati con una classe inventata, con valori attesi calcolati a mano: discriminazione delle opzioni, reperti secondari mancati, calibrazione della sicurezza dichiarata, mappa degli errori.</li>
+  </ul>
+
+  <h2 id="prove">3. Come si prova il software</h2>
+  <div class="scorri"><table class="tab">
+    <thead><tr><th>Livello</th><th>Che cosa controlla</th><th>Quando</th></tr></thead>
+    <tbody>
+      <tr><td>Test di unità e di non regressione</td><td>Anonimizzazione, correzione, scale, referto in PDF e Word, analisi, regole del server, permessi, traduzioni. Sono <span class="num" data-controlli>oltre 150</span> controlli.</td><td>prima di ogni pubblicazione; anche a ogni modifica del codice</td></tr>
+      <tr><td>Test nel browser</td><td>Visualizzatore e strumenti (finestre, misure, ROI, MPR, RM cardiaca, T2*), flusso dello studente e del docente, visualizzatore client senza rete. Le stesse prove girano con Chrome, con il motore di Safari (iPad, iPhone, Mac) e con Firefox.</td><td>prima di ogni pubblicazione</td></tr>
+      <tr><td>Suite completa</td><td>Percorsi d'uso completi, telefono, schede grafiche, analisi 3D e IA nel browser. Dura circa 17 minuti.</td><td>a ogni gruppo di modifiche</td></tr>
+      <tr><td>Accessibilità</td><td>axe-core con le regole WCAG 2.0, 2.1 e 2.2, livelli A e AA, su 17 pagine; uso con la tastiera; zoom al 200% senza scorrimento orizzontale.</td><td>nella suite completa</td></tr>
+      <tr><td>Prestazioni</td><td>Peso di ciò che si scarica all'apertura, con soglie massime: una modifica che appesantisce la pagina oltre le soglie non passa.</td><td>prima di ogni pubblicazione</td></tr>
+      <tr><td>Regole della correzione</td><td>Su migliaia di casi e risposte generati a caso si verificano regole che devono valere sempre: il punteggio sta tra 0 e 100, una risposta giusta in più non lo abbassa mai, una sbagliata non lo alza mai, l'ordine delle risposte non conta, scrivere un reperto sbagliato al posto di quello giusto non vale come averlo trovato.</td><td>a ogni modifica del codice</td></tr>
+      <tr><td>Richieste assurde al server</td><td>Centinaia di richieste con dati mancanti, sbagliati o malevoli a tutte le funzioni del server, con e senza accesso: deve rispondere sempre con un errore chiaro, senza bloccarsi e senza mostrare dati di altre persone.</td><td>a ogni modifica del codice</td></tr>
+      <tr><td>Rete assente, interrotta o lenta</td><td>Si simula la connessione che cade mentre uno studente invia la risposta, una connessione interrotta a metà e una rete molto lenta: le scelte e il referto restano, compare un messaggio chiaro, il secondo tentativo riesce, premere più volte non fa partire due invii.</td><td>prima di ogni pubblicazione importante</td></tr>
+      <tr><td>Memoria del visualizzatore</td><td>Si aprono di seguito 24 esami TC e RM tra i più grandi e si misura la memoria usata dalla pagina dopo ciascuno: non deve crescere caso dopo caso, così il browser non rallenta né si chiude, anche su tablet.</td><td>prima di ogni pubblicazione importante</td></tr>
+      <tr><td>Tempi di caricamento</td><td>Con Lighthouse, come da un telefono di fascia media con rete 4G lenta: home, caso aperto e pagine informative, sul sito vero e in prova. Se una modifica rende una pagina più lenta o più pesante, il controllo lo segnala.</td><td>prima di ogni pubblicazione importante</td></tr>
+      <tr><td>Aggiornamento del visualizzatore offline</td><td>Chi ha installato il visualizzatore client riceve la versione nuova senza perdere gli esami recenti, le impostazioni e le scelte già fatte, e continua a usarlo senza rete prima e dopo l'aggiornamento. Nella memoria del browser restano solo i file del sito, mai dati degli esami.</td><td>prima di ogni pubblicazione importante</td></tr>
+      <tr><td>Vetrini digitali</td><td>Vetrini DICOM pubblici e vetrini costruiti apposta (fluorescenza a 3 canali su 3 piani focali, tessere sparse, etichetta e panoramica) si aprono in Chrome, Safari e Firefox: tessuto visibile, calibrazione in µm, piani e canali che cambiano l'immagine, etichetta mostrata solo dopo conferma. Nel visualizzatore offline nessuna richiesta di rete; sul sito il vetrino si legge a pezzi (pochi MB anche per un file di 1,7 GB) e lo studente lo vede solo dopo aver risposto. Strumenti: ingrandimenti 10× e 40× esatti, rotazione, tastiera, cronologia, aree ed ellissi con area e perimetro confrontati con il valore atteso, conteggio nei campi ad alto ingrandimento con densità per mm², annotazioni salvate, esportate in DICOM e rilette uguali anche con highdicom, colori (solo DAB, luminosità) e ripristino, istantanea, due vetrini affiancati alla stessa scala, decodifica JPEG 2000 nei web worker, con la rete lenta il dettaglio solo da fermi.</td><td>prima di ogni pubblicazione importante; sul sito ogni giorno</td></tr>
+      <tr><td>Volume dei noduli polmonari</td><td>Il volume semiautomatico si misura su 140 noduli di 30 TC, cliccando al centro indicato dalla seconda lettura dell'IA, e si confronta con il volume dell'IA: deve restare entro il doppio o la metà in almeno il 60% dei noduli (oggi 65%; prima della versione 1.270 era il 4%). Si controllano anche il «segui nel tempo» su due TC a un anno e la traccia di lettura mostrata dopo la risposta.</td><td>prima di ogni pubblicazione importante</td></tr>
+      <tr><td>Date e fusi orari</td><td>Le scadenze dei compiti finiscono alle 23:59 di Roma con l'ora legale giusta; promemoria e ripassi si contano sul calendario anche a cavallo del cambio d'ora, a fine mese, a fine anno e il 29 febbraio, qualunque sia il fuso orario del server.</td><td>a ogni modifica del codice</td></tr>
+      <tr><td>Scansione di sicurezza</td><td>OWASP ZAP visita le pagine e le funzioni del server in prova, anche con l'accesso del docente, e prova gli attacchi più comuni: iniezione di codice, cross-site scripting, cartelle e file esposti, cookie e intestazioni insicure.</td><td>prima di ogni pubblicazione importante</td></tr>
+      <tr><td>Configurazione del cloud</td><td>Controllo in sola lettura degli archivi (non pubblici e cifrati), del backup continuo del database, dell'autenticazione a due fattori, delle chiavi di accesso e della distribuzione solo in HTTPS.</td><td>prima di ogni pubblicazione importante</td></tr>
+      <tr><td>Link e librerie</td><td>Ogni settimana si controlla che i link esterni citati nei casi (DOI, archivi delle immagini, licenze) funzionino ancora. Le librerie usate sono sorvegliate in automatico: se ne esce una vulnerabilità nota, arriva un avviso con la correzione.</td><td>ogni settimana e in automatico</td></tr>
+      <tr><td>Confronto delle schermate</td><td>Undici pagine (home, elenco dei casi, visualizzatore, telefono, client, pagine informative, inglese, tema scuro) fotografate e confrontate pixel per pixel con l'ultima versione buona: si vedono le rotture grafiche che le prove di funzionamento non notano.</td><td>a ogni gruppo di modifiche</td></tr>
+      <tr><td>Test dei test</td><td>Si introducono apposta migliaia di piccoli errori nell'anonimizzazione e nella correzione delle risposte e si conta quanti vengono scoperti dai test. Gli errori che passano inosservati indicano i controlli da aggiungere.</td><td>periodicamente</td></tr>
+      <tr><td>Traduzioni</td><td>Ogni testo dell'interfaccia ha la traduzione inglese, con la stessa struttura e gli stessi segnaposto.</td><td>prima di ogni pubblicazione</td></tr>
+      <tr><td>Verifica dal sito</td><td>Dopo la pubblicazione, sul sito vero: la pagina si apre, senza codice l'accesso resta chiuso, le immagini di un caso non aperto restano chiuse, lo studente non legge le risposte né vede gli altri account. Si controllano anche le intestazioni di sicurezza e che i file non pubblici (archivio del codice, copie di riserva, test) non siano raggiungibili. Lo stesso controllo, con la scadenza del certificato e del dominio e i record che fanno arrivare le email (SPF, DKIM, DMARC), si ripete in automatico ogni giorno.</td><td>dopo ogni pubblicazione e ogni giorno</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muto">Le prove si fanno su un simulatore locale del sito, con account di prova. Sul sito vero si usa solo la verifica dell'ultima riga, con un account di prova creato ed eliminato subito dopo.</p>
+
+  <h2 id="codice">4. Qualità del codice</h2>
+  <ul>
+    <li><b>Controlli prima di ogni modifica.</b> Prima che una modifica entri nell'archivio del codice si controlla in automatico che non contenga:
+      <ul>
+        <li>password, chiavi o token;</li>
+        <li>file DICOM, riconosciuti anche se rinominati: le immagini non entrano mai nell'archivio del codice;</li>
+        <li>errori di programmazione (ESLint);</li>
+        <li>errori negli script (ShellCheck).</li>
+      </ul>
+      Si eseguono anche i test veloci.</li>
+    <li><b>Prove ripetute su un server indipendente.</b> A ogni modifica gli stessi controlli e tutti i test che non richiedono le immagini dei casi ripartono su un server di GitHub, partendo da una copia pulita.</li>
+    <li><b>Copertura dei test.</b> Si misura quali righe del codice vengono eseguite dai test: oggi l'<span class="num">86%</span> nei moduli provati senza browser (correzione, anonimizzazione, referto, analisi, scale, server) e circa la <span class="num">metà</span> del visualizzatore, misurata nel browser durante le prove. Le parti meno coperte sono le prime candidate per nuovi test.</li>
+    <li><b>Nessun segreto nel codice.</b> L'intera storia dell'archivio è stata controllata: nessuna chiave o password vi compare.</li>
+    <li><b>Due copie dell'archivio</b>, su due servizi diversi, come copia di sicurezza.</li>
+  </ul>
+
+  <h2 id="sicurezza">5. Sicurezza</h2>
+  <ul>
+    <li><b>Password.</b> Sono conservate solo come impronta (scrypt con sale), devono avere almeno 10 caratteri con lettere e un numero o un simbolo. Dopo 5 tentativi sbagliati l'accesso si blocca per 15 minuti.</li>
+    <li><b>Link inviati per email.</b> Sono monouso e scadono: la conferma dopo 48 ore, il cambio di password dopo un'ora. Iscrizione, conferma, nuova password e blocco dopo i tentativi sbagliati sono provati a ogni modifica seguendo i link come farebbe una persona. Un indirizzo già iscritto riceve la stessa risposta di uno nuovo, così non si scopre chi è iscritto.</li>
+    <li><b>Sessioni.</b> Usano un cookie tecnico protetto (HttpOnly, Secure, SameSite). Un cambio di password chiude le altre sessioni.</li>
+    <li><b>Permessi, provati dai test a ogni pubblicazione.</b>
+      <ul>
+        <li>Lo studente non riceve la soluzione, le note né il titolo interno del caso prima di rispondere.</li>
+        <li>Il punteggio lo calcola il server.</li>
+        <li>Il docente vede solo gli studenti che lo hanno scelto.</li>
+        <li>Le immagini di un caso si aprono solo dopo averlo aperto.</li>
+      </ul></li>
+    <li><b>Pagina protetta dal browser.</b> I criteri di sicurezza dei contenuti (CSP) vietano gli script inseriti nella pagina e quelli di terzi. Le intestazioni di sicurezza (HSTS, protezione dall'incorniciamento, nessun accesso a fotocamera e posizione) sono attive. Un test controlla che nella pagina non compaiano script inseriti.</li>
+    <li><b>Testo dell'utente.</b> Ciò che si scrive nel referto resta testo: i test verificano che non possa diventare codice nella pagina, nel PDF o nel file Word.</li>
+    <li><b>Conservazione dei dati, provata dai test.</b> Le iscrizioni mai confermate si cancellano dopo una settimana. Un account inattivo da 24 mesi si cancella solo dopo un avviso inviato un mese prima, e le sue risposte restano in forma anonima. Nelle piattaforme delle aziende decide l'amministratore.</li>
+    <li><b>Diritti dell'utente, provati dai test.</b> «Scarica i miei dati» produce un file con profilo e risposte, senza impronte delle password né gettoni. La cancellazione dell'account richiede la password, rende anonime le risposte e toglie la persona da chi l'aveva scelta come docente.</li>
+    <li><b>Nessun tracciamento di terzi.</b> Solo cookie tecnici.</li>
+  </ul>
+
+  <h2 id="pubblicazione">6. Come si pubblica una nuova versione</h2>
+  <ol>
+    <li>Le modifiche passano i controlli automatici prima di entrare nell'archivio del codice; poi i test ripartono su GitHub.</li>
+    <li>La pubblicazione riesegue tutti i test: se uno solo fallisce, si ferma e il sito resta com'era.</li>
+    <li>I file del sito vengono ridotti di peso, ricontrollati e caricati; ogni versione ha un numero progressivo.</li>
+    <li>Subito dopo, una verifica sul sito vero controlla accesso, permessi e immagini.</li>
+  </ol>
+
+  <h2 id="limiti">7. Limiti noti</h2>
+  <ul>
+    <li>I test usano dati inventati e casi di archivi pubblici: dimostrano che il software si comporta come previsto in quelle situazioni, non che sia privo di errori.</li>
+    <li>Circa metà del codice del visualizzatore non è ancora toccata da nessuna prova automatica: si estende man mano, partendo dalle parti più delicate.</li>
+    <li>I controlli automatici di accessibilità non sostituiscono le prove con persone che usano tecnologie assistive.</li>
+    <li>Le proposte e le correzioni dell'IA possono essere sbagliate: vanno sempre verificate con la propria lettura.</li>
+    <li>L'anonimizzazione automatica riduce molto il rischio ma non lo annulla: per questo un caso diventa visibile solo dopo i controlli descritti sopra e la decisione dell'amministratore.</li>
+  </ul>
+
+  <h2 id="strumenti">8. Strumenti usati per i controlli</h2>
+  <p>Tutti open source. Servono solo a controllare il software e non vengono distribuiti con il sito. Le librerie del sito sono in <a href="licenze.html">Licenze e crediti</a>.</p>
+  <div class="scorri"><table class="tab">
+    <thead><tr><th>Strumento</th><th>Licenza</th><th>A cosa serve</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://nodejs.org/api/test.html">Node.js test runner</a></td><td class="lic">MIT</td><td>test di unità e di non regressione</td></tr>
+      <tr><td><a href="https://github.com/microsoft/playwright">Playwright</a> con Chromium</td><td class="lic">Apache-2.0</td><td>test nel browser</td></tr>
+      <tr><td><a href="https://github.com/dequelabs/axe-core">axe-core</a></td><td class="lic">MPL-2.0</td><td>accessibilità (WCAG)</td></tr>
+      <tr><td><a href="https://github.com/eslint/eslint">ESLint</a></td><td class="lic">MIT</td><td>errori nel codice JavaScript</td></tr>
+      <tr><td><a href="https://github.com/bcoe/c8">c8</a></td><td class="lic">ISC</td><td>copertura dei test</td></tr>
+      <tr><td><a href="https://github.com/gitleaks/gitleaks">gitleaks</a></td><td class="lic">MIT</td><td>ricerca di password e chiavi nel codice</td></tr>
+      <tr><td><a href="https://github.com/koalaman/shellcheck">ShellCheck</a></td><td class="lic">GPL-3.0</td><td>errori negli script</td></tr>
+      <tr><td><a href="https://github.com/tesseract-ocr/tesseract">Tesseract OCR</a></td><td class="lic">Apache-2.0</td><td>testo impresso nelle immagini</td></tr>
+      <tr><td><a href="https://github.com/pydicom/pydicom">pydicom</a></td><td class="lic">MIT</td><td>controlli dei file DICOM sul computer di preparazione</td></tr>
+      <tr><td><a href="https://github.com/GoogleChrome/lighthouse">Lighthouse</a></td><td class="lic">Apache-2.0</td><td>tempi di caricamento</td></tr>
+      <tr><td><a href="https://www.zaproxy.org/">OWASP ZAP</a></td><td class="lic">Apache-2.0</td><td>scansione di sicurezza</td></tr>
+      <tr><td><a href="https://github.com/dubzzz/fast-check">fast-check</a></td><td class="lic">MIT</td><td>test con regole su dati generati a caso</td></tr>
+      <tr><td><a href="https://github.com/istanbuljs/istanbuljs">istanbul</a></td><td class="lic">BSD-3-Clause</td><td>strumentazione della copertura nel browser</td></tr>
+      <tr><td><a href="https://github.com/stryker-mutator/stryker-js">StrykerJS</a></td><td class="lic">Apache-2.0</td><td>test dei test (mutation testing)</td></tr>
+      <tr><td><a href="https://github.com/mapbox/pixelmatch">pixelmatch</a></td><td class="lic">ISC</td><td>confronto delle schermate</td></tr>
+      <tr><td><a href="https://github.com/evanw/esbuild">esbuild</a></td><td class="lic">MIT</td><td>riduzione del peso dei file e misura delle prestazioni</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="segnalazioni">9. Segnalazioni</h2>
+  <p>Hai trovato un errore in un caso, un problema di sicurezza o un dato che non dovrebbe esserci? Scrivi a <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a>; per la privacy a <a href="mailto:privacy@radio-quiz.it">privacy@radio-quiz.it</a>. Le segnalazioni di sicurezza vengono trattate con priorità: ti chiediamo di non divulgarle prima che il problema sia corretto.</p>
+  <p class="muto">Pagina aggiornata a novembre 2026.</p>
+</main>
+</body>
+</html>

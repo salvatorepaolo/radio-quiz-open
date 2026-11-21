@@ -1,0 +1,12 @@
+import { spawn } from 'node:child_process'; import { createRequire } from 'node:module';
+const T = '/Volumes/Caloggero/piattaforma-quiz/cloud/test/';
+const { chromium } = createRequire(T + 'package.json')('playwright');
+const PORTA = 19100 + Math.floor(Math.random() * 90), B = `http://localhost:${PORTA}`;
+const sim = spawn(process.execPath, [T + 'simulatore.mjs'], { env: { ...process.env, PORTA: String(PORTA), CASI: '/Volumes/Caloggero/piattaforma-quiz/casi-free' }, stdio: ['ignore', 'pipe', 'inherit'] });
+await new Promise((r) => sim.stdout.on('data', (d) => { if (/pronto/.test(d)) r(); }));
+const b = await chromium.launch();
+const a = await (await b.newContext({ viewport: { width: 1400, height: 900 } })).newPage();
+await a.goto(B + '/?prova#/'); await a.click('[data-vai="codice"]'); await a.fill('#codice', 'admin-test-0000'); await a.press('#codice', 'Enter'); await a.waitForSelector('#vista-elenco:not([hidden])');
+await a.goto(B + '/?prova#/caso/caso-tcia-001'); await a.waitForFunction(() => window.__dbg?.V?.img, null, { timeout: 60000 }); await a.waitForTimeout(1000);
+console.log(JSON.stringify(await a.evaluate(() => { const e = document.querySelector('#cl-finestra'); const r = e.getBoundingClientRect(); return { vis: !!e.offsetParent, hidden: e.hidden, r: [r.x, r.y, r.width], parent: e.parentElement.className, disp: getComputedStyle(e).display }; })));
+await b.close(); sim.kill(); process.exit(0);

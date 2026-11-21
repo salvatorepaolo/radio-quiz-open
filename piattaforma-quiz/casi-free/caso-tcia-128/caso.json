@@ -1,0 +1,243 @@
+{
+ "id": "caso-tcia-128",
+ "visibile": true,
+ "titolo": "TC multifasica del fegato: nodulo in paziente con cirrosi da HCV",
+ "titolo_interno": "Epatocarcinoma tipico LI-RADS LR-5 del segmento 8 (circa 7,5 cm): iperenhancement arterioso a mosaico, wash-out e capsula (HCC-TACE-Seg HCC_062)",
+ "distretto": "Fegato",
+ "quesito": "nodulo epatico in cirrosi",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 71 anni con cirrosi epatica da HCV, classe Child-Pugh A. Alfa-fetoproteina 38.531 ng/ml. TC del fegato senza contrasto e dopo mezzo di contrasto in fase arteriosa tardiva e portale.",
+ "domanda": "Valuta la tecnica, descrivi la lesione (sede, dimensioni, comportamento nelle fasi), assegna la categoria LI-RADS e proponi la conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica",
+   "domanda": "L'esame è adatto alla caratterizzazione di un nodulo in cirrosi?"
+  },
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "LI-RADS",
+   "domanda": "Quale categoria LI-RADS assegni alla lesione?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Esame multifasico adeguato: basale, fase arteriosa tardiva (aorta molto opacizzata, vena porta già opacizzata) e fase portale",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "In fase arteriosa l'aorta è circa 420 HU e i rami portali sono già opacizzati: fase arteriosa tardiva, la migliore per vedere l'iperenhancement dell'epatocarcinoma. Manca la fase tardiva (3 minuti), che non è indispensabile in TC."
+  },
+  {
+   "testo": "Manca una vera fase arteriosa tardiva (la porta non è opacizzata): l'esame non è valutabile secondo LI-RADS (LR-NC)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "La serie 2 è una fase arteriosa tardiva vera: aorta intensamente opacizzata, parenchima poco impregnato."
+  },
+  {
+   "testo": "La seconda serie post-contrasto è una fase tardiva di equilibrio, non una fase portale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "In quella serie la vena porta e le vene sovraepatiche sono ben opacizzate e l'aorta circa 200 HU: è la fase portale."
+  },
+  {
+   "testo": "Voluminosa lesione nodulare di circa 7,5-8 cm alla cupola del lobo destro (segmento 8), con iperenhancement arterioso eterogeneo «a mosaico» non ad anello e wash-out in fase portale",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Segmentazione degli esperti della collezione: circa 6,7 × 7,9 cm sul piano assiale, 6 cm in senso cranio-caudale (volume circa 140 ml). Densità mediane: basale 44 HU (fegato 64), arteriosa 115 HU (fegato 89), portale 117 HU (fegato 152)."
+  },
+  {
+   "testo": "Capsula: orletto periferico liscio che impregna in fase portale attorno alla lesione",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Ben visibile in fase portale (immagini 21-26 circa)."
+  },
+  {
+   "testo": "In basale la lesione è ipodensa rispetto al fegato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Vena porta e rami principali opacizzati, senza tessuto che impregna nel lume",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Nessun criterio di LR-TIV; la collezione non riporta invasione vascolare."
+  },
+  {
+   "testo": "Impregnazione periferica a noduli discontinui con riempimento centripeto, isodensa al sangue in tutte le fasi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "È il comportamento dell'emangioma; qui l'impregnazione è a mosaico in arteriosa e la lesione diventa ipodensa in portale."
+  },
+  {
+   "testo": "Iperenhancement arterioso ad anello con wash-out solo periferico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Sarebbero criteri LR-M (colangiocarcinoma, forme atipiche); qui l'iperenhancement interessa tutta la lesione, a mosaico."
+  },
+  {
+   "testo": "Trombosi neoplastica del ramo portale destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "LR-5 (sicuramente epatocarcinoma)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "≥ 20 mm con APHE non ad anello e almeno un criterio maggiore aggiuntivo (qui wash-out e capsula) = LR-5."
+  },
+  {
+   "testo": "LR-4 (probabilmente epatocarcinoma)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Sarebbe LR-4 una lesione ≥ 20 mm con APHE senza alcun criterio aggiuntivo, o senza APHE con wash-out o capsula."
+  },
+  {
+   "testo": "LR-M (maligna, non specifica per epatocarcinoma)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Non ci sono aspetti a bersaglio: iperenhancement non ad anello e wash-out non periferico."
+  },
+  {
+   "testo": "LR-3 (probabilità intermedia)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": ""
+  },
+  {
+   "testo": "Epatocarcinoma (LI-RADS LR-5) di circa 7,5-8 cm del segmento 8 in fegato cirrotico, senza invasione vascolare evidente: diagnosi non invasiva, la biopsia non serve; discussione multidisciplinare per il trattamento",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": ""
+  },
+  {
+   "testo": "Nodulo di quasi 8 cm in cirrosi: biopsia obbligatoria prima di qualunque decisione terapeutica, anche se i criteri LI-RADS LR-5 sono soddisfatti",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "In un paziente cirrotico una lesione LR-5 è diagnostica di epatocarcinoma senza istologia (AASLD, EASL)."
+  },
+  {
+   "testo": "Metastasi epatica ipervascolare (da tumore neuroendocrino, rene o melanoma): cercare il tumore primitivo con TC torace-addome e PET",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "In cirrosi le metastasi sono rare; APHE con wash-out e capsula sono specifici dell'epatocarcinoma."
+  },
+  {
+   "testo": "Nodulo displastico di alto grado del segmento 8 in fegato cirrotico, senza wash-out convincente né capsula e con impregnazione arteriosa debole: nessun trattamento, controllo con ecografia tra 6 mesi e RM se cresce",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Un nodulo di 8 cm con APHE e wash-out non è un nodulo displastico."
+  }
+ ],
+ "spiegazione": "Nel paziente a rischio (cirrosi, epatite B cronica, epatocarcinoma pregresso) l'epatocarcinoma si diagnostica con l'imaging senza biopsia, se la lesione ha i criteri maggiori LI-RADS: iperenhancement in fase arteriosa non ad anello (APHE), wash-out non periferico (la lesione diventa più scura del fegato in fase portale o tardiva), capsula che impregna e crescita oltre la soglia. Una lesione ≥ 20 mm con APHE e almeno un altro criterio è LR-5.\nQui ci sono tutti gli aspetti tipici: ipodensità in basale, impregnazione arteriosa eterogenea «a mosaico» (aree che impregnano separate da setti, con aspetto di nodulo nel nodulo), wash-out e capsula in fase portale.\nTrappole: 1) la fase arteriosa deve essere tardiva (rami portali già opacizzati); in fase arteriosa precoce l'APHE può sfuggire. 2) Il wash-out si giudica rispetto al fegato, non rispetto all'arteriosa: in portale la lesione ha la stessa densità assoluta, ma il fegato attorno impregna molto di più. 3) La dimensione si misura da margine esterno a margine esterno, compresa la capsula. 4) Iperenhancement ad anello, wash-out periferico o restrizione a bersaglio orientano a LR-M (colangiocarcinoma, metastasi). 5) Prima di classificare, controllare sempre vena porta e sovraepatiche: tessuto che impregna nel lume = LR-TIV, che cambia stadio e terapia.\nLa sede si descrive per segmenti di Couinaud: le vene sovraepatiche separano i settori (la media tra destro e sinistro, la destra tra settore anteriore 5-8 e posteriore 6-7), il piano della biforcazione portale separa i segmenti superiori (7, 8, 4a) da quelli inferiori (6, 5, 4b). Questa lesione è sopra la biforcazione portale, lateralmente alla vena sovraepatica media, nel settore anteriore destro: segmento 8.",
+ "regola": "In cirrosi, nodulo ≥ 2 cm con iperenhancement arterioso non ad anello e wash-out (o capsula) = LR-5: epatocarcinoma senza biopsia; controlla sempre la vena porta.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Epatocarcinoma moderatamente-scarsamente differenziato, nodulo singolo di 7,3 cm senza invasione vascolare, linfonodi o metastasi; cirrosi HCV, Child-Pugh A, AFP 38.531 ng/ml; BCLC B secondo la collezione. Trattato con chemioembolizzazione transarteriosa (TACE): è il criterio di inclusione della collezione HCC-TACE-Seg."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "HCC-TACE-Seg",
+  "soggetto": "HCC_062",
+  "doi": "10.7937/TCIA.5FNA-0924",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Moawad A. W., Fuentes D., Morshid A., Khalaf A. M., Elmohr M. M., Abusaif A., Hazle J. D., Kaseb A. O., Hassan M., Mahvash A., Szklaruk J., Qayyom A., Elsayes K. (2021). Multimodality annotated HCC cases with and without advanced imaging segmentation [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/TCIA.5FNA-0924",
+  "url": "https://www.cancerimagingarchive.net/collection/hcc-tace-seg/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  2
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 23,
+  "wc": 80,
+  "ww": 300,
+  "zoom": 1.5,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 105,
+    "y": 173
+   },
+   "b": {
+    "x": 200,
+    "y": 285
+   }
+  },
+  "nota": "Iperenhancement arterioso a mosaico della lesione del segmento 8; in fase portale wash-out e capsula"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "epatocarcinoma"
+  ],
+  "motivo": "Nuova diagnosi di epatocarcinoma senza complicanze acute: informare il curante e avviare la discussione multidisciplinare in tempi brevi."
+ },
+ "scale": [
+  {
+   "id": "lirads",
+   "valori": {
+    "sede": [
+     "S8"
+    ],
+    "rischio": "si",
+    "pre": "algo",
+    "d": 78,
+    "aphe": "si",
+    "wo": "si",
+    "caps": "si",
+    "cresc": "no",
+    "anc": ""
+   },
+   "valore": "LR-5",
+   "testo": "LI-RADS LR-5 (78 mm, APHE non ad anello presente, wash-out, capsula): epatocarcinoma certo: discussione multidisciplinare per il trattamento, la biopsia non serve. Sede: segmento VIII."
+  }
+ ],
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: Verificato sulle immagini: lesione del segmento 8 (settore anteriore, sopra la biforcazione portale, segmento 7 risparmiato), circa 6,5 × 8 cm; densità misurate (ROI) basale 46/fegato 62, arteriosa 120/80 (aorta 403), portale 122/145 (aorta 196): APHE non ad anello a mosaico, wash-out e capsula in portale → LR-5 coerente con la scheda; vena porta pervia, nessun testo nei pixel, serie e vista adatte. Corretti solo il testo della scheda LI-RADS (sede «segmento VIII», tolto «accettabile 7/4a») e la nota sul segmento; reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione).\nNote minori: 1) segmento: verificato in revisione che la lesione (fase portale img 14-35 circa) è sopra la biforcazione portale, nel settore anteriore destro, con parenchima del settore posteriore (segmento 7) risparmiato: segmento 8; 2) la capsula è ben visibile in portale nelle immagini 21-26, meno in quelle più caudali; 3) la morfologia del fegato non mostra segni evidenti di cirrosi (contorni abbastanza regolari): la cirrosi è un dato clinico della collezione; 4) manca la fase tardiva; 5) BCLC B secondo la collezione nonostante nodulo singolo (probabilmente per le dimensioni).\nHCC-TACE-Seg HCC_062 (IDC hcc_tace_seg, CC BY 4.0), TC basale pre-TACE: PRE LIVER (79 img), Recon 2 fase arteriosa (111 img), Recon 3 fase portale (111 img), 2,5 mm. Clinica (tabella TCIA V2): F 71, HCV, cirrosi sì, Child A, istologia moderately-poorly differentiated, Tr_Size 7,3 cm, uninodulare, invasione vascolare 0, trombosi portale 0, metastasi 0, AFP 38531,6, TNM I, BCLC B. Segmentazione esperti (SEG 'Mass'): z da -223 a -165,5 mm, 6,7 × 7,9 × 6 cm, circa 141 ml; HU mediane massa/fegato perilesionale: basale 44/64, arteriosa 115/89 (aorta 418), portale 117/152 (aorta 201). Scartato per questo numero HCC_050 (wash-out non dimostrabile: lesione quasi isodensa in portale, sarebbe LR-4).",
+ "aggiornato": "2026-11-06 05:33",
+ "rassegna": [
+  {
+   "caso": "caso-tcia-139",
+   "testo": "vetrino: carcinoma epatocellulare ben differenziato (trabecole, arterie «spaiate», cellule chiare)"
+  }
+ ]
+}

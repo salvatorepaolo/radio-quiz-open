@@ -1,0 +1,7 @@
+volume (414, 414, 267) riquadro [15 80 14] [392 354 267] pad [384 288 256] 1.3s
+finestre 24, 325.8s (13.58s/finestra)
+totale 327.6s, 4 candidati
+{'lps': [-82.8, 9.5, -217.8], 'd': 14.3, 's': 1.0} dist. dal nodulo noto più vicino 1.4 mm
+{'lps': [85.7, -11.6, -181.5], 'd': 12.2, 's': 1.0} dist. dal nodulo noto più vicino 1.5 mm
+{'lps': [-46.3, -38.5, -75.8], 'd': 6.4, 's': 0.997} dist. dal nodulo noto più vicino 2.1 mm
+{'lps': [70.8, -54.5, -105.7], 'd': 6.5, 's': 0.996} dist. dal nodulo noto più vicino 2.2 mm

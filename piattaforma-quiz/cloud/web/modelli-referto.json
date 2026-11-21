@@ -1,0 +1,219 @@
+{
+ "nota": "Modelli di referto strutturato per distretto. I titoli in MAIUSCOLO seguiti da «:» e i segnaposto «…» non contano nella valutazione automatica del referto.",
+ "modelli": [
+  {
+   "id": "tc-torace",
+   "nome": "TC torace",
+   "metodiche": [
+    "TC"
+   ],
+   "distretti": [
+    "Torace"
+   ],
+   "testo": "TECNICA: …\nCONFRONTO: …\nPARENCHIMA POLMONARE: …\nNODULI: …\nVIE AEREE: …\nPLEURA: …\nMEDIASTINO E ILI: …\nCUORE E GRANDI VASI: …\nPARETE TORACICA E OSSA: …\nADDOME SUPERIORE INCLUSO: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "tc-addome",
+   "nome": "TC addome e pelvi",
+   "metodiche": [
+    "TC"
+   ],
+   "distretti": [
+    "Addome",
+    "Fegato",
+    "Rene",
+    "Pancreas",
+    "Stomaco",
+    "Surrene",
+    "Pelvi"
+   ],
+   "testo": "TECNICA E FASI: …\nCONFRONTO: …\nFEGATO: …\nVIE BILIARI E COLECISTI: …\nPANCREAS: …\nMILZA: …\nSURRENI: …\nRENI E VIE URINARIE: …\nSTOMACO E INTESTINO: …\nLINFONODI: …\nPERITONEO E VERSAMENTO: …\nVASI: …\nORGANI PELVICI: …\nOSSA E PARETI: …\nBASI POLMONARI: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "tc-encefalo",
+   "nome": "TC encefalo",
+   "metodiche": [
+    "TC"
+   ],
+   "distretti": [
+    "Encefalo"
+   ],
+   "testo": "TECNICA: …\nCONFRONTO: …\nPARENCHIMA CEREBRALE: …\nSOSTANZA BIANCA: …\nSPAZI LIQUORALI E LINEA MEDIANA: …\nRACCOLTE EXTRA-ASSIALI: …\nFOSSA CRANICA POSTERIORE: …\nTECA CRANICA E SENI PARANASALI: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-encefalo",
+   "nome": "RM encefalo",
+   "metodiche": [
+    "RM"
+   ],
+   "distretti": [
+    "Encefalo"
+   ],
+   "testo": "TECNICA E SEQUENZE: …\nCONFRONTO: …\nPARENCHIMA E SOSTANZA BIANCA: …\nDIFFUSIONE: …\nIMPREGNAZIONE DOPO CONTRASTO: …\nSPAZI LIQUORALI E LINEA MEDIANA: …\nFOSSA CRANICA POSTERIORE: …\nVUOTI DI FLUSSO: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-prostata",
+   "nome": "RM prostata (PI-RADS v2.1)",
+   "metodiche": [
+    "RM"
+   ],
+   "distretti": [
+    "Prostata"
+   ],
+   "testo": "TECNICA (T2, DWI/ADC, DCE): …\nQUALITA' DELL'ESAME: …\nVOLUME PROSTATICO E PSA-DENSITY: …\nZONA PERIFERICA: …\nZONA DI TRANSIZIONE: …\nLESIONE INDICE (SEDE E DIMENSIONI): …\nT2: …\nDWI/ADC: …\nDCE: …\nCATEGORIA PI-RADS: …\nCAPSULA E VESCICOLE SEMINALI: …\nLINFONODI E OSSA: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-pelvi",
+   "nome": "RM pelvi femminile (cervice, FIGO)",
+   "metodiche": [
+    "RM"
+   ],
+   "distretti": [
+    "Pelvi"
+   ],
+   "testo": "TECNICA E SEQUENZE: …\nUTERO E CERVICE: …\nLESIONE (SEDE E DIMENSIONI): …\nPARAMETRI: …\nVAGINA: …\nVESCICA E RETTO: …\nURETERI: …\nLINFONODI PELVICI E LOMBOAORTICI: …\nOVAIE: …\nSTADIO FIGO: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "mammografia",
+   "nome": "Mammografia (BI-RADS)",
+   "metodiche": [
+    "Mammografia"
+   ],
+   "distretti": [
+    "Mammella"
+   ],
+   "testo": "TECNICA E PROIEZIONI: …\nCONFRONTO: …\nCOMPOSIZIONE (DENSITA'): …\nMAMMELLA DESTRA: …\nMAMMELLA SINISTRA: …\nCALCIFICAZIONI: …\nCUTE, CAPEZZOLO E CAVI ASCELLARI: …\nBI-RADS DESTRA: …\nBI-RADS SINISTRA: …\nCONCLUSIONI E INDICAZIONI: …"
+  },
+  {
+   "id": "rx-torace",
+   "nome": "RX torace",
+   "metodiche": [
+    "RX"
+   ],
+   "distretti": [
+    "Torace"
+   ],
+   "testo": "TECNICA E PROIEZIONI: …\nCONFRONTO: …\nPARENCHIMA POLMONARE: …\nSENI COSTOFRENICI E PLEURA: …\nILI E MEDIASTINO: …\nOMBRA CARDIACA: …\nSCHELETRO E PARTI MOLLI: …\nDISPOSITIVI: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "pet-fdg",
+   "nome": "PET-TC FDG",
+   "metodiche": [
+    "Medicina nucleare"
+   ],
+   "distretti": [],
+   "testo": "TECNICA (GLICEMIA, ATTIVITA', TEMPO): …\nCONFRONTO: …\nRIFERIMENTI (SUV MEDIASTINO E FEGATO): …\nCOLLO: …\nTORACE: …\nADDOME E PELVI: …\nSCHELETRO E MIDOLLO: …\nCAPTAZIONI FISIOLOGICHE O NON SPECIFICHE: …\nDEAUVILLE (LINFOMA): …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "eco-addome",
+   "nome": "Ecografia addome",
+   "metodiche": [
+    "Ecografia"
+   ],
+   "distretti": [
+    "Addome"
+   ],
+   "testo": "TECNICA: …\nFEGATO: …\nVIE BILIARI E COLECISTI: …\nPANCREAS: …\nMILZA: …\nRENI: …\nAORTA: …\nVESCICA: …\nLIQUIDO LIBERO: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rx-msk",
+   "nome": "RX muscolo-scheletrico (trauma)",
+   "metodiche": [
+    "RX"
+   ],
+   "distretti": [
+    "Muscolo-scheletrico"
+   ],
+   "testo": "TECNICA E PROIEZIONI: …\nCONFRONTO: …\nALLINEAMENTO E RAPPORTI ARTICOLARI: …\nCORTICALI E LINEE DI FRATTURA: …\nCARTILAGINI DI ACCRESCIMENTO (ETÀ EVOLUTIVA): …\nSPAZI ARTICOLARI: …\nPARTI MOLLI: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-msk",
+   "nome": "RM muscolo-scheletrica (articolazioni e parti molli)",
+   "metodiche": [
+    "RM"
+   ],
+   "distretti": [
+    "Muscolo-scheletrico"
+   ],
+   "testo": "TECNICA E SEQUENZE: …\nCONFRONTO: …\nOSSO E MIDOLLO OSSEO: …\nCARTILAGINE E SPAZI ARTICOLARI: …\nMENISCHI / LABBRO / FIBROCARTILAGINI: …\nLEGAMENTI E TENDINI: …\nMUSCOLI E PARTI MOLLI: …\nVERSAMENTO E SINOVIA: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "tc-rachide",
+   "nome": "TC rachide",
+   "metodiche": [
+    "TC"
+   ],
+   "distretti": [
+    "Rachide"
+   ],
+   "testo": "TECNICA: …\nCONFRONTO: …\nALLINEAMENTO: …\nSOMI VERTEBRALI: …\nELEMENTI POSTERIORI: …\nDISCHI E CANALE VERTEBRALE: …\nFORAMI DI CONIUGAZIONE: …\nPARTI MOLLI PARAVERTEBRALI: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-addome",
+   "nome": "RM addome (fegato, vie biliari, pancreas, reni)",
+   "metodiche": [
+    "RM"
+   ],
+   "distretti": [
+    "Addome",
+    "Fegato",
+    "Rene",
+    "Pancreas",
+    "Surrene"
+   ],
+   "testo": "TECNICA E SEQUENZE: …\nCONFRONTO: …\nFEGATO: …\nVIE BILIARI E COLECISTI: …\nPANCREAS: …\nMILZA: …\nSURRENI: …\nRENI: …\nLINFONODI: …\nVASI: …\nLIQUIDO LIBERO: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-mammella",
+   "nome": "RM mammella (BI-RADS)",
+   "metodiche": [
+    "RM"
+   ],
+   "distretti": [
+    "Mammella"
+   ],
+   "testo": "INDICAZIONE E TECNICA: …\nCONFRONTO: …\nCOMPOSIZIONE E ENHANCEMENT DI FONDO (BPE): …\nMAMMELLA DESTRA: …\nMAMMELLA SINISTRA: …\nCINETICA: …\nCAVI ASCELLARI: …\nCATEGORIA BI-RADS: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-cuore",
+   "nome": "RM cardiaca",
+   "metodiche": [
+    "RM"
+   ],
+   "distretti": [
+    "Cuore"
+   ],
+   "testo": "TECNICA E SEQUENZE: …\nVENTRICOLO SINISTRO (VOLUMI, FE, MASSA): …\nVENTRICOLO DESTRO: …\nCINETICA SEGMENTARIA: …\nVALVOLE: …\nCARATTERIZZAZIONE TISSUTALE (T2, T1, ECV, T2*): …\nENHANCEMENT TARDIVO: …\nPERICARDIO: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "eco-collo",
+   "nome": "Ecografia del collo (tiroide)",
+   "metodiche": [
+    "Ecografia"
+   ],
+   "distretti": [
+    "Collo"
+   ],
+   "testo": "TECNICA: …\nTIROIDE: DIMENSIONI ED ECOSTRUTTURA: …\nNODULI (SEDE, DIMENSIONI, TI-RADS): …\nPARATIROIDI: …\nLINFONODI LATEROCERVICALI: …\nGHIANDOLE SALIVARI: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "ecocardio",
+   "nome": "Ecocardiogramma",
+   "metodiche": [
+    "Altro",
+    "Ecocardio"
+   ],
+   "distretti": [
+    "Cuore"
+   ],
+   "testo": "FINESTRE E QUALITÀ: …\nVENTRICOLO SINISTRO (DIMENSIONI, FE): …\nCINETICA SEGMENTARIA: …\nFUNZIONE DIASTOLICA: …\nVENTRICOLO DESTRO: …\nATRI: …\nVALVOLE: …\nPERICARDIO: …\nAORTA E VENA CAVA: …\nCONCLUSIONI: …"
+  },
+  {
+   "id": "rm-generica",
+   "nome": "Schema generico",
+   "metodiche": [],
+   "distretti": [],
+   "testo": "TECNICA: …\nCONFRONTO: …\nREPERTI: …\nCONCLUSIONI: …"
+  }
+ ]
+}

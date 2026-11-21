@@ -1,0 +1,121 @@
+{
+ "id": "caso-tcia-105",
+ "visibile": true,
+ "aggiornato": "2026-10-25 19:30",
+ "titolo": "Ecografia del fegato prima di una biopsia: paziente con melanoma",
+ "titolo_interno": "Noduli epatici ipoecogeni multipli in paziente con melanoma (probabili metastasi), ecografia di guida alla biopsia (CMB-MEL MSB-07848)",
+ "distretto": "Addome",
+ "quesito": "oncologico",
+ "modalita": "Ecografia",
+ "difficolta": "Base",
+ "anamnesi": "Paziente con melanoma, arruolato in un programma di biobanca che raccoglie tessuto tumorale. Ecografia del lobo destro del fegato eseguita per guidare una biopsia percutanea. Età, sesso e altri dati clinici non sono forniti dalla collezione.",
+ "domanda": "Descrivi il fegato e le lesioni bersaglio.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è l'interpretazione più probabile?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Noduli multipli ipoecogeni, solidi, rotondeggianti, di circa 1-1,5 cm, nel lobo destro del fegato",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Si vedono in quasi tutte le scansioni (per esempio immagini 0, 2, 3, 5)."
+  },
+  {
+   "testo": "Nessun segno evidente di epatopatia cronica: profilo superficiale regolare, parenchima di fondo non nodulare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Non ci sono segni evidenti di epatopatia cronica: in un fegato cirrotico i noduli farebbero pensare anzitutto all'epatocarcinoma. Nelle parti profonde (immagini 0, 4, 5) ci sono zone ipoecogene più ampie e mal definite: attenuazione del fascio o lesioni confluenti; non cambiano la conclusione."
+  },
+  {
+   "testo": "Noduli anecogeni a pareti sottili con rinforzo acustico posteriore: cisti semplici",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Sono ipoecogeni, non anecogeni, e non hanno rinforzo di parete posteriore."
+  },
+  {
+   "testo": "Un'unica lesione iperecogena omogenea a margini netti, come da emangioma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le lesioni sono più d'una e scure rispetto al parenchima."
+  },
+  {
+   "testo": "Dilatazione delle vie biliari intraepatiche, senza lesioni focali solide",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le strutture tubulari visibili sono vasi; non ci sono dotti dilatati paralleli ai rami portali."
+  },
+  {
+   "testo": "Metastasi epatiche multiple, probabili, da melanoma: la biopsia serve a confermarle e a raccogliere tessuto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Emangiomi epatici multipli iperecogeni a margini netti, tipici: lesioni benigne, nessun approfondimento né biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Gli emangiomi tipici sono iperecogeni; noduli ipoecogeni multipli in un paziente oncologico sono metastasi fino a prova contraria."
+  },
+  {
+   "testo": "Steatosi focale disomogenea (aree di risparmio): nessuna lesione vera, biopsia inutile",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La steatosi focale è iperecogena e ha sedi tipiche (vicino alla colecisti, al legamento falciforme); il risparmio focale è ipoecogena ma non forma noduli multipli rotondi."
+  }
+ ],
+ "spiegazione": "In un paziente con tumore noto, noduli solidi ipoecogeni multipli nel fegato sono metastasi fino a prova contraria. L'aspetto ecografico delle metastasi è vario: ipoecogene (le più frequenti), «a bersaglio» con alone ipoecogeno, iperecogene (tumori ipervascolari, carcinoide, colon) o cistiche. Nel melanoma sono spesso multiple e ipoecogene.\n\nDiagnosi differenziale: le cisti sono anecogene con rinforzo posteriore; gli emangiomi tipici sono iperecogeni e ben definiti; la steatosi focale e le aree di risparmio hanno sedi tipiche e non deformano i vasi. Il passo successivo è la stadiazione con TC o RM con mezzo di contrasto e, se serve una conferma istologica, la biopsia ecoguidata sul nodulo più accessibile, come in questo esame.",
+ "regola": "Noduli epatici solidi multipli in un paziente oncologico: metastasi fino a prova contraria.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Dati della collezione CMB-MEL (Cancer Moonshot Biobank): paziente con melanoma; ecografia eseguita per una biopsia del fegato. L'istologia del campione non è pubblica nei dati aperti."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CMB-MEL (Cancer Moonshot Biobank – Melanoma Collection)",
+  "soggetto": "MSB-07848",
+  "doi": "10.7937/GWSP-WH72",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Cancer Moonshot Biobank. (2022). Cancer Moonshot Biobank – Melanoma Collection (CMB-MEL) (Version 12) [dataset]. The Cancer Imaging Archive. https://doi.org/10.7937/gwsp-wh72. Data used in this publication were generated by the National Cancer Institute's Cancer Moonshot Biobank.",
+  "url": "https://www.cancerimagingarchive.net/collection/cmb-mel/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Noduli ipoecogeni multipli del lobo destro"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "metastasi"
+  ],
+  "motivo": "Esame eseguito per la biopsia in un paziente con tumore noto: basta il referto."
+ },
+ "nota_docente": "Caso creato da Claude il 25/10/2026 da CMB-MEL (IDC, CC BY 4.0), paziente MSB-07848, serie «US liver biopsy» (GE LOGIQ E9, 15 immagini): tolta un'immagine vuota (la quarta, solo artefatto); le altre 14 anonimizzate con anonimizza.py (aggiunta PlanarConfiguration=0 nelle due immagini color Doppler, che ne erano prive). Le calibrazioni (Ultrasound Regions) sono state tolte dall'anonimizzazione: niente misure in mm nel visualizzatore; le dimensioni (1-2 cm) sono stimate sulla scala di profondità (15 cm). Non è nota la sede esatta del prelievo né l'istologia. Nelle due immagini color Doppler (1 e 2) l'anonimizzazione ha portato il colore in scala di grigi: i segnali di flusso compaiono come macchie nere o bianche nella finestra colore (in 1 una macchia nera accanto a un nodulo), quindi non si può giudicare la vascolarizzazione. [revisione indipendente 25/10/2026] Controllato il 25/10/2026: viste tutte le 14 immagini: noduli ipoecogeni solidi multipli confermati; sulla scala di profondità misurano circa 1-1,5 cm (corretto da 1-2 cm). Riformulata l'opzione sul parenchima (non «omogeneo»: in profondità ci sono zone ipoecogene mal definite, attenuazione o lesioni confluenti), corretto «il risparmio focale», vista iniziale spostata sull'immagine 0 (la 1 è un color Doppler portato in grigi)."
+}

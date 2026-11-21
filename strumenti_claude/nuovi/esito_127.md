@@ -1,0 +1,11 @@
+# caso-tcia-127 — bozza 06/11/2026 (visibile: false)
+- Collezione: CPTAC-STAD (TCIA, via IDC), CC BY 4.0, DOI 10.7937/jw9a-8k71 (per licenze.html la riga è in esito_126.md)
+- Paziente: C3L-06418 (maschio, 68 anni alla diagnosi secondo GDC; età assente nel DICOM)
+- Serie: 'Body 1.0 CE abdomen CE' fase portale, 601 immagini da 1 mm, tenuta 1 ogni 3 (201 immagini, intervallo circa 2,4 mm).
+- Ecografia: scartata. L'unica ecografia della collezione (C3L-10231) è uno studio dell'aorta addominale (aorta distale dilatata di circa 4-5 cm con le misure dell'operatore) senza reperti gastrici. Per questo ho fatto un secondo caso TC con un quadro diverso: tumore prossimale invece che distale.
+- Diagnosi: adenocarcinoma gastrico del fondo, G3, pT4a pN1 (1/7), IIIA, 5 cm, R0 (GDC).
+- Verifica: massa solida della regione sottocardiale e del fondo (img ~26-38, circa 5-6 cm, ~58 HU), con il resto dello stomaco disteso da liquido; sede coerente con la GDC. Fegato senza lesioni evidenti.
+- Vista: serie 0, img 32, wc 50 / ww 350, riquadro sulla massa.
+- Dubbi: non è certo il rapporto con la giunzione esofago-gastrica (Siewert). Le aree ipodense a cuneo del polo superiore della milza (img ~18-26) sono una mia interpretazione (infarti?) e sono state messe come risposta corretta secondaria: da confermare o togliere. N1 non identificato; T4a non chiesto; anamnesi generica.
+- Percorsi adatti: oncologia, addome.
+- Controlli: verifica_casi e controlla.py senza errori (solo l'avviso atteso «DA CONTROLLARE»).

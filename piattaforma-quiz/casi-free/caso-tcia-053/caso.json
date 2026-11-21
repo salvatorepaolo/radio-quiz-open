@@ -1,0 +1,148 @@
+{
+ "id": "caso-tcia-053",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:25",
+ "titolo": "PET-TC con 68Ga-PSMA: controllo in carcinoma prostatico",
+ "titolo_interno": "Carcinoma prostatico con metastasi linfonodali pelviche, retroperitoneali e mediastiniche e metastasi ossea dell'ischio sinistro: risposta parziale alla PET-PSMA di controllo (malattia residua in 3 linfonodi e nell'ischio sinistro)",
+ "distretto": "Total body",
+ "quesito": "oncologico",
+ "modalita": "Medicina nucleare",
+ "difficolta": "Avanzato",
+ "anamnesi": "Uomo di 63 anni con carcinoma della prostata. PET-TC con 68Ga-PSMA di controllo, circa 6 mesi dopo la PET-TC PSMA precedente; terapia nel frattempo non indicata dalla collezione. Sono disponibili le immagini e il referto dell'esame precedente.",
+ "domanda": "Confronta con la PET-PSMA precedente sede per sede e concludi sulla risposta.",
+ "sezioni": [
+  {
+   "nome": "Confronto",
+   "domanda": "Che cosa è cambiato rispetto all'esame precedente?"
+  },
+  {
+   "nome": "Captazioni fisiologiche",
+   "domanda": "Quali accumuli NON sono malattia?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Netta riduzione della malattia: non captano più il grosso linfonodo del mediastino posteriore inferiore e gran parte dei linfonodi pelvici e retroperitoneali; molto ridotta la captazione della prostata",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "Nella segmentazione degli esperti la malattia passa da 15 lesioni (circa 200 mL, compresa la prostata) a 4 lesioni (circa 11 mL).",
+   "sezione": 0
+  },
+  {
+   "testo": "Persistono piccole lesioni captanti: tre linfonodi (due retroperitoneali e uno paraesofageo superiore) e un focus nell'ischio sinistro, già presente nel primo esame",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Malattia residua: va descritta sede per sede, con il SUVmax, per i controlli successivi. Il focus pelvico sinistro sta dentro l'ischio (colonna posteriore dell'acetabolo), non è un linfonodo otturatorio: controllalo sulla TC con la finestra per l'osso (SUVmax circa 24 nel primo esame, circa 9 nel controllo).",
+   "sezione": 0
+  },
+  {
+   "testo": "Nuove metastasi ossee multiple captanti nel bacino e nella colonna, non presenti nel primo esame, con linfonodi invariati",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Non ci sono lesioni ossee nuove: l'unica lesione ossea, nell'ischio sinistro, c'era già nel primo esame ed è ridotta.",
+   "sezione": 0
+  },
+  {
+   "testo": "Le lesioni sono aumentate di numero e di captazione, con nuovi linfonodi retroperitoneali e mediastinici rispetto al primo esame",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Captazione fisiologica intensa di reni, milza, fegato e intestino, con escrezione urinaria in vescica",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Il PSMA si accumula normalmente in ghiandole salivari e lacrimali, reni, milza, fegato e intestino; la vescica raccoglie il tracciante eliminato. In questo caso testa e collo superiore sono oscurati per l'anonimato, quindi le ghiandole salivari non si vedono.",
+   "sezione": 1
+  },
+  {
+   "testo": "La captazione intensa della milza è una metastasi splenica da carcinoma prostatico, da segnalare subito",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "È la captazione fisiologica della milza con il PSMA.",
+   "sezione": 1
+  },
+  {
+   "testo": "La captazione dei gangli simpatici (celiaco, cervicali) è sempre malattia linfonodale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "I gangli simpatici captano un poco il PSMA: forma allungata, sede tipica e captazione bassa li distinguono dai linfonodi.",
+   "sezione": 1
+  },
+  {
+   "testo": "Risposta parziale: riduzione importante della malattia, con alcuni linfonodi residui e il focus osseo residuo dell'ischio sinistro",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Risposta completa: nessuna lesione captante residua, né linfonodale né ossea (l'ischio è fisiologico), e prostata senza captazione patologica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Restano lesioni captanti.",
+   "sezione": 2
+  },
+  {
+   "testo": "Malattia stabile: lesioni linfonodali e ossee invariate per numero, dimensioni e captazione rispetto al primo esame",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Progressione: nuove lesioni ossee e linfonodali rispetto al primo esame, con aumento della captazione prostatica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Nessuna lesione nuova e malattia molto ridotta.",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "La PET-TC con PSMA (antigene di membrana specifico della prostata) mostra il carcinoma prostatico e le sue metastasi con un contrasto molto superiore alla TC: linfonodi di pochi millimetri risultano già positivi. Nel primo esame la malattia era estesa: prostata, linfonodi pelvici, retroperitoneali e mediastinici e un focus nell'ischio sinistro (metastasi linfonodali non regionali e ossea, M1b).\n\nNel controllo si confronta sede per sede: qui la gran parte delle lesioni non capta più e la prostata è molto ridotta, ma restano tre piccoli linfonodi captanti e il focus dell'ischio sinistro: risposta parziale. Un focus vicino alla parete pelvica va localizzato sulla TC con la finestra per l'osso: qui quello che sembra un linfonodo otturatorio sta dentro l'ischio. I criteri dedicati (per esempio RECIP 1.0, che usa volume tumorale totale e lesioni nuove; o i criteri PPP di progressione) considerano anche la comparsa di nuove lesioni, che qui mancano.\n\nAttenzione alle captazioni fisiologiche del PSMA (ghiandole salivari e lacrimali, reni, milza, fegato, intestino, vescica) e ai falsi positivi: gangli simpatici, fratture e lesioni ossee benigne, alcune neoplasie non prostatiche.",
+ "regola": "PET-PSMA: prima togli le captazioni fisiologiche (salivari, reni, milza, intestino, vescica), poi confronta sede per sede.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Carcinoma prostatico (collezione PSMA-PET-CT-Lesions). Segmentazione degli esperti: 15 lesioni (circa 200 mL) nel primo esame, 4 lesioni (circa 11 mL) nel controllo."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "PSMA-PET-CT-Lesions",
+  "soggetto": "PSMA_ee0d631fa63961f2",
+  "doi": "10.7937/r7ep-3x37",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Jeblick K. et al. (2024). A whole-body PSMA-PET/CT dataset with manually annotated tumor lesions (PSMA-PET-CT-Lesions) [Data set]. The Cancer Imaging Archive. Immagini acquisite all'Ospedale universitario LMU di Monaco (2014-2022).",
+  "url": "https://www.cancerimagingarchive.net/collection/psma-pet-ct-lesions/"
+ },
+ "serie_iniziale": 3,
+ "riquadri": 2,
+ "disposizione": [
+  3,
+  1
+ ],
+ "precedenti": [
+  {
+   "data": "aprile 1999",
+   "esame": "PET-TC con 68Ga-PSMA total body",
+   "serie": 1,
+   "didattico": true,
+   "referto": "PET-TC con 68Ga-PSMA (acquisizione circa 55 minuti dopo l'iniezione); TC a bassa dose per la fusione. Peso 85 kg.\n\nIntensa captazione della prostata, estesa a entrambi i lobi. Linfonodi captanti: iliaci sinistri piccoli, iliaco destro, iliaco comune destro, retroperitoneali (para-aortico sinistro e interaortocavale), un grosso linfonodo del mediastino posteriore inferiore (paraesofageo/retrocrurale destro, SUVmax circa 70) e un linfonodo paraesofageo superiore. Focus captante nell'ischio sinistro (colonna posteriore dell'acetabolo, SUVmax circa 24) senza alterazioni evidenti alla TC: metastasi ossea. Non lesioni viscerali.\nCaptazione fisiologica di reni, milza, fegato e intestino; escrezione urinaria (testa e collo superiore non valutabili: oscurati per l'anonimato).\n\nConclusioni: carcinoma prostatico con metastasi linfonodali pelviche, retroperitoneali e mediastiniche e metastasi ossea dell'ischio sinistro (M1b)."
+  }
+ ],
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Controllo oncologico con risposta: basta il referto."
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato su MIP e fusioni PET-TC (SUV ricalcolato con il fattore della serie): primo esame con prostata, catene iliache destre, retroperitoneo, mediastino posteriore (SUVmax circa 70), paraesofageo superiore e focus nell'ischio sinistro (SUVmax circa 25, confermato dentro l'osso); al controllo restano piccoli foci paraesofageo superiore, retroperitoneali e ischio sinistro (SUVmax circa 9). Corretti: tolte le ghiandole salivari dalle captazioni fisiologiche (testa e collo oscurati per l'anonimato, anche nel referto precedente) e aggiunto il focus osseo residuo nella conclusione di risposta parziale.\nPSMA-PET-CT-Lesions PSMA_ee0d631fa63961f2 (da IDC, CC BY 4.0), tracciante 68Ga. 04/1999: SEG 15 lesioni (prostata ~69 mL; linfonodi pelvici, retroperitoneali, mediastinico posteriore 33 mL a z -534..-508, paraesofageo superiore z -393..-377). 11/1999: SEG 4 lesioni (pelvica sinistra 5,4 mL, due retroperitoneali, paraesofagea superiore). [verifica 25/10/2026] Sedi rilette sulla fusione con le componenti della SEG: paraesofageo superiore (z −393..−377), mediastino posteriore inferiore destro paraesofageo/retrocrurale (z −534..−508, SUVmax circa 70), interaortocavale/paracavale e iliaci destri (esterno e comune) confermati. La lesione «pelvica sinistra» (SEG 04/1999 z −936..−913 SUVmax circa 24; 11/1999 z −861..−839, 5,4 mL, SUVmax circa 9) sta DENTRO l'ischio sinistro (colonna posteriore dell'acetabolo), non è un linfonodo otturatorio: metastasi ossea, senza alterazioni evidenti alla TC. Corretti titolo interno, risposta sui residui, spiegazione e referto precedente (M1b). Referto precedente scritto da Claude (didattico).\n[verifica 24/10/2026] Rivisto sulle MIP: malattia estesa nel primo esame (prostata, catene iliache e retroperitoneali, mediastino posteriore), al controllo pochi piccoli foci residui. Reso visibile."
+}

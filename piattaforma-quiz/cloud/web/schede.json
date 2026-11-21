@@ -1,0 +1,743 @@
+[
+ {
+  "id": "rx-torace-lettura",
+  "titolo": "RX del torace: lettura sistematica",
+  "parole": "RX torace|RX del torace|radiografia del torace",
+  "segni": [
+   "Controlla prima la tecnica: PA o AP, inspirazione (almeno 9-10 archi costali posteriori sopra il diaframma), rotazione (processi spinosi a metà tra le clavicole), penetrazione.",
+   "Poi in ordine: dispositivi, trachea e mediastino, ili, polmoni campo per campo confrontando i due lati, pleura e seni costo-frenici, cuore, diaframma, ossa e parti molli.",
+   "Le «zone nascoste»: apici, dietro il cuore, sotto le cupole, ili e mediastino: si guardano sempre."
+  ],
+  "classificazioni": [
+   "Indice cardio-toracico in PA: patologico se superiore a 0,5 (in AP il cuore appare più grande)."
+  ],
+  "insidie": [
+   "In AP a letto il cuore sembra ingrandito e il mediastino allargato.",
+   "Un versamento in posizione supina non fa il menisco: dà una velatura diffusa dell'emitorace.",
+   "La mammella e i capezzoli possono simulare noduli: confrontare con la laterale."
+  ]
+ },
+ {
+  "id": "metastasi-polmonari",
+  "titolo": "Noduli polmonari multipli e metastasi",
+  "parole": "metastasi (polmonari|al polmone|ai polmoni)|palla di cannone|noduli (polmonari )?multipli|masse polmonari multiple",
+  "segni": [
+   "Noduli rotondeggianti, a margini netti, di dimensioni diverse, prevalenti alle basi e in periferia (diffusione ematogena).",
+   "Linfangite carcinomatosa: ispessimento interstiziale con linee settali e linfonodi ilari."
+  ],
+  "classificazioni": [
+   "La valutazione della risposta alle terapie usa RECIST 1.1 (al massimo 2 lesioni bersaglio per organo, 5 in tutto)."
+  ],
+  "insidie": [
+   "Noduli escavati multipli: pensare anche agli emboli settici e alla granulomatosi con poliangioite.",
+   "Primitivi tipici di metastasi a palla di cannone: rene, colon-retto, sarcomi, melanoma, testicolo, tiroide."
+  ]
+ },
+ {
+  "id": "nodulo-polmonare",
+  "titolo": "Nodulo polmonare solitario",
+  "parole": "nodulo (polmonare|solido|subpleurico)|Fleischner|Lung-RADS",
+  "segni": [
+   "Si misurano la media degli assi (lungo e corto) e il tipo: solido, a vetro smerigliato, parzialmente solido.",
+   "Sono favorevoli alla benignità: calcificazione centrale, «a popcorn» o laminare, grasso (amartoma), stabilità del solido per 2 anni.",
+   "Un nodulo subpleurico o perifissurale, triangolare o lentiforme, è di solito un linfonodo intrapolmonare."
+  ],
+  "classificazioni": [
+   "Fleischner 2017: nodulo solido incidentale sotto 6 mm senza controlli nel paziente a basso rischio; 6-8 mm controllo a 6-12 mesi; oltre 8 mm valutare TC a 3 mesi, PET o biopsia.",
+   "Lung-RADS solo per la TC di screening a basse dosi."
+  ],
+  "insidie": [
+   "Fleischner non si applica sotto i 35 anni, nei pazienti oncologici e negli immunodepressi.",
+   "Un vaso tagliato di traverso sembra un nodulo: seguirlo nelle immagini vicine o con la MIP."
+  ]
+ },
+ {
+  "id": "cavita-polmonare",
+  "titolo": "Lesioni polmonari escavate",
+  "parole": "escavat|cavit[àa]|ascesso polmonare",
+  "segni": [
+   "Spessore della parete: sotto 4 mm favorevole alla benignità, oltre 15 mm sospetto per neoplasia (soprattutto squamosa).",
+   "Livello idroaereo: frequente nell'ascesso.",
+   "Sede: segmenti apicali e posteriori dei lobi superiori e apicali degli inferiori nella tubercolosi."
+  ],
+  "classificazioni": [],
+  "insidie": [
+   "Nel sospetto di tubercolosi: isolamento respiratorio fino all'esclusione.",
+   "Bolle e bronchiectasie cistiche hanno pareti sottili e lisce, senza componente solida."
+  ]
+ },
+ {
+  "id": "pneumotorace",
+  "titolo": "Pneumotorace",
+  "parole": "pneumotorace",
+  "segni": [
+   "Linea pleurica viscerale sottile, senza trama polmonare all'esterno.",
+   "In posizione supina l'aria va in avanti e in basso: seno costo-frenico profondo e iperdiafano («deep sulcus»).",
+   "Segni di tensione: spostamento controlaterale del mediastino, appiattimento del diaframma."
+  ],
+  "classificazioni": [
+   "Dimensione (BTS): grande se la distanza tra parete e polmone all'altezza dell'ilo è di almeno 2 cm."
+  ],
+  "insidie": [
+   "Una piega cutanea simula la linea pleurica: di solito continua oltre il torace e ha un margine sfumato, non una linea sottile.",
+   "Dopo un accesso venoso centrale o un pacemaker va sempre cercato."
+  ]
+ },
+ {
+  "id": "versamento-pleurico",
+  "titolo": "Versamento pleurico",
+  "parole": "versamento pleurico|versamento bilaterale|velatura basale|seni costo-frenici",
+  "segni": [
+   "In ortostasi: obliterazione del seno costo-frenico e menisco (servono circa 200 mL in PA, 50 mL in laterale).",
+   "In posizione supina: velatura diffusa e graduale dell'emitorace, senza broncogramma.",
+   "In TC: densità del liquido; spessori pleurici e impregnazione orientano verso empiema o neoplasia."
+  ],
+  "classificazioni": [],
+  "insidie": [
+   "Atelettasia e versamento convivono spesso: in TC il polmone collassato si impregna, il liquido no.",
+   "Un versamento massivo con mediastino non spostato fa pensare a un'ostruzione bronchiale associata."
+  ]
+ },
+ {
+  "id": "dispositivi-torace",
+  "titolo": "Dispositivi alla RX del torace",
+  "parole": "sondino|catetere venoso|CVC|tubo endotracheale|drenagg|pacemaker|defibrillat|elettrocatetere|dispositivo impiantabile",
+  "segni": [
+   "Tubo endotracheale: punta 3-5 cm sopra la carena, con il capo in posizione neutra.",
+   "Catetere venoso centrale: punta alla giunzione tra vena cava superiore e atrio destro.",
+   "Sondino naso-gastrico: scende lungo la linea mediana, supera il diaframma e la punta è nello stomaco, almeno 10 cm oltre la giunzione.",
+   "Pacemaker: seguire ogni elettrocatetere dal generatore alla punta (atrio, ventricolo destro, seno coronarico) in due proiezioni."
+  ],
+  "classificazioni": [],
+  "insidie": [
+   "Sondino nel bronco: va tolto prima di usarlo, rischio di polmonite e pneumotorace.",
+   "Dopo ogni impianto: cercare pneumotorace, versamento ed ematoma.",
+   "Un'angolatura o un'interruzione dell'elettrocatetere tra clavicola e prima costa suggerisce una frattura."
+  ]
+ },
+ {
+  "id": "embolia-polmonare",
+  "titolo": "Embolia polmonare in angio-TC",
+  "parole": "embol",
+  "segni": [
+   "Difetto di riempimento endoluminale nelle arterie polmonari (acuto: centrale, con margini a menisco).",
+   "Sovraccarico del cuore destro: rapporto VD/VS sopra 1, rettilineizzazione del setto, reflusso di mezzo di contrasto nella vena cava inferiore e nelle vene sovraepatiche."
+  ],
+  "classificazioni": [],
+  "insidie": [
+   "Artefatti da flusso e da respiro simulano trombi: controllare nella fase più tardiva e con finestre larghe.",
+   "Un'opacizzazione insufficiente (sotto circa 250 HU nel tronco polmonare) rende l'esame non diagnostico per i rami periferici."
+  ]
+ },
+ {
+  "id": "ictus",
+  "titolo": "Ictus: TC in urgenza",
+  "parole": "ictus|ischemi|codice ictus|ASPECTS",
+  "segni": [
+   "Nelle prime ore: perdita della differenziazione tra sostanza grigia e bianca, cancellazione dei solchi, segno dell'arteria iperdensa.",
+   "La TC senza mdc serve prima di tutto a escludere l'emorragia."
+  ],
+  "classificazioni": [
+   "ASPECTS: 10 punti nel territorio dell'arteria cerebrale media, uno in meno per ogni regione colpita; sotto 6 la trombolisi è più rischiosa."
+  ],
+  "insidie": [
+   "Una TC normale nelle prime ore non esclude l'ischemia.",
+   "Finestra stretta (W 30-40, L 35) per vedere le ipodensità precoci."
+  ]
+ },
+ {
+  "id": "emorragia-cerebrale",
+  "titolo": "Emorragie intracraniche",
+  "parole": "emorragi[ae] (intracranic|cerebral|subaracnoid|intraparenchimal|cerebellar|intraventricolar|del tronco)|ematoma (subdurale|epidurale|intraparenchimale|cerebrale)|subaracnoid",
+  "segni": [
+   "Epidurale: biconvesso, non supera le suture. Subdurale: a falce, supera le suture ma non la falce.",
+   "Subaracnoidea: sangue nelle cisterne e nei solchi.",
+   "Effetto massa: spostamento della linea mediana, compressione dei ventricoli, impegno."
+  ],
+  "classificazioni": [],
+  "insidie": [
+   "Il subdurale subacuto può essere isodenso alla corteccia: cercare la compressione dei solchi.",
+   "Controllare sempre la finestra per l'osso (fratture) e una finestra intermedia per le piccole raccolte."
+  ]
+ },
+ {
+  "id": "leucoencefalopatia",
+  "titolo": "Leucoencefalopatia vascolare",
+  "parole": "leucoencefalopat|sostanza bianca|Fazekas|lacun",
+  "segni": [
+   "Iperintensità in FLAIR/T2 periventricolari e della sostanza bianca profonda; in TC ipodensità sfumate.",
+   "Lacune: piccole cavità liquorali nei nuclei della base e nella capsula interna."
+  ],
+  "classificazioni": [
+   "Fazekas (RM): periventricolare 0-3 e profonda 0-3; profonda 2-3 indica una malattia dei piccoli vasi significativa."
+  ],
+  "insidie": [
+   "Non confondere con le lesioni demielinizzanti: forma ovoidale perpendicolare ai ventricoli, sedi iuxtacorticali, sottotentoriali e midollari (McDonald).",
+   "Gli spazi perivascolari dilatati seguono il liquor in tutte le sequenze."
+  ]
+ },
+ {
+  "id": "fratture-vertebrali",
+  "titolo": "Fratture e cedimenti vertebrali",
+  "parole": "cedim|crollo|frattur[ae] (vertebral|del soma)|Genant|vertebroplast|cementopl",
+  "segni": [
+   "Riduzione di altezza anteriore (a cuneo), centrale (biconcava) o di tutto il soma (crollo).",
+   "In RM l'edema in STIR indica un cedimento recente.",
+   "Favorevoli alla causa neoplastica: soma tutto sostituito in T1, peduncolo e arco posteriore coinvolti, muro posteriore convesso, massa dei tessuti molli."
+  ],
+  "classificazioni": [
+   "Genant: grado 1 riduzione 20-25%, grado 2 25-40%, grado 3 oltre 40%.",
+   "Nel trauma, la stabilità si valuta con TLICS o AO Spine."
+  ],
+  "insidie": [
+   "Una frattura vertebrale da fragilità indica osteoporosi grave: va segnalata anche se è un reperto incidentale.",
+   "Contare i livelli partendo da C2 o dal sacro, con il localizzatore che copre più tratti."
+  ]
+ },
+ {
+  "id": "rachide-degenerativo",
+  "titolo": "Rachide degenerativo e operato",
+  "parole": "spondilo(si|artrosi|listesi)|discopat|protrusion|ernia (discale|del disco|lombare|cervicale)|stenosi del canale|laminectom|artrosi (delle faccette|interapofisaria)",
+  "segni": [
+   "Disco: disidratazione, riduzione di altezza, protrusione (base larga) o ernia (base stretta, espulsa o migrata).",
+   "Stenosi del canale: sacco durale ristretto, ipertrofia delle faccette e dei legamenti gialli.",
+   "Rachide operato: livello della laminectomia, sopra e sotto si accelera la degenerazione."
+  ],
+  "classificazioni": [
+   "Modic: tipo 1 edema (T1 ipo, T2 iper), tipo 2 grasso (T1 e T2 iper), tipo 3 sclerosi (T1 e T2 ipo)."
+  ],
+  "insidie": [
+   "Cicatrice o ernia recidiva: serve il gadolinio, la cicatrice si impregna, il frammento discale no.",
+   "I foci iperintensi sia in T1 sia in T2 nei somi sono angiomi o grasso, non metastasi."
+  ]
+ },
+ {
+  "id": "colica-renale",
+  "titolo": "Colica renale in TC",
+  "parole": "colica|calcol[oi] (ureteral|urinar|del rene)|idroureteronefros|uretere",
+  "segni": [
+   "TC a basse dosi senza mdc: si seguono gli ureteri dal bacinetto alla vescica.",
+   "Calcolo con «rim sign» (parete ureterale attorno); dilatazione a monte e imbibizione del grasso perirenale."
+  ],
+  "classificazioni": [
+   "Un calcolo fino a 5 mm dell'uretere distale passa da solo nella maggior parte dei casi; oltre 10 mm raramente."
+  ],
+  "insidie": [
+   "I fleboliti pelvici hanno spesso la «coda» della vena (comet tail) e il centro meno denso.",
+   "Con febbre e ostruzione serve un drenaggio urgente (nefrostomia o stent)."
+  ]
+ },
+ {
+  "id": "masse-renali",
+  "titolo": "Masse e cisti renali",
+  "parole": "Bosniak|cisti renal|massa renale|neoformazione renale|carcinoma renale|RENAL|PADUA",
+  "segni": [
+   "Impregnazione: aumento di almeno 20 HU tra la fase senza mdc e quella nefrografica indica tessuto solido.",
+   "Cisti: parete, setti, calcificazioni, noduli; ognuno decide la categoria."
+  ],
+  "classificazioni": [
+   "Bosniak 2019: I e II benigne; IIF controllo a 6 e 12 mesi, poi annuale per 5 anni; III circa 50% maligne; IV circa 90%.",
+   "RENAL e PADUA: complessità chirurgica delle masse solide (nefrectomia parziale)."
+  ],
+  "insidie": [
+   "Senza mdc una lesione omogenea tra -9 e 20 HU è una cisti benigna (Bosniak II).",
+   "La pseudo-impregnazione delle cisti piccole e intraparenchimali può superare 10 HU."
+  ]
+ },
+ {
+  "id": "vie-biliari",
+  "titolo": "Vie biliari dilatate e colestasi",
+  "parole": "coledoc|vie biliari|colestas|idrope|colecist",
+  "segni": [
+   "Coledoco: dilatato oltre circa 7 mm (di più negli anziani e dopo colecistectomia).",
+   "Colecisti distesa con vie biliari dilatate fino al pancreas (segno di Courvoisier): ostacolo distale, pensare a neoplasia della testa del pancreas o dell'ampolla."
+  ],
+  "classificazioni": [],
+  "insidie": [
+   "I calcoli del coledoco possono essere isodensi alla bile in TC: la colangio-RM e l'ecoendoscopia sono più sensibili.",
+   "Bande ipodense periportali possono essere edema o vie biliari: seguirle fino all'ilo nelle fasi con mdc."
+  ]
+ },
+ {
+  "id": "lesioni-epatiche",
+  "titolo": "Lesioni focali del fegato",
+  "parole": "lesion[ei] (focal[ei] )?epatic|nodulo epatico|angioma|metastasi epatiche|LI-RADS|segment[oi] (epatic|[IVX]+\\b)",
+  "segni": [
+   "Cisti: acqua, nessuna impregnazione. Angioma: impregnazione periferica nodulare che si riempie verso il centro.",
+   "Epatocarcinoma: iperimpregnazione arteriosa e wash-out portale/tardivo, capsula.",
+   "Metastasi ipovascolari: meglio visibili in fase portale."
+  ],
+  "classificazioni": [
+   "LI-RADS solo nei pazienti a rischio (cirrosi, epatite B, epatocarcinoma pregresso).",
+   "Sede con i segmenti di Couinaud (I-VIII)."
+  ],
+  "insidie": [
+   "Le lesioni sotto 1 cm sono spesso non caratterizzabili: confronto e controllo.",
+   "Senza mdc non si esclude una lesione ipovascolare."
+  ]
+ },
+ {
+  "id": "pancreas",
+  "titolo": "Masse del pancreas",
+  "parole": "pancrea",
+  "segni": [
+   "Adenocarcinoma: massa ipodensa in fase pancreatica, dilatazione del Wirsung e del coledoco («doppio dotto»), atrofia a monte.",
+   "Resecabilità: contatto con arteria mesenterica superiore, tripode celiaco, vena mesenterica superiore e porta (in gradi)."
+  ],
+  "classificazioni": [
+   "Resecabilità secondo NCCN: resecabile, borderline, localmente avanzato."
+  ],
+  "insidie": [
+   "Una massa piccola può essere isodensa: il doppio dotto è spesso il segno più evidente.",
+   "Le cisti del pancreas vanno sempre caratterizzate (IPMN, cistoadenomi)."
+  ]
+ },
+ {
+  "id": "mammografia",
+  "titolo": "Mammografia: proiezioni e lettura",
+  "parole": "mammograf|tomosintesi|BI-RADS|MLO|CC\\b",
+  "segni": [
+   "MLO corretta: muscolo pettorale fino all'altezza del capezzolo, angolo infra-mammario visibile. CC: capezzolo di profilo, distanza capezzolo-pettorale entro 1 cm da quella della MLO.",
+   "Si confrontano le due mammelle e gli esami precedenti: una densità nuova o in crescita è sospetta."
+  ],
+  "classificazioni": [
+   "BI-RADS: 0 serve un approfondimento, 1 negativo, 2 benigno, 3 probabilmente benigno (controllo a breve), 4 sospetto (biopsia), 5 altamente sospetto, 6 neoplasia già dimostrata.",
+   "Densità ACR: A adiposa, B fibroghiandolare sparsa, C eterogeneamente densa, D estremamente densa."
+  ],
+  "insidie": [
+   "Una lesione vista in una sola proiezione può essere una sovrapposizione: compressione mirata o tomosintesi.",
+   "Le microcalcificazioni sottili, pleomorfe o a distribuzione lineare/segmentaria sono sospette anche senza massa."
+  ]
+ },
+ {
+  "id": "ecografia-mammaria",
+  "titolo": "Ecografia della mammella",
+  "parole": "ecografia (della )?mamm|nodulo mammario|ecografia mammaria",
+  "segni": [
+   "Sospetti: forma irregolare, margini angolati o spiculati, orientamento non parallelo (più alto che largo), ombra posteriore.",
+   "Favorevoli alla benignità: forma ovale, margini netti, orientamento parallelo, rinforzo posteriore."
+  ],
+  "classificazioni": [
+   "BI-RADS ecografico con lato, ora (come guardando la paziente) e distanza dal capezzolo."
+  ],
+  "insidie": [
+   "Va sempre studiata l'ascella nelle lesioni sospette.",
+   "Una cisti complicata ha echi interni ma niente vascolarizzazione al color-Doppler."
+  ]
+ },
+ {
+  "id": "protesi-osteosintesi",
+  "titolo": "Protesi e osteosintesi",
+  "parole": "protes|osteosintes|vit[ei]\\b|chiodo|placca|artroprotes|endoprotes",
+  "segni": [
+   "Controllo: posizione dei componenti, allineamento, mezzi di sintesi integri, consolidazione della frattura.",
+   "Mobilizzazione: radiotrasparenza attorno all'impianto oltre 2 mm o che aumenta nel tempo, migrazione dei componenti."
+  ],
+  "classificazioni": [
+   "Fratture periprotesiche di anca: classificazione di Vancouver."
+  ],
+  "insidie": [
+   "Servono due proiezioni: una sola non mostra la profondità di viti e chiodi.",
+   "Confrontare sempre con il controllo precedente: il cambiamento conta più del singolo aspetto."
+  ]
+ },
+ {
+  "id": "fratture-rx",
+  "titolo": "Fratture in radiologia tradizionale",
+  "parole": "frattur|trauma (della |del |dell')?(spalla|ginocchio|polso|caviglia|piede|anca|bacino)",
+  "segni": [
+   "Rima di frattura, interruzione della corticale, scalino, dislocazione e angolazione dei frammenti.",
+   "Segni indiretti: versamento articolare (cuscinetto adiposo sollevato), linee di grasso-liquido (lipoemartro)."
+  ],
+  "classificazioni": [
+   "Si descrivono sede, tipo (composta/scomposta, comminuta), coinvolgimento articolare e dislocazione."
+  ],
+  "insidie": [
+   "Sempre almeno due proiezioni ortogonali.",
+   "Alcune fratture (scafoide, collo femorale) possono non vedersi subito: RM o TC se il sospetto clinico resta."
+  ]
+ },
+ {
+  "id": "qualita-tc",
+  "titolo": "Qualità dell'immagine in TC",
+  "parole": "fantoccio|controllo di qualit|uniformit|rumore dell.immagine",
+  "segni": [
+   "Acqua a 0 HU (tolleranza tipica ±4-5 HU), aria a -1000 HU.",
+   "Rumore = deviazione standard nella ROI: cresce con strati sottili, filtri «duri» e meno dose (circa come 1/√mAs).",
+   "Risoluzione spaziale: migliora con filtri duri e campi di vista piccoli."
+  ],
+  "classificazioni": [],
+  "insidie": [
+   "Artefatti da movimento: contorni doppi e strie; da indurimento del fascio: bande scure tra strutture dense; ad anello: problema del detettore.",
+   "Un oggetto fuori dal campo di misura causa artefatti da troncamento e densità falsate in periferia."
+  ]
+ },
+ {
+  "id": "pet-fdg",
+  "titolo": "PET-TC con FDG",
+  "parole": "\\bPET\\b|\\bFDG\\b|\\bSUV",
+  "segni": [
+   "Captazioni fisiologiche: encefalo, miocardio, vie urinarie, a volte intestino e grasso bruno.",
+   "SUV: dipende da peso, dose e tempo; si confronta con il fegato e con il pool ematico."
+  ],
+  "classificazioni": [
+   "Linfomi: scala di Deauville (1-5) rispetto a mediastino e fegato."
+  ],
+  "insidie": [
+   "La metformina aumenta molto la captazione del colon.",
+   "Una captazione bassa non esclude la neoplasia (adenocarcinomi a crescita lenta, lesioni sotto 1 cm)."
+  ]
+ },
+ {
+  "id": "cuore-rx-scompenso",
+  "titolo": "Scompenso cardiaco alla RX del torace",
+  "parole": "scompenso|edema polmonare|cardiomegalia|ombra cardiaca|Kerley|ridistribuzione",
+  "segni": [
+   "Ombra cardiaca ingrandita (indice cardio-toracico oltre 0,5 in PA).",
+   "Ridistribuzione del circolo verso gli apici (vasi dei lobi superiori di calibro uguale o maggiore di quelli basali).",
+   "Edema interstiziale: linee B di Kerley alle basi, ispessimento delle scissure e dei manicotti peribronchiali, ili sfumati.",
+   "Edema alveolare: opacità perilari bilaterali «ad ali di farfalla», spesso con versamento pleurico bilaterale, più spesso a destra."
+  ],
+  "classificazioni": [
+   "Sequenza classica con l'aumento della pressione capillare polmonare: ridistribuzione → edema interstiziale → edema alveolare (le soglie in mmHg sono indicative e i segni compaiono in ritardo rispetto alla clinica)."
+  ],
+  "insidie": [
+   "In AP a letto e in posizione supina cuore e vasi apicali sembrano più grandi: la ridistribuzione non è valutabile.",
+   "Un versamento pericardico dà un'ombra cardiaca «a fiasco» che simula la cardiomegalia.",
+   "Nell'enfisema e con il paziente sul fianco l'edema può essere asimmetrico."
+  ]
+ },
+ {
+  "id": "ecocardio-base",
+  "titolo": "Ecocardiografia: misure di base",
+  "parole": "ecocardio|frazione di eiezione|ventricolo sinistro|pericardi|TAPSE|valvol",
+  "segni": [
+   "Funzione sistolica del ventricolo sinistro: frazione di eiezione (biplano di Simpson preferibile alla stima visiva) e cinesi segmentaria.",
+   "Ventricolo destro: dimensioni rispetto al sinistro e TAPSE.",
+   "Versamento pericardico: spessore in diastole e segni di tamponamento (collasso diastolico di atrio e ventricolo destro, cava inferiore dilatata che non collassa)."
+  ],
+  "classificazioni": [
+   "Scompenso secondo la frazione di eiezione (linee guida ESC): ridotta ≤ 40%, lievemente ridotta 41-49%, conservata ≥ 50%.",
+   "TAPSE sotto 17 mm: funzione sistolica del ventricolo destro ridotta.",
+   "Versamento pericardico: lieve sotto 10 mm, moderato 10-20 mm, importante oltre 20 mm."
+  ],
+  "insidie": [
+   "Le scansioni oblique accorciano il ventricolo e falsano volumi e frazione di eiezione.",
+   "Il grasso epicardico anteriore può simulare un piccolo versamento.",
+   "Il tamponamento è una diagnosi clinico-emodinamica: conta la compressione delle camere, non solo la quantità di liquido."
+  ]
+ },
+ {
+  "id": "rm-cardiaca",
+  "titolo": "RM cardiaca: enhancement tardivo e miocardite",
+  "parole": "RM cardiaca|cardio-RM|miocardit|cardiomiopatia|enhancement tardivo|LGE",
+  "segni": [
+   "Enhancement tardivo subendocardico o transmurale in un territorio coronarico: esito di infarto (origine ischemica).",
+   "Enhancement mesoparietale o subepicardico, non in un territorio coronarico: origine non ischemica (miocardite, cardiomiopatia dilatativa, sarcoidosi).",
+   "Miocardite: edema in T2 o mappe T1/T2 aumentate, enhancement subepicardico spesso della parete infero-laterale.",
+   "Amiloidosi: enhancement diffuso subendocardico e difficoltà ad «annullare» il miocardio."
+  ],
+  "classificazioni": [
+   "Criteri di Lake Louise 2018 per la miocardite: almeno un criterio basato su T2 (edema) e almeno uno basato su T1 (mappa T1, volume extracellulare o enhancement tardivo)."
+  ],
+  "insidie": [
+   "Un tempo di inversione sbagliato fa sembrare l'enhancement diffuso o lo nasconde.",
+   "Gli artefatti da respiro e da aritmia simulano difetti di parete.",
+   "Lo spessore transmurale dell'enhancement predice il recupero dopo rivascolarizzazione: oltre il 50% recupero improbabile."
+  ]
+ },
+ {
+  "id": "aorta-acuta",
+  "titolo": "Sindrome aortica acuta in TC",
+  "parole": "dissezione|aorta|ematoma intramurale|ulcera penetrante|aneurism",
+  "segni": [
+   "Dissezione: lembo intimale che separa vero e falso lume; il falso lume è di solito più grande, con angolo acuto alla parete («becco») e talvolta filamenti («ragnatela»).",
+   "Ematoma intramurale: ispessimento parietale a semiluna, iperdenso nella fase senza mdc, senza lembo né flusso.",
+   "Ulcera penetrante: estroflessione del mdc oltre la parete calcifica, di solito in aorta discendente ateromasica.",
+   "Segni di gravità: versamento pericardico o emotorace, malperfusione di visceri e arti, rottura."
+  ],
+  "classificazioni": [
+   "Stanford A: interessa l'aorta ascendente (di solito chirurgica); Stanford B: non la interessa.",
+   "DeBakey I (ascendente e oltre), II (solo ascendente), III (solo discendente)."
+  ],
+  "insidie": [
+   "L'artefatto da pulsazione della radice aortica simula un lembo: serve l'acquisizione sincronizzata con l'ECG.",
+   "Senza la fase basale l'ematoma intramurale passa inosservato.",
+   "Un falso lume trombizzato si confonde con un trombo murale di un aneurisma: guardare la forma e lo spostamento delle calcificazioni intimali."
+  ]
+ },
+ {
+  "id": "calcio-coronarico",
+  "titolo": "Calcio coronarico (Agatston)",
+  "parole": "Agatston|calcio coronarico|calcificazioni coronariche|coronari",
+  "segni": [
+   "Si misura nella TC senza mdc sincronizzata con l'ECG (strato di 3 mm, 120 kV); nelle TC del torace non sincronizzate si può dare una stima visiva.",
+   "Le calcificazioni coronariche si segnalano sempre, anche nelle TC fatte per altri motivi."
+  ],
+  "classificazioni": [
+   "Categorie classiche di Agatston: 0 nessun calcio; 1-99 lieve; 100-399 moderato; ≥ 400 grave. Il CAC-DRS usa soglie un po' diverse: 0, 1-99, 100-299, ≥ 300.",
+   "La stima visiva nelle TC non sincronizzate: assente, lieve, moderata, grave."
+  ],
+  "insidie": [
+   "Calcificazioni di valvole, anulus mitralico e pericardio non vanno contate.",
+   "Con il mdc il calcio si sovrastima o si confonde con il lume opacizzato.",
+   "Un punteggio 0 non esclude placche non calcifiche, soprattutto nei giovani con sintomi."
+  ]
+ },
+ {
+  "id": "pet-psma",
+  "titolo": "PET con PSMA",
+  "parole": "PSMA",
+  "segni": [
+   "Indicazioni principali: stadiazione del carcinoma prostatico ad alto rischio e recidiva biochimica (anche con PSA basso).",
+   "Captazione fisiologica: ghiandole salivari e lacrimali, reni e vie urinarie, intestino, fegato e milza.",
+   "Si cercano lesioni prostatiche, linfonodi pelvici ed extrapelvici, ossa e visceri."
+  ],
+  "classificazioni": [
+   "Sistemi di refertazione: PROMISE (miTNM) e PSMA-RADS (da 1, benigno, a 5, carcinoma quasi certo)."
+  ],
+  "insidie": [
+   "Gangli (celiaci, stellati, sacrali) e fratture o malattia di Paget possono captare: guardare la forma e la sede in TC.",
+   "Una parte dei tumori, soprattutto con differenziazione neuroendocrina, non esprime PSMA.",
+   "Captano anche altri tumori (rene, fegato) per la neoangiogenesi: la PSMA non è specifica della prostata."
+  ]
+ },
+ {
+  "id": "pet-sstr",
+  "titolo": "PET con analoghi della somatostatina (DOTATATE/DOTATOC)",
+  "parole": "DOTA|somatostatin|neuroendocrin|NET\\b|Krenning",
+  "segni": [
+   "Indicata nei tumori neuroendocrini ben differenziati: stadiazione, ricerca del primitivo e scelta della terapia con radiopeptidi.",
+   "Captazione fisiologica: milza (la più intensa), surreni, reni, ipofisi, fegato, tiroide e processo uncinato del pancreas."
+  ],
+  "classificazioni": [
+   "Punteggio di Krenning: captazione della lesione rispetto a fegato e milza; per la terapia con radiopeptidi serve una captazione almeno pari al fegato.",
+   "Nei tumori G3 o poco differenziati la captazione cala: la PET FDG è complementare."
+  ],
+  "insidie": [
+   "Il processo uncinato del pancreas capta spesso: non scambiarlo per un tumore.",
+   "Milze accessorie e splenosi captano intensamente.",
+   "Infiammazione e alcuni tumori non neuroendocrini possono esprimere i recettori."
+  ]
+ },
+ {
+  "id": "pet-neuro",
+  "titolo": "PET in neurologia: FDG, amiloide e DOPA",
+  "parole": "demenza|Alzheimer|amiloide|\\bDOPA\\b|DaTscan|\\bDaT\\b|parkinson|neurodegenerat",
+  "segni": [
+   "FDG nella malattia di Alzheimer: ipometabolismo temporo-parietale e del cingolo posteriore.",
+   "Demenza frontotemporale: ipometabolismo frontale e temporale anteriore.",
+   "Demenza a corpi di Lewy: ipometabolismo occipitale con cingolo posteriore relativamente conservato («isola del cingolo»).",
+   "PET per l'amiloide: positiva quando si perde il contrasto tra sostanza grigia e bianca corticale.",
+   "PET con DOPA o scintigrafia del trasportatore della dopamina: captazione striatale ridotta nei parkinsonismi degenerativi."
+  ],
+  "classificazioni": [
+   "La PET per l'amiloide si legge visivamente (positiva/negativa) secondo le regole del radiofarmaco; il valore quantitativo (SUVR, Centiloid) è di supporto."
+  ],
+  "insidie": [
+   "L'atrofia riduce la captazione per volume parziale: confrontare con la RM.",
+   "Un'amiloide positiva è frequente negli anziani senza demenza: non è da sola una diagnosi di Alzheimer.",
+   "Farmaci (neurolettici, alcuni antidepressivi) alterano la captazione dei traccianti dopaminergici."
+  ]
+ },
+ {
+  "id": "eta-ossea",
+  "titolo": "Età ossea",
+  "parole": "età ossea|eta ossea|Greulich|accrescimento|bassa statura|puber",
+  "segni": [
+   "RX di mano e polso sinistri in proiezione dorso-palmare.",
+   "Si confrontano nuclei di ossificazione, forma delle epifisi e chiusura delle cartilagini di accrescimento con l'atlante."
+  ],
+  "classificazioni": [
+   "Atlante di Greulich e Pyle (il più usato) o metodo di Tanner-Whitehouse (punteggio per osso).",
+   "Ritardo o anticipo significativi: oltre circa 2 deviazioni standard rispetto all'età anagrafica."
+  ],
+  "insidie": [
+   "Gli standard sono diversi per maschi e femmine e derivano da popolazioni di decenni fa: in alcune etnie la stima si sposta.",
+   "Le differenze tra mano destra e sinistra sono piccole ma il metodo è tarato sulla sinistra.",
+   "Nell'adolescenza avanzata contano soprattutto radio e ulna distali."
+  ]
+ },
+ {
+  "id": "invaginazione",
+  "titolo": "Invaginazione intestinale nel bambino",
+  "parole": "invaginazion|intussuscez|(segno|aspetto) (a|del) (bersaglio|coccarda)",
+  "segni": [
+   "Ecografia: massa a «bersaglio» o «coccarda» in sezione trasversale, a «pseudorene» in longitudinale, di solito nel quadrante destro.",
+   "Forma tipica ileo-colica, tra 6 mesi e 3 anni.",
+   "Valutare flusso alla parete, liquido intrappolato e linfonodi."
+  ],
+  "classificazioni": [
+   "Le invaginazioni del tenue piccole e brevi (diametro sotto circa 2,5 cm, senza ostruzione) sono spesso transitorie."
+  ],
+  "insidie": [
+   "Riduzione idrostatica o pneumatica sotto guida: controindicata con peritonite, perforazione o shock.",
+   "Dopo i 3 anni, o se recidiva, cercare una causa (diverticolo di Meckel, polipo, linfoma).",
+   "Feci e anse ispessite possono simulare la coccarda: cercare la struttura stratificata."
+  ]
+ },
+ {
+  "id": "stenosi-piloro",
+  "titolo": "Stenosi ipertrofica del piloro",
+  "parole": "stenosi (ipertrofica )?(del )?piloro|vomito a getto|lattante",
+  "segni": [
+   "Lattante di 2-8 settimane con vomito a getto non biliare.",
+   "Ecografia: muscolo pilorico ispessito e canale allungato che non si apre durante l'osservazione."
+  ],
+  "classificazioni": [
+   "Valori di riferimento: spessore del muscolo ≥ 3 mm e lunghezza del canale ≥ 15-17 mm."
+  ],
+  "insidie": [
+   "Lo spasmo del piloro dà misure al limite: osservare per alcuni minuti se il contenuto passa.",
+   "Uno stomaco molto disteso sposta il piloro indietro: cambiare la posizione del bambino.",
+   "Il vomito biliare non è da stenosi del piloro: pensare al malrotamento con volvolo (urgenza)."
+  ]
+ },
+ {
+  "id": "fratture-pediatriche",
+  "titolo": "Fratture nel bambino",
+  "parole": "Salter|cartilagine di accrescimento|legno verde|pediatric|bambin|maltrattamento",
+  "segni": [
+   "Fratture tipiche dell'osso immaturo: a legno verde, a «toro» (corticale che si increspa), deformazione plastica.",
+   "Fratture che coinvolgono la cartilagine di accrescimento: possono alterare la crescita.",
+   "Nel sospetto di maltrattamento: fratture metafisarie angolari o «a manico di secchio», fratture costali posteriori, fratture multiple di età diverse, fratture incoerenti con il racconto."
+  ],
+  "classificazioni": [
+   "Salter-Harris: I attraverso la cartilagine; II cartilagine e metafisi (la più frequente); III cartilagine ed epifisi; IV attraverso metafisi, cartilagine ed epifisi; V schiacciamento della cartilagine."
+  ],
+  "insidie": [
+   "Una Salter-Harris I può non vedersi: allargamento della cartilagine e tumefazione dei tessuti molli; confronto con il lato sano.",
+   "I nuclei di ossificazione accessori o non ancora fusi simulano fratture.",
+   "Nel sospetto di maltrattamento serve lo studio completo dello scheletro secondo protocollo e la segnalazione prevista."
+  ]
+ },
+ {
+  "id": "displasia-anca",
+  "titolo": "Displasia evolutiva dell'anca (ecografia)",
+  "parole": "displasia (evolutiva )?(dell.)?anca|anca del neonato|\\bGraf\\b|lussazione congenita",
+  "segni": [
+   "Ecografia nei primi mesi, in sezione coronale standard con l'ileo rettilineo.",
+   "Si misurano l'angolo alfa (tetto osseo) e beta (tetto cartilagineo) e la copertura della testa femorale."
+  ],
+  "classificazioni": [
+   "Graf: tipo I, alfa ≥ 60° (anca matura); IIa, 50-59° sotto i 3 mesi (immatura, da controllare); IIb, 50-59° dopo i 3 mesi; IIc e D, 43-49°; III e IV, sotto 43° (anca decentrata o lussata)."
+  ],
+  "insidie": [
+   "Una sezione fuori dal piano standard falsa gli angoli: l'ileo deve essere dritto e parallelo alla sonda.",
+   "Nelle prime settimane la lassità fisiologica dà quadri al limite.",
+   "Dopo i 4-6 mesi il nucleo di ossificazione nasconde le strutture: si passa alla RX del bacino."
+  ]
+ },
+ {
+  "id": "appendicite",
+  "titolo": "Appendicite",
+  "parole": "appendic|fossa iliaca destra",
+  "segni": [
+   "Appendice non comprimibile con diametro oltre 6 mm, parete ispessita, appendicolita.",
+   "Grasso periappendicolare iperecogeno (ecografia) o infiltrato (TC), liquido libero.",
+   "Complicanze: perforazione (difetto di parete, aria extraluminale), ascesso, peritonite."
+  ],
+  "classificazioni": [
+   "Nel bambino e nella gravidanza si comincia con l'ecografia; la TC (o la RM in gravidanza) se l'ecografia non è conclusiva."
+  ],
+  "insidie": [
+   "Un'appendice retrocecale o pelvica è difficile da vedere in ecografia: non vederla non esclude l'appendicite.",
+   "Un diametro di 6-7 mm senza altri segni è un valore al limite.",
+   "Linfoadenite mesenterica, ileite e patologia ovarica danno la stessa clinica."
+  ]
+ },
+ {
+  "id": "ginocchio-menisco",
+  "titolo": "Lesioni meniscali in RM",
+  "parole": "menisc|ginocchio",
+  "segni": [
+   "Rottura: segnale alto nel menisco che raggiunge la superficie articolare in almeno due immagini (sequenze a TE breve).",
+   "Rottura a manico di secchio: frammento nella gola intercondiloidea («doppio crociato posteriore»), menisco più piccolo del normale.",
+   "Rottura della radice: menisco «fantasma» e estrusione oltre 3 mm."
+  ],
+  "classificazioni": [
+   "Gradi del segnale: 1 e 2 dentro il menisco (degenerazione), 3 raggiunge la superficie (rottura).",
+   "Forme: longitudinale, radiale, orizzontale, complessa, a lembo, a manico di secchio."
+  ],
+  "insidie": [
+   "Il legamento trasverso e i legamenti menisco-femorali simulano rotture del corno anteriore o posteriore.",
+   "Effetto dell'angolo magico nelle sequenze a TE breve.",
+   "Il segnale resta alterato dopo una sutura: per i menischi operati serve il confronto o l'artro-RM."
+  ]
+ },
+ {
+  "id": "ginocchio-lca",
+  "titolo": "Rottura del legamento crociato anteriore",
+  "parole": "crociato|LCA|ginocchio|Segond",
+  "segni": [
+   "Segni diretti: discontinuità delle fibre, decorso orizzontalizzato (più piatto della linea di Blumensaat), segnale alto.",
+   "Segni indiretti: contusioni del condilo femorale laterale e del piatto tibiale postero-laterale, traslazione anteriore della tibia, crociato posteriore incurvato.",
+   "Frattura di Segond (avulsione del margine laterale della tibia): quasi sempre associata."
+  ],
+  "classificazioni": [
+   "Rottura completa o parziale; acuta o cronica (legamento assente o aderente al crociato posteriore)."
+  ],
+  "insidie": [
+   "La degenerazione mucoide ispessisce il legamento («gambo di sedano») ma le fibre sono continue.",
+   "Le rotture parziali sono difficili: guardare tutte le sezioni e i piani obliqui.",
+   "Valutare sempre menischi e collaterali: le lesioni associate cambiano la chirurgia."
+  ]
+ },
+ {
+  "id": "spalla-cuffia",
+  "titolo": "Cuffia dei rotatori in RM",
+  "parole": "spalla|cuffia|sovraspinoso|rotator",
+  "segni": [
+   "Tendinosi: tendine ispessito con segnale intermedio, senza segnale liquido.",
+   "Rottura parziale: segnale liquido sul versante articolare, bursale o intratendineo, senza attraversare tutto lo spessore.",
+   "Rottura a tutto spessore: segnale liquido da una superficie all'altra; misurare ampiezza e retrazione.",
+   "Atrofia e infiltrazione adiposa dei muscoli nelle sezioni sagittali."
+  ],
+  "classificazioni": [
+   "Goutallier (infiltrazione adiposa, 0-4): da 3 in su la riparazione dà risultati peggiori.",
+   "Retrazione del tendine secondo Patte (1-3)."
+  ],
+  "insidie": [
+   "Effetto dell'angolo magico nel sovraspinoso con sequenze a TE breve: confrontare con le pesate in T2.",
+   "Il volume parziale con il sottospinoso simula una lesione.",
+   "Liquido nella borsa subacromiale non significa per forza rottura."
+  ]
+ },
+ {
+  "id": "edema-osseo",
+  "titolo": "Edema del midollo osseo in RM",
+  "parole": "edema osseo|edema del midollo|contusione ossea|osteonecros|frattura da stress|frattura da insufficienza|STIR",
+  "segni": [
+   "Edema iperintenso in STIR o T2 con soppressione del grasso: contusione, frattura, sovraccarico, infezione, tumore.",
+   "Linea ipointensa in T1 dentro l'edema: frattura (da stress o da insufficienza).",
+   "Osteonecrosi: area delimitata da un bordo, con il segno della doppia linea in T2."
+  ],
+  "classificazioni": [
+   "Regola del T1: il midollo normale è più intenso del muscolo e del disco; un segnale T1 più basso del muscolo fa pensare a infiltrazione o frattura.",
+   "Osteonecrosi della testa femorale: stadi ARCO 2019 da I a IV, con il collasso della superficie dal III."
+  ],
+  "insidie": [
+   "Il midollo rosso residuo (soprattutto nei giovani e nelle donne) dà segnale disomogeneo ma in T1 resta più alto del muscolo.",
+   "L'edema transitorio dell'anca guarisce da solo: niente bordo né linea.",
+   "Un edema senza causa evidente in una sede tipica di stress (metatarsi, collo del femore, sacro) va cercato nelle sezioni sottili."
+  ]
+ },
+ {
+  "id": "caviglia-legamenti",
+  "titolo": "Distorsione della caviglia in RM",
+  "parole": "caviglia|distorsion|tendine d'Achille|achilleo|sindesmosi|peroneo-astragalico",
+  "segni": [
+   "Il legamento più spesso rotto è il peroneo-astragalico anteriore, poi il peroneo-calcaneare.",
+   "Lesione della sindesmosi (tibio-peroneale anteriore): distorsione «alta», guarigione più lenta.",
+   "Valutare contusioni dell'astragalo e lesioni osteocondrali, tendini peronieri e tendine d'Achille."
+  ],
+  "classificazioni": [
+   "Lesioni legamentose: stiramento (fibre continue con edema), rottura parziale, rottura completa."
+  ],
+  "insidie": [
+   "Il legamento peroneo-astragalico anteriore si vede bene solo nelle sezioni assiali corrette.",
+   "Un tendine peroneo breve diviso in due (split) simula due tendini normali.",
+   "Una lesione osteocondrale dell'astragalo può dare dolore persistente: guardare la cupola in tutti i piani."
+  ]
+ }
+]

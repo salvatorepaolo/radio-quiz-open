@@ -1,0 +1,104 @@
+{
+ "id": "caso-tcia-025",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:21",
+ "titolo": "TC torace: nodulo del lobo superiore sinistro",
+ "titolo_interno": "Nodulo subsolido (prevalentemente a vetro smerigliato) del LSS: adenocarcinoma ben differenziato pT1a N0",
+ "distretto": "Torace",
+ "quesito": "nodulo polmonare",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 77 anni, ex fumatore (20 pacchetti-anno). Nodulo polmonare riscontrato in precedenza. TC del torace senza mezzo di contrasto, strato di 1,25 mm.",
+ "domanda": "Referta in ordine: nodulo, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Nodulo",
+   "domanda": "Come descrivi il nodulo?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nodulo di circa 2-2,5 cm nel lobo superiore sinistro, prevalentemente a vetro smerigliato (densità media circa −650 HU), a margini irregolari e spiculati",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Piccola componente solida centrale, inferiore a 1 cm, visibile anche in finestra per mediastino solo come tenue addensamento",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo completamente calcifico di circa 1 cm, a margini netti, come da granuloma esito di infezione pregressa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo solido di 2,5 cm a margini lisci e lobulati, con aree di grasso al suo interno, come da amartoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo subsolido persistente con componente solida: sospetto adenocarcinoma; valutazione multidisciplinare per resezione (o PET-TC e biopsia secondo il caso)",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Focolaio infettivo in risoluzione con alone a vetro smerigliato e piccola componente densa: terapia antibiotica, senza controlli TC né valutazione multidisciplinare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nodulo a vetro smerigliato puro sotto i 6 mm, senza componente solida né spicule: nessun controllo secondo Fleischner",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "I noduli subsolidi si dividono in puri a vetro smerigliato e parzialmente solidi. Un nodulo subsolido che persiste dopo alcuni mesi (le forme infettive regrediscono) è spesso un adenocarcinoma dello spettro lepidico: dall'iperplasia adenomatosa atipica all'adenocarcinoma in situ, al minimamente invasivo, all'invasivo.\nLa componente solida corrisponde in genere alla parte invasiva: per lo stadio T si misura la componente solida, non il diametro totale (TNM 8ª edizione). Qui la componente solida è sotto 1 cm: cT1a (o cT1mi se ≤ 5 mm), anche se il nodulo intero supera i 2 cm.\nGestione (Fleischner 2017, noduli singoli parzialmente solidi ≥ 6 mm): controllo a 3-6 mesi per confermare che persista; se persiste e la componente solida è ≥ 6 mm, il sospetto è alto e si va verso PET-TC (poco sensibile nelle forme a vetro smerigliato), biopsia o resezione.\nNel referto: diametro totale e della componente solida (in finestra polmonare, su strati sottili), sede, margini, rapporto con la pleura e le scissure.",
+ "regola": "Nodulo subsolido persistente: il T si misura sulla componente solida.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Resezione 5 giorni dopo la TC: adenocarcinoma ben differenziato (G1), pT1a N0 M0, componente a vetro smerigliato 75-100% (dati clinici della collezione NSCLC-Radiogenomics)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "NSCLC-Radiogenomics",
+  "doi": "10.7937/K9/TCIA.2017.7hs46erv",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Bakr S., Gevaert O., Echegaray S. et al. (2017). Data for NSCLC Radiogenomics (Version 4) [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/nsclc-radiogenomics/",
+  "soggetto": "R01-017"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 68,
+  "wc": -600,
+  "ww": 1500,
+  "zoom": 1.5,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Nodulo subsolido del LSS"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: verificato sulle immagini: nodulo prevalentemente a vetro smerigliato spiculato del LSS (fette 62-78), circa 2 cm assiale e 2 cm cranio-caudale, con componente più densa centrale di pochi mm visibile in finestra mediastinica solo come minimo addensamento; coerente con l'istologia della collezione (pT1a, vetro smerigliato 75-100%). Nessuna correzione.\nCaso importato da TCIA il 17/10/2026 (bozza). Reperti letti da Claude sulle immagini e confrontati con la segmentazione del tumore fornita dalla collezione.\nNodulo alle fette ~62-78 (z da −110 a −135 mm). Nella segmentazione della collezione: volume circa 5 mL, densità mediana circa −680 HU, solo l'8% dei voxel sopra −250 HU (componente solida piccola, in parte vasi che attraversano il nodulo). La misura della componente solida in mm è una stima di Claude: da misurare con il calibro."
+}

@@ -1,0 +1,157 @@
+{
+ "titolo": "TC del torace: nodulo polmonare",
+ "titolo_interno": "Nodulo solido spiculato di circa 1,5 cm del lobo superiore destro (segmento posteriore) e piccolo nodulo del lobo superiore sinistro; diagnosi a livello di paziente (biopsia): criptococcosi polmonare",
+ "distretto": "Torace",
+ "quesito": "torace",
+ "modalita": "TC",
+ "difficolta": "Avanzato",
+ "anamnesi": "Uomo di 52 anni. TC del torace con mezzo di contrasto (strati di 2,5 mm). È disponibile anche un RX del torace in due proiezioni. Storia clinica e quesito non disponibili.",
+ "domanda": "Referta in ordine: tecnica, polmoni, mediastino, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica dell'esame",
+   "domanda": "Quali affermazioni sulla tecnica sono corrette?"
+  },
+  {
+   "nome": "Polmoni",
+   "domanda": "Polmoni: cosa osservi?"
+  },
+  {
+   "nome": "Mediastino e ili",
+   "domanda": "Mediastino e ili: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la condotta più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "TC del torace con mezzo di contrasto, ricostruzioni assiali di 2,5 mm",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "TC a bassa dose senza mezzo di contrasto, con strati di 1 mm per lo screening",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo solido di circa 1,5 cm (fino a 2 cm comprese le spicule) nel segmento posteriore del lobo superiore destro, a margini irregolari e spiculati, con sottili trazioni verso la pleura",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Piccolo nodulo solido rotondeggiante di circa 5 mm nella periferia del lobo superiore sinistro",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nodulo a vetro smerigliato puro, senza componente solida",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nodulo con calcificazione centrale «a bersaglio» (granuloma calcifico)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Versamento pleurico destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessun linfonodo mediastinico o ilare ingrandito",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Linfoadenopatie mediastiniche bulky omolaterali, sopra 2 cm di asse corto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Nodulo sospetto: completare con PET-TC e/o campionamento tissutale (biopsia), con discussione multidisciplinare",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 3
+  },
+  {
+   "testo": "Nodulo con aspetto benigno (margini regolari, calcificazione centrale a bersaglio): nessun controllo radiologico né altro esame",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 3
+  },
+  {
+   "testo": "Nodulo indeterminato a basso rischio: controllo TC a 12 mesi secondo Fleischner, senza altri esami",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 3
+  }
+ ],
+ "spiegazione": "Un nodulo solido di circa 1,5 cm (circa 2 cm comprese le spicule), a margini spiculati, nel lobo superiore, va considerato sospetto per neoplasia finché non è dimostrato il contrario: oltre 8 mm le linee guida (Fleischner 2017 per i noduli incidentali) indicano di valutare TC a breve, PET-TC o campionamento tissutale, e la morfologia spiculata alza il rischio.\nIn questo paziente la diagnosi finale, ottenuta con biopsia, è una criptococcosi polmonare, cioè una malattia benigna (il dato della collezione è riferito al paziente e non indica quale dei due noduli sia stato campionato). È una lezione importante: alcune infezioni granulomatose (criptococco, istoplasmosi, tubercolosi) e altre lesioni benigne possono imitare un carcinoma, anche con margini spiculati e captazione alla PET. Per questo la diagnosi si chiude con l'istologia, non con l'aspetto.\nLeggi sempre tutto il parenchima: il secondo nodulo, piccolo e controlaterale, va descritto.",
+ "regola": "Un nodulo solido spiculato > 8 mm va tipizzato; l'aspetto non basta a dire benigno o maligno.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Diagnosi a livello di paziente (dati clinici LIDC-IDRI): malattia benigna, criptococcosi polmonare, ottenuta con biopsia."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "LIDC-IDRI",
+  "soggetto": "LIDC-IDRI-0183",
+  "doi": "10.7937/K9/TCIA.2015.LO9QL9SX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Armato III S.G. et al. (2015). Data From LIDC-IDRI [Data set]. The Cancer Imaging Archive. The authors acknowledge the National Cancer Institute and the Foundation for the National Institutes of Health, and their critical role in the creation of the free publicly available LIDC/IDRI Database used in this study.",
+  "url": "https://www.cancerimagingarchive.net/collection/lidc-idri/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "vista": {
+  "serie": 0,
+  "idx": 24,
+  "wc": -600,
+  "ww": 1500,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 158,
+    "y": 326
+   },
+   "b": {
+    "x": 186,
+    "y": 355
+   }
+  },
+  "nota": "Nodulo spiculato del segmento posteriore del lobo superiore destro"
+ },
+ "nota_docente": "[seconda revisione 06/11/2026] esito (c), non risolvibile dalle immagini: TC (fette 22-26 e 41-45) e RX senza segni di procedura (né pneumotorace, né emorragia, né tramite d'ago), quindi non si può dire quale nodulo sia stato biopsiato; la diagnosi LIDC è a livello di paziente. Titolo interno e spiegazione riformulati per non attribuire la biopsia a un nodulo preciso.\n[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificati sulle immagini il nodulo spiculato del segmento posteriore del LSD (fette 23-26), il piccolo nodulo sinistro e l'assenza di linfoadenopatie; uniformata nella spiegazione la misura (circa 1,5 cm, 2 cm con le spicule). Resta aperto quale nodulo sia stato biopsiato.\nDa controllare dal docente: quale dei due noduli sia stato biopsiato (la criptococcosi LIDC è a livello di paziente).\nCaso importato da TCIA (prima numerato 138) il 12/10/2026 (bozza). Reperti letti da Claude sulle immagini e sulle segmentazioni dei radiologi LIDC: da confermare.\nNodulo principale alla fetta 25/139 (circa 20 × 17 mm sull'assiale nella segmentazione LIDC «Nodule 2», più piccolo sulla singola fetta: misurarlo).\nSecondo nodulo solido di circa 5 mm nel lobo superiore sinistro, periferico, alla fetta 43/139 (segmentazione «Nodule 1»).\nMediastino: nessun linfonodo chiaramente ingrandito a una lettura d'insieme; alle basi solo addensamenti declivi. [verifica 25/10/2026] Riletto in finestra mediastinica (immagini 15-85) e polmonare alle basi (95-125): nessun linfonodo mediastinico o ilare ingrandito; alle basi solo sottili addensamenti declivi posteriori bilaterali, senza consolidazioni né versamento.\nAttenzione: il file diagnostico LIDC dà la criptococcosi a livello di paziente (benigno, biopsia); non è certo quale dei due noduli sia stato biopsiato. Le date TCIA sono spostate: non è noto se RX e TC siano dello stesso giorno. Sull'RX c'è l'etichetta «LADC» dell'archivio (non identificativa).\n[verifica 12/10/2026, Claude] Misure con segmentazione a soglia: nodulo destro diametro massimo 19 mm con le spicule, area massima 1,24 cm² (diametro equivalente circa 13 mm) alla fetta 26; nodulo sinistro 4-5 mm (fette 43-45). Reperti confermati alla rilettura. Resta aperto quale nodulo sia stato biopsiato.\n[pubblicato il 13/10/2026 su richiesta dell'amministratore, dopo la revisione di Claude: restano i dubbi scritti sopra]",
+ "id": "caso-tcia-001",
+ "visibile": true,
+ "aggiornato": "2026-11-06 20:56"
+}

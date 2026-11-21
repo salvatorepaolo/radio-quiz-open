@@ -1,0 +1,51 @@
+# Controllo quotidiano del sito vero (solo lettura, nessun account): risponde, protezioni attive, file non pubblici chiusi,
+# certificato HTTPS e dominio lontani dalla scadenza. Se qualcosa non va, GitHub manda un'email al titolare del repository.
+# Circa mezzo minuto al giorno: dentro i minuti gratuiti.
+name: sito
+
+on:
+  schedule:
+    - cron: '23 5 * * *'        # ogni giorno alle 5:23 UTC (6:23 o 7:23 in Italia)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  controllo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: piattaforma-quiz/cloud/test/controlla-sito.sh
+          sparse-checkout-cone-mode: false
+
+      - name: Sito, protezioni, file non pubblici e certificato
+        run: bash piattaforma-quiz/cloud/test/controlla-sito.sh https://radio-quiz.it
+
+      - name: Versione pubblicata leggibile
+        run: |
+          curl -fsS --max-time 20 https://radio-quiz.it/versione.json | python3 -c 'import json,sys; v=json.load(sys.stdin); print("versione", v["versione"], "del", v.get("data","")); assert v["versione"]'
+
+      - name: Posta (le email di conferma e di nuova password arrivano e non finiscono nella posta indesiderata)
+        run: |
+          male=0; ok() { echo "✓ $1"; }; ko() { echo "::error::$1"; male=1; }
+          D=radio-quiz.it
+          dig +short TXT _dmarc.$D | grep -qE 'v=DMARC1;.*p=(quarantine|reject)' && ok "DMARC" || ko "DMARC mancante o senza p=quarantine/reject"
+          dig +short TXT posta.$D | grep -q 'include:amazonses.com' && ok "SPF del mittente (posta.$D)" || ko "SPF di posta.$D mancante"
+          dig +short MX posta.$D | grep -q 'amazonses.com' && ok "MX del mittente" || ko "MX di posta.$D mancante (MAIL FROM di SES)"
+          # chiavi DKIM di Amazon SES (le tre firme delle email): devono puntare ad amazonses.com
+          for t in hkphz4gv4guu4jkyrv7v7cefiyszcazl a4o2ziii3trcgnno6myumqruhir7jcnp kxjoyj74yva5oifyl5wqtikkxcu44bue; do
+            dig +short CNAME $t._domainkey.$D | grep -q 'dkim.*amazonses.com' && ok "DKIM $t" || ko "DKIM $t mancante"
+          done
+          exit $male
+
+      - name: Dominio lontano dalla scadenza (almeno 45 giorni)
+        run: |
+          sudo apt-get install -y -qq whois > /dev/null
+          SCAD=$(whois radio-quiz.it | awk -F': *' '/^Expire Date/ {print $2; exit}')
+          [ -n "$SCAD" ] || { echo "::warning::scadenza del dominio non leggibile dal whois"; exit 0; }
+          GIORNI=$(( ( $(date -d "$SCAD" +%s) - $(date +%s) ) / 86400 ))
+          echo "dominio radio-quiz.it: scade il $SCAD (tra $GIORNI giorni)"
+          [ "$GIORNI" -ge 45 ] || { echo "::error::il dominio scade tra $GIORNI giorni: rinnovarlo"; exit 1; }

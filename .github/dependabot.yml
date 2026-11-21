@@ -1,0 +1,13 @@
+# Dependabot: avvisi e proposte di aggiornamento quando una libreria usata ha una vulnerabilità nota (gratuito).
+# Solo le correzioni di sicurezza aprono una proposta; gli aggiornamenti ordinari si raccolgono una volta al mese.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directories: ["/piattaforma-quiz/cloud", "/piattaforma-quiz/cloud/test", "/piattaforma-quiz/cloud/mpr3d", "/piattaforma-quiz/qualita"]
+    schedule: { interval: monthly }
+    open-pull-requests-limit: 5
+    groups:
+      librerie: { patterns: ["*"], update-types: ["minor", "patch"] }
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule: { interval: monthly }

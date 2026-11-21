@@ -1,0 +1,163 @@
+{
+ "id": "caso-tcia-101",
+ "visibile": true,
+ "titolo": "🧪 SIMULATO – TC torace: trauma toracico chiuso, caduta dalla scala",
+ "titolo_interno": "Caso simulato: fratture dell'arco laterale di tre coste sinistre contigue (verosimilmente 7ª, 8ª scomposta e 9ª), piccolo ematoma extrapleurico, contusione polmonare, pneumotorace anteriore sinistro ed enfisema sottocutaneo",
+ "distretto": "Torace",
+ "quesito": "trauma toracico",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "CASO SIMULATO: la TC è vera (archivio pubblico, nessun trauma), le lesioni sono state aggiunte al computer; storia clinica di fantasia. Paziente di 58 anni, caduta da una scala di circa 2 metri con urto del fianco sinistro. Dolore toracico sinistro che aumenta col respiro, SpO2 94% in aria, emodinamica stabile. TC del torace senza mezzo di contrasto, strati da 1 mm (filtro morbido): guarda con finestra polmone e finestra osso.",
+ "domanda": "Descrivi le lesioni scheletriche, pleuriche e polmonari e decidi la comunicazione.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi? (coste, pleura, polmone, parete)"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Fratture dell'arco laterale di tre coste contigue a sinistra (verosimilmente 7ª, 8ª e 9ª), una sola rima per costa",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini ~176 (7ª), ~208 (8ª), ~251 (9ª); finestra osso. La frattura più bassa è composta: va cercata costa per costa. Numerazione: contando dalla 1ª costa (quella che arriva al manubrio sotto la clavicola) e seguendo ogni costa dalla testa all'arco laterale, le coste fratturate risultano la 7ª, l'8ª e la 9ª; conta soprattutto la sede (arco laterale di tre coste contigue)."
+  },
+  {
+   "testo": "La frattura della costa intermedia (verosimilmente l'8ª) è scomposta di circa 3 mm verso l'interno, con un piccolo ematoma extrapleurico che sposta la pleura",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini ~205-212: lente di tessuto tra costa e polmone con angoli ottusi (extrapleurica, non versamento)."
+  },
+  {
+   "testo": "Piccolo pneumotorace anteriore sinistro (paziente supino), con la linea pleurica viscerale visibile e spessore massimo di circa 1 cm",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini ~160-295, più evidente ~210-240 anteriormente e lungo il margine del cuore. Nella radiografia da supino sarebbe facilmente occulto."
+  },
+  {
+   "testo": "Addensamenti a vetro smerigliato a chiazze nel polmone sinistro sotto le fratture (contusione polmonare)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini ~170-220, nel polmone laterale sotto le fratture."
+  },
+  {
+   "testo": "Piccole bolle d'aria nei tessuti molli della parete laterale sinistra (enfisema sottocutaneo)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Vicino alle due fratture più alte (immagini ~170-215)."
+  },
+  {
+   "testo": "Volet costale (lembo mobile): tre o più coste contigue fratturate in due punti",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Ogni costa ha una sola rima: non è un volet."
+  },
+  {
+   "testo": "Versamento pleurico (emotorace) di media entità",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Nessun liquido declive; la lente vicino alla costa scomposta è extrapleurica."
+  },
+  {
+   "testo": "Fratture costali a destra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le fratture sono a sinistra (a destra dell'immagine)."
+  },
+  {
+   "testo": "Fratture costali sinistre multiple con piccolo pneumotorace anteriore, contusione polmonare ed enfisema sottocutaneo: comunicare subito al Pronto soccorso (valutazione per drenaggio, soprattutto se il paziente va ventilato o trasportato)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Contusione della parete toracica senza fratture costali né lesioni pleuro-polmonari (le linee ossee sono artefatti e l'aria è nei tessuti superficiali): analgesia e dimissione, nessuna comunicazione urgente al Pronto soccorso",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Pneumotorace iperteso sinistro con spostamento del mediastino a destra: decompressione immediata con ago e drenaggio toracico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il mediastino non è spostato e il pneumotorace è piccolo."
+  },
+  {
+   "testo": "Fratture costali isolate sinistre, senza pneumotorace, contusione polmonare né enfisema sottocutaneo: solo analgesia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Pneumotorace, contusione ed enfisema sottocutaneo ci sono."
+  }
+ ],
+ "spiegazione": "Caso costruito per la didattica: la TC di partenza è vera (archivio pubblico) e senza trauma; fratture, ematoma, contusione, pneumotorace ed enfisema sono stati aggiunti al computer con il rumore dell'immagine originale.\nNel trauma toracico le fratture costali si cercano con la finestra osso, seguendo ogni costa dall'articolazione posteriore fino alla cartilagine: le fratture composte sono facili da perdere (qui la più bassa). Contare le coste partendo dalla prima (quella che arriva al manubrio sotto la clavicola), dalle teste costali o in una ricostruzione 3D: nei campi che cominciano all'apice è facile saltare la 1ª costa e sbagliare di uno. Tre o più coste contigue fratturate in due o più punti fanno un volet costale; le fratture delle coste basse sinistre fanno cercare la lesione della milza, quelle delle prime coste le lesioni dei grossi vasi.\nIl pneumotorace nel paziente supino si raccoglie davanti e lungo il margine del cuore e del diaframma (solco profondo): in radiografia è spesso occulto, in TC si vede come aria senza trama polmonare oltre la linea pleurica viscerale. Anche se piccolo va comunicato subito: può crescere, soprattutto con la ventilazione a pressione positiva o il trasporto in aereo.\nL'ematoma extrapleurico forma una lente con angoli ottusi tra costa scomposta e polmone e non si sposta con la posizione, a differenza del versamento. La contusione polmonare compare entro poche ore come vetro smerigliato o consolidazione non segmentaria sotto l'area d'impatto e migliora in pochi giorni; se peggiora o diventa cavitata pensare a lacerazione o polmonite.",
+ "regola": "Trauma toracico: coste una per una in finestra osso, poi aria (pneumotorace anteriore, enfisema) e sangue, poi polmone sotto le fratture.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Caso simulato: fratture di tre coste sinistre contigue, verosimilmente 7ª-9ª (l'8ª scomposta), pneumotorace anteriore di circa 70 mL, contusione ed enfisema sottocutaneo aggiunti al computer."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "LIDC-IDRI",
+  "soggetto": "LIDC-IDRI-0441 (immagini modificate)",
+  "doi": "10.7937/K9/TCIA.2015.LO9QL9SX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Armato III S.G. et al. (2015). Data From LIDC-IDRI [Data set]. The Cancer Imaging Archive. The authors acknowledge the National Cancer Institute and the Foundation for the National Institutes of Health, and their critical role in the creation of the free publicly available LIDC/IDRI Database used in this study. Immagini modificate per la didattica: fratture costali, ematoma extrapleurico, contusione polmonare, pneumotorace ed enfisema sottocutaneo aggiunti al computer; strati da 0,5 mm uniti a coppie (caso simulato). La TC originale non ha noduli secondo le letture LIDC.",
+  "url": "https://www.cancerimagingarchive.net/collection/lidc-idri/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 208,
+  "wc": 400,
+  "ww": 1800,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Frattura scomposta della costa intermedia (verosimilmente 8ª) sinistra (finestra osso)"
+ },
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "ps",
+   "richiedente"
+  ],
+  "parole": [
+   "pneumotorace",
+   "fratture",
+   "sinistr"
+  ],
+  "motivo": "Pneumotorace traumatico con fratture costali multiple: esito da comunicare subito a voce al medico del Pronto soccorso, perché può peggiorare e cambia la gestione (drenaggio, cautela prima di ventilazione o trasporto); va scritto nel referto."
+ },
+ "richiesta": {
+  "reparto": "Pronto soccorso",
+  "priorita": "PS",
+  "lab": [],
+  "allergie": "",
+  "farmaci": "",
+  "dispositivi": "",
+  "gravidanza": ""
+ },
+ "nota_docente": "Controllato il 25/10/2026: immagini e testi rivisti da un revisore indipendente; numerazione costale corretta. CASO SIMULATO creato il 25/10/2026. Base: LIDC-IDRI-0441 (Siemens Sensation 64, 120 kV, 80 mAs, NLST 0,6 mm B30f, 682 strati da 0,5 mm uniti a coppie in 341 strati da 1 mm; nessun nodulo per i lettori LIDC; sesso ed età non disponibili). Simulazione con strumenti_claude/sim/torace_trauma.py (posizioni in strati originali: costa 6 z353, 7 z417, 8 z502 → immagini pubblicate 176, 208, 251): rime di frattura sottili con scomposizione 2 / 3 / 1,5 mm verso l'interno (campo di spostamento sfumato attorno all'asse costale); lente extrapleurica fino a 4 mm alla 7ª; contusione a chiazze entro ~30 mm dalle fratture 6-7; pneumotorace anteriore con spessore variabile fino a ~9-11 mm (circa 70 mL, immagini ~160-295) e linea pleurica viscerale; enfisema sottocutaneo a piccole bolle irregolari. Numerazione delle coste (nomi 6/7/8 dello script = posizione, non numero anatomico): vedi revisione. Limiti: nessun emotorace; le bolle non seguono un piano fasciale preciso. Percorsi proposti: simulati, urgenze, torace. [revisione indipendente 25/10/2026] Numerazione ricontata: segmentazione 3D delle coste sinistre ordinate per estremo paravertebrale (strati 1, 5, 24, 46, 67, 89, 114, 139, 163, 190, 224); la prima (strato 1) è la 1ª costa, che va dal piano paravertebrale al manubrio sotto la clavicola (strati 1-55); la seconda arriva all'angolo sternale. Le fratture alle immagini 176, 208, 251 cadono sulle coste che partono dagli strati 114, 139, 163 = 7ª, 8ª, 9ª (confermato con la sagittale paravertebrale e la MIP coronale posteriore: 11 coste lunghe). Testi corretti da 6ª-8ª a «verosimilmente 7ª-9ª» (opzioni, titolo interno, esito, vista); contusione descritta come laterale, non posterolaterale. Reperti visibili e credibili: rime corticali (la più bassa composta), lente extrapleurica, pneumotorace anteriore sottile con linea pleurica, vetro smerigliato laterale, bolle sottocutanee. Distrattori e comunicazione immediata corretti."
+}

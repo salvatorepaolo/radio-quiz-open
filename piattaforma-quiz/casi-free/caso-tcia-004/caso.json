@@ -1,0 +1,152 @@
+{
+ "titolo": "TC del fegato in quattro fasi",
+ "titolo_interno": "Epatocarcinoma multinodulare del lobo destro, circa 7 × 8 cm; fase arteriosa precoce",
+ "distretto": "Fegato",
+ "quesito": "addome",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 63 anni. TC dell'addome in quattro fasi: basale, arteriosa, portale e tardiva a 5 minuti (strati di 5 mm). Storia clinica e quesito non disponibili.",
+ "domanda": "Referta in ordine: tecnica, comportamento della lesione nelle fasi, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica dell'esame",
+   "domanda": "Quali affermazioni sulla tecnica sono corrette?"
+  },
+  {
+   "nome": "Fegato",
+   "domanda": "Lesione epatica: cosa osservi nelle diverse fasi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Studio multifasico del fegato: basale, arteriosa, portale e tardiva",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Studio con sola fase portale, senza acquisizione basale né fase arteriosa, sufficiente per le lesioni focali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesione multinodulare del lobo destro, nella parte posterolaterale sotto la cupola, di circa 7 × 8 cm nel complesso, fatta di noduli confluenti di 2-4 cm (aspetto «a mosaico»)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "La fase arteriosa è precoce (aorta ben opacizzata, vena porta e parenchima epatico ancora poco opacizzati): la lesione mostra solo un'impregnazione lieve ed eterogenea con piccoli vasi al suo interno",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nelle fasi portale e tardiva i noduli sono più scuri del fegato circostante (ipodensi)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Riempimento centripeto nodulare periferico che diventa isodenso nelle fasi tardive",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Lesione a densità di liquido che non si impregna",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Lesione sospetta per epatocarcinoma multinodulare: verificare i fattori di rischio e, se i criteri LI-RADS non sono soddisfatti (qui manca una vera fase tardo-arteriosa), completare con RM o biopsia; stadiazione e discussione multidisciplinare",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Emangioma atipico: impregnazione periferica nodulare discontinua con riempimento incompleto nella fase tardiva per trombosi parziale o fibrosi; lesione benigna, nessun approfondimento con RM o biopsia, solo controllo ecografico a 6 mesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Iperplasia nodulare focale multipla: lesioni ipervascolari omogenee in fase arteriosa, isodense in portale, con cicatrice centrale che si impregna in tardiva; lesioni benigne in fegato sano, nessun controllo né biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Metastasi epatiche ipovascolari multiple, più probabilmente da adenocarcinoma del colon con impregnazione periferica ad anello: completare con colonscopia, CEA e TC torace-addome di stadiazione, poi discussione oncologica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Nel paziente a rischio (cirrosi, epatite B cronica, epatocarcinoma pregresso) l'epatocarcinoma si diagnostica con l'imaging, senza biopsia, quando ci sono i criteri maggiori LI-RADS: impregnazione arteriosa non periferica (APHE), wash-out non periferico, capsula che si impregna, dimensioni e crescita. Un'osservazione ≥ 20 mm con APHE e almeno un altro criterio è LR-5.\nL'APHE si valuta nella fase TARDO-arteriosa (arteria epatica piena, vena porta che inizia a opacizzarsi). In questo esame la fase arteriosa è precoce: l'aorta è ben opacizzata ma vena porta e parenchima sono ancora poco impregnati, per cui l'impregnazione della lesione risulta modesta. È un errore di tecnica frequente: con una fase arteriosa precoce un epatocarcinoma può non mostrare l'APHE e la categoria LI-RADS si abbassa.\nL'aspetto multinodulare «a mosaico» (noduli confluenti separati da setti) è tipico dell'epatocarcinoma di grandi dimensioni. Diagnosi differenziale: l'emangioma si riempie dalla periferia e resta iso/iperdenso; l'iperplasia nodulare focale non ha wash-out; le metastasi ipovascolari hanno un orletto periferico in arteriosa.\nNel referto: numero e sede dei noduli (segmenti), diametro, rapporti con le vene sovraepatiche e la porta (trombosi neoplastica), segni di epatopatia cronica e di ipertensione portale.",
+ "regola": "L'APHE si giudica in fase tardo-arteriosa: con una fase arteriosa precoce l'epatocarcinoma può sembrare ipovascolare.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Epatocarcinoma (collezione TCGA-LIHC: tutti i casi hanno conferma istologica)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-LIHC",
+  "soggetto": "TCGA-BC-A69H",
+  "doi": "10.7937/K9/TCIA.2016.IMMQW8UQ",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Erickson B. J. et al. (2016). The Cancer Genome Atlas Liver Hepatocellular Carcinoma Collection (TCGA-LIHC) (Version 5) [Data set]. The Cancer Imaging Archive. The results here are in whole or part based upon data generated by the TCGA Research Network: http://cancergenome.nih.gov/.",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-lihc/"
+ },
+ "serie_iniziale": 2,
+ "riquadri": 4,
+ "disposizione": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "vista": {
+  "serie": 2,
+  "idx": 54,
+  "wc": 60,
+  "ww": 300,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Epatocarcinoma multinodulare del lobo destro",
+  "segno": {
+   "a": {
+    "x": 95,
+    "y": 255
+   },
+   "b": {
+    "x": 210,
+    "y": 350
+   }
+  }
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificati sulle immagini fasi, sede e aspetto a mosaico; misura dell'insieme corretta a circa 7 × 8 cm (portale, fetta 52); descrizione della fase arteriosa resa più prudente (aorta circa 290 HU, porta e fegato poco opacizzati). Diagnosi istologica TCGA confermata dalla collezione.\nCaso importato da TCIA il 12/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nLa lesione si vede meglio alla fetta 55/134 della portale e 16/46 dell'arteriosa. Le serie hanno coordinate del lettino diverse (la portale comprende anche il torace): per confrontare le fasi usare «Allinea».\nLa fase «arteriosa» è precoce (fegato quasi non impregnato): l'APHE è modesta ed eterogenea; il wash-out e la capsula sono invece evidenti in portale e tardiva. Dimensioni non misurate (lesione multinodulare di diversi cm). Non valutati in dettaglio: vena porta, epatopatia cronica, linfonodi.\n[verifica 12/10/2026, Claude] Rilettura: in fase arteriosa (precoce) l'APHE è debole; la capsula non è evidente in modo convincente, per cui è stata tolta dalle risposte; ipodensità dei noduli in portale e tardiva certa. Dimensioni dell'insieme circa 7 × 5,5 cm in portale (fetta 53). Diagnosi istologica (TCGA-LIHC): epatocarcinoma. [verifica 25/10/2026] Segno della vista: il riquadro (x 95-210, y 255-350 dell'immagine 54 della portale) contiene i noduli confluenti del lobo destro.\n[pubblicato il 13/10/2026 su richiesta dell'amministratore, dopo la revisione di Claude: restano i dubbi scritti sopra]",
+ "id": "caso-tcia-004",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:20"
+}

@@ -1,0 +1,129 @@
+{
+ "titolo": "RM encefalo: lesione frontale in donna di 24 anni",
+ "titolo_interno": "Astrocitoma IDH-mutato grado 4 frontale destro (ReMIND-097)",
+ "distretto": "Encefalo",
+ "modalita": "RM",
+ "difficolta": "Avanzato",
+ "quesito": "lesione cerebrale",
+ "anamnesi": "Donna di 24 anni. RM dell'encefalo con mezzo di contrasto (T2 assiale, T1 3D dopo mdc). Nessun intervento precedente. Dettagli clinici non forniti dalla collezione.",
+ "domanda": "Descrivi la lesione, distingui la parte captante da quella non captante e proponi la diagnosi.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è l'ipotesi più probabile?",
+   "singola": true
+  }
+ ],
+ "spiegazione": "Secondo la WHO 2021 «glioblastoma» si usa solo per i gliomi IDH wild-type. Un glioma IDH-mutato con necrosi o proliferazione vascolare è un astrocitoma IDH-mutato di grado 4: colpisce adulti più giovani, spesso nel lobo frontale, con un'ampia parte non captante e una componente captante relativamente piccola; la prognosi è migliore del glioblastoma.\nIndizi radiologici di mutazione IDH: età giovane, sede frontale, margini più netti, ampia componente non captante, poca necrosi, segno del mismatch T2-FLAIR (nei gradi più bassi). La diagnosi resta istologica e molecolare.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Astrocitoma IDH-mutato, WHO grado 4 (dati della collezione ReMIND)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "ReMIND (Brain Resection Multimodal Imaging Database)",
+  "doi": "10.7937/3RAG-D070",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Juvekar P., Dorent R., Kögl F., et al. (2023). The Brain Resection Multimodal Imaging Database (ReMIND) (Version 1) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/3RAG-D070",
+  "url": "https://www.cancerimagingarchive.net/collection/remind/",
+  "soggetto": "ReMIND-097"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  0
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 63,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Componente necrotica captante ad anello frontale destra"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "nessuna",
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "glioma"
+  ],
+  "motivo": "Nuova diagnosi di tumore senza erniazione: informare il curante nei tempi brevi."
+ },
+ "regola": "Glioma in un giovane con ampia parte non captante e piccola necrosi: pensa all'astrocitoma IDH-mutato, non al glioblastoma.",
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini (orientamento DICOM in convenzione radiologica): ampia lesione frontale destra iperintensa in T2 fino al corno frontale destro e alla corteccia frontale mediale, con componente necrotica di circa 2 cm a parete captante ad anello (T1 img 58-72, piccolo focus captante a img 50), effetto massa sul corno frontale senza spostamento importante della linea mediana; ginocchio del corpo calloso di segnale normale. Coerente con la segmentazione e l'istologia della collezione; nessuna correzione.\nReMIND-097 (IDC, CC BY 4.0), studio preoperatorio: T2 2D BLADE, T1 3D post-mdc (nessuna FLAIR nello studio). Defacciate alla fonte; specchiate da Claude in convenzione radiologica. Clinica: F24, astrocitoma WHO 4, IDH-mutato, enhancement sì, Right Frontal, 59,7 mL. SEG T1 22×21×25 mm (immagini 49-74), SEG T2 44×62×62 mm. [verifica 25/10/2026] Rivisto sulle immagini: lesione frontale destra iperintensa in T2 con componente necrotica captante ad anello (T1 img 63-72, piccolo focus captante anche a img 50), effetto massa sul corno frontale destro. In T2 (img 20-25) l'iperintensità arriva al margine anteriore del corno frontale ma il ginocchio del corpo calloso ha segnale normale: tolta dal reperto principale l'«estensione verso il ginocchio del corpo calloso».",
+ "id": "caso-tcia-063",
+ "visibile": true,
+ "opzioni": [
+  {
+   "testo": "Ampia lesione infiltrante frontale destra, iperintensa in T2 e ipointensa in T1, di circa 4 × 6 × 6 cm, estesa in profondità fino al corno frontale destro",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Segmentazione degli esperti in T2: circa 44 × 62 × 62 mm; volume preoperatorio circa 60 mL."
+  },
+  {
+   "testo": "All'interno una componente cistico-necrotica di circa 2 cm con parete captante ad anello",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Segmentazione della parte captante: circa 22 × 21 × 25 mm."
+  },
+  {
+   "testo": "Effetto massa sul corno frontale destro, senza spostamento importante della linea mediana",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesione extra-assiale a base durale con coda durale e liquor interposto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesioni multiple bilaterali di piccole dimensioni, senza una lesione dominante",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Ampia lesione infiltrante frontale destra: glioma diffuso con aspetti di alto grado (impregnazione e necrosi) in una giovane adulta: prima ipotesi astrocitoma IDH-mutato di alto grado; resezione e diagnosi molecolare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Glioma a basso grado certo per l'età giovane e la sede frontale: nessun intervento per ora, controllo RM tra 6 mesi; l'impregnazione ad anello e la componente cistica sono irrilevanti a questa età",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "L'anello captante con necrosi indica una componente di alto grado."
+  },
+  {
+   "testo": "Metastasi frontale singola con necrosi da tumore primitivo non noto: ricerca del primitivo con TC torace-addome e PET, poi radiochirurgia della lesione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Ascesso cerebrale frontale con capsula captante e edema: terapia antibiotica e drenaggio stereotassico, senza resezione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La lesione è soprattutto un'ampia area infiltrante non captante con una piccola parte necrotica: non è un ascesso."
+  }
+ ],
+ "aggiornato": "2026-11-05 20:26"
+}

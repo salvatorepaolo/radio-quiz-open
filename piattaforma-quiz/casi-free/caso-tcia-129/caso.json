@@ -1,0 +1,210 @@
+{
+ "id": "caso-tcia-129",
+ "visibile": true,
+ "titolo": "TC addome multifasica: massa epatica gigante in donna senza epatopatia nota",
+ "titolo_interno": "Epatocarcinoma scarsamente differenziato gigante (circa 19 cm) del lobo destro in fegato NON cirrotico: LI-RADS non applicabile, serve la biopsia (HCC-TACE-Seg HCC_075)",
+ "distretto": "Fegato",
+ "quesito": "massa epatica",
+ "modalita": "TC",
+ "difficolta": "Avanzato",
+ "anamnesi": "Donna di 67 anni. Nessuna epatite virale (HBV e HCV negativi), nessuna evidenza clinica di cirrosi, funzione epatica conservata (Child-Pugh A). Alfa-fetoproteina 38,5 ng/ml. TC dell'addome senza contrasto e dopo mezzo di contrasto in fase arteriosa tardiva e portale.",
+ "domanda": "Descrivi la massa (sede, dimensioni, comportamento nelle fasi, rapporti), decidi se si può usare il LI-RADS e proponi la conclusione.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "LI-RADS",
+   "domanda": "Si può classificare la massa con il LI-RADS?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa gigante di circa 19 cm che occupa quasi tutto il lobo destro (segmenti 5, 6, 7 e 8), eterogenea: ampia parte centrale ipodensa che non impregna (necrosi) e tessuto solido periferico e setti che impregnano in modo eterogeneo, ipodensi rispetto al fegato in fase portale",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Segmentazione degli esperti: circa 15 × 18,5 cm sul piano assiale e 18,5 cm in senso cranio-caudale (circa 2,4 litri); diametro massimo RECIST della collezione 17,6-18 cm. Densità mediane della massa: basale 36 HU, arteriosa 48, portale 51 (fegato 50, 87, 115): anche le parti solide periferiche impregnano meno del fegato o in modo simile in arteriosa, con vasi tortuosi; nessun iperenhancement arterioso netto."
+  },
+  {
+   "testo": "Lobo sinistro e segmento 4 di aspetto conservato, a contorni regolari, senza segni morfologici di cirrosi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Niente ipertrofia del caudato, nessuna nodularità dei contorni né segni di ipertensione portale evidenti."
+  },
+  {
+   "testo": "La massa comprime le strutture vicine: la vena cava inferiore retroepatica non è più riconoscibile",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "La cava è riconoscibile sotto il caudato e sotto il fegato (immagini più caudali), ma non nel tratto retroepatico più craniale accanto alla massa: compressione (o infiltrazione da valutare). Il tronco portale e il ramo sinistro sono opacizzati; il ramo destro, inglobato nella massa, non si riconosce: la trombosi portale riportata dalla collezione non è dimostrabile con certezza su queste immagini."
+  },
+  {
+   "testo": "Massa cistica a parete sottile con setti fini, senza componente solida che impregna",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "La periferia della massa e i setti sono solidi e impregnano: non è una lesione cistica."
+  },
+  {
+   "testo": "Lesioni multiple di piccole dimensioni in entrambi i lobi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": ""
+  },
+  {
+   "testo": "No: la paziente non ha cirrosi né epatite B cronica, quindi non appartiene alla popolazione a rischio e il LI-RADS non si applica",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Il LI-RADS vale solo per pazienti con cirrosi, epatite B cronica o epatocarcinoma pregresso."
+  },
+  {
+   "testo": "Sì: LR-5 perché la massa è oltre 20 mm, iperdensa in arteriosa e ipodensa in fase portale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Fuori dalla popolazione a rischio i criteri LI-RADS non sono validati: anche APHE e wash-out tipici si vedono in metastasi, colangiocarcinoma o adenoma."
+  },
+  {
+   "testo": "Sì: LR-M perché la massa è necrotica e con impregnazione periferica ad anello, quindi serve la biopsia del tessuto vitale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Massa epatica maligna gigante del lobo destro in fegato non cirrotico: epatocarcinoma (anche nella forma fibrolamellare o su adenoma) tra le prime ipotesi, ma colangiocarcinoma intraepatico e metastasi vanno esclusi: biopsia del tessuto vitale periferico e stadiazione (torace, vasi, linfonodi)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": ""
+  },
+  {
+   "testo": "Epatocarcinoma certo con l'imaging per le dimensioni, l'ipervascolarizzazione arteriosa e il wash-out, anche senza cirrosi: nessuna biopsia, trattamento diretto (resezione o chemioembolizzazione) e stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Fuori dalla popolazione a rischio la diagnosi non invasiva non vale: serve l'istologia."
+  },
+  {
+   "testo": "Emangioma gigante del lobo destro con impregnazione periferica nodulare discontinua, riempimento centripeto progressivo e cicatrice centrale fibrosa: lesione benigna in fegato non cirrotico, nessun controllo né biopsia né stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "L'emangioma ha impregnazione nodulare periferica discontinua, isodensa al sangue, con riempimento centripeto; qui il tessuto solido è ipodenso rispetto al fegato in portale e c'è ampia necrosi."
+  },
+  {
+   "testo": "Ascesso epatico gigante con centro necrotico e parete che si impregna: drenaggio percutaneo urgente, emocolture e terapia antibiotica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Nessun quadro clinico infettivo; la parte solida periferica che impregna e i setti spessi indicano un tumore."
+  }
+ ],
+ "spiegazione": "L'epatocarcinoma nasce di solito in un fegato cirrotico o con epatite B cronica, ma circa il 10-20% dei casi in Occidente insorge in un fegato non cirrotico (steatoepatite, emocromatosi, adenoma che degenera, forma fibrolamellare nei giovani, oppure senza causa nota). Queste forme sono spesso scoperte tardi, molto voluminose, con necrosi centrale, e alla diagnosi possono avere invasione vascolare, linfonodi e metastasi.\nIl punto chiave del caso: il LI-RADS e la diagnosi non invasiva (APHE + wash-out = epatocarcinoma senza biopsia) valgono solo nella popolazione a rischio (cirrosi, epatite B cronica, epatocarcinoma pregresso). In un fegato sano gli stessi aspetti si vedono in metastasi ipervascolari, colangiocarcinoma intraepatico, adenoma: serve la biopsia, mirata al tessuto vitale periferico (non al centro necrotico).\nTrappole: 1) non usare il LI-RADS in un paziente non a rischio, anche se la massa avesse APHE e wash-out tipici; 2) in una massa così grande la sede si descrive per segmenti (qui 5-8) e si cerca il rapporto con le vene sovraepatiche, la porta e la cava; 3) controllare sempre il lume portale e la cava (trombosi neoplastica: cambia la stadiazione, BCLC C); 4) l'alfa-fetoproteina normale o poco aumentata non esclude l'epatocarcinoma.",
+ "regola": "APHE e wash-out bastano per l'epatocarcinoma solo nel paziente a rischio: in un fegato non cirrotico il LI-RADS non si applica e serve la biopsia.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Epatocarcinoma scarsamente differenziato in fegato non cirrotico, senza epatite virale; secondo la collezione multinodulare con coinvolgimento epatico > 50%, invasione vascolare, trombosi portale, linfonodi e metastasi a distanza (TNM IVB, BCLC C, CLIP 3, Okuda II), AFP 38,5 ng/ml. Trattata con chemioembolizzazione con microsfere a rilascio di doxorubicina (criterio di inclusione della collezione HCC-TACE-Seg)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "HCC-TACE-Seg",
+  "soggetto": "HCC_075",
+  "doi": "10.7937/TCIA.5FNA-0924",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Moawad A. W., Fuentes D., Morshid A., Khalaf A. M., Elmohr M. M., Abusaif A., Hazle J. D., Kaseb A. O., Hassan M., Mahvash A., Szklaruk J., Qayyom A., Elsayes K. (2021). Multimodality annotated HCC cases with and without advanced imaging segmentation [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/TCIA.5FNA-0924",
+  "url": "https://www.cancerimagingarchive.net/collection/hcc-tace-seg/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  2
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 38,
+  "wc": 60,
+  "ww": 350,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 89,
+    "y": 121
+   },
+   "b": {
+    "x": 269,
+    "y": 346
+   }
+  },
+  "nota": "Massa gigante del lobo destro: tessuto periferico e setti che impregnano, ampia necrosi centrale"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "massa",
+   "biopsia"
+  ],
+  "motivo": "Nuova massa epatica maligna senza complicanze acute: informare il curante in tempi brevi per biopsia e stadiazione."
+ },
+ "scale": [
+  {
+   "id": "lirads",
+   "valori": {
+    "sede": [
+     "S5",
+     "S6",
+     "S7",
+     "S8"
+    ],
+    "rischio": "no"
+   },
+   "valore": "non applicabile",
+   "testo": "LI-RADS non applicabile: il paziente non è a rischio di epatocarcinoma; la lesione si descrive e si caratterizza senza categoria LI-RADS. Sede: segmenti V-VI-VII-VIII."
+  },
+  {
+   "id": "segmenti",
+   "valori": {
+    "sede": [
+     "S5",
+     "S6",
+     "S7",
+     "S8"
+    ],
+    "d": 188,
+    "n": "1",
+    "nat": "nd"
+   },
+   "valore": "S5, S6, S7, S8",
+   "testo": "Lesione focale ai segmenti V-VI-VII-VIII, diametro massimo 18,8 cm; non caratterizzabile con certezza con questo esame (fegato non a rischio: biopsia). Accettabile «epatocarcinoma» come natura più probabile."
+  }
+ ],
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: Verificato sulle immagini: massa gigante del lobo destro (segmenti 5-8, lobo sinistro e segmento 4 risparmiati), necrosi centrale (35 HU in tutte le fasi), periferia ipodensa rispetto al fegato in portale; fegato senza segni morfologici di cirrosi; LI-RADS non applicabile coerente con le schede. Cava retroepatica craniale non riconoscibile (visibile sotto il caudato e sotto il fegato); trombosi portale della collezione non dimostrabile (tronco e ramo sinistro opacizzati, ramo destro inglobato): lasciata la formulazione prudente, nota della cava precisata; testi delle schede con i segmenti in numeri romani; reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione).\nNote minori: 1) la trombosi portale riportata nella tabella clinica non è dimostrabile con certezza sulle immagini (ricontrollato in revisione: tronco portale e ramo sinistro opacizzati, ramo destro non riconoscibile dentro la massa, nessun tessuto che impregna nel lume del tronco): resta solo come dato della collezione, non tra le risposte; 2) vena cava inferiore: riconoscibile sotto il caudato (portale img 46-56 circa, in arteriosa con rimescolamento del contrasto) e sotto il fegato, non riconoscibile nel tratto retroepatico più craniale (img 20-44 circa): compressione probabile, infiltrazione non esclusa; 3) linfonodi e metastasi riportati dalla collezione non verificati (il torace non è nel volume); 4) la massa arriva medialmente vicino al segmento 4: escluso dalla sede ma da confermare; 5) la natura nella scheda segmenti è 'non caratterizzabile' (la risposta didattica è la biopsia): accettare anche 'epatocarcinoma'.\nHCC-TACE-Seg HCC_075 (IDC hcc_tace_seg, CC BY 4.0), TC basale pre-TACE: PRE LIVER (97 img), Recon 2 fase arteriosa (107 img, aorta circa 245 HU), Recon 3 fase portale (109 img, aorta circa 125 HU), 2,5 mm. Clinica (tabella TCIA V2): F 67, nessun virus, alcol 0, cirrosi 0, Child A, PS 1, poorly differentiated, multinodulare, coinvolgimento > 50%, invasione vascolare 1, trombosi portale 1, linfonodi 1, metastasi 1, AFP 38,5, TNM IVB, BCLC C, terapia doxorubicin LC beads. Segmentazione esperti 'Mass': z da -417,5 a -232,5 mm, 15 × 18,5 × 18,5 cm, circa 2,4 litri (Feret assiale massimo 188 mm). Scelto per il contrasto didattico con caso-tcia-128 (HCC tipico LR-5 in cirrosi). Altri pazienti con trombosi portale esaminati e scartati perché il trombo non era dimostrabile in modo chiaro: HCC_061, HCC_064, HCC_053, HCC_054, HCC_035, HCC_009; HCC_002/HCC_003 scartati perché fase arteriosa e portale sono nella stessa serie DICOM.",
+ "aggiornato": "2026-11-06 05:33",
+ "rassegna": [
+  {
+   "caso": "caso-tcia-139",
+   "testo": "vetrino: carcinoma epatocellulare ben differenziato"
+  }
+ ]
+}

@@ -1,0 +1,116 @@
+{
+ "id": "caso-tcia-054",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:22",
+ "titolo": "TC senza mdc per radioterapia: carcinoma polmonare e dolore lombosacrale",
+ "titolo_interno": "Metastasi ossee litiche da carcinoma polmonare: S1 quasi completamente sostituito dal tumore; lesioni litiche in L5, T1 e T2",
+ "distretto": "Rachide",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 71 anni con carcinoma polmonare. TC senza mezzo di contrasto dal collo alla pelvi (strati sottili, qui ricostruiti a 2,5 mm), eseguita per pianificare la radioterapia stereotassica delle metastasi vertebrali. Dolore lombosacrale.",
+ "domanda": "Leggi lo scheletro con la finestra per l'osso e le ricostruzioni sagittali.",
+ "sezioni": [
+  {
+   "nome": "Scheletro",
+   "domanda": "Che cosa vedi nella colonna e nel sacro?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Lesione litica che sostituisce quasi completamente il corpo di S1, con interruzione della corticale",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "È la lesione maggiore segnalata nei dati della collezione: il sacro va sempre guardato, nelle assiali e nelle sagittali, perché nelle TC del torace e dell'addome è spesso al margine del campo e sfugge.",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesioni litiche anche in L5 e nei corpi vertebrali di T1 e T2",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "T1 e T2 sono al limite superiore del campo: cercale con la finestra per l'osso.",
+   "sezione": 0
+  },
+  {
+   "testo": "Metastasi osteoaddensanti (blastiche) multiple",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Le lesioni sono litiche: l'osso è sostituito da tessuto a densità dei tessuti molli.",
+   "sezione": 0
+  },
+  {
+   "testo": "Solo osteoporosi, senza lesioni focali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "L'alterazione del sacro è un artefatto da gas intestinale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "L'alterazione è nell'osso, su molte immagini consecutive e nelle ricostruzioni sagittali.",
+   "sezione": 0
+  },
+  {
+   "testo": "Metastasi ossee litiche da carcinoma polmonare, la maggiore sostituisce il corpo di S1: valutare stabilità e rischio neurologico (radici sacrali), indicazione a radioterapia",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Spondilodiscite lombo-sacrale L5-S1 con erosione dei piatti vertebrali e ascesso paravertebrale: terapia antibiotica mirata, biopsia discale ed emocolture, poi controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "La spondilodiscite colpisce il disco e i due piatti vertebrali adiacenti; qui l'osso è sostituito da tessuto tumorale senza interessamento discale.",
+   "sezione": 1
+  },
+  {
+   "testo": "Quadro degenerativo della colonna (discopatie, osteofiti, artrosi delle faccette, noduli di Schmorl): nessuna lesione focale sospetta, solo terapia del dolore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Le metastasi ossee del carcinoma polmonare sono di solito litiche: l'osso trabecolare viene sostituito da tessuto a densità dei tessuti molli, poi si interrompe la corticale e può comparire una massa paravertebrale o presacrale. Si leggono con la finestra per l'osso (circa 400/1800), sulle assiali e sulle ricostruzioni sagittali e coronali (usa l'MPR), contando i livelli dal sacro o da C2.\n\nIl sacro è un punto cieco classico: è al margine inferiore delle TC dell'addome, sovrapposto al gas intestinale, e una lisi di S1 si perde facilmente. Nel referto vanno scritti livello, parte della vertebra (corpo, peduncolo, lamina), interruzione della corticale, crollo, estensione nel canale o nei forami. Per la stabilità si usa lo score SINS (Spinal Instability Neoplastic Score); per il rischio neurologico si cerca la compressione del sacco durale e delle radici (al bisogno con la RM).",
+ "regola": "Nelle TC oncologiche guarda sempre il sacro e i primi metameri toracici: sono ai margini del campo.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Dati della collezione Spine-Mets-CT-SEG: carcinoma polmonare primitivo; lesioni litiche in T1, T2, L5 e S1, con S1 quasi completamente sostituito dal tumore."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "Spine-Mets-CT-SEG",
+  "soggetto": "14434",
+  "doi": "10.7937/kh36-ds04",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Pieper S. et al. (2024). Spine metastatic bone cancer: pre and post radiotherapy CT (Spine-Mets-CT-SEG) (Version 1) [Dataset]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/spine-mets-ct-seg/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita",
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "s1",
+   "sacro"
+  ],
+  "motivo": "Le metastasi sono note al richiedente (la TC serve alla radioterapia): basta il referto. Se ci fossero segni di compressione midollare o della cauda andrebbe chiamato subito."
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificata sulle immagini assiali e sagittali in finestra per l'osso la lisi quasi completa del corpo di S1 con corticale interrotta e l'alterazione litica contigua; testi coerenti, nessuna correzione. Segnalo che le immagini 251-295 della serie sono vuote (solo aria) e che T1-T2 sono al margine superiore del campo.\nSpine-Mets-CT-SEG 14434 (da IDC, CC BY 4.0): TC di simulazione 1,25 mm mediata a 2,5 mm. Lesioni dalla tabella clinica della collezione (litiche T1, T2, L5, S1; «S1 almost completely replaced by tumor»). Polmone non descritto nelle opzioni (da leggere: opacità del polmone destro).\n[verifica 24/10/2026] Rivisto nelle sagittali in finestra per l'osso: S1 con osso trabecolare sostituito e corticale interrotta, alterazione litica di L5. T1-T2 al margine superiore, dalla tabella della collezione. Reso visibile."
+}

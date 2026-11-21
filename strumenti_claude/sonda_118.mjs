@@ -1,0 +1,18 @@
+import { spawn } from 'node:child_process'; import { createRequire } from 'node:module';
+const T = '/Volumes/Caloggero/piattaforma-quiz/cloud/test/';
+const { chromium } = createRequire(T + 'package.json')('playwright');
+const CASO = process.env.CASO || 'caso-tcia-118';
+const PORTA = 19150 + Math.floor(Math.random() * 40), B = `http://localhost:${PORTA}`;
+const sim = spawn(process.execPath, [T + 'simulatore.mjs'], { env: { ...process.env, PORTA: String(PORTA), CASI: '/Volumes/Caloggero/piattaforma-quiz/casi-free' }, stdio: ['ignore', 'pipe', 'inherit'] });
+await new Promise((r) => sim.stdout.on('data', (d) => { if (/pronto/.test(d)) r(); }));
+const b = await chromium.launch();
+const a = await (await b.newContext({ viewport: { width: 1600, height: 1000 }, locale: 'it-IT' })).newPage();
+await a.goto(B + '/?prova#/'); await a.click('[data-vai="codice"]'); await a.fill('#codice', 'admin-test-0000'); await a.press('#codice', 'Enter'); await a.waitForSelector('#vista-elenco:not([hidden])');
+await a.goto(B + `/?prova#/caso/${CASO}`); await a.waitForFunction((c) => window.__dbg?.V?.img && window.__dbg.V.caso?.id === c, CASO, { timeout: 60000 }); await a.waitForTimeout(1500);
+await a.evaluate(() => document.querySelector('#modo-mpr').click()); await a.waitForFunction(() => document.querySelector('#mpr-stato')?.hidden, null, { timeout: 240000 }); await a.waitForTimeout(3000);
+await a.click('#btn-cpr'); await a.waitForTimeout(500); await a.selectOption('#cpr-ia-vaso', 'aorta').catch(() => {}); await a.click('#cpr-aorta');
+await a.waitForFunction(() => window.__dbg.CPRS?.diam, null, { timeout: 120000 }); await a.waitForTimeout(800);
+const r = await a.evaluate(() => { const d = window.__dbg.CPRS.diam; return { massimo: d.massimo, rifP: d.rifP, rifD: d.rifD, L: d.lunghezza, parete: d.parete, prof: d.profilo.filter((x, i) => x && i % 20 === 0).map((x) => [x.s, Math.round(x.dmax), Math.round(x.dperp), x.dlume == null ? null : Math.round(x.dlume)]), testo: document.querySelector('#cpr-esito').textContent }; });
+console.log(JSON.stringify(r, null, 0));
+await a.screenshot({ path: '/Volumes/Caloggero/strumenti_claude/_viste/diametri_118.png' });
+await b.close(); sim.kill(); process.exit(0);

@@ -1,0 +1,146 @@
+{
+ "id": "caso-tcia-127",
+ "visibile": true,
+ "aggiornato": "2026-11-06 05:25",
+ "titolo": "TC addome: massa nella regione del cardias",
+ "titolo_interno": "Adenocarcinoma gastrico del fondo/regione sottocardiale, pT4a N1 (1/7), G3",
+ "distretto": "Stomaco",
+ "quesito": "stadiazione oncologica",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 68 anni con sospetto clinico di neoplasia gastrica. TC dell'addome con mezzo di contrasto in fase portale (strati di 1 mm: per il quiz è stato tenuto uno strato ogni tre, circa 2,4 mm).",
+ "domanda": "Referta in ordine: stomaco, stadiazione, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Stomaco",
+   "domanda": "Stomaco: cosa osservi?"
+  },
+  {
+   "nome": "Stadiazione e altri reperti",
+   "domanda": "Fegato, milza, peritoneo e linfonodi: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa parietale solida di circa 5 cm della porzione prossimale dello stomaco (cardias, regione sottocardiale e fondo, lungo la piccola curvatura e la parete posteriore), con impregnazione disomogenea e lume ridotto, che arriva a ridosso della giunzione esofago-gastrica",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini ~26-44 (vista: immagine 32); densità mediana circa 58 HU in fase portale. Diametro patologico 5 cm. In alto il tessuto è in continuità con la regione della giunzione (img ~24-27); l'esofago distale (img ~19-23) ha parete lievemente ispessita, ma l'infiltrazione della giunzione non è dimostrabile con certezza alla TC."
+  },
+  {
+   "testo": "Il resto dello stomaco, disteso da liquido, ha parete sottile con pliche regolari",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Ernia iatale da scivolamento con normale parete gastrica e pliche regolari, senza massa del cardias",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "La regione del cardias è sostituita da tessuto solido che impregna, non da pliche gastriche normali risalite nel torace."
+  },
+  {
+   "testo": "Varici gastriche del fondo: strutture serpiginose che si impregnano come le vene, senza massa parietale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le varici sono strutture tubulari serpiginose che si opacizzano come la vena porta; qui c'è un tessuto solido."
+  },
+  {
+   "testo": "Fegato senza metastasi evidenti; nessuna ascite evidente",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Aree ipodense cuneiformi periferiche nel polo superiore della milza: reperto da segnalare (prima ipotesi piccoli infarti), non tipico di metastasi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Verificato sulle immagini (img ~18-27): aree periferiche a base capsulare, a margini netti, circa 40 HU contro circa 95 HU del parenchima in fase portale, senza effetto massa: aspetto tipico di piccoli infarti (possibile rapporto con il tumore vicino ai vasi gastrici brevi/ilo splenico). Il reperto non è riportato nei dati della collezione."
+  },
+  {
+   "testo": "Voluminoso conglomerato linfonodale celiaco con encasement del tripode",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Metastasi surrenalica sinistra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Neoplasia della porzione prossimale dello stomaco (sottocardiale-fondo): adenocarcinoma gastrico come prima ipotesi; endoscopia con biopsia e definizione del rapporto con la giunzione esofago-gastrica, completamento della stadiazione (TC del torace, ecoendoscopia, laparoscopia) e discussione multidisciplinare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Leiomioma del cardias: lesione sottomucosa ben delimitata e omogenea, a mucosa integra, benigna; nessun accertamento endoscopico né stadiazione con TC del torace o ecoendoscopia, solo controllo TC tra un anno per valutarne la crescita",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Normale aspetto del cardias e del fondo, falsato dalla scarsa distensione gastrica e dalla contrazione della parete muscolare durante l'acquisizione: nessuna massa vera e nessun approfondimento endoscopico, né TC del torace, né ecoendoscopia, né laparoscopia, né discussione multidisciplinare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "La scarsa distensione del cardias è una trappola reale, ma qui la massa è asimmetrica, solida e visibile su molti strati, mentre il resto dello stomaco è ben disteso."
+  },
+  {
+   "testo": "Linfoma gastrico della porzione prossimale con ispessimento parietale omogeneo: terapia ematologica senza biopsia, perché l'aspetto TC è caratteristico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "I tumori del cardias e del fondo sono più difficili da vedere di quelli dell'antro: il cardias è spesso poco disteso e la parete vicino alla giunzione esofago-gastrica può sembrare normalmente più spessa. Indizi di malattia: tessuto solido asimmetrico, impregnazione disomogenea, lume ristretto, contorno esterno irregolare.\nPer i tumori vicini alla giunzione esofago-gastrica conta la distanza dalla giunzione (classificazione di Siewert): i tumori il cui centro è entro 2 cm dalla giunzione e la coinvolgono si stadiano come esofagei, gli altri come gastrici. La TC la stima, ma la decide l'endoscopia.\nNella stadiazione: fegato, peritoneo (ascite, noduli omentali), linfonodi lungo la gastrica sinistra, il tripode e l'arteria splenica, e milza e coda del pancreas, che il tumore del fondo può infiltrare (T4b). La TC sottostima i linfonodi e il peritoneo.",
+ "regola": "Al cardias un tessuto solido asimmetrico che impregna non è «scarsa distensione»: va in endoscopia.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Adenocarcinoma gastrico del fondo, G3, pT4a pN1 (1 linfonodo positivo su 7), stadio patologico IIIA (AJCC 8ª ed.), diametro massimo 5 cm, resezione R0 (dati clinici GDC della collezione CPTAC-STAD)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CPTAC-STAD",
+  "soggetto": "C3L-06418",
+  "doi": "10.7937/jw9a-8k71",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC). (2026). The Clinical Proteomic Tumor Analysis Consortium Stomach Adenocarcinoma Collection (CPTAC-STAD) (Version 1) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/jw9a-8k71. Data used in this publication were generated by the National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC).",
+  "url": "https://www.cancerimagingarchive.net/collection/cptac-stad/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 32,
+  "wc": 50,
+  "ww": 350,
+  "zoom": 1.3,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 232,
+    "y": 180
+   },
+   "b": {
+    "x": 322,
+    "y": 262
+   }
+  },
+  "nota": "Massa della porzione prossimale dello stomaco (regione sottocardiale-fondo)"
+ },
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: Verificati sulle immagini massa del cardias-sottocardiale/fondo (circa 5 cm, img 26-44) che arriva a ridosso della giunzione esofago-gastrica con lieve ispessimento dell'esofago distale (infiltrazione non certa, GDC: fondo) e aree spleniche cuneiformi periferiche ~40 HU in fase portale, compatibili con infarti; corretti misura, estensione e note; reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione). CPTAC-STAD C3L-06418 (IDC, CC BY 4.0). Serie 'Body 1.0 CE abdomen CE' (601 img da 1 mm, fase portale): tenuto 1 strato ogni 3 (201 img, strato 1 mm, intervallo ~2,4 mm). Non usate la serie toracica e l'altra serie 'CE' dello stesso studio. Dati GDC: maschio, 68 anni alla diagnosi, adenocarcinoma, sede Fundus of stomach, pT4a pN1 (1/7), IIIA, G3, 5 cm, R0.\nReperti letti da Claude: img ~26-44 massa solida della regione sottocardiale/fondo (circa 5 cm, ~58 HU), resto dello stomaco disteso da liquido; fegato senza lesioni evidenti; img ~18-26 aree ipodense cuneiformi periferiche del polo superiore della milza (possibili infarti).\nDubbi: 1) rapporto con la giunzione esofago-gastrica (Siewert): la massa arriva a ridosso della giunzione con lieve ispessimento dell'esofago distale, centro circa 2 cm sotto la giunzione; la GDC indica il fondo, per cui il caso resta gastrico e la risposta chiede la definizione endoscopica; 2) aree spleniche: verificate alla revisione (cuneiformi periferiche, ~40 HU, fase portale e non arteriosa, quindi non artefatto di fase): infarti come prima ipotesi, non confermati dalla collezione; 3) N1 istologico: nessun linfonodo chiaramente patologico identificato, non chiesto come corretto; 4) segni di T4a non chiesti; 5) l'età viene dalla GDC (nel DICOM manca); anamnesi generica. Ecografia della collezione (C3L-10231, unico esame US) scartata: è uno studio dell'aorta addominale senza reperti gastrici."
+}

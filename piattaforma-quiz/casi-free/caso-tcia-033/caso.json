@@ -1,0 +1,129 @@
+{
+ "id": "caso-tcia-033",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:21",
+ "titolo": "RM pelvi: carcinoma della cervice, guarda anche i reni",
+ "titolo_interno": "Carcinoma squamoso della cervice con idroureteronefrosi destra (FIGO IIIB)",
+ "distretto": "Pelvi",
+ "quesito": "stadiazione oncologica",
+ "modalita": "RM",
+ "difficolta": "Avanzato",
+ "anamnesi": "Donna di 55 anni con perdite ematiche vaginali. Biopsia di una lesione cervicale: carcinoma squamoso. RM per la stadiazione locale (sequenze disponibili: T2 assiale a grande campo dall'addome superiore alla pelvi, T2 sagittale, coronale obliquo e assiale ad alta risoluzione).",
+ "domanda": "Referta in ordine: tumore, estensione locale e vie urinarie, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tumore",
+   "domanda": "Tumore primitivo: cosa osservi?"
+  },
+  {
+   "nome": "Estensione e vie urinarie",
+   "domanda": "Parametri, parete pelvica, ureteri e reni: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Voluminosa massa della cervice e del segmento uterino inferiore, circa 8-10 cm, a segnale intermedio-alto disomogeneo in T2",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Piccola lesione esofitica di 1-2 cm confinata al labbro anteriore della cervice, con anello stromale integro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa ben capsulata a segnale molto basso in T2 con aspetto «a vortice», come da leiomioma del segmento uterino inferiore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Uretere destro dilatato lungo tutto il decorso fino al margine destro della massa, dove si interrompe",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Rene destro con pelvi e calici dilatati (idronefrosi); rene sinistro senza dilatazione delle cavità nelle fette disponibili",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Vie urinarie non dilatate bilateralmente",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "La struttura tubulare iperintensa a destra del rachide è la vena cava inferiore, normale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Errore frequente: seguire la struttura in basso, scende nella pelvi lungo lo psoas e il margine della massa; la cava resta davanti al rachide e si divide nelle iliache.",
+   "sezione": 1
+  },
+  {
+   "testo": "Carcinoma della cervice localmente avanzato con idroureteronefrosi destra (FIGO IIIB): chemio-radioterapia; valutare la derivazione urinaria (nefrostomia o stent)",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Carcinoma della cervice con invasione parametriale, senza idronefrosi né estensione alla parete pelvica (FIGO IIB): chemio-radioterapia concomitante",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Carcinoma della cervice confinato alla cervice, senza estensione ai parametri né idronefrosi (FIGO IB): indicazione a isterectomia radicale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Il carcinoma squamoso della cervice è quasi sempre legato all'infezione persistente da HPV ad alto rischio (OMS 2020: tumori HPV-associati, la grande maggioranza, e HPV-indipendenti, rari).\nNella stadiazione FIGO l'idronefrosi o il rene non funzionante causati dal tumore portano lo stadio a IIIB, qualunque sia la dimensione del tumore (salvo altra causa nota). Per questo la RM di stadiazione deve comprendere una sequenza a grande campo che arrivi ai reni: se si guarda solo la pelvi, l'idronefrosi sfugge e lo stadio resta sottostimato.\nIl punto in cui l'uretere si interrompe indica l'estensione laterale del tumore verso la parete pelvica. L'idronefrosi va segnalata come urgente: può servire una nefrostomia o uno stent prima della chemio-radioterapia, anche per proteggere la funzione renale durante il cisplatino.\nFIGO 2009 (usata in TCGA): IIIA terzo inferiore della vagina; IIIB parete pelvica o idronefrosi. FIGO 2018 aggiunge IIIC (linfonodi pelvici IIIC1, lombo-aortici IIIC2).",
+ "regola": "Carcinoma della cervice: guarda sempre i reni. Idronefrosi da tumore = FIGO IIIB.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma squamoso della cervice G2, stadio FIGO IIIB (FIGO 2009; dati clinici TCGA della collezione TCGA-CESC). Genotipo HPV della paziente non disponibile nei dati pubblici."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-CESC",
+  "doi": "10.7937/K9/TCIA.2016.SQ4M8YP4",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Lucchesi F. R., Aredes N. D. (2016). The Cancer Genome Atlas Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma Collection (TCGA-CESC) (Version 3) [Data set]. The Cancer Imaging Archive. The results here are in whole or part based upon data generated by the TCGA Research Network: http://cancergenome.nih.gov/.",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-cesc/",
+  "soggetto": "TCGA-VS-A8EC"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 11,
+  "wc": 312,
+  "ww": 564,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa cervicale"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificati sulle immagini la voluminosa massa cervico-istmica (circa 9-10 cm AP sul sagittale), l'uretere destro dilatato fino al margine della massa e le cavità renali destre dilatate nel T2 a grande campo; resa prudente la frase sul rene sinistro (solo in parte nel campo di vista).\nCaso importato da TCIA il 18/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nUretere destro dilatato nel T2 assiale a grande campo (fette ~1-8, struttura tubulare iperintensa davanti allo psoas destro) e nel coronale obliquo (fette ~23-27 del visualizzatore: scende fino al margine destro della massa). Rene destro con cavità dilatate alla fetta 0-1 del grande campo (solo il polo inferiore-medio è nel campo di vista: il grado dell'idronefrosi non è valutabile per intero). Rene sinistro nei limiti nelle fette disponibili. Massa misurata a occhio sul sagittale (circa 8-10 cm). Lo stadio IIIB è quello registrato in TCGA: l'idronefrosi è la spiegazione più probabile, la registrazione non dice il motivo.\nDistrattore sulla cava inferiore: va verificato che la struttura sia l'uretere e non la cava (secondo Claude scende nella pelvi lungo la parete laterale, quindi è l'uretere). Serie T1 non importate. TCGA riporta solo età, istologia, grado e stadio; il genotipo HPV non è nei dati pubblici.\n[ricontrollato e pubblicato il 18/10/2026 su richiesta dell'amministratore («valida e metti on line»): nel T2 a grande campo la struttura tubulare dilatata è separata dalla cava (cava schiacciata davanti al rachide, aorta a sinistra) e continua con la pelvi renale destra dilatata alla fetta 0: idroureteronefrosi destra confermata da Claude]"
+}

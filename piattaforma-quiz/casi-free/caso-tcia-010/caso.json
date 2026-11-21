@@ -1,0 +1,153 @@
+{
+ "id": "caso-tcia-010",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:18",
+ "titolo": "RX e TC del torace: insufficienza respiratoria",
+ "titolo_interno": "Polmonite da COVID-19: opacità a vetro smerigliato bilaterali periferiche (pattern tipico)",
+ "distretto": "Torace",
+ "quesito": "torace",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "Uomo di 70 anni, pregressa sternotomia, febbre e dispnea. Nello stesso giorno RX del torace AP a letto e TC del torace con mezzo di contrasto (eseguita come angio-TC per escludere embolia).",
+ "domanda": "Referta in ordine: RX, TC, conclusione.",
+ "sezioni": [
+  {
+   "nome": "RX del torace",
+   "domanda": "RX AP: cosa osservi?",
+   "serie": 0
+  },
+  {
+   "nome": "TC: polmoni",
+   "domanda": "TC: cosa osservi nei polmoni?",
+   "serie": 1
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Esiti di sternotomia (fili metallici) e dispositivo esterno di monitoraggio sovrapposto all'emitorace destro",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Accentuazione interstiziale e opacità sfumate bilaterali, più evidenti in periferia e ai campi medio-inferiori",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Pneumotorace destro con linea pleurica viscerale visibile all'apice e assenza della trama polmonare in periferia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Opacità a vetro smerigliato bilaterali, a chiazze, a prevalenza periferica (subpleurica) e posteriore, in più lobi",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Consolidazione lobare unica con broncogramma aereo, limitata al lobo inferiore destro e delimitata dalla scissura",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Noduli centrolobulari diffusi con aspetto ad albero in fiore e ispessimento delle pareti bronchiali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Emidiaframma sinistro sopraelevato, con stomaco e colon in sede sottodiaframmatica alta",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Versamento pleurico massivo bilaterale con atelettasia compressiva dei lobi inferiori",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Quadro tipico di polmonite virale da COVID-19 (categoria «tipica» del consenso RSNA); correlare con il tampone",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Edema polmonare cardiogeno, con ispessimento dei setti, ridistribuzione vascolare e cardiomegalia; terapia diuretica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Polmonite batterica lobare: consolidazione segmentaria con broncogramma; terapia antibiotica empirica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Nella polmonite da COVID-19 la TC mostra tipicamente opacità a vetro smerigliato bilaterali, periferiche e posteriori, multilobari, a volte con aspetto «a crazy paving» o con consolidazioni nelle fasi successive. Il consenso RSNA (2020) classifica il quadro come tipico, indeterminato, atipico o negativo: il pattern periferico bilaterale è «tipico».\nL'RX al letto è poco sensibile nelle fasi iniziali: le opacità sono sfumate e periferiche, spesso basali. La diagnosi resta virologica (tampone).\nDiagnosi differenziale del vetro smerigliato bilaterale: altre polmoniti virali, polmonite organizzativa, edema (di solito centrale e con versamenti, ispessimento settale e cardiomegalia), emorragia, polmoniti da farmaci.",
+ "regola": "Vetro smerigliato bilaterale periferico e posteriore: pattern tipico di COVID-19, ma la diagnosi è del tampone.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Tampone positivo per SARS-CoV-2 (dati clinici COVID-19-AR). Referto originale della TC: «Diffuse, peripheral patchy ground-glass opacities are seen throughout the lungs». Nessun ricovero in terapia intensiva."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "COVID-19-AR",
+  "soggetto": "COVID-19-AR-16424071",
+  "doi": "10.7937/tcia.2020.py71-5978",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Desai S. et al. (2020). Data from Chest Imaging with Clinical and Genomic Correlates Representing a Rural COVID-19 Positive Population [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/covid-19-ar/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  1
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 50,
+  "wc": -600,
+  "ww": 1500,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Vetro smerigliato bilaterale periferico"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini: RX con fili sternali e dispositivo esterno sul torace destro; TC con vetro smerigliato bilaterale periferico e posteriore multilobare, emidiaframma sinistro sopraelevato con stomaco alto, fili di sternotomia. Testo, opzioni e conclusione coerenti con referto della collezione e tampone; nessuna correzione.\nCaso importato da TCIA il 13/10/2026 (bozza). Reperti letti da Claude sulle immagini e confrontati con il referto originale dell'archivio (vetro smerigliato periferico diffuso).\nBase sinistra: nelle coronali stomaco e colon restano sotto il diaframma, che è sopraelevato (aggiunto come reperto secondario il 13/10). [verifica 25/10/2026] Sull'RX il dispositivo sul torace destro è una scatola rettangolare con circuito e batteria visibili e cavi ad ansa diretti verso il collo, con elettrodi tondi sulle spalle: dispositivo esterno di monitoraggio (registratore ECG o telemetria) appoggiato sul torace, non impiantato. Coerente con la risposta.\n[pubblicato il 13/10/2026 su richiesta dell'amministratore, dopo la revisione di Claude: restano i dubbi scritti sopra]",
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Polmonite da COVID-19 in un paziente già ricoverato con febbre e dispnea: il quadro è quello cercato e si comunica con il referto; si avvisa a voce solo se compaiono complicanze inattese (pneumotorace, embolia)."
+ }
+}

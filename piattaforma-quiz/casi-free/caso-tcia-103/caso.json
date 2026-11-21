@@ -1,0 +1,172 @@
+{
+ "id": "caso-tcia-103",
+ "visibile": true,
+ "titolo": "🧪 SIMULATO – TC addome con mdc: dolore epigastrico improvviso e addome a tavola",
+ "titolo_interno": "Caso simulato: pneumoperitoneo da perforazione (aria libera anteriore e perihepatica, segno del legamento falciforme, bolle extraluminali vicino all'antro-piloro, lieve imbibizione e poco liquido): sede probabile ulcera antro-pilorica; reperto incidentale reale: piccola massa solida del rene sinistro",
+ "distretto": "Addome",
+ "quesito": "addome acuto",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "CASO SIMULATO: la TC è vera (archivio pubblico, nessuna perforazione), l'aria libera e i segni attorno all'antro sono stati aggiunti al computer; storia clinica di fantasia. Uomo di 46 anni, da settimane dispepsia e FANS per lombalgia. Da 3 ore dolore epigastrico improvviso «a pugnalata», poi diffuso a tutto l'addome. In Pronto soccorso: addome a tavola, FC 112/min, PA 115/70 mmHg, temperatura 37,8 °C. TC addome-pelvi con mezzo di contrasto, unica fase (arteriosa tardiva); il contrasto nello stomaco e nel duodeno è quello per bocca dell'esame originale.",
+ "domanda": "Descrivi i reperti, indica la sede più probabile del problema e decidi a chi e come comunicare l'esito.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi? (aria, liquido, organi, altri reperti)"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Aria libera sotto la parete addominale anteriore e davanti al fegato (pneumoperitoneo), con il legamento falciforme che si vede in mezzo all'aria",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini circa 40-170, spessore massimo circa 13 mm in epigastrio; legamento falciforme immagini circa 50-100. Si vede meglio con la finestra per il polmone o con una finestra larga."
+  },
+  {
+   "testo": "Piccole bolle d'aria fuori dal lume nel grasso davanti e a lato dell'antro-piloro, vicino alla colecisti",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini circa 96-107: undici bolle di 2-3,5 mm. Le bolle concentrate vicino a un viscere indicano la sede della perforazione."
+  },
+  {
+   "testo": "Lieve imbibizione del grasso e poco liquido attorno all'antro-piloro; sottile falda di liquido vicino al fegato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Imbibizione entro circa 2,5 cm dall'antro (immagini 85-120); liquido in tutto circa 15-20 mL."
+  },
+  {
+   "testo": "Piccola formazione solida di circa 1,5 cm del rene sinistro, da caratterizzare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Reperto REALE della collezione (immagini circa 125-135): carcinoma a cellule chiare pT1a di 1,5 cm. Anche in urgenza i reperti incidentali vanno descritti."
+  },
+  {
+   "testo": "Aria solo nel lume di stomaco e colon: nessuna aria libera",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "L'aria anteriore non ha pareti intestinali attorno, cambia forma adattandosi alle anse e delinea il legamento falciforme: è fuori dalle anse."
+  },
+  {
+   "testo": "Spandimento di mezzo di contrasto orale fuori dal duodeno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il contrasto resta nel lume. La sua assenza fuori dal viscere non esclude la perforazione (spesso la perforazione si chiude da sola o è piccola)."
+  },
+  {
+   "testo": "Aria nella parete delle anse (pneumatosi intestinale)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le bolle non seguono la parete di un'ansa ma stanno nel grasso, e l'aria anteriore è libera."
+  },
+  {
+   "testo": "Colon interposto tra fegato e diaframma (segno di Chilaiditi)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Lo pseudopneumoperitoneo di Chilaiditi ha le haustre del colon; qui l'aria è libera e anteriore."
+  },
+  {
+   "testo": "Pneumoperitoneo da perforazione di un viscere cavo, con sede più probabile all'antro-piloro o al bulbo duodenale (verosimile ulcera peptica perforata): comunicazione immediata al medico del Pronto soccorso e al chirurgo",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Aria libera residua da recente laparoscopia o da manovre endoscopiche, senza liquido libero né ispessimenti di parete: reperto atteso nei giorni dopo l'intervento, nessuna azione né comunicazione urgente al Pronto soccorso o al chirurgo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Non c'è stato alcun intervento; l'aria postoperatoria di solito si riassorbe in pochi giorni e non si accompagna a bolle e imbibizione attorno a un viscere."
+  },
+  {
+   "testo": "Pancreatite acuta edematosa con densificazione del grasso peripancreatico: terapia medica, lipasi e controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il pancreas è normale; l'aria libera non fa parte della pancreatite non complicata."
+  },
+  {
+   "testo": "Diverticolite del sigma perforata con bolle d'aria pericoliche e ascesso pelvico: antibiotico e drenaggio",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Le bolle e l'imbibizione sono in epigastrio vicino all'antro, non in pelvi attorno al sigma."
+  }
+ ],
+ "spiegazione": "Caso costruito per la didattica: la TC di partenza è vera (archivio pubblico) e senza perforazione; aria libera, bolle, imbibizione e liquido sono stati aggiunti al computer conservando il rumore dell'immagine. La piccola massa del rene sinistro è invece reale.\nNel paziente supino l'aria libera sale nelle parti più alte dell'addome: sotto la parete anteriore, davanti al fegato e lungo il legamento falciforme (che diventa visibile perché circondato da aria). Va cercata con la finestra per il polmone o una finestra larga: con la finestra dell'addome piccole quantità sfuggono facilmente.\nPer trovare la sede: le bolle extraluminali concentrate vicino a un viscere, l'imbibizione del grasso, l'ispessimento della parete, il liquido e l'eventuale spandimento di contrasto orale indicano il punto di perforazione. Aria libera abbondante in epigastrio con bolle vicino all'antro o al bulbo fa pensare a un'ulcera peptica perforata (stomaco e duodeno contengono molta aria); poca aria con bolle in pelvi fa pensare al colon (diverticolite).\nTrappole: lo pseudopneumoperitoneo (Chilaiditi, aria tra pliche cutanee, aria nella parete); l'aria normale dopo un intervento (di solito scompare in pochi giorni); l'assenza di spandimento di contrasto orale non esclude la perforazione.\nComunicazione: la perforazione di un viscere cavo è un esito critico da comunicare subito a voce al medico che ha chiesto l'esame e al chirurgo.",
+ "regola": "Addome acuto: guarda sempre con la finestra per il polmone sotto la parete anteriore e davanti al fegato; se c'è aria libera, cerca dove si concentrano bolle e imbibizione.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Caso simulato: pneumoperitoneo da perforazione antro-pilorica aggiunto al computer su una TC senza perforazione. La massa renale sinistra è reale: carcinoma a cellule chiare di 1,5 cm (pT1a, dati della collezione)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00123 (immagini modificate)",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive. Immagini modificate per la didattica: aria libera, bolle extraluminali, imbibizione del grasso e liquido aggiunti al computer (caso simulato). La piccola massa del rene sinistro è invece un reperto reale della collezione.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 101,
+  "wc": -150,
+  "ww": 900,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Aria libera anteriore e bolle vicino all'antro-piloro"
+ },
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "ps",
+   "richiedente"
+  ],
+  "parole": [
+   "perforazione",
+   "aria libera",
+   "pneumoperitoneo"
+  ],
+  "motivo": "Pneumoperitoneo da perforazione di un viscere cavo in un paziente con addome acuto: esito critico da comunicare subito a voce al medico del Pronto soccorso e al chirurgo, indicando la sede più probabile, e da registrare nel referto."
+ },
+ "richiesta": {
+  "reparto": "Pronto soccorso",
+  "priorita": "PS",
+  "lab": [
+   [
+    "Leucociti",
+    "15.800/µL (dato di fantasia)"
+   ],
+   [
+    "PCR",
+    "4,2 mg/dL (dato di fantasia)"
+   ]
+  ],
+  "allergie": "",
+  "farmaci": "Ibuprofene al bisogno",
+  "dispositivi": "",
+  "gravidanza": ""
+ },
+ "nota_docente": "Controllato il 25/10/2026: immagini e testi rivisti da un revisore indipendente. CASO SIMULATO creato il 25/10/2026. Base: C4KC-KiTS KiTS-00123 (uomo 46 anni, TC addome-pelvi in fase arteriosa tardiva, strati da 1,25 mm, pixel 0,87 mm; contrasto orale nello stomaco e nel duodeno; nessuna aria libera nell'originale), carcinoma a cellule chiare pT1a di 1,5 cm del rene sinistro (SEG della collezione, immagini circa 125-135) lasciato come reperto incidentale. Simulazione con strumenti_claude/sim/pneumoperitoneo.py: profilo interno della parete anteriore colonna per colonna (cute, grasso, muscolo, poi grasso o fegato), corretto per le colonne anomale (linea alba) e smussato; aria -995 HU con il rumore originale sotto la parete (lente centrata verso il fegato in alto e sulla linea mediana in basso, spessore massimo 12-13 mm a immagini 56-100, che si assottiglia fino a 0 a 176), l'aria si ferma su anse, muscolo e contrasto e riempie il grasso tra le anse; setto del legamento falciforme 50-100; in tutto circa 157 mL. Bolle extraluminali: 11 di 2-3,5 mm nel grasso davanti e a lato dell'antro-piloro (immagini 96-107). Imbibizione del grasso (+60 HU) entro 25 mm dal sito presunto (immagine 102); liquido 16-18 HU: periantrale circa 4 mL e lungo il fegato circa 13 mL (immagini 100-141). Limiti: nessun ispessimento della parete gastrica, nessuno spandimento di contrasto, liquido scarso; qualche lingua d'aria tra le anse in sagittale è un po' regolare. Percorsi proposti: simulati, urgenze, addome. [revisione indipendente 25/10/2026] Controllati sulle immagini (finestra -150/900 e sagittale mediana): aria libera sotto la parete anteriore e davanti al fegato (immagini ~55-130), setto del legamento falciforme nell'aria, bolle extraluminali rotonde nel grasso davanti all'antro-piloro vicino alla colecisti (immagini 96-105), lieve imbibizione. Opzioni, sede (antro-piloro/bulbo), distrattori e comunicazione immediata corretti. Credibile nel complesso; limiti di aspetto: il setto falciforme è molto sottile e diritto, le bolle sono tutte perfettamente rotonde e simili, il margine inferiore dell'aria a tratti è troppo regolare."
+}

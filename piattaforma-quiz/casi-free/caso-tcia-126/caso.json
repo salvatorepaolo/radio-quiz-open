@@ -1,0 +1,170 @@
+{
+ "id": "caso-tcia-126",
+ "visibile": true,
+ "aggiornato": "2026-11-06 05:25",
+ "titolo": "TC addome multifase: ispessimento della parete gastrica distale",
+ "titolo_interno": "Adenocarcinoma gastrico dell'antro/angolo, pT4a N2 (5/10), G4: ispessimento parietale con componente vegetante",
+ "distretto": "Stomaco",
+ "quesito": "stadiazione oncologica",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 63 anni con sospetto clinico di neoplasia gastrica. TC del torace, dell'addome e della pelvi senza e con mezzo di contrasto (fase basale, arteriosa tardiva e venosa portale). Non è stato dato contrasto orale.",
+ "domanda": "Referta in ordine: tecnica, stomaco, stadiazione, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica",
+   "domanda": "Quali affermazioni sulla tecnica sono corrette?"
+  },
+  {
+   "nome": "Stomaco",
+   "domanda": "Stomaco: cosa osservi?"
+  },
+  {
+   "nome": "Stadiazione",
+   "domanda": "Fegato, peritoneo e linfonodi: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Esame multifasico (basale, arteriosa tardiva, venosa portale) con strato di 5 mm: la fase venosa è la più utile per la parete gastrica e per il fegato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Lo stomaco contiene liquido e un po' d'aria: la distensione aiuta a distinguere un vero ispessimento da una parete solo contratta",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Senza contrasto orale positivo la parete gastrica non è valutabile: l'esame va ripetuto con contrasto orale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Acqua o liquido nel lume (contrasto «neutro») sono anzi la scelta migliore per vedere la parete e l'impregnazione della mucosa."
+  },
+  {
+   "testo": "Ispessimento parietale irregolare della porzione distale dello stomaco (angolo e antro), con componente vegetante di circa 4-5 cm verso il lume lungo la parete posteriore e la piccola curvatura, che si continua in un ispessimento circonferenziale dell'antro di circa 1 cm",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Fase venosa, immagine 68 (componente vegetante, circa 60 HU) e immagini 72-77 (antro). Diametro patologico 5,5 cm."
+  },
+  {
+   "testo": "Impregnazione della mucosa nella fase arteriosa tardiva in corrispondenza dell'ispessimento",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Parete gastrica regolare: l'aspetto dell'antro è dovuto alla normale contrazione peristaltica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La contrazione è simmetrica, cambia tra le fasi e conserva la stratificazione; qui l'ispessimento è irregolare, persiste in tutte le fasi e ha una componente vegetante."
+  },
+  {
+   "testo": "Lipoma sottomucoso dell'antro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il lipoma ha densità adiposa (circa −100 HU); qui il tessuto impregna (circa 60 HU in fase venosa)."
+  },
+  {
+   "testo": "Fegato senza lesioni focali sospette e nessun versamento ascitico evidente",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Nessuna adenopatia sicuramente patologica per dimensioni: la TC non esclude metastasi linfonodali, che possono trovarsi in linfonodi di dimensioni normali",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "All'istologia 5 linfonodi positivi su 10 esaminati (N2): esempio di sottostadiazione N della TC."
+  },
+  {
+   "testo": "Metastasi epatiche multiple ipodense in fase portale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Carcinosi peritoneale con ascite diffusa e ispessimento dell'omento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Neoplasia gastrica distale (angolo-antro) localmente avanzata, senza metastasi a distanza evidenti alla TC: adenocarcinoma gastrico come prima ipotesi; conferma istologica endoscopica e completamento della stadiazione (ecoendoscopia, eventuale laparoscopia) per la discussione multidisciplinare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3
+  },
+  {
+   "testo": "Gastrite ipertrofica antrale con pliche ispessite ma stratificazione della parete conservata, grasso perigastrico regolare e nessuna adenopatia: terapia con inibitori di pompa protonica, ricerca dell'Helicobacter pylori e controllo endoscopico tra 6 mesi, senza biopsie né stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3
+  },
+  {
+   "testo": "Linfoma gastrico certo per l'ispessimento circonferenziale senza ostruzione del lume: chemioterapia ematologica subito, senza biopsia endoscopica né ecoendoscopia, perché l'aspetto TC è già diagnostico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Il linfoma è nella diagnosi differenziale degli ispessimenti gastrici (di solito molto spessi, con stratificazione persa e linfonodi voluminosi), ma la diagnosi è sempre istologica."
+  },
+  {
+   "testo": "Tumore stromale gastrointestinale (GIST) esofitico dell'antro, ben delimitato e a sviluppo extraluminale: resezione chirurgica locale e imatinib, senza endoscopia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Il GIST di solito è una massa rotondeggiante a crescita esofitica con mucosa integra, non un ispessimento parietale irregolare e circonferenziale."
+  }
+ ],
+ "spiegazione": "Nel carcinoma gastrico la TC serve a vedere la sede e l'estensione del tumore e soprattutto a cercare metastasi (fegato, peritoneo, linfonodi a distanza). La parete si valuta meglio con lo stomaco disteso da acqua o gas: una parete normale distesa misura pochi millimetri; oltre 1 cm, irregolare o con impregnazione focale della mucosa è sospetta.\nTrappole: l'antro contratto può sembrare ispessito (confrontare le fasi e cercare la stratificazione conservata); il tumore diffuso può dare solo un ispessimento rigido senza massa; la TC sottostima i linfonodi (metastasi in linfonodi piccoli) e la carcinosi peritoneale, per cui nei tumori localmente avanzati si fa la laparoscopia di stadiazione.\nSegni di T4a: contorno sieroso irregolare, strie o noduli nel grasso perigastrico; T4b: infiltrazione di pancreas, colon trasverso, fegato, milza.\nDiagnosi differenziale degli ispessimenti gastrici: gastrite e ulcera (ispessimento lieve, stratificazione conservata), linfoma (molto spesso, spesso con linfonodi voluminosi e senza ostruzione), GIST (massa sottomucosa esofitica).",
+ "regola": "Ispessimento irregolare della parete gastrica che persiste in tutte le fasi: tumore fino a prova contraria; la TC sottostima linfonodi e peritoneo.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Adenocarcinoma gastrico dell'antro, G4, pT4a pN2 (5 linfonodi positivi su 10), stadio patologico IIIA (AJCC 8ª ed.), diametro massimo 5,5 cm, resezione R0 (dati clinici GDC della collezione CPTAC-STAD)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CPTAC-STAD",
+  "soggetto": "C3L-08154",
+  "doi": "10.7937/jw9a-8k71",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC). (2026). The Clinical Proteomic Tumor Analysis Consortium Stomach Adenocarcinoma Collection (CPTAC-STAD) (Version 1) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/jw9a-8k71. Data used in this publication were generated by the National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC).",
+  "url": "https://www.cancerimagingarchive.net/collection/cptac-stad/"
+ },
+ "serie_iniziale": 2,
+ "riquadri": 1,
+ "vista": {
+  "serie": 2,
+  "idx": 68,
+  "wc": 50,
+  "ww": 350,
+  "zoom": 1.3,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 262,
+    "y": 135
+   },
+   "b": {
+    "x": 350,
+    "y": 250
+   }
+  },
+  "nota": "Ispessimento irregolare con componente vegetante della parete gastrica distale (fase venosa)"
+ },
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: Verificati sulle immagini (fasi basale, arteriosa tardiva, venosa; anche polmone) ispessimento irregolare con componente vegetante di angolo-antro, impregnazione arteriosa, fegato e peritoneo liberi, nessun testo nei pixel; coerente con GDC (antro, pT4a N2). Corretta l'anamnesi (esame esteso a torace, addome e pelvi); reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione). CPTAC-STAD C3L-08154 (IDC, CC BY 4.0). Serie native assiali 5 mm Br32: basale (70 img), arteriosa tardiva (131), venosa (138); escluse le ricostruzioni sottili, MPR/MIP, escretoria e topogramma. Dati GDC: maschio, adenocarcinoma, sede Gastric antrum, pT4a pN2 (5/10), IIIA, G4, 5,5 cm, R0.\nReperti letti da Claude: fase venosa img ~66-71 ispessimento irregolare con componente vegetante (circa 4-5 cm, ~60 HU) della parete posteriore/piccola curvatura dello stomaco distale; img 72-77 ispessimento circonferenziale dell'antro di circa 1 cm; fegato senza lesioni evidenti; nessuna ascite evidente; nessun linfonodo chiaramente ingrandito.\nDubbi: 1) età: DICOM 63 anni, GDC 68 alla diagnosi (date spostate): l'intervallo tra TC e diagnosi non è noto, l'anamnesi riporta l'età DICOM; 2) il confine esatto tra angolo e antro e la precisa estensione craniale del tumore sono stimati; 3) non ho identificato con certezza i linfonodi metastatici (N2 istologico): l'opzione lo dice apertamente; 4) i segni di T4a (sierosa) non sono chiaramente visibili e non sono chiesti; 5) l'anamnesi è generica (nessun sintomo fornito dalla collezione)."
+}

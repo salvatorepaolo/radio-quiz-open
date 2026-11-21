@@ -1,0 +1,185 @@
+{
+ "id": "caso-tcia-121",
+ "titolo": "Mammografia bilaterale in una donna giovane",
+ "titolo_interno": "Mammografia: massa ad alta densità di circa 4-5 cm della mammella sinistra con linfonodo ascellare di circa 2,5 cm senza ilo adiposo; carcinoma triplo negativo",
+ "distretto": "Mammella",
+ "quesito": "mammografia",
+ "modalita": "Mammografia",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 29 anni. Mammografia bilaterale in due proiezioni (CC e MLO). Quesito clinico non disponibile.",
+ "domanda": "Referta in ordine: composizione, reperti, conclusione con categoria BI-RADS.",
+ "sezioni": [
+  {
+   "nome": "Composizione",
+   "domanda": "Composizione: cosa osservi?"
+  },
+  {
+   "nome": "Reperti",
+   "domanda": "Reperti: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Composizione mammaria ACR C: mammella eterogeneamente densa",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Composizione mammaria ACR A: mammella quasi completamente adiposa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Mammella sinistra: grande massa ad alta densità di circa 4-5 cm, di forma irregolare-ovalare, a margini in parte circoscritti e in parte oscurati o indistinti, nella porzione centrale-superiore (terzo medio-posteriore), visibile in CC e in MLO",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Cavo ascellare sinistro (MLO): linfonodo ingrandito di circa 2,5 cm, rotondeggiante e denso, senza ilo adiposo",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Un linfonodo ascellare normale è ovale, piccolo e ha un ilo adiposo (centro chiaro): questo è rotondo, grande e omogeneamente denso.",
+   "sezione": 1
+  },
+  {
+   "testo": "Mammella destra senza masse o calcificazioni sospette",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa a margini interamente circoscritti con alone chiaro: tipico fibroadenoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Microcalcificazioni fini lineari ramificate a distribuzione segmentaria",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Linfonodo ascellare di aspetto normale, piccolo e con ilo adiposo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa sospetta con linfonodo ascellare patologico: BI-RADS 5 (almeno 4C); ecografia di mammella e ascella con biopsia della massa e del linfonodo",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Data la giovane età, probabile fibroadenoma: BI-RADS 3 e controllo ecografico a 6 mesi; il linfonodo ascellare è reattivo e non va biopsiato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "L'età non rende benigna una massa di 4-5 cm con un linfonodo patologico.",
+   "sezione": 2
+  },
+  {
+   "testo": "Reperti benigni (BI-RADS 2): mammella densa giovanile, nessun approfondimento né ecografia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Nelle donne giovani l'esame di prima scelta per un nodulo palpabile è l'ecografia, ma la mammografia resta utile per le calcificazioni e l'estensione. In questo caso la mammografia mostra una grande massa ad alta densità con margini solo in parte circoscritti e, nel cavo ascellare, un linfonodo rotondo, grande e senza ilo adiposo: l'insieme è altamente sospetto (BI-RADS 5, almeno 4C).\nTrappola: il carcinoma triplo negativo cresce in fretta e spesso si presenta come una massa rotonda o ovale, a margini in parte circoscritti, senza spicule e senza calcificazioni: può sembrare un fibroadenoma, soprattutto in una donna giovane. Dimensioni, alta densità, margini non del tutto circoscritti e linfonodo patologico orientano verso la malignità.\nGestione: ecografia di mammella e ascella, biopsia percutanea della massa e agobiopsia o biopsia del linfonodo, poi stadiazione e RM mammaria (spesso prima della chemioterapia neoadiuvante). In una donna di 29 anni con carcinoma triplo negativo si propone anche la consulenza genetica (BRCA).\nEsito della collezione: carcinoma mammario sinistro triplo negativo; lo stato del linfonodo non è indicato.",
+ "regola": "Massa e linfonodo ascellare rotondo senza ilo: si biopsiano entrambi, anche in una donna giovane.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma mammario sinistro confermato da biopsia, sottotipo triplo negativo (dati clinici CMMD); istologia del linfonodo non indicata."
+ },
+ "scale": [
+  {
+   "id": "mammella",
+   "valori": {
+    "sede": {
+     "lato": "sn",
+     "ora": 12,
+     "quad": "unione dei quadranti superiori (QQSS)",
+     "breve": "QQSS",
+     "x": 300.0,
+     "y": 77.0,
+     "testo": "mammella sinistra, unione dei quadranti superiori (QQSS), ore 12"
+    },
+    "acr": "c",
+    "dist": 40,
+    "prof": "medio",
+    "d": 45,
+    "br": "5"
+   },
+   "valore": "BI-RADS 5",
+   "testo": "Mammella sinistra, porzione centrale-superiore (ore 12 circa), a circa 4 cm dal capezzolo, terzo medio-posteriore; diametro circa 4-5 cm. Linfonodo ascellare sinistro di circa 2,5 cm senza ilo adiposo. Composizione ACR C. BI-RADS 5: biopsia (accettabile 4C)."
+  }
+ ],
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CMMD (Chinese Mammography Database)",
+  "soggetto": "D2-0724",
+  "doi": "10.7937/tcia.eqde-4b16",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Cui C., Li L., Cai H., Fan Z., Zhang L., Dan T., Li J., Wang J. (2021). The Chinese Mammography Database (CMMD): An online mammography database with biopsy confirmed types for machine diagnosis of breast. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/cmmd/"
+ },
+ "disposizione": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "riquadri": 4,
+ "vista": {
+  "serie": 3,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 40,
+    "y": 40
+   },
+   "b": {
+    "x": 760,
+    "y": 1450
+   }
+  },
+  "nota": "Massa della mammella sinistra e linfonodo ascellare (LMLO)"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "biopsia",
+   "linfonodo"
+  ],
+  "motivo": "Sospetto carcinoma con linfonodo patologico: il medico va informato rapidamente per la biopsia, ma non è un esito critico immediato."
+ },
+ "nota_docente": "Caso importato da TCIA (CMMD, D2-0724) il 25/10/2026 (bozza). Controllato il 25/10/2026: immagini, sedi e testi rivisti da un revisore indipendente. Reperti letti da Claude sulle immagini.\nMassa: LMLO centro circa x 527 y 1124, LCC centro circa x 367 y 1307; circa 4 × 5 cm. Linfonodo: LMLO in alto, centro circa x 218 y 172, circa 2,6 × 2,4 cm, densità simile alla massa (mediana circa 99 contro 107, grasso circa 19 in unità di grigio), senza ilo adiposo; dietro c'è forse una seconda formazione rotondeggiante più piccola. Nella RMLO in alto c'è una struttura saturata al bordo dell'immagine (circa 250 unità, verosimilmente spalla o braccio), non un linfonodo.\nSede dall'orientamento DICOM: centrale in CC (all'altezza del capezzolo), superiore in MLO. Mammella destra densa senza reperti sospetti evidenti.\nMisure indicative: spaziatura dichiarata da CMMD 0,094 mm (immagini convertite da TIFF a DICOM dalla collezione, 8 bit). Finestra iniziale calcolata dai percentili della mammella. [revisione indipendente 25/10/2026] Controllati: lato sinistro (LCC A/R, LMLO A/FR); nella LMLO grande area-massa ad alta densità di circa 4 × 5 cm nella metà superiore, chiaramente più densa e voluminosa della controlaterale, margini in parte circoscritti e in parte oscurati; nel cavo ascellare sinistro formazione ovale-rotondeggiante omogenea di circa 2,4 × 2,1 cm senza ilo adiposo, compatibile con linfonodo patologico (la struttura saturata in alto nella RMLO è spalla/braccio, correttamente esclusa). ACR C corretto. BI-RADS 5 (accettabile 4C) con biopsia di massa e linfonodo coerente con l'esito (triplo negativo). Distrattori, scheda e titolo (non rivela la diagnosi) corretti; intestazioni anonimizzate. Nessuna correzione. Limiti: la LCC è poco leggibile (mammella piccola, elaborazione della collezione) e la massa vi si separa poco dal tessuto denso; la sede ore 12 è un'approssimazione (centrale in CC, superiore in MLO).",
+ "visibile": true
+}

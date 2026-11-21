@@ -1,0 +1,8250 @@
+{
+ "caso-tcia-001": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 6
+  },
+  "punto": "centrato",
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-002": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 7
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-003": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 7
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-004": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 5
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-005": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 2,
+   "errori": 5
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-006": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 5
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-007": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 4
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-008": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 4
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-009": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-010": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 5,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-011": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-012": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 3
+  },
+  "controlli": []
+ },
+ "caso-tcia-013": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-014": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    67,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 5,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-015": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-016": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 2,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-017": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-018": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-019": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-020": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-021": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-022": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-023": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-024": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-025": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-026": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-027": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-028": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-029": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 7,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-030": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 7,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-031": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 7,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-032": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-033": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-034": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    75,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-035": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-036": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-037": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    75,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 5,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-038": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-039": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-040": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-041": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-042": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 3
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-043": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-044": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-045": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-046": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    67,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 3
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-047": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 4
+  },
+  "controlli": []
+ },
+ "caso-tcia-048": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 4,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-049": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 2,
+   "errori": 8
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-050": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    67,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 25,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-051": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-052": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-053": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 10,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-054": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-055": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 2,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-056": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-057": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 10,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-058": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-059": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-060": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-061": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-062": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-063": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-064": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-065": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-066": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-067": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    25,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    25,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    75,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 5,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-068": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-069": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-070": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 10,
+   "citati": 2,
+   "attesi": 2,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-071": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    33,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    67,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 6,
+   "attesi": 6,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 6,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-072": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-073": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-074": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-075": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-076": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-077": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    67,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 6,
+   "attesi": 6,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 6,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-078": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 70,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 2
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-079": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 10,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-080": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-081": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-082": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    25,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    75,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 5,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-083": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-084": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-085": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-086": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-087": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-088": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 8
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-089": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-090": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-091": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-092": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    67,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    67,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 5,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-094": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-095": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-096": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 7,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-097": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-098": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-099": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-100": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    40,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    80,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 5,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-101": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    40,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    80,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 5,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-102": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    40,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    80,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 6,
+   "attesi": 6,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 6,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-103": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    75,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 5,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-104": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    33,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    67,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 5,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-105": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-106": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-107": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-108": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 40,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-109": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 40,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-110": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    67,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-111": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-112": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-113": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-114": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-115": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-116": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-117": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-118": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    20,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    80,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 6,
+   "attesi": 6,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 6,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-119": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    20,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    80,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 6,
+   "attesi": 6,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 6,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-120": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    75,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 5,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-121": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 5,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-122": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-123": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 5,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-124": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 8
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-125": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 50,
+  "controlli": []
+ },
+ "caso-tcia-126": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 14,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 86,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 5,
+   "errori": 7
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-127": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 5,
+   "errori": 7
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-128": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 14,
+   "ok": false,
+   "sez": [
+    0,
+    25,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    25,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 86,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 85,
+   "citati": 6,
+   "attesi": 6,
+   "errori": 1
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 6,
+   "errori": 9
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-129": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    33,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    67,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-130": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 4,
+   "errori": 8
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-131": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 5,
+   "errori": 6
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-132": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-133": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 5,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-134": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 3,
+   "attesi": 5,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-135": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 8
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "punto": "centrato",
+  "controlli": [
+   "nota: da verificare"
+  ]
+ },
+ "caso-tcia-136": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-137": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-138": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 4,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-139": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 4,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-140": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 3,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-141": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    75,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 6
+  },
+  "controlli": []
+ }
+}

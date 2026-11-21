@@ -1,0 +1,154 @@
+{
+ "id": "caso-tcia-009",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:19",
+ "titolo": "TC dell'addome: massa del surrene destro",
+ "titolo_interno": "Grande massa surrenalica destra eterogenea (circa 9-11 cm), densità basale > 10 HU, necrosi centrale: carcinoma corticosurrenalico (istologia)",
+ "distretto": "Surrene",
+ "quesito": "addome",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 57 anni. Massa surrenalica scoperta occasionalmente. TC dell'addome basale e in fase venosa (strati di 5 mm).",
+ "domanda": "Referta in ordine: tecnica, massa surrenalica, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica dell'esame",
+   "domanda": "Quali affermazioni sulla tecnica sono corrette?"
+  },
+  {
+   "nome": "Surrene destro",
+   "domanda": "Massa: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "TC basale e in fase venosa; manca la fase tardiva a 15 minuti per il calcolo del wash-out",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Protocollo completo per massa surrenalica, con basale, fase venosa e tardiva a 15 minuti per il wash-out",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Grande massa surrenalica destra di circa 9-11 cm, tra fegato, rene destro e vena cava, che sposta in basso il rene",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "In basale la massa ha densità superiore a 10 HU (circa 25 HU al centro): non è un adenoma ricco di lipidi",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Dopo contrasto l'impregnazione è eterogenea con un'ampia area centrale che non si impregna (necrosi)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa omogenea a contorni netti con densità basale inferiore a 10 HU, da adenoma ricco di lipidi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Grasso macroscopico all'interno della massa (densità negativa), tipico del mielolipoma surrenalico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa surrenalica sospetta per carcinoma corticosurrenalico: completare la valutazione ormonale (anche per escludere un feocromocitoma), stadiazione e chirurgia in centro esperto",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Adenoma surrenalico non secernente scoperto per caso, con wash-out assoluto rapido oltre il 60% nonostante le dimensioni: lesione benigna, nessun controllo radiologico né esame ormonale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Biopsia percutanea TC-guidata della massa come primo passo per la diagnosi istologica, senza esami ormonali preliminari né stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Davanti a una massa surrenalica incidentale contano dimensioni, densità basale e comportamento dopo contrasto. Densità basale ≤ 10 HU = adenoma ricco di lipidi (nessun approfondimento). Sopra 10 HU serve la TC con wash-out (assoluto ≥ 60% o relativo ≥ 40% a 15 minuti suggeriscono adenoma) o la RM con chemical shift.\nDimensioni superiori a 4 cm, margini irregolari, eterogeneità, necrosi, calcificazioni e crescita orientano verso il carcinoma corticosurrenalico. Va sempre esclusa la secrezione ormonale, e in particolare il feocromocitoma prima di qualsiasi manovra invasiva: per questo la biopsia non si fa come primo passo e, se il carcinoma è sospettato, si evita perché rischia la disseminazione.\nNel referto: dimensioni, rapporti con fegato, rene e vena cava (trombosi neoplastica della cava o della vena surrenalica), linfonodi e metastasi.",
+ "regola": "Massa surrenalica > 4 cm, eterogenea, > 10 HU in basale: pensare al carcinoma; prima gli esami ormonali, niente biopsia di routine.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma corticosurrenalico, diagnosi istologica (collezione Adrenal-ACC-Ki67-Seg): diametro patologico 11,2 cm, stadio T3 N0 M0, Ki-67 10%."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "Adrenal-ACC-Ki67-Seg",
+  "soggetto": "Adrenal_Ki67_Seg_001",
+  "doi": "10.7937/1FPG-VM46",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Moawad A. W. et al. (2023). Voxel-level segmentation of pathologically-proven Adrenocortical carcinoma with Ki-67 expression (Adrenal-ACC-Ki67-Seg) [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/adrenal-acc-ki67-seg/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  1
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 26,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 125,
+    "y": 200
+   },
+   "b": {
+    "x": 245,
+    "y": 335
+   }
+  },
+  "nota": "Massa del surrene destro"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: verificato sulle immagini: massa surrenalica destra eterogenea (asse assiale circa 7 × 10 cm, fette 19-31), basale circa 20-25 HU al centro, area centrale non impregnata in venosa, rene destro spostato in basso; testo coerente, nessuna correzione.\nCaso importato da TCIA il 13/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nMassa alle fette 20-31 della venosa (vista sulla 27), circa 7 × 9 cm sull'assiale; diametro patologico 11,2 cm. Densità basale al centro circa 25 HU (ROI di 3,6 cm). Rapporti con la vena cava da valutare. Dati clinici: reperto incidentale, T3 N0 M0, margine R1, Ki-67 10%.\n[pubblicato il 13/10/2026 su richiesta dell'amministratore, dopo la revisione di Claude: restano i dubbi scritti sopra]",
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "La massa surrenalica era già nota (riscontro occasionale) e questa TC serve proprio a caratterizzarla: il medico richiedente leggerà il referto, dove vanno scritti il sospetto di carcinoma e il completamento (TC con fase tardiva o RM, valutazione endocrinologica e chirurgica). Una comunicazione tracciata entro pochi giorni è comunque accettabile."
+ }
+}

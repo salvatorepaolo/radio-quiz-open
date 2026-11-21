@@ -1,0 +1,12 @@
+radio-quiz 1.232: MPR con riquadro grande a sinistra e scambio al clic; multischermo nella barra
+
+- MPR + 3D: riquadro grande a sinistra, tre viste piccole in colonna a destra;
+  un clic sinistro su una vista piccola la scambia con quella grande
+  (disponiMPR, MPR_POS in app.js); rotellina, destro e centrale restano attivi
+  sulle piccole; doppio clic subito dopo lo scambio vale per la vista portata
+  nel riquadro grande. Test «MPR e 3D su una TC» controlla lo scambio.
+- Client: «Multischermo» esce dal menu ⋯ e diventa un'icona nella barra.
+- Comprende anche le modifiche delle sessioni precedenti fino a 1.231.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01H6NdsaPCLLgLnc8nqemLF2

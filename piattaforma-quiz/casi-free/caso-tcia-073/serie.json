@@ -1,0 +1,42 @@
+[
+ {
+  "descrizione": "Studio 1 · giorno 0 · RX torace AP",
+  "numero": 1,
+  "files": [
+   "serie/s1_0001_Studio_1_RX_torace_AP/img_00001_00000.dcm"
+  ],
+  "data": "",
+  "eta": 64,
+  "anteprima": "serie/s1_0001_Studio_1_RX_torace_AP/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "Studio 2 · giorno 6 · RX torace AP",
+  "numero": 1,
+  "files": [
+   "serie/s2_0001_Studio_2_RX_torace_AP/img_00001_00000.dcm"
+  ],
+  "data": "",
+  "eta": 64,
+  "anteprima": "serie/s2_0001_Studio_2_RX_torace_AP/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "Studio 3 · giorno 8 · RX torace AP",
+  "numero": 1,
+  "files": [
+   "serie/s3_0001_Studio_3_RX_torace_AP/img_00001_00000.dcm"
+  ],
+  "data": "",
+  "eta": 64,
+  "anteprima": "serie/s3_0001_Studio_3_RX_torace_AP/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "Studio 4 · giorno 9 · RX torace AP",
+  "numero": 1,
+  "files": [
+   "serie/s4_0001_Studio_4_RX_torace_AP/img_00001_00000.dcm"
+  ],
+  "data": "",
+  "eta": 64,
+  "anteprima": "serie/s4_0001_Studio_4_RX_torace_AP/anteprima.rqa.gz"
+ }
+]

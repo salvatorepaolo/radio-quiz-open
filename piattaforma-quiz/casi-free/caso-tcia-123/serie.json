@@ -1,0 +1,34 @@
+[
+ {
+  "descrizione": "RCC (destra)",
+  "numero": 1,
+  "files": [
+   "serie/0001_Serie_1/img_00003_00001.dcm"
+  ],
+  "eta": 37
+ },
+ {
+  "descrizione": "LCC (sinistra)",
+  "numero": 2,
+  "files": [
+   "serie/0001_Serie_1/img_00001_00000.dcm"
+  ],
+  "eta": 37
+ },
+ {
+  "descrizione": "RMLO (destra)",
+  "numero": 3,
+  "files": [
+   "serie/0001_Serie_1/img_00004_00003.dcm"
+  ],
+  "eta": 37
+ },
+ {
+  "descrizione": "LMLO (sinistra)",
+  "numero": 4,
+  "files": [
+   "serie/0001_Serie_1/img_00002_00002.dcm"
+  ],
+  "eta": 37
+ }
+]

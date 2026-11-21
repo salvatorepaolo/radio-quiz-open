@@ -1,0 +1,10 @@
+{
+  "_nota": "Librerie copiate nel sito (web/lib, web/modelli-ia) senza package-lock: qualita/sicurezza.sh le controlla nel database OSV delle vulnerabilita'. Se aggiorni una libreria, aggiorna qui la versione.",
+  "dicom-parser": "1.8.12",
+  "openseadragon": "6.1.1",
+  "mp4-muxer": "5.2.2",
+  "jpeg-lossless-decoder-js": "2.1.2",
+  "@cornerstonejs/dicom-image-loader": "4.15.3",
+  "@mlc-ai/web-llm": "0.2.84",
+  "onnxruntime-web": "1.31.1"
+}

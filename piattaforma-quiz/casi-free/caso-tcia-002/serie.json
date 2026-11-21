@@ -1,0 +1,38 @@
+[
+ {
+  "descrizione": "RCC (destra)",
+  "numero": 1,
+  "files": [
+   "serie/0001_RCC/img_00002.dcm"
+  ],
+  "eta": 54,
+  "anteprima": "serie/0001_RCC/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "LCC (sinistra)",
+  "numero": 2,
+  "files": [
+   "serie/0002_LCC/img_00002.dcm"
+  ],
+  "eta": 54,
+  "anteprima": "serie/0002_LCC/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "RMLO (destra)",
+  "numero": 3,
+  "files": [
+   "serie/0003_RMLO/img_00002.dcm"
+  ],
+  "eta": 54,
+  "anteprima": "serie/0003_RMLO/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "LMLO (sinistra)",
+  "numero": 4,
+  "files": [
+   "serie/0004_LMLO/img_00002.dcm"
+  ],
+  "eta": 54,
+  "anteprima": "serie/0004_LMLO/anteprima.rqa.gz"
+ }
+]

@@ -1,0 +1,135 @@
+{
+ "titolo": "TC torace a bassa dose di screening: terzo controllo in donna di 69 anni ex fumatrice",
+ "titolo_interno": "Nodulo solido di circa 7-9 mm del lobo inferiore destro stabile da 2 anni (Lung-RADS 2); nessun tumore nel follow-up (NLST 100263)",
+ "distretto": "Torace",
+ "quesito": "screening del tumore polmonare",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "Donna di 69 anni, ex fumatrice (criteri di ingresso NLST: 55-74 anni, almeno 30 pacchi-anno, smesso da meno di 15 anni). Screening con TC a bassa dose senza mezzo di contrasto. Terzo esame annuale (T2). È disponibile la TC basale di due anni prima (T0), giudicata positiva per un nodulo del lobo inferiore destro; il controllo intermedio (T1) lo aveva descritto invariato. Le date degli esami sono convenzionali.",
+ "domanda": "Confronta con la TC basale: com'è il nodulo del lobo inferiore destro e quale categoria Lung-RADS assegni oggi?",
+ "sezioni": [
+  {
+   "nome": "Nodulo e confronto",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nodulo solido rotondo a margini netti di circa 7-9 mm nel lobo inferiore destro, posteriore, subpleurico",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini 96-97 del T2 e 99-101 del T0. Misura di Claude sulla parte solida circa 7 mm; i lettori NLST hanno misurato 9, 7 e 9 mm nei tre anni (variabilità di misura su strati di 3,2 mm)."
+  },
+  {
+   "testo": "Dimensioni e aspetto invariati rispetto al basale di due anni prima",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Nessuna crescita in due anni (NLST: crescita «no» ai controlli T1 e T2)."
+  },
+  {
+   "testo": "Piccola calcificazione puntiforme accanto al nodulo (granuloma calcifico)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini 98-99 del T0 e 95-96 del T2: focus calcifico di 2-3 mm accanto al nodulo; anche i lettori NLST descrivono noduli benigni calcifici."
+  },
+  {
+   "testo": "Crescita significativa del nodulo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le differenze di 1-2 mm tra un anno e l'altro rientrano nella variabilità di misura; il nodulo non è cresciuto."
+  },
+  {
+   "testo": "Massa di circa 3 cm anteriore al cuore nella base destra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Nel basale, alle immagini 100-102, l'«opacità» anteriore paracardiaca destra è la cupola epatica tagliata di striscio: si segue in continuità con il fegato nelle immagini successive. Trappola classica."
+  },
+  {
+   "testo": "Lung-RADS 2: nodulo stabile, benigno per comportamento; prossima TC di screening tra 12 mesi",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Lung-RADS v2022: i noduli di categoria 3 o 4A invariati ai controlli passano alla categoria 2. Esito: nessun tumore polmonare nei circa 6,7 anni di follow-up della collezione."
+  },
+  {
+   "testo": "Lung-RADS 4A: nodulo sospetto lievemente cresciuto rispetto al basale, TC a bassa dose a 3 mesi e poi PET",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La categoria 4A vale per un nodulo solido di 8-15 mm al basale (o nuovo di 6-8 mm a un controllo); un nodulo stabile ai controlli successivi va declassato."
+  },
+  {
+   "testo": "Lung-RADS 4B: nodulo molto sospetto, PET-TC e biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Nessuna crescita e nessuna caratteristica sospetta: nessuna indicazione all'approfondimento."
+  }
+ ],
+ "spiegazione": "Nello screening la stabilità nel tempo è il miglior criterio di benignità per un nodulo solido. Questo nodulo di circa 7-9 mm del lobo inferiore destro, al basale, cadeva nella categoria 3-4A di Lung-RADS (a seconda della misura) ed era stato giudicato positivo. Ai controlli annuali non è cambiato: secondo Lung-RADS v2022 un nodulo di categoria 3 o 4A che resta invariato ai controlli viene declassato (il 4A prima a 3, poi a 2): stabile da due anni è categoria 2 e si torna allo screening annuale.\n\nLe piccole differenze tra le misure (9, 7, 9 mm) sono dovute alla variabilità: strati di 3,2 mm, volume parziale, misura su immagini diverse. Per dire «crescita» servono almeno 1,5 mm di aumento del diametro medio (Lung-RADS) o, meglio, una misura volumetrica.\n\nTrappola del basale: alla base destra, davanti al cuore, la cupola epatica tagliata di striscio sembra una massa rotonda. Va sempre seguita nelle immagini successive.\n\nEsito: nella collezione la paziente non ha avuto tumori polmonari nei circa 6,7 anni di follow-up.",
+ "regola": "Nodulo solido invariato da almeno 1-2 anni nello screening: declassarlo (Lung-RADS 2), non rincorrerlo.",
+ "esito_clinico": {
+  "tipo": "follow-up",
+  "testo": "Nessun tumore polmonare diagnosticato nei circa 6,7 anni di follow-up (dati pubblici NLST, canc_free_days 2447)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "NLST (National Lung Screening Trial)",
+  "soggetto": "100263",
+  "doi": "10.7937/TCIA.HMQ8-J677",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "National Lung Screening Trial Research Team (2013). Data from the National Lung Screening Trial (NLST) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/TCIA.HMQ8-J677. Dati clinici: sottoinsieme pubblico NLST (CC BY 4.0).",
+  "url": "https://www.cancerimagingarchive.net/collection/nlst/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  0
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 95,
+  "wc": -600,
+  "ww": 1500,
+  "zoom": 1.8,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Immagine 96 del T2: nodulo solido posteriore del lobo inferiore destro con granuloma calcifico accanto; confronta con l'immagine 100 del basale"
+ },
+ "precedenti": [
+  {
+   "data": "gennaio 1999 (data convenzionale, due anni prima)",
+   "esame": "TC torace a bassa dose di screening, basale (T0)",
+   "serie": 0,
+   "didattico": true,
+   "referto": "TC del torace a bassa dose senza mezzo di contrasto (screening).\n\nNella porzione posteriore subpleurica del lobo inferiore destro nodulo solido di circa 9 mm, a margini netti, con piccolo granuloma calcifico adiacente. Non altri noduli significativi. Non adenopatie, non versamento.\n\nConclusioni: nodulo solido di 9 mm del lobo inferiore destro: screening positivo, controllo TC a breve. (Referto didattico scritto per il caso, non è il referto originale.)"
+  }
+ ],
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Esame di screening senza reperti sospetti: basta il referto."
+ },
+ "nota_docente": "Controllato il 25/10/2026: nodulo, granuloma calcifico, stabilità e trappola epatica rivisti sulle immagini. NLST soggetto 100263 (IDC; TC Philips MX8000, 3,2 mm, filtro C). Dati pubblici: F69, ex fumatrice; scr_res T0 4 (positivo), T1 5 (positivo, invariato), T2 2 (negativo, anomalie minori); anomalia 51 lobo inferiore destro: T0 9 × 9 mm slice 100, T1 7 × 7 mm slice 107, T2 9 × 7 mm slice 96; confronti: preesistente, crescita no; nessun cancro, canc_free_days 2447. Al T2 i lettori annotano anche enfisema (59), noduli benigni calcifici (53) e micronoduli (52), non usati nelle opzioni (enfisema poco valutabile con questo rumore). Misure di Claude con soglia −300 HU: parte solida circa 7 mm al T0 e al T2. Trappola: cupola epatica alle immagini 100-102 del T0. L'indice delle immagini nel visualizzatore = InstanceNumber − 1. Referto del T0 didattico, non originale. [revisione indipendente 25/10/2026] Controllati T0 (nodulo indici 98-100, granuloma calcifico 96-98, cupola epatica 98-102) e T2 (nodulo 94-97, granuloma 93-95): nodulo solido rotondo posteriore subpleurico del lobo inferiore destro. Misure del revisore: soglia −300 HU circa 6,8 mm al T0 e 7,5 mm al T2 (area massima circa 37 e 43 mm², diametro equivalente circa 7 mm in entrambi); soglia −600 HU circa 10 mm in entrambi (volume parziale su strati di 3,2 mm). Nessuna crescita significativa. Lung-RADS 2 corretto; distrattori, referto didattico, fonte/licenza CC BY 4.0, titolo e DICOM anonimizzati verificati. Correzioni: nota del distrattore 4A (criteri dimensionali), precisazione sul declassamento 4A→3→2 nella spiegazione, sede nel referto del T0 resa generica (porzione posteriore subpleurica) perché il segmento non è certo.",
+ "id": "caso-tcia-111",
+ "visibile": true,
+ "aggiornato": "2026-10-25 20:01"
+}

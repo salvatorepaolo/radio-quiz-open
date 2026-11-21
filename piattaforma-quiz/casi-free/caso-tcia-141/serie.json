@@ -1,0 +1,20 @@
+[
+ {
+  "descrizione": "Vetrino · ematossilina-eosina · rene (40×)",
+  "tipo": "vetrino",
+  "files": [
+   "serie/vetrino/livello_0.dcm",
+   "serie/vetrino/livello_1.dcm",
+   "serie/vetrino/livello_2.dcm",
+   "serie/vetrino/livello_3.dcm",
+   "serie/vetrino/miniatura.dcm"
+  ],
+  "dimensioni": [
+   1962461510,
+   271912716,
+   28372346,
+   11750374,
+   5354892
+  ]
+ }
+]

@@ -1,0 +1,24 @@
+[
+ {
+  "descrizione": "US liver biopsy",
+  "numero": 1,
+  "files": [
+   "serie/0001_US_liver_biopsy/img_00512_00000.dcm",
+   "serie/0001_US_liver_biopsy/img_00768_00001.dcm",
+   "serie/0001_US_liver_biopsy/img_01024_00002.dcm",
+   "serie/0001_US_liver_biopsy/img_01536_00003.dcm",
+   "serie/0001_US_liver_biopsy/img_01792_00004.dcm",
+   "serie/0001_US_liver_biopsy/img_02048_00005.dcm",
+   "serie/0001_US_liver_biopsy/img_02304_00006.dcm",
+   "serie/0001_US_liver_biopsy/img_02560_00007.dcm",
+   "serie/0001_US_liver_biopsy/img_02816_00008.dcm",
+   "serie/0001_US_liver_biopsy/img_03072_00009.dcm",
+   "serie/0001_US_liver_biopsy/img_03328_00010.dcm",
+   "serie/0001_US_liver_biopsy/img_03584_00011.dcm",
+   "serie/0001_US_liver_biopsy/img_03840_00012.dcm",
+   "serie/0001_US_liver_biopsy/img_04096_00013.dcm"
+  ],
+  "data": "dic 1959",
+  "eta": 0
+ }
+]

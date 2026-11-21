@@ -1,0 +1,101 @@
+// ---- 14/11: piano orbito-meatale (OMP) dai punti di repere. Nel sistema della testa (x sinistra = normale del piano medio,
+// y anteriore, z superiore, griglia di 1,5 mm): globi oculari = sfere di liquido (TC 0-40 HU; RM omogenee) circondate da un
+// guscio diverso (grasso orbitario), simmetriche, davanti; meati acustici esterni = la «fossa» più profonda in cui l'aria entra
+// di lato nella testa, dietro e sotto le orbite. Il canto esterno sta all'altezza del centro del globo: l'OMP contiene l'asse
+// destra-sinistra e la retta dal punto medio dei meati al punto medio dei globi. Se un punto manca (campo di vista che taglia
+// la faccia o le orecchie) o il risultato non è plausibile, resta la stima dall'asse del cervello.
+function puntiOMP(vol, cm, X, tc, soglia, st) {
+  const { W, H, N, dati } = vol, PASSO = 1.5;
+  let Y = [0, -1, 0]; Y = unit3(Y.map((v, i) => v - dot3(Y, X) * X[i]));        // anteriore
+  let Z = croce3(Y, X); if (Z[2] < 0) Z = Z.map((v) => -v);                     // superiore
+  const nx = Math.round(200 / PASSO) + 1, ny = Math.round(260 / PASSO) + 1, nz = Math.round(250 / PASSO) + 1;
+  const x0 = -100, y0 = -130, z0 = -140, FUORI = -30000;
+  const G = new Float32Array(nx * ny * nz), at = (i, j, k) => (i * ny + j) * nz + k;
+  for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) {
+    const x = x0 + i * PASSO, y = y0 + j * PASSO;
+    const b = [cm[0] + x * X[0] + y * Y[0], cm[1] + x * X[1] + y * Y[1], cm[2] + x * X[2] + y * Y[2]];
+    for (let k = 0; k < nz; k++) {
+      const z = z0 + k * PASSO, q = pazVx(vol, [b[0] + z * Z[0], b[1] + z * Z[1], b[2] + z * Z[2]]);
+      const a = Math.round(q[0]), bb = Math.round(q[1]), c = Math.round(q[2]);
+      G[at(i, j, k)] = a < 0 || bb < 0 || c < 0 || a >= W || bb >= H || c >= N ? FUORI : dati[(c * H + bb) * W + a];
+    }
+  }
+  const mm = (i, j, k) => [x0 + i * PASSO, y0 + j * PASSO, z0 + k * PASSO];
+  const iX = (x) => Math.round((x - x0) / PASSO), iY = (y) => Math.round((y - y0) / PASSO), iZ = (z) => Math.round((z - z0) / PASSO);
+  // somme cumulate 3D (valore, quadrato, fuori dal campo di vista) per le medie nei cubi
+  const L = (nx + 1) * (ny + 1) * (nz + 1), S1 = new Float64Array(L), S2 = new Float64Array(L), SF = new Float32Array(L);
+  const aL = (i, j, k) => (i * (ny + 1) + j) * (nz + 1) + k, vuoto = tc ? -1000 : 0;
+  for (let i = 1; i <= nx; i++) for (let j = 1; j <= ny; j++) for (let k = 1; k <= nz; k++) {
+    let v = G[at(i - 1, j - 1, k - 1)], f = 0; if (v === FUORI) { v = vuoto; f = 1; }
+    const p = aL(i, j, k), A = aL(i - 1, j, k), B = aL(i, j - 1, k), C = aL(i, j, k - 1), AB = aL(i - 1, j - 1, k), AC = aL(i - 1, j, k - 1), BC = aL(i, j - 1, k - 1), ABC = aL(i - 1, j - 1, k - 1);
+    S1[p] = v + S1[A] + S1[B] + S1[C] - S1[AB] - S1[AC] - S1[BC] + S1[ABC];
+    S2[p] = v * v + S2[A] + S2[B] + S2[C] - S2[AB] - S2[AC] - S2[BC] + S2[ABC];
+    SF[p] = f + SF[A] + SF[B] + SF[C] - SF[AB] - SF[AC] - SF[BC] + SF[ABC];
+  }
+  const somma = (T, i, j, k, h) => { const a = i - h, b = j - h, c = k - h, A = i + h + 1, B = j + h + 1, C = k + h + 1;
+    if (a < 0 || b < 0 || c < 0 || A > nx || B > ny || C > nz) return null;
+    return T[aL(A, B, C)] - T[aL(a, B, C)] - T[aL(A, b, C)] - T[aL(A, B, c)] + T[aL(a, b, C)] + T[aL(a, B, c)] + T[aL(A, b, c)] - T[aL(a, b, c)]; };
+  const scala = tc ? 1 : Math.max(1, st.med);
+  const punteggio = (i, j, k) => {
+    const n3 = (h) => (2 * h + 1) ** 3, sf = somma(SF, i, j, k, 7); if (sf == null || sf > 0) return 0;
+    const m5 = somma(S1, i, j, k, 3) / n3(3), q5 = somma(S2, i, j, k, 3) / n3(3), sd = Math.sqrt(Math.max(0, q5 - m5 * m5));
+    const g = (somma(S1, i, j, k, 7) - somma(S1, i, j, k, 5)) / (n3(7) - n3(5));
+    if (tc) return m5 > -15 && m5 < 45 && sd < 30 && g < m5 - 25 ? (m5 - g) / (sd + 5) : 0;
+    return sd < 0.25 * scala ? Math.abs(m5 - g) / (sd + 0.05 * scala) : 0;
+  };
+  // globi: coppia simmetrica (x e −x) con il punteggio più alto, davanti (y > 10 mm), 22-40 mm di lato (distanza tra i
+  // centri 44-80 mm), z tra −100 e +30
+  let best = { s: 0 };
+  for (let i = iX(22); i <= iX(40); i++) { const im = iX(-mm(i, 0, 0)[0]);
+    for (let j = iY(10); j <= iY(128); j++) for (let k = iZ(-100); k <= iZ(30); k++) {
+      const a = punteggio(i, j, k); if (!a) continue; const b = punteggio(im, j, k); if (!b) continue;
+      if (a + b > best.s) best = { s: a + b, i, j, k };
+    } }
+  if (!best.i) return { ok: false, motivo: 'globi oculari non trovati (la faccia è fuori dal campo di vista?)' };
+  const globi = [best.i, iX(-mm(best.i, 0, 0)[0])].map((i0) => {   // affinamento per lato (±4 voxel)
+    let m = { s: -1 }; for (let i = i0 - 4; i <= i0 + 4; i++) for (let j = best.j - 4; j <= best.j + 4; j++) for (let k = best.k - 4; k <= best.k + 4; k++) { const s = punteggio(i, j, k); if (s > m.s) m = { s, p: mm(i, j, k) }; }
+    return m.p; });
+  const gm = [0, 1, 2].map((c) => (globi[0][c] + globi[1][c]) / 2);
+  // meati: l'aria che entra da fuori nell'orecchio. Dal lato esterno (x = ±100 mm) si riempie l'aria (TC < −400 HU;
+  // RM sotto la soglia del tessuto) dentro un riquadro dietro e sotto le orbite; il punto più mediale raggiunto è il
+  // fondo del condotto (membrana timpanica); il centro del meato = baricentro dell'aria entro 15 mm da quel fondo.
+  // Le cellette mastoidee e l'orecchio medio non sono collegati all'esterno (setti ossei, membrana).
+  const aria = (v) => v !== FUORI && (tc ? v < -400 : v < soglia * 0.6);
+  const meati = [];
+  const j0 = Math.max(0, iY(gm[1] - 110)), j1 = Math.min(ny - 1, iY(gm[1] - 45)), k0 = Math.max(0, iZ(gm[2] - 45)), k1 = Math.min(nz - 1, iZ(gm[2] + 20));
+  for (const lato of [1, -1]) {
+    const iE = iX(lato * 100), iI = iX(lato * 12), passo = lato > 0 ? -1 : 1;   // da fuori verso il centro
+    const vis = new Uint8Array(nx * ny * nz), coda = [];
+    for (let j = j0; j <= j1; j++) for (let k = k0; k <= k1; k++) { const q = at(iE, j, k); if (aria(G[q])) { vis[q] = 1; coda.push(q); } }
+    if (coda.length < 20) return { ok: false, motivo: 'orecchie fuori dal campo di vista', globi };
+    const dentro = (i) => (lato > 0 ? i <= iE && i >= iI : i >= iE && i <= iI);
+    for (let h = 0; h < coda.length; h++) {
+      const q = coda[h], i = (q / (ny * nz)) | 0, j = ((q / nz) | 0) % ny, k = q % nz;
+      for (const [a, b, c] of [[i + 1, j, k], [i - 1, j, k], [i, j + 1, k], [i, j - 1, k], [i, j, k + 1], [i, j, k - 1]]) {
+        if (!dentro(a) || b < j0 || b > j1 || c < k0 || c > k1) continue;
+        const r = at(a, b, c); if (!vis[r] && aria(G[r])) { vis[r] = 1; coda.push(r); }
+      }
+    }
+    let fondo = null;
+    for (const q of coda) { const i = (q / (ny * nz)) | 0; if (fondo == null || (lato > 0 ? i < fondo : i > fondo)) fondo = i; }
+    const xf = Math.abs(mm(fondo, 0, 0)[0]);
+    if (!(xf > 25 && xf < 72)) return { ok: false, motivo: 'meato acustico non trovato', globi };
+    let sy = 0, sz = 0, sx = 0, n = 0;
+    for (const q of coda) { const i = (q / (ny * nz)) | 0; if (Math.abs(mm(i, 0, 0)[0]) > xf + 15) continue; const j = ((q / nz) | 0) % ny, k = q % nz, p = mm(i, j, k); sx += p[0]; sy += p[1]; sz += p[2]; n++; }
+    if (n < 5) return { ok: false, motivo: 'meato acustico non trovato', globi };
+    if (Math.abs(sx / n) > 68) return { ok: false, motivo: 'meato acustico non trovato', globi };
+    meati.push([sx / n, sy / n, sz / n]);
+    void passo;
+  }
+  const em = [0, 1, 2].map((c) => (meati[0][c] + meati[1][c]) / 2);
+  const dy = gm[1] - em[1], dz = gm[2] - em[2], ang = Math.atan2(dz, dy) * 180 / Math.PI;
+  // controlli di plausibilità: distanza antero-posteriore 55-115 mm, meati simmetrici, inclinazione entro ±35°
+  const motivo = !(dy > 50 && dy < 115) ? 'distanza globi-meati non plausibile' : Math.abs(meati[0][2] - meati[1][2]) > 12 || Math.abs(meati[0][1] - meati[1][1]) > 15 || Math.abs(Math.abs(meati[0][0]) - Math.abs(meati[1][0])) > 15 ? 'meati non simmetrici'
+    : Math.abs(ang) > 35 ? 'inclinazione non plausibile' : null;
+  const paz = (p) => [0, 1, 2].map((c) => cm[c] + p[0] * X[c] + p[1] * Y[c] + p[2] * Z[c]);
+  const r = { globi: globi.map(paz), meati: meati.map(paz), ang, Y, Z };
+  if (motivo) return { ok: false, motivo, ...r };
+  // direzione antero-posteriore del piano (verso il dorso, come y1 nel raddrizzamento) e un punto del piano
+  const Dn = unit3([0, 1, 2].map((c) => -(dy * Y[c] + dz * Z[c])));
+  return { ok: true, Dn, punto: paz(em), centroGlobi: paz(gm), ...r };
+}

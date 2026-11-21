@@ -1,0 +1,1137 @@
+{
+ "nota": "Esercizio di giustificazione e protocollo: scenari didattici scritti per la piattaforma (pazienti inventati). Le risposte seguono le linee guida citate in ogni scenario; i protocolli locali possono differire.",
+ "opzioni": {
+  "app": [
+   [
+    "si",
+    "Sì: eseguo l'esame richiesto"
+   ],
+   [
+    "cambio",
+    "Va cambiato (altro esame o altro protocollo)"
+   ],
+   [
+    "no",
+    "Non va eseguito ora"
+   ]
+  ],
+  "esame": [
+   [
+    "rx",
+    "Radiografia"
+   ],
+   [
+    "eco",
+    "Ecografia"
+   ],
+   [
+    "tc",
+    "TC"
+   ],
+   [
+    "angiotc",
+    "Angio-TC"
+   ],
+   [
+    "rm",
+    "RM"
+   ],
+   [
+    "scinti",
+    "Medicina nucleare (scintigrafia, PET)"
+   ],
+   [
+    "nessuno",
+    "Nessun esame per ora"
+   ]
+  ],
+  "mdc": [
+   [
+    "no",
+    "Senza mezzo di contrasto"
+   ],
+   [
+    "iodato",
+    "Mdc iodato e.v."
+   ],
+   [
+    "gado",
+    "Gadolinio e.v. (extracellulare)"
+   ],
+   [
+    "gado-epato",
+    "Gadolinio epatospecifico"
+   ]
+  ],
+  "fasi": [
+   [
+    "basale",
+    "Basale (senza mdc)"
+   ],
+   [
+    "arteriosa-polmonare",
+    "Arteriosa polmonare (angio-TC delle arterie polmonari)"
+   ],
+   [
+    "arteriosa-precoce",
+    "Arteriosa precoce (angio-TC dell'aorta e dei vasi)"
+   ],
+   [
+    "arteriosa-tardiva",
+    "Arteriosa tardiva (35-40 s)"
+   ],
+   [
+    "corticomidollare",
+    "Corticomidollare renale (30-40 s)"
+   ],
+   [
+    "portale",
+    "Portale venosa (60-80 s)"
+   ],
+   [
+    "nefrografica",
+    "Nefrografica (90-120 s)"
+   ],
+   [
+    "tardiva",
+    "Tardiva / di equilibrio (3-5 min)"
+   ],
+   [
+    "escretoria",
+    "Escretoria / urografica (8-15 min)"
+   ]
+  ],
+  "prec": [
+   [
+    "nessuna",
+    "Nessuna precauzione particolare"
+   ],
+   [
+    "idratazione",
+    "Idratazione profilattica e.v."
+   ],
+   [
+    "metformina",
+    "Sospendere la metformina e ricontrollare la funzione renale a 48 h"
+   ],
+   [
+    "premed",
+    "Premedicazione con corticosteroide (± antistaminico)"
+   ],
+   [
+    "altro-mdc",
+    "Usare un mdc diverso da quello della reazione, con équipe e farmaci pronti"
+   ],
+   [
+    "test-gravidanza",
+    "Escludere la gravidanza (ultima mestruazione, test)"
+   ],
+   [
+    "dispositivo",
+    "Verificare il dispositivo impiantato (RM-condizionale o no)"
+   ],
+   [
+    "bassa-dose",
+    "Protocollo a bassa dose"
+   ],
+   [
+    "macrociclico",
+    "Gadolinio macrociclico alla dose più bassa diagnostica"
+   ],
+   [
+    "tiroide",
+    "Niente mdc iodato: ipertiroidismo non controllato"
+   ]
+  ]
+ },
+ "scenari": [
+  {
+   "id": "esa",
+   "titolo": "Cefalea improvvisa",
+   "richiesta": {
+    "reparto": "Pronto soccorso",
+    "priorita": "PS",
+    "eta": 46,
+    "sesso": "F",
+    "quesito": "Cefalea violentissima insorta 2 ore fa durante sforzo, «la peggiore della vita». Escludere emorragia subaracnoidea.",
+    "storia": "Ipertensione in terapia. Nessun trauma. GCS 15, rigidità nucalis dubbia.",
+    "lab": [
+     [
+      "Creatinina",
+      "0,8 mg/dL"
+     ],
+     [
+      "eGFR",
+      "86 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "nessuna nota",
+    "dispositivi": "nessuno",
+    "gravidanza": "no (menopausa)",
+    "richiesto": "TC encefalo senza mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "accettabili": [
+      "angiotc"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "no"
+     ],
+     "accettabili": [
+      "iodato"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "basale"
+     ],
+     "accettabili": [
+      "arteriosa-precoce"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "nessuna"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "La TC senza mdc entro 6 ore dall'esordio ha sensibilità vicina al 100% per l'emorragia subaracnoidea. Se mostra sangue si completa subito con angio-TC del circolo intracranico per cercare l'aneurisma (per questo l'angio-TC è accettabile già nello stesso esame). Funzione renale normale: nessuna precauzione.",
+   "fonte": "ACR Appropriateness Criteria «Headache» (2019); Perry et al., BMJ 2011 (TC entro 6 ore)."
+  },
+  {
+   "id": "lombalgia",
+   "titolo": "Lombalgia da tre settimane",
+   "richiesta": {
+    "reparto": "Medico di medicina generale",
+    "priorita": "D",
+    "eta": 42,
+    "sesso": "M",
+    "quesito": "Lombalgia da 3 settimane dopo sforzo, RM lombare per escludere ernia discale.",
+    "storia": "Nessun deficit neurologico, nessuna febbre, nessun calo di peso, nessuna neoplasia nota, nessun disturbo sfinterico. Migliora con FANS.",
+    "lab": [],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "RM rachide lombosacrale"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "no"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "nessuno"
+     ],
+     "testo": "Quale esame esegui?"
+    }
+   ],
+   "spiegazione": "Lombalgia acuta o subacuta (meno di 6 settimane) senza segni d'allarme (deficit neurologici, febbre, calo ponderale, neoplasia, trauma importante, sindrome della cauda): l'imaging non cambia la gestione e non migliora l'esito. Si rivaluta dopo 6 settimane di terapia conservativa o se compaiono segni d'allarme. Il radiologo giustifica l'esame (D.Lgs. 101/2020 per le radiazioni ionizzanti; per la RM vale l'appropriatezza) e può non eseguirlo motivandolo al richiedente.",
+   "fonte": "ACR Appropriateness Criteria «Low back pain» (2021); D.Lgs. 101/2020, art. 157 (giustificazione)."
+  },
+  {
+   "id": "ep",
+   "titolo": "Sospetta embolia polmonare",
+   "richiesta": {
+    "reparto": "Pronto soccorso",
+    "priorita": "PS",
+    "eta": 63,
+    "sesso": "F",
+    "quesito": "Dispnea improvvisa e tachicardia, Wells 7 (alta probabilità). Sospetta embolia polmonare.",
+    "storia": "Intervento di protesi d'anca 10 giorni fa. Saturazione 91%. Non diabetica.",
+    "lab": [
+     [
+      "Creatinina",
+      "1,1 mg/dL"
+     ],
+     [
+      "eGFR",
+      "55 mL/min/1,73 m²"
+     ],
+     [
+      "D-dimero",
+      "non richiesto (alta probabilità)"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "no",
+    "richiesto": "Angio-TC delle arterie polmonari"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "angiotc"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "arteriosa-polmonare"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "nessuna"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Con probabilità clinica alta l'angio-TC polmonare è l'esame di prima scelta, senza bisogno del D-dimero. Con eGFR ≥ 30 mL/min il mdc iodato per via endovenosa non richiede idratazione profilattica.",
+   "fonte": "ESC 2019, linee guida sull'embolia polmonare acuta; ESUR Guidelines on Contrast Agents v10 (2018)."
+  },
+  {
+   "id": "ep-irc",
+   "titolo": "Embolia polmonare e insufficienza renale",
+   "richiesta": {
+    "reparto": "Medicina interna",
+    "priorita": "R",
+    "eta": 78,
+    "sesso": "M",
+    "quesito": "Dispnea ingravescente, sospetta embolia polmonare (Wells 6,5: probabilità alta).",
+    "storia": "Insufficienza renale cronica non in dialisi. RX torace di oggi senza alterazioni parenchimali. Non diabetico.",
+    "lab": [
+     [
+      "Creatinina",
+      "2,7 mg/dL"
+     ],
+     [
+      "eGFR",
+      "22 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "Angio-TC delle arterie polmonari"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "accettabili": [
+      "cambio"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "angiotc"
+     ],
+     "accettabili": [
+      "scinti"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "accettabili": [
+      "no"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "arteriosa-polmonare"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "idratazione"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Il sospetto di embolia va confermato o escluso: il rischio di non diagnosticarla supera quello del mdc. Con eGFR < 30 mL/min le linee guida ESUR consigliano l'idratazione profilattica (soluzione fisiologica o bicarbonato) prima e dopo il mdc iodato e.v. In alternativa, con RX torace normale, la scintigrafia ventilo-perfusoria evita il mdc ed è una scelta corretta (ESC 2019).",
+   "fonte": "ESUR Guidelines on Contrast Agents v10 (2018); ESC 2019 sull'embolia polmonare."
+  },
+  {
+   "id": "metformina",
+   "titolo": "Diabetico in metformina",
+   "richiesta": {
+    "reparto": "Chirurgia generale",
+    "priorita": "R",
+    "eta": 70,
+    "sesso": "M",
+    "quesito": "Febbre e dolore in fossa iliaca sinistra: sospetta diverticolite complicata con ascesso.",
+    "storia": "Diabete tipo 2 in metformina 1000 mg × 2. Insufficienza renale cronica.",
+    "lab": [
+     [
+      "Creatinina",
+      "2,4 mg/dL"
+     ],
+     [
+      "eGFR",
+      "25 mL/min/1,73 m²"
+     ],
+     [
+      "PCR",
+      "180 mg/L"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "TC addome-pelvi con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "accettabili": [
+      "no"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "portale"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "metformina",
+      "idratazione"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "La TC con mdc in fase portale è l'esame della diverticolite complicata. Con eGFR < 30 mL/min: idratazione profilattica e sospensione della metformina dal momento del mdc; si ricontrolla l'eGFR entro 48 ore e la si riprende se la funzione renale non è peggiorata (ESUR v10). Con eGFR ≥ 30 la metformina si continua normalmente. Una TC senza mdc è accettabile se il rischio renale è giudicato troppo alto, ma vede peggio l'ascesso.",
+   "fonte": "ESUR Guidelines on Contrast Agents v10 (2018), metformina e prevenzione del danno renale."
+  },
+  {
+   "id": "gado-irc",
+   "titolo": "RM con gadolinio e insufficienza renale",
+   "richiesta": {
+    "reparto": "Oncologia",
+    "priorita": "B",
+    "eta": 59,
+    "sesso": "F",
+    "quesito": "Carcinoma polmonare: stadiazione encefalica, cefalea da 2 settimane.",
+    "storia": "Insufficienza renale cronica stadio 4, non in dialisi.",
+    "lab": [
+     [
+      "Creatinina",
+      "2,6 mg/dL"
+     ],
+     [
+      "eGFR",
+      "20 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "no",
+    "richiesto": "RM encefalo con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "rm"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "gado"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "macrociclico"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "L'eGFR basso non vieta il gadolinio: si usa un agente a basso rischio di fibrosi sistemica nefrogenica (macrociclico, gruppo II ACR) alla dose più bassa diagnostica, evitando ripetizioni ravvicinate. L'idratazione non serve per il gadolinio alle dosi della RM.",
+   "fonte": "ESUR Guidelines on Contrast Agents v10 (2018); ACR Manual on Contrast Media (gruppo II)."
+  },
+  {
+   "id": "ipertiroidismo",
+   "titolo": "Nodulo polmonare e ipertiroidismo",
+   "richiesta": {
+    "reparto": "Pneumologia",
+    "priorita": "D",
+    "eta": 55,
+    "sesso": "F",
+    "quesito": "Controllo a 6 mesi di nodulo solido di 7 mm del lobo superiore destro. TC torace con mdc.",
+    "storia": "Ipertiroidismo (morbo di Basedow) diagnosticato il mese scorso, non ancora in terapia.",
+    "lab": [
+     [
+      "TSH",
+      "< 0,01 mUI/L"
+     ],
+     [
+      "FT4",
+      "3,9 ng/dL (alto)"
+     ],
+     [
+      "eGFR",
+      "90 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "no",
+    "richiesto": "TC torace con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "cambio"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "no"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "basale"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "tiroide"
+     ],
+     "accettabili": [
+      "bassa-dose"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Due errori nella richiesta. Il controllo di un nodulo polmonare si fa senza mdc (e si può fare a bassa dose): il mdc non aggiunge nulla. E l'ipertiroidismo manifesto non trattato è una controindicazione al mdc iodato (rischio di tireotossicosi; inoltre il mdc impedisce per circa 2 mesi la terapia con radioiodio). Si esegue la TC senza mdc e lo si scrive al richiedente.",
+   "fonte": "Fleischner Society 2017; ESUR Guidelines on Contrast Agents v10 (2018), mdc iodato e tiroide."
+  },
+  {
+   "id": "reazione",
+   "titolo": "Precedente reazione al mdc iodato",
+   "richiesta": {
+    "reparto": "Ematologia",
+    "priorita": "B",
+    "eta": 61,
+    "sesso": "M",
+    "quesito": "Linfoma diffuso a grandi cellule: TC torace-addome di ristadiazione.",
+    "storia": "Due anni fa, dopo iopamidolo, orticaria diffusa e lieve broncospasmo trattati in PS (reazione moderata).",
+    "lab": [
+     [
+      "eGFR",
+      "74 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "mdc iodato (iopamidolo), reazione moderata",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "TC torace-addome con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "accettabili": [
+      "cambio"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "accettabili": [
+      "scinti",
+      "rm"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "accettabili": [
+      "no",
+      "gado"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "portale"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "altro-mdc"
+     ],
+     "accettabili": [
+      "premed"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Prima si chiede se un esame senza mdc iodato risponde al quesito (nel linfoma la PET-TC spesso sì). Se la TC con mdc serve, si usa un mdc iodato diverso da quello della reazione, con personale e farmaci pronti. Sulla premedicazione le società non sono d'accordo: l'ESUR non la consiglia (prove insufficienti), l'ACR la propone dopo una reazione allergica moderata; è accettabile.",
+   "fonte": "ESUR Guidelines on Contrast Agents v10 (2018); ACR Manual on Contrast Media (2024)."
+  },
+  {
+   "id": "appendicite-gravida",
+   "titolo": "Dolore in fossa iliaca destra in gravidanza",
+   "richiesta": {
+    "reparto": "Pronto soccorso",
+    "priorita": "PS",
+    "eta": 29,
+    "sesso": "F",
+    "quesito": "Dolore in fossa iliaca destra da 12 ore, febbricola. Sospetta appendicite. TC addome con mdc.",
+    "storia": "Gravidanza alla 22ª settimana.",
+    "lab": [
+     [
+      "Leucociti",
+      "14.500/µL"
+     ],
+     [
+      "eGFR",
+      "110 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "sì, 22ª settimana",
+    "richiesto": "TC addome con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "cambio"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "eco"
+     ],
+     "accettabili": [
+      "rm"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "no"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "nessuna"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "In gravidanza si parte dall'ecografia; se non è conclusiva, la RM senza gadolinio (il gadolinio si evita in gravidanza). La TC resta un'opzione solo se RM non disponibile e la diagnosi è urgente: non è l'esame di prima scelta.",
+   "fonte": "ACR Appropriateness Criteria «Right lower quadrant pain» (2022) e «Acute abdominal pain in pregnancy»."
+  },
+  {
+   "id": "colica",
+   "titolo": "Sospetta colica renale",
+   "richiesta": {
+    "reparto": "Pronto soccorso",
+    "priorita": "PS",
+    "eta": 38,
+    "sesso": "M",
+    "quesito": "Dolore lombare sinistro irradiato all'inguine, ematuria microscopica. Sospetta colica renale. TC addome con mdc.",
+    "storia": "Primo episodio. Nessuna febbre.",
+    "lab": [
+     [
+      "Creatinina",
+      "1,0 mg/dL"
+     ],
+     [
+      "Emocromo",
+      "nella norma"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "TC addome con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "cambio"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "accettabili": [
+      "eco"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "no"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "basale"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "bassa-dose"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Per la calcolosi si fa la TC senza mdc, a bassa dose: il calcolo si vede meglio senza mdc e il mdc non serve. L'ecografia è un primo passo accettabile, soprattutto nei giovani e nelle donne in gravidanza. Il mdc si aggiunge solo con sospetto di complicanze o diagnosi alternative.",
+   "fonte": "EAU Guidelines on Urolithiasis (2024); ACR Appropriateness Criteria «Acute onset flank pain» (2015)."
+  },
+  {
+   "id": "massa-renale",
+   "titolo": "Massa renale all'ecografia",
+   "richiesta": {
+    "reparto": "Urologia",
+    "priorita": "B",
+    "eta": 57,
+    "sesso": "M",
+    "quesito": "Massa solida di 3 cm del rene destro all'ecografia: caratterizzazione.",
+    "storia": "Riscontro casuale. Iperteso.",
+    "lab": [
+     [
+      "eGFR",
+      "72 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "TC reni con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "accettabili": [
+      "rm"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "accettabili": [
+      "gado"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "basale",
+      "nefrografica"
+     ],
+     "accettabili": [
+      "corticomidollare",
+      "escretoria"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "nessuna"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Il protocollo della massa renale ha due fasi indispensabili: basale (densità di partenza, grasso, calcio) e nefrografica a 90-120 s (la fase in cui l'impregnazione si misura meglio: un aumento > 20 HU indica tessuto vascolarizzato). La corticomidollare aiuta a vedere i vasi e la vascolarizzazione del tumore; l'escretoria serve se la massa è vicina alle vie escretrici.",
+   "fonte": "ACR Appropriateness Criteria «Indeterminate renal mass» (2020); Bosniak 2019."
+  },
+  {
+   "id": "cirrosi",
+   "titolo": "Nodulo epatico nel cirrotico",
+   "richiesta": {
+    "reparto": "Epatologia",
+    "priorita": "B",
+    "eta": 64,
+    "sesso": "M",
+    "quesito": "Cirrosi HCV: nodulo di 2 cm del VI segmento all'ecografia di sorveglianza.",
+    "storia": "Child-Pugh A. AFP in aumento.",
+    "lab": [
+     [
+      "AFP",
+      "38 ng/mL"
+     ],
+     [
+      "eGFR",
+      "80 mL/min/1,73 m²"
+     ],
+     [
+      "Piastrine",
+      "95.000/µL"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "TC addome con mdc trifasica"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "accettabili": [
+      "rm"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "accettabili": [
+      "gado",
+      "gado-epato"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "arteriosa-tardiva",
+      "portale",
+      "tardiva"
+     ],
+     "accettabili": [
+      "basale"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "nessuna"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Per LI-RADS servono la fase arteriosa tardiva (iperimpregnazione), la portale e la tardiva a 3-5 minuti (wash-out e capsula). La basale è facoltativa (utile dopo terapie o per il sangue). La RM con gadolinio, anche epatospecifico, è un'alternativa corretta.",
+   "fonte": "ACR LI-RADS v2018, requisiti tecnici CT/MRI."
+  },
+  {
+   "id": "trauma-cranico",
+   "titolo": "Trauma cranico minore",
+   "richiesta": {
+    "reparto": "Pronto soccorso",
+    "priorita": "PS",
+    "eta": 30,
+    "sesso": "M",
+    "quesito": "Caduta dalla bicicletta a bassa velocità con casco. TC encefalo.",
+    "storia": "Nessuna perdita di coscienza, nessuna amnesia, GCS 15, non vomito, esame neurologico normale. Nessun anticoagulante.",
+    "lab": [],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "—",
+    "richiesto": "TC encefalo senza mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "no"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "nessuno"
+     ],
+     "testo": "Quale esame esegui?"
+    }
+   ],
+   "spiegazione": "Adulto con GCS 15, senza perdita di coscienza né amnesia, senza fattori di rischio (età ≥ 65 anni, anticoagulanti, vomito ripetuto, sospetta frattura, dinamica pericolosa): la TC non è indicata; si danno istruzioni di osservazione. Le regole decisionali (Canadian CT Head Rule, NICE) servono proprio a evitare TC inutili.",
+   "fonte": "Stiell et al., Lancet 2001 (Canadian CT Head Rule); NICE NG232 (2023) sul trauma cranico."
+  },
+  {
+   "id": "gravidanza-dubbia",
+   "titolo": "Possibile gravidanza",
+   "richiesta": {
+    "reparto": "Pronto soccorso",
+    "priorita": "PS",
+    "eta": 31,
+    "sesso": "F",
+    "quesito": "Dolore addominale diffuso da 2 giorni. TC addome-pelvi con mdc.",
+    "storia": "Ultima mestruazione 6 settimane fa, cicli di solito regolari. Non sa se è incinta.",
+    "lab": [
+     [
+      "eGFR",
+      "105 mL/min/1,73 m²"
+     ],
+     [
+      "β-hCG",
+      "non eseguita"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "nessuno",
+    "gravidanza": "da escludere",
+    "richiesto": "TC addome-pelvi con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "si"
+     ],
+     "accettabili": [
+      "cambio"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "accettabili": [
+      "eco"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "portale"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "test-gravidanza"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Prima di un esame con radiazioni sull'addome di una donna in età fertile si accerta lo stato di gravidanza: data dell'ultima mestruazione e, se c'è un ritardo, il test. Qui il ritardo c'è: β-hCG prima della TC. Se il test è positivo si passa all'ecografia o alla RM; se negativo si esegue la TC richiesta.",
+   "fonte": "D.Lgs. 101/2020 (protezione particolare in gravidanza e allattamento); ACR–SPR Practice Parameter for imaging pregnant or potentially pregnant patients with ionizing radiation."
+  },
+  {
+   "id": "pacemaker",
+   "titolo": "Pacemaker e RM",
+   "richiesta": {
+    "reparto": "Oncologia",
+    "priorita": "B",
+    "eta": 74,
+    "sesso": "M",
+    "quesito": "Carcinoma polmonare, cefalea: sospette metastasi cerebrali. RM encefalo con mdc.",
+    "storia": "Pacemaker bicamerale impiantato nel 2008, non RM-condizionale secondo la tessera del dispositivo.",
+    "lab": [
+     [
+      "eGFR",
+      "68 mL/min/1,73 m²"
+     ]
+    ],
+    "allergie": "nessuna",
+    "dispositivi": "pacemaker non RM-condizionale (2008)",
+    "gravidanza": "—",
+    "richiesto": "RM encefalo con mdc"
+   },
+   "domande": [
+    {
+     "id": "app",
+     "giuste": [
+      "cambio"
+     ],
+     "testo": "La richiesta è appropriata?"
+    },
+    {
+     "id": "esame",
+     "giuste": [
+      "tc"
+     ],
+     "accettabili": [
+      "rm"
+     ],
+     "testo": "Quale esame esegui?"
+    },
+    {
+     "id": "mdc",
+     "giuste": [
+      "iodato"
+     ],
+     "accettabili": [
+      "gado"
+     ],
+     "testo": "Mezzo di contrasto"
+    },
+    {
+     "id": "fasi",
+     "giuste": [
+      "portale"
+     ],
+     "accettabili": [
+      "tardiva"
+     ],
+     "testo": "Fasi di acquisizione (scegli tutte quelle da fare)"
+    },
+    {
+     "id": "prec",
+     "giuste": [
+      "dispositivo"
+     ],
+     "testo": "Precauzioni e controindicazioni (scegli tutte quelle necessarie)"
+    }
+   ],
+   "spiegazione": "Un pacemaker non RM-condizionale è una controindicazione alla RM nella pratica corrente: la si esegue solo in centri con protocolli dedicati, cardiologo e valutazione rischio/beneficio. Di solito si fa la TC encefalo con mdc. Il controllo del dispositivo (tessera, modello, elettrodi) va sempre fatto prima di qualsiasi RM.",
+   "fonte": "Linee guida ESC 2021 sul pacing (RM nei portatori di dispositivi)."
+  }
+ ]
+}

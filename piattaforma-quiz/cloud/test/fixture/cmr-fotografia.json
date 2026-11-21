@@ -1,0 +1,47 @@
+{
+ "caso-tcia-070": {
+  "cifre": {
+   "bsa": 1.78,
+   "vs": {
+    "edv": 108.23,
+    "esv": 53.09,
+    "sv": 55.14,
+    "fe": 50.95
+   },
+   "vd": {
+    "edv": 33.97,
+    "esv": 26.88,
+    "sv": 7.09,
+    "fe": 20.87,
+    "dubbio": "Gittata del VD 7 mL contro 55 mL del VS: controlla i contorni del VD alla base (fette con l'atrio o il tratto di efflusso) e in fine sistole, e correggili («Correggi un contorno» → VD). Senza shunt né insufficienze valvolari le due gittate sono quasi uguali."
+   }
+  },
+  "scheda": "❤ RM cardiaca ⧉ ▾ ✕ FE VS 51% conservata VTD VS 108 mL 61 mL/m² · nei limiti FE VD 21% ? da verificare VTD VD 34 mL ? da verificare ⚠ Gittata del VD 7 mL contro 55 mL del VS: controlla i contorni del VD alla base (fette con l'atrio o il tratto di efflusso) e in fine sistole, e correggili («Correggi un contorno» → VD). Senza shunt né insufficienze valvolari le due gittate sono quasi uguali. 1 Contorni ✳ Traccia VS e VD in automatico 1 · VS: clic nella cavità 2 · VD: clic nella cavità Correggi un contorno a mano 3 · Epicardio del VS (massa) 4 · Flusso (contrasto di fase) 5 · Escursione dell'anulus (MAPSE, TAPSE) 6 · Atri (area e volume) 7 · Enhancement tardivo (LGE) 8 · FE del VS dall'asse lungo (area-lunghezza) Apri una fetta di asse corto medio-ventricolare e clicca al centro della cavità del ventricolo sinistro: il bordo si segue in tutte le fette e in tutte le fasi. Soglia 0,55 papillari e trabecole nella cavità del VS 2 Fasi e fette 10 fette di asse corto · 10,0 mm tra le fette · 20 fasi · aperta: fine diastole Fine diastole 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Vai Fine sistole 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Vai VS VD volume nel ciclo Fetta VS cm² FD/FS VD cm² FD/FS Epi 1 0,0 / 0,0 0,0 / 0,0 2 4,9 / 1,9 39,1 / 0,0 3 11,1 / 2,9 13,3 / 4,5 4 14,6 / 4,5 13,7 / 5,5 5 17,2 / 4,7 28,8 / 14,4 6 20,5 / 8,8 34,0 / 26,9 ⚠ 7 18,5 / 12,5 47,7 / 36,1 ⚠ 8 21,5 / 17,8 40,7 / 40,7 ⚠ 9 42,1 / 28,0 ⚠ 35,3 / 40,6 ⚠ 10 18,3 / 21,2 ⚠ 71,0 / 71,0 ⚠ Spunta solo le fette con il ventricolo (alla base escludi quelle con l'atrio o il tratto di efflusso). 3 Paziente e altre misure Sesso — Uomo Donna Altezza cm Peso kg SC 1,78 m² T1 e volume extracellulare (ECV) 📊 Risultati Misura Valore Indicizzato Riferimento Frazione di eiezione del ventricolo sinistro 51% 49–79% Volume telediastolico del ventricolo sinistro 108 mL 61 mL/m² 50–108 mL/m² Volume telesistolico del ventricolo sinistro 53 mL 30 mL/m² 11–47 mL/m² Gittata sistolica del ventricolo sinistro 55 mL 31 mL/m² Frazione di eiezione del ventricolo destro 21% ? 42–72% Volume telediastolico del ventricolo destro 34 mL ? 19 mL/m² 53–123 mL/m² Volume telesistolico del ventricolo destro 27 mL ? 15 mL/m² 17–59 mL/m² Gittata sistolica del ventricolo destro 7 mL ? 4 mL/m² Riferimenti: adulti, bSSFP, uomini; Kawel-Boehm et al., J Cardiovasc Magn Reson 2020. 📋 Misure nel referto Modello di referto Cinetica (Σ) Cancella le misure Metodo e riferimenti"
+ },
+ "caso-tcia-071": {
+  "cifre": {
+   "bsa": 1.79,
+   "vs": {
+    "edv": 156.3,
+    "esv": 67.62,
+    "sv": 88.67,
+    "fe": 56.73
+   },
+   "vd": {
+    "edv": 97.46,
+    "esv": 70.71,
+    "sv": 26.75,
+    "fe": 27.45,
+    "dubbio": "Gittata del VD 27 mL contro 89 mL del VS: controlla i contorni del VD alla base (fette con l'atrio o il tratto di efflusso) e in fine sistole, e correggili («Correggi un contorno» → VD). Senza shunt né insufficienze valvolari le due gittate sono quasi uguali."
+   }
+  },
+  "scheda": "❤ RM cardiaca ⧉ ▾ ✕ FE VS 57% conservata VTD VS 156 mL 87 mL/m² · nei limiti FE VD 27% ? da verificare VTD VD 97 mL ? da verificare ⚠ Gittata del VD 27 mL contro 89 mL del VS: controlla i contorni del VD alla base (fette con l'atrio o il tratto di efflusso) e in fine sistole, e correggili («Correggi un contorno» → VD). Senza shunt né insufficienze valvolari le due gittate sono quasi uguali. 1 Contorni ✳ Traccia VS e VD in automatico 1 · VS: clic nella cavità 2 · VD: clic nella cavità Correggi un contorno a mano 3 · Epicardio del VS (massa) 4 · Flusso (contrasto di fase) 5 · Escursione dell'anulus (MAPSE, TAPSE) 6 · Atri (area e volume) 7 · Enhancement tardivo (LGE) 8 · FE del VS dall'asse lungo (area-lunghezza) Apri una fetta di asse corto medio-ventricolare e clicca al centro della cavità del ventricolo sinistro: il bordo si segue in tutte le fette e in tutte le fasi. Soglia 0,55 papillari e trabecole nella cavità del VS 2 Fasi e fette 12 fette di asse corto · 8,0 mm tra le fette · 30 fasi · aperta: fine diastole Fine diastole 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 Vai Fine sistole 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 Vai VS VD volume nel ciclo Fetta VS cm² FD/FS VD cm² FD/FS Epi 1 10,1 / 5,0 23,5 / 3,3 ⚠ 2 3,1 / 0,7 22,3 / 39,1 ⚠ 3 6,0 / 1,2 10,5 / 13,2 4 9,4 / 2,0 13,7 / 7,3 5 12,2 / 2,8 19,3 / 11,2 6 17,0 / 4,9 25,5 / 19,2 ⚠ 7 20,4 / 7,0 27,5 / 23,2 8 23,8 / 8,2 35,8 / 27,5 9 25,2 / 10,5 36,2 / 34,3 ⚠ 10 25,8 / 12,4 39,8 / 44,5 ⚠ 11 25,3 / 13,2 41,8 / 45,3 ⚠ 12 27,3 / 21,8 66,5 / 59,4 ⚠ Spunta solo le fette con il ventricolo (alla base escludi quelle con l'atrio o il tratto di efflusso). 3 Paziente e altre misure Sesso — Uomo Donna Altezza cm Peso kg SC 1,79 m² T1 e volume extracellulare (ECV) 📊 Risultati Misura Valore Indicizzato Riferimento Frazione di eiezione del ventricolo sinistro 57% 49–79% Volume telediastolico del ventricolo sinistro 156 mL 87 mL/m² 50–108 mL/m² Volume telesistolico del ventricolo sinistro 68 mL 38 mL/m² 11–47 mL/m² Gittata sistolica del ventricolo sinistro 89 mL 49 mL/m² Frazione di eiezione del ventricolo destro 27% ? 42–72% Volume telediastolico del ventricolo destro 97 mL ? 54 mL/m² 53–123 mL/m² Volume telesistolico del ventricolo destro 71 mL ? 39 mL/m² 17–59 mL/m² Gittata sistolica del ventricolo destro 27 mL ? 15 mL/m² Riferimenti: adulti, bSSFP, uomini; Kawel-Boehm et al., J Cardiovasc Magn Reson 2020. 📋 Misure nel referto Modello di referto Cinetica (Σ) Cancella le misure Metodo e riferimenti"
+ },
+ "caso-tcia-108": {
+  "cifre": {
+   "bsa": null
+  },
+  "scheda": "❤ RM cardiaca ⧉ ▾ ✕ Traccia i ventricoli (passo 1) per vedere qui frazione di eiezione, volumi e massa, con i valori fuori dai limiti segnalati. 1 Contorni ✳ Ricomincia dall'asse lungo 1 · VS: clic nella cavità 2 · VD: clic nella cavità Correggi un contorno a mano 3 · Epicardio del VS (massa) 4 · Flusso (contrasto di fase) 5 · Escursione dell'anulus (MAPSE, TAPSE) 6 · Atri (area e volume) 7 · Enhancement tardivo (LGE) 8 · FE del VS dall'asse lungo (area-lunghezza) Senza pila di asse corto: apri la cine in asse lungo (2 o 4 camere), vai in fine diastole e clicca i due punti dell'anulus mitralico, poi il centro della cavità del VS; ripeti in fine sistole. Il contorno si ferma al piano valvolare; volume = 0,85 × area² / lunghezza (biplano con 2 e 4 camere). Soglia 0,55 papillari e trabecole nella cavità del VS 2 Asse lungo (area-lunghezza) Cine bSSFP - 30 fasi · asse lungo · 30 fasi · aperta: fine diastole Fine diastole 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 Vai Fine sistole 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 Vai FD: da fare FS: da fare 2 Paziente e altre misure Sesso — Uomo Donna Altezza cm Peso kg Con altezza e peso i volumi e la massa si indicizzano e si confrontano con i limiti di riferimento. T1 e volume extracellulare (ECV) 📋 Misure nel referto Modello di referto Cinetica (Σ) Metodo e riferimenti"
+ },
+ "_errori": []
+}

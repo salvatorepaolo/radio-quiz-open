@@ -1,0 +1,132 @@
+{
+ "titolo": "RM cardiaca: uomo di 80 anni con soffio sistolico",
+ "titolo_interno": "Stenosi aortica: getto sistolico di dephasing nella radice aortica alla cine bSSFP (Stanford AS_001)",
+ "distretto": "Cuore",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "quesito": "valvulopatia",
+ "anamnesi": "Uomo di 80 anni (1,67 m, 68 kg). RM cardiaca a 3 T: cine bSSFP in 4, 2 e 3 camere e pila di asse corto (20 fasi per ciclo). Altri dati clinici non disponibili.",
+ "domanda": "Guarda le cine (tasto play) in tutte le viste. Che cosa vedi nella valvola aortica e nel ventricolo sinistro? Come si quantifica?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "spiegazione": "Nelle cine bSSFP il sangue è chiaro; i flussi turbolenti e ad alta velocità (stenosi, insufficienze) causano un vuoto di segnale (dephasing jet). Un getto sistolico che parte dalla valvola aortica e si apre nell'aorta ascendente indica stenosi aortica (o ostruzione dell'efflusso), ma la sua estensione non misura la gravità.\nLa severità si quantifica con: ecocardiografia Doppler (velocità di picco ≥ 4 m/s, gradiente medio ≥ 40 mmHg, area < 1 cm² = severa) oppure RM con contrasto di fase sul piano appena sopra la valvola e planimetria dell'area valvolare su una cine en face.\nIl ventricolo sinistro risponde al sovraccarico di pressione con ipertrofia concentrica; RM misura volumi, frazione di eiezione e massa (contornando endocardio ed epicardio sulla pila di asse corto in telediastole e telesistole) e con il gadolinio la fibrosi (LGE), che peggiora la prognosi.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Paziente con diagnosi di stenosi aortica (dati della raccolta Stanford; severità e misure non fornite)."
+ },
+ "fonte": {
+  "archivio": "Stanford Digital Repository",
+  "collezione": "Human MRI Data to Quantify Cardiac Performance",
+  "doi": "10.25740/xt223hz2438",
+  "licenza": "ODbL 1.0",
+  "licenza_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "citazione": "Cardiac Magnetic Research Group (2026). Human MRI Data to Quantify Cardiac Performance (Version 9) [Data set]. Stanford Digital Repository. https://doi.org/10.25740/xt223hz2438",
+  "url": "https://purl.stanford.edu/xt223hz2438",
+  "soggetto": "Aortic_Stenosis_Patient_001"
+ },
+ "serie_iniziale": 2,
+ "riquadri": 2,
+ "disposizione": [
+  2,
+  7
+ ],
+ "vista": {
+  "serie": 2,
+  "idx": 5,
+  "zoom": 1.5,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Getto sistolico nella radice aortica"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Valvulopatia nota o sospetta senza urgenza: basta il referto."
+ },
+ "regola": "Cine bSSFP: un vuoto di segnale sistolico oltre la valvola aortica = flusso turbolento; la gravità la dicono velocità e area, non il getto.",
+ "nota_docente": "[seconda revisione 06/11/2026] Esito (a), dubbio risolto: la zona chiara alla radice aortica (cine 3 camere, pixel ~70,105) non è fissa: il massimo passa da circa 400-485 in diastole (fotogrammi 0, 18, 19) a 900-1020 in sistole (fotogrammi 2-8, in sincronia col getto), contro circa 170-225 del sangue nelle camere e circa 410-515 del grasso sottocutaneo vicino alla bobina; ha strie scure all'interno in sistole. Comportamento da artefatto di flusso della bSSFP, non da tessuto; aggiunta una frase nella nota del reperto principale. Nessuna altra serie passa per quel punto (la più vicina è a 37 mm).\n[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini (cine 3 camere e 4 camere): nelle fasi sistoliche ~2-8 segnale turbolento con strie scure dalla valvola aortica verso l'aorta ascendente, assente in diastole; cuspidi non valutabili, pareti del VS senza ipertrofia marcata, atri ampi. Testi prudenti e coerenti, nessuna correzione.\nStanford «Human MRI Data to Quantify Cardiac Performance» (ODbL 1.0), Aortic_Stenosis_Patient_001: M80, 3 T Siemens Vida Fit; importate solo le cine bSSFP (3 LAX + 10 SAX, 20 fasi); escluse cDTI, DENSE, tagging, T1 e localizzatori. La raccolta non dà severità né misure. Ispessimento delle cuspidi e ipertrofia non dimostrabili con certezza su queste cine (vedi verifica del 25/10). Licenza ODbL: share-alike per la base di dati derivata, da far valutare. [verifica 25/10/2026] Rivisto sulle immagini (3 camere, 20 fasi; 4 camere; asse corto medio): nelle fasi sistoliche 2-8 della 3 camere getto di vuoto di segnale dalla valvola aortica verso l'aorta ascendente, assente in diastole; nessun getto diastolico verso il ventricolo. Le cuspidi non sono valutabili in dettaglio (strato 8 mm, pixel 1,3 mm): l'opzione «cuspidi ispessite con apertura ridotta» è stata riscritta come «cuspidi poco definite, serve una cine sul piano valvolare». Pareti del VS di spessore apparente circa 10-12 mm in telediastole, senza ipertrofia marcata; atrio sinistro ampio.",
+ "id": "caso-tcia-070",
+ "visibile": true,
+ "opzioni": [
+  {
+   "testo": "In sistole getto di «vuoto di segnale» (dephasing) che parte dalla valvola aortica e si dirige nell'aorta ascendente: flusso turbolento ad alta velocità",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Si vede nella cine 3 camere (asse lungo del tratto di efflusso), nelle fasi sistoliche (circa fotogrammi 3-8). Nella bSSFP il flusso turbolento fa perdere segnale. La zona molto chiara sul lato destro della radice aortica non è un reperto: è un artefatto di flusso della bSSFP (intensità che cresce in sistole insieme al getto e cala in diastole, più alta di qualsiasi tessuto dell'immagine)."
+  },
+  {
+   "testo": "Cuspidi aortiche poco definite sulla cine 3 camere: la morfologia e l'apertura della valvola vanno studiate con una cine dedicata sul piano valvolare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Con strati di 8 mm e pixel di 1,3 mm le cuspidi non si giudicano con sicurezza: lo spessore e la riduzione dell'apertura non sono dimostrabili su queste immagini."
+  },
+  {
+   "testo": "Il ventricolo sinistro va valutato per spessore parietale (ipertrofia concentrica), volumi, frazione di eiezione e massa",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Getto diastolico dall'aorta verso il ventricolo (insufficienza aortica pura)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il getto è sistolico e va dalla valvola verso l'aorta."
+  },
+  {
+   "testo": "Getto sistolico dal ventricolo sinistro verso l'atrio sinistro (insufficienza mitralica come reperto principale)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Valvola e flussi normali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Quadro compatibile con stenosi aortica: quantificare con ecocardiografia Doppler o RM con contrasto di fase (velocità di picco, gradiente medio, area valvolare) e valutare ipertrofia e funzione ventricolare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Diagnosi di stenosi aortica severa certa dalla sola cine bSSFP (getto di flusso turbolento in aorta ascendente): nessuna quantificazione con Doppler o contrasto di fase, indicazione diretta alla sostituzione valvolare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "L'estensione del vuoto di segnale dipende dalla sequenza (TE) e non misura la severità: servono velocità e area."
+  },
+  {
+   "testo": "Cardiomiopatia ipertrofica ostruttiva certa, con ostruzione del tratto di efflusso e movimento sistolico anteriore della mitrale: beta-bloccanti e valutazione per miectomia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Soffio senza significato: nessun approfondimento né ecocardiogramma, a 80 anni il reperto è atteso",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "aggiornato": "2026-11-06 20:58"
+}

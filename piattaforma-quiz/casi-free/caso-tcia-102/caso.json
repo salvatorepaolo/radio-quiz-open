@@ -1,0 +1,172 @@
+{
+ "id": "caso-tcia-102",
+ "visibile": true,
+ "titolo": "🧪 SIMULATO – TC addome con mdc: dolore dorsale e addominale improvviso in donna ipertesa",
+ "titolo_interno": "Caso simulato: dissezione aortica dalla toracica discendente distale all'aorta sottorenale (estensione prossimale fuori campo), lume vero piccolo anteriore, rientro sottorenale; reperto incidentale reale: piccola massa solida del rene destro",
+ "distretto": "Addome",
+ "quesito": "dolore addominale e lombare acuto",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "CASO SIMULATO: la TC è vera (archivio pubblico, aorta normale), la dissezione è stata aggiunta al computer; storia clinica di fantasia. Donna di 67 anni, ipertesa mal controllata e diabetica. Da 2 ore dolore improvviso, lancinante, al dorso e all'addome, migrato verso la regione lombare. In Pronto soccorso: PA 190/105 mmHg, FC 96/min, polsi femorali presenti, nessun deficit neurologico. Il medico chiede una TC addome con mezzo di contrasto per «sospetta colica renale complicata o ischemia mesenterica». Unica fase (arteriosa tardiva); il campo comincia sotto il cuore.",
+ "domanda": "Descrivi il quadro, valuta i rami viscerali e decidi che cosa serve subito e a chi comunicarlo.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi? (aorta, rami, organi, altri reperti)"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Sottile flap intimale lineare nel lume aortico, dal margine superiore dell'esame (aorta toracica discendente distale) fino all'aorta sottorenale, che divide due lumi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini 0-172 circa (vista a 60). Il flap è continuo tra immagini contigue e ruota a spirale lungo l'aorta."
+  },
+  {
+   "testo": "Lume vero più piccolo e più denso (anteriore, verso destra); lume falso più ampio e meno opacizzato (posteriore, verso sinistra)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Lume vero circa un terzo della sezione; densità circa 210-230 HU contro 160-180 del lume falso. Il flap è convesso verso il lume vero, che è compresso."
+  },
+  {
+   "testo": "Tripode celiaco e arteria mesenterica superiore originano dal lume vero, opacizzati; reni impregnati in modo simmetrico, senza segni di malperfusione",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Celiaco circa immagini 91-97, AMS 105-112, renali 114-121. In un referto di dissezione va sempre detto da quale lume nascono i rami viscerali e se gli organi sono perfusi."
+  },
+  {
+   "testo": "Breve interruzione del flap nell'aorta sottorenale (rientro) e fine della dissezione circa 1,5-2 cm sopra la biforcazione; iliache comuni non interessate",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Rientro immagini 150-156; il lume falso si chiude verso le immagini 168-175; biforcazione circa 190."
+  },
+  {
+   "testo": "Piccola formazione solida di circa 2 cm del rene destro, non vascolare, da caratterizzare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Reperto REALE della collezione (immagini circa 108-125): carcinoma a cellule chiare pT1a di 2 cm. Anche in urgenza i reperti incidentali vanno descritti."
+  },
+  {
+   "testo": "Ispessimento a semiluna della parete aortica senza flap né doppio lume (ematoma intramurale)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "C'è un flap con due lumi opacizzati: è una dissezione classica. L'ematoma intramurale è iperdenso senza mdc e non si opacizza."
+  },
+  {
+   "testo": "Ematoma periaortico e retroperitoneale (rottura contenuta)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il grasso attorno all'aorta è pulito, non ci sono raccolte."
+  },
+  {
+   "testo": "La linea nell'aorta è un artefatto da pulsazione o da movimento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Gli artefatti da pulsazione stanno quasi solo nella radice dell'aorta ascendente, cambiano posizione tra le immagini e escono dal profilo del vaso. Qui il flap è continuo per oltre 17 cm e i due lumi hanno densità diversa."
+  },
+  {
+   "testo": "Dissezione aortica estesa almeno dall'aorta toracica discendente distale all'aorta sottorenale, con rami viscerali dal lume vero: l'estensione prossimale non è nel campo, quindi serve subito un'angio-TC dell'aorta toracica (per escludere il tipo A di Stanford) e la comunicazione immediata al medico del Pronto soccorso",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Dissezione di tipo B di Stanford certa, perché l'aorta ascendente non è nel campo e quindi non è coinvolta: basta la terapia medica antipertensiva con beta-bloccante e controllo TC a un mese, nessun altro esame dell'aorta toracica né comunicazione urgente al Pronto soccorso",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il tipo (A o B) dipende dall'aorta ascendente, che qui non si vede: dirlo senza averla vista è un errore pericoloso."
+  },
+  {
+   "testo": "Aneurisma dell'aorta addominale sottorenale con trombo parietale, senza dissezione: controllo ecografico e valutazione chirurgica in elezione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il calibro è normale (circa 19 mm toracico distale, 14 mm sottorenale); il problema è il flap."
+  },
+  {
+   "testo": "Aorta nei limiti; il dolore dorsale è da colica renale destra per la lesione del rene destro: analgesia e uro-TC",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  }
+ ],
+ "spiegazione": "Caso costruito per la didattica: la TC di partenza è vera (archivio pubblico) e l'aorta era normale; flap, lume falso e rientro sono stati aggiunti al computer conservando il rumore dell'immagine. La piccola massa del rene destro è invece reale.\nLa dissezione si riconosce dal flap intimale (linea sottile, ipodensa rispetto al sangue opacizzato) che separa un lume vero e un lume falso. Il lume vero di solito è più piccolo, compresso dal lume falso, a volte più denso e in continuità con l'aorta non dissecata; il lume falso è più ampio, può opacizzarsi meno o più tardi e può contenere trombi; spesso il lume falso abbraccia il lume vero (segno del becco) e i rami nascono dall'uno o dall'altro.\nClassificazione: Stanford A se interessa l'aorta ascendente (indipendentemente dalla sede della lacerazione di ingresso: urgenza cardiochirurgica), Stanford B se non la interessa; DeBakey I (ascendente e oltre), II (solo ascendente), III (solo discendente). Qui il campo comincia sotto il cuore: l'aorta ascendente e l'arco non si vedono, quindi il tipo non si può dire. Questo è il punto chiave del caso: una TC addome che mostra una dissezione va completata subito con un'angio-TC dell'aorta toracica (meglio con sincronizzazione ECG), senza far attendere il paziente.\nNel referto: estensione prossimale e distale, diametro massimo, lacerazioni di ingresso e di rientro, da quale lume nascono tripode celiaco, AMS e renali, perfusione di intestino, reni e arti (malperfusione), segni di rottura (versamento pleurico o pericardico ematico, ematoma periaortico).\nTrappole: artefatti da pulsazione nella radice dell'ascendente; ematoma intramurale (senza flap, meglio visibile senza mdc); in fase troppo precoce il lume falso può sembrare trombosato.\nReperto incidentale: la piccola massa del rene destro si descrive e si rimanda a dopo l'urgenza.",
+ "regola": "Dolore toracico, dorsale o addominale lancinante con ipertensione: cerca il flap; se vedi una dissezione, dì subito se l'aorta ascendente è interessata o se non è nel campo.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Caso simulato: dissezione aortica aggiunta al computer su una TC con aorta normale. La massa renale destra è reale: carcinoma a cellule chiare di 2 cm (pT1a, dati della collezione)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00014 (immagini modificate)",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive. Immagini modificate per la didattica: flap intimale, lume falso e rientro di una dissezione aortica aggiunti al computer (caso simulato). La piccola massa del rene destro è invece un reperto reale della collezione.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 60,
+  "wc": 150,
+  "ww": 600,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Flap intimale nell'aorta toracica discendente distale"
+ },
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "ps",
+   "richiedente"
+  ],
+  "parole": [
+   "dissezione",
+   "aorta",
+   "angio-TC"
+  ],
+  "motivo": "Dissezione aortica in paziente sintomatica e ipertesa: esito critico da comunicare subito a voce al medico del Pronto soccorso (e al chirurgo vascolare/cardiochirurgo), chiedendo l'angio-TC dell'aorta toracica per escludere il tipo A, e da registrare nel referto."
+ },
+ "richiesta": {
+  "reparto": "Pronto soccorso",
+  "priorita": "PS",
+  "lab": [
+   [
+    "Creatinina",
+    "0,9 mg/dL (dato di fantasia)"
+   ],
+   [
+    "Troponina",
+    "negativa (dato di fantasia)"
+   ]
+  ],
+  "allergie": "",
+  "farmaci": "Ramipril, metformina",
+  "dispositivi": "",
+  "gravidanza": ""
+ },
+ "nota_docente": "Controllato il 25/10/2026: immagini e testi rivisti da un revisore indipendente. CASO SIMULATO creato il 25/10/2026. Base: C4KC-KiTS KiTS-00014 (donna 67 anni, diabetica; TC addome-pelvi in fase arteriosa tardiva, strati da 1 mm, pixel 0,85 mm; aorta circa 210-230 HU, calibro circa 19 mm toracico distale e 14 mm sottorenale; contrasto orale nelle anse), carcinoma a cellule chiare pT1a di 2 cm del rene destro (SEG della collezione, immagini circa 108-125) lasciato come reperto incidentale. Simulazione con strumenti_claude/sim/aorta_traccia.py e dissezione.py: flap curvo (convesso verso il lume vero) di circa 1,5 mm, 95 HU con il rumore originale, leggermente ondulato, immagini 0-172; normale verso il lume vero ruotata da -55° (alto) a -120° (renali) a -165° (sottorenale) = spirale di circa 110°; lume vero circa 1/3 della sezione; lume falso a 0,80-0,72 volte la densità del lume (circa 160-180 HU) con lieve disomogeneità; rientro immagini 150-156; lume falso che si chiude 168-175 (biforcazione circa 190). Rami: celiaco e AMS dal lume vero (anteriori); renali 114-121 vicine al flap, per geometria la destra nel lume vero e la sinistra nel lume falso, ma l'origine non è ben visibile: non affermata nelle risposte. Limiti: calibro aortico non aumentato; densità dei rami non modificata; nessun trombo nel lume falso. Il campo comincia sotto il cuore (aorta ascendente non visibile): da qui la conclusione «tipo non valutabile, completare con angio-TC toracica». Percorsi proposti: simulati, urgenze, addome. [revisione indipendente 25/10/2026] Controllati sulle immagini (finestra stretta 175/350): flap sottile curvilineo continuo dall'immagine 0 alla ~160, lume vero anteriore più piccolo e un po' più denso, rotazione a spirale visibile (immagini 60-130); interruzione del flap verso l'immagine 152 e piccolo residuo fino a ~160, aorta di nuovo a lume unico a 172. Calibro normale, grasso periaortico pulito. Conclusione corretta e importante (tipo non valutabile perché l'ascendente è fuori campo → angio-TC toracica subito); distrattori e comunicazione immediata corretti. Credibile; limite: con la finestra addome 40/400 il flap è sottile e poco contrastato, si vede meglio con finestra angio."
+}

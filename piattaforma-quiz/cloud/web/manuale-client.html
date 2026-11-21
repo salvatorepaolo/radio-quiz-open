@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manuale del visualizzatore</title>
+<link rel="icon" href="/client/icona-192.png">
+<style>
+:root{--bg:#f4f6f9;--pan:#fff;--pan2:#eef1f5;--bord:#d6dce4;--txt:#16202b;--mut:#5d6b7a;--acc:#2f7de1;--viola:#7a5cff;--warn:#f5b84a}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1216;--pan:#171b21;--pan2:#1f252d;--bord:#2a313b;--txt:#e6e9ee;--mut:#8b95a3;--acc:#4ea1ff}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--txt);background:radial-gradient(1000px 420px at 85% -10%,color-mix(in srgb,var(--viola) 10%,transparent),transparent 60%),var(--bg)}
+.pagina{display:grid;grid-template-columns:250px minmax(0,1fr);gap:28px;max-width:1180px;margin:0 auto;padding:24px 16px 60px}
+nav{position:sticky;top:16px;align-self:start;background:var(--pan);border:1px solid var(--bord);border-radius:16px;padding:12px}
+nav b{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:4px 8px 6px}
+nav a{display:block;padding:5px 10px;border-radius:8px;color:var(--txt);text-decoration:none;font-size:.92rem}
+nav a:hover{background:var(--pan2);color:var(--acc)}
+header.eroe{display:flex;gap:16px;align-items:center;padding:22px 24px;border-radius:20px;margin-bottom:22px;border:1px solid color-mix(in srgb,var(--acc) 30%,var(--bord));
+  background:radial-gradient(120% 140% at 100% 0%,color-mix(in srgb,var(--viola) 22%,transparent),transparent 55%),linear-gradient(135deg,color-mix(in srgb,var(--acc) 16%,var(--pan)),var(--pan) 70%)}
+header.eroe img{width:60px;height:60px;border-radius:16px}
+h1{margin:0;font-size:30px;letter-spacing:-.01em}
+header p{margin:4px 0 0;color:var(--mut)}
+.avviso{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-radius:14px;margin:0 0 22px;border:1px solid color-mix(in srgb,var(--warn) 60%,transparent);background:color-mix(in srgb,var(--warn) 14%,var(--pan))}
+.avviso i{font-style:normal;flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--warn);color:#3a2600;font-weight:800}
+section{background:var(--pan);border:1px solid var(--bord);border-radius:18px;padding:18px 22px;margin:0 0 16px;scroll-margin-top:16px}
+h2{margin:0 0 8px;font-size:1.3rem;display:flex;align-items:center;gap:10px}
+h2 span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px;background:color-mix(in srgb,var(--acc) 14%,var(--pan2))}
+h3{font-size:1rem;margin:14px 0 4px}
+p{margin:6px 0}ul,ol{margin:6px 0;padding-left:22px}li{margin:3px 0}
+kbd{font:600 .8rem ui-monospace,Menlo,monospace;border:1px solid var(--bord);border-bottom-width:2px;border-radius:6px;padding:1px 6px;background:var(--pan2)}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:6px 0}
+td,th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bord);vertical-align:top}th{color:var(--mut);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.nota{color:var(--mut);font-size:.9rem}
+.passi{counter-reset:p;list-style:none;padding:0}.passi li{counter-increment:p;position:relative;padding-left:38px;margin:8px 0}
+.passi li::before{content:counter(p);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.85rem;color:#fff;background:linear-gradient(135deg,var(--acc),var(--viola))}
+@media (max-width:820px){.pagina{grid-template-columns:1fr}nav{position:static}}
+@media print{nav,.stampa{display:none}.pagina{display:block}section{break-inside:avoid;border:0;padding:0 0 10px}body{background:#fff}}
+.stampa{float:right;border:1px solid var(--bord);background:var(--pan);color:var(--txt);border-radius:999px;padding:6px 14px;font:inherit;cursor:pointer}
+.avviso.locale{border-color:color-mix(in srgb,#2e9d5b 60%,transparent);background:color-mix(in srgb,#2e9d5b 14%,var(--pan))}.avviso.locale i{background:#2e9d5b;color:#fff;font-size:15px}
+</style>
+</head>
+<body>
+<div class="pagina">
+<nav aria-label="Indice">
+  <b>Indice</b>
+  <a href="#installare">Installare e aprire</a>
+  <a href="#esami">Aprire gli esami</a>
+  <a href="#schermo">Lo schermo</a>
+  <a href="#mouse">Mouse, tastiera, tablet</a>
+  <a href="#finestre">Finestre (W/L)</a>
+  <a href="#misure">Misure e ROI</a>
+  <a href="#mpr">MPR e 3D</a>
+  <a href="#confronto">Confronto tra esami</a>
+  <a href="#noduli">Noduli polmonari con IA</a>
+  <a href="#chiave">Immagini chiave</a>
+  <a href="#referto">Referto</a>
+  <a href="#esporta">Esportare</a>
+  <a href="#sessione">Sessioni e file DICOM</a>
+  <a href="#schermi">Più schermi</a>
+  <a href="#privacy">Privacy</a>
+  <a href="#vetrini">Vetrini digitali</a>
+  <a href="#formati">Formati e limiti</a>
+</nav>
+<main>
+  <header class="eroe"><img src="/client/icona-192.png" alt=""><div><h1>Manuale del visualizzatore DICOM</h1><p>radio-quiz · versione per il computer, gratuita, open source, funziona anche senza rete</p></div></header>
+  <div class="avviso"><i>!</i><div><b>Solo per la formazione, non per uso medico.</b> Il visualizzatore è uno strumento didattico: non è un dispositivo medico e non va usato per la diagnosi o per refertare pazienti reali in ambito clinico.</div></div>
+  <div class="avviso locale"><i>🔒</i><div><b>I dati restano sul tuo computer.</b> Immagini, referti, misure e dati dei pazienti sono letti ed elaborati solo sul computer che usi: non vengono inviati a nessun server, né a radio-quiz.it né ad altri. Il collegamento a internet serve solo la prima volta, per scaricare il programma.</div></div>
+
+  <section id="installare"><h2><span>💻</span>Installare e aprire</h2>
+    <ol class="passi">
+      <li>Apri <b>radio-quiz.it/client</b> con Chrome o Edge aggiornati.</li>
+      <li>Premi <b>«Installa»</b> (oppure l'icona di installazione nella barra degli indirizzi): il visualizzatore diventa un'app sul tuo computer. Non servono permessi di amministratore.</li>
+      <li>Da quel momento si apre dal menu delle app e funziona <b>anche senza rete</b>. Gli aggiornamenti arrivano da soli quando sei collegato.</li>
+    </ol>
+    <p class="nota">Nei PC gestiti dall'ospedale l'installazione può essere bloccata: la pagina funziona lo stesso anche senza installarla.</p>
+  </section>
+
+  <section id="esami"><h2><span>📂</span>Aprire gli esami</h2>
+    <ul>
+      <li><b>Cartella</b>: scegli la cartella dell'esame (anche un CD con DICOMDIR: si sceglie lo studio).</li>
+      <li><b>File</b>: uno o più file DICOM, oppure un archivio <b>.zip</b> (si legge senza decomprimerlo).</li>
+      <li><b>Trascina</b> cartelle, file o zip sulla pagina.</li>
+      <li><b>＋ Aggiungi</b>: apre un altro esame (per esempio il precedente) insieme a quello attuale.</li>
+    </ul>
+    <p>Gli esami vengono letti <b>solo sul tuo computer</b>: nessuna immagine viene inviata in rete. I file molto grandi si leggono un pezzo alla volta.</p>
+  </section>
+
+  <section id="schermo"><h2><span>🖥</span>Lo schermo</h2>
+    <ul>
+      <li><b>Barra in alto</b>: 2D o MPR + 3D, apri, aggiungi esame, 📸 immagine chiave, 📝 referto, esporta, multischermo.</li>
+      <li><b>Strumenti</b>: scorri, finestra, sposta, zoom, piani Ax/Cor/Sag, misure (distanza, angolo, ROI, frecce), cine, rotazioni, annulla/ripeti.</li>
+      <li><b>Riquadri</b>: da 1 a più riquadri; clicca un riquadro per attivarlo. Trascina una serie dalla striscia in basso a un riquadro per sostituirla. <b>Layout personalizzati</b>: nel menu dei riquadri «＋ Nuovo layout…» apre una griglia (fino a 4×4) su cui trascini per creare riquadri anche di più celle (es. uno grande e due piccoli), fino a 8; si salvano con un nome in questo browser e si ritrovano nel menu e nelle disposizioni ricordate.</li>
+      <li><b>Dati del paziente</b>: nascosti di base; la spunta «dati paziente sull'immagine» (menu ⋯) li mostra, solo sul tuo schermo (mai nelle esportazioni).</li>
+    </ul>
+  </section>
+
+  <section id="mouse"><h2><span>🖱</span>Mouse, tastiera, tablet</h2>
+    <table><tr><th>Comando</th><th>Cosa fa</th></tr>
+      <tr><td>Sinistro trascinato · rotellina · <kbd>↑</kbd><kbd>↓</kbd></td><td>Scorre le immagini</td></tr>
+      <tr><td>Destro trascinato</td><td>Finestra/livello</td></tr>
+      <tr><td>Rotellina premuta su/giù · Ctrl + rotellina</td><td>Zoom</td></tr>
+      <tr><td>Maiusc + trascina</td><td>Sposta l'immagine</td></tr>
+      <tr><td>Doppio clic</td><td>Ingrandisce il riquadro</td></tr>
+      <tr><td><kbd>R</kbd> <kbd>E</kbd> <kbd>Z</kbd> <kbd>W</kbd></td><td>Distanza · ROI · zoom · finestra</td></tr>
+      <tr><td><kbd>A</kbd> <kbd>C</kbd> <kbd>S</kbd></td><td>Assiale · coronale · sagittale nel riquadro attivo</td></tr>
+      <tr><td><kbd>1</kbd>…<kbd>7</kbd> · <kbd>0</kbd></td><td>Finestre predefinite · automatica</td></tr>
+      <tr><td><kbd>K</kbd></td><td>Salva l'immagine chiave</td></tr>
+      <tr><td><kbd>Spazio</kbd> · <kbd>Esc</kbd> · <kbd>?</kbd></td><td>Cine · torna a «scorri» · elenco dei tasti</td></tr>
+      <tr><td><kbd>T</kbd> · <kbd>B</kbd> + clic</td><td>Freccia con testo · immagine chiave dell'immagine cliccata</td></tr>
+      <tr><td>Ctrl + clic (⌘ + clic sul Mac) su una serie</td><td>La apre in un nuovo riquadro</td></tr>
+      <tr><td>✕ in alto a destra del riquadro</td><td>Chiude il riquadro, gli altri si allargano</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Annulla (misure)</td></tr>
+    </table>
+    <p class="nota">Tablet: un dito scorre, due dita allargando zoomano, due dita trascinate cambiano la finestra. Finestre e tasti si personalizzano con ⚙ dall'elenco dei tasti.</p>
+  </section>
+
+  <section id="finestre"><h2><span>◐</span>Finestre (W/L)</h2>
+    <p>Tasti predefiniti per la TC: <kbd>1</kbd> addome 40/400 · <kbd>2</kbd> polmone −600/1500 · <kbd>3</kbd> osso 400/1800 · <kbd>4</kbd> encefalo 40/80 · <kbd>5</kbd> angio 200/600 · <kbd>6</kbd> mediastino 50/350 · <kbd>7</kbd> fegato 60/160 · <kbd>0</kbd> automatica. Con «collega finestre» la finestra si sincronizza tra i riquadri.</p>
+  </section>
+
+  <section id="misure"><h2><span>📏</span>Misure e ROI</h2>
+    <ul>
+      <li>Distanza, angolo, ROI ellittica, a mano libera o poligonale (media, deviazione, area, HU o SUV), frecce.</li>
+      <li>Il <b>testo</b> di ogni misura si trascina dove si vuole: una linea tratteggiata lo collega alla misura.</li>
+      <li><b>RECIST 1.1</b>: una sola misura, il diametro massimo della lesione (bersaglio ≥ 10 mm); un secondo clic sul pulsante RECIST passa ai linfonodi, asse corto (bersaglio ≥ 15 mm). Al massimo 5 bersagli, 2 per organo; la somma si porta nella scala Σ RECIST 1.1 con un clic.</li>
+      <li><b>Modificare</b>: clicca una misura e trascina le maniglie; <b>cancellare</b>: seleziona e premi <kbd>Canc</kbd>.</li>
+      <li>L'istogramma della ROI si apre dall'etichetta sull'immagine.</li>
+      <li><b>💾 Salva annotazioni</b> (esame o serie, oppure <kbd>Ctrl</kbd>+<kbd>S</kbd>): misure, frecce e note si ritrovano alla riapertura dello stesso esame su questo computer. Quelle non salvate si perdono chiudendo l'esame: se ce ne sono, il visualizzatore chiede se salvarle.</li>
+      <li>Sulla barra di scorrimento sotto le immagini una <b>A</b> segna le immagini con annotazioni (gialla se non salvate) e un numero le immagini chiave: un clic porta a quell'immagine.</li>
+    </ul>
+  </section>
+
+  <section id="mpr"><h2><span>🧊</span>MPR e 3D</h2>
+    <p>Coronale e sagittale si ottengono anche nel singolo riquadro con <kbd>C</kbd> e <kbd>S</kbd>. Negli esami dell'encefalo <b>OMP</b> (accanto a Sag) porta la serie sul piano orbito-meatale, dal canto esterno dell'occhio al centro del meato acustico esterno dai due lati: i punti di repere si trovano da soli (se mancano, per esempio con la faccia fuori dal campo di vista, si usa l'asse del cervello); di nuovo OMP o Ax per le immagini originali. All'apertura dell'esame il piano OMP si applica da solo. Il modo <b>MPR + 3D</b> mostra i tre piani con le linee di riferimento, lo strato spesso (MIP, MinIP, media), la ricostruzione curva e il volume 3D con i preset; «senza osso / gabbia toracica» tolgono le strutture che coprono la vista; il lettino è tolto di base («Aggiungi lettino» per rimetterlo).</p>
+    <p>Il menù del 3D comincia con <b>MPR</b> (solo i piani, come all'apertura); i preset sono pochi e chiari: Vascular (solo le arterie, senza osso e lettino), Angiography (MIP 3D dei vasi), Willis (arterie della testa, negli esami neuro), Angio e ossa (vasi rossi, ossa avorio), Ossa, Cute e tessuti molli, Cuore e coronarie, Vasi del torace e Arterie polmonari (senza la parete), Polmone, Vie aeree e colon. Il preset scelto va nel riquadro grande. Tasto destro trascinato sul 3D = contrasto (giù: strutture meno dense, fino alla cute). <b>✂ Ritaglio</b>: disegna sul 3D attorno a ciò che vuoi togliere; ↶ annulla l'ultimo ritaglio, ⟲ torna al volume intero. Il punto giallo al centro delle linee si trascina e le sposta insieme. <b>OMP</b> (esami neuro): piani orientati sul piano orbito-meatale; con «⊞ Serie» si salva la serie su quel piano.</p>
+    <p>Il riquadro grande è a sinistra (all'apertura l'assiale), le altre tre viste in colonna a destra: un doppio clic su una vista piccola la porta nel riquadro grande; doppio clic sulla vista grande: solo quella a tutto riquadro. Lo strumento all'apertura è «Scorri»; scorrere, zoom, spostamento e misure funzionano anche nelle viste piccole. Con le linee di riferimento, un clic su un punto porta lì il centro. «⊞ Serie» crea una serie ricostruita dal piano del riquadro grande, anche obliquo (per esempio per raddrizzare una testa ruotata), e la apre nel 2D. Le misure si cancellano una alla volta con la gomma (oppure clic sulla misura e Canc) o tutte con il cestino. I comandi sono quelli del 2D: rotellina premuta su/giù = ingrandisci/rimpicciolisci, Maiusc + trascina = sposta (anche nel 3D), destro = finestra; il testo delle misure si trascina.</p>
+  </section>
+
+  <section id="confronto"><h2><span>⇄</span>Confronto tra esami</h2>
+    <p>Con <b>＋ Aggiungi</b> apri il precedente: i riquadri si affiancano e lo scorrimento si collega in posizione (anche con la coregistrazione automatica). La fusione sovrappone PET e TC con mappa colore, opacità e soglia regolabili.</p>
+    <p><b>🤖 Confronto con l'esame precedente</b>: «＋ Aggiungi lesione», poi un clic sulla lesione nell'esame attuale: il volume si misura da solo, la lesione si ritrova nel precedente (allineamento automatico) e si misura anche lì. La tabella dà diametro, volume, tempo di raddoppio, crescita Lung-RADS (nelle TC del torace) e somma RECIST; «Copia nel referto» la porta nel referto. Sono stime da controllare; tutto resta sul computer.</p>
+    <p><b>Confronta con il precedente</b> affianca la serie dello stesso tipo e piano (per esempio T2 assiale con T2 assiale).</p>
+  </section>
+
+  <section id="noduli"><h2><span>🫁</span>Noduli polmonari con IA (facoltativo)</h2>
+    <p>In <b>⚙ Impostazioni del visualizzatore</b> (pagina iniziale) accendi «Noduli polmonari con IA» e premi <b>⬇ Scarica il modello</b>: circa 50 MB, una volta sola; poi funziona anche senza rete. Il modello è open source (MONAI lung_nodule_ct_detection, Apache-2.0) e gira su questo computer: le immagini non escono.</p>
+    <p>Aprendo una TC assiale del torace a strato sottile (fino a 2,5 mm) l'analisi parte da sola; altrimenti 🫁 sulla barra → «Cerca i noduli». Richiede da 2 a 8 minuti circa, secondo il computer, e intanto puoi leggere l'esame. I noduli compaiono come cerchi arancioni con numero, diametro e Lung-RADS; il pannello 🫁 li elenca (asse lungo e corto, tipo, lato, Lung-RADS v2022 da primo esame) con «vai». È una seconda lettura per la formazione: può sbagliare e non trova tutto. «🗑 Elimina il modello» libera lo spazio.</p>
+  </section>
+
+  <section id="chiave"><h2><span>📸</span>Immagini chiave</h2>
+    <ol class="passi">
+      <li>Prepara la vista: finestra, zoom, misure e frecce.</li>
+      <li>Premi <b>📸 Chiave</b> o il tasto <kbd>K</kbd> (oppure <kbd>B</kbd> + clic sull'immagine): l'immagine compare nella striscia «Immagini chiave».</li>
+      <li>Scrivi una <b>didascalia</b>, riordina con ‹ ›, togli con ✕. Cliccando la miniatura torni a quell'immagine.</li>
+      <li>Esportale come <b>DICOM Secondary Capture</b> o in <b>PDF</b>, oppure usale nel referto.</li>
+    </ol>
+    <p>Le immagini chiave sono <b>sempre anonime</b>: i dati del paziente non compaiono e il testo impresso nell'immagine viene cercato e annerito.</p>
+  </section>
+
+  <section id="referto"><h2><span>📝</span>Referto</h2>
+    <ol class="passi">
+      <li>Premi <b>📝 Referto</b>: nome, codice, data di nascita, sesso, data, esame e struttura vengono <b>letti dalle immagini</b> (si possono correggere).</li>
+      <li>Il <b>modello</b> strutturato viene scelto dal tipo di esame (TC torace, TC addome, RM encefalo, mammografia…), oppure lo scegli tu.</li>
+      <li>Scrivi il testo; <b>＋ Inserisci le misure</b> aggiunge le misure fatte sulle immagini. <b>Σ Scale</b> → «Copia nel referto» porta anche il <b>disegno</b> della scala (settori della prostata, sede in mammella, segmenti epatici, bull's eye).</li>
+      <li><b>⧉ Finestra separata</b>: il referto si apre in una finestra a parte (anche su un altro schermo) e intanto scorri le immagini; il browser se lo ricorda. Le immagini chiave compaiono nel referto con la didascalia modificabile; le misure entrano nel testo con <b>＋ Inserisci le misure</b>.</li>
+      <li><b>🏥 Carta intestata e firma</b> (colonna a sinistra): struttura, reparto, indirizzo, <b>logo</b>, medico e qualifica. Si salvano una volta sola in questo browser e compaiono in testa al referto; la firma si compila da sola.</li>
+      <li><b>🎙 Detta</b>: solo con Google Chrome recente e solo se il riconoscimento della voce avviene sul computer; altrimenti resta spenta, perché l'audio non deve andare su internet.</li>
+      <li>Scegli cosa includere (dati del paziente, misure, immagini chiave) e poi <b>🖨 Stampa</b>, <b>PDF</b> o <b>Word (.docx)</b>.</li>
+    </ol>
+    <p>La bozza si salva da sola in questo browser e si ritrova alla riapertura dello stesso esame. Referto e dati del paziente <b>non escono dal computer</b>.</p>
+  </section>
+
+  <section id="esporta"><h2><span>⤓</span>Esportare</h2>
+    <table><tr><th>Cosa</th><th>Formato</th></tr>
+      <tr><td>Immagine visibile</td><td>PNG o JPEG (qualità regolabile)</td></tr>
+      <tr><td>Serie del riquadro</td><td>Immagini PNG/JPEG in .zip, oppure video MP4 con le immagini al secondo scelte</td></tr>
+      <tr><td>Immagini chiave</td><td>DICOM Secondary Capture (anonimo, o nello studio dell'esame) · PDF</td></tr>
+      <tr><td>Misure</td><td>Testo</td></tr>
+      <tr><td>Annotazioni</td><td>DICOM presentation state (GSPS)</td></tr>
+      <tr><td>Esame anonimizzato</td><td>DICOM in .zip, con il testo impresso coperto</td></tr>
+    </table>
+    <p>Tutte le esportazioni di immagini sono <b>anonime</b>: niente dati del paziente e testo impresso annerito in automatico. La ricerca del testo non è infallibile: controlla sempre il risultato prima di condividerlo.</p>
+  </section>
+
+  <section id="sessione"><h2><span>💾</span>Sessioni e file DICOM</h2>
+    <p>La <b>sessione</b> (.rqsess.json) salva misure, riquadri e finestre senza immagini: si riapre sullo stesso esame con «＋ Aggiungi → Apri sessione». Il <b>GSPS</b> porta frecce, misure e ROI in un file da aprire con un visualizzatore DICOM, sovrapposte alle immagini originali.</p>
+  </section>
+
+  <section id="schermi"><h2><span>⧉</span>Più schermi</h2>
+    <p><b>Ricaricare la pagina</b> (Ctrl/Cmd+R): in Chrome ed Edge il visualizzatore ricorda dove sono la cartella o i file aperti (solo il riferimento, nessuna copia) e riapre l'esame; il browser può chiedere di nuovo il permesso di leggere la cartella, oppure si usa «↻ Riapri l'ultimo esame» nella pagina iniziale. Le annotazioni non salvate si perdono ricaricando: salvale prima (Ctrl/Cmd+S).</p>
+    <p>Nel menu <b>⋯</b> della barra ci sono le funzioni meno usate: collega finestre, disposizione automatica, dati del paziente e manuale. Sugli schermi stretti e al tocco i pulsanti della barra mostrano solo l'icona (il nome compare passandoci sopra).</p>
+    <p><b>Multischermo</b> (pulsante con i due monitor nella barra) apre un'altra finestra (sull'altro schermo, se il browser lo consente) con lo stesso esame; con «collega finestre» scorrimento, finestra e zoom restano sincronizzati.</p>
+  </section>
+
+  <section id="privacy"><h2><span>🔒</span>Privacy</h2>
+    <ul>
+      <li>Le immagini si leggono solo sul tuo computer; il visualizzatore non invia dati in rete.</li>
+      <li>Misure, immagini chiave e bozza del referto restano nella memoria di questo browser: per cancellarle, cancella i dati del sito dal browser.</li>
+      <li>Usa esami anonimi quando lavori a scopo didattico e non condividere file con dati del paziente.</li>
+    </ul>
+  </section>
+
+  <section id="vetrini"><h2><span>🔬</span>Vetrini digitali (anatomia patologica)</h2>
+    <p>I vetrini DICOM (<i>whole slide imaging</i>) si aprono come gli esami: con i file del vetrino (uno per livello di ingrandimento) si apre la vista a tutto schermo; se ci sono anche altre immagini, il pulsante <b>🔬 Vetrino</b> in basso a destra la apre. Rotellina o due dita per ingrandire, trascinamento per spostarsi, doppio clic per avvicinarsi; la mappa in basso a destra mostra dove si è. Si leggono dal disco solo le parti visibili, quindi anche vetrini di diversi GB si aprono subito.</p>
+    <p><b>Ingrandimento</b>: i pulsanti <b>2× 4× 10× 20× 40×</b> (o i tasti 1–5) portano all'ingrandimento del microscopio, con 40× pari a 0,25 µm per pixel dello schermo; accanto si legge l'ingrandimento attuale. <b>⤢</b> (tasto 0) mostra tutto il vetrino, <b>↶</b> (tasto B) torna alla vista precedente, <b>⟲ ⟳</b> (R, Maiusc+R) ruotano di 90°, <b>⛶</b> (F) passa a schermo intero. Con la tastiera: frecce per spostarsi (con Maiusc di più), + e − per ingrandire.</p>
+    <p><b>Annotazioni</b> (si salvano da sole in questo browser e si ritrovano riaprendo il vetrino): <b>📏 Distanza</b> e <b>↗ Freccia</b> trascinando; <b>⬠ Area</b> con clic sui vertici o a mano libera, chiusa con doppio clic, Invio o clic sul primo punto, con area e perimetro; <b>⬭ Ellisse</b> trascinando da un angolo all'altro; <b>◯ Campo HPF</b> posa un campo ad alto ingrandimento del diametro scelto (0,55 mm = 0,238 mm²); <b>✚ Conta</b> segna gli elementi da contare, per esempio le mitosi: sopra la barra si leggono quanti sono nei campi e nelle aree e la densità per mm². Canc (o ↩) toglie l'ultima, Esc smette di disegnare. Con due dita si sposta e ingrandisce anche mentre si disegna. <b>💾 Esporta DICOM</b> salva le annotazioni nel formato standard per i vetrini (Microscopy Bulk Simple Annotations), che leggono anche altri visualizzatori; <b>📂 Importa</b> le riapre.</p>
+    <p><b>🎨 Colore</b>: luminosità, contrasto e gamma; per l'immunoistochimica si può mostrare solo l'ematossilina (nuclei) o solo il DAB (marrone), separati con il metodo di Ruifrok e Johnston: aiuta a stimare a occhio la quota di nuclei positivi (per esempio Ki-67), non è una misura. <b>📷 Istantanea</b> salva un'immagine PNG della vista con annotazioni, barra di scala e ingrandimento, per un referto o una presentazione. <b>⧉ Affianca</b> (con più vetrini aperti) mostra un secondo vetrino accanto, per esempio un'immunoistochimica accanto all'ematossilina-eosina: si muovono, ingrandiscono e ruotano insieme alla stessa scala in µm; <b>🔗</b> li sgancia per allinearli, un altro clic li riaggancia.</p>
+    <p>Le tessere compresse si decodificano in parallelo fuori dalla pagina, così lo scorrimento resta fluido anche sui computer lenti e sui tablet. Sul telefono o con la rete lenta, mentre ci si sposta arriva prima l'immagine a bassa risoluzione e il dettaglio quando ci si ferma.</p>
+    <p>Per provare senza un vetrino proprio: <b>🔬 Prova con un vetrino di esempio</b> nella schermata iniziale scarica una sezione di aorta a 40× (69 MB, dati di prova di OpenSlide) e la apre qui.</p>
+    <p><b>Piano focale</b>: nei vetrini acquisiti su più piani compare un cursore (o PagSu / PagGiù) per mettere a fuoco più in alto o più in basso. <b>Canali</b>: nei vetrini in fluorescenza ogni canale (DAPI, FITC, Cy5…) ha il suo colore, una casella per accenderlo o spegnerlo e un cursore per la luminosità. <b>Panoramica</b> mostra la foto dell'intero vetrino; <b>Etichetta</b> la sua etichetta, che può contenere nome e codici del paziente: con «dati paziente» spento si chiede conferma prima di mostrarla. Si leggono tutti i formati DICOM delle tessere: JPEG, JPEG 2000 e HTJ2K, JPEG-LS, JPEG XL (nei browser che lo supportano), JPEG senza perdita, RLE e non compresse, a 8 o 16 bit, con le tessere in ordine o sparse.</p>
+  </section>
+  <section id="formati"><h2><span>🧩</span>Formati e limiti</h2>
+    <p>Legge DICOM non compressi, JPEG Lossless, JPEG a 8 e 12 bit, JPEG 2000 e HTJ2K, JPEG-LS, RLE, la sintassi «deflate», file multi-frame e «enhanced», DICOMDIR e zip; video H.264 nel DICOM e HEVC (H.265) dove il browser lo decodifica (Safari sì, Chrome dipende dal computer). Non legge i video MPEG-2: nessun browser li decodifica. Con esami molto grandi il 3D usa una risoluzione ridotta.</p>
+    <p class="nota">Software open source: componenti e licenze in <a href="/licenze.html">licenze</a>.</p>
+  </section>
+</main>
+</div>
+</body>
+</html>

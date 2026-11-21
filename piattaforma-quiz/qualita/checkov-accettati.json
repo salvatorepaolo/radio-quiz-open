@@ -1,0 +1,14 @@
+{
+  "_nota": "Controlli Checkov non superati ma ACCETTATI, ciascuno con il motivo. Coppia controllo -> risorse (id logici CDK; '*' = tutte). Qualsiasi altro controllo non superato ferma la pubblicazione: va corretto nello stack (lib/stack.mjs) o, se e' una scelta voluta, aggiunto qui con il motivo.",
+  "CKV_AWS_18":  {"risorse": "*", "motivo": "registro degli accessi S3: costa e non serve; il traffico si vede nelle metriche CloudWatch"},
+  "CKV_AWS_86":  {"risorse": "*", "motivo": "registro degli accessi CloudFront: come sopra (costo); metriche CloudWatch nel cruscotto"},
+  "CKV_AWS_21":  {"risorse": ["Sito53B3218B", "PostaInArrivo450ABB23", "CodiceAutomazione31DADCB3"], "motivo": "versioni S3 inutili: sito e codice si ricreano da git a ogni pubblicazione, la posta in arrivo e' gia' inoltrata. Il bucket dei dati invece le ha"},
+  "CKV_AWS_158": {"risorse": "*", "motivo": "chiave KMS propria per i log: circa 1 $/mese a chiave; i log sono gia' cifrati da AWS"},
+  "CKV_AWS_119": {"risorse": "*", "motivo": "chiave KMS propria per DynamoDB: costo; la tabella e' gia' cifrata con la chiave gestita da AWS"},
+  "CKV_AWS_173": {"risorse": "*", "motivo": "variabili d'ambiente Lambda con chiave KMS propria: costo; sono gia' cifrate a riposo con la chiave gestita da AWS"},
+  "CKV_AWS_117": {"risorse": "*", "motivo": "Lambda in una VPC: non serve (nessuna risorsa privata) e richiederebbe un NAT a pagamento"},
+  "CKV_AWS_116": {"risorse": "*", "motivo": "coda dei messaggi falliti (DLQ): le funzioni sono chiamate in modo sincrono, l'errore torna subito a chi chiama"},
+  "CKV_AWS_115": {"risorse": ["InoltroPosta41451C75", "AWS679f53fac002430cb0da5b7982bd22872D164C4C"], "motivo": "limite di esecuzioni contemporanee: c'e' sulla funzione dell'API (quella esposta); inoltro posta e funzione interna di CDK no"},
+  "CKV_AWS_258": {"risorse": ["ApiFunctionUrl46E4ABDE"], "motivo": "URL della funzione senza autenticazione AWS: risponde solo con l'intestazione segreta che aggiunge CloudFront (x-origine-quiz), verificata in api/lambda.mjs e controllata a ogni pubblicazione (la chiamata diretta deve dare 403)"},
+  "CKV_AWS_111": {"risorse": ["ApiServiceRoleDefaultPolicyB24862FE", "InoltroPostaServiceRoleDefaultPolicy7FE5A96D", "RuoloCreazioneDefaultPolicyA994F5B2", "BudgetQuizCustomResourcePolicy04547994"], "motivo": "azioni senza vincolo di risorsa ma ristrette: invio email SES, lettura metriche, elenco distribuzioni, invalidazione cache, budget. Nessuna scrittura su S3 o DynamoDB con risorsa *"}
+}

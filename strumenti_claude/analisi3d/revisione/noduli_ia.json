@@ -1,0 +1,183 @@
+{
+ "034": [
+  {
+   "volume_mm3": 2183.7,
+   "A": 18.8,
+   "B": 16.6,
+   "C": null,
+   "diametro_medio_mm": 17.7,
+   "centro_vox": [
+    380.9,
+    200.0,
+    190.0
+   ],
+   "centro_lps": [
+    71.0,
+    -54.7,
+    -107.9
+   ],
+   "immagine": 77,
+   "lobo": "superiore sinistro",
+   "tipo": "parzialmente solido",
+   "solido_mm": 7.3,
+   "hu": -606.0,
+   "lung_rads": "4A",
+   "vicino_soglia": true,
+   "modelli": "entrambi"
+  },
+  {
+   "volume_mm3": 1357.9,
+   "A": 14.7,
+   "B": 14.2,
+   "C": null,
+   "diametro_medio_mm": 14.5,
+   "centro_vox": [
+    110.0,
+    313.0,
+    101.0
+   ],
+   "centro_lps": [
+    -83.0,
+    9.5,
+    -219.2
+   ],
+   "immagine": 166,
+   "lobo": "inferiore destro",
+   "tipo": "solido",
+   "solido_mm": 13.4,
+   "hu": -29.0,
+   "lung_rads": "4A",
+   "vicino_soglia": true,
+   "modelli": "entrambi"
+  },
+  {
+   "volume_mm3": 522.1,
+   "A": 11.6,
+   "B": 9.9,
+   "C": null,
+   "diametro_medio_mm": 10.8,
+   "centro_vox": [
+    407.0,
+    276.9,
+    130.0
+   ],
+   "centro_lps": [
+    85.8,
+    -11.0,
+    -182.9
+   ],
+   "immagine": 137,
+   "lobo": "inferiore sinistro",
+   "tipo": "vetro smerigliato",
+   "solido_mm": 2.0,
+   "hu": -664.0,
+   "lung_rads": "2",
+   "vicino_soglia": false,
+   "modelli": "solo MONAI"
+  },
+  {
+   "volume_mm3": 123.2,
+   "A": 6.1,
+   "B": 6.1,
+   "C": null,
+   "diametro_medio_mm": 6.1,
+   "centro_vox": [
+    174.0,
+    229.1,
+    214.0
+   ],
+   "centro_lps": [
+    -46.6,
+    -38.2,
+    -77.9
+   ],
+   "immagine": 53,
+   "lobo": "superiore destro",
+   "tipo": "solido",
+   "solido_mm": 5.6,
+   "hu": -183.0,
+   "lung_rads": "3",
+   "vicino_soglia": true,
+   "modelli": "entrambi"
+  }
+ ],
+ "001": [
+  {
+   "volume_mm3": 1091.8,
+   "A": 15.8,
+   "B": 9.3,
+   "C": null,
+   "diametro_medio_mm": 12.5,
+   "centro_vox": [
+    162.0,
+    341.0,
+    112.0
+   ],
+   "centro_lps": [
+    -88.0,
+    67.6,
+    -119.2
+   ],
+   "immagine": 27,
+   "lobo": "superiore destro",
+   "tipo": "solido",
+   "solido_mm": 12.4,
+   "hu": -82.0,
+   "lung_rads": "4A",
+   "vicino_soglia": false,
+   "modelli": "entrambi"
+  },
+  {
+   "volume_mm3": 80.7,
+   "A": 4.4,
+   "B": 4.0,
+   "C": null,
+   "diametro_medio_mm": 4.2,
+   "centro_vox": [
+    379.0,
+    272.9,
+    95.0
+   ],
+   "centro_lps": [
+    90.0,
+    11.8,
+    -161.8
+   ],
+   "immagine": 44,
+   "lobo": "superiore sinistro",
+   "tipo": "solido",
+   "solido_mm": 4.9,
+   "hu": -191.0,
+   "lung_rads": "2",
+   "vicino_soglia": false,
+   "modelli": "entrambi"
+  }
+ ],
+ "025": [
+  {
+   "volume_mm3": 2775.8,
+   "A": 21.9,
+   "B": 16.3,
+   "C": null,
+   "diametro_medio_mm": 19.1,
+   "centro_vox": [
+    342.1,
+    237.0,
+    158.0
+   ],
+   "centro_lps": [
+    66.9,
+    -14.8,
+    -119.2
+   ],
+   "immagine": 70,
+   "lobo": "superiore sinistro",
+   "tipo": "parzialmente solido",
+   "solido_mm": 9.8,
+   "hu": -509.0,
+   "lung_rads": "4B",
+   "vicino_soglia": false,
+   "modelli": "entrambi"
+  }
+ ]
+}

@@ -1,0 +1,262 @@
+
+// =============================================================================================
+// 14/11: 3D rivisto. Preset curati (Vascular, Angiography, Willis, Angio e ossa con colori diversi), lettino tolto di
+// base, rimozioni più fini (corpo come componente 3D, osso con le cavità riempite), torace «interno» per vasi e polmone,
+// finestra (contrasto) sul volume rendering, Ritaglio a mano libera con annulla e reset, punto centrale delle linee.
+// =============================================================================================
+const PRESET_QR = [
+  // solo vasi (volume con i soli vasi): rosso, calcificazioni e mdc densissimo giallo chiaro
+  { name: 'QR-Vascular', gradientOpacity: '4 0 1 255 1', specularPower: '12', specular: '0.3', shade: '1', ambient: '0.15', diffuse: '0.85', interpolation: '1',
+    scalarOpacity: '12 -3024 0 100 0 180 0.5 320 0.8 900 0.85 3071 0.85',
+    colorTransfer: '24 -3024 0 0 0 100 0.45 0.03 0.03 200 0.78 0.1 0.08 380 0.95 0.22 0.18 800 1 0.92 0.7 3071 1 1 0.9' },
+  // vasi e ossa con colori diversi: l'osso è codificato sotto l'aria (−1150…−1900), i vasi restano nei valori reali
+  { name: 'QR-AngioOssa', gradientOpacity: '4 0 1 255 1', specularPower: '12', specular: '0.3', shade: '1', ambient: '0.15', diffuse: '0.85', interpolation: '1',
+    scalarOpacity: '20 -3024 0.85 -1900 0.85 -1240 0.7 -1170 0 -1030 0 100 0 180 0.5 320 0.8 900 0.85 3071 0.85',
+    colorTransfer: '36 -3024 0.95 0.93 0.84 -1900 0.95 0.93 0.84 -1240 0.9 0.85 0.72 -1170 0.9 0.85 0.72 -1030 0 0 0 100 0.45 0.03 0.03 200 0.78 0.1 0.08 380 0.95 0.22 0.18 3071 1 0.92 0.7' },
+  // MIP dei vasi (Angiography): rampa lineare in grigi
+  { name: 'QR-MIP', gradientOpacity: '4 0 1 255 1', specularPower: '1', specular: '0', shade: '0', ambient: '1', diffuse: '0', interpolation: '1',
+    scalarOpacity: '8 -3024 0 80 0 600 1 3071 1', colorTransfer: '16 -3024 0 0 0 80 0 0 0 600 1 1 1 3071 1 1 1' },
+  { name: 'QR-MIP-RM', gradientOpacity: '4 0 1 255 1', specularPower: '1', specular: '0', shade: '0', ambient: '1', diffuse: '0', interpolation: '1',
+    scalarOpacity: '6 0 0 300 0 3000 1', colorTransfer: '12 0 0 0 0 300 0 0 0 3000 1 1 1' },
+];
+function registraPresetQR() {
+  try { for (const p of PRESET_QR) if (!CONSTANTS.VIEWPORT_PRESETS.some((x) => x.name === p.name)) CONSTANTS.VIEWPORT_PRESETS.push(p); } catch (e) { console.warn('preset', e); }
+}
+// corpo come componente 3D: maschera per strato (griglia ridotta di 2), erosa di 2 voxel nel piano (si staccano lettino,
+// supporti e cuscini che toccano), componenti 3D: restano la più grande e quelle almeno al 30% (braccia staccate), poi
+// ricostruite dentro la maschera di partenza. Il lettino resta fuori anche quando nel singolo strato è grande.
+let cacheCorpo3d = null;
+function corpo3dR() {
+  if (cacheCorpo3d?.vol === VOL) return cacheCorpo3d.m;
+  const C = mascheraCorpo(2), { W, H, N } = C, er = erodi(C.dentro, W, H, N, 2), { lab, comp } = componenti3d(er, W, H, N);
+  const max = comp.reduce((a, c) => Math.max(a, c.n), 0), tieni = new Uint8Array(comp.length + 2);
+  for (const c of comp) if (c.n >= max * 0.3) tieni[c.L] = 1;
+  let m = new Uint8Array(er.length); for (let p = 0; p < m.length; p++) if (tieni[lab[p]]) m[p] = 1;
+  m = dilataIn(m, C.dentro, W, H, N, 4);
+  cacheCorpo3d = { vol: VOL, m: { m, W, H, N, f: 2 } };
+  return cacheCorpo3d.m;
+}
+function corpoPieno() {   // a piena risoluzione: maschera per strato ∧ corpo 3D (allargato di un voxel ridotto)
+  cacheCorpo ||= mascheraCorpo(1);
+  const [W0, H0, N] = VOL.dim, c = corpo3dR(), out = new Uint8Array(W0 * H0 * N), d = cacheCorpo.dentro;
+  for (let k = 0; k < N; k++) for (let j = 0; j < H0; j++) { const jj = Math.min(c.H - 1, j >> 1);
+    for (let i = 0; i < W0; i++) { const ii = Math.min(c.W - 1, i >> 1), q = (k * c.H + jj) * c.W + ii, p = (k * H0 + j) * W0 + i;
+      if (d[p] && (c.m[q] || (ii > 0 && c.m[q - 1]) || (ii < c.W - 1 && c.m[q + 1]) || (jj > 0 && c.m[q - c.W]) || (jj < c.H - 1 && c.m[q + c.W]))) out[p] = 1; } }
+  return out;
+}
+// osso più completo: come mascheraOsso, con soglia dei semi sopra il sangue opacizzato (angio-TC) e le cavità chiuse
+// strato per strato (spongiosa dei corpi vertebrali, canale midollare) se piccole (fino a 20 cm²: non il cranio)
+function mascheraOssoFine() {
+  const [W, H, N] = VOL.dim, d = VOL.dati, n = W * H * N, R = ridottaC(), dv = VOL.unita === 'HU' ? densitaVasi(R, corpo3dR().m) : null;
+  const seme = dv ? Math.max(450, Math.round(dv * 1.35 + 60)) : 450;
+  const dist = new Uint8Array(n); let coda = [];
+  for (let p = 0; p < n; p++) if (d[p] >= seme) { dist[p] = 1; coda.push(p); }
+  for (let liv = 2; liv <= 8 && coda.length; liv++) {
+    const nuova = [];
+    for (const p of coda) { const i = p % W, j = ((p / W) | 0) % H, k = (p / (W * H)) | 0;
+      for (const [q, ok] of [[p - 1, i > 0], [p + 1, i < W - 1], [p - W, j > 0], [p + W, j < H - 1], [p - W * H, k > 0], [p + W * H, k < N - 1]])
+        if (ok && !dist[q] && d[q] >= 160 && (!dv || d[q] < dv * 0.85 || d[q] >= seme)) { dist[q] = liv; nuova.push(q); } }
+    coda = nuova;
+  }
+  const out = new Uint8Array(n); for (let p = 0; p < n; p++) if (dist[p]) out[p] = 1;
+  // cavità piccole chiuse dall'osso, strato per strato
+  const maxPix = Math.round(2000 / (VOL.sp[0] * VOL.sp[1])), WH = W * H, lab = new Int32Array(WH), cq = new Int32Array(WH);
+  for (let k = 0; k < N; k++) {
+    const o = k * WH; lab.fill(0); let L = 1;
+    for (let q0 = 0; q0 < WH; q0++) {
+      if (lab[q0] || out[o + q0]) continue;
+      L++; let qi = 0, qn = 0, bordo = false; cq[qn++] = q0; lab[q0] = L;
+      while (qi < qn) { const q = cq[qi++], x = q % W, y = (q / W) | 0; if (x === 0 || y === 0 || x === W - 1 || y === H - 1) bordo = true;
+        for (const [b, ok] of [[q - 1, x > 0], [q + 1, x < W - 1], [q - W, y > 0], [q + W, y < H - 1]]) if (ok && !lab[b] && !out[o + b]) { lab[b] = L; cq[qn++] = b; } }
+      if (!bordo && qn <= maxPix) for (let t = 0; t < qn; t++) out[o + cq[t]] = 1;
+    }
+  }
+  // un voxel di margine nel piano (volume parziale)
+  const m2 = out.slice();
+  for (let p = 0; p < n; p++) if (out[p]) { const i = p % W, j = ((p / W) | 0) % H;
+    if (i > 0 && d[p - 1] > 90) m2[p - 1] = 1; if (i < W - 1 && d[p + 1] > 90) m2[p + 1] = 1; if (j > 0 && d[p - W] > 90) m2[p - W] = 1; if (j < H - 1 && d[p + W] > 90) m2[p + W] = 1; }
+  return m2;
+}
+// torace «interno»: inviluppo convesso dei polmoni strato per strato (griglia ridotta), allargato di 2 voxel: cuore,
+// mediastino, vasi e polmoni restano, la parete (cute, muscoli, coste in gran parte) va via
+function toraceInternoR() {
+  const R = ridottaC(), C = corpo3dR().m, pol = polmoni(R, C), { W, H, N } = R, WH = W * H, out = new Uint8Array(W * H * N);
+  let strati = 0;
+  for (let k = 0; k < N; k++) {
+    const pts = []; for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) if (pol[k * WH + j * W + i]) pts.push([i, j]);
+    if (pts.length < 20) continue; strati++;
+    pts.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]), lo = [], hi = [];
+    for (const p of pts) { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); }
+    for (let t = pts.length - 1; t >= 0; t--) { const p = pts[t]; while (hi.length >= 2 && cr(hi[hi.length - 2], hi[hi.length - 1], p) <= 0) hi.pop(); hi.push(p); }
+    const poli = lo.slice(0, -1).concat(hi.slice(0, -1));
+    for (let j = 0; j < H; j++) {   // riempimento a righe
+      const xs = []; for (let a = 0; a < poli.length; a++) { const p = poli[a], q = poli[(a + 1) % poli.length];
+        if ((p[1] <= j && q[1] > j) || (q[1] <= j && p[1] > j)) xs.push(p[0] + (j - p[1]) / (q[1] - p[1]) * (q[0] - p[0])); }
+      xs.sort((a, b) => a - b); for (let t = 0; t + 1 < xs.length; t += 2) for (let i = Math.ceil(xs[t]); i <= Math.floor(xs[t + 1]); i++) out[k * WH + j * W + i] = 1;
+    }
+  }
+  return strati ? { m: dilataIn(out, new Uint8Array(out.length).fill(1), W, H, N, 2), W, H, N } : null;
+}
+const daRidotta = (m, i, j, k) => m.m[(k * m.H + Math.min(m.H - 1, j >> 1)) * m.W + Math.min(m.W - 1, i >> 1)];
+
+// ---- volume del 3D: base (elaborazioni) + ritagli
+let baseVR = null, tagli = [], mipVR = false, vistaCorrente = null;
+const TORACE = ['CT-Chest-Vessels', 'CT-Pulmonary-Arteries', 'CT-Lung'];
+/** tipo: id del menu (preset vtk o QR-…); lettino = true per lasciarlo (di base si toglie); osso / gabbia: toglierli */
+export async function vista3d({ tipo, lettino = false, osso = false, gabbia = false } = {}) {
+  if (!motore || !VOL) return { ok: false };
+  registraPresetQR();
+  const ct = VOL.unita === 'HU', [W0, H0, N] = VOL.dim, info = {};
+  vistaCorrente = { tipo, lettino, osso, gabbia };
+  let dati = null, preset = tipo, mip = false;
+  try {
+    if (/^QR-(vascular|willis|angiography)$/.test(tipo)) {
+      const R = ridottaC(), C = ct ? corpo3dR().m : new Uint8Array(R.r.length).fill(1), v = vasi(R, C);
+      if (!v.tot) return { ok: false, motivo: 'vasi con mdc non trovati: serve un\'angio-TC o un\'angio-RM' };
+      info.soglia = v.soglia;
+      dati = new Int16Array(W0 * H0 * N).fill(ct ? -1024 : 0); const d = VOL.dati;
+      for (let k = 0; k < N; k++) for (let j = 0; j < H0; j++) for (let i = 0; i < W0; i++) {
+        const ii = Math.min(R.W - 1, Math.round(i / R.f)), jj = Math.min(R.H - 1, Math.round(j / R.f)), b = (k * R.H + jj) * R.W + ii;
+        if (v.m[b] || (ii > 0 && v.m[b - 1]) || (ii < R.W - 1 && v.m[b + 1]) || (jj > 0 && v.m[b - R.W]) || (jj < R.H - 1 && v.m[b + R.W])) { const p = (k * H0 + j) * W0 + i; dati[p] = d[p]; }
+      }
+      mip = tipo === 'QR-angiography'; preset = mip ? (ct ? 'QR-MIP' : 'QR-MIP-RM') : ct ? 'QR-Vascular' : 'MR-Angio';
+    } else {
+      dati = new Int16Array(VOL.dati.length); dati.set(VOL.dati);
+      if (ct) {
+        if (!lettino) { const m = corpoPieno(); for (let p = 0; p < dati.length; p++) if (!m[p]) dati[p] = -1024; }
+        if (tipo === 'QR-angio-ossa') {
+          const o = mascheraOssoFine();
+          for (let p = 0; p < dati.length; p++) if (o[p]) dati[p] = Math.max(-1900, -1150 - Math.max(0, VOL.dati[p] - 150) * 0.6);
+          preset = 'QR-AngioOssa';
+        } else if (osso || tipo === 'CT-Pulmonary-Arteries') { const o = mascheraOssoFine(); for (let p = 0; p < dati.length; p++) if (o[p]) dati[p] = 30; }
+        else if (gabbia) { const o = mascheraGabbia(); for (let p = 0; p < dati.length; p++) if (o[p]) dati[p] = 30; }
+        if (TORACE.includes(tipo)) {
+          const t = toraceInternoR();
+          if (t) { const fuori = tipo === 'CT-Lung' ? 0 : -1024;
+            for (let k = 0; k < N; k++) for (let j = 0; j < H0; j++) for (let i = 0; i < W0; i++) if (!daRidotta(t, i, j, k)) dati[(k * H0 + j) * W0 + i] = fuori; }
+          else info.avviso = 'polmoni non trovati: niente ritaglio del torace';
+        }
+      } else if (tipo === 'QR-angiography') { mip = true; preset = 'QR-MIP-RM'; }
+    }
+  } catch (e) { console.error(e); return { ok: false, motivo: 'memoria insufficiente su questo dispositivo (' + e.message + ')' }; }
+  baseVR = VOL.dim[0] * VOL.dim[1] * VOL.dim[2] > 30e6 ? dimezzaVR(dati) : { dati, dim: VOL.dim, sp: VOL.sp, origine: VOL.origine };
+  mipVR = mip; presetVR = preset;
+  await carica3d();
+  return { ok: true, ...info, tagli: tagli.length };
+}
+async function carica3d() {
+  const vr = motore.getViewport(VP.vr), cam = vr.getCamera(), vecchio = idVR;
+  let d = baseVR.dati;
+  if (tagli.length) { d = baseVR.dati.slice(); for (const t of tagli) applicaTaglio(t, d, baseVR); }
+  try {
+    idVR = volumeDaDati('quizVR', d, { dim: baseVR.dim, sp: baseVR.sp, origine: baseVR.origine, assi: VOL.assi }).volumeId;
+    await setVolumesForViewports(motore, volumiVR(), [VP.vr]);
+  } finally { try { if (vecchio && vecchio !== idVR) cache.removeVolumeLoadObject(vecchio); } catch {} }
+  modo3d(); vr.setCamera(cam); vr.render();
+  if (idPet && aspettoPet) aspettoFusione(aspettoPet);
+}
+function blend3d() {
+  try { const a = motore.getViewport(VP.vr).getActors()[0]?.actor, m = a?.getMapper?.(); if (!m) return;
+    if (mipVR) m.setBlendModeToMaximumIntensity(); else m.setBlendModeToComposite(); } catch (e) { console.warn('blend', e); }
+}
+// ---- Ritaglio a mano libera: il poligono disegnato sulla vista 3D si proietta lungo la direzione di vista; i voxel
+// che cadono dentro si tolgono (aria). La proiezione mondo → schermo è la matrice 3×4 stimata dai punti di Cornerstone.
+function matriceProiezione() {
+  const vp = motore.getViewport(VP.vr), g = baseVR, A = VOL.assi, pts = [];
+  for (const a of [0, 0.5, 1]) for (const b of [0, 0.5, 1]) for (const c of [0, 0.5, 1]) {
+    const ijk = [a * (g.dim[0] - 1), b * (g.dim[1] - 1), c * (g.dim[2] - 1)];
+    const w = [0, 1, 2].map((q) => g.origine[q] + ijk[0] * g.sp[0] * A[0][q] + ijk[1] * g.sp[1] * A[1][q] + ijk[2] * g.sp[2] * A[2][q]);
+    const s = vp.worldToCanvas(w); if (s?.every(Number.isFinite)) pts.push([w, s]);
+  }
+  // minimi quadrati con p34 = 1: 11 incognite
+  const M = Array.from({ length: 11 }, () => new Float64Array(12));
+  const riga = (r, y) => { for (let a = 0; a < 11; a++) { for (let b = 0; b < 11; b++) M[a][b] += r[a] * r[b]; M[a][11] += r[a] * y; } };
+  for (const [[x, y, z], [u, v]] of pts) { riga([x, y, z, 1, 0, 0, 0, 0, -u * x, -u * y, -u * z], u); riga([0, 0, 0, 0, x, y, z, 1, -v * x, -v * y, -v * z], v); }
+  for (let c = 0; c < 11; c++) { let piv = c; for (let r = c + 1; r < 11; r++) if (Math.abs(M[r][c]) > Math.abs(M[piv][c])) piv = r; [M[c], M[piv]] = [M[piv], M[c]];
+    for (let r = 0; r < 11; r++) if (r !== c) { const f = M[r][c] / M[c][c]; for (let t = c; t < 12; t++) M[r][t] -= f * M[c][t]; } }
+  const p = M.map((r, i) => r[11] / r[i]); p.push(1);
+  return p;   // [p11 p12 p13 p14 p21 … p34]
+}
+function applicaTaglio(t, d, g) {
+  const [W, H, N] = g.dim, A = VOL.assi, P = t.P, w = t.w, h = t.h, m = t.mask, vuoto = VOL.unita === 'HU' ? -1024 : 0;
+  const pr = (q) => [P[0] * q[0] + P[1] * q[1] + P[2] * q[2], P[4] * q[0] + P[5] * q[1] + P[6] * q[2], P[8] * q[0] + P[9] * q[1] + P[10] * q[2]];
+  const ax = [0, 1, 2].map((a) => pr([0, 1, 2].map((q) => A[a][q] * g.sp[a])));
+  const o0 = pr(g.origine), b0 = [o0[0] + P[3], o0[1] + P[7], o0[2] + P[11]];
+  for (let k = 0; k < N; k++) for (let j = 0; j < H; j++) {
+    let u = b0[0] + j * ax[1][0] + k * ax[2][0], v = b0[1] + j * ax[1][1] + k * ax[2][1], s = b0[2] + j * ax[1][2] + k * ax[2][2];
+    const o = (k * H + j) * W;
+    for (let i = 0; i < W; i++, u += ax[0][0], v += ax[0][1], s += ax[0][2]) {
+      const x = Math.round(u / s), y = Math.round(v / s);
+      if (x >= 0 && y >= 0 && x < w && y < h && m[y * w + x]) d[o + i] = vuoto;
+    }
+  }
+}
+/** poli: punti [x, y] in pixel CSS della vista 3D (larghezza w, altezza h) */
+export async function taglia(poli, w, h) {
+  if (!motore || !baseVR || poli.length < 3) return { ok: false };
+  const cv = new OffscreenCanvas(Math.round(w), Math.round(h)), cx = cv.getContext('2d');
+  cx.beginPath(); poli.forEach(([x, y], i) => (i ? cx.lineTo(x, y) : cx.moveTo(x, y))); cx.closePath(); cx.fillStyle = '#fff'; cx.fill();
+  const px = cx.getImageData(0, 0, cv.width, cv.height).data, mask = new Uint8Array(cv.width * cv.height);
+  for (let q = 0; q < mask.length; q++) mask[q] = px[q * 4 + 3] > 0 ? 1 : 0;
+  tagli.push({ P: matriceProiezione(), mask, w: cv.width, h: cv.height });
+  await carica3d();
+  return { ok: true, n: tagli.length };
+}
+export async function annullaTaglio() { if (!tagli.length || !baseVR) return 0; tagli.pop(); await carica3d(); return tagli.length; }
+export async function azzeraTagli() { if (!baseVR) return 0; tagli = []; await carica3d(); return 0; }
+export const numeroTagli = () => tagli.length;
+// ---- finestra (contrasto) sul volume rendering: sposta e stringe/allarga le curve del preset (opacità e colori).
+// Verso il basso si vedono strutture meno dense, fino ai tessuti molli e alla cute.
+let tfBase = null, tfStato = { sposta: 0, scala: 1 };
+function proprieta3d() { return motore?.getViewport(VP.vr)?.getActors()[0]?.actor?.getProperty?.(); }
+function memorizzaTF() {
+  const pr = proprieta3d(); if (!pr) return null;
+  const of = pr.getScalarOpacity(0), cf = pr.getRGBTransferFunction(0), o = [], c = [];
+  for (let i = 0; i < of.getSize(); i++) { const v = [0, 0, 0, 0]; of.getNodeValue(i, v); o.push(v); }
+  for (let i = 0; i < cf.getSize(); i++) { const v = [0, 0, 0, 0, 0, 0]; cf.getNodeValue(i, v); c.push(v); }
+  const ancora = (o.find((v) => v[1] > 0.01 && v[0] > -2000) || o[0] || [0])[0];
+  return { o, c, ancora };
+}
+export function contrasto3d(sposta, scala = 1) {
+  if (!motore) return null;
+  tfBase ||= memorizzaTF(); const pr = proprieta3d(); if (!tfBase || !pr) return null;
+  tfStato = { sposta, scala: Math.max(0.2, Math.min(5, scala)) };
+  const X = (x) => (x <= -2000 || x >= 3000 ? x : tfBase.ancora + (x - tfBase.ancora) * tfStato.scala + sposta);
+  const of = pr.getScalarOpacity(0), cf = pr.getRGBTransferFunction(0);
+  of.removeAllPoints(); for (const [x, y, m, s] of tfBase.o) of.addPointLong(X(x), y, m, s);
+  cf.removeAllPoints(); for (const [x, r, g, b, m, s] of tfBase.c) cf.addRGBPointLong(X(x), r, g, b, m, s);
+  motore.getViewport(VP.vr).render();
+  return tfStato;
+}
+export const statoContrasto3d = () => ({ ...tfStato });
+// ---- punto centrale delle linee di riferimento: si trascina e sposta tutte e due le linee
+const CENTRI = [];
+function centroLinee() { try { return ToolGroupManager.getToolGroup(ID_GRUPPO_MPR)?.getToolInstance(CrosshairsTool.toolName)?.toolCenter || null; } catch { return null; } }
+function aggiornaCentri() {
+  const c = centroLinee();
+  for (const { id, dot } of CENTRI) {
+    const vp = motore?.getViewport(id); if (!vp || !c) { dot.hidden = true; continue; }
+    const s = vp.worldToCanvas(c); if (!s?.every(Number.isFinite)) { dot.hidden = true; continue; }
+    dot.hidden = false; dot.style.left = s[0] + 'px'; dot.style.top = s[1] + 'px';
+  }
+}
+function creaCentri() {
+  for (const id of [VP.assiale, VP.coronale, VP.sagittale]) {
+    const vp = motore.getViewport(id), el = vp.element, dot = document.createElement('div');
+    dot.className = 'mpr-centro'; dot.title = 'Trascina: sposta insieme le due linee (il centro delle ricostruzioni)';
+    el.appendChild(dot);
+    let att = false, raf = 0, ultimo = null;
+    dot.addEventListener('pointerdown', (e) => { if (e.button !== 0) return; e.stopPropagation(); e.preventDefault(); att = true; dot.setPointerCapture(e.pointerId); });
+    dot.addEventListener('pointermove', (e) => {
+      if (!att) return; e.stopPropagation(); const r = el.getBoundingClientRect(); ultimo = [e.clientX - r.left, e.clientY - r.top];
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; const w = motore?.getViewport(id)?.canvasToWorld(ultimo); if (w?.every(Number.isFinite)) vaiAlPunto([...w]); aggiornaCentri(); });
+    });
+    const fine = (e) => { if (!att) return; att = false; e.stopPropagation(); try { dot.releasePointerCapture(e.pointerId); } catch {} };
+    dot.addEventListener('pointerup', fine); dot.addEventListener('pointercancel', fine);
+    for (const ev of ['mousedown', 'mouseup', 'click', 'dblclick']) dot.addEventListener(ev, (e) => e.stopPropagation());
+    el.addEventListener(Enums.Events.IMAGE_RENDERED, aggiornaCentri);
+    CENTRI.push({ id, dot, el });
+  }
+  aggiornaCentri();
+}

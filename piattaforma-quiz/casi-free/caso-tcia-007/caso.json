@@ -1,0 +1,143 @@
+{
+ "id": "caso-tcia-007",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:19",
+ "titolo": "TC dei reni: massa renale sinistra",
+ "titolo_interno": "Massa solida esofitica di circa 5 cm del rene sinistro senza grasso visibile: angiomiolipoma povero di grasso (istologia)",
+ "distretto": "Rene",
+ "quesito": "addome",
+ "modalita": "TC",
+ "difficolta": "Avanzato",
+ "anamnesi": "Uomo di 69 anni. TC dell'addome con protocollo renale: basale, post-contrasto e tardiva (strati di 5 mm). Storia clinica non disponibile.",
+ "domanda": "Referta in ordine: tecnica, massa renale, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica dell'esame",
+   "domanda": "Quali affermazioni sulla tecnica sono corrette?"
+  },
+  {
+   "nome": "Rene sinistro",
+   "domanda": "Massa renale: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più corretta in base all'imaging?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Studio in tre fasi: basale, post-contrasto e tardiva",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Uro-RM con sequenze pesate in T2, senza mezzo di contrasto, per lo studio delle vie escretrici",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa solida di circa 5 cm che sporge dal versante laterale (postero-laterale) del terzo medio-superiore del rene sinistro, a margini netti",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Post-contrasto immagini ~32-39: il rene va da ~30 a ~51, la massa sta sopra l'ilo e a livello del suo margine superiore, non al polo inferiore.",
+   "sezione": 1
+  },
+  {
+   "testo": "La massa è omogenea e si impregna in modo moderato, meno della corticale; non contiene aree di grasso macroscopico (densità negativa)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Grasso macroscopico ben visibile all'interno della massa (densità negativa), tipico dell'angiomiolipoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Lesione cistica a densità di liquido con alcuni setti sottili, senza noduli né parti solide che si impregnano",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa renale solida senza grasso visibile: non si può escludere un carcinoma; indicazione a valutazione urologica (chirurgia nefron-sparing o biopsia)",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Angiomiolipoma tipico per la densità e la sede corticale esofitica, anche senza grasso evidente: lesione benigna, nessun controllo né valutazione urologica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Cisti renale complicata Bosniak II con setti sottili e contenuto iperdenso, senza componente solida: lesione benigna, nessun controllo né valutazione urologica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Il grasso macroscopico (aree < -10/-20 HU) in una massa renale è quasi diagnostico di angiomiolipoma. Circa il 5% degli angiomiolipomi però è «povero di grasso»: in TC appaiono come masse solide omogenee, spesso iperdense in basale, con impregnazione omogenea e prolungata, e non si distinguono con sicurezza da un carcinoma (soprattutto papillare o cromofobo).\nPer questo una massa renale solida senza grasso visibile va gestita come potenzialmente maligna: la RM con chemical shift e la biopsia possono aiutare, ma spesso la diagnosi arriva solo con l'intervento.\nIn questo paziente l'istologia dopo la nefrectomia ha mostrato un angiomiolipoma.",
+ "regola": "Massa renale solida senza grasso visibile: non è un angiomiolipoma «tipico», va trattata come sospetta.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Angiomiolipoma, diagnosi istologica dopo nefrectomia (dati clinici KiTS19). Dimensioni radiologiche 4,9 cm, patologiche 4,5 cm."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00176",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "rassegna": [
+  {
+   "caso": "caso-tcia-003",
+   "testo": "massa renale solida ipervascolare e necrotica: carcinoma a cellule chiare"
+  }
+ ],
+ "serie_iniziale": 1,
+ "riquadri": 3,
+ "disposizione": [
+  0,
+  1,
+  2
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 34,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 370,
+    "y": 315
+   },
+   "b": {
+    "x": 440,
+    "y": 380
+   }
+  },
+  "nota": "Massa esofitica del rene sinistro"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini (3 fasi): massa solida esofitica di circa 5 cm del rene sinistro, a margini netti, senza grasso macroscopico, impregnazione moderata inferiore alla corticale (circa 13 HU basale, 40 HU post-contrasto). Corretta la sede: terzo medio-superiore, versante laterale (non polo inferiore).\nCaso importato da TCIA il 12/10/2026 (bozza). Reperti letti da Claude sulle immagini e sulla segmentazione KiTS: da confermare.\nSegmentazione della massa: fette da z -170 a -205 (post-contrasto), diametro assiale circa 4,8 cm. Densità nella fase post-contrasto: massa mediana 43 HU, rene 59 HU; grasso (< -10 HU) nel 4% dei pixel della massa, cioè nessuna area di grasso macroscopico. Le serie hanno posizioni diverse (usare «Allinea»).\n[pubblicato il 13/10/2026 su richiesta dell'amministratore, dopo la revisione di Claude: restano i dubbi scritti sopra]"
+}

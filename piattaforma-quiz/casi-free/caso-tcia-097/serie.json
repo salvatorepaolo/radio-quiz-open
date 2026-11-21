@@ -1,0 +1,20 @@
+[
+ {
+  "descrizione": "RX polso destro AP",
+  "numero": 1,
+  "files": [
+   "serie/s1_0001_RX_polso_destro_AP/img_00001_00000.dcm"
+  ],
+  "data": "",
+  "eta": 10
+ },
+ {
+  "descrizione": "RX polso destro laterale",
+  "numero": 2,
+  "files": [
+   "serie/s2_0002_RX_polso_destro_laterale/img_00002_00000.dcm"
+  ],
+  "data": "",
+  "eta": 10
+ }
+]

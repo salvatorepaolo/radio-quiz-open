@@ -1,0 +1,122 @@
+{
+ "id": "caso-tcia-023",
+ "visibile": true,
+ "aggiornato": "2026-10-16 20:35",
+ "titolo": "TC con protocollo pancreas",
+ "titolo_interno": "Adenocarcinoma duttale della testa del pancreas con ostruzione biliare (pT3 pN1)",
+ "distretto": "Pancreas",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 52 anni. TC dell'addome con protocollo pancreas (fase arteriosa tardiva e fase venosa portale).",
+ "domanda": "Referta in ordine: pancreas, vie biliari e vasi, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Pancreas",
+   "domanda": "Pancreas: cosa osservi?"
+  },
+  {
+   "nome": "Vie biliari e vasi",
+   "domanda": "Vie biliari e vasi: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa della testa del pancreas di circa 3 cm, a margini sfumati, ipodensa rispetto al parenchima (meglio visibile nella fase pancreatica), con centro più ipodenso",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Pancreas di forma, dimensioni e impregnazione normali in fase pancreatica e portale, con dotto di Wirsung non dilatato e grasso peripancreatico conservato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Cisti uniloculare di circa 3 cm della testa del pancreas a parete sottile, senza setti né componente solida che si impregna, come da pseudocisti",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Colecisti distesa (segno di Courvoisier): ostruzione biliare da verificare a monte della massa",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "L'arteria mesenterica superiore resta circondata da grasso; la massa arriva vicino alla vena mesenterica superiore (contatto da descrivere in gradi)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Trombosi della vena porta con cavernoma portale (circoli collaterali periportali) e splenomegalia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Adenocarcinoma duttale della testa del pancreas con ostruzione biliare: stadiazione (torace, fegato), resecabilità valutata sui rapporti con i vasi, discussione multidisciplinare",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Pancreatite autoimmune con pancreas «a salsiccia», alone periferico ipodenso e stenosi lunga del dotto: dosaggio delle IgG4 e terapia steroidea",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Tumore neuroendocrino ipervascolare della testa del pancreas, ben delimitato e senza dilatazione del Wirsung: PET con analoghi della somatostatina, cromogranina e intervento chirurgico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "L'adenocarcinoma duttale è tipicamente ipodenso rispetto al pancreas sano, soprattutto nella fase pancreatica (circa 40-45 secondi), quando il parenchima normale si impregna di più. Il 10% circa è isodenso: i segni indiretti (dilatazione del dotto pancreatico o della via biliare, «doppio dotto», atrofia a monte, deformazione del profilo) devono far cercare la massa.\nUn tumore della testa ostruisce il coledoco: via biliare dilatata e colecisti distesa (segno di Courvoisier).\nIl referto deve dire se il tumore è resecabile, descrivendo per ogni vaso il contatto in gradi: vena mesenterica superiore e porta (≤ 180° senza irregolarità = resecabile; oltre, o con irregolarità/trombosi = borderline), arteria mesenterica superiore, tripode celiaco e arteria epatica (contatto arterioso oltre 180° = localmente avanzato). Servono anche varianti arteriose, linfonodi, fegato e peritoneo.\nDiagnosi differenziale: pancreatite focale o autoimmune, tumore neuroendocrino (ipervascolare), metastasi, linfoma.",
+ "regola": "Massa ipodensa in fase pancreatica + via biliare dilatata: adenocarcinoma; il referto si chiude con i rapporti vascolari in gradi.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma duttale infiltrante del pancreas, pT3 pN1 M0 (AJCC stadio IIB) all'esame del pezzo operatorio (dati clinici CPTAC della collezione CPTAC-PDA)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CPTAC-PDA",
+  "soggetto": "C3L-02613",
+  "doi": "10.7937/K9/TCIA.2018.SC20FO18",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC). (2018). The Clinical Proteomic Tumor Analysis Consortium Pancreatic Ductal Adenocarcinoma Collection (CPTAC-PDA) (Version 15) [dataset]. The Cancer Imaging Archive. Data used in this publication were generated by the National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC).",
+  "url": "https://www.cancerimagingarchive.net/collection/cptac-pda/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 145,
+  "wc": 50,
+  "ww": 350,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa della testa del pancreas"
+ },
+ "nota_docente": "Caso importato da TCIA il 15/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nSede della massa confermata dal contorno RTSTRUCT della collezione (z 218-248 mm, circa 3 × 3 × 3 cm). Fase arteriosa fette ~48-64, fase venosa ~135-155 (ordine dei file). Ricontrollato il 15/10: massa rotondeggiante con centro ipodenso e orletto che si impregna (venosa fette ~137-153, arteriosa ~48-63); colecisti molto distesa; la dilatazione della via biliare principale non è dimostrata con certezza nelle fette viste, per questo l'opzione parla solo di colecisti distesa. Arteria mesenterica superiore circondata da grasso; contatto con la vena mesenterica superiore probabile ma non misurato in gradi. Dotto pancreatico non valutato. Tolte due immagini coronali singole (ricostruzioni di riferimento).\n[pubblicato il 16/10/2026 su richiesta dell'amministratore («togli la bozza dove siamo sicuri»), dopo la revisione di Claude: restano i dubbi scritti sopra]"
+}

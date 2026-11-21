@@ -1,0 +1,18 @@
+import { spawn } from 'node:child_process'; import { createRequire } from 'node:module'; import fs from 'node:fs'; import path from 'node:path';
+const T = '/Volumes/Caloggero/piattaforma-quiz/cloud/test/', CASI = '/Volumes/Caloggero/piattaforma-quiz/casi-free';
+const { chromium } = createRequire(T + 'package.json')('playwright');
+const PORTA = 23411, B = `http://localhost:${PORTA}`;
+const sim = spawn(process.execPath, [T + 'simulatore.mjs'], { env: { ...process.env, PORTA: String(PORTA), CASI }, stdio: ['ignore', 'pipe', 'inherit'] });
+await new Promise((r) => sim.stdout.on('data', (d) => { if (/pronto/.test(d)) r(); }));
+const b = await chromium.launch(), ctx = await b.newContext({ viewport: { width: 1400, height: 900 } }), c = await ctx.newPage();
+c.on('pageerror', (e) => console.log('ERR', e.message, e.stack?.split('\n')[1]));
+c.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') console.log('CONSOLE', m.type(), m.text().slice(0, 300)); });
+c.on('requestfailed', (r) => console.log('FAIL', r.url()));
+const files = []; const giro = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const f = path.join(d, e.name); if (e.isDirectory()) giro(f); else if (/\.dcm$/i.test(e.name)) files.push(f); } };
+giro(path.join(CASI, process.env.CASO || 'caso-tcia-001', 'serie'));
+await c.goto(B + '/client/index.html'); await c.waitForSelector('#vista-client:not([hidden])', { timeout: 30000 });
+await c.waitForSelector('#dlg-privacy-cl[open]', { timeout: 10000 }); await c.click('#pr-accetto');
+await c.setInputFiles('#cl-file', files.slice(0, 120));
+const ok = await c.waitForFunction(() => window.__dbg?.V?.img && location.hash === '#/caso/locale', null, { timeout: 30000 }).then(() => true).catch(() => false);
+console.log('ok', ok, await c.evaluate(() => [location.hash, !!window.__dbg, document.querySelector('#cl-stato, .cl-stato')?.textContent?.slice(0, 200)]));
+await b.close(); sim.kill();

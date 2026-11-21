@@ -1,0 +1,104 @@
+{
+ "id": "caso-tcia-028",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:20",
+ "titolo": "TC addome: massa renale in giovane donna",
+ "titolo_interno": "Carcinoma renale cromofobo: massa solida omogenea ben delimitata",
+ "distretto": "Rene",
+ "quesito": "addome",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "Donna di 21 anni. Riscontro di massa renale destra. TC dell'addome con mezzo di contrasto (è disponibile una sola fase).",
+ "domanda": "Referta in ordine: massa, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Massa",
+   "domanda": "Come descrivi la massa?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa solida rotondeggiante di circa 6 cm del polo inferiore del rene destro, ben delimitata, che sporge dal profilo renale, con il parenchima che la abbraccia («segno dell'artiglio»: origine renale)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Impregnazione omogenea, inferiore a quella della corticale; senza necrosi né calcificazioni evidenti",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa retroperitoneale solida che sposta il rene destro in avanti senza originare da esso, separata da un piano di grasso",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Pielectasia con calcolo radiopaco del giunto pielo-ureterale e assottigliamento del parenchima del polo inferiore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa renale solida: carcinoma renale fino a prova contraria (cromofobo o papillare tra le ipotesi; l'oncocitoma non si esclude in imaging); intervento, preferibilmente nefrectomia parziale",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessun accertamento né intervento: in una donna di 21 anni una massa renale ben delimitata e omogenea è certamente benigna, al massimo un controllo ecografico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Angiomiolipoma classico del polo inferiore, anche senza grasso visibile, data l'età e i margini netti: nessun intervento, controllo ecografico annuale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Il «segno dell'artiglio» (il parenchima renale che abbraccia la massa) dice che la massa nasce dal rene. Una massa renale solida senza grasso macroscopico va considerata maligna fino a prova contraria, anche nei giovani.\nDiagnosi differenziale delle masse renali solide senza grasso: il carcinoma a cellule chiare è ipervascolare ed eterogeneo (necrosi); il papillare è ipovascolare e omogeneo (impregnazione debole e lenta, spesso < 20-30 HU); il cromofobo ha impregnazione intermedia e omogenea, a volte cicatrice centrale come l'oncocitoma, da cui in imaging non si distingue; l'angiomiolipoma povero di grasso è spesso iperdenso in basale. Le lesioni infiltrative che conservano la forma del rene fanno pensare a carcinoma uroteliale, linfoma, metastasi o pielonefrite, non a un carcinoma renale tipico.\nCon una sola fase non si misura l'impregnazione: in un caso reale si completa con la fase basale (e se serve RM). La gestione delle masse solide è chirurgica; nei tumori piccoli (T1) si preferisce la nefrectomia parziale per conservare la funzione renale.",
+ "regola": "Massa renale solida senza grasso: carcinoma fino a prova contraria, a qualunque età.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma renale cromofobo, pT1b (dimensione patologica 6,6 cm; dati clinici della collezione C4KC-KiTS)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00024",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 39,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa del polo inferiore destro"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini: massa solida omogenea di circa 6 cm del polo inferiore del rene destro (lato confermato dall'orientamento DICOM e dalla posizione del fegato), esofitica con segno dell'artiglio, impregnazione inferiore alla corticale, senza necrosi né calcificazioni; coerente con l'istologia della collezione. Nessuna correzione.\nCaso importato da TCIA il 17/10/2026 (bozza). Sede e dimensioni verificate con la segmentazione della massa fornita dalla collezione (KiTS19); densità misurate da Claude nella segmentazione.\nMassa tra z −201 e −256 mm, circa 6 × 5,8 cm sul piano assiale, HU mediano circa 80 nella sola fase disponibile (probabilmente nefrografica). Unica serie della collezione, strato 5 mm."
+}

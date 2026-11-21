@@ -1,0 +1,32 @@
+[
+ {
+  "descrizione": "B-mode del fegato (trasversale)",
+  "numero": 1,
+  "files": [
+   "serie/0001_B-mode_del_fegato/img_00001_00000.dcm"
+  ],
+  "data": "",
+  "eta": ""
+ },
+ {
+  "descrizione": "CEUS affiancata al B-mode: da 0:21 a 5:58 dall iniezione (T1 in basso a sinistra)",
+  "numero": 2,
+  "files": [
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00000.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00001.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00002.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00003.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00004.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00005.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00006.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00007.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00008.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00009.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00010.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00011.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00012.dcm"
+  ],
+  "data": "",
+  "eta": ""
+ }
+]

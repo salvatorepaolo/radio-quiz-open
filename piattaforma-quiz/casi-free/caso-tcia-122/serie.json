@@ -1,0 +1,18 @@
+[
+ {
+  "descrizione": "RCC (destra)",
+  "numero": 1,
+  "files": [
+   "serie/0001_Serie_1/img_00001_00001.dcm"
+  ],
+  "eta": 51
+ },
+ {
+  "descrizione": "RMLO (destra)",
+  "numero": 2,
+  "files": [
+   "serie/0001_Serie_1/img_00002_00000.dcm"
+  ],
+  "eta": 51
+ }
+]

@@ -1,0 +1,27 @@
+# Ogni settimana: i link esterni dei casi (DOI, archivi TCIA, licenze) e delle pagine del sito funzionano ancora?
+# Un link sparito fa fallire il controllo (GitHub manda un'email); i siti che rifiutano i programmi sono solo segnalati.
+name: link
+
+on:
+  schedule:
+    - cron: '41 6 * * 1'        # il lunedì alle 6:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  link:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            piattaforma-quiz/cloud/test/controlla-link.mjs
+            piattaforma-quiz/cloud/web/*.html
+            piattaforma-quiz/casi-free/*/caso.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: node piattaforma-quiz/cloud/test/controlla-link.mjs

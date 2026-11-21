@@ -1,0 +1,17 @@
+Bundled license information:
+
+dcmjs/build/dcmjs.es.js:
+  /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
+  /*!
+   * Determine if an object is a Buffer
+   *
+   * @author   Feross Aboukhadijeh <https://feross.org>
+   * @license  MIT
+   */
+
+comlink/dist/esm/comlink.mjs:
+  /**
+   * @license
+   * Copyright 2019 Google LLC
+   * SPDX-License-Identifier: Apache-2.0
+   */

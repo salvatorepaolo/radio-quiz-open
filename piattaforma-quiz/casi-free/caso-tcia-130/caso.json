@@ -1,0 +1,191 @@
+{
+ "id": "caso-tcia-130",
+ "visibile": true,
+ "aggiornato": "2026-11-06 05:29",
+ "titolo": "Donna di 38 anni con tumore del tratto gastroesofageo: TC addome di stadiazione",
+ "titolo_interno": "Adenocarcinoma della giunzione esofago-gastrica: ispessimento parietale marcato e asimmetrico di giunzione, cardias e fondo (fino a circa 3,5 cm), piccole lesioni epatiche ipodense sospette (CMB-GEC MSB-04437)",
+ "distretto": "Addome",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 38 anni con diagnosi di tumore del tratto gastroesofageo, arruolata in un programma di biobanca che raccoglie tessuto tumorale. TC dell'addome e della pelvi con mezzo di contrasto per la stadiazione.",
+ "domanda": "Descrivi il reperto principale, valuta l'estensione e proponi la conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica",
+   "domanda": "Che esame è?"
+  },
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi nella regione della giunzione esofago-gastrica e dello stomaco?"
+  },
+  {
+   "nome": "Estensione",
+   "domanda": "Che cos'altro conta per la stadiazione?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "TC addome-pelvi con mezzo di contrasto endovenoso in fase portale, con ricostruzioni coronali",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie assiale 5 mm e coronale 2,5 mm; vene porta e sovraepatiche opacizzate. Lo studio parte dalla base del cuore: il torace non è compreso."
+  },
+  {
+   "testo": "TC addome senza mezzo di contrasto, con sole ricostruzioni assiali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Aorta, vena porta e reni sono opacizzati: il contrasto endovenoso c'è."
+  },
+  {
+   "testo": "Angio-TC del torace in fase arteriosa polmonare per embolia, senza addome né ricostruzioni coronali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il volume va dalla base del cuore alla pelvi e la fase è portale."
+  },
+  {
+   "testo": "Ispessimento parietale marcato e asimmetrico della giunzione esofago-gastrica che si estende al cardias e al fondo gastrico, fino a circa 3,5 cm di spessore",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Immagini assiali 15-25 (meglio la 19) e coronali 38-46: la parete posteriore e mediale del cardias forma una massa di tessuto solido che restringe il lume; la normale parete gastrica distesa misura pochi millimetri."
+  },
+  {
+   "testo": "Ernia iatale da scivolamento con pareti regolari della giunzione e del fondo, senza ispessimenti",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il problema non è la posizione del cardias ma il suo spessore: la parete è massivamente ispessita e irregolare."
+  },
+  {
+   "testo": "Varici del fondo gastrico: strutture serpiginose che si impregnano in fase portale come la vena splenica, senza ispessimento parietale della giunzione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Le varici sono strutture tubulari serpiginose che si opacizzano come le vene in fase portale; qui c'è tessuto solido parietale."
+  },
+  {
+   "testo": "Massa della coda del pancreas che comprime il fondo gastrico, con parete gastrica regolare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il tessuto patologico circonda il lume del cardias ed è in continuità con la parete gastrica; la coda del pancreas decorre dietro lo stomaco lungo i vasi splenici, davanti al rene sinistro (immagini 21-23), e non è il centro della lesione."
+  },
+  {
+   "testo": "Piccole lesioni ipodense nel fegato (circa 1 cm), sospette per metastasi, da caratterizzare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Per esempio nel segmento anteriore del lobo destro sotto la capsula (immagine 8) e posteriormente vicino al rene (immagine 29). Sono piccole: in TC non si caratterizzano con certezza; RM con diffusione o biopsia."
+  },
+  {
+   "testo": "Piano adiposo tra stomaco e milza in gran parte conservato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Nelle immagini 19-21 si vede una sottile linea di grasso tra il fondo e la milza: nessun segno sicuro di infiltrazione splenica."
+  },
+  {
+   "testo": "Ascite abbondante con noduli peritoneali diffusi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Non c'è ascite evidente né omental cake; la carcinosi piccola però sfugge spesso alla TC (per questo si fa la laparoscopia di stadiazione)."
+  },
+  {
+   "testo": "Infiltrazione dell'aorta addominale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "L'aorta è separata dalla massa; il contatto con l'aorta si valuta piuttosto a livello dell'esofago distale."
+  },
+  {
+   "testo": "Neoplasia della giunzione esofago-gastrica estesa a cardias e fondo (adenocarcinoma il più probabile), con lesioni epatiche sospette per metastasi: completare con EGDS e biopsia, TC del torace, caratterizzazione delle lesioni epatiche",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3
+  },
+  {
+   "testo": "Linfoma gastrico come prima ipotesi per l'ispessimento marcato e la giovane età: biopsia endoscopica per istotipo e stadiazione ematologica con PET-TC; le lesioni epatiche sono cisti semplici",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Il linfoma può dare pareti molto spesse, ma tende a essere più omogeneo e diffuso, con lume conservato e linfoadenopatie voluminose; una massa asimmetrica centrata sulla giunzione fa pensare anzitutto all'adenocarcinoma. La diagnosi è comunque istologica."
+  },
+  {
+   "testo": "Falso ispessimento della giunzione e del fondo da stomaco poco disteso e contratto: nessuna neoplasia e nessun approfondimento endoscopico, le lesioni epatiche sono benigne",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Il cardias collassato può sembrare spesso, ma qui lo spessore (circa 3,5 cm), l'asimmetria e l'aspetto di massa non sono spiegabili dalla scarsa distensione."
+  },
+  {
+   "testo": "Gastrite ipertrofica (malattia di Ménétrier) del fondo con pliche giganti e ipoalbuminemia: terapia medica e controllo endoscopico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Ménétrier ispessisce le pliche del corpo e del fondo in modo diffuso, risparmiando di solito l'antro; non forma una massa asimmetrica alla giunzione."
+  }
+ ],
+ "spiegazione": "Gli adenocarcinomi della giunzione esofago-gastrica in TC si presentano come ispessimento parietale asimmetrico o massa che si estende in alto lungo l'esofago distale e in basso nel cardias e nel fondo. Secondo l'AJCC 8ª edizione, i tumori con epicentro entro 2 cm sotto la giunzione si stadiano come esofagei, quelli con epicentro più in basso come gastrici; la sede esatta si definisce con l'endoscopia.\n\nTrappole: lo stomaco poco disteso fa sembrare spessa la parete del cardias (qui però lo spessore di circa 3,5 cm e l'aspetto di massa sono inequivocabili: per lo studio dello stomaco conviene distenderlo con acqua); non confondere varici del fondo con tessuto solido; non dimenticare fegato, linfonodi (paracardiali, piccola curva, tripode celiaco), peritoneo e ovaie nella donna. La TC non vede la carcinosi piccola: nei candidati a chirurgia si fa la laparoscopia di stadiazione; il T si valuta meglio con l'ecoendoscopia e la PET-TC aiuta nella ricerca di metastasi a distanza.\n\nIn questo caso la paziente aveva malattia metastatica: i dati della collezione riportano una biopsia epatica di malattia metastatica oltre al tessuto del tumore primitivo.",
+ "regola": "Ispessimento asimmetrico e a massa della giunzione esofago-gastrica e del cardias: neoplasia fino a prova contraria; cerca sempre metastasi epatiche, linfonodi e carcinosi.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Adenocarcinoma della giunzione esofago-gastrica (dati clinici aperti del Cancer Moonshot Biobank, CCDC): donna di 38 anni all'arruolamento; campioni del tumore primitivo e di una metastasi epatica prelevati all'inizio del percorso. Stadio e istologia dettagliata non sono pubblici."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CMB-GEC (Cancer Moonshot Biobank – Gastroesophageal Cancer Collection)",
+  "soggetto": "MSB-04437",
+  "doi": "10.7937/E7KH-R486",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Cancer Moonshot Biobank. (2022). Cancer Moonshot Biobank – Gastroesophageal Cancer Collection (CMB-GEC) [dataset]. The Cancer Imaging Archive. https://doi.org/10.7937/e7kh-r486. Data used in this publication were generated by the National Cancer Institute's Cancer Moonshot Biobank.",
+  "url": "https://www.cancerimagingarchive.net/collection/cmb-gec/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "vista": {
+  "serie": 0,
+  "idx": 19,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 330,
+    "y": 236
+   },
+   "b": {
+    "x": 330,
+    "y": 272
+   }
+  },
+  "nota": "Ispessimento a massa della parete posteriore del cardias, circa 3,5 cm"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "metastasi",
+   "giunzione"
+  ],
+  "motivo": "Stadiazione di un tumore noto senza reperti urgenti: basta il referto."
+ },
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: Verificati sulle immagini ispessimento a massa di giunzione/cardias/fondo (circa 3,3-3,5 cm, img 19), piccole lesioni epatiche ipodense (img 8, 29), piano adiposo con la milza, anonimato e serie; corretta la nota del distrattore «coda del pancreas» (la coda è allo stesso livello lungo i vasi splenici); tessuto retrogastrico img 24-26 verosimilmente anse digiunali, segnalato in nota. Reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione). CMB-GEC (IDC, CC BY 4.0), paziente MSB-04437, primo esame disponibile (TC addome-pelvi, «A/P PORTAL VP» assiale 5 mm, 93 immagini, e «CORONAL ABDOMEN PELVIS» 2,5 mm, 127 immagini; tolta un'immagine isolata classificata sagittale, probabilmente un riferimento), anonimizzato con anonimizza.py. Diagnosi dai dati clinici aperti CCDC (studio NCT04314401, participantOverview): «Adenocarcinoma of the Gastroesophageal Junction», donna, 38 anni all'arruolamento; sedi di prelievo fegato (metastatico, Baseline) e primitivo. Dubbi: 1) epicentro della massa: sembra soprattutto nel cardias/fondo sotto la giunzione; non ho dato il tipo di Siewert né il T; 2) le lesioni epatiche (circa 8-10 mm, immagini 8 e 29, altre più sfumate nella 17) sono piccole e la loro natura metastatica è dedotta dalla biopsia epatica riportata nei dati, non dalla sede del prelievo; 3) nelle immagini 24-26 c'è tessuto solido rotondeggiante posteromediale allo stomaco, verso il surrene sinistro: parte inferiore della massa o linfonodi conglomerati? Non l'ho messo tra le opzioni; 4) non ho valutato in dettaglio i linfonodi né le ovaie; 5) il torace non è incluso, l'esofago è visto solo nel tratto addominale; 6) data esatta dell'esame rispetto all'inizio della terapia non verificata (l'esame è il primo della serie del paziente, un mese prima della RM). Revisione indipendente: il tessuto rotondeggiante retrogastrico delle immagini 24-26 (circa 5 cm, davanti al rene sinistro) in coronale (48-52) sembra continuare con le anse digiunali vicino all'angolo duodeno-digiunale: verosimilmente anse collassate, ma linfonodi conglomerati non si escludono con certezza; lasciato fuori dalle opzioni. Corretta la nota del distrattore «coda del pancreas» (la coda è allo stesso livello, lungo i vasi splenici, non più in basso)."
+}

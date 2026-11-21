@@ -1,0 +1,18 @@
+[
+ {
+  "descrizione": "Vetrino · ematossilina-eosina · tiroide (20×)",
+  "tipo": "vetrino",
+  "files": [
+   "serie/vetrino/livello_0.dcm",
+   "serie/vetrino/livello_1.dcm",
+   "serie/vetrino/livello_2.dcm",
+   "serie/vetrino/miniatura.dcm"
+  ],
+  "dimensioni": [
+   216548488,
+   29911586,
+   3135888,
+   2581230
+  ]
+ }
+]

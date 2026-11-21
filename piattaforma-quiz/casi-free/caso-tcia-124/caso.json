@@ -1,0 +1,158 @@
+{
+ "id": "caso-tcia-124",
+ "visibile": true,
+ "titolo": "Ecografia e CEUS del fegato: nodulo di 1,5 cm del segmento 5",
+ "titolo_interno": "Epatocarcinoma (LiverUS-08) con CEUS non conclusiva: nodulo ipoecogeno di 1,4-1,7 cm del segmento 5 isoimpregnato nelle immagini disponibili (CEUS LR-3); diagnosi finale HCC",
+ "distretto": "Addome",
+ "quesito": "nodulo epatico da caratterizzare",
+ "modalita": "Ecografia",
+ "difficolta": "Intermedio",
+ "anamnesi": "Paziente adulto con un nodulo epatico di circa 1,5 cm visto in ecografia; si esegue un'ecografia con mezzo di contrasto (CEUS) per caratterizzarlo. Età, sesso e storia clinica (epatopatia, fattori di rischio) non sono forniti dalla collezione, che raccoglie pazienti valutati per masse epatiche, in gran parte a rischio di epatocarcinoma. Nelle immagini CEUS lo schermo è diviso: a sinistra il B-mode, a destra il segnale del contrasto; il tempo dall'iniezione è scritto in basso a sinistra (T1 minuti:secondi).",
+ "domanda": "Descrivi il nodulo in B-mode e il suo comportamento dopo il contrasto, tenendo conto dei tempi. Che categoria daresti e che cosa fai?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è l'interpretazione più probabile?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nodulo solido ipoecogeno, rotondeggiante, di circa 1,5 cm (calibri 1,2-1,8 cm) nel segmento 5",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "B-mode, immagini 0 e 1 (trasversale) e 3 (sagittale). Accanto c'è un piccolo spot anecogeno rotondo di pochi millimetri: verosimile vaso in sezione. Nella serie 0 il calibro di 2,36 cm dell'immagine 5 misura la profondità del nodulo dalla capsula, non il nodulo."
+  },
+  {
+   "testo": "Dopo il contrasto, nelle immagini disponibili (da 0:19 a 6:12), il nodulo tra i calibri non si distingue dal parenchima: impregnazione simile al fegato in tutte le fasi, senza wash-out",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie CEUS (T1 in basso a sinistra): rapporto di segnale lesione/parenchima circa 0,9-1,2 in tutte le immagini statiche; anche nei filmati della collezione (da 2:07 a circa 6 minuti) nessun wash-out riproducibile."
+  },
+  {
+   "testo": "La fase arteriosa è documentata da una sola immagine a 19 secondi: l'iperenhancement arterioso non è dimostrato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "La collezione non contiene un filmato della fase arteriosa per questo nodulo: i filmati partono da circa 2 minuti."
+  },
+  {
+   "testo": "Wash-out tardivo e lieve ben visibile nelle fasi portale e tardiva",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È ciò che ci si aspetterebbe da un epatocarcinoma, ma qui non si vede: nelle immagini il nodulo resta isoimpregnato fino a 6 minuti. Non bisogna «vedere» quello che ci si aspetta."
+  },
+  {
+   "testo": "Wash-out precoce, già prima di 60 secondi, e marcato (lesione «nera» entro 2 minuti)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È il comportamento che orienta verso LR-M (colangiocarcinoma, metastasi): qui non c'è wash-out."
+  },
+  {
+   "testo": "Riempimento centripeto globulare periferico, tipico dell'emangioma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Non c'è impregnazione nodulare periferica discontinua."
+  },
+  {
+   "testo": "Lesione anecogena con rinforzo posteriore (cisti)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il nodulo è solido e ipoecogeno, senza rinforzo posteriore."
+  },
+  {
+   "testo": "CEUS non conclusiva: nodulo ≥ 10 mm senza iperenhancement arterioso dimostrato e senza wash-out = CEUS LR-3 (nel paziente a rischio) → completare con TC o RM multifasica con mezzo di contrasto; biopsia se resta indeterminato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "CEUS LI-RADS v2017: LR-5 richiede iperenhancement arterioso non a rima e wash-out tardivo e lieve; senza questi criteri il nodulo resta indeterminato (LR-3). La diagnosi finale della collezione è epatocarcinoma: una CEUS «tranquilla» non lo esclude."
+  },
+  {
+   "testo": "Epatocarcinoma certo (CEUS LR-5): trattamento senza altri esami né biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Mancano sia l'iperenhancement arterioso sia il wash-out: i criteri di LR-5 non sono soddisfatti."
+  },
+  {
+   "testo": "Lesione maligna non specifica per epatocarcinoma (CEUS LR-M) per il wash-out precoce e marcato entro 60 secondi: biopsia del nodulo prima di qualunque terapia, senza completare con TC o RM multifasica con mezzo di contrasto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "LR-M richiede iperenhancement a rima, wash-out precoce (< 60 s) o marcato: qui non c'è wash-out."
+  },
+  {
+   "testo": "Emangioma tipico con riempimento centripeto: nessun controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "L'emangioma ha un riempimento centripeto globulare periferico che qui non c'è; un nodulo solido ipoecogeno in un fegato a rischio non si archivia."
+  },
+  {
+   "testo": "Nodulo benigno certo (CEUS LR-1): sorveglianza ecografica ordinaria a 6 mesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Un nodulo solido ≥ 10 mm senza caratteri di benignità certa non è LR-1."
+  }
+ ],
+ "spiegazione": "In CEUS il tempo conta: la fase arteriosa va da circa 10-20 a 30-45 secondi, poi la portale fino a 2 minuti e la tardiva fino alla scomparsa delle microbolle (4-6 minuti). L'epatocarcinoma tipicamente si impregna in fase arteriosa (iperenhancement non a rima) e poi va in wash-out tardivo (dopo 60 secondi) e lieve; il colangiocarcinoma e le metastasi hanno spesso wash-out precoce e marcato (LR-M). Questo nodulo, invece, nelle immagini disponibili resta isoimpregnato in tutte le fasi e la fase arteriosa è documentata da una sola immagine a 19 secondi: con la CEUS LI-RADS v2017 un nodulo ≥ 10 mm senza iperenhancement arterioso e senza wash-out è LR-3 (indeterminato). La diagnosi finale della collezione è epatocarcinoma: una parte degli epatocarcinomi, soprattutto ben differenziati, non mostra in CEUS il comportamento tipico. La lezione è doppia: descrivere quello che si vede, non quello che ci si aspetta dalla diagnosi; e un nodulo indeterminato in un paziente a rischio va completato con TC o RM multifasica con mezzo di contrasto (ed eventualmente biopsia), non archiviato. La CEUS LI-RADS si applica solo ai pazienti a rischio di epatocarcinoma (cirrosi, epatite B cronica, epatocarcinoma pregresso): qui la storia clinica non è fornita dalla collezione.",
+ "regola": "CEUS: descrivi ciò che vedi in ogni fase, con il tempo. Senza iperenhancement arterioso e senza wash-out un nodulo ≥ 1 cm è indeterminato (LR-3): non esclude l'epatocarcinoma, va completato con TC o RM.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Diagnosi finale della collezione B-mode-and-CEUS-Liver: epatocarcinoma (HCC). Sulle immagini CEUS disponibili il nodulo è isoimpregnato (CEUS non conclusiva)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "B-mode-and-CEUS-Liver",
+  "soggetto": "LiverUS-08",
+  "doi": "10.7937/TCIA.2021.v4z7-tc39",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Eisenbrey J., Lyshchik A., Wessner C. (2021). Ultrasound data of a variety of liver masses (B-mode-and-CEUS-Liver) [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/b-mode-and-ceus-liver/",
+  "nota": "Immagini della collezione portate in scala di grigi e riscritte come DICOM ecografici per il sito (testo tecnico nei pixel invariato, compreso il tempo dall'iniezione T1); nessuna calibrazione in mm: usare i calibri dell'ecografo e la scala di profondità."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 0,
+  "idx": 1,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Nodulo ipoecogeno di 1,4 cm del segmento 5 tra i calibri"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "nessuna"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "LR-3",
+   "TC",
+   "RM"
+  ],
+  "motivo": "Nodulo indeterminato da completare con TC o RM multifasica: non è un'urgenza, basta il referto con l'indicazione all'esame successivo."
+ },
+ "nota_docente": "Controllato il 26/10/2026 (revisione indipendente, vedi in fondo). Caso rifatto da Claude il 26/10/2026 dopo la revisione indipendente del 25/10, che aveva trovato il nodulo isoimpregnato in tutte le immagini CEUS statiche (rapporto lesione/anello ~0,9-1,2: niente APHE a 0:19, niente wash-out fino a 6:12), mentre la prima versione diceva «wash-out tardivo e lieve». Verifica dei filmati: la collezione (IDC, una serie di 29 file) contiene per LiverUS-08 7 filmati; i 5 CEUS a doppio schermo partono da T1 2:07 (poi circa 3, 4:06, 5 e 6 minuti): nessun filmato della fase arteriosa. Con ROI sul nodulo (posizione dei calibri riportata dalle statiche: stessa scala 45,7 px/cm, spostamento −4/−70 px) e anello di parenchima alla stessa profondità, il rapporto CEUS medio per filmato è 0,85, 0,90, 1,10, 1,05 (ampia variabilità tra fotogrammi), con rapporto B-mode ~1 (la sonda si muove e il nodulo esce dalla ROI): nessun wash-out riproducibile e localizzazione non certa → non importati. Il caso è stato quindi riscritto come CEUS non conclusiva (LR-3) con diagnosi finale HCC: lezione «descrivi ciò che vedi» e «un nodulo indeterminato va completato con TC/RM». Immagini invariate: serie 0 B-mode (9 statiche), serie 1 CEUS statiche (12, da 0:19 a 6:12). Testo nei pixel solo tecnico (controllato il 25/10). Età, sesso ed eziologia non forniti. Grezzi dei filmati in _tcia_grezzi/ceus/LiverUS-08/film (circa 1,5 GB, cancellabili); script di misura ~/w/roi124.py nella VM; viste in _viste/val/c124_*, m124_*, s124_*. [revisione indipendente 26/10/2026] Controllate a piena risoluzione tutte le 21 immagini (9 B-mode, 12 CEUS) e le intestazioni DICOM: nei pixel solo testo tecnico (LOGIQ E9, LIVER TRANS/SAG SEG 5, INJ 1, C1-6 Abdomen, parametri, T1, calibri), banda alta oscurata; intestazioni anonime (ANONIMO^caso-tcia-124, nessuna data). Fonte TCIA LiverUS-08, DOI e CC BY 4.0 corretti; titolo non rivela la diagnosi. B-mode: nodulo ipoecogeno rotondeggiante ben visibile nelle trasversali (calibri 1,41 e 1,69 cm), meno nella sagittale (1,75 × 1,16 cm). Misure indipendenti CEUS (disco all'80% del raggio dei calibri riportati nell'immagine gemella, contro parenchima laterale alla stessa profondità; tra parentesi contro quattro riquadri): 0:19 = 1,10 (1,10); 2:11 = 0,99 (1,10); 3:06 = 1,08 (1,22); 4:09 = 1,14 (1,28); 5:05 = 1,13 (1,17); 6:12 = 1,17 (1,11). A vista il nodulo non si distingue dal parenchima in nessuna immagine CEUS: niente APHE dimostrato (una sola immagine arteriosa a 19 s), niente wash-out fino a 6:12. CEUS LR-3 (≥ 10 mm, senza APHE e senza wash-out) e completamento con TC/RM multifasica corretti; distrattori sbagliati per le ragioni indicate. Correzioni: intervallo dei calibri nella prima risposta (1,2-1,8 cm, includendo l'asse corto sagittale di 1,16 cm) e nota sul calibro di 2,36 cm (profondità, non diametro).",
+ "rassegna": [
+  {
+   "caso": "caso-tcia-139",
+   "testo": "vetrino: carcinoma epatocellulare ben differenziato"
+  }
+ ]
+}

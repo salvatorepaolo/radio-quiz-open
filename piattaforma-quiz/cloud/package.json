@@ -1,0 +1,11 @@
+{
+  "name": "quiz-radiologia-cloud",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "aws-cdk": "^2.1149.0",
+    "aws-cdk-lib": "^2.278.0",
+    "constructs": "^10.3.0"
+  }
+}

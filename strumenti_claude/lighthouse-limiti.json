@@ -1,0 +1,40 @@
+{
+ "data": "2026-11-20",
+ "misure": {
+  "home": {
+   "punteggio": 72,
+   "lcp": 10411,
+   "tbt": 4,
+   "cls": 0.027,
+   "peso": 1714
+  },
+  "caso": {
+   "punteggio": 72,
+   "lcp": 11103,
+   "tbt": 82,
+   "cls": 0.035,
+   "peso": 18061
+  },
+  "qualita": {
+   "punteggio": 100,
+   "lcp": 789,
+   "tbt": 0,
+   "cls": 0,
+   "peso": 43
+  },
+  "sito-home": {
+   "punteggio": 96,
+   "lcp": 2831,
+   "tbt": 11,
+   "cls": 0,
+   "peso": 403
+  },
+  "sito-qualita": {
+   "punteggio": 100,
+   "lcp": 903,
+   "tbt": 0,
+   "cls": 0,
+   "peso": 13
+  }
+ }
+}

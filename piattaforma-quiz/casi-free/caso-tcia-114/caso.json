@@ -1,0 +1,129 @@
+{
+ "distretto": "Cuore",
+ "modalita": "Angiografia",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "fonte": {
+  "archivio": "Mendeley Data, non TCIA",
+  "collezione": "CADICA",
+  "doi": "10.17632/p9bpx9ctcv.5",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Jiménez-Navarro M. (2025). CADICA: a new dataset for coronary artery disease. Mendeley Data, V5, doi 10.17632/p9bpx9ctcv.5. Articolo: Jiménez-Partinen A., Molina-Cabello M.A., Thurnhofer-Hemsi K., Palomo E.J., Rodríguez-Capitán J., Molina-Ramos A.I., Jiménez-Navarro M. (2024). CADICA: A new dataset for coronary artery disease detection by using invasive coronary angiography. Expert Systems 41(12), e13708. doi 10.1111/exsy.13708",
+  "url": "https://data.mendeley.com/datasets/p9bpx9ctcv/5",
+  "nota": "Fotogrammi PNG (512 × 512, 10 fotogrammi al secondo, ricavati dai DICOM originali dagli autori) convertiti in DICOM da radio-quiz.it: non sono DICOM originali. Nessuna modifica dei pixel. Le proiezioni angiografiche (angoli) non sono fornite dalla collezione: le sequenze sono indicate solo come coronaria sinistra o destra."
+ },
+ "difficolta": "Intermedio",
+ "visibile": true,
+ "quesito": "sindrome coronarica acuta",
+ "titolo": "Coronarografia urgente: uomo di 55 anni con STEMI",
+ "titolo_interno": "Occlusione acuta (100%) di un ramo della coronaria sinistra, verosimile IVA media; nella sequenza successiva vaso ricanalizzato con stenosi residua 90-98%; coronaria destra con stenosi lieve-moderata (CADICA paziente 25)",
+ "anamnesi": "Uomo di 55 anni con infarto miocardico con sopraslivellamento del tratto ST (STEMI). Frazione di eiezione del ventricolo sinistro < 35%. Coronarografia in urgenza. Fattori di rischio e altri dati clinici non forniti dalla collezione oltre a: diabete, ipertensione. Le sequenze sono filmati: usa il cine (10 fotogrammi al secondo).",
+ "domanda": "Individua la lesione responsabile, stimane il grado e indica il passo successivo.",
+ "opzioni": [
+  {
+   "testo": "Interruzione brusca del mezzo di contrasto in un ramo discendente della coronaria sinistra (verosimilmente IVA media), con assenza di opacizzazione a valle: occlusione totale (100%)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Annotata dalla collezione come lesione al 100% nelle sequenze 1 e 2. La collezione non indica il nome del vaso: «IVA media» è la lettura di Claude dal decorso verso l'apice nella sequenza 3."
+  },
+  {
+   "testo": "Nella sequenza successiva il vaso è opacizzato fino all'apice, con stenosi residua severa (90-98%) nella sede dell'occlusione",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Annotazione 90-98% nella sequenza 3 (video 10 della collezione). Che cosa sia stato fatto tra le sequenze (filo guida, predilatazione) non è indicato. Nei primi fotogrammi della sequenza 3 si vede un filo guida nel vaso, oltre la sede della lesione."
+  },
+  {
+   "testo": "Coronaria destra con una stenosi lieve-moderata (20-50%) del tratto medio-distale, senza occlusioni",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Annotazione 20-50% della collezione."
+  },
+  {
+   "testo": "Occlusione del tronco comune della coronaria sinistra, con assenza di opacizzazione di IVA e circonflessa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Occlusione della coronaria destra prossimale, con coronaria sinistra pervia e senza stenosi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Coronarie senza stenosi né occlusioni significative: quadro da miocardite o Takotsubo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "STEMI da occlusione acuta di un ramo della coronaria sinistra (verosimile IVA): angioplastica primaria con stent della lesione colpevole subito, nella stessa seduta",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Stenosi non critiche delle coronarie: terapia medica ottimizzata e controllo, senza angioplastica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Spasmo coronarico dell'IVA che si risolve con i nitrati: nitrati intracoronarici e ripetere la coronarografia tra una settimana, senza stent",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Rinviare la rivascolarizzazione e chiedere una TC coronarica per definire meglio l'anatomia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Nello STEMI la coronarografia cerca la lesione colpevole: un vaso che si interrompe di colpo, a «moncone», con il territorio a valle non opacizzato (flusso TIMI 0). Qui il ramo discendente della coronaria sinistra si ferma nel tratto medio; nella sequenza successiva, ripristinato il flusso, resta una stenosi severa (90-98%) nella stessa sede: è la placca rotta su cui si era formato il trombo. Il trattamento è l'angioplastica primaria con stent della lesione colpevole, il prima possibile.\nCome si stima una stenosi: confronta il diametro del lume nel punto più stretto con quello del segmento sano subito a monte, in almeno due proiezioni (una lesione eccentrica può sembrare lieve in una sola). Qui non ci sono misure in mm: le immagini sono convertite e senza calibrazione, la stima è visiva in percentuale.\nTrappole: un ramo che «scompare» può essere solo sovrapposto ad altri vasi o in scorcio (cambia proiezione); lo spasmo da catetere si risolve con i nitrati; un ponte miocardico si restringe solo in sistole (guarda tutto il ciclo nel cine).\nNota sul nome del vaso: la collezione non indica quale ramo sia occluso; l'IVA è la lettura più probabile dal decorso verso l'apice nella sequenza 3, ma andrebbe confermata con le proiezioni angolate (non fornite).",
+ "regola": "STEMI: cerca il vaso che si interrompe a moncone con territorio a valle vuoto; conferma in due proiezioni e tratta subito la lesione colpevole.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Annotazione della collezione CADICA (cardiologi interventisti, Ospedale Virgen de la Victoria, Malaga): STEMI, 1 vaso coinvolto, massimo grado > 70%; lesioni annotate 100% nelle sequenze della coronaria sinistra, 90-98% nella sequenza successiva, 20-50% sulla coronaria destra. Eventi successivi: nessuno riportato."
+ },
+ "vista": {
+  "serie": 1,
+  "idx": 31,
+  "zoom": 1.3,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Sequenza 2: interruzione brusca del ramo discendente nel tratto medio"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "nota_docente": "Caso nuovo 25/10/2026, Claude. CADICA paziente p25 (55 anni, M, STEMI, FE < 35%, 1 vaso, max > 70%), video selezionati v5, v7, v10 (coronaria sinistra) e v1 (coronaria destra), tutti i fotogrammi in ordine, 10 fps (cine_ms 100). Il video v4 (senza contrasto) e gli altri non sono inclusi. Annotazioni della collezione: v5-v8 p100, v10 p90_98, v1-v2 p20_50. Sede «IVA media» letta da Claude, non dalla collezione: da confermare. Non è indicato che cosa sia stato fatto tra v7 e v10. Immagini convertite da PNG (8 bit), nessuna calibrazione in mm. Modalità «Altro» (l'editor non ha «Angiografia»). [revisione indipendente 25/10/2026] Controllato il 25/10/2026: viste le 4 sequenze: nella sequenza 2 (fotogrammi 28-33) un grosso ramo discendente della sinistra si interrompe a moncone dopo i primi rami laterali; nella sequenza 3 c'è un filo guida nel vaso (fotogramma 15) e poi il vaso è opacizzato fino alla punta del cuore; coronaria destra senza occlusioni. Proiezione verosimilmente obliqua anteriore sinistra (catetere lungo la colonna a sinistra dell'immagine): il decorso verso l'apice e i rami laterali sono compatibili con l'IVA, ma senza angoli resta una lettura; le opzioni la indicano già come «verosimile» e la risposta corretta non dipende dal nome. Aggiunta la nota sul filo guida.",
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "occlusione",
+   "stent"
+  ],
+  "motivo": "In uno STEMI con occlusione del vaso colpevole l'angioplastica va fatta subito: il reperto va comunicato all'emodinamista e al cardiologo di guardia nella stessa seduta."
+ },
+ "id": "caso-tcia-114"
+}

@@ -1,0 +1,167 @@
+{
+ "id": "caso-tcia-135",
+ "visibile": true,
+ "aggiornato": "2026-11-06 21:19",
+ "titolo": "Uomo di 70 anni con carcinoma squamoso dell'esofago all'endoscopia: TC di stadiazione",
+ "titolo_interno": "Carcinoma squamoso dell'esofago toracico medio-distale: ispessimento parietale circonferenziale a manicotto (diametro fino a circa 2,6 cm, estensione circa 6-7 cm) dal livello dell'atrio sinistro fin quasi allo iato, a stretto contatto con atrio sinistro e aorta discendente (pT4 N0 M0 nei dati) (TCGA-ESCA TCGA-VR-AA7I)",
+ "distretto": "Esofago",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 70 anni con diagnosi istologica di carcinoma squamoso dell'esofago su biopsia endoscopica. TC del torace, dell'addome e della pelvi con mezzo di contrasto endovenoso e orale per la stadiazione.",
+ "domanda": "Descrivi il tumore, valuta i rapporti con le strutture vicine e indica come completare la stadiazione.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi nell'esofago?"
+  },
+  {
+   "nome": "Estensione",
+   "domanda": "Che cosa conta per la stadiazione?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Ispessimento parietale circonferenziale dell'esofago toracico medio-distale, diametro esterno fino a circa 2,6 cm, esteso per circa 6-7 cm dal livello dell'atrio sinistro (circa 4 cm sotto la carena) fin quasi allo iato",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 0 (assiale 2,5 mm), immagini 76-102 circa, meglio le 84 e 92: l'esofago è un manicotto di tessuto solido con lume ridotto a una fessura o non visibile; più in alto (immagini 60-72, carena circa all'immagine 59) l'esofago è collassato, con parete sottile e bolla d'aria nel lume. In coronale (serie 1, immagini 86-92) il tratto ispessito si vede per tutta la lunghezza."
+  },
+  {
+   "testo": "Esofago normale collassato, con pareti sottili e piano adiposo periesofageo conservato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "L'esofago collassato ha parete di pochi millimetri e diametro di circa 1-1,5 cm; qui il diametro arriva a circa 2,6 cm per molti centimetri."
+  },
+  {
+   "testo": "Varici esofagee: vasi serpiginosi nella parete dell'esofago distale che si impregnano in fase portale, con splenomegalia e circoli collaterali, senza ispessimento parietale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le varici sono strutture tubulari serpiginose che si opacizzano come le vene in fase portale; qui il tessuto è solido e omogeneo."
+  },
+  {
+   "testo": "Ernia iatale da scivolamento con giunzione esofago-gastrica sopra il diaframma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il tratto ispessito è sopra il diaframma ma non contiene pliche gastriche né grasso; la giunzione è in sede."
+  },
+  {
+   "testo": "Contatto stretto con l'atrio sinistro (pericardio) e con l'aorta discendente, senza piano adiposo di separazione in alcuni tratti: invasione da valutare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Immagini 84-96: l'esofago ispessito è schiacciato tra atrio sinistro e aorta; il grasso di separazione manca in alcuni punti. In TC un angolo di contatto con l'aorta superiore a 90° fa sospettare l'invasione (T4b); la sola mancanza del piano adiposo non basta, soprattutto nei pazienti magri."
+  },
+  {
+   "testo": "Nessun linfonodo mediastinico o celiaco chiaramente ingrandito",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Non si vedono linfonodi ingranditi evidenti in sede sottocarenale, paraesofagea o celiaca (dato patologico N0). La TC ha bassa sensibilità per le metastasi linfonodali piccole: servono ecoendoscopia e PET-TC."
+  },
+  {
+   "testo": "Fistola esofago-tracheale con mezzo di contrasto nei bronchi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il tumore è sotto la carena; nelle vie aeree non c'è mezzo di contrasto orale."
+  },
+  {
+   "testo": "Metastasi epatiche multiple",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il fegato non mostra lesioni focali evidenti nella fase portale (dato M0)."
+  },
+  {
+   "testo": "Carcinoma dell'esofago toracico medio-distale localmente avanzato, possibile invasione di pericardio o aorta: completare con ecoendoscopia e PET-TC e discutere in gruppo multidisciplinare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Lesione benigna della parete esofagea (leiomioma), ben delimitata: solo controllo endoscopico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Il leiomioma è una massa intramurale ben definita, eccentrica, con lume conservato; qui c'è un manicotto circonferenziale lungo e la biopsia è già positiva."
+  },
+  {
+   "testo": "Esofagite da reflusso con ispessimento parietale reattivo e simmetrico dell'esofago distale, senza adenopatie: inibitori di pompa protonica e controllo endoscopico, senza stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "L'esofagite dà ispessimento lieve e regolare del tratto distale, non un manicotto di 2,6 cm lungo 6-7 cm."
+  },
+  {
+   "testo": "Tumore in stadio iniziale (T1) limitato alla mucosa: resezione endoscopica senza altra stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Un tumore T1 di solito non si vede o dà solo un lieve ispessimento in TC; qui la parete è massivamente ispessita."
+  }
+ ],
+ "spiegazione": "Nel carcinoma dell'esofago la TC con contrasto serve soprattutto per la stadiazione a distanza (fegato, polmoni, surreni, ossa, linfonodi celiaci e sopraclaveari) e per i rapporti con aorta, trachea-bronchi e pericardio. Il T si definisce meglio con l'ecoendoscopia; la PET-TC cerca le metastasi occulte.\n\nSegni TC utili: lo spessore normale della parete esofagea è sotto 5 mm; il tumore dà un ispessimento asimmetrico o circonferenziale con lume ridotto e spesso dilatazione a monte. Per l'aorta, un angolo di contatto superiore a 90° fa sospettare l'invasione (T4b); per l'albero tracheobronchiale contano l'impronta o la protrusione nella parete posteriore; per il pericardio la perdita del piano adiposo con impronta sull'atrio sinistro (T4a). L'assenza di un piano adiposo da sola è poco specifica, soprattutto nei pazienti magri.\n\nIl carcinoma squamoso colpisce di solito l'esofago medio-superiore (fumo e alcol), l'adenocarcinoma quello distale e la giunzione (reflusso, Barrett).\n\nIn questo caso l'istologia ha dato un carcinoma squamoso G1 del terzo medio, pT4 N0 M0 (AJCC 7ª), con residuo tumorale dopo la chirurgia (R2).",
+ "regola": "Ispessimento a manicotto dell'esofago: neoplasia fino a prova contraria; descrivi lunghezza, rapporti con aorta, vie aeree e pericardio, linfonodi e metastasi.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma squamoso dell'esofago, terzo medio, G1, pT4 N0 M0, stadio III (AJCC 7ª); intervento chirurgico con residuo macroscopico (R2) (dati clinici TCGA, GDC). Uomo di 70 anni alla diagnosi."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-ESCA",
+  "soggetto": "TCGA-VR-AA7I",
+  "doi": "10.7937/K9/TCIA.2016.VPTNRGFY",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Lucchesi, F. R., & Aredes, N. D. (2016). The Cancer Genome Atlas Esophageal Carcinoma Collection (TCGA-ESCA) (Version 3) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/K9/TCIA.2016.VPTNRGFY",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-esca/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "vista": {
+  "serie": 0,
+  "idx": 92,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 248,
+    "y": 291
+   },
+   "b": {
+    "x": 248,
+    "y": 321
+   }
+  },
+  "nota": "Esofago ispessito a manicotto dietro l'atrio sinistro, circa 2,6 cm"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "esofago",
+   "aorta",
+   "pericardio"
+  ],
+  "motivo": "Stadiazione di un tumore già diagnosticato senza reperti urgenti: basta il referto."
+ },
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: verificati sulle immagini (serie 0 img 62-106, coronale serie 1 img 80-94) ispessimento circonferenziale dell'esofago fino a circa 2,6 cm (img 92) a contatto con atrio sinistro e aorta, fegato senza lesioni evidenti; corretta l'estensione: il tratto ispessito va da circa img 76 a 102 (circa 6-7 cm, dal livello dell'atrio sinistro, circa 4 cm sotto la carena) e non da img 66 (8-9 cm), perché alle img 60-72 l'esofago è collassato a parete sottile. Licenza CC BY 3.0 verificata, nessun testo nei pixel. Reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione). TCGA-ESCA (IDC, CC BY 3.0), paziente TCGA-VR-AA7I, TC con contrasto endovenoso e orale; serie usate «C/C 2.5mm» assiale (318 img, dal collo alle cosce) e «POR COR 250» coronale (145 img; tolta 1 immagine sagittale isolata); escluse la serie senza contrasto, le altre ricostruzioni coronali e le serie LUNG, anonimizzate con anonimizza.py. Diagnosi dai dati GDC: carcinoma squamoso G1, terzo medio, pT4 N0 M0 (AJCC 7ª), R2, uomo, 70 anni (71 nei dati GDC per età alla diagnosi). Dubbi: 1) i limiti del tratto ispessito erano stimati alle immagini 66-102 (8-9 cm); in revisione corretti a circa 76-102 (6-7 cm), perché alle immagini 60-72 l'esofago è collassato a parete sottile; la parte bassa (immagini 100-104, vicino allo iato) è dubbia; 2) il T4 è patologico: in TC vedo contatto stretto con atrio sinistro e aorta ma non posso dire quale struttura fosse invasa (T4a o T4b non riportato); per questo la risposta è «invasione da valutare»; 3) linfonodi e fegato valutati solo a colpo d'occhio, coerenti con N0 M0; 4) la sequenza temporale tra TC e chirurgia non è nota (TC pre-operatoria perché il tumore è in sede); 5) TCGA-ESCA è una collezione nuova per licenze.html. Da controllare dal docente: T4 solo patologico (struttura invasa non riportata: la risposta dice «invasione da valutare»); limiti cranio-caudali del tratto ispessito stimati sulle assiali (circa 76-102)."
+}

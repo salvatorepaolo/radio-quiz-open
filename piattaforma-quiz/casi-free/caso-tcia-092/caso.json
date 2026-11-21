@@ -1,0 +1,141 @@
+{
+ "id": "caso-tcia-092",
+ "titolo": "TC torace senza mdc per noduli: dose ridotta e noduli non solidi",
+ "anamnesi": "Donna di 56 anni, TC del torace senza mezzo di contrasto per la ricerca di noduli polmonari. Strato 1,5 mm, filtro duro. Due serie dello stesso esame: la prima con la dose usata (CTDIvol circa 7,7 mGy), la seconda ricostruita come se la dose fosse stata ridotta al 10% (circa 0,8 mGy).",
+ "domanda": "Confronta le due serie in finestra polmonare: descrivi i noduli e giudica se la serie a dose ridotta basta per caratterizzarli e seguirli nel tempo.",
+ "opzioni": [
+  {
+   "testo": "Nodulo subsolido di circa 2,5 cm nel polmone destro (immagine 60), con vetro smerigliato e una parte più densa irregolare",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "La collezione lo classifica come subsolido non calcifico (vetro smerigliato o parzialmente solido).",
+   "sezione": 0
+  },
+  {
+   "testo": "Secondo nodulo subsolido di circa 8 mm, subpleurico anteriore destro (immagine 104)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Nella serie al 10% i noduli si vedono ancora, ma il rumore rende incerti i margini e la misura della componente solida",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo solido densamente calcifico nel polmone destro, benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Sufficiente per dire che i noduli ci sono, non per misurarne con affidabilità la componente solida, che decide la gestione",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Nei noduli subsolidi la gestione (Fleischner, Lung-RADS) dipende dalla misura della componente solida e dalla sua crescita: il rumore la rende meno riproducibile.",
+   "sezione": 1
+  },
+  {
+   "testo": "Sufficiente per tutto: i noduli in vetro smerigliato hanno lo stesso contrasto dei noduli solidi e si misurano bene anche con il rumore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Il vetro smerigliato ha un contrasto con l'aria molto minore (circa 200-400 HU contro 800-900): è più sensibile al rumore.",
+   "sezione": 1
+  },
+  {
+   "testo": "Insufficiente: nella serie al 10% i noduli non si vedono",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Noduli subsolidi del polmone destro, il maggiore di circa 2,5 cm: caratterizzazione e controlli nel tempo con la stessa tecnica e dose adeguata",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Esame negativo per noduli: le opacità sono artefatti da rumore della serie a bassa dose",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Nessun controllo: i noduli in vetro smerigliato sono sempre benigni (infiammatori o emorragici), qualunque sia la dimensione e la componente solida",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Un nodulo subsolido persistente può essere un adenocarcinoma a crescita lenta.",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Le due serie vengono dagli stessi dati di proiezione (dose al 10% simulata dalla collezione Mayo).\nIl vetro smerigliato ha un contrasto con il polmone circostante molto minore di un nodulo solido: per questo i noduli subsolidi sono il caso in cui la dose molto bassa fa più danni. Qui si vedono ancora, ma il rumore rende granulosi i margini e incerta la parte più densa.\nNei noduli subsolidi la gestione dipende dalla dimensione complessiva e soprattutto dalla componente solida e dalla sua crescita nel tempo. Se il rumore cambia da un esame all'altro, cambia anche la misura: per i controlli serve una tecnica costante (stesso strato, stesso filtro, dose adeguata) per non scambiare il rumore per una crescita.",
+ "visibile": true,
+ "acquisizione": true,
+ "titolo_interno": "Noduli subsolidi del polmone destro (circa 2,5 cm e 8 mm): visibili al 10% della dose ma margini e componente solida meno valutabili (LDCT C160)",
+ "distretto": "Torace",
+ "quesito": "nodulo polmonare",
+ "modalita": "TC",
+ "difficolta": "Avanzato",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi confrontando le due serie?"
+  },
+  {
+   "nome": "Qualità dell'acquisizione",
+   "domanda": "La serie a dose ridotta è adeguata al quesito?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "regola": "Vetro smerigliato = basso contrasto con l'aria: per misurarlo e seguirlo serve una dose adeguata e costante.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Due noduli subsolidi non calcifici del polmone destro segnalati dal radiologo toracico della collezione sulla scansione a dose piena (C160, Chest v11). Nessuna istologia."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "LDCT-and-Projection-data",
+  "soggetto": "C160 (immagini modificate)",
+  "doi": "10.7937/9NPB-2637",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "McCollough C., Chen B., Holmes III D., Duan X., Yu Z., Yu L., Leng S., Fletcher J. (2020). Low Dose CT Image and Projection Data (LDCT-and-Projection-data) (Version 7) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/9npb-2637 Immagini modificate dalla collezione: la serie a dose ridotta è simulata (rumore inserito nei dati di proiezione della scansione a dose piena e nuova ricostruzione), non è una seconda esposizione del paziente.",
+  "url": "https://www.cancerimagingarchive.net/collection/ldct-and-projection-data/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 0,
+  "idx": 59,
+  "wc": -600,
+  "ww": 1500,
+  "zoom": 1.5,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Immagine 60: nodulo subsolido maggiore del polmone destro"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Nessun esito critico: il problema è di protocollo, da discutere con il tecnico e nel referto."
+ },
+ "nota_docente": "Controllato il 25/10/2026: noduli verificati sulle immagini. Caso creato da Claude il 25/10/2026 da TCIA LDCT-and-Projection-data (CC BY 4.0, da IDC), paziente C160: «Full Dose Images» e «Low Dose Images» (10% simulato), Siemens, strato 1,5 mm, B50f, CTDIvol dichiarato 7,69 mGy. File Chest_v11 2026.xlsx: lesione 1 x183 y275 img 60, R 16,9 px; lesione 2 x203 y217 img 104, R 5,3 px; entrambe «Subsolid, non-calcified (ground-glass or semisolid)», polmone destro. Diametri dal raggio R × 0,74 mm × 2: circa 25 e 8 mm. Lobo non indicato nella tabella; la lesione 1 è nel lobo superiore destro, apicale anteriore (verificato in sagittale). Dimensione della componente solida non misurata. Immagini di controllo in _viste/val/c160.png. [revisione indipendente 25/10/2026] Lesione 1 (immagine 60) disomogenea con vetro smerigliato e parti più dense, apicale anteriore del lobo superiore destro sopra l'arco aortico (verificato in sagittale); lesione 2 (immagine 104) in vetro smerigliato di circa 8 mm subpleurica anteriore destra; entrambe visibili al 10% con margini granulosi. Corretta in serie.json la descrizione della serie 0 («dose standard» invece di «dose di screening»)."
+}

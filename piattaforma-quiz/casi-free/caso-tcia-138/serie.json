@@ -1,0 +1,20 @@
+[
+ {
+  "descrizione": "Vetrino · ematossilina-eosina · colon (20×)",
+  "tipo": "vetrino",
+  "files": [
+   "serie/vetrino/livello_0.dcm",
+   "serie/vetrino/livello_1.dcm",
+   "serie/vetrino/livello_2.dcm",
+   "serie/vetrino/livello_3.dcm",
+   "serie/vetrino/miniatura.dcm"
+  ],
+  "dimensioni": [
+   217046158,
+   14338232,
+   958560,
+   321796,
+   1263890
+  ]
+ }
+]

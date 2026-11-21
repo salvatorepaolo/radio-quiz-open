@@ -1,0 +1,604 @@
+[
+ {
+  "caso": "caso-tcia-001",
+  "serie": "0003_Recon_2_CHEST",
+  "d": 12.5,
+  "hu": -82,
+  "tipo": "solido",
+  "ref": 1092,
+  "geo": 1095,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   17.7,
+   17.7,
+   17.6
+  ],
+  "diametro": 17.7,
+  "volume": 2890.1756273627593,
+  "secondi": 30.8
+ },
+ {
+  "caso": "caso-tcia-001",
+  "serie": "0003_Recon_2_CHEST",
+  "d": 4.2,
+  "hu": -191,
+  "tipo": "solido",
+  "ref": 81,
+  "geo": 101,
+  "trovato": true,
+  "score": 0.98,
+  "lati": [
+   6.8,
+   6.9,
+   7.1
+  ],
+  "diametro": 7,
+  "volume": 176.06770272199626,
+  "secondi": 29
+ },
+ {
+  "caso": "caso-tcia-008",
+  "serie": "0002_noncontrast",
+  "d": 13.2,
+  "hu": -140,
+  "tipo": "solido",
+  "ref": 1289,
+  "geo": 589,
+  "trovato": true,
+  "score": 0.4,
+  "lati": [
+   14.1,
+   14.3,
+   15.5
+  ],
+  "diametro": 14.7,
+  "volume": 1644.7776119065913,
+  "secondi": 26.6
+ },
+ {
+  "caso": "caso-tcia-008",
+  "serie": "0013_late",
+  "d": 11.8,
+  "hu": -129,
+  "tipo": "solido",
+  "ref": 840,
+  "geo": 806,
+  "trovato": true,
+  "score": 0.57,
+  "lati": [
+   13.9,
+   14.1,
+   14.9
+  ],
+  "diametro": 14.3,
+  "volume": 1520.6590188595062,
+  "secondi": 30.3
+ },
+ {
+  "caso": "caso-tcia-010",
+  "serie": "0005_Serie_5",
+  "d": 6,
+  "hu": 179,
+  "tipo": "solido",
+  "ref": 108,
+  "geo": 124,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   5.5,
+   5.6,
+   5.7
+  ],
+  "diametro": 5.6,
+  "volume": 91.77222206799802,
+  "secondi": 34.7
+ },
+ {
+  "caso": "caso-tcia-011",
+  "serie": "0002_TC_2_mm_media_di_4_",
+  "d": 10.4,
+  "hu": -21,
+  "tipo": "solido",
+  "ref": 647,
+  "geo": 729,
+  "trovato": true,
+  "score": 0.93,
+  "lati": [
+   15.9,
+   15.9,
+   16.1
+  ],
+  "diametro": 16,
+  "volume": 2137.5809840382612,
+  "secondi": 32.8
+ },
+ {
+  "caso": "caso-tcia-011",
+  "serie": "0002_TC_2_mm_media_di_4_",
+  "d": 9.5,
+  "hu": 155,
+  "tipo": "solido",
+  "ref": 415,
+  "geo": 577,
+  "trovato": true,
+  "score": 0.25,
+  "lati": [
+   13.8,
+   14.3,
+   14.2
+  ],
+  "diametro": 14.1,
+  "volume": 1472.6414295205677,
+  "secondi": 32.4
+ },
+ {
+  "caso": "caso-tcia-012",
+  "serie": "0006_CT_WB_1_0_B30f",
+  "d": 34.5,
+  "hu": 12,
+  "tipo": "solido",
+  "ref": 29746,
+  "geo": null,
+  "trovato": false,
+  "secondi": 35
+ },
+ {
+  "caso": "caso-tcia-012",
+  "serie": "0006_CT_WB_1_0_B30f",
+  "d": 11,
+  "hu": -29,
+  "tipo": "solido",
+  "ref": 641,
+  "geo": null,
+  "trovato": false,
+  "secondi": 40.8
+ },
+ {
+  "caso": "caso-tcia-014",
+  "serie": "0006_3MM",
+  "d": 11.2,
+  "hu": -48,
+  "tipo": "solido",
+  "ref": 713,
+  "geo": null,
+  "trovato": true,
+  "score": 0.22,
+  "lati": [
+   11.6,
+   11.7,
+   11.5
+  ],
+  "diametro": 11.6,
+  "volume": 816.8312709539769,
+  "secondi": 38.9
+ },
+ {
+  "caso": "caso-tcia-014",
+  "serie": "0006_3MM",
+  "d": 9.7,
+  "hu": 7,
+  "tipo": "solido",
+  "ref": 386,
+  "geo": 47075,
+  "trovato": true,
+  "score": 0.95,
+  "lati": [
+   19,
+   19,
+   19.2
+  ],
+  "diametro": 19.1,
+  "volume": 3640.004839199644,
+  "secondi": 36.4
+ },
+ {
+  "caso": "caso-tcia-025",
+  "serie": "0003_CHEST_1_25_MM",
+  "d": 19.1,
+  "hu": -509,
+  "tipo": "parzialmente solido",
+  "ref": 2776,
+  "geo": 88,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   15.6,
+   15.9,
+   16.1
+  ],
+  "diametro": 15.9,
+  "volume": 2099.9869678620657,
+  "secondi": 43.7
+ },
+ {
+  "caso": "caso-tcia-026",
+  "serie": "0002_625_mm_Chest",
+  "d": 4.9,
+  "hu": -36,
+  "tipo": "solido",
+  "ref": 84,
+  "geo": 53,
+  "trovato": true,
+  "score": 1,
+  "lati": [
+   6.9,
+   6.9,
+   6.9
+  ],
+  "diametro": 6.9,
+  "volume": 173.22297236511326,
+  "secondi": 45.4
+ },
+ {
+  "caso": "caso-tcia-027",
+  "serie": "0005_noncontrast",
+  "d": 5.3,
+  "hu": -493,
+  "tipo": "vetro smerigliato",
+  "ref": 97,
+  "geo": 9,
+  "trovato": true,
+  "score": 0.95,
+  "lati": [
+   7,
+   7,
+   7.1
+  ],
+  "diametro": 7.1,
+  "volume": 184.88527836860297,
+  "secondi": 45.2
+ },
+ {
+  "caso": "caso-tcia-027",
+  "serie": "0010_arterial",
+  "d": 5.1,
+  "hu": -103,
+  "tipo": "solido",
+  "ref": 72,
+  "geo": 94,
+  "trovato": true,
+  "score": 0.97,
+  "lati": [
+   6.2,
+   6.1,
+   6.3
+  ],
+  "diametro": 6.2,
+  "volume": 123.04020612491263,
+  "secondi": 32.6
+ },
+ {
+  "caso": "caso-tcia-027",
+  "serie": "0012_late",
+  "d": 5.5,
+  "hu": -203,
+  "tipo": "solido",
+  "ref": 115,
+  "geo": 78,
+  "trovato": true,
+  "score": 0.96,
+  "lati": [
+   6.4,
+   6.4,
+   6.5
+  ],
+  "diametro": 6.4,
+  "volume": 137.90071948301178,
+  "secondi": 33.5
+ },
+ {
+  "caso": "caso-tcia-029",
+  "serie": "0002_noncontrast",
+  "d": 5.1,
+  "hu": -160,
+  "tipo": "solido",
+  "ref": 86,
+  "geo": 119,
+  "trovato": true,
+  "score": 0.98,
+  "lati": [
+   6.9,
+   6.8,
+   7
+  ],
+  "diametro": 6.9,
+  "volume": 173.2229723651131,
+  "secondi": 23.6
+ },
+ {
+  "caso": "caso-tcia-029",
+  "serie": "0005_arterial",
+  "d": 5.8,
+  "hu": -232,
+  "tipo": "solido",
+  "ref": 113,
+  "geo": 111,
+  "trovato": true,
+  "score": 0.95,
+  "lati": [
+   6.9,
+   6.9,
+   7
+  ],
+  "diametro": 7,
+  "volume": 176.06770272199645,
+  "secondi": 19.7
+ },
+ {
+  "caso": "caso-tcia-029",
+  "serie": "0006_late",
+  "d": 6.1,
+  "hu": -208,
+  "tipo": "solido",
+  "ref": 129,
+  "geo": 109,
+  "trovato": true,
+  "score": 0.97,
+  "lati": [
+   6.9,
+   6.9,
+   7
+  ],
+  "diametro": 7,
+  "volume": 176.06770272199645,
+  "secondi": 23.4
+ },
+ {
+  "caso": "caso-tcia-034",
+  "serie": "0002_SIMULATO",
+  "d": 17.7,
+  "hu": -606,
+  "tipo": "parzialmente solido",
+  "ref": 2184,
+  "geo": 171,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   7.6,
+   7.8,
+   7.8
+  ],
+  "diametro": 7.7,
+  "volume": 240.11527316637122,
+  "secondi": 30.7
+ },
+ {
+  "caso": "caso-tcia-034",
+  "serie": "0002_SIMULATO",
+  "d": 14.5,
+  "hu": -29,
+  "tipo": "solido",
+  "ref": 1358,
+  "geo": 1345,
+  "trovato": true,
+  "score": 1,
+  "lati": [
+   14.3,
+   14.3,
+   14.2
+  ],
+  "diametro": 14.3,
+  "volume": 1525.8399197546862,
+  "secondi": 30.2
+ },
+ {
+  "caso": "caso-tcia-034",
+  "serie": "0002_SIMULATO",
+  "d": 10.8,
+  "hu": -664,
+  "tipo": "vetro smerigliato",
+  "ref": 522,
+  "geo": 14,
+  "trovato": true,
+  "score": 1,
+  "lati": [
+   12.3,
+   12.2,
+   12.5
+  ],
+  "diametro": 12.3,
+  "volume": 985.4404916896199,
+  "secondi": 29.9
+ },
+ {
+  "caso": "caso-tcia-034",
+  "serie": "0002_SIMULATO",
+  "d": 6.1,
+  "hu": -183,
+  "tipo": "solido",
+  "ref": 123,
+  "geo": 92,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   6.4,
+   6.3,
+   6.4
+  ],
+  "diametro": 6.3,
+  "volume": 133.4805865251606,
+  "secondi": 29.7
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 15,
+  "hu": -17,
+  "tipo": "solido",
+  "ref": 1615,
+  "geo": 1639,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   15.1,
+   15.1,
+   15
+  ],
+  "diametro": 15.1,
+  "volume": 1790.0402114101437,
+  "secondi": 31.2
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 12.7,
+  "hu": -22,
+  "tipo": "solido",
+  "ref": 1034,
+  "geo": 35,
+  "trovato": true,
+  "score": 1,
+  "lati": [
+   13.1,
+   13.3,
+   13.5
+  ],
+  "diametro": 13.3,
+  "volume": 1233.2105196828284,
+  "secondi": 30.5
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 10.6,
+  "hu": -47,
+  "tipo": "solido",
+  "ref": 611,
+  "geo": 648,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   11.5,
+   11.4,
+   11.4
+  ],
+  "diametro": 11.4,
+  "volume": 782.4429379917977,
+  "secondi": 30.6
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 8.6,
+  "hu": -55,
+  "tipo": "solido",
+  "ref": 347,
+  "geo": 346,
+  "trovato": true,
+  "score": 1,
+  "lati": [
+   9.3,
+   9.4,
+   9.3
+  ],
+  "diametro": 9.3,
+  "volume": 424.31373767023734,
+  "secondi": 30.8
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 7.8,
+  "hu": -73,
+  "tipo": "solido",
+  "ref": 245,
+  "geo": 218,
+  "trovato": true,
+  "score": 1,
+  "lati": [
+   8,
+   8,
+   8.1
+  ],
+  "diametro": 8,
+  "volume": 271.8702132684685,
+  "secondi": 30.3
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 6.5,
+  "hu": -45,
+  "tipo": "solido",
+  "ref": 138,
+  "geo": 151,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   7.3,
+   7.1,
+   7.4
+  ],
+  "diametro": 7.3,
+  "volume": 200.57342371041327,
+  "secondi": 35.5
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 6.3,
+  "hu": -166,
+  "tipo": "solido",
+  "ref": 105,
+  "geo": 85,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   6.4,
+   6.2,
+   6.7
+  ],
+  "diametro": 6.4,
+  "volume": 137.90071845557122,
+  "secondi": 40
+ },
+ {
+  "caso": "caso-tcia-035",
+  "serie": "0002_SIMULATO",
+  "d": 4.4,
+  "hu": -16,
+  "tipo": "solido",
+  "ref": 25,
+  "geo": 56,
+  "trovato": true,
+  "score": 0.99,
+  "lati": [
+   4.7,
+   4.7,
+   4.6
+  ],
+  "diametro": 4.7,
+  "volume": 52.78771068395984,
+  "secondi": 44.2
+ },
+ {
+  "caso": "caso-tcia-036",
+  "serie": "0002_SIMULATO",
+  "d": 8.8,
+  "hu": -56,
+  "tipo": "solido",
+  "ref": 379,
+  "geo": 320,
+  "trovato": true,
+  "score": 1,
+  "lati": [
+   9.2,
+   9.4,
+   9.3
+  ],
+  "diametro": 9.3,
+  "volume": 423.6538084249548,
+  "secondi": 43.4
+ },
+ {
+  "caso": "caso-tcia-036",
+  "serie": "0002_SIMULATO",
+  "d": 6,
+  "hu": 162,
+  "tipo": "solido",
+  "ref": 110,
+  "geo": 102,
+  "errore": "page.evaluate: Target page, context or browser has been closed"
+ }
+]

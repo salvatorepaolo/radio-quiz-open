@@ -1,0 +1,129 @@
+{
+ "titolo": "RM encefalo: lesione di nuova diagnosi in donna di 26 anni",
+ "titolo_interno": "Oligodendroglioma IDH-mutato 1p/19q codeleto, grado 2, insulare destro (ReMIND-052)",
+ "distretto": "Encefalo",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "quesito": "lesione cerebrale",
+ "anamnesi": "Donna di 26 anni. RM dell'encefalo con mezzo di contrasto (FLAIR, T1 3D dopo mdc, T2 3D). Nessun intervento precedente. Dettagli clinici non forniti dalla collezione.",
+ "domanda": "Descrivi la lesione e indica che tipo di tumore è più probabile.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è l'ipotesi più probabile?",
+   "singola": true
+  }
+ ],
+ "spiegazione": "Lesione infiltrante, iperintensa in T2/FLAIR, senza impregnazione, in un adulto giovane: glioma diffuso a basso grado. Secondo la WHO 2021 i gliomi diffusi dell'adulto si distinguono per il profilo molecolare: astrocitoma IDH-mutato (1p/19q integro), oligodendroglioma IDH-mutato e 1p/19q codeleto, glioblastoma IDH wild-type.\nIndizi per l'oligodendroglioma: sede corticale-sottocorticale frontale o insulare, margini meno netti, segnale T2 eterogeneo, calcificazioni (meglio in TC o in SWI). Indizio per l'astrocitoma IDH-mutato 1p/19q integro: il segno del «mismatch T2-FLAIR» (lesione omogenea in T2 con centro ipointenso in FLAIR e bordo iperintenso). La diagnosi definitiva resta istologica e molecolare.\nL'assenza di impregnazione non esclude il grado 3: l'impregnazione compare spesso, non sempre, nei gliomi di grado più alto.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Oligodendroglioma, IDH-mutato e 1p/19q codeleto, WHO grado 2 (dati della collezione ReMIND)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "ReMIND (Brain Resection Multimodal Imaging Database)",
+  "doi": "10.7937/3RAG-D070",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Juvekar P., Dorent R., Kögl F., et al. (2023). The Brain Resection Multimodal Imaging Database (ReMIND) (Version 1) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/3RAG-D070",
+  "url": "https://www.cancerimagingarchive.net/collection/remind/",
+  "soggetto": "ReMIND-052"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  1
+ ],
+ "vista": {
+  "serie": 0,
+  "idx": 16,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Lesione insulare destra iperintensa in FLAIR"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Lesione senza effetto massa importante: basta il referto, letto dal curante nei tempi ordinari; una telefonata è accettabile se la diagnosi è nuova."
+ },
+ "regola": "Lesione cerebrale senza impregnazione in un giovane: glioma a basso grado; il tipo lo dice il profilo molecolare.",
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini (FLAIR, T1 3D dopo mdc, T2 3D): lesione infiltrante insulare-opercolare destra (a sinistra dell'immagine, orientamento DICOM coerente), iperintensa in FLAIR e T2, ipointensa e senza impregnazione in T1 post-mdc, senza spostamento della linea mediana; misure coerenti con la segmentazione della collezione. Nessuna correzione.\nReMIND-052 (IDC, CC BY 4.0), studio preoperatorio: FLAIR 2D, T1 3D post-mdc, T2 3D. Defacciate alla fonte; specchiate da Claude in convenzione radiologica. Clinica: F26, oligodendroglioma WHO 2, IDH-mutato, 1p/19q codeleto, MGMT parziale, enhancement no, Right Insular, eloquente, 19,3 mL. Motivo dell'esame non indicato dalla collezione. SEG 32×58×39 mm. [verifica 25/10/2026] Rivisto sulle immagini: lesione insulare/opercolare destra iperintensa in FLAIR (img 14-18), ipointensa e senza impregnazione nella T1 dopo mdc (img 80-100), nessuno spostamento della linea mediana. Testo invariato.",
+ "id": "caso-tcia-059",
+ "visibile": true,
+ "opzioni": [
+  {
+   "testo": "Lesione infiltrante dell'insula destra, estesa all'opercolo e alla capsula esterna, iperintensa in FLAIR e T2, ipointensa in T1, di circa 3 × 5 × 4 cm",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Segmentazione degli esperti: circa 32 × 58 × 39 mm (19 mL)."
+  },
+  {
+   "testo": "Nessuna impregnazione dopo mezzo di contrasto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Nella T1 dopo mdc la lesione resta ipointensa, senza noduli captanti."
+  },
+  {
+   "testo": "Effetto massa lieve, senza spostamento della linea mediana né edema perilesionale distinto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Impregnazione ad anello con necrosi centrale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Non c'è impregnazione: il quadro non è quello di un tumore di alto grado o di una metastasi."
+  },
+  {
+   "testo": "Iperintensità limitata a un territorio arterioso, con restrizione della diffusione (ictus)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Un ictus dell'arteria cerebrale media coinvolgerebbe la corteccia del territorio con edema citotossico; qui una massa espande l'insula in una donna giovane."
+  },
+  {
+   "testo": "Glioma diffuso a basso grado dell'insula (IDH-mutato; oligodendroglioma o astrocitoma): discussione multidisciplinare, biopsia o resezione per la diagnosi molecolare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Glioblastoma dell'insula con necrosi e impregnazione ad anello (IDH wild-type): resezione ampia e radio-chemioterapia con temozolomide",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Senza impregnazione né necrosi e in una donna di 26 anni il glioblastoma è improbabile."
+  },
+  {
+   "testo": "Encefalite erpetica del lobo temporale e dell'insula, con edema e restrizione della diffusione corticale: aciclovir endovena subito, puntura lombare con PCR per HSV",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "L'encefalite erpetica colpisce lobi temporali mesiali e insula, spesso bilaterale e asimmetrica, con clinica acuta (febbre, confusione). Qui la lesione è una massa espansiva unilaterale senza quadro clinico acuto."
+  },
+  {
+   "testo": "Lesione demielinizzante tumefattiva con impregnazione ad anello incompleto aperto verso la corteccia: ciclo di steroidi e controllo RM, senza biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Le lesioni demielinizzanti tumefattive hanno spesso un anello incompleto di impregnazione aperto verso la corteccia e poco effetto massa per la loro dimensione."
+  }
+ ],
+ "aggiornato": "2026-11-05 20:25"
+}

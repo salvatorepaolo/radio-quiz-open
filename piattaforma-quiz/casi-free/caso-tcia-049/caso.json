@@ -1,0 +1,162 @@
+{
+ "id": "caso-tcia-049",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:25",
+ "titolo": "Angio-TC del torace: dispnea in paziente anziano",
+ "titolo_interno": "Embolia polmonare minima: singolo difetto di riempimento in un ramo segmentario dell'arteria polmonare destra; alterazioni reticolari subpleuriche basali, senza enfisema significativo",
+ "distretto": "Torace",
+ "quesito": "sospetta embolia polmonare",
+ "modalita": "TC",
+ "difficolta": "Avanzato",
+ "anamnesi": "Uomo di 71 anni con dispnea. Angio-TC delle arterie polmonari per sospetta embolia polmonare (strati di 1 mm). Altri dati clinici non disponibili.",
+ "domanda": "Referta l'angio-TC seguendo ogni arteria fino ai rami segmentari, poi il parenchima; indica il reperto sull'immagine.",
+ "sezioni": [
+  {
+   "nome": "Arterie polmonari",
+   "domanda": "Che cosa vedi nelle arterie polmonari?"
+  },
+  {
+   "nome": "Polmoni, cuore e altro",
+   "domanda": "Quali altri reperti ci sono?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Piccolo difetto di riempimento in un ramo segmentario dell'arteria polmonare destra (territorio del lobo medio o inferiore), lungo circa 8 mm: embolia polmonare segmentaria isolata",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "È l'unico trombo segnato dai radiologi della collezione: un ramo segmentario laterale all'ilo destro, su circa 8 immagini da 1 mm. Si trova solo seguendo i vasi uno per uno.",
+   "sezione": 0
+  },
+  {
+   "testo": "Nessun difetto di riempimento nelle arterie polmonari principali, lobari, segmentarie e subsegmentarie: esame negativo per embolia polmonare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "C'è un piccolo trombo segmentario a destra: è il tipico reperto che sfugge senza una lettura sistematica.",
+   "sezione": 0
+  },
+  {
+   "testo": "Emboli bilaterali estesi nei rami principali e lobari delle arterie polmonari, con dilatazione del ventricolo destro (rapporto VD/VS superiore a 1) e reflusso in cava",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Le arterie principali e lobari sono pervie.",
+   "sezione": 0
+  },
+  {
+   "testo": "Il difetto ilare destro è un linfonodo calcifico accanto al vaso, non un trombo: arterie polmonari pervie fino ai rami segmentari",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Il linfonodo sta fuori dal vaso; il trombo sta dentro il lume e il vaso, seguito nelle immagini vicine, si interrompe o è circondato da mdc. Scorri sopra e sotto, o usa l'MPR lungo il vaso.",
+   "sezione": 0
+  },
+  {
+   "testo": "Enfisema centrolobulare bilaterale ai lobi superiori, con bolle",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Non c'è enfisema significativo: meno dell'1% del polmone sotto −950 HU, nessuna area di distruzione del parenchima.",
+   "sezione": 1
+  },
+  {
+   "testo": "Alterazioni reticolari subpleuriche ai lobi inferiori",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Da descrivere e, se non note, da approfondire con TC ad alta risoluzione.",
+   "sezione": 1
+  },
+  {
+   "testo": "Versamento pleurico bilaterale di media entità",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Non c'è versamento pleurico.",
+   "sezione": 1
+  },
+  {
+   "testo": "Embolia polmonare segmentaria isolata a destra: va comunicata subito al medico (in assenza di controindicazioni si inizia l'anticoagulazione)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Esame negativo per embolia polmonare: nessuna comunicazione urgente e nessuna terapia anticoagulante",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Reperto minimo segmentario non significativo: nessuna terapia e nessuna comunicazione al medico, solo il referto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Un'embolia segmentaria è una diagnosi che cambia la terapia: si comunica. Il dibattito sul trattamento riguarda l'embolia subsegmentaria isolata, non questa.",
+   "sezione": 2
+  },
+  {
+   "testo": "Embolia polmonare massiva con sovraccarico destro (VD/VS oltre 1, setto rettilineo): indicazione alla trombolisi sistemica, comunicazione immediata",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Le embolie piccole si perdono quando si guarda solo il centro. Il metodo: per ogni lobo si segue l'arteria lobare e ogni ramo segmentario fino alla periferia, scorrendo avanti e indietro con una finestra larga (100/700) e, nei dubbi, con l'MPR lungo il vaso o una MIP sottile. Un vero trombo è un difetto dentro il lume, riconoscibile in più immagini consecutive; i falsi positivi più comuni sono i linfonodi ilari (fuori dal vaso), gli artefatti da flusso misto (bordi sfumati, scompaiono con la finestra), il movimento respiratorio e le vene confuse con arterie (le arterie corrono accanto ai bronchi).\n\nAnche un'embolia segmentaria isolata è un esito da comunicare subito: in assenza di controindicazioni si tratta con anticoagulanti. Il caso è anche un esercizio di localizzazione: indica il trombo sull'immagine.",
+ "regola": "Ogni arteria lobare, ogni ramo segmentario: le embolie piccole si trovano solo seguendo i vasi uno per uno.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Embolia polmonare confermata nel dataset FUMPE: un solo trombo segmentato dai due radiologi. Nessun altro dato clinico disponibile."
+ },
+ "fonte": {
+  "archivio": "figshare",
+  "collezione": "FUMPE",
+  "soggetto": "Patient10",
+  "doi": "10.6084/m9.figshare.c.4107803",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Masoudi M., Pourreza H.R., Saadatmand-Tarzjan M., Eftekhari N., Zargar F.S., Rad M.P. (2018). A new dataset of computed-tomography angiography images for computer-aided detection of pulmonary embolism. Scientific Data 5, 180180. doi:10.1038/sdata.2018.180",
+  "url": "https://figshare.com/collections/_/4107803"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "localizza": true,
+ "vista": {
+  "serie": 0,
+  "idx": 70,
+  "wc": 100,
+  "ww": 700,
+  "zoom": 2,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 150,
+    "y": 246
+   },
+   "b": {
+    "x": 186,
+    "y": 279
+   }
+  },
+  "nota": "Trombo in un ramo segmentario destro"
+ },
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente",
+   "ps"
+  ],
+  "parole": [
+   "embolia",
+   "segmentaria"
+  ],
+  "motivo": "Anche un'embolia piccola è un esito critico: va comunicata a voce subito (o almeno entro poche ore se il paziente è stabile) perché la terapia anticoagulante parte dalla diagnosi."
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini: nella sede della maschera FUMPE (immagini 66-74) un ramo arterioso anterolaterale al bronco intermedio destro ha densità di circa 0-150 HU contro circa 250-320 HU del tronco polmonare, compatibile con difetto di riempimento; alterazioni reticolari subpleuriche basali presenti, senza enfisema né versamento. Nessuna correzione.\nDataset FUMPE (figshare, CC BY 4.0), Patient10: un solo trombo nelle maschere (676 voxel, fette 67-74 della serie, righe 251-274, colonne 155-181). Lobo (medio o inferiore) non verificato. Enfisema e alterazioni reticolari basali: lettura di Claude, rivista il 24/10 (vedi sotto).\n[verifica 24/10/2026] Rivisto: trombo segmentario destro nelle immagini 66-74. «Enfisema bilaterale» era sbagliato (LAA−950 circa 0,8%): diventato distrattore. Restano le alterazioni reticolari subpleuriche basali. Reso visibile."
+}

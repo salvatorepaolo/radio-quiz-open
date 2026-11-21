@@ -1,0 +1,18 @@
+[
+ {
+  "descrizione": "Vetrino · ematossilina-eosina · polmone (20×)",
+  "tipo": "vetrino",
+  "files": [
+   "serie/vetrino/livello_0.dcm",
+   "serie/vetrino/livello_1.dcm",
+   "serie/vetrino/livello_2.dcm",
+   "serie/vetrino/miniatura.dcm"
+  ],
+  "dimensioni": [
+   215559790,
+   21669212,
+   1558698,
+   2326102
+  ]
+ }
+]

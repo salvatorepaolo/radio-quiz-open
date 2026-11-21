@@ -1,0 +1,122 @@
+{
+ "id": "caso-tcia-019",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:20",
+ "titolo": "RM pelvi: carcinoma della cervice e vescica",
+ "titolo_interno": "Carcinoma squamoso della cervice molto avanzato (FIGO IVA nel registro): la RM non dimostra l'invasione mucosa, trappola del coronale",
+ "distretto": "Pelvi",
+ "quesito": "stadiazione oncologica",
+ "modalita": "RM",
+ "difficolta": "Avanzato",
+ "anamnesi": "Donna di 64 anni con perdite ematiche vaginali. Biopsia cervicale: carcinoma squamoso. RM della pelvi per la stadiazione locale (sequenze disponibili: T2 sagittale, coronale e assiale obliquo, T1 assiale).",
+ "domanda": "Referta in ordine: tumore, vescica e retto, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tumore",
+   "domanda": "Tumore primitivo: cosa osservi?"
+  },
+  {
+   "nome": "Vescica e retto",
+   "domanda": "Vescica e retto: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Voluminosa massa cervicale a segnale intermedio in T2, estesa al corpo uterino, che occupa gran parte della pelvi",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Area centrale iperintensa in T2 nel contesto della massa, in continuità con la vagina distesa dal gel (cratere ulcerato del tumore)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Utero di dimensioni e segnale normali, con cervice, anello stromale e fornici vaginali regolari",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Parete vescicale posteriore visibile come sottile linea ipointensa continua nel sagittale e nell'assiale: infiltrazione della mucosa vescicale non dimostrata in RM",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Nel coronale la massa sembra dentro la vescica: infiltrazione vescicale certa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Retto compresso e spostato dalla massa, senza segni sicuri di infiltrazione della parete",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Carcinoma della cervice localmente molto avanzato, non operabile: chemio-radioterapia; cistoscopia e rettoscopia con biopsia per lo stadio IVA e stadiazione a distanza (TC o PET-TC)",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Carcinoma della cervice FIGO IIA, esteso solo ai due terzi superiori della vagina, senza invasione dei parametri né della vescica o del retto: indicazione a isterectomia radicale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Adenomiosi diffusa con utero globoso e raccolta endometriale benigna (ematometra), senza massa cervicale: terapia ormonale e controllo ecografico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Lo stadio FIGO IVA è definito dall'invasione della mucosa della vescica o del retto, comprovata da biopsia. In RM i segni sono: perdita della linea ipointensa della parete muscolare in T2, tessuto nodulare che protrude nel lume, ispessimento focale della parete in continuità con il tumore. L'edema bolloso della mucosa da solo non basta.\nTrappola di questo esame: nel T2 coronale la massa sembra dentro la vescica: in realtà la solleva e la improfonta dal basso, per cui l'urina la circonda ai lati, mentre il liquido chiaro al centro della massa è il gel che distende la vagina e il cratere del tumore. Nel sagittale e nell'assiale la parete vescicale posteriore resta una sottile linea scura continua: l'infiltrazione non è dimostrata. Ogni sospetto di invasione va sempre confrontato su almeno due piani.\nNel registro questa paziente è in stadio IVA: l'organo infiltrato non è specificato, e l'invasione della mucosa si conferma con l'endoscopia, non con la RM. La RM serve soprattutto a escluderla quando la parete è integra, e a guidare la radioterapia.\nIn un tumore così voluminoso la terapia è comunque la chemio-radioterapia; il rischio di fistola vescico- o retto-vaginale durante il trattamento va segnalato. Completare con stadiazione a distanza (linfonodi lombo-aortici, polmoni).",
+ "regola": "FIGO IVA = mucosa di vescica o retto infiltrata, provata con biopsia; un sospetto in RM si conferma su due piani.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma squamoso della cervice, stadio FIGO IVA (dati clinici TCGA della collezione TCGA-CESC; non è indicato se per invasione vescicale o rettale né come sia stata accertata)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-CESC",
+  "doi": "10.7937/K9/TCIA.2016.SQ4M8YP4",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Lucchesi F. R., Aredes N. D. (2016). The Cancer Genome Atlas Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma Collection (TCGA-CESC) (Version 3) [Data set]. The Cancer Imaging Archive. The results here are in whole or part based upon data generated by the TCGA Research Network: http://cancergenome.nih.gov/.",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-cesc/",
+  "soggetto": "TCGA-VS-A953"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 0,
+  "idx": 15,
+  "wc": 891,
+  "ww": 1766,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Parete vescicale posteriore integra; gel in vagina e nel cratere"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: verificato sulle immagini T2 sagittali (12-18), coronali (9-13) e assiali (18-26): parete vescicale posteriore ipointensa continua, massa che improfonta la base vescicale, gel in vagina e nel cratere; corretta nella spiegazione la descrizione della trappola del coronale (il liquido ai lati della massa è urina della vescica improntata, il gel è al centro).\nCaso importato da TCIA il 13/10/2026 (bozza). Reperti letti da Claude sulle immagini, ricontrollati la sera del 13/10.\nRivisto: nel coronale (fette 8-12) la massa sembra endovescicale, ma nel sagittale (fette 11-19) e nell'assiale obliquo (fette 16-28) la parete vescicale posteriore è una linea ipointensa continua; il liquido davanti alla massa è gel nella vagina. Per questo le opzioni non danno più l'infiltrazione vescicale come corretta. Retto (assiale 20-24) compresso; nella parte alta della pelvi (assiale 32-36) tessuto attorno al retto-sigma non chiaramente interpretabile. Lo stadio IVA è quello registrato in TCGA, senza l'organo.\n[controllato e pubblicato il 18/10/2026 su richiesta dell'amministratore («controlla i casi e valida quelli buoni»): parete vescicale posteriore ricontrollata nel sagittale (fette 12-18) e nell'assiale (20-24): linea ipointensa continua; la conclusione rimanda alla cistoscopia, coerente con lo stadio IVA registrato]"
+}

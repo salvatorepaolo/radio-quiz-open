@@ -1,0 +1,123 @@
+{
+ "distretto": "Muscolo-scheletrico",
+ "modalita": "RX",
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  1
+ ],
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "fonte": {
+  "archivio": "figshare (Scientific Data), non TCIA",
+  "collezione": "GRAZPEDWRI-DX",
+  "doi": "10.6084/m9.figshare.14825193",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Nagy E., Janisch M., Hržić F., Sorantin E., Tschauner S. (2022). A pediatric wrist trauma X-ray dataset (GRAZPEDWRI-DX) for machine learning. Scientific Data 9, 222. https://doi.org/10.1038/s41597-022-01328-z",
+  "url": "https://doi.org/10.6084/m9.figshare.14825193",
+  "nota": "Immagini convertite da PNG a 16 bit in DICOM da radio-quiz.it: non sono DICOM originali. Nessuna modifica dei pixel."
+ },
+ "titolo": "RX polso sinistro dopo trauma: bambino di 10 anni",
+ "titolo_interno": "Frattura a toro (buckle) della metafisi distale del radio (GRAZPEDWRI-DX paziente 4530, AO 23r-M/2.1)",
+ "quesito": "trauma del polso",
+ "difficolta": "Intermedio",
+ "anamnesi": "Bambino di 10 anni con dolore al polso sinistro dopo un trauma (dinamica non fornita dalla collezione). Prima radiografia, AP e laterale.",
+ "domanda": "C'è una frattura? Se sì, descrivila e indica la gestione.",
+ "opzioni": [
+  {
+   "testo": "Piega (rigonfiamento) della corticale dorsale della metafisi distale del radio, meglio visibile in laterale, senza linea di frattura completa: frattura a toro (buckle)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Annotata dalla collezione come AO 23r-M/2.1 (metafisi, frattura incompleta)."
+  },
+  {
+   "testo": "Fisi distali di radio e ulna regolari, senza slargamenti",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Nessuno spostamento né angolazione significativa",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Frattura completa trasversa scomposta del radio distale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Distacco epifisario Salter-Harris I del radio",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Frattura dello scafoide",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Frattura a toro del radio distale: lesione stabile, basta un tutore rimovibile per alcune settimane, di solito senza controllo radiografico",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Le linee guida pediatriche (per es. NICE NG38) indicano per le buckle fractures il tutore rimovibile senza controlli di routine."
+  },
+  {
+   "testo": "Radiografia normale: nessuna frattura, la corticale è integra; solo ghiaccio e riposo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Frattura scomposta del radio distale con angolazione dorsale: riduzione in narcosi e fissazione con fili di Kirschner, controllo radiografico a una settimana",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "La frattura a toro (buckle) è la frattura più frequente del polso del bambino: l'osso metafisario, poroso ed elastico, si piega per compressione invece di rompersi. Il segno è un piccolo rigonfiamento o una brusca angolatura del profilo della corticale, spesso solo su un lato e solo in una proiezione (qui la laterale, versante dorsale). Si cerca seguendo il profilo della corticale dalla diafisi alla fisi: deve essere una curva liscia. È stabile e guarisce bene con un tutore; la diagnosi differenziale è con la frattura a legno verde (corticale opposta interrotta) e con la frattura completa.",
+ "regola": "Segui il profilo della corticale metafisaria in entrambe le proiezioni: ogni gobba o angolo brusco nel bambino è una frattura a toro finché non si dimostra il contrario.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Annotazione della collezione GRAZPEDWRI-DX: AO pediatrica 23r-M/2.1 (radio distale, metafisi, frattura incompleta a toro). Nessun dato sul trattamento."
+ },
+ "vista": {
+  "serie": 1,
+  "idx": 0,
+  "zoom": 1.8,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Laterale: piega della corticale dorsale della metafisi radiale"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Frattura stabile: basta il referto."
+ },
+ "nota_docente": "Controllato il 25/10/2026: frattura a toro verificata in laterale. Caso nuovo 25/10/2026 (Claude). GRAZPEDWRI-DX paziente 4530 (4530_0775036514_01_WRI-L1_M010 AP, 4530_0775036556_01_WRI-L2_M010 laterale); età 10,3, maschio, polso sinistro, primo esame, pixel 0,144 mm; AO 23r-M/2.1. Convertite da PNG 16 bit in DICOM. Lettura di Claude: piega della corticale dorsale in laterale; in AP il reperto è sfumato. [revisione indipendente 25/10/2026] Piega della corticale dorsale della metafisi radiale in laterale, fisi regolari, nessuno spostamento; marcatore L coerente. Gestione conforme a NICE NG38. Correzione: titolo «dopo trauma».",
+ "id": "caso-tcia-095",
+ "visibile": true
+}

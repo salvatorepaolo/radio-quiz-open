@@ -1,0 +1,151 @@
+{
+ "titolo": "TC addome con mdc: massa renale destra in uomo di 55 anni",
+ "titolo_interno": "Carcinoma renale a cellule chiare destro di circa 10 cm, ISUP 3, pT3 N1 M1: metastasi polmonari; linfonodo non separabile dalla cava in fase arteriosa (KiTS-00070)",
+ "distretto": "Addome",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "quesito": "oncologico",
+ "anamnesi": "Uomo di 55 anni con massa renale destra (motivo dell'esame non indicato dalla collezione). TC con mezzo di contrasto in fase arteriosa tardiva, strati di 5 mm, dalle basi polmonari ai reni.",
+ "domanda": "Descrivi la massa renale e stadia la malattia: guarda anche linfonodi e basi polmonari.",
+ "sezioni": [
+  {
+   "nome": "Rene",
+   "domanda": "Che cosa vedi nel rene?"
+  },
+  {
+   "nome": "Stadiazione",
+   "domanda": "E fuori dal rene?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "spiegazione": "Il carcinoma a cellule chiare è il tipo più frequente (70-80%) di carcinoma renale. In TC è tipicamente ipervascolare e disomogeneo, con captazione intensa nella fase corticomidollare e aree di necrosi, emorragia o cisti. Il papillare è invece omogeneo e poco vascolarizzato e il cromofobo ha un'impregnazione intermedia.\nStadiazione (TNM): T1 ≤ 7 cm; T2 > 7 cm limitato al rene; T3a grasso perirenale o del seno o vena renale, T3b cava sotto il diaframma, T3c cava sopra il diaframma; T4 oltre la fascia di Gerota o surrene omolaterale per contiguità. Metastasi tipiche: polmone (noduli multipli, anche «a palla di cannone»), linfonodi, osso (litiche), fegato, surrene, encefalo, pancreas.\nNei pazienti metastatici selezionati si discute la nefrectomia citoriduttiva insieme alla terapia sistemica.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Nefrectomia radicale citoriduttiva: carcinoma renale a cellule chiare, ISUP 3, necrosi presente, pT3 N1 M1 (dati KiTS)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00070",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 31,
+  "wc": 50,
+  "ww": 400,
+  "zoom": 1.2,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa renale destra"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Stadiazione di una neoplasia nota: referto nei tempi ordinari."
+ },
+ "regola": "Davanti a una massa renale guarda sempre vena renale, cava, linfonodi, surreni, osso e basi polmonari.",
+ "nota_docente": "[seconda revisione 06/11/2026] Esito (c), non risolvibile dalle immagini: alle immagini 33-38 c'è un unico tessuto ovale di circa 30-35 mm a destra dell'aorta, a circa 45-50 HU, in continuità verso il basso con la cava infrarenale (circa 18-23 mm alle immagini 41-43, stessa densità) e senza piano adiposo che separi un linfonodo dalla cava (ricostruzioni sagittale e coronale). In fase arteriosa a 5 mm la distinzione non è possibile. Riformulati l'opzione sul linfonodo («possibile linfonodo … da chiarire in fase venosa»), la conclusione e il titolo interno; N1 resta come dato istologico. Il dubbio per il docente resta aperto.\n[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificati sulle immagini la massa destra di circa 10 cm con necrosi centrale (22-42), le strie perirenali e i noduli polmonari bilaterali alle basi (0-6); opzione sul linfonodo resa prudente perché in fase arteriosa la cava non opacizzata ha densità simile. Da controllare dal docente: separazione tra linfonodo interaortocavale e cava non opacizzata alle fette 33-37.\nC4KC-KiTS KiTS-00070 (IDC, CC BY 3.0): unica serie disponibile, fase arteriosa 5 mm (57 immagini). Clinica: M55, ccRCC, ISUP 3, necrosi, pT3 N1 M1, radiographic size 9,8 cm, nefrectomia radicale citoriduttiva open. Massa dalla SEG: circa 10 × 10 × 10 cm, immagini 22-42. Lettura di Claude: noduli polmonari bilaterali alle basi (immagini 0-6), linfonodo interaortocavale (34-37), strie nel grasso perirenale; cava non opacizzata in fase arteriosa (trombosi non valutabile). L'anamnesi non è fornita dalla collezione. [verifica 25/10/2026] Rivisto sulle immagini: massa destra di circa 10 cm disomogenea con aree centrali non captanti (immagini 22-42), noduli polmonari bilaterali multipli rotondi a margini netti (0-6), tessuto linfonodale interaortocavale di circa 3 cm (33-37). Opzione sulla cava riscritta (in fase arteriosa la cava non è opacizzata, non si può dire «senza difetti»).",
+ "id": "caso-tcia-077",
+ "visibile": true,
+ "opzioni": [
+  {
+   "testo": "Voluminosa massa solida del rene destro di circa 10 cm, disomogenea, con parti periferiche ipervascolari e ampie aree centrali ipodense non captanti (necrosi)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini 22-42, massima all'immagine 31 (segmentazione della collezione: circa 10 × 10 × 10 cm)."
+  },
+  {
+   "testo": "Margini irregolari verso il grasso perirenale, con strie dense nel grasso",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Sospetto di infiltrazione del grasso perirenale (pT3a); l'istologia della collezione conferma pT3."
+  },
+  {
+   "testo": "Massa cistica a pareti sottili senza componente solida (Bosniak II)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa con grasso macroscopico (angiomiolipoma)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Nella massa non ci sono aree di densità adiposa (valori negativi)."
+  },
+  {
+   "testo": "Noduli polmonari multipli bilaterali, rotondeggianti e a margini netti, alle basi (metastasi)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Immagini 0-6 con finestra per il polmone: sono nel campo solo le basi; serve la TC del torace completa."
+  },
+  {
+   "testo": "Tessuto ovale di circa 3 cm a destra dell'aorta (immagini 33-37) non separabile dalla vena cava inferiore non opacizzata: possibile linfonodo interaortocavale, da chiarire in fase venosa",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Su questa fase arteriosa a 5 mm la cava ha la stessa densità dei tessuti molli (circa 45-50 HU) e non c'è un piano adiposo tra cava e tessuto: non si può dire se sia un linfonodo o la cava stessa. La collezione riporta N1 all'istologia; serve la fase venosa."
+  },
+  {
+   "testo": "Vena cava inferiore non valutabile per trombosi in questa fase arteriosa (non ancora opacizzata): serve la fase venosa",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "In fase arteriosa la cava può essere disomogenea per il mescolamento: la valutazione del trombo richiede la fase venosa."
+  },
+  {
+   "testo": "Metastasi epatiche multiple ipervascolari in fase arteriosa, in entrambi i lobi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il fegato nel campo è omogeneo."
+  },
+  {
+   "testo": "Carcinoma renale destro di circa 10 cm (verosimilmente a cellule chiare per l'ipervascolarizzazione disomogenea con necrosi), con metastasi polmonari multiple: stadio IV (tessuto interaortocavale da chiarire in fase venosa); TC del torace completa, discussione multidisciplinare (nefrectomia citoriduttiva e terapia sistemica)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Oncocitoma voluminoso con cicatrice centrale stellata e noduli polmonari granulomatosi non correlati: nefrectomia parziale, nessuna stadiazione ulteriore né terapia sistemica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Una cicatrice centrale non distingue l'oncocitoma dal carcinoma; qui ci sono linfonodo e noduli polmonari."
+  },
+  {
+   "testo": "Ascesso renale destro voluminoso con necrosi colliquativa e embolia settica polmonare (noduli multipli periferici, alcuni escavati, con vaso afferente): terapia antibiotica endovena ad ampio spettro, emocolture ed ecocardiogramma per endocardite, drenaggio percutaneo dell'ascesso e controllo TC, nessuna nefrectomia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Linfoma renale con interessamento linfonodale retroperitoneale e noduli polmonari: biopsia del tessuto interaortocavale e stadiazione ematologica con PET, nessuna nefrectomia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Il linfoma renale è di solito omogeneo e poco vascolarizzato e spesso ingloba i vasi senza necrosi."
+  }
+ ],
+ "aggiornato": "2026-11-06 20:58"
+}

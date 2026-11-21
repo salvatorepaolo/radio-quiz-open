@@ -1,0 +1,173 @@
+{
+ "id": "caso-tcia-133",
+ "visibile": true,
+ "aggiornato": "2026-11-06 21:19",
+ "titolo": "Donna di 55 anni: TC del collo con mezzo di contrasto",
+ "titolo_interno": "Carcinoma papillare della tiroide, variante follicolare, del lobo destro: nodulo solido disomogeneo di circa 3,3 × 3,7 × 4,8 cm che sposta la trachea, senza adenopatie evidenti (pT3 N0, AJCC 7ª) (TCGA-THCA TCGA-E3-A3DZ)",
+ "distretto": "Collo",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "Donna di 55 anni. TC del collo con mezzo di contrasto iodato, dalla volta cranica al mediastino superiore. Il motivo clinico dell'esame non è riportato nei dati della collezione.",
+ "domanda": "Descrivi il reperto principale e indica il percorso diagnostico più corretto.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi nella loggia tiroidea?"
+  },
+  {
+   "nome": "Estensione",
+   "domanda": "Che cos'altro devi valutare?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nodulo solido voluminoso del lobo tiroideo destro, disomogeneo con aree centrali meno impregnate, circa 3,3 × 3,7 cm sul piano assiale e 4,8 cm in altezza",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini 50-66, meglio la 58: il lobo destro è sostituito da un nodulo lobulato che si impregna in modo disomogeneo (circa 140 HU nelle parti solide), con aree centrali più scure; il lobo sinistro ha dimensioni e densità normali."
+  },
+  {
+   "testo": "Trachea spostata verso sinistra, senza restringimento significativo del lume",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini 58-64: la trachea è spinta a sinistra e lievemente improntata sul lato destro (diametro trasverso circa 11-12 mm contro circa 15 mm antero-posteriore); il lume resta pervio."
+  },
+  {
+   "testo": "Gozzo multinodulare bilaterale con estensione mediastinica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il lobo sinistro è normale e il nodulo finisce sopra lo stretto toracico superiore (immagine 66 circa)."
+  },
+  {
+   "testo": "Linfonodo necrotico laterocervicale destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "La lesione sta nella loggia tiroidea, medialmente alla carotide e in continuità con l'istmo, non nelle stazioni laterocervicali."
+  },
+  {
+   "testo": "Vasi del collo spostati ma non inglobati: carotide comune destra laterale al nodulo",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Immagini 56-62: la carotide comune e la giugulare destre sono spinte lateralmente, con un piano di separazione; nessun inglobamento."
+  },
+  {
+   "testo": "Nessuna adenopatia laterocervicale o del compartimento centrale evidente",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Nelle immagini dalla base cranica al giugulo non si vedono linfonodi ingranditi, necrotici o con calcificazioni (dato patologico N0). Piccoli linfonodi metastatici possono però sfuggire alla TC."
+  },
+  {
+   "testo": "Infiltrazione della parete tracheale con massa endoluminale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il profilo interno della trachea è regolare; non c'è tessuto nel lume."
+  },
+  {
+   "testo": "Metastasi polmonari multiple",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Nei lobi superiori compresi nello studio (fino all'arco aortico) non si vedono noduli; il torace intero però non è stato studiato."
+  },
+  {
+   "testo": "Nodulo tiroideo destro sospetto per neoplasia: completare con ecografia (TI-RADS) e agoaspirato; la TC serve per estensione e linfonodi, non per la natura del nodulo",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Nodulo tiroideo benigno per l'aspetto TC omogeneo e i margini netti, senza linfonodi sospetti: nessun altro esame né agoaspirato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Un nodulo solido di quasi 5 cm, disomogeneo, che sposta la trachea va sempre caratterizzato con ecografia e citologia."
+  },
+  {
+   "testo": "Linfoma della tiroide su tiroidite cronica: biopsia chirurgica urgente e stadiazione ematologica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Il linfoma tiroideo compare di solito in tiroidite cronica, con crescita rapida e massa omogenea che circonda la trachea; qui c'è un nodulo disomogeneo del solo lobo destro."
+  },
+  {
+   "testo": "Paratiroide ingrandita (adenoma) dietro il lobo destro: dosaggio del PTH e scintigrafia con sestamibi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Gli adenomi paratiroidei sono piccoli (di solito sotto 2-3 cm) e posteriori alla tiroide; qui è il lobo tiroideo stesso a essere sostituito."
+  }
+ ],
+ "spiegazione": "La TC non caratterizza i noduli tiroidei: la natura di un nodulo si definisce con l'ecografia (sistemi TI-RADS: componente solida, ecogenicità, margini, forma più alta che larga, microcalcificazioni) e con l'agoaspirato citologico (classificazione Bethesda). La TC con contrasto serve quando il nodulo è voluminoso, quando si sospetta estensione retrosternale o extratiroidea (trachea, esofago, laringe, nervo ricorrente) e per le stazioni linfonodali (livello VI e laterocervicali, mediastino superiore).\n\nTrappola pratica: il mezzo di contrasto iodato satura la tiroide e ritarda di settimane (di solito 4-8) la terapia o la scintigrafia con iodio radioattivo; nel sospetto di carcinoma differenziato si valuta caso per caso se serve davvero.\n\nIn questo caso il nodulo era un carcinoma papillare, variante follicolare, del lobo destro: pT3 N0 M0 nella stadiazione AJCC 7ª (tumore >4 cm o con minima estensione extratiroidea). La paziente è stata trattata con chirurgia, iodio radioattivo e terapia ormonale. Con l'AJCC 8ª l'età di riferimento è 55 anni e il T3a indica tumore >4 cm limitato alla tiroide.",
+ "regola": "Nodulo tiroideo voluminoso in TC: descrivi dimensioni, rapporti con trachea, esofago e vasi, e linfonodi; la natura la danno ecografia e agoaspirato.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma papillare della tiroide, variante follicolare, lobo destro; pT3 N0 M0, stadio III (AJCC 7ª), resezione R0; trattamento successivo con iodio-131 e terapia ormonale (dati clinici TCGA, GDC). Donna di 55 anni alla diagnosi."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-THCA",
+  "soggetto": "TCGA-E3-A3DZ",
+  "doi": "10.7937/K9/TCIA.2016.9ZFRVF1B",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Kirk, S., Lee, Y., Roche, C., Bonaccio, E., Filippini, J., & Jarosz, R. (2016). The Cancer Genome Atlas Thyroid Cancer Collection (TCGA-THCA) (Version 3) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/K9/TCIA.2016.9ZFRVF1B",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-thca/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "vista": {
+  "serie": 0,
+  "idx": 58,
+  "wc": 60,
+  "ww": 350,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 162,
+    "y": 218
+   },
+   "b": {
+    "x": 252,
+    "y": 218
+   }
+  },
+  "nota": "Nodulo solido disomogeneo del lobo tiroideo destro, circa 3,3 cm in senso trasversale"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "tiroide",
+   "nodulo",
+   "agoaspirato"
+  ],
+  "motivo": "Nodulo da caratterizzare senza compressione critica delle vie aeree: basta il referto con l'indicazione all'ecografia e all'agoaspirato."
+ },
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: verificati sulle immagini (serie 0 img 46-72) nodulo del lobo destro circa 3,3 cm trasversale (img 58) esteso img 50-66, trachea spostata a sinistra con lieve impronta, vasi spostati non inglobati, nessuna adenopatia evidente, lato destro coerente con GDC; licenza CC BY 3.0 verificata, nessun testo nei pixel. Tolta dal titolo e dall'anamnesi la «tumefazione del collo» non presente nei dati (motivo dell'esame dichiarato non noto); precisata la trachea. Reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione). TCGA-THCA (IDC, CC BY 3.0), paziente TCGA-E3-A3DZ, unica serie assiale «Neck WITH 3.0 B31s» (89 immagini, collo dalla volta cranica all'arco aortico), anonimizzata con anonimizza.py. Diagnosi e lato dai dati GDC: carcinoma papillare variante follicolare, lateralità destra, pT3 N0 M0 (AJCC 7ª), 55 anni, donna; terapie successive I-131 e ormonale. Misure mie con PixelSpacing 0,365 mm: circa 3,3 × 3,7 cm assiale (immagine 58), estensione cranio-caudale circa 4,8 cm (immagini 50-66, 3 mm). Dubbi: 1) l'anamnesi «tumefazione del collo» non era nei dati: in revisione è stata tolta da titolo e anamnesi (motivo dell'esame dichiarato non noto); 2) data della TC rispetto all'intervento non nota (la tiroide è ancora in sede, quindi pre-operatoria); 3) l'assenza di calcificazioni e di adenopatie è una mia lettura, il dato patologico N0 la sostiene; 4) l'artefatto da contrasto denso nella vena succlavia/brachiocefalica destra (immagini 64-70) disturba il polo inferiore; 5) nessuna serie con finestra ossea o ricostruzioni; 6) TCGA-THCA è una collezione nuova per licenze.html. Da controllare dal docente: nessun dubbio importante; calcificazioni e linfonodi sono letture TC coerenti con il dato N0.",
+ "rassegna": [
+  {
+   "caso": "caso-tcia-136",
+   "testo": "vetrino: carcinoma papillare della tiroide (papille, nuclei chiari con incisure)"
+  }
+ ]
+}

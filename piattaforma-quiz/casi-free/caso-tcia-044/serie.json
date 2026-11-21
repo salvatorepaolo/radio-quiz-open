@@ -1,0 +1,25 @@
+[
+ {
+  "descrizione": "B-mode del fegato (trasversale): panoramica e nodulo misurato",
+  "numero": 1,
+  "files": [
+   "serie/0001_B-mode_del_fegato/img_00001_00000.dcm",
+   "serie/0001_B-mode_del_fegato/img_00001_00001.dcm",
+   "serie/0001_B-mode_del_fegato/img_00001_00002.dcm"
+  ],
+  "data": "",
+  "eta": ""
+ },
+ {
+  "descrizione": "CEUS affiancata al B-mode: 0:16, poco dopo (tempo non riportato), 2:52, 4:08 dall iniezione (T1 in basso a sinistra)",
+  "numero": 2,
+  "files": [
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00000.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00001.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00002.dcm",
+   "serie/0002_CEUS_affiancata_al_B-mode/img_00002_00003.dcm"
+  ],
+  "data": "",
+  "eta": ""
+ }
+]

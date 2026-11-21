@@ -1,0 +1,59 @@
+#!/bin/bash
+# Controlli prima di ogni commit (tutti locali e gratuiti). In emergenza si saltano con: git commit --no-verify
+# 1. nessun segreto (gitleaks)  2. nessun file DICOM (possibili immagini di pazienti)
+# 3. ESLint sul codice JavaScript cambiato  4. shellcheck sugli script cambiati  5. test veloci se cambia il sito
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+RADICE="$(git rev-parse --show-toplevel)" || exit 1
+cd "$RADICE" || exit 1
+ROSSO=$'\033[31m'; VERDE=$'\033[32m'; NORMALE=$'\033[0m'
+male() { echo "${ROSSO}✖ $*${NORMALE}" >&2; ERRORI=1; }
+bene() { echo "${VERDE}✓${NORMALE} $*"; }
+ERRORI=0
+FILE=()
+while IFS= read -r -d '' f; do FILE+=("$f"); done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+[ ${#FILE[@]} -eq 0 ] && exit 0
+
+# 1. segreti nei cambiamenti pronti per il commit
+if command -v gitleaks >/dev/null; then
+  if gitleaks git --pre-commit --staged --redact --no-banner -c .gitleaks.toml . >/tmp/pre-commit-gitleaks.log 2>&1; then bene "nessun segreto"
+  else male "possibile segreto nei file del commit (dettagli: gitleaks git --pre-commit --staged -v .)"; fi
+else male "gitleaks non installato: brew install gitleaks"; fi
+
+# 2. file DICOM: 'DICM' al byte 128, qualunque sia il nome
+DICOM=()
+for f in "${FILE[@]}"; do
+  [ -f "$f" ] || continue
+  [ "$(dd if="$f" bs=1 skip=128 count=4 2>/dev/null)" = "DICM" ] && DICOM+=("$f")
+done
+if [ ${#DICOM[@]} -gt 0 ]; then male "file DICOM nel commit (le immagini non vanno in git): ${DICOM[*]}"; else bene "nessun file DICOM"; fi
+
+# 3. ESLint (solo gli errori bloccano; gli avvisi si vedono con bash piattaforma-quiz/qualita/lint.sh)
+JS=()
+for f in "${FILE[@]}"; do
+  # le cartelle da non controllare (lib/, backup, mpr3d/, cdk.out/...) le esclude già eslint.config.js
+  case "$f" in piattaforma-quiz/cloud/*.js|piattaforma-quiz/cloud/*.mjs)
+      JS+=("${f#piattaforma-quiz/cloud/}") ;; esac
+done
+if [ ${#JS[@]} -gt 0 ]; then
+  if [ -x piattaforma-quiz/qualita/node_modules/.bin/eslint ]; then
+    if bash piattaforma-quiz/qualita/lint.sh --quiet "${JS[@]}"; then bene "ESLint (${#JS[@]} file)"; else male "ESLint ha trovato errori"; fi
+  else male "ESLint non installato: cd piattaforma-quiz/qualita && npm install"; fi
+fi
+
+# 4. shellcheck
+SH=()
+for f in "${FILE[@]}"; do case "$f" in *.sh|*.command|.githooks/*) SH+=("$f") ;; esac; done
+if [ ${#SH[@]} -gt 0 ]; then
+  if command -v shellcheck >/dev/null; then
+    if shellcheck -s bash -S warning "${SH[@]}"; then bene "shellcheck (${#SH[@]} script)"; else male "shellcheck ha trovato problemi"; fi
+  else male "shellcheck non installato: brew install shellcheck"; fi
+fi
+
+# 5. test veloci (senza browser né simulatore) se cambia il sito, il server o i test
+if printf '%s\n' "${FILE[@]}" | grep -qE '^piattaforma-quiz/cloud/(web|api|test)/'; then
+  if (cd piattaforma-quiz/cloud/test && node --test pagina.test.mjs scale.test.mjs anonimizza.test.mjs anonimizza-fuzz.test.mjs moduli.test.mjs analisi.test.mjs referto.test.mjs logica.test.mjs logica-avvisi.test.mjs proprieta.test.mjs date.test.mjs formati.test.mjs casi.test.mjs traduzioni.test.mjs cmr.test.mjs t2star.test.mjs >/tmp/pre-commit-test.log 2>&1)
+  then bene "test veloci ($(grep -E '^ℹ pass' /tmp/pre-commit-test.log | grep -oE '[0-9]+') superati)"
+  else male "test falliti: vedi /tmp/pre-commit-test.log"; grep -E "^✖" /tmp/pre-commit-test.log | head -5 >&2; fi
+fi
+
+[ $ERRORI -eq 0 ] || { echo "${ROSSO}Commit fermato.${NORMALE} Correggi e riprova (in emergenza: git commit --no-verify)." >&2; exit 1; }

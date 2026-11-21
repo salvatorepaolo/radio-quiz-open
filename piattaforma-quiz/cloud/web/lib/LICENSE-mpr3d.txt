@@ -1,0 +1,24 @@
+mpr3d.js contiene, in forma compressa, librerie open source:
+- Cornerstone3D (@cornerstonejs/core, @cornerstonejs/tools) 5.11.4 — licenza MIT — https://github.com/cornerstonejs/cornerstone3D
+- vtk.js — licenza BSD-3-Clause — https://github.com/Kitware/vtk-js
+- dcmjs (MIT), pako (MIT/Zlib), comlink (Apache-2.0) e altre dipendenze: vedi sotto.
+
+Bundled license information:
+
+dcmjs/build/dcmjs.es.js:
+  /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
+  /*!
+   * Determine if an object is a Buffer
+   *
+   * @author   Feross Aboukhadijeh <https://feross.org>
+   * @license  MIT
+   */
+
+comlink/dist/esm/comlink.mjs:
+  /**
+   * @license
+   * Copyright 2019 Google LLC
+   * SPDX-License-Identifier: Apache-2.0
+   */
+
+mp4-muxer.js: mp4-muxer 5.2.1 (Vanilagy) — licenza MIT — https://github.com/Vanilagy/mp4-muxer (vedi LICENSE-mp4-muxer)

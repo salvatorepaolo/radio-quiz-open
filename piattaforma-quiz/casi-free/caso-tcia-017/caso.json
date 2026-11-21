@@ -1,0 +1,104 @@
+{
+ "id": "caso-tcia-017",
+ "visibile": true,
+ "aggiornato": "2026-11-06 20:56",
+ "titolo": "RM anca: massa lobulata in giovane donna",
+ "titolo_interno": "Sarcoma sinoviale della regione antero-laterale dell'anca destra",
+ "distretto": "Muscolo-scheletrico",
+ "quesito": "massa dei tessuti molli",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 34 anni. Tumefazione palpabile della regione laterale dell'anca destra, cresciuta negli ultimi mesi. RM di bacino e radice delle cosce (sequenze disponibili: T1 e STIR assiali; senza mezzo di contrasto).",
+ "domanda": "Referta in ordine: reperti, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa polilobata di circa 5 × 5,5 × 8 cm nella regione antero-laterale dell'anca destra: lobi laterali a contatto con il grasso sottocutaneo (il rapporto con la fascia lata non si definisce con certezza su T1 e STIR senza contrasto), lobo antero-mediale dentro il muscolo tensore della fascia lata (componente intramuscolare, profonda alla fascia)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "STIR immagini ~10-25 (passo 5 mm). Nelle fette inferiori (T1 e STIR 21-25) la lesione è circondata dal tensore della fascia lata.",
+   "sezione": 0
+  },
+  {
+   "testo": "Segnale simile al muscolo o lievemente superiore in T1 e iperintenso, disomogeneo, in STIR, con setti interni (aspetto lobulato «a grappolo»)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesione omogenea iperintensa in T1 con perdita completa di segnale in STIR, capsulata e sottocutanea, come da lipoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Versamento articolare dell'anca con ispessimento sinoviale e distensione della capsula, senza massa dei tessuti molli",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa dei tessuti molli oltre 5 cm, in parte profonda alla fascia e in crescita: sospetto sarcoma (per esempio sarcoma sinoviale); RM con contrasto, TC del torace e biopsia in un centro di riferimento",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Ematoma post-traumatico dei tessuti molli dell'anca in fase di organizzazione, con setti fibrosi: nessuna biopsia né invio specialistico, controllo RM tra 3 mesi per verificarne il riassorbimento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Borsite trocanterica con distensione liquida della borsa e lieve edema circostante: infiltrazione ecoguidata con corticosteroide e fisioterapia, senza altri esami",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Il sarcoma sinoviale colpisce soprattutto adolescenti e adulti giovani (15-40 anni), di solito agli arti inferiori. Il nome inganna: non nasce dalla sinovia e quasi mai è dentro un'articolazione; spesso si trova vicino ad articolazioni, tendini o borse.\nIn RM è tipicamente una massa lobulata e disomogenea; in T2 può mostrare il «triplo segnale» (aree iperintense come liquido, intermedie come grasso, ipointense come tessuto fibroso), a volte livelli fluido-fluido. In circa un terzo dei casi ci sono calcificazioni (meglio viste in RX o TC). Può crescere lentamente e avere margini netti: un aspetto «tranquillo» non lo esclude.\nRegola pratica per le masse dei tessuti molli: oltre 5 cm, profonda alla fascia, in crescita o dolorosa (basta una di queste caratteristiche) → trattarla come un sarcoma finché non è dimostrato il contrario. Qui ce ne sono tre (oltre 5 cm, componente nel tensore della fascia lata, crescita). Biopsia nel centro che farà l'intervento (il tragitto della biopsia va asportato con il tumore). Stadiazione con TC del torace (metastasi polmonari).",
+ "regola": "Massa dei tessuti molli oltre 5 cm, profonda o in crescita (anche una sola di queste): sarcoma finché non è dimostrato il contrario.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Sarcoma sinoviale, grado intermedio (dati clinici della collezione Soft-tissue-Sarcoma). Trattato con radioterapia e chirurgia; libero da malattia all'ultimo controllo (circa 1 anno e 9 mesi)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "Soft-tissue-Sarcoma",
+  "doi": "10.7937/K9/TCIA.2015.7GO2GSKS",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Vallières M., Freeman C. R., Skamene S. R., El Naqa I. (2015). A radiomics model from joint FDG-PET and MRI texture features for the prediction of lung metastases in soft-tissue sarcomas of the extremities (Soft-tissue-Sarcoma) [Dataset]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/soft-tissue-sarcoma/",
+  "soggetto": "STS_015"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 15,
+  "wc": 364,
+  "ww": 714,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa lobulata in STIR"
+ },
+ "nota_docente": "[seconda revisione 06/11/2026] esito (c), non risolvibile dalle immagini: su T1 e STIR (immagini 12-23) i lobi laterali confinano direttamente con il sottocutaneo e la fascia lata sopra di loro non si distingue; si conferma invece il lobo antero-mediale avvolto dal tensore della fascia lata (immagini 17-23). Opzione dei reperti riformulata: il rapporto dei lobi laterali con la fascia non si definisce con certezza senza contrasto.\n[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini (T1 e STIR): massa polilobata dell'anca destra iperintensa in STIR, estesa sulle immagini ~10-25 (circa 8 cm, non 10) e con lobo antero-mediale dentro il tensore della fascia lata (non solo sottocutanea): corretti misura, sede (componente intramuscolare/profonda alla fascia), conclusione e spiegazione. Da controllare dal docente: rapporto dei lobi laterali con la fascia lata (sottocutanei o sottofasciali).\nCaso importato da TCIA il 13/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nMassa alle fette 9-28 della STIR (passo 5 mm), diametro trasversale massimo circa 5,4 × 5 cm (misura automatica a soglia). Sede indicata dalla collezione: «right thigh»; nelle immagini la massa è a livello dell'acetabolo-radice della coscia, in sede antero-laterale. Piccola formazione fluida annessiale destra nelle prime fette (verosimile follicolo), non inserita tra le risposte.\n[verifica del 13/10 sera: sede corretta: la massa è superficiale, nel sottocutaneo a ridosso della fascia del tensore della fascia lata (fette 11-23 del T1), non dentro il muscolo; opzioni e regola aggiornate]\n[pubblicato il 16/10/2026 su richiesta dell'amministratore («togli la bozza dove siamo sicuri»), dopo la revisione di Claude: restano i dubbi scritti sopra]"
+}

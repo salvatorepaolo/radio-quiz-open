@@ -1,0 +1,18 @@
+[
+ {
+  "descrizione": "Vetrino · ematossilina-eosina · fegato (20×)",
+  "tipo": "vetrino",
+  "files": [
+   "serie/vetrino/livello_0.dcm",
+   "serie/vetrino/livello_1.dcm",
+   "serie/vetrino/livello_2.dcm",
+   "serie/vetrino/miniatura.dcm"
+  ],
+  "dimensioni": [
+   75532450,
+   10334958,
+   1230206,
+   1788668
+  ]
+ }
+]

@@ -1,0 +1,185 @@
+{
+ "id": "caso-tcia-134",
+ "visibile": true,
+ "aggiornato": "2026-11-06 21:19",
+ "titolo": "Uomo di 61 anni: uro-TC senza e con mezzo di contrasto",
+ "titolo_interno": "Carcinoma uroteliale di alto grado della vescica: massa vegetante della parete postero-laterale sinistra di circa 4,4 × 4,1 cm che si impregna e fa difetto di riempimento in fase escretoria; vie urinarie superiori senza difetti né dilatazione (pT2a N0) (TCGA-BLCA TCGA-DK-AA77)",
+ "distretto": "Vescica",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "Uomo di 61 anni. Uro-TC: fase senza contrasto, fase venosa e fase tardiva escretoria dell'addome e della pelvi. Il motivo dell'esame non è riportato nei dati disponibili.",
+ "domanda": "Descrivi il reperto della vescica, verifica le vie urinarie superiori e proponi la conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tecnica",
+   "domanda": "Che esame è?"
+  },
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi nella vescica?"
+  },
+  {
+   "nome": "Estensione",
+   "domanda": "Che cos'altro conta?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Uro-TC trifasica: senza contrasto, fase venosa e fase tardiva escretoria, con ricostruzioni coronali",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 0 senza contrasto (5 mm), serie 1 venosa (3 mm), serie 2 tardiva con urina opacizzata dal contrasto (3 mm), serie 3 coronale in fase venosa."
+  },
+  {
+   "testo": "TC senza mezzo di contrasto a bassa dose per colica renale, con sole ricostruzioni assiali di 5 mm",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Ci sono la fase venosa e la fase escretoria: il contrasto è stato somministrato."
+  },
+  {
+   "testo": "Massa vegetante della parete postero-laterale sinistra della vescica, circa 4,4 × 4,1 cm, che fa difetto di riempimento nella fase escretoria",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Serie 2 (tardiva), immagini 114-132, meglio la 126: il contrasto che si stratifica in basso disegna il profilo lobulato della massa; in coronale (serie 3, immagini 45-50) la massa sporge nel lume dal lato sinistro."
+  },
+  {
+   "testo": "La massa si impregna: circa 24 HU senza contrasto, circa 50 HU in fase venosa e circa 60 HU in fase tardiva",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Misure con ROI nella parte centrale della massa (serie 0 immagine 76, serie 1 e 2 immagine 126). Un coagulo non si impregna."
+  },
+  {
+   "testo": "Coagulo endovescicale che si sposta e non si impregna dopo il contrasto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il coagulo è spesso iperdenso senza contrasto (60-80 HU), cambia posizione e non si impregna; qui la massa è adesa alla parete e aumenta di densità dopo contrasto."
+  },
+  {
+   "testo": "Lobo medio prostatico ingrandito che protrude nel pavimento della vescica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il lobo medio sporge dalla base, sulla linea mediana, in continuità con la prostata; qui la massa nasce dalla parete laterale sinistra, sopra il piano prostatico."
+  },
+  {
+   "testo": "Calcolo vescicale iperdenso in basale, mobile nel lume",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Un calcolo è molto denso già senza contrasto; la massa misura circa 24 HU."
+  },
+  {
+   "testo": "Vie urinarie superiori senza difetti di riempimento né dilatazione in fase escretoria",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Serie 2, immagini 55-110: calici, pelvi e ureteri si opacizzano senza difetti evidenti; nessuna idronefrosi. Il carcinoma uroteliale può essere multifocale: le vie alte vanno sempre guardate."
+  },
+  {
+   "testo": "Grasso perivescicale senza infiltrazione evidente",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Dietro la massa (serie 1 e 2, immagini 120-130) il grasso è conservato; ci sono vasi e le vescicole seminali. La TC non distingue i diversi strati della parete: l'invasione del muscolo si valuta con la resezione endoscopica (TURB) e con la RM (VI-RADS)."
+  },
+  {
+   "testo": "Linfonodi iliaci ingranditi e necrotici",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Nelle catene iliache e lomboaortiche non si vedono linfonodi ingranditi (dato patologico N0)."
+  },
+  {
+   "testo": "Neoplasia vescicale (carcinoma uroteliale il più probabile) della parete postero-laterale sinistra, senza segni TC di estensione extravescicale: cistoscopia e resezione endoscopica per istologia e profondità di invasione",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3
+  },
+  {
+   "testo": "Cistite acuta emorragica con ispessimento diffuso e irregolare della parete vescicale e coaguli nel lume: terapia antibiotica e controllo ecografico dopo la terapia, senza cistoscopia né resezione endoscopica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "La cistite dà un ispessimento parietale diffuso e regolare, non una massa vegetante focale di 4 cm."
+  },
+  {
+   "testo": "Tumore vescicale che infiltra il grasso perivescicale e la parete pelvica (T4b): non operabile, chemioterapia sistemica subito senza cistoscopia né resezione endoscopica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Il grasso dietro la massa è conservato e i piani con la parete pelvica sono liberi."
+  },
+  {
+   "testo": "Diverticolo vescicale postero-laterale sinistro con calcolo al suo interno: cistoscopia e litotrissia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Non c'è una sacca che esce dalla parete; il reperto è una massa solida che sporge nel lume."
+  }
+ ],
+ "spiegazione": "L'uro-TC (fase senza contrasto, fase nefrografica o venosa e fase escretoria) è l'esame di riferimento nell'ematuria macroscopica dell'adulto per studiare reni, vie escretrici e vescica. Il carcinoma uroteliale della vescica appare come una massa vegetante o un ispessimento focale della parete che si impregna in fase venosa e fa difetto di riempimento quando l'urina si opacizza.\n\nTrappole: con la vescica poco distesa la parete sembra spessa; il coagulo può simulare una massa (non si impregna, si sposta col decubito); il lobo medio prostatico sporge dalla base sulla linea mediana; nelle fasi tardive il contrasto stratificato può nascondere le lesioni della parete anteriore (guardare anche la fase venosa). Il carcinoma uroteliale è spesso multifocale: vanno controllate sempre le vie urinarie superiori.\n\nLa TC non stadia il T della parete (Ta-T1 contro T2): la profondità di invasione si definisce con la resezione endoscopica (TURB) e con la RM multiparametrica (VI-RADS). La TC serve per l'estensione extravescicale (T3b-T4), i linfonodi e le metastasi.\n\nIn questo caso la massa era un carcinoma uroteliale di alto grado della parete posteriore, pT2a N0 M0; alla cistoprostatectomia è stato trovato anche un adenocarcinoma della prostata incidentale (pT2a), evenienza frequente.",
+ "regola": "Massa vescicale che si impregna e fa difetto di riempimento in uro-TC: carcinoma uroteliale fino a prova contraria; controlla sempre le vie alte.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma uroteliale (a cellule transizionali) di alto grado della parete posteriore della vescica, pT2a N0 M0, stadio II (AJCC 7ª); adenocarcinoma prostatico incidentale pT2a alla cistoprostatectomia (dati clinici TCGA, GDC). Uomo di 61 anni alla diagnosi."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-BLCA",
+  "soggetto": "TCGA-DK-AA77",
+  "doi": "10.7937/K9/TCIA.2016.8LNG8XDR",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Kirk, S., Lee, Y., Lucchesi, F. R., Aredes, N. D., Gruszauskas, N., Catto, J., Garcia, K., Jarosz, R., Duddalwar, V., Varghese, B., Rieger-Christ, K., & Lemmerman, J. (2016). The Cancer Genome Atlas Urothelial Bladder Carcinoma Collection (TCGA-BLCA) (Version 8) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/K9/TCIA.2016.8LNG8XDR",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-blca/"
+ },
+ "serie_iniziale": 2,
+ "riquadri": 0,
+ "vista": {
+  "serie": 2,
+  "idx": 126,
+  "wc": 60,
+  "ww": 450,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 254,
+    "y": 258
+   },
+   "b": {
+    "x": 310,
+    "y": 258
+   }
+  },
+  "nota": "Massa vegetante della parete postero-laterale sinistra, circa 4,4 cm, difetto di riempimento in fase escretoria"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "vescica",
+   "uroteliale",
+   "cistoscopia"
+  ],
+  "motivo": "Neoplasia da confermare senza complicanze urgenti (niente idronefrosi né sanguinamento attivo): basta il referto con l'indicazione alla cistoscopia."
+ },
+ "nota_docente": "[revisione indipendente 06/11/2026] Controllato il 06/11/2026: verificati sulle immagini (venosa serie 1 e tardiva serie 2 img 112-134, coronale serie 3 img 40-50) massa vegetante postero-laterale sinistra circa 4,4 cm con difetto di riempimento, densità circa 25/50/60 HU, vie alte opacizzate, grasso perivescicale conservato; la «massa» polmonare basale destra delle prime immagini è la cupola epatica; licenza CC BY 3.0 verificata, nessun testo nei pixel. Nessuna correzione dei testi. Reso visibile.\nBozza creata da Claude il 06/11/2026 (testi letti sulle immagini e sui dati della collezione). TCGA-BLCA (IDC, CC BY 3.0), paziente TCGA-DK-AA77, unico studio TC (4 serie usate: «Abd PEL 5.0 B31f» senza contrasto 93 img, «A/P VENOUS 3.0» 178 img, «A/P DELAYS 3.0» 155 img, «CORONAL» 98 img; esclusa la fase arteriosa renale e 1 immagine sagittale isolata della serie coronale), anonimizzata con anonimizza.py. Diagnosi dai dati GDC: carcinoma uroteliale di alto grado, sede «Posterior wall of bladder», pT2a N0 M0 (AJCC 7ª), 61 anni, uomo; adenocarcinoma prostatico sincrono pT2a. Misure mie (PixelSpacing 0,78 mm): massa circa 4,4 × 4,1 cm assiale (serie 2 immagine 126), circa 5,4 cm cranio-caudale (immagini 114-132); densità 24 / 49 / 59 HU. Dubbi: 1) sede: in TC la base d'impianto è postero-laterale sinistra, i dati dicono «parete posteriore»: ho scritto postero-laterale sinistra; 2) motivo dell'esame non noto (anamnesi senza ematuria per non inventare); 3) non so se la TC sia stata fatta prima o dopo la TURB (la massa è ancora voluminosa, quindi prima della cistectomia); 4) il rapporto con l'orifizio ureterale sinistro non è valutabile con certezza (nessuna idronefrosi); 5) TCGA-BLCA è una collezione nuova per licenze.html. Da controllare dal docente: sede «parete posteriore» nei dati, postero-laterale sinistra in TC (descritta così); rapporto con l'orifizio ureterale sinistro non valutabile con certezza."
+}

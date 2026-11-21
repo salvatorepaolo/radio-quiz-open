@@ -1,0 +1,147 @@
+{
+ "id": "caso-tcia-090",
+ "titolo": "TC addome con mdc: stadiazione epatica, due ricostruzioni a confronto",
+ "anamnesi": "Uomo di 51 anni con carcinoma del colon-retto, TC dell'addome in fase portale per la ricerca di metastasi epatiche. Strato 5 mm ogni 3 mm, filtro morbido. Ti vengono date due serie dello stesso esame: la prima a dose piena (CTDIvol circa 8,4 mGy), la seconda ricostruita come se la dose fosse stata ridotta al 25% (circa 2,1 mGy). Si sta valutando se adottare il protocollo a dose ridotta.",
+ "domanda": "Confronta le due serie in finestra addome (L 60 W 350-400): cerca le lesioni epatiche in ciascuna e giudica se la dose ridotta è adeguata a questo quesito.",
+ "opzioni": [
+  {
+   "testo": "Lesioni ipodense multiple, piccole (circa 6-10 mm), nel lobo destro e vicino all'ilo, meglio riconoscibili nella serie a dose piena",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "La collezione segna 3 metastasi (circa 10, 7,5 e 6 mm, immagini 31, 35, 53 della serie a dose piena) e un emangioma di circa 1,5 cm (immagine 48).",
+   "sezione": 0
+  },
+  {
+   "testo": "Nella serie a dose ridotta il rumore è maggiore (deviazione standard nel fegato circa 24 contro 16 HU) e la lesione più piccola (immagine 53) non si distingue dal fondo",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Il contrasto lesione-fegato della lesione di 6 mm è di circa 15 HU: con rumore di 15-24 HU il rapporto contrasto/rumore scende sotto 1.",
+   "sezione": 0
+  },
+  {
+   "testo": "Le due serie sono state acquisite in momenti diversi: le lesioni hanno dimensioni differenti",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "È la stessa acquisizione: la dose ridotta è simulata dagli stessi dati di proiezione, quindi anatomia e lesioni coincidono fetta per fetta.",
+   "sezione": 0
+  },
+  {
+   "testo": "Nella serie a dose ridotta compaiono lesioni in più che nella dose piena non si vedono",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Il rumore crea macchie che possono sembrare lesioni (falsi positivi), ma non aggiunge reperti veri.",
+   "sezione": 0
+  },
+  {
+   "testo": "No: per lesioni epatiche ipovascolari a basso contrasto (circa 15-30 HU di differenza) la dose ridotta al 25% fa perdere le lesioni più piccole",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Il basso contrasto è il compito più sensibile al rumore. La dose si può ridurre molto per i compiti ad alto contrasto (noduli polmonari, calcoli, osso), non per il fegato.",
+   "sezione": 1
+  },
+  {
+   "testo": "Sì: la qualità percepita delle immagini è accettabile, quindi la dose ridotta al 25% va bene per tutti i quesiti, compreso il fegato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Un'immagine «accettabile all'occhio» può nascondere reperti a basso contrasto: la qualità va giudicata sul compito diagnostico, non sull'aspetto.",
+   "sezione": 1
+  },
+  {
+   "testo": "Sì: basta allargare la finestra (W 800) per eliminare il rumore e recuperare tutte le lesioni a basso contrasto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Allargare la finestra nasconde il rumore ma anche il contrasto della lesione: il rapporto contrasto/rumore non cambia.",
+   "sezione": 1
+  },
+  {
+   "testo": "Metastasi epatiche multiple; per la stadiazione epatica mantenere una dose adeguata (o ricostruzione iterativa validata), non il protocollo al 25%",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Fegato senza lesioni focali in entrambe le ricostruzioni: stadiazione epatica negativa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Errore tipico se si legge solo la serie rumorosa e si scorre in fretta.",
+   "sezione": 2
+  },
+  {
+   "testo": "Esame non diagnostico per il rumore della serie al 25%: ripetere subito la TC a dose piena prima di refertare qualunque lesione epatica o linfonodale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Qui la serie a dose piena esiste ed è diagnostica: la domanda è sul protocollo futuro.",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Le due serie vengono dagli stessi dati: la collezione Mayo (LDCT-and-Projection-data) ha inserito nel sinogramma il rumore che avrebbe una scansione al 25% della dose e ha ricostruito di nuovo. L'anatomia è identica fetta per fetta: cambia solo il rumore.\nIl rumore quantico cresce come 1/√dose: al 25% della dose raddoppia in teoria (qui la deviazione standard misurata nel fegato passa da circa 16 a 24 HU, perché una parte della variabilità è tessuto). Una metastasi ipovascolare in fase portale differisce dal fegato di 15-30 HU: con questo rumore la lesione di 6 mm del lobo destro, in sede laterale-posteriore (immagine 53) non si separa più dal fondo, mentre quelle di 7,5-10 mm restano visibili.\nRegola pratica: la dose si sceglie in base al compito. Compiti ad alto contrasto (noduli polmonari, calcoli urinari, fratture) tollerano dosi molto basse; compiti a basso contrasto (lesioni epatiche, pancreas, encefalo) no. Le ricostruzioni iterative o con IA recuperano parte della qualità ma vanno validate sul compito, non sull'aspetto.\nNella dose ridotta compaiono anche macchie di rumore che possono simulare lesioni: il rumore crea sia falsi negativi sia falsi positivi.",
+ "visibile": true,
+ "acquisizione": true,
+ "titolo_interno": "Metastasi epatiche da carcinoma colorettale piccole e ipovascolari: a dose ridotta al 25% la più piccola si perde (LDCT L014)",
+ "distretto": "Addome",
+ "quesito": "metastasi epatiche",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi confrontando le due serie?"
+  },
+  {
+   "nome": "Qualità dell'acquisizione",
+   "domanda": "La serie a dose ridotta è adeguata al quesito?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "regola": "Basso contrasto (fegato) = il rumore conta: la dose si sceglie sul compito, non sull'aspetto dell'immagine.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Metastasi da carcinoma colorettale confermate all'escissione chirurgica; lesione di circa 1,5 cm del segmento VI classificata come emangioma (senza conferma istologica) (dati della collezione: L014, Abdomen v11)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "LDCT-and-Projection-data",
+  "soggetto": "L014 (immagini modificate)",
+  "doi": "10.7937/9NPB-2637",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "McCollough C., Chen B., Holmes III D., Duan X., Yu Z., Yu L., Leng S., Fletcher J. (2020). Low Dose CT Image and Projection Data (LDCT-and-Projection-data) (Version 7) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/9npb-2637 Immagini modificate dalla collezione: la serie a dose ridotta è simulata (rumore inserito nei dati di proiezione della scansione a dose piena e nuova ricostruzione), non è una seconda esposizione del paziente.",
+  "url": "https://www.cancerimagingarchive.net/collection/ldct-and-projection-data/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 0,
+  "idx": 52,
+  "wc": 60,
+  "ww": 350,
+  "zoom": 1.6,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Immagine 53: metastasi di circa 6 mm del lobo destro, appena percepibile a dose piena (meglio anche all'immagine 54) e persa a dose ridotta"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [],
+  "motivo": "Nessun esito critico: il problema è di protocollo, da discutere con il tecnico e nel referto."
+ },
+ "nota_docente": "Controllato il 25/10/2026: lesioni ritrovate sulle immagini a dose piena e ridotta. Caso creato da Claude il 25/10/2026 dalla collezione TCIA LDCT-and-Projection-data (CC BY 4.0, scaricata da IDC), paziente L014: serie «Full Dose Images» e «Low Dose Images» (25% simulato), Siemens, strato 5 mm, B30f, CTDIvol dichiarato 8,41 mGy. File clinico Abdomen_v11 2026.xlsx: lesioni (coordinate pixel x, y, numero d'immagine) 1 = x111 y187 img 35, segmento VIII, metastasi colon; 2 = x195 y168 img 31, segmento II secondo la collezione (all'immagine sembra mediale, vicino all'ilo/stomaco: sede da rivedere); 3 = x105 y225 img 53, segmento V secondo la collezione (all'immagine laterale-posteriore, al livello dei reni); 4 = x117 y270 img 48, segmento VI, emangioma (non verificato istologicamente). Escissione chirurgica, risposta alla terapia sì, progressione no. Misure ricavate dal raggio R in pixel della tabella (diametro ≈ 2R × 0,70 mm): circa 7,5, 10, 6 e 16 mm. Rumore misurato da Claude (ROI 30×30 px nel fegato, img 40): DS 16,4 HU (piena) e 24,0 HU (ridotta). Lesione 3: centro 93 HU contro fegato 108 HU (contrasto circa 15 HU). Immagini di controllo in _viste/val/l014*.png. Anamnesi: età e sesso dall'intestazione. [revisione indipendente 25/10/2026] Rivisti full/low alle immagini 31, 35, 48, 52-54: lesioni 31 e 35 visibili in entrambe; lesione dell'immagine 53 appena percepibile a dose piena (centro circa 97 HU contro 114 HU del fegato, DS 16 HU) e non distinguibile a dose ridotta (DS 26 HU); emangioma ipodenso in entrambe. Correzioni: sede della lesione 53 nella spiegazione (lobo destro laterale-posteriore invece di «segmento posteriore»), vista.nota resa prudente, esito: emangioma senza istologia.",
+ "rassegna": [
+  {
+   "caso": "caso-tcia-138",
+   "testo": "vetrino: adenocarcinoma del colon, il tumore primitivo"
+  }
+ ]
+}

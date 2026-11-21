@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DICOM viewer manual</title>
+<link rel="icon" href="/client/icona-192.png">
+<style>
+:root{--bg:#f4f6f9;--pan:#fff;--pan2:#eef1f5;--bord:#d6dce4;--txt:#16202b;--mut:#5d6b7a;--acc:#2f7de1;--viola:#7a5cff;--warn:#f5b84a}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1216;--pan:#171b21;--pan2:#1f252d;--bord:#2a313b;--txt:#e6e9ee;--mut:#8b95a3;--acc:#4ea1ff}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--txt);background:radial-gradient(1000px 420px at 85% -10%,color-mix(in srgb,var(--viola) 10%,transparent),transparent 60%),var(--bg)}
+.pagina{display:grid;grid-template-columns:250px minmax(0,1fr);gap:28px;max-width:1180px;margin:0 auto;padding:24px 16px 60px}
+nav{position:sticky;top:16px;align-self:start;background:var(--pan);border:1px solid var(--bord);border-radius:16px;padding:12px}
+nav b{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:4px 8px 6px}
+nav a{display:block;padding:5px 10px;border-radius:8px;color:var(--txt);text-decoration:none;font-size:.92rem}
+nav a:hover{background:var(--pan2);color:var(--acc)}
+header.eroe{display:flex;gap:16px;align-items:center;padding:22px 24px;border-radius:20px;margin-bottom:22px;border:1px solid color-mix(in srgb,var(--acc) 30%,var(--bord));
+  background:radial-gradient(120% 140% at 100% 0%,color-mix(in srgb,var(--viola) 22%,transparent),transparent 55%),linear-gradient(135deg,color-mix(in srgb,var(--acc) 16%,var(--pan)),var(--pan) 70%)}
+header.eroe img{width:60px;height:60px;border-radius:16px}
+h1{margin:0;font-size:30px;letter-spacing:-.01em}
+header p{margin:4px 0 0;color:var(--mut)}
+.avviso{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-radius:14px;margin:0 0 22px;border:1px solid color-mix(in srgb,var(--warn) 60%,transparent);background:color-mix(in srgb,var(--warn) 14%,var(--pan))}
+.avviso i{font-style:normal;flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--warn);color:#3a2600;font-weight:800}
+section{background:var(--pan);border:1px solid var(--bord);border-radius:18px;padding:18px 22px;margin:0 0 16px;scroll-margin-top:16px}
+h2{margin:0 0 8px;font-size:1.3rem;display:flex;align-items:center;gap:10px}
+h2 span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px;background:color-mix(in srgb,var(--acc) 14%,var(--pan2))}
+h3{font-size:1rem;margin:14px 0 4px}
+p{margin:6px 0}ul,ol{margin:6px 0;padding-left:22px}li{margin:3px 0}
+kbd{font:600 .8rem ui-monospace,Menlo,monospace;border:1px solid var(--bord);border-bottom-width:2px;border-radius:6px;padding:1px 6px;background:var(--pan2)}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:6px 0}
+td,th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bord);vertical-align:top}th{color:var(--mut);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.nota{color:var(--mut);font-size:.9rem}
+.passi{counter-reset:p;list-style:none;padding:0}.passi li{counter-increment:p;position:relative;padding-left:38px;margin:8px 0}
+.passi li::before{content:counter(p);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.85rem;color:#fff;background:linear-gradient(135deg,var(--acc),var(--viola))}
+@media (max-width:820px){.pagina{grid-template-columns:1fr}nav{position:static}}
+@media print{nav,.stampa{display:none}.pagina{display:block}section{break-inside:avoid;border:0;padding:0 0 10px}body{background:#fff}}
+.stampa{float:right;border:1px solid var(--bord);background:var(--pan);color:var(--txt);border-radius:999px;padding:6px 14px;font:inherit;cursor:pointer}
+.avviso.locale{border-color:color-mix(in srgb,#2e9d5b 60%,transparent);background:color-mix(in srgb,#2e9d5b 14%,var(--pan))}.avviso.locale i{background:#2e9d5b;color:#fff;font-size:15px}
+</style>
+</head>
+<body>
+<div class="pagina">
+<nav aria-label="Contents">
+  <b>Contents</b>
+  <a href="#installare">Install and open</a>
+  <a href="#esami">Opening exams</a>
+  <a href="#schermo">The screen</a>
+  <a href="#mouse">Mouse, keyboard, tablet</a>
+  <a href="#finestre">Window/Level (W/L)</a>
+  <a href="#misure">Measurements and ROIs</a>
+  <a href="#mpr">MPR and 3D</a>
+  <a href="#confronto">Comparing exams</a>
+  <a href="#noduli">AI lung nodules</a>
+  <a href="#chiave">Key images</a>
+  <a href="#referto">Report</a>
+  <a href="#esporta">Export</a>
+  <a href="#sessione">Sessions and DICOM files</a>
+  <a href="#schermi">Multiple screens</a>
+  <a href="#privacy">Privacy</a>
+  <a href="#vetrini">Digital slides</a>
+  <a href="#formati">Formats and limits</a>
+</nav>
+<main>
+  <header class="eroe"><img src="/client/icona-192.png" alt=""><div><h1>DICOM viewer manual</h1><p>radio-quiz · desktop version, free, open source, also works offline</p></div></header>
+  <div class="avviso"><i>!</i><div><b>For training only, not for medical use.</b> The DICOM viewer is an educational tool: it is not a medical device and must not be used for diagnosis or for reporting real patients in clinical practice.</div></div>
+  <div class="avviso locale"><i>🔒</i><div><b>Your data stay on your computer.</b> Images, reports, measurements and patient data are read and processed only on the computer you use: they are not sent to any server, neither to radio-quiz.it nor to anyone else. An internet connection is needed only the first time, to download the program.</div></div>
+
+  <section id="installare"><h2><span>💻</span>Install and open</h2>
+    <ol class="passi">
+      <li>Open <b>radio-quiz.it/client</b> with an up-to-date Chrome or Edge.</li>
+      <li>Press <b>"Install"</b> (or the install icon in the address bar): the DICOM viewer becomes an app on your computer. No administrator permissions are needed.</li>
+      <li>From then on it opens from the app menu and works <b>even offline</b>. Updates arrive automatically when you are connected.</li>
+    </ol>
+    <p class="nota">On hospital-managed PCs installation may be blocked: the page works just the same without installing it.</p>
+  </section>
+
+  <section id="esami"><h2><span>📂</span>Opening exams</h2>
+    <ul>
+      <li><b>Folder</b>: choose the exam folder (also a CD with DICOMDIR: you pick the study).</li>
+      <li><b>Files</b>: one or more DICOM files, or a <b>.zip</b> archive (read without unzipping it).</li>
+      <li><b>Drag and drop</b> folders, files or zips onto the page.</li>
+      <li><b>＋ Add</b>: opens another exam (for example the prior) alongside the current one.</li>
+    </ul>
+    <p>Exams are read <b>only on your computer</b>: no image is sent over the network. Very large files are read one piece at a time.</p>
+  </section>
+
+  <section id="schermo"><h2><span>🖥</span>The screen</h2>
+    <ul>
+      <li><b>Top bar</b>: 2D or MPR + 3D, open, add exam, 📸 key image, 📝 report, export, multi-screen.</li>
+      <li><b>Tools</b>: scroll, window, pan, zoom, Ax/Cor/Sag planes, measurements (distance, angle, ROI, arrows), cine, rotations, undo/redo.</li>
+      <li><b>Viewports</b>: from 1 to several viewports; click a viewport to activate it. Drag a series from the strip at the bottom onto a viewport to replace it. <b>Custom layouts</b>: in the viewport menu “＋ New layout…” opens a grid (up to 4×4) where you drag to create viewports, also spanning several cells (e.g. one large and two small), up to 8; they are saved with a name in this browser and appear in the menu and in remembered hanging protocols.</li>
+      <li><b>Patient data</b>: hidden by default; the "patient data on the image" checkbox (⋯ menu) shows them, on your screen only (never in exports).</li>
+    </ul>
+  </section>
+
+  <section id="mouse"><h2><span>🖱</span>Mouse, keyboard, tablet</h2>
+    <table><tr><th>Control</th><th>What it does</th></tr>
+      <tr><td>Left drag · mouse wheel · <kbd>↑</kbd><kbd>↓</kbd></td><td>Scrolls through the images</td></tr>
+      <tr><td>Right drag</td><td>Window/Level</td></tr>
+      <tr><td>Wheel button drag up/down · Ctrl + mouse wheel</td><td>Zoom</td></tr>
+      <tr><td>Shift + drag</td><td>Pans the image</td></tr>
+      <tr><td>Double click</td><td>Enlarges the viewport</td></tr>
+      <tr><td><kbd>R</kbd> <kbd>E</kbd> <kbd>Z</kbd> <kbd>W</kbd></td><td>Distance · ROI · zoom · window</td></tr>
+      <tr><td><kbd>A</kbd> <kbd>C</kbd> <kbd>S</kbd></td><td>Axial · coronal · sagittal in the active viewport</td></tr>
+      <tr><td><kbd>1</kbd>…<kbd>7</kbd> · <kbd>0</kbd></td><td>Window presets · automatic</td></tr>
+      <tr><td><kbd>K</kbd></td><td>Saves the key image</td></tr>
+      <tr><td><kbd>Space</kbd> · <kbd>Esc</kbd> · <kbd>?</kbd></td><td>Cine · back to "Scroll" · list of shortcuts</td></tr>
+      <tr><td><kbd>T</kbd> · <kbd>B</kbd> + click</td><td>Arrow with text · key image of the clicked image</td></tr>
+      <tr><td>Ctrl + click (⌘ + click on Mac) on a series</td><td>Opens it in a new viewport</td></tr>
+      <tr><td>✕ at the top right of the viewport</td><td>Closes the viewport, the others widen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo (measurements)</td></tr>
+    </table>
+    <p class="nota">Tablet: one finger scrolls, two fingers spreading apart zoom, two fingers dragging change the window. Windows and keys can be customized with ⚙ from the list of shortcuts.</p>
+  </section>
+
+  <section id="finestre"><h2><span>◐</span>Window/Level (W/L)</h2>
+    <p>Default keys for CT: <kbd>1</kbd> abdomen 40/400 · <kbd>2</kbd> lung −600/1500 · <kbd>3</kbd> bone 400/1800 · <kbd>4</kbd> brain 40/80 · <kbd>5</kbd> angio 200/600 · <kbd>6</kbd> mediastinum 50/350 · <kbd>7</kbd> liver 60/160 · <kbd>0</kbd> automatic. With "link windows" the window is synchronized across viewports.</p>
+  </section>
+
+  <section id="misure"><h2><span>📏</span>Measurements and ROIs</h2>
+    <ul>
+      <li>Distance, angle, elliptical, freehand or polygonal ROI (mean, deviation, area, HU or SUV), arrows.</li>
+      <li>The <b>text</b> of each measurement can be dragged wherever you like: a dashed line links it to the measurement.</li>
+      <li><b>RECIST 1.1</b>: a single measurement, the longest diameter of the lesion (target ≥ 10 mm); a second click on the RECIST button switches to lymph nodes, short axis (target ≥ 15 mm). At most 5 targets, 2 per organ; the sum goes into the Σ RECIST 1.1 scale with one click.</li>
+      <li><b>Edit</b>: click a measurement and drag the handles; <b>delete</b>: select it and press <kbd>Del</kbd>.</li>
+      <li>The ROI histogram opens from the label on the image.</li>
+      <li><b>💾 Save annotations</b> (exam or series, or <kbd>Ctrl</kbd>+<kbd>S</kbd>): measurements, arrows and notes are restored when you reopen the same exam on this computer. Unsaved ones are lost when the exam is closed: if there are any, the viewer asks whether to save them.</li>
+      <li>On the scroll bar under the images an <b>A</b> marks the images with annotations (yellow if not saved) and a number marks the key images: click it to go to that image.</li>
+    </ul>
+  </section>
+
+  <section id="mpr"><h2><span>🧊</span>MPR and 3D</h2>
+    <p>Coronal and sagittal are also available in a single viewport with <kbd>C</kbd> and <kbd>S</kbd>. In brain exams <b>OMP</b> (next to Sag) brings the series onto the orbitomeatal plane, from the lateral canthus to the centre of the external acoustic meatus on both sides: the landmarks are found automatically (if they are missing, for example with the face outside the field of view, the brain axis is used); OMP again or Ax for the original images. When the exam opens the OMP plane is applied automatically. The <b>MPR + 3D</b> mode shows the three planes with reference lines, thick slab (MIP, MinIP, average), curved reformat and the 3D volume with presets; "no bone / rib cage" remove the structures that obstruct the view; the table is removed by default ("Add table" puts it back).</p>
+    <p>The 3D menu starts with <b>MPR</b> (planes only, as at opening); the presets are few and clear: Vascular (arteries only, without bone and table), Angiography (3D MIP of the vessels), Willis (head arteries, in neuro exams), Angio and bones (red vessels, ivory bones), Bones, Skin and soft tissues, Heart and coronaries, Chest vessels and Pulmonary arteries (without the chest wall), Lung, Airways and colon. The chosen preset goes into the large viewport. Right-drag on the 3D = contrast (down: less dense structures, down to the skin). <b>✂ Cut</b>: draw on the 3D around what you want to remove; ↶ undoes the last cut, ⟲ goes back to the whole volume. The yellow dot at the centre of the lines can be dragged and moves both together. <b>OMP</b> (neuro exams): planes oriented on the orbitomeatal plane; «⊞ Series» saves the series on that plane.</p>
+    <p>The large viewport is on the left (axial at opening), the other three views in a column on the right: a double click on a small view brings it into the large viewport; double click on the large view: only that one, full size. The tool at opening is «Scroll»; scrolling, zoom, pan and measurements also work in the small views. With the reference lines, a click on a point moves the center there. «⊞ Series» creates a series reconstructed from the plane of the large viewport, oblique too (for example to straighten a rotated head), and opens it in 2D. Measurements are deleted one at a time with the eraser (or click on the measurement and Del) or all together with the bin. The controls are those of 2D: wheel button up/down = zoom in/out, Shift + drag = pan (also in 3D), right button = window; measurement text can be dragged.</p>
+  </section>
+
+  <section id="confronto"><h2><span>⇄</span>Comparing exams</h2>
+    <p>With <b>＋ Add</b> you open the prior: the viewports are placed side by side and scrolling is linked by position (also with automatic co-registration). Fusion overlays PET and CT with an adjustable color map, opacity and threshold.</p>
+    <p><b>🤖 Comparison with the prior exam</b>: “＋ Add lesion”, then a click on the lesion in the current exam: the volume is measured automatically, the lesion is found in the prior (automatic alignment) and measured there too. The table gives diameter, volume, doubling time, Lung-RADS growth (in chest CT) and RECIST sum; “Copy to report” brings it into the report. These are estimates to be checked; everything stays on the computer.</p>
+    <p><b>Compare with prior</b> places side by side the series of the same type and plane (for example axial T2 with axial T2).</p>
+  </section>
+
+  <section id="noduli"><h2><span>🫁</span>AI lung nodules (optional)</h2>
+    <p>In <b>⚙ Viewer settings</b> (home page) turn on “AI lung nodules” and press <b>⬇ Download the model</b>: about 50 MB, only once; afterwards it also works offline. The model is open source (MONAI lung_nodule_ct_detection, Apache-2.0) and runs on this computer: the images never leave it.</p>
+    <p>When you open a thin-slice (up to 2.5 mm) axial chest CT the analysis starts by itself; otherwise 🫁 on the toolbar → “Find nodules”. It takes about 2 to 8 minutes depending on the computer, and meanwhile you can read the exam. Nodules appear as orange circles with number, diameter and Lung-RADS; the 🫁 panel lists them (long and short axis, type, side, Lung-RADS v2022 as a baseline exam) with “go”. It is a second read for training: it can be wrong and does not find everything. “🗑 Delete the model” frees the space.</p>
+  </section>
+
+  <section id="chiave"><h2><span>📸</span>Key images</h2>
+    <ol class="passi">
+      <li>Set up the view: window, zoom, measurements and arrows.</li>
+      <li>Press <b>📸 Key</b> or the <kbd>K</kbd> key (or <kbd>B</kbd> + click on the image): the image appears in the "Key images" strip.</li>
+      <li>Write a <b>caption</b>, reorder with ‹ ›, remove with ✕. Clicking the thumbnail takes you back to that image.</li>
+      <li>Export them as <b>DICOM Secondary Capture</b> or as a <b>PDF</b>, or use them in the report.</li>
+    </ol>
+    <p>Key images are <b>always anonymous</b>: patient data do not appear and the burned-in text in the image is detected and blacked out.</p>
+  </section>
+
+  <section id="referto"><h2><span>📝</span>Report</h2>
+    <ol class="passi">
+      <li>Press <b>📝 Report</b>: name, ID, date of birth, sex, date, exam and facility are <b>read from the images</b> (you can correct them).</li>
+      <li>The structured <b>template</b> is chosen from the exam type (chest CT, abdominal CT, brain MRI, mammography…), or you choose it yourself.</li>
+      <li>Write the text; <b>＋ Insert measurements</b> adds the measurements made on the images. <b>Σ Scales</b> → “Copy to report” also brings the scale <b>drawing</b> (prostate sectors, breast location, liver segments, bull's eye).</li>
+      <li><b>⧉ Separate window</b>: the report opens in its own window (also on another screen) while you scroll the images; the browser remembers it. Key images appear in the report with an editable caption; measurements go into the text with <b>＋ Insert measurements</b>.</li>
+      <li><b>🏥 Letterhead and signature</b> (left column): institution, department, address, <b>logo</b>, physician and title. They are saved once in this browser and appear at the top of the report; the signature fills itself in.</li>
+      <li><b>🎙 Dictate</b>: only with a recent Google Chrome and only if speech recognition runs on the computer; otherwise it stays off, because audio must not go to the internet.</li>
+      <li>Choose what to include (patient data, measurements, key images) and then <b>🖨 Print</b>, <b>PDF</b> or <b>Word (.docx)</b>.</li>
+    </ol>
+    <p>The draft is saved automatically in this browser and is restored when you reopen the same exam. Report and patient data <b>never leave the computer</b>.</p>
+  </section>
+
+  <section id="esporta"><h2><span>⤓</span>Export</h2>
+    <table><tr><th>What</th><th>Format</th></tr>
+      <tr><td>Visible image</td><td>PNG or JPEG (adjustable quality)</td></tr>
+      <tr><td>Viewport series</td><td>PNG/JPEG images in a .zip, or MP4 video with the chosen images per second</td></tr>
+      <tr><td>Key images</td><td>DICOM Secondary Capture (anonymous, or in the exam's study) · PDF</td></tr>
+      <tr><td>Measurements</td><td>Text</td></tr>
+      <tr><td>Annotations</td><td>DICOM presentation state (GSPS)</td></tr>
+      <tr><td>Anonymized exam</td><td>DICOM in a .zip, with burned-in text covered</td></tr>
+    </table>
+    <p>All image exports are <b>anonymous</b>: no patient data and burned-in text automatically blacked out. Text detection is not infallible: always check the result before sharing it.</p>
+  </section>
+
+  <section id="sessione"><h2><span>💾</span>Sessions and DICOM files</h2>
+    <p>The <b>session</b> (.rqsess.json) saves measurements, viewports and windows without images: it reopens on the same exam with "＋ Add → Open session". The <b>GSPS</b> carries arrows, measurements and ROIs in a file to open with a DICOM viewer, overlaid on the original images.</p>
+  </section>
+
+  <section id="schermi"><h2><span>⧉</span>Multiple screens</h2>
+    <p><b>Page reload</b> (Ctrl/Cmd+R): in Chrome and Edge the viewer remembers where the opened folder or files are (only the reference, no copy) and reopens the exam; the browser may ask for permission to read the folder again, or use «↻ Reopen the last exam» on the home page. Unsaved annotations are lost on reload: save them first (Ctrl/Cmd+S).</p>
+    <p>The <b>⋯</b> menu of the bar holds the less used functions: link windows, automatic layout, patient data and manual. On narrow and touch screens the bar buttons show only the icon (the name appears on hover).</p>
+    <p><b>Multi-screen</b> (button with two monitors in the bar) opens another window (on the other screen, if the browser allows it) with the same exam; with "link windows" scrolling, window and zoom stay synchronized.</p>
+  </section>
+
+  <section id="privacy"><h2><span>🔒</span>Privacy</h2>
+    <ul>
+      <li>Images are read only on your computer; the DICOM viewer does not send data over the network.</li>
+      <li>Measurements, key images and the report draft remain in this browser's storage: to delete them, clear the site data from the browser.</li>
+      <li>Use anonymous exams when working for educational purposes and do not share files containing patient data.</li>
+    </ul>
+  </section>
+
+  <section id="vetrini"><h2><span>🔬</span>Digital slides (pathology)</h2>
+    <p>DICOM slides (<i>whole slide imaging</i>) open like exams: with the slide files (one per magnification level) the full-screen view opens; if there are other images too, the <b>🔬 Slide</b> button at the bottom right opens it. Wheel or two fingers to zoom, drag to pan, double click to zoom in; the map at the bottom right shows where you are. Only the visible parts are read from disk, so even slides of several GB open at once.</p>
+    <p><b>Magnification</b>: the <b>2× 4× 10× 20× 40×</b> buttons (or keys 1–5) go to the microscope magnification, with 40× equal to 0.25 µm per screen pixel; the current magnification is shown next to them. <b>⤢</b> (key 0) shows the whole slide, <b>↶</b> (key B) goes back to the previous view, <b>⟲ ⟳</b> (R, Shift+R) rotate by 90°, <b>⛶</b> (F) switches to full screen. With the keyboard: arrows to pan (more with Shift), + and − to zoom.</p>
+    <p><b>Annotations</b> (saved automatically in this browser and found again when the slide is reopened): <b>📏 Distance</b> and <b>↗ Arrow</b> by dragging; <b>⬠ Area</b> by clicking the vertices or freehand, closed with a double click, Enter or a click on the first point, with area and perimeter; <b>⬭ Ellipse</b> by dragging from one corner to the other; <b>◯ HPF field</b> places a high-power field of the chosen diameter (0.55 mm = 0.238 mm²); <b>✚ Count</b> marks the items to count, for example mitoses: above the bar you read how many fall in the fields and areas and the density per mm². Del (or ↩) removes the last one, Esc stops drawing. Two fingers pan and zoom even while drawing. <b>💾 Export DICOM</b> saves the annotations in the standard slide format (Microscopy Bulk Simple Annotations), readable by other viewers; <b>📂 Import</b> opens them again.</p>
+    <p><b>🎨 Colour</b>: brightness, contrast and gamma; for immunohistochemistry you can show only the hematoxylin (nuclei) or only the DAB (brown), separated with the Ruifrok and Johnston method: it helps estimate by eye the share of positive nuclei (for example Ki-67), it is not a measurement. <b>📷 Snapshot</b> saves a PNG image of the view with annotations, scale bar and magnification, for a report or a presentation. <b>⧉ Side by side</b> (with several slides open) shows a second slide alongside, for example an immunohistochemistry next to the hematoxylin-eosin: they pan, zoom and rotate together at the same scale in µm; <b>🔗</b> unlinks them to align them, another click links them again.</p>
+    <p>Compressed tiles are decoded in parallel outside the page, so scrolling stays smooth even on slow computers and tablets. On a phone or a slow network, while you move the low-resolution image arrives first and the detail when you stop.</p>
+    <p>To try without a slide of your own: <b>🔬 Try a sample slide</b> on the start screen downloads an aorta section at 40× (69 MB, OpenSlide test data) and opens it here.</p>
+    <p><b>Focal plane</b>: on slides acquired at several planes a slider (or PageUp / PageDown) focuses higher or lower. <b>Channels</b>: on fluorescence slides each channel (DAPI, FITC, Cy5…) has its own colour, a checkbox to turn it on or off and a brightness slider. <b>Overview</b> shows the photo of the whole slide; <b>Label</b> shows its label, which may contain the patient name and codes: with "patient data" off you are asked to confirm before it is shown. All DICOM tile formats are read: JPEG, JPEG 2000 and HTJ2K, JPEG-LS, JPEG XL (in browsers that support it), lossless JPEG, RLE and uncompressed, 8 or 16 bit, with tiles in order or sparse.</p>
+  </section>
+  <section id="formati"><h2><span>🧩</span>Formats and limits</h2>
+    <p>Reads uncompressed DICOM, JPEG Lossless, 8 and 12-bit JPEG, JPEG 2000 and HTJ2K, JPEG-LS, RLE, the deflate syntax, multi-frame and enhanced files, DICOMDIR and zip; H.264 video in DICOM and HEVC (H.265) where the browser decodes it (Safari yes, Chrome depends on the computer). MPEG-2 video is not read: no browser decodes it. With very large exams the 3D uses a reduced resolution.</p>
+    <p class="nota">Open source software: components and licenses in <a href="/licenze.html">licenses</a>.</p>
+  </section>
+</main>
+</div>
+</body>
+</html>

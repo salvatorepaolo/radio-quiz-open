@@ -1,0 +1,127 @@
+{
+ "id": "caso-tcia-125",
+ "visibile": true,
+ "titolo": "Ecografia e CEUS del fegato: nodulo di 1,5 cm da caratterizzare",
+ "titolo_interno": "Colangiocarcinoma intraepatico (LiverUS-13): nodulo di ~1,4 cm con wash-out precoce (< 60 s) e marcato → CEUS LR-M",
+ "distretto": "Addome",
+ "quesito": "nodulo epatico da caratterizzare",
+ "modalita": "Ecografia",
+ "difficolta": "Avanzato",
+ "anamnesi": "Paziente adulto con un nodulo epatico di circa 1,5 cm visto in ecografia; si esegue un'ecografia con mezzo di contrasto (CEUS) per caratterizzarlo. Età, sesso e storia clinica (epatopatia, fattori di rischio) non sono forniti dalla collezione, che raccoglie pazienti valutati per masse epatiche, in gran parte a rischio di epatocarcinoma. Nelle immagini CEUS lo schermo è diviso: a sinistra il B-mode, a destra il segnale del contrasto; il tempo dall'iniezione è scritto in basso a sinistra (T1 minuti:secondi).",
+ "domanda": "Descrivi il comportamento del nodulo dopo il contrasto, tenendo conto dei tempi. Quale categoria CEUS LI-RADS e quale gestione?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è l'interpretazione più probabile e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nodulo di circa 1,4 cm, appena ipoecogeno e poco visibile in B-mode",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 0 e lato sinistro delle immagini CEUS: area appena più scura del parenchima, sotto la superficie; i calibri dell'ecografo misurano 1,2-1,6 cm."
+  },
+  {
+   "testo": "In fase arteriosa (21 s) il nodulo si impregna più del parenchima circostante",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 1, immagini 0-4 (T1 0:21): il nodulo è già nettamente più impregnato del parenchima, che a quel tempo è ancora poco opacizzato. Sulle immagini statiche l'impregnazione non appare a rima."
+  },
+  {
+   "testo": "Wash-out precoce: già a 55 secondi il nodulo è meno impregnato del fegato; a 2 minuti è nettamente più scuro e a 4-6 minuti è quasi privo di segnale (wash-out marcato)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1, immagini 5-6 (0:55), 7-8 (2:01), 9-10 (4:06), 11-12 (5:58). È il segno chiave del caso: il wash-out prima di 60 secondi basta da solo per LR-M."
+  },
+  {
+   "testo": "Wash-out tardivo (oltre 60 secondi) e lieve",
+   "corretta": false,
+   "sezione": 0,
+   "nota": "È il comportamento dell'epatocarcinoma: qui il wash-out è già presente a 55 secondi ed è marcato a 2 minuti.",
+   "tipo": "distrattore"
+  },
+  {
+   "testo": "Nessun wash-out fino a 6 minuti (lesione isoimpregnata in fase tardiva)",
+   "corretta": false,
+   "sezione": 0,
+   "tipo": "distrattore"
+  },
+  {
+   "testo": "Wash-out precoce e marcato: CEUS LR-M (probabile o sicura malignità non specifica per epatocarcinoma) → biopsia, per il sospetto di colangiocarcinoma intraepatico o forma mista",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Criteri LR-M CEUS (v2017): iperenhancement arterioso a rima, wash-out precoce (< 60 s) o wash-out marcato (entro 2 minuti). Basta uno: qui il wash-out è precoce (55 s) e diventa marcato."
+  },
+  {
+   "testo": "CEUS LR-5 (epatocarcinoma certo) per l'iperenhancement arterioso non a orletto e il wash-out: trattamento diretto senza biopsia",
+   "corretta": false,
+   "sezione": 1,
+   "nota": "Errore pericoloso: il wash-out precoce e marcato esclude LR-5; in un colangiocarcinoma trattato come epatocarcinoma cambia la prognosi e la terapia.",
+   "tipo": "distrattore"
+  },
+  {
+   "testo": "Emangioma atipico a riempimento incompleto: controllo ecografico con contrasto a 6 mesi",
+   "corretta": false,
+   "sezione": 1,
+   "tipo": "distrattore"
+  },
+  {
+   "testo": "CEUS LR-3 (probabilità intermedia): ripetere l'ecografia di sorveglianza a 6 mesi",
+   "corretta": false,
+   "sezione": 1,
+   "tipo": "distrattore"
+  }
+ ],
+ "spiegazione": "In CEUS il tempo dall'iniezione è parte del reperto. La fase arteriosa va da circa 10-20 a 30-45 secondi, la portale fino a 2 minuti, la tardiva fino a 4-6 minuti. L'epatocarcinoma va tipicamente in wash-out tardivo (dopo 60 s) e lieve; il colangiocarcinoma intraepatico e le metastasi in wash-out precoce (prima di 60 s) e marcato (lesione «nera» entro 2 minuti), spesso con iperenhancement arterioso a rima. Per questo la CEUS LI-RADS v2017 ha la categoria LR-M: iperenhancement a rima, oppure wash-out precoce, oppure wash-out marcato. Una lesione LR-M va biopsiata. Trappola: un nodulo che si impregna in arteriosa e poi va in wash-out «sembra» un epatocarcinoma, ma se il wash-out arriva prima di 60 secondi o diventa marcato entro 2 minuti la categoria è LR-M. In questo caso l'iperenhancement a 21 s non è chiaramente a rima sulle immagini statiche: la categoria LR-M nasce dal tempo e dall'intensità del wash-out. In TC/RM il colangiocarcinoma mostra spesso impregnazione periferica e riempimento tardivo centripeto (stroma fibroso). La CEUS LI-RADS si applica ai pazienti a rischio di epatocarcinoma: qui la storia clinica non è fornita, ma la gestione (biopsia) non cambia.",
+ "regola": "Wash-out prima di 60 secondi o marcato entro 2 minuti = LR-M, non epatocarcinoma: serve la biopsia.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Diagnosi finale della collezione B-mode-and-CEUS-Liver: colangiocarcinoma intraepatico."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "B-mode-and-CEUS-Liver",
+  "soggetto": "LiverUS-13",
+  "doi": "10.7937/TCIA.2021.v4z7-tc39",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Eisenbrey J., Lyshchik A., Wessner C. (2021). Ultrasound data of a variety of liver masses (B-mode-and-CEUS-Liver) [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/b-mode-and-ceus-liver/",
+  "nota": "Immagini della collezione portate in scala di grigi e riscritte come DICOM ecografici per il sito (testo tecnico nei pixel invariato, compreso il tempo dall'iniezione T1); nessuna calibrazione in mm: usare i calibri dell'ecografo e la scala di profondità."
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 7,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "A 2:01 dall'iniezione il nodulo è nettamente più scuro del fegato (wash-out marcato)"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "nessuna"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "LR-M",
+   "biopsia"
+  ],
+  "motivo": "Lesione sospetta per malignità da biopsiare: non è un'urgenza, ma il referto deve indicare chiaramente LR-M e la biopsia."
+ },
+ "nota_docente": "Controllato il 25/10/2026: revisione indipendente su tutte le immagini (dettagli in fondo). Caso creato da Claude il 25/10/2026 da B-mode-and-CEUS-Liver LiverUS-13 (TCIA, CC BY 4.0, diagnosi finale colangiocarcinoma intraepatico). Serie 0: una sola immagine B-mode statica; serie 1: 13 immagini CEUS statiche affiancate al B-mode, a 0:21 (5), 0:55 (2), 2:01 (2), 4:06 (2), 5:58 (2). Filmati non importati (250-980 MB). Conversione in scala di grigi con strumenti_claude/vm/us2dcm.py (originali RGB senza regioni ecografiche); testo nei pixel solo tecnico, controllato a vista. Lettura di Claude: lesione poco visibile in B-mode; a 0:21 impregnazione maggiore del parenchima (rima non certa); a 0:55 già lieve wash-out; a 2:01 wash-out marcato. Sede (lobo/segmento) non indicata nelle immagini (LIVER TRANS); età e sesso non forniti. [revisione indipendente 25/10/2026] Privacy: lette a piena risoluzione tutte le 14 immagini (serie 0 indice 0; serie 1 indici 0-12): testo nei pixel solo tecnico (LIVER TRANS, LOGIQ E9, parametri, C1-6 Abdomen, T1, DUAL CALIPER, pittogramma del corpo nella serie 1 indice 2), banda alta già oscurata; intestazioni pydicom pulite (ANONIMO^caso-tcia-125, nessuna data/istituzione). Reperti verificati anche con ROI lesione/parenchima sul lato contrasto: 0:21 rapporto ~2-2,8 (APHE, non a rima sulle statiche), 0:55 ~0,75 (wash-out precoce), 2:01 ~0,5-0,7, 4:06 ~0,15-0,35 (quasi senza segnale). Categoria CEUS LR-M e biopsia corrette; distrattori sbagliati. Correzioni: precisati i tempi e gli indici delle immagini nelle note (prima: 'immagini 0-4' e tempi senza indici), 'wash-out marcato' riferito a 2-6 minuti, aggiunta frase sull'applicabilità della LI-RADS ai soli pazienti a rischio. Titolo non rivela la diagnosi; fonte TCIA CC BY 4.0 corretta."
+}

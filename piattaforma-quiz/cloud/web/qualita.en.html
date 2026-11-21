@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software quality and security — Radiology Quiz</title>
+<meta name="description" content="How radio-quiz.it protects privacy, checks that cases are correct and tests the software before every release.">
+<link rel="icon" href="logo.svg">
+<link rel="alternate" hreflang="it" href="qualita.html">
+<style>
+  :root { --sf: #ffffff; --txt: #1d2430; --muto: #5b6575; --bord: #d9dee6; --acc: #1a62bb; --riga: #f4f6f9; --ok: #1d7a46; }
+  @media (prefers-color-scheme: dark) { :root { --sf: #12161d; --txt: #e6e9ee; --muto: #9aa4b2; --bord: #2b3340; --acc: #6ea2ff; --riga: #1a2029; --ok: #5cc48a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--sf); color: var(--txt); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  header img { width: 44px; height: 44px; }
+  h1 { font-size: 1.6rem; margin: 0; line-height: 1.25; }
+  h2 { font-size: 1.15rem; margin: 36px 0 8px; color: var(--acc); }
+  h3 { font-size: 1rem; margin: 20px 0 4px; }
+  a { color: var(--acc); }
+  .muto { color: var(--muto); }
+  ul { padding-left: 1.2em; } li { margin: 4px 0; }
+  .nota { border-left: 3px solid var(--acc); background: var(--riga); padding: 10px 14px; border-radius: 6px; }
+  .breve { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 16px 0 4px; padding: 0; list-style: none; }
+  .breve li { margin: 0; border: 1px solid var(--bord); border-radius: 8px; padding: 10px 12px; background: var(--riga); }
+  .breve b { display: block; margin-bottom: 2px; }
+  .indice { columns: 2; column-gap: 24px; padding-left: 1.2em; margin-top: 0; }
+  .indice li { margin: 0 0 6px; break-inside: avoid; }
+  @media (max-width: 600px) { .indice { columns: 1; } }
+  .tab { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  .tab th, .tab td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--bord); }
+  .tab th { font-weight: 600; background: var(--riga); }
+  .scorri { overflow-x: auto; }
+  .lic { white-space: nowrap; font-weight: 600; }
+  .num { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ok); }
+  @media (max-width: 600px) {
+    .tab thead { display: none; }
+    .tab tr { display: block; border-bottom: 1px solid var(--bord); padding: 8px 0; }
+    .tab td { display: block; border: 0; padding: 2px 0; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="logo.svg" alt=""><h1>Software quality and security</h1></header>
+  <p><b>radio-quiz.it</b> · <a href="./">← Back to Radiology Quiz</a> · <a href="qualita.html" hreflang="it" lang="it">Italiano</a></p>
+
+  <p>This page explains how we protect data, how we check that cases and their scoring are correct, and how we test the software before every release. The checks described here are automatic and run again at every change: they are not promises, but tests the software must pass before it goes online.</p>
+  <p class="nota"><b>Educational tool, not a medical device.</b> Radiology Quiz is for training on anonymous cases. It is not certified as a medical device and must not be used for diagnosis, reporting or clinical decisions. The checks on this page concern educational correctness, privacy and software security, not clinical use.</p>
+
+  <ul class="breve">
+    <li><b>🔒 Data that stays put</b>Images are anonymized before publication; the desktop viewer makes no network requests, and a test checks it.</li>
+    <li><b>✅ Every case re-scored</b>At every change, the scoring of all cases is recalculated with typical answers and compared with the expected one.</li>
+    <li><b>🚦 Release blocked</b>If even one check fails, the site is not updated.</li>
+    <li><b>🔓 All open source</b>Software, AI models and testing tools are open source, with checked licenses.</li>
+  </ul>
+
+  <h2>Contents</h2>
+  <ol class="indice">
+    <li><a href="#privacy">Privacy by design</a></li>
+    <li><a href="#casi">Correct cases and scoring</a></li>
+    <li><a href="#prove">How the software is tested</a></li>
+    <li><a href="#codice">Code quality</a></li>
+    <li><a href="#sicurezza">Security</a></li>
+    <li><a href="#pubblicazione">How a new version is released</a></li>
+    <li><a href="#limiti">Known limitations</a></li>
+    <li><a href="#strumenti">Tools used</a></li>
+    <li><a href="#segnalazioni">Reporting problems</a></li>
+  </ol>
+
+  <h2 id="privacy">1. Privacy by design</h2>
+  <h3>Case images</h3>
+  <ul>
+    <li><b>Allow-list anonymization.</b> Only the technical DICOM fields needed to view and measure the image are kept. Everything else is removed: name, IDs, address, physicians, institution, manufacturers' private fields. Dates are reduced to month and year and identifiers (UIDs) are regenerated.</li>
+    <li><b>Text burned into the image.</b> A text-recognition (OCR) check looks for names and dates written in the pixels. The areas found are covered in the pixels themselves, before the file leaves the computer.</li>
+    <li><b>Ultrasound.</b> Only the inside of the image regions declared by the scanner is kept; everything else, where the device writes name, institution and date, is blacked out.</li>
+    <li><b>Cautious exclusions.</b> Images that cannot be anonymized with certainty are not published: summary screenshots, structured reports, “secondary capture” and “for processing” images. Original reports are never uploaded.</li>
+    <li><b>Check after anonymization.</b> Every file produced is read again, looking for the patient's words and for suspicious fields. Before a case is made visible, the headers of all its images and a sample of the pixels are checked again.</li>
+  </ul>
+  <h3>The desktop viewer</h3>
+  <ul>
+    <li>Files opened in the client viewer stay on the computer: they are not sent to the site or to any other service.</li>
+    <li>An automatic test opens the viewer in a real browser and checks that <b>no network request is made</b> while it is used.</li>
+    <li>Files a teacher prepares for a new case are anonymized in the browser: patient data never leaves the computer.</li>
+  </ul>
+  <h3>Artificial intelligence</h3>
+  <ul>
+    <li>Only open-source models are used, running in the browser or offline on cases that are already anonymous. No image is sent to external AI services.</li>
+  </ul>
+  <h3>How we test it</h3>
+  <p>With synthetic DICOM files containing <b>invented data</b> (never real data). The tests check, searching the file's raw bytes too:</p>
+  <ul>
+    <li>that no patient data survives;</li>
+    <li>that pixels and technical fields stay identical;</li>
+    <li>that burned-in text is covered, in compressed images too, without the original pixels remaining in the file;</li>
+    <li>that in ultrasound everything outside the image regions turns black;</li>
+    <li>that anonymization in the browser and on the preparation computer produce the same identifiers.</li>
+  </ul>
+  <p>At every change, <b>a thousand randomly generated files</b> are added, with invented data in ever-different fields and formats, plus deliberately damaged files (truncated or with altered bytes). No patient data may get through in any of them. This test has already closed two gaps that hand-written tests did not see: a file with a wrong length could hide the name inside a technical field, and a free-comment field among the technical ones stayed in the file. A malformed file is now excluded.</p>
+
+  <h2 id="casi">2. Correct cases and scoring</h2>
+  <ul>
+    <li><b>Every case re-scored at every change.</b> For each of the more than <span class="num">130</span> cases a test simulates typical answers. It checks that:
+      <ul>
+        <li>all the correct answers score 100 and no answer scores 0;</li>
+        <li>choosing a distractor lowers the score;</li>
+        <li>a report with the expected findings passes and one with wrong statements does not;</li>
+        <li>communicating the result as expected scores 100;</li>
+        <li>a mark placed on the centre of the finding counts as “on target”.</li>
+      </ul>
+      Every score is then compared with the stored one: if a change to the case or to the code alters it, the test says which case and which answer.</li>
+    <li><b>Scales and classifications.</b> The clinical scales used in the cases are tested with example cases and about <span class="num">4,000</span> combinations, compared with the expected results.</li>
+    <li><b>Complete cases.</b> No visible case may contain text still “to be filled in” or lack correct answers.</li>
+    <li><b>Analyses for teachers.</b> The calculations are tested on an invented class, with expected values worked out by hand: option discrimination, missed secondary findings, calibration of stated confidence, error map.</li>
+  </ul>
+
+  <h2 id="prove">3. How the software is tested</h2>
+  <div class="scorri"><table class="tab">
+    <thead><tr><th>Level</th><th>What it checks</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td>Unit and regression tests</td><td>Anonymization, scoring, scales, PDF and Word reports, analyses, server rules, permissions, translations. They are <span class="num" data-controlli>over 150</span> checks.</td><td>before every release; also at every code change</td></tr>
+      <tr><td>Browser tests</td><td>Viewer and tools (windowing, measurements, ROI, MPR, cardiac MRI, T2*), student and teacher workflow, client viewer without network. The same tests run with Chrome, with the Safari engine (iPad, iPhone, Mac) and with Firefox.</td><td>before every release</td></tr>
+      <tr><td>Full suite</td><td>Complete user journeys, phone, graphics cards, 3D analysis and AI in the browser. It takes about 17 minutes.</td><td>for every group of changes</td></tr>
+      <tr><td>Accessibility</td><td>axe-core with the WCAG 2.0, 2.1 and 2.2 rules, levels A and AA, on 17 pages; keyboard use; 200% zoom without horizontal scrolling.</td><td>in the full suite</td></tr>
+      <tr><td>Performance</td><td>Size of what is downloaded on opening, with upper limits: a change that makes the page heavier than the limits does not pass.</td><td>before every release</td></tr>
+      <tr><td>Scoring rules</td><td>On thousands of randomly generated cases and answers we check rules that must always hold: the score is between 0 and 100, an extra correct answer never lowers it, a wrong one never raises it, the order of answers does not matter, writing a wrong finding instead of the right one does not count as having found it.</td><td>at every code change</td></tr>
+      <tr><td>Absurd requests to the server</td><td>Hundreds of requests with missing, wrong or malicious data to every server function, with and without login: it must always answer with a clear error, without crashing and without showing other people's data.</td><td>at every code change</td></tr>
+      <tr><td>Missing, interrupted or slow network</td><td>We simulate the connection dropping while a student sends an answer, a connection cut halfway and a very slow network: choices and report are kept, a clear message appears, the second attempt succeeds, pressing several times never sends twice.</td><td>before every major release</td></tr>
+      <tr><td>Viewer memory</td><td>We open 24 of the largest CT and MRI exams one after the other and measure the memory used by the page after each: it must not grow case after case, so the browser neither slows down nor crashes, even on tablets.</td><td>before every major release</td></tr>
+      <tr><td>Loading times</td><td>With Lighthouse, as from a mid-range phone on slow 4G: home, an open case and information pages, on the real site and in test. If a change makes a page slower or heavier, the check reports it.</td><td>before every major release</td></tr>
+      <tr><td>Offline viewer update</td><td>Whoever installed the client viewer gets the new version without losing recent exams, settings and choices already made, and keeps using it without network before and after the update. Only site files stay in the browser storage, never exam data.</td><td>before every major release</td></tr>
+      <tr><td>Digital slides</td><td>Public DICOM slides and purpose-built ones (3-channel fluorescence on 3 focal planes, sparse tiles, label and overview) open in Chrome, Safari and Firefox: tissue visible, calibration in µm, planes and channels that change the image, label shown only after confirmation. In the offline viewer no network requests; on the site the slide is read in pieces (a few MB even for a 1.7 GB file) and the student sees it only after answering. Tools: exact 10× and 40× magnification, rotation, keyboard, history, areas and ellipses with area and perimeter compared with the expected value, counting in high-power fields with density per mm², annotations saved, exported to DICOM and read back identical also with highdicom, colours (DAB only, brightness) and reset, snapshot, two slides side by side at the same scale, JPEG 2000 decoding in web workers, detail only when still on a slow network.</td><td>before every major release; on the site every day</td></tr>
+      <tr><td>Lung nodule volume</td><td>The semiautomatic volume is measured on 140 nodules from 30 CT scans, clicking at the centre given by the AI second reading, and compared with the AI volume: it must stay within twice or half in at least 60% of nodules (65% today; before version 1.270 it was 4%). Follow-up over time on two CT scans one year apart and the reading trace shown after the answer are checked too.</td><td>before every major release</td></tr>
+      <tr><td>Dates and time zones</td><td>Assignment deadlines end at 23:59 Rome time with the correct daylight saving time; reminders and reviews are counted on the calendar across the clock change, at month end, at year end and on 29 February, whatever the server time zone.</td><td>at every code change</td></tr>
+      <tr><td>Security scan</td><td>OWASP ZAP visits the pages and server functions in test, also with teacher access, and tries the most common attacks: code injection, cross-site scripting, exposed folders and files, insecure cookies and headers.</td><td>before every major release</td></tr>
+      <tr><td>Cloud configuration</td><td>Read-only check of storage (not public, encrypted), continuous database backup, two-factor authentication, access keys and HTTPS-only distribution.</td><td>before every major release</td></tr>
+      <tr><td>Links and libraries</td><td>Every week we check that the external links cited in the cases (DOI, image archives, licences) still work. The libraries used are watched automatically: if a known vulnerability appears, an alert arrives with the fix.</td><td>every week and automatically</td></tr>
+      <tr><td>Screenshot comparison</td><td>Eleven pages (home, case list, viewer, phone, client, information pages, English, dark theme) captured and compared pixel by pixel with the last good version: this catches visual breakage that functional tests miss.</td><td>for every group of changes</td></tr>
+      <tr><td>Testing the tests</td><td>Thousands of small errors are deliberately introduced into anonymization and answer scoring, and we count how many the tests catch. Errors that go unnoticed point to the checks to add.</td><td>periodically</td></tr>
+      <tr><td>Translations</td><td>Every interface text has its English translation, with the same structure and placeholders.</td><td>before every release</td></tr>
+      <tr><td>Check on the live site</td><td>After the release, on the real site: the page opens, without a code access stays closed, images of a case that was not opened stay closed, a student cannot read the answers or see other accounts. The security headers are checked too, and that non-public files (code repository, backups, tests) cannot be reached. The same check, with the expiry of the certificate and of the domain and the records that make emails arrive (SPF, DKIM, DMARC), is repeated automatically every day.</td><td>after every release and every day</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muto">Tests run on a local simulator of the site, with test accounts. On the real site only the check in the last row is used, with a test account created and deleted immediately afterwards.</p>
+
+  <h2 id="codice">4. Code quality</h2>
+  <ul>
+    <li><b>Checks before every change.</b> Before a change enters the code repository, an automatic check makes sure it does not contain:
+      <ul>
+        <li>passwords, keys or tokens;</li>
+        <li>DICOM files, recognized even when renamed: images never enter the code repository;</li>
+        <li>programming errors (ESLint);</li>
+        <li>script errors (ShellCheck).</li>
+      </ul>
+      The fast tests run too.</li>
+    <li><b>Tests repeated on an independent server.</b> At every change the same checks, and all the tests that do not need the case images, run again on a GitHub server, starting from a clean copy.</li>
+    <li><b>Test coverage.</b> We measure which lines of code are executed by the tests: today <span class="num">86%</span> of the modules tested without a browser (scoring, anonymization, reports, analyses, scales, server) and about <span class="num">half</span> of the viewer, measured in the browser during the tests. The least covered parts are the first candidates for new tests.</li>
+    <li><b>No secrets in the code.</b> The whole history of the repository has been checked: no key or password appears in it.</li>
+    <li><b>Two copies of the repository</b>, on two different services, as a backup.</li>
+  </ul>
+
+  <h2 id="sicurezza">5. Security</h2>
+  <ul>
+    <li><b>Passwords.</b> They are stored only as a hash (scrypt with salt) and must have at least 10 characters, with letters and a number or symbol. After 5 wrong attempts access is blocked for 15 minutes.</li>
+    <li><b>Links sent by email.</b> They are single-use and expire: confirmation after 48 hours, password change after one hour. Registration, confirmation, password reset and the lockout after wrong attempts are tested at every change by following the links as a person would. An address that is already registered gets the same reply as a new one, so nobody can find out who is registered.</li>
+    <li><b>Sessions.</b> They use a protected technical cookie (HttpOnly, Secure, SameSite). A password change closes the other sessions.</li>
+    <li><b>Permissions, tested at every release.</b>
+      <ul>
+        <li>A student does not receive the solution, notes or internal title of a case before answering.</li>
+        <li>The score is calculated by the server.</li>
+        <li>A teacher only sees the students who chose them.</li>
+        <li>A case's images open only after the case has been opened.</li>
+      </ul></li>
+    <li><b>Page protected by the browser.</b> The content security policy (CSP) forbids scripts inserted into the page and third-party scripts. The security headers (HSTS, protection against framing, no access to camera and location) are active. A test checks that no inserted script appears in the page.</li>
+    <li><b>User text.</b> What you write in the report stays text: the tests check that it cannot become code in the page, the PDF or the Word file.</li>
+    <li><b>Data retention, checked by tests.</b> Registrations never confirmed are deleted after a week. An account inactive for 24 months is deleted only after a notice sent a month earlier, and its answers remain only in anonymous form. On company platforms the administrator decides.</li>
+    <li><b>User rights, checked by tests.</b> “Download my data” produces a file with profile and answers, without password hashes or tokens. Deleting the account requires the password, makes the answers anonymous and removes the person from those who had chosen them as a teacher.</li>
+    <li><b>No third-party tracking.</b> Only technical cookies.</li>
+  </ul>
+
+  <h2 id="pubblicazione">6. How a new version is released</h2>
+  <ol>
+    <li>Changes pass the automatic checks before entering the code repository; then the tests run again on GitHub.</li>
+    <li>The release runs all the tests again: if a single one fails, it stops and the site stays as it was.</li>
+    <li>The site's files are minified, checked again and uploaded; every version has a sequential number.</li>
+    <li>Right afterwards, a check on the real site verifies access, permissions and images.</li>
+  </ol>
+
+  <h2 id="limiti">7. Known limitations</h2>
+  <ul>
+    <li>The tests use invented data and cases from public archives: they show that the software behaves as intended in those situations, not that it is free of errors.</li>
+    <li>About half of the viewer code is not yet touched by any automatic test: coverage is being extended step by step, starting from the most delicate parts.</li>
+    <li>Automatic accessibility checks do not replace testing with people who use assistive technologies.</li>
+    <li>AI suggestions and corrections can be wrong: always check them with your own reading.</li>
+    <li>Automatic anonymization greatly reduces the risk but does not eliminate it: this is why a case becomes visible only after the checks described above and the administrator's decision.</li>
+  </ul>
+
+  <h2 id="strumenti">8. Tools used for the checks</h2>
+  <p>All open source. They are only used to check the software and are not distributed with the site. The site's libraries are listed in <a href="licenze.html">Licenses and credits</a>.</p>
+  <div class="scorri"><table class="tab">
+    <thead><tr><th>Tool</th><th>License</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://nodejs.org/api/test.html">Node.js test runner</a></td><td class="lic">MIT</td><td>unit and regression tests</td></tr>
+      <tr><td><a href="https://github.com/microsoft/playwright">Playwright</a> with Chromium</td><td class="lic">Apache-2.0</td><td>browser tests</td></tr>
+      <tr><td><a href="https://github.com/dequelabs/axe-core">axe-core</a></td><td class="lic">MPL-2.0</td><td>accessibility (WCAG)</td></tr>
+      <tr><td><a href="https://github.com/eslint/eslint">ESLint</a></td><td class="lic">MIT</td><td>errors in JavaScript code</td></tr>
+      <tr><td><a href="https://github.com/bcoe/c8">c8</a></td><td class="lic">ISC</td><td>test coverage</td></tr>
+      <tr><td><a href="https://github.com/gitleaks/gitleaks">gitleaks</a></td><td class="lic">MIT</td><td>finding passwords and keys in the code</td></tr>
+      <tr><td><a href="https://github.com/koalaman/shellcheck">ShellCheck</a></td><td class="lic">GPL-3.0</td><td>script errors</td></tr>
+      <tr><td><a href="https://github.com/tesseract-ocr/tesseract">Tesseract OCR</a></td><td class="lic">Apache-2.0</td><td>text burned into images</td></tr>
+      <tr><td><a href="https://github.com/pydicom/pydicom">pydicom</a></td><td class="lic">MIT</td><td>checks of DICOM files on the preparation computer</td></tr>
+      <tr><td><a href="https://github.com/GoogleChrome/lighthouse">Lighthouse</a></td><td class="lic">Apache-2.0</td><td>loading times</td></tr>
+      <tr><td><a href="https://www.zaproxy.org/">OWASP ZAP</a></td><td class="lic">Apache-2.0</td><td>security scan</td></tr>
+      <tr><td><a href="https://github.com/dubzzz/fast-check">fast-check</a></td><td class="lic">MIT</td><td>property-based tests on random data</td></tr>
+      <tr><td><a href="https://github.com/istanbuljs/istanbuljs">istanbul</a></td><td class="lic">BSD-3-Clause</td><td>code instrumentation for browser coverage</td></tr>
+      <tr><td><a href="https://github.com/stryker-mutator/stryker-js">StrykerJS</a></td><td class="lic">Apache-2.0</td><td>testing the tests (mutation testing)</td></tr>
+      <tr><td><a href="https://github.com/mapbox/pixelmatch">pixelmatch</a></td><td class="lic">ISC</td><td>screenshot comparison</td></tr>
+      <tr><td><a href="https://github.com/evanw/esbuild">esbuild</a></td><td class="lic">MIT</td><td>file minification and performance measurement</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="segnalazioni">9. Reporting problems</h2>
+  <p>Found an error in a case, a security problem or data that should not be there? Write to <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a>; for privacy, to <a href="mailto:privacy@radio-quiz.it">privacy@radio-quiz.it</a>. Security reports are handled with priority: please do not disclose them before the problem is fixed.</p>
+  <p class="muto">Page updated November 2026.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Ricerca di segreti (gitleaks, licenza MIT): regole predefinite più queste eccezioni.
+# Lanciata dall'hook pre-commit (.githooks/pre-commit) e da piattaforma-quiz/qualita/controlli.sh.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "falsi allarmi noti"
+# motore 3D minificato: chiavi di oggetti come key:"..." sembrano chiavi API
+paths = [
+  '''piattaforma-quiz/cloud/web/lib/mpr3d\.js$''',
+  '''piattaforma-quiz/cloud/mpr3d/out/.*\.js$''',
+  '''(^|/)node_modules/''',
+  '''\.min\.js$''',
+  # prove sul simulatore locale: password inventate degli account di prova, non segreti
+  '''strumenti_claude/foto_home\.mjs$''',
+  '''strumenti_claude/prova_novizio_1114\.mjs$''',
+]

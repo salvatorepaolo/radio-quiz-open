@@ -1,0 +1,104 @@
+{
+ "id": "caso-tcia-029",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:21",
+ "titolo": "TC addome: rene destro infiltrato in paziente anziana",
+ "titolo_interno": "Carcinoma uroteliale della pelvi renale destra infiltrante il parenchima (pT4): lesione infiltrativa che conserva la forma del rene",
+ "distretto": "Rene",
+ "quesito": "addome",
+ "modalita": "TC",
+ "difficolta": "Avanzato",
+ "anamnesi": "Donna di 90 anni. Ematuria. TC dell'addome senza e con mezzo di contrasto, con fase tardiva.",
+ "domanda": "Referta in ordine: rene destro, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Rene destro",
+   "domanda": "Rene destro: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Tessuto solido ipovascolare a margini sfumati che occupa il seno renale e infiltra il parenchima della metà inferiore del rene destro, senza deformare il profilo del rene (il rene conserva la sua forma)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "In fase tardiva il tessuto resta ipodenso rispetto al parenchima sano e i calici del polo inferiore non si opacizzano normalmente, mentre quelli medi e superiori si riempiono",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa espansiva corticale ipervascolare, eterogenea con aree di necrosi, che deforma e sporge dal profilo del rene destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Calcolo radiopaco del bacinetto destro con idronefrosi e assottigliamento del parenchima, senza tessuto solido",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesione infiltrativa del seno e del parenchima renale: sospetto carcinoma uroteliale dell'alta via escretrice; uro-TC completa, citologia e ureteroscopia con biopsia, stadiazione",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Carcinoma renale a cellule chiare corticale che infiltra il seno renale: nefrectomia parziale, senza uro-TC completa, citologia né altri accertamenti sulla via escretrice",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Pielonefrite acuta del polo inferiore con nefrite a chiazze e ritardo di escrezione: solo terapia antibiotica, poi controllo ecografico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Le masse renali si dividono in espansive e infiltrative. Il carcinoma a cellule chiare cresce in modo espansivo: deforma il profilo, ha margini netti ed è ipervascolare. Il carcinoma uroteliale della pelvi infiltra invece dal seno verso il parenchima, conserva la forma «a fagiolo» del rene, è ipovascolare, e in fase escretoria dà difetti di riempimento o calici non opacizzati («calice fantasma», amputazione).\nAltre lesioni infiltrative: linfoma, metastasi, carcinoma dei dotti collettori, pielonefrite (contesto clinico diverso).\nLa diagnosi conta per la terapia: per l'uroteliale dell'alta via si fa nefroureterectomia con asportazione del manicotto vescicale (non la nefrectomia parziale), e si sorveglia la vescica (tumori sincroni o metacroni frequenti). L'esame giusto per l'ematuria è l'uro-TC con fase escretoria.",
+ "regola": "Lesione renale infiltrativa che conserva la forma del rene, a partenza dal seno: carcinoma uroteliale (o linfoma), non carcinoma a cellule chiare.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma uroteliale, alto grado, pT4 (dimensione patologica 5,5 cm; dati clinici della collezione C4KC-KiTS)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00090",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 55,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Infiltrazione della metà inferiore del rene destro"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini (post-contrasto e tardiva): tessuto ipovascolare infiltrativo del seno e del parenchima della metà inferiore del rene destro, forma del rene conservata; in fase tardiva calici medi e superiori opacizzati, tessuto inferiore ipodenso con opacizzazione scarsa e irregolare dei calici inferiori. Nessuna correzione.\nCaso importato da TCIA il 17/10/2026 (bozza). Sede e dimensioni verificate con la segmentazione della massa fornita dalla collezione (KiTS19); densità misurate da Claude nella segmentazione.\nSegmentazione della «massa» tra z −269 e −326 mm (circa 4,6 × 7 cm): comprende seno e parenchima della metà inferiore. La serie chiamata «arterial» nella collezione mostra già contrasto nelle vie escretrici a sinistra: fase tardiva più che arteriosa, per questo rinominata «post-contrasto». Il mancato riempimento dei calici inferiori a destra va confermato nella fase tardiva (fette ~55-64). Cisti corticale sinistra non inserita tra le risposte.\n[controllato e pubblicato il 18/10/2026 su richiesta dell'amministratore («controlla i casi e valida quelli buoni»): in fase tardiva i calici medi e superiori si opacizzano (47-55), quelli del polo inferiore no e il tessuto resta ipodenso (58-64): reperto confermato]"
+}

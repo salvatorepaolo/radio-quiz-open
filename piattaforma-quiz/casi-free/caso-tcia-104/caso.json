@@ -1,0 +1,148 @@
+{
+ "id": "caso-tcia-104",
+ "visibile": true,
+ "aggiornato": "2026-10-25 19:30",
+ "titolo": "TC a doppia energia del rachide: mieloma multiplo in seconda linea di terapia",
+ "titolo_interno": "Mieloma multiplo micromolecolare lambda: lesioni litiche multiple del rachide, maggiori nei corpi da T8 a L1 (sostituzione della spongiosa, corticale conservata); midollo infiltrato chiaro nella mappa a soppressione del calcio (Myel_008)",
+ "distretto": "Rachide",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 65 anni con mieloma multiplo a catene leggere lambda (catene leggere libere lambda nel siero circa 9.300 mg/L), stadio ISS 3, creatinina 377 µmol/L, calcio nella norma. TC a bassa dose del rachide su apparecchio a doppia energia, eseguita prima della seconda linea di terapia. Sono disponibili la TC convenzionale e la ricostruzione con soppressione del calcio (indice 50).",
+ "domanda": "Leggi la colonna con la finestra per l'osso e confronta la TC convenzionale con la mappa a soppressione del calcio.",
+ "sezioni": [
+  {
+   "nome": "Scheletro",
+   "domanda": "Che cosa vedi nei corpi vertebrali?"
+  },
+  {
+   "nome": "Doppia energia",
+   "domanda": "Che cosa aggiunge la ricostruzione con soppressione del calcio?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Lesioni litiche nei corpi vertebrali da T8 a L1: da T9 a L1 la spongiosa è sostituita da tessuto a densità dei tessuti molli (circa 20-45 HU) con corticale assottigliata ma conservata",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Nella segmentazione degli esperti le lesioni maggiori sono in T8 (circa 20 mL), L1, T11, T12 e T9; nelle vertebre senza lesioni la spongiosa misura circa 130-290 HU."
+  },
+  {
+   "testo": "Piccole lesioni litiche multiple anche in altri segmenti (cervicali, dorsali alti, lombari)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "La collezione ne segmenta 32 in tutto, da C2 a L3: molte sono di pochi millimetri e si cercano con la finestra per l'osso e le ricostruzioni."
+  },
+  {
+   "testo": "T8 ha struttura disomogenea, con aree litiche alternate ad aree più dense",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagine 109 della TC convenzionale."
+  },
+  {
+   "testo": "Metastasi osteoaddensanti multiple",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le lesioni tolgono osso, non lo aggiungono: nel mieloma le lesioni sono litiche (a «colpo di pugno»), di solito senza orletto sclerotico."
+  },
+  {
+   "testo": "Crolli vertebrali multipli con frammenti nel canale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "I corpi lesionati mantengono la forma e la parete posteriore è integra: il rischio di cedimento c'è, ma il crollo non si vede."
+  },
+  {
+   "testo": "Nella mappa a soppressione del calcio i corpi da T9 a L1 sono chiari (circa 5-20 HU), mentre nelle vertebre sane il midollo è scuro, cioè grasso (circa da -40 a -130 HU)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Togliendo il contributo del calcio resta il contenuto del midollo: grasso nell'adulto sano, tessuto (plasmacellule) dove c'è infiltrazione. È lo stesso principio della RM in T1."
+  },
+  {
+   "testo": "La mappa a soppressione del calcio serve solo a ridurre gli artefatti metallici delle viti e delle protesi e a vedere meglio la corticale, non a valutare il midollo osseo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Per gli artefatti metallici si usano le immagini monoenergetiche ad alta energia; la soppressione del calcio mostra il midollo osseo."
+  },
+  {
+   "testo": "Nella mappa a soppressione del calcio le vertebre lesionate risultano più scure (più grasse) di quelle sane",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "È il contrario: il midollo infiltrato perde il grasso e diventa più chiaro."
+  },
+  {
+   "testo": "Mieloma multiplo con lesioni litiche multiple del rachide e infiltrazione midollare estesa da T8 a L1: malattia ossea attiva (criterio CRAB), valutare il rischio di cedimento (SINS) e, se dolore o deficit, la RM",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Metastasi litiche multiple del rachide da tumore solido (polmone, rene o mammella), non mieloma: serve la ricerca del primitivo con TC torace-addome e PET prima di ogni terapia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "La diagnosi di mieloma è nota e le catene leggere sono molto alte: lesioni litiche multiple senza sclerosi sono il quadro tipico."
+  },
+  {
+   "testo": "Osteoporosi senile diffusa senza lesioni focali né infiltrazione midollare: terapia antiosteoporotica, nessun approfondimento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "L'osteoporosi riduce la densità in modo uniforme e conserva il grasso midollare (scuro nella mappa a soppressione del calcio); qui ci sono aree focali con tessuto che sostituisce l'osso."
+  }
+ ],
+ "spiegazione": "Nel mieloma multiplo la TC «total body» a bassa dose ha sostituito la vecchia radiografia dello scheletro (linee guida IMWG): basta una lesione litica di almeno 5 mm per definire la malattia ossea che richiede terapia (criterio CRAB, «B» = bone). Le lesioni sono litiche, senza orletto sclerotico; in questo paziente i corpi da T9 a L1 hanno la spongiosa sostituita da tessuto a 20-45 HU (T8 è disomogeneo, con aree litiche e aree più dense), mentre nelle vertebre sane la spongiosa misura 130-290 HU.\n\nLa TC a doppia energia permette di «togliere» il calcio (virtual non-calcium): nell'adulto il midollo osseo normale è in gran parte grasso e appare scuro (valori negativi), mentre il midollo infiltrato dalle plasmacellule è chiaro, come in RM T1. È utile anche dove la corticale non è ancora erosa: qui le vertebre lesionate misurano circa 5-20 HU, quelle sane da -40 a -130 HU.\n\nCose da riportare: livelli coinvolti, lesioni maggiori, integrità del muro posteriore e del canale, rischio di frattura (SINS), masse extraossee. Le lesioni vanno contate dal sacro o da C2 (usa le ricostruzioni sagittali dell'MPR).\n\nTrappole: non confondere l'osteoporosi diffusa (densità ridotta ma grasso conservato) con l'infiltrazione; nel paziente trattato le lesioni possono diventare sclerotiche durante la risposta (T8 qui ha aree più dense).",
+ "regola": "Nel mieloma cerca lesioni litiche ≥ 5 mm su tutta la colonna; con la doppia energia, il midollo chiaro nella mappa senza calcio vuol dire infiltrazione.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Dati della collezione Spinal-Multiple-Myeloma-SEG (paziente Myel_008): mieloma multiplo a catene leggere lambda, ISS 3, seconda linea di terapia (lenalidomide + daratumumab + desametasone), risposta massima parziale (PR). Lesioni litiche segmentate dagli esperti: 32, da C2 a L3, circa 93 mL in tutto."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "Spinal-Multiple-Myeloma-SEG",
+  "soggetto": "Myel_008",
+  "doi": "10.7937/k4qv-hh78",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Nohel M., Válek V., Rohan T., Štork M., Jakubíček R., Chmelík J., Dostál M. (2026). Segmentation of spinal multiple myeloma lesions in dual-energy CT (Spinal-Multiple-Myeloma-SEG) (Version 1) [Dataset]. The Cancer Imaging Archive. https://doi.org/10.7937/k4qv-hh78",
+  "url": "https://www.cancerimagingarchive.net/collection/spinal-multiple-myeloma-seg/",
+  "note": "Strati originali da 0,9 mm (passo 0,6 mm) mediati a gruppi di 4 (circa 2,4 mm) per il visualizzatore; serie native dello scanner, nessun altro intervento sui pixel."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 0,
+  "idx": 124,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "T9: spongiosa sostituita da tessuto molle, corticale conservata"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "mieloma",
+   "litic"
+  ],
+  "motivo": "Malattia nota e già in cura; nessun segno di compressione midollare o di crollo: basta il referto. Un crollo con frammento nel canale o un deficit neurologico richiederebbero una chiamata urgente."
+ },
+ "nota_docente": "Caso creato da Claude il 25/10/2026 da Spinal-Multiple-Myeloma-SEG (IDC, CC BY 4.0), paziente Myel_008, studio 2014-07. Serie: TC convenzionale e Calcium Suppression 50 Index, entrambe mediate a 4 strati (0,6 → 2,4 mm) con strumenti_claude/vm/media_strati.py, poi anonimizza.py. Lesioni dalla SEG della collezione (strumenti_claude/vm/seg_lesioni.py, indici nella serie pubblicata): T8 20,2 mL (img 109), L1 17,7 mL (img 171), T11 16,7 mL (img 146), T12 16,1 mL (img 158), T9 12,3 mL (img 124), T10 5,9 mL (img 133); 26 piccole lesioni < 1 mL da C2 a L3. Densità misurate da Claude (ROI 1 cm al centro del corpo): convenzionale T9 22, T11 33, T12 25, L1 43 HU, T8 192 HU (disomogenea); vertebre sane circa 130-290 HU. Soppressione del calcio: lesioni 5-20 HU, sane da -37 a -132 HU. Non verificati: muro posteriore e canale su tutti i livelli (a vista integri nelle immagini 109-171), presenza di masse paravertebrali. Clinica dalla tabella TSV della collezione (_tcia_grezzi/clinici/myel/). [revisione indipendente 25/10/2026] Controllato il 25/10/2026: viste le immagini 109-190 in assiale (finestra osso) e la sagittale, TC convenzionale e mappa a soppressione del calcio; rimisurate le densità al centro dei corpi (T9 24, T10 35, T11 34, T12 23, L1 45 HU; mappa senza calcio 4-21 HU; L2 sana 184 / -34 HU; T8 al centro 234 / -84 HU, disomogeneo). Corticale e muri posteriori integri a vista, nessun crollo. Corretto: la sostituzione della spongiosa a 20-45 HU riguarda T9-L1, non T8 (opzione 1 e spiegazione)."
+}

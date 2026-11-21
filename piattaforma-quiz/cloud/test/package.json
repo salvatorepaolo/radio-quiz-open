@@ -1,0 +1,13 @@
+{
+  "name": "radio-quiz-test",
+  "private": true,
+  "description": "Test di non regressione di radio-quiz.it (lanciati da pubblica.command)",
+  "type": "module",
+  "scripts": {
+    "test": "bash esegui.sh"
+  },
+  "devDependencies": {
+    "fast-check": "^4.10.2",
+    "playwright": "1.63.0"
+  }
+}

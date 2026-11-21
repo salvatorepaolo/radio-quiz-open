@@ -1,0 +1,18 @@
+[
+ {
+  "descrizione": "Vetrino · ematossilina-eosina · encefalo (20×)",
+  "tipo": "vetrino",
+  "files": [
+   "serie/vetrino/livello_0.dcm",
+   "serie/vetrino/livello_1.dcm",
+   "serie/vetrino/livello_2.dcm",
+   "serie/vetrino/miniatura.dcm"
+  ],
+  "dimensioni": [
+   217453850,
+   34957626,
+   2479804,
+   2361756
+  ]
+ }
+]

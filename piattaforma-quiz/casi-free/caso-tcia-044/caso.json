@@ -1,0 +1,137 @@
+{
+ "id": "caso-tcia-044",
+ "visibile": true,
+ "aggiornato": "2026-10-26 06:30",
+ "titolo": "Ecografia con mezzo di contrasto: nodulo epatico in sorveglianza",
+ "titolo_interno": "Epatocarcinoma: nodulo di 1,5-2 cm quasi isoecogeno in B-mode, iperenhancement arterioso e wash-out tardivo non marcato (CEUS LR-5)",
+ "distretto": "Addome",
+ "quesito": "lesione focale epatica",
+ "modalita": "Ecografia",
+ "difficolta": "Avanzato",
+ "anamnesi": "Paziente a rischio di epatocarcinoma (dati clinici non forniti dalla collezione), nodulo epatico in sorveglianza. Ecografia B-mode e con mezzo di contrasto (CEUS), immagini statiche salvate durante l'esame: nelle immagini CEUS a sinistra il B-mode e a destra il contrasto; il tempo dall'iniezione è scritto in basso a sinistra (T1). I calibri gialli sono quelli posti dall'operatore sul nodulo.",
+ "domanda": "Descrivi il nodulo in B-mode e il suo comportamento dopo contrasto nelle diverse fasi; qual è la categoria CEUS LI-RADS?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la categoria CEUS LI-RADS e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nodulo di circa 1,5-2 cm, quasi isoecogeno e poco riconoscibile in B-mode, accanto al ramo portale destro (individuato dai calibri dell'operatore)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 0, immagine 2 (calibro 1,56 cm) e lato B-mode delle immagini CEUS (1,33-1,81 cm). Rapporto di intensità nodulo/parenchima circostante in B-mode circa 1,0: senza i calibri il nodulo si vedrebbe a fatica."
+  },
+  {
+   "testo": "In fase arteriosa (0:16) il nodulo si impregna più del parenchima, in modo diffuso e non a orletto, con un vaso che lo raggiunge (iperenhancement arterioso)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 1, immagine 0 (T1 0:16): rapporto nodulo/anello di parenchima alla stessa profondità circa 1,5. Immagine 1 (tempo non riportato, catturata subito dopo: secondo calibro 2,01 cm): ancora più impregnato (circa 1,3)."
+  },
+  {
+   "testo": "Nelle fasi tardive il nodulo diventa più scuro del fegato: moderatamente a 2:52, nettamente a 4:08 (wash-out)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 1, immagini 2 (T1 2:52, rapporto circa 0,7) e 3 (T1 4:08, circa 0,5). Non ci sono immagini tra circa 30 secondi e 2:52: l'inizio esatto del wash-out non è documentato, ma a 2:52 è ancora moderato (non «punched-out» entro 2 minuti)."
+  },
+  {
+   "testo": "Nodulo nettamente ipoecogeno con alone ipoecogeno periferico, ben visibile in B-mode",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "In questo caso il nodulo è quasi isoecogeno: è la CEUS a renderlo evidente. Attenzione: la formazione ipoecogena ovalare profonda visibile nella panoramica (serie 0, immagine 1, circa 12 cm di profondità) non è il nodulo misurato dall'operatore, è fuori dal campo della CEUS e non è caratterizzabile con queste immagini."
+  },
+  {
+   "testo": "In fase arteriosa impregnazione periferica ad anello (rim) con centro ipovascolare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "L'impregnazione a 0:16 è diffusa in tutto il nodulo, non a orletto. Il rim APHE orienterebbe verso LR-M."
+  },
+  {
+   "testo": "Il nodulo resta ipoimpregnato in tutte le fasi (lesione ipovascolare)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "A 0:16 è più impregnato del parenchima."
+  },
+  {
+   "testo": "Nodulo ≥ 1 cm con iperenhancement arterioso non a orletto e wash-out tardivo, ancora moderato a 2:52: CEUS LR-5, epatocarcinoma in paziente a rischio; discussione multidisciplinare per stadiazione e terapia",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "CEUS LI-RADS v2017: dimensione ≥ 10 mm + APHE non a orletto e non globulare periferico + wash-out tardivo (≥ 60 s) e lieve = LR-5. Diagnosi finale della collezione: epatocarcinoma."
+  },
+  {
+   "testo": "CEUS LR-M: wash-out precoce (prima di 60 secondi) o marcato entro 2 minuti; sospetto colangiocarcinoma intraepatico o tumore non epatocellulare, serve la biopsia del nodulo prima di qualunque terapia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il wash-out documentato compare nelle fasi tardive e a 2:52 è ancora moderato; il marcato a 4:08 è oltre i 2 minuti e non conta per LR-M. Confronta con il caso del colangiocarcinoma (wash-out già a 55 secondi)."
+  },
+  {
+   "testo": "Emangioma tipico: impregnazione periferica nodulare con riempimento centripeto progressivo, iso- o iperecogeno in tardiva senza wash-out; lesione benigna, nessun controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "L'emangioma ha impregnazione periferica globulare discontinua e non va in wash-out."
+  },
+  {
+   "testo": "CEUS LR-3: probabilità intermedia di epatocarcinoma, iperenhancement presente ma wash-out non certo; nessuna terapia, controllo ecografico con contrasto a 6 mesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Con iperenhancement arterioso e wash-out tardivo in un nodulo ≥ 1 cm la categoria è LR-5, non LR-3."
+  }
+ ],
+ "spiegazione": "In un fegato a rischio ogni nodulo solido ≥ 1 cm va caratterizzato con mezzo di contrasto. In CEUS (CEUS LI-RADS v2017) l'epatocarcinoma tipico mostra iperenhancement arterioso (APHE) diffuso, non a orletto, seguito da un wash-out tardivo (dopo 60 secondi) e di grado lieve: con dimensione ≥ 10 mm è LR-5. Un wash-out precoce (prima di 60 secondi) o marcato entro 2 minuti, oppure un APHE a orletto, indicano LR-M (colangiocarcinoma, metastasi, epatocarcinoma atipico) e richiedono la biopsia.\nIn questo caso il nodulo è quasi invisibile in B-mode: la CEUS lo rende evidente prima come area più chiara in fase arteriosa e poi come area più scura nelle fasi tardive. Il mezzo di contrasto ecografico (microbolle) resta nei vasi: per questo il wash-out tardivo e lieve dell'epatocarcinoma si vede bene e non va confuso con quello precoce e marcato delle lesioni non epatocellulari.\nLimite didattico: le immagini sono statiche e mancano i fotogrammi tra circa 30 secondi e 2:52, quindi l'inizio esatto del wash-out non è documentato; a 2:52 il nodulo è solo moderatamente più scuro, come atteso per un wash-out tardivo e lieve. In pratica la categoria LR-5 si attribuisce guardando l'intera sequenza dal vivo o il filmato registrato.",
+ "regola": "Nodulo ≥ 1 cm in fegato a rischio: APHE non a orletto + wash-out tardivo e lieve in CEUS = LR-5 (epatocarcinoma); wash-out precoce o marcato entro 2 minuti = LR-M.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Diagnosi finale: epatocarcinoma (riferimento della collezione: istologia o TC/RM con contrasto entro un mese dall'ecografia)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "B-mode-and-CEUS-Liver",
+  "soggetto": "LiverUS-01",
+  "doi": "10.7937/TCIA.2021.v4z7-tc39",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Eisenbrey J., Lyshchik A., Wessner C. (2021). Ultrasound data of a variety of liver masses (B-mode-and-CEUS-Liver) [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/b-mode-and-ceus-liver/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 1,
+ "nota_docente": "Importato da TCIA il 18/10/2026. Collezione B-mode-and-CEUS-Liver, LiverUS-01, diagnosi finale HCC (riferimento della collezione). 26/10/2026: rifatto da Claude. I due spezzoni di filmato importati il 18/10 (fase portale/tardiva senza tempi) sono stati spostati in _rimosse/. Riscaricate da IDC le 7 immagini statiche dell'esame (secondary capture RGB del monitor, escluse da anonimizza.py il 18/10) e convertite con strumenti_claude/vm/us2dcm.py: serie 0 = 3 B-mode (panoramica, panoramica a 15 cm, nodulo con calibro 1,56 cm); serie 1 = 4 CEUS in ordine di tempo (T1 0:16; immagine senza T1 catturata subito dopo, con secondo calibro 2,01 cm; T1 2:52; T1 4:08). Testo nei pixel controllato a vista: solo LOGIQ E9, TRANS LIVER, parametri (CHI/CON, Frq, Gn, D…), C1-6 Abdomen, T1, calibri; banda alta già oscurata da TCIA; nessun dato identificativo. Misure di Claude (rapporto di intensità media nodulo, disco all'80% del raggio dei calibri, contro anello di parenchima alla stessa profondità, lato contrasto): 0:16 = 1,53; immagine senza tempo = 1,30; 2:52 = 0,67; 4:08 = 0,46. B-mode: circa 1,0 (quasi isoecogeno). Il caso del 18/10 diceva «nodulo ipoecogeno ovalare di 2 cm nel parenchima profondo»: sulle immagini statiche il nodulo misurato dall'operatore è quasi isoecogeno, accanto al ramo portale; testo corretto. Limite: nessun fotogramma tra circa 30 s e 2:52 (inizio del wash-out non documentato); i ContentTime delle immagini non sono coerenti con i T1 (non usati). Coppia didattica con il caso 125 (colangiocarcinoma, wash-out precoce e marcato, LR-M). Controllato il 26/10/2026: revisione indipendente sulle immagini eseguita (vedi sotto). [revisione indipendente 26/10/2026] Controllate a piena risoluzione tutte le 7 immagini e le intestazioni DICOM: nei pixel solo testo tecnico (LOGIQ E9, TRANS LIVER, C1-6 Abdomen, parametri, T1, calibri), banda alta oscurata; intestazioni anonime (ANONIMO^caso-tcia-044, nessuna data). Fonte TCIA LiverUS-01, DOI e CC BY 4.0 corretti; titolo non rivela la diagnosi. Misure indipendenti (disco all'80% del raggio dei calibri, lato contrasto, contro quattro riquadri di parenchima a 1,5-3 raggi: laterali alla stessa profondità e sopra/sotto): 0:16 = 1,49 (1,87 contro i soli laterali, falsato dal margine del settore e dal ramo portale non ancora opacizzato); immagine senza tempo = 1,34; 2:52 = 0,65; 4:08 = 0,48-0,51; B-mode 1,1-1,2 (quasi isoecogeno, il nodulo si individua solo dai calibri). A vista: a 0:16 area più impregnata e vascolarizzata tra i calibri, non a orletto; a 2:52 lievemente più scura; a 4:08 area ipoimpregnata netta e rotondeggiante. Reperti, categoria LR-5 (APHE non a orletto + wash-out non precoce documentato e non marcato a 2:52) e distrattori corretti, con il limite già dichiarato dell'inizio del wash-out non documentato tra 30 s e 2:52. Correzioni: testo della risposta principale («wash-out tardivo, ancora moderato a 2:52» invece di «non marcato», perché a 4:08 è netto); distrattore LR-M precisato («precoce, prima di 60 secondi, o marcato entro 2 minuti»); aggiunta nella nota del distrattore B-mode la formazione ipoecogena profonda della panoramica (non è il nodulo misurato, non caratterizzabile).",
+ "vista": {
+  "serie": 1,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "T1 0:16: il nodulo tra i calibri è più impregnato del parenchima (iperenhancement arterioso)"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "nessuna"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "LR-5",
+   "epatocarcinoma"
+  ],
+  "motivo": "Nuova diagnosi non invasiva di epatocarcinoma: non è un'urgenza, ma il referto deve indicare chiaramente LR-5 e l'avvio del percorso multidisciplinare."
+ }
+}

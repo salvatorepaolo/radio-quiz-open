@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/client/icona-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="radio-quiz">
+<meta name="theme-color" content="#0f1419">
+<title>Quiz Radiologia</title>
+<!-- anteprima nei social e nei motori di ricerca (21/11/2026): senza, LinkedIn prendeva il primo titolo della pagina («Iscritti e docenti») -->
+<meta name="description" content="Piattaforma gratuita per allenarsi alla diagnostica per immagini su casi reali anonimi: visualizzatore DICOM nel browser con MPR e 3D, diagnosi a scelta multipla e referto. Solo software e IA open source, a scopo formativo.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Quiz Radiologia">
+<meta property="og:locale" content="it_IT">
+<meta property="og:url" content="https://radio-quiz.it/">
+<meta property="og:title" content="Quiz Radiologia — allenati sulla diagnostica per immagini con casi reali">
+<meta property="og:description" content="Piattaforma gratuita per allenarsi alla diagnostica per immagini su casi reali anonimi: visualizzatore DICOM nel browser con MPR e 3D, diagnosi a scelta multipla e referto. Solo software e IA open source, a scopo formativo.">
+<meta property="og:image" content="https://radio-quiz.it/img/condivisione.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Il visualizzatore di Quiz Radiologia con una RM dell'encefalo da archivio pubblico e la domanda del caso">
+<meta name="twitter:card" content="summary_large_image">
+<!-- chi sono e tipo di piattaforma si chiedono subito, mentre app.js arriva (prima.js); priorità alta, se no il
+     browser lo scarica dopo app.js e la richiesta parte tardi -->
+<script src="prima.js" async fetchpriority="high"></script>
+<link rel="stylesheet" href="style.css">
+<script src="lib/dicomParser.min.js" defer></script>
+<!-- 1.249: i moduli che app.js importa si scaricano subito, insieme ad app.js, invece che dopo averlo letto
+     (un giro di rete in meno all'apertura). L'elenco deve coincidere con gli import: lo controlla test/pagina.test.mjs -->
+<link rel="modulepreload" href="app.js">
+<link rel="modulepreload" href="i18n.js">
+<link rel="modulepreload" href="decodifica.js">
+<link rel="modulepreload" href="vetrini-sop.js">
+<link rel="modulepreload" href="lib/lossless-min.js">
+<link rel="modulepreload" href="scale-indice.js">
+</head>
+<body>
+<header class="top">
+  <a href="#" class="logo" id="home-link"><img src="logo.svg" alt="" width="26" height="26">Quiz Radiologia</a>
+  <span class="badge-poc" title="Proof of concept: versione dimostrativa e sperimentale della piattaforma">POC</span>
+  <a id="btn-indietro" class="btn-indietro" href="#/" hidden title="Torna all'elenco dei casi">← Elenco dei casi</a>
+  <nav id="nav-principale" class="nav-principale" aria-label="Sezioni" hidden>
+    <a href="#/" data-nav="elenco"><span aria-hidden="true">🗂</span><span class="et">Casi</span></a>
+    <a id="btn-vetrini-pagina" class="btn-vetrini-pagina" href="#/vetrini" data-nav="vetrini" title="Casi di anatomia patologica: vetrini digitali" hidden><span aria-hidden="true">🔬</span><span class="et">Vetrini</span></a>
+    <a href="#/allenamento" data-nav="allenamento" title="Esame simulato, percorsi tematici, «Cerca l'errore», obiettivo del giorno"><span aria-hidden="true">🎯</span><span class="et">Allenamento</span></a>
+    <a href="#/progressi" data-nav="progressi" title="Punti e livello, statistiche, confronto con i colleghi, logbook"><span aria-hidden="true">📈</span><span class="et">I miei progressi</span></a>
+  </nav>
+  <span class="sub" id="titolo-caso"></span>
+  <span class="spacer"></span>
+  <label class="nome" id="campo-nome">Studente <input id="nome" placeholder="nome (facoltativo)"></label>
+  <span class="chi" id="chi" hidden></span>
+  <a class="gioco-chip" id="gioco-chip" href="#" title="I tuoi progressi" hidden></a>
+  <button id="btn-lingua" class="ghost no-tr btn-lingua" type="button" title="Switch to English" aria-label="Switch to English">EN</button>
+  <a id="btn-aiuto" class="ghost btn" href="#/aiuto" title="Aiuto e manuale">?</a>
+  <button id="btn-tema" class="ghost" title="Tema chiaro / scuro" aria-label="Tema chiaro o scuro"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button>
+  <details id="menu-utente" class="menu-gestione menu-utente" hidden>
+    <summary class="ghost btn" title="Profilo e uscita">👤 ▾</summary>
+    <nav class="menu-voci">
+  <a id="btn-profilo" class="ghost btn" href="#/profilo" hidden title="Il mio profilo, docenti di riferimento e password">👤 Profilo</a>
+  <button id="btn-editor" class="ghost" hidden>Modifica caso</button>
+  <details id="menu-gestione" class="menu-gestione" hidden>
+    <summary class="ghost btn">Gestione ▾</summary>
+    <nav class="menu-voci">
+      <a id="mg-cruscotto" class="mg-primo" href="#/cruscotto" hidden><span class="mg-ic" style="--c:#0f9d8a">🧭</span><span class="mg-t"><b>Cruscotto</b><small>cosa richiede attenzione oggi</small></span></a>
+      <div class="mg-gruppo"><div class="mg-tit">Casi</div>
+      <a id="mg-casi" href="#/gestione-casi" hidden><span class="mg-ic" style="--c:#4f7cff">📁</span><span class="mg-t"><b>Gestione dei casi</b><small>elenco, visibilità, modifica</small></span></a>
+      <a id="mg-revisione" href="#/revisione" hidden><span class="mg-ic" style="--c:#2fa36b">✅</span><span class="mg-t"><b>Revisione delle bozze</b><small>casi da controllare prima di pubblicarli</small></span></a>
+      <a id="btn-nuovo-menu" href="#/nuovo" hidden><span class="mg-ic" style="--c:#7a5cff">＋</span><span class="mg-t"><b>Nuovo caso</b><small>carica le immagini e scrivi il quiz</small></span></a>
+      </div>
+      <div class="mg-gruppo"><div class="mg-tit">Didattica</div>
+      <a id="btn-classi" href="#/classi" hidden><span class="mg-ic" style="--c:#e08a2e">🗂</span><span class="mg-t"><b>Classi e compiti</b><small>assegna i casi agli studenti</small></span></a>
+      <a id="btn-percorsi-doc" href="#/percorsi" hidden><span class="mg-ic" style="--c:#13a3b5">🧭</span><span class="mg-t"><b>Percorsi didattici</b><small>crea e ordina sequenze di casi</small></span></a>
+      <a id="mg-spec" href="#/analisi/persone" hidden><span class="mg-ic" style="--c:#c2569b">🎓</span><span class="mg-t"><b>I miei studenti</b><small>progressi di ciascuno</small></span></a>
+      <a id="btn-risultati" href="#/analisi" hidden><span class="mg-ic" style="--c:#3c8dde">📊</span><span class="mg-t"><b>Risultati e analisi</b><small>errori frequenti e andamento</small></span></a>
+      </div>
+      <div class="mg-gruppo"><div class="mg-tit">Piattaforma</div>
+      <a id="btn-account" href="#/account" hidden><span class="mg-ic" style="--c:#6b74ff">👥</span><span class="mg-t"><b>Iscritti e docenti</b><small>ruoli, inviti, accessi</small></span></a>
+      <a id="mg-statistiche" href="#/statistiche" hidden><span class="mg-ic" style="--c:#22a17a">📈</span><span class="mg-t"><b>Dashboard e statistiche</b><small>accessi, pagine, traffico</small></span></a>
+      <a id="mg-sponsor" href="#/sponsor" hidden><span class="mg-ic" style="--c:#d9a21b">🤝</span><span class="mg-t"><b>Sponsor</b><small>spazi nella versione gratuita</small></span></a>
+      <a id="mg-tenant" href="#/tenant" hidden><span class="mg-ic" style="--c:#e0533d">🏥</span><span class="mg-t"><b>Clienti e piattaforme</b><small>installazioni riservate</small></span></a>
+      </div>
+    </nav>
+  </details>
+    <button id="btn-esci" class="ghost" hidden>Esci</button>
+    </nav>
+  </details>
+</header>
+
+<!-- ACCESSO -->
+<main id="vista-accesso" class="accesso" hidden>
+  <aside id="acc-presenta" class="acc-presenta" hidden>
+    <p class="versione-sito"></p>
+    <div class="solo-azienda">
+      <h1>Formazione radiologica di <span class="nome-istanza"></span></h1>
+      <p>Casi radiologici anonimi dell'azienda, con il visualizzatore DICOM di una workstation, referto guidato, classi e compiti assegnati dai docenti.</p>
+      <p><b>Accesso su invito</b>: l'account lo crea l'amministratore della piattaforma. Riceverai un'email con il link per scegliere la password; poi entri con email e password.</p>
+      <p class="muted small">I casi sono caricati dall'azienda dopo l'anonimizzazione. <a href="licenze.html">Licenze e crediti</a></p>
+    </div>
+    <div class="solo-vetrina home-v">
+    <p class="hv-kicker">Formazione in radiologia · gratuita · open source</p>
+    <h1>Impara a refertare su casi veri</h1>
+    <p class="hv-sub">Apri un esame vero e anonimo, leggilo con gli strumenti di una workstation, rispondi come in un referto e ricevi subito la correzione, con l'immagine in cui il reperto si vede meglio.</p>
+    <div class="hv-cta"><a class="btn primario hv-grande" href="#/iscriviti">Iscriviti gratis</a><a class="btn hv-grande hv-sec" href="#" data-vai="entra">Ho già un account</a></div>
+    <p class="hv-fiducia"><span><svg class="hv-ico-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>Solo per la formazione</span><span><svg class="hv-ico-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Nessun dato di pazienti</span><span><svg class="hv-ico-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M8 7h6"/></svg>Casi da archivi pubblici</span><span><svg class="hv-ico-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3L14 9V3"/><path d="M7.5 14h9"/></svg>Versione dimostrativa</span></p>
+    <ul class="hv-numeri" aria-label="La piattaforma in numeri"><li><b data-num="casi">134</b><span>casi clinici</span></li><li><b data-num="metodiche">7</b><span>metodiche</span></li><li><b data-num="distretti">18</b><span>distretti</span></li><li><b>100%</b><span>open source</span></li></ul>
+    <figure class="hv-foto"><div class="hv-finestra"><div class="hv-barra" aria-hidden="true"><i></i><i></i><i></i><span>radio-quiz.it</span></div><picture><source type="image/webp" srcset="img/anteprima-caso-800.webp 800w, img/anteprima-caso-1200.webp 1200w" sizes="(max-width: 900px) 100vw, 680px"><img src="img/anteprima-caso.jpg" alt="Il visualizzatore con un caso di RM dell'encefalo, accanto l'anamnesi e la domanda" width="1200" height="713" loading="lazy" decoding="async"></picture><span class="hv-chip hv-chip-1" aria-hidden="true"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Correzione immediata</span><span class="hv-chip hv-chip-2" aria-hidden="true"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>MPR e 3D</span><span class="hv-chip hv-chip-3" aria-hidden="true"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><ellipse cx="12" cy="12" rx="5" ry="6"/><path d="M12 6v12M9 9.5c2 1 4 1 6 0M9 14.5c2-1 4-1 6 0"/></svg>Casi reali e anonimi</span></div>
+      <figcaption>Un caso della piattaforma: immagini a sinistra, anamnesi e domande a destra. Immagini: The Cancer Imaging Archive, licenza CC BY 4.0.</figcaption></figure>
+    <h2 class="hv-tit">Come funziona</h2>
+    <ol class="hv-passi">
+      <li><b>Apri un caso</b><span>TC, RM, radiologia tradizionale, ecografia, mammografia e PET-TC, spesso con gli esami precedenti.</span></li>
+      <li><b>Leggi le immagini</b><span>Scorri, cambia finestra, misura, ricostruisci in MPR e 3D, come in reparto.</span></li>
+      <li><b>Rispondi come in un referto</b><span>Un passo alla volta: reperti, conclusione e, se serve, la comunicazione dell'esito.</span></li>
+      <li><b>Impara dalla correzione</b><span>Referto atteso, discussione, esito istologico e l'immagine con il reperto.</span></li>
+    </ol>
+    <h2 class="hv-tit">Immagini vere, da archivi pubblici</h2>
+    <p class="hv-nota">Esami anonimi di collezioni con licenza aperta, nelle metodiche che userai in reparto.</p>
+    <div class="hv-galleria">
+      <figure class="hv-tessera"><picture><source type="image/webp" srcset="img/galleria/tc.webp"><img src="img/galleria/tc.jpg" alt="TC, torace" width="480" height="480" loading="lazy" decoding="async"></picture><figcaption><b>TC</b> <span>torace</span></figcaption></figure>
+      <figure class="hv-tessera"><picture><source type="image/webp" srcset="img/galleria/rm.webp"><img src="img/galleria/rm.jpg" alt="RM, encefalo" width="480" height="480" loading="lazy" decoding="async"></picture><figcaption><b>RM</b> <span>encefalo</span></figcaption></figure>
+      <figure class="hv-tessera"><picture><source type="image/webp" srcset="img/galleria/rx.webp"><img src="img/galleria/rx.jpg" alt="RX, torace" width="480" height="480" loading="lazy" decoding="async"></picture><figcaption><b>RX</b> <span>torace</span></figcaption></figure>
+      <figure class="hv-tessera"><picture><source type="image/webp" srcset="img/galleria/mammo.webp"><img src="img/galleria/mammo.jpg" alt="Mammografia, proiezione obliqua" width="480" height="480" loading="lazy" decoding="async"></picture><figcaption><b>Mammografia</b> <span>proiezione obliqua</span></figcaption></figure>
+      <figure class="hv-tessera"><picture><source type="image/webp" srcset="img/galleria/eco.webp"><img src="img/galleria/eco.jpg" alt="Ecografia, fegato" width="480" height="480" loading="lazy" decoding="async"></picture><figcaption><b>Ecografia</b> <span>fegato</span></figcaption></figure>
+      <figure class="hv-tessera"><picture><source type="image/webp" srcset="img/galleria/pet.webp"><img src="img/galleria/pet.jpg" alt="PET-TC, MIP total body" width="480" height="480" loading="lazy" decoding="async"></picture><figcaption><b>PET-TC</b> <span>MIP total body</span></figcaption></figure>
+    </div>
+    <p class="hv-fonti muted small">Fonti, tutte da The Cancer Imaging Archive: TC: LIDC-IDRI · CC BY 3.0; RM: Vestibular-Schwannoma-SEG · CC BY 4.0; RX: COVID-19-AR · CC BY 4.0; Mammografia: CMMD · CC BY 4.0; Ecografia: CMB-MEL · CC BY 4.0; PET-TC: Lung-PET-CT-Dx · CC BY 4.0.</p>
+    <h2 class="hv-tit">Che cosa trovi</h2>
+    <div class="hv-griglia">
+      <div><i class="hv-ico"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><ellipse cx="12" cy="12" rx="5" ry="6"/><path d="M12 6v12M9 9.5c2 1 4 1 6 0M9 14.5c2-1 4-1 6 0"/></svg></i><b>Casi reali e anonimi</b><span>Collezioni pubbliche con licenza aperta; ogni caso indica la fonte.</span></div>
+      <div><i class="hv-ico"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 13l3-4 3 3 4-5"/></svg></i><b>Visualizzatore DICOM completo</b><span>Finestre, misure, ROI, MPR e 3D, MIP, fusione PET, sottrazione, volumetria.</span></div>
+      <div><i class="hv-ico"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></i><b>I tuoi progressi</b><span>Punti e livelli, ripasso degli errori, percorsi per argomento, logbook in PDF.</span></div>
+      <div><i class="hv-ico"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.4 5 2.7 5 5.8"/></svg></i><b>Docenti a tua scelta</b><span>Scegli chi segue la tua formazione, o diventa docente e assegna casi.</span></div>
+      <div><i class="hv-ico"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/><circle cx="12" cy="16" r="1.4"/></svg></i><b>Solo open source</b><span>Software e modelli di IA open source; le proposte dell'IA si verificano con la propria lettura. <a href="licenze.html">Licenze e crediti</a></span></div>
+      <div><i class="hv-ico"><svg class="hv-ico-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></i><b>Per tutti</b><span>Studenti, specializzandi, radiologi, medici di ogni specialità, tecnici di radiologia.</span></div>
+    </div>
+    <a class="cl-promo cl-promo-compatta" href="/client/index.html" target="_blank" rel="noopener">
+    <span class="cl-promo-ico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M12 7v6M9 10l3 3 3-3"/></svg></span>
+    <span class="cl-promo-testo"><b>Visualizzatore DICOM per il tuo computer</b>
+      <span>Un programma a parte, per i tuoi esami (non per i casi del quiz): li apri dal disco, anche CD e .zip, con MPR, misure, video MP4, anonimizzazione. Le immagini non escono dal computer.</span>
+      <span class="cl-promo-tag"><i>Gratuito</i><i>Funziona offline</i><i>Open source</i><i class="cl-promo-avv">Non per uso medico</i></span></span>
+    <span class="cl-promo-cta">Scarica ↗</span>
+  </a>
+    <div id="sponsor-accesso" class="sp-slot" hidden></div>
+    <p><b>Versione dimostrativa, gratuita e aperta a tutti</b>: chiunque può iscriversi e provare la piattaforma sui nostri casi.</p>
+    <p><b>Per aziende sanitarie, università e scuole di specializzazione</b>: la piattaforma si fornisce vuota, in un'installazione riservata, e ognuno carica i propri studi anonimizzati; account su invito, docenti, classi e compiti. Informazioni: <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a>.</p>
+    <details class="hv-avvisi solo-vetrina"><summary>Versione dimostrativa, fonti delle immagini e dati</summary>
+    <p class="poc-avviso"><b>Proof of concept (POC)</b> — versione dimostrativa e sperimentale: funzioni e contenuti possono cambiare, i casi sono in revisione e il servizio può avere interruzioni.</p>
+    <p class="fonte-alto"><b>📚 Casi da archivi pubblici</b> — in questa versione gratuita le immagini vengono da <a href="https://www.cancerimagingarchive.net" target="_blank" rel="noopener">The Cancer Imaging Archive (TCIA)</a>, con licenza Creative Commons Attribution: ogni caso indica la fonte e, dopo la risposta, la collezione e la citazione.</p>
+    <p class="fonte-alto"><b>🛡 Nessun dato di pazienti sul server</b> — le immagini dei casi sono anonime e vengono da collezioni pubbliche con licenza aperta. Oltre alle immagini, il server conserva solo il tuo account e le tue risposte.</p>
+    </details>
+    <p class="small autore-sito">Contatti: <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></p>
+    <p class="muted small">Per tutti: studenti di medicina e delle professioni sanitarie, specializzandi, radiologi, medici di ogni specialità, tecnici di radiologia. Le immagini non contengono dati di pazienti né di strutture sanitarie.</p>
+    </div>
+  </aside>
+  <div class="accesso-scheda">
+    <img src="logo.svg" alt="" width="84" height="84" class="logo-grande">
+    <h1>Quiz Radiologia <span class="badge-poc">POC</span></h1>
+    <p class="muted small solo-vetrina">Casi radiologici anonimi per la formazione, aperti a tutti: studenti, specializzandi, radiologi, medici di ogni specialità.</p>
+    <p class="muted small solo-azienda">Piattaforma di formazione di <b class="nome-istanza"></b> · accesso su invito.</p>
+    <!-- entra -->
+    <form id="form-accesso" data-pannello="entra">
+      <input id="acc-in-email" type="email" autocomplete="username" placeholder="Email" required maxlength="254">
+      <input id="acc-in-pw" type="password" autocomplete="current-password" placeholder="Password" required maxlength="200">
+      <button class="primary" type="submit">Entra</button>
+      <p class="link-accesso"><a href="#" data-vai="dimenticata">Password dimenticata?</a> · <a href="#" data-vai="codice">Entra con un codice</a></p>
+      <div class="acc-nuovo solo-vetrina"><span>Prima volta qui?</span><a class="btn acc-iscriviti" href="#/iscriviti">Crea un account gratuito</a></div>
+      <p class="link-accesso solo-azienda">Non hai un account? Chiedilo all'amministratore<span class="contatto-istanza"></span>.</p>
+    </form>
+    <!-- entra con il codice personale (amministratori, vecchi account) -->
+    <form id="form-codice" data-pannello="codice" hidden>
+      <p class="muted small">Per gli amministratori e per gli account creati con un codice personale.</p>
+      <input id="codice" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="codice di accesso" required>
+      <button class="primary" type="submit">Entra</button>
+      <p class="link-accesso"><a href="#" data-vai="entra">← Entra con email e password</a></p>
+    </form>
+    <!-- iscrizione -->
+    <form id="form-iscrizione" data-pannello="iscriviti" hidden>
+      <h2>Crea il tuo account</h2>
+      <input id="isc-nome" autocomplete="name" placeholder="Nome e cognome" required maxlength="80">
+      <input id="isc-email" type="email" autocomplete="email" placeholder="Email" required maxlength="254">
+      <div class="pw-campo"><input id="isc-pw" type="password" autocomplete="new-password" placeholder="Password" required minlength="10" maxlength="200">
+        <button type="button" class="ghost pw-mostra" data-per="isc-pw" title="Mostra o nascondi la password">👁</button></div>
+      <input id="isc-pw2" type="password" autocomplete="new-password" placeholder="Ripeti la password" required minlength="10" maxlength="200">
+      <p id="isc-pw-info" class="muted small pw-info">Almeno 10 caratteri, con lettere e almeno un numero o un simbolo.</p>
+      <label class="campo">Chi sei
+        <select id="isc-categoria" required>
+          <option value="" disabled selected>Seleziona…</option>
+          <option value="specializzando">Medico specializzando</option><option value="radiologo">Radiologo</option>
+          <option value="medico">Medico di altra specialità</option><option value="studente">Studente di medicina</option>
+          <option value="tsrm">Tecnico di radiologia (TSRM)</option><option value="infermiere">Infermiere</option><option value="altro">Altro</option>
+        </select></label>
+      <label class="campo">Sede <span class="muted small">(facoltativo)</span>
+        <input id="isc-sede" placeholder="Scuola, ospedale o università" maxlength="120"></label>
+      <label class="campo" id="isc-anno-campo">Anno di corso <span class="muted small">(facoltativo)</span>
+        <select id="isc-anno"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+      <label class="check"><input type="checkbox" id="isc-docente"> <span>Sono anche docente: voglio seguire studenti o colleghi (ti vedranno solo quelli che ti scelgono)</span></label>
+      <fieldset class="isc-condizioni">
+        <legend>Prima di iscriverti, leggi e accetta</legend>
+        <p class="isc-scopo"><b>🎓 Radio-quiz è uno strumento educativo.</b> Serve solo per la formazione su casi anonimi di archivi pubblici. Non è un dispositivo medico: non usarlo per fare o confermare diagnosi su pazienti reali e non caricare dati di pazienti. Le correzioni e le proposte dell'IA possono contenere errori.</p>
+        <label class="check isc-voce"><input type="checkbox" id="isc-educativo" required> <span>Ho capito che la piattaforma ha <b>solo scopo educativo</b> e non va usata per la diagnosi o la cura di pazienti</span></label>
+        <label class="check isc-voce"><input type="checkbox" id="isc-privacy" required> <span>Accetto le <a href="#/aiuto/condizioni" target="_blank">condizioni d'uso</a> e ho letto l'<a href="#/aiuto/dati" target="_blank">informativa sul trattamento dei dati</a></span></label>
+        <label class="check isc-voce"><input type="checkbox" id="isc-maggiorenne" required> <span>Ho almeno 18 anni</span></label>
+      </fieldset>
+      <input id="isc-sito" name="sito" tabindex="-1" autocomplete="off" class="nascosto" aria-hidden="true">
+      <button class="primary" type="submit">Iscriviti</button>
+      <p class="muted small">Riceverai un'email con il link per attivare l'account.</p>
+      <p class="link-accesso"><a href="#" data-vai="entra">← Ho già un account</a></p>
+    </form>
+    <!-- password dimenticata -->
+    <form id="form-dimenticata" data-pannello="dimenticata" hidden>
+      <h2>Nuova password</h2>
+      <p class="muted small">Scrivi l'email con cui ti sei iscritto: riceverai un link per scegliere una nuova password.</p>
+      <input id="dim-email" type="email" autocomplete="email" placeholder="Email" required maxlength="254">
+      <button class="primary" type="submit">Invia il link</button>
+      <p class="link-accesso"><a href="#" data-vai="entra">← Torna all'accesso</a></p>
+    </form>
+    <!-- nuova password (dal link ricevuto) -->
+    <form id="form-nuova" data-pannello="nuova" hidden>
+      <h2>Scegli la nuova password</h2>
+      <input id="nuova-pw" type="password" autocomplete="new-password" placeholder="Nuova password" required minlength="10" maxlength="200">
+      <input id="nuova-pw2" type="password" autocomplete="new-password" placeholder="Ripeti la password" required minlength="10" maxlength="200">
+      <button class="primary" type="submit">Salva ed entra</button>
+    </form>
+    <!-- messaggi (email inviata, conferma in corso…) -->
+    <div data-pannello="avviso" hidden>
+      <p id="avviso-testo" class="stato ok"></p>
+      <p class="link-accesso"><a href="#" id="avviso-reinvia" hidden>Non è arrivata? Invia di nuovo</a></p>
+      <p class="link-accesso"><a href="#" data-vai="entra">← Torna all'accesso</a></p>
+    </div>
+    <p id="msg-accesso" class="errore"></p>
+  </div>
+</main>
+
+<!-- ELENCO CASI -->
+<main id="vista-client" class="client-home" hidden>
+  <div class="cl-wrap">
+    <header class="cl-hero">
+      <img class="cl-logo" src="/logo.svg" alt="" width="56" height="56">
+      <div class="cl-titoli">
+        <p class="cl-kicker">radio-quiz · versione client</p>
+        <h1>Visualizzatore DICOM</h1>
+        <p class="cl-sotto">Per la formazione e l'esercitazione in radiologia: apre gli esami dal disco di questo computer. Nessun file viene inviato a un server e, dopo la prima apertura, funziona anche senza internet.</p>
+        <p class="cl-pillole"><span>🔒 I file restano sul computer</span><span>📴 Funziona offline</span><span>🔓 Gratuito e open source</span><span class="cl-pill-avv">🎓 Solo per la formazione · non per uso medico</span></p>
+      </div>
+      <div class="cl-installazione">
+        <button id="cl-installa" type="button" class="primary" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg> Installa sul computer</button>
+        <span id="cl-installata" class="cl-pill cl-ok" hidden>✓ App installata</span>
+        <span id="cl-installa-nota" class="cl-nota">Si installa come app con Chrome o Edge</span>
+        <span id="cl-browser" class="cl-nota cl-browser" hidden>Con questo browser il visualizzatore funziona, ma installazione e video MP4 sono garantiti solo con Chrome o Edge.</span>
+      </div>
+    </header>
+
+    <section id="cl-zona" class="cl-zona" aria-label="Apri un esame">
+      <div class="cl-zona-icona"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 10v6M9 13l3-3 3 3"/></svg></div>
+      <h2>Trascina qui una cartella o dei file DICOM</h2>
+      <div class="cl-pulsanti">
+        <label class="cl-btn cl-primario"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Apri cartella<input type="file" id="cl-cartella" webkitdirectory multiple hidden></label>
+        <label class="cl-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg> Scegli file<input type="file" id="cl-file" multiple hidden></label>
+      </div>
+      <p class="cl-nota">CD con DICOMDIR, cartelle, file o archivi .zip · TC, RM, RX, mammografia, ecografia (anche clip), angiografia, PET-TC · DICOM compressi (JPEG, JPEG 2000, JPEG-LS, RLE)</p>
+      <div id="cl-esempio-box" class="cl-esempio" hidden>
+        <button type="button" id="cl-esempio" class="cl-btn">🧪 Prova con un esame di esempio</button>
+        <a id="cl-esempio-scarica" href="/esempi/tc-addome-esempio.zip" download class="small">o scaricalo (.zip, 38 MB)</a>
+        <button type="button" id="cl-esempio-vetrino" class="cl-btn">🔬 Prova con un vetrino di esempio</button>
+        <a id="cl-esempio-vetrino-scarica" href="/esempi/vetrino-esempio.zip" download class="small">o scaricalo (.zip, 69 MB)</a>
+        <p class="cl-nota">Non hai un esame a portata di mano? TC dell'addome con mezzo di contrasto in fase arteriosa, 137 immagini: da The Cancer Imaging Archive (TCIA), collezione TCGA-KICH, licenza <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a> (<a href="https://doi.org/10.7937/K9/TCIA.2016.YU3RBCZN" target="_blank" rel="noopener">citazione</a>). Si scarica da internet (38 MB) e si apre qui, come un esame del tuo computer.</p>
+        <p class="cl-nota">Vetrino di esempio: sezione di aorta in ematossilina-eosina, 40× (0,25 µm per pixel), 3 livelli di ingrandimento più miniatura, etichetta e panoramica, tessere JPEG 2000. Dai dati di prova liberamente distribuibili di <a href="https://openslide.org/" target="_blank" rel="noopener">OpenSlide</a> (Carnegie Mellon University); l'etichetta riporta solo un numero di laboratorio.</p>
+      </div>
+    </section>
+    <p id="cl-stato" class="stato"></p>
+    <div id="cl-scelta" class="cl-scelta" hidden></div>
+    <p class="cl-torna-riga"><button id="cl-torna" type="button" hidden>← Torna all'esame aperto: <span id="cl-torna-nome"></span></button>
+      <button id="cl-ultimo" type="button" class="primary" hidden title="Riapre dal disco l'ultimo esame aperto (dopo un ricaricamento della pagina): il browser può chiedere il permesso di leggere la cartella">↻ Riapri l'ultimo esame: <span id="cl-ultimo-nome"></span></button></p>
+    <section id="cl-recenti" class="cl-recenti" hidden aria-label="Esami recenti">
+      <div class="cl-rec-testa"><h2>Esami recenti</h2><input type="search" id="cl-rec-cerca" placeholder="Cerca per nome, data, metodica…" aria-label="Cerca negli esami"><button type="button" id="cl-rec-svuota" class="ghost piccolo" title="Svuota l'elenco degli esami recenti (i file sul disco non si toccano)">Svuota</button></div>
+      <div id="cl-rec-lista"></div>
+    </section>
+    <details id="cl-impostazioni" class="cl-impostazioni"><summary>⚙ Impostazioni del visualizzatore</summary>
+      <label class="check"><input type="checkbox" id="cl-imp-recenti"> Ricorda gli esami aperti in questo browser (elenco «Esami recenti», con nome del paziente e data: restano solo su questo computer)</label>
+      <label class="check"><input type="checkbox" id="cl-imp-cartella"> Cartella predefinita degli esami: il visualizzatore elenca gli studi che contiene (spenta di base; il browser chiede il permesso di leggerla)</label>
+      <div id="cl-cartella-box" class="cl-cartella-box" hidden><button type="button" id="cl-cartella-scegli">📁 Scegli la cartella…</button> <button type="button" id="cl-cartella-leggi" class="ghost">↻ Aggiorna l'elenco</button> <span id="cl-cartella-stato" class="muted small"></span></div>
+      <label class="check"><input type="checkbox" id="cl-imp-noduli"> Noduli polmonari con IA nelle TC del torace (facoltativo): un modello open source (MONAI, Apache-2.0) si scarica una volta e gira su questo computer; le immagini non escono</label>
+      <div id="cl-noduli-box" class="cl-cartella-box" hidden><button type="button" id="cl-noduli-scarica">⬇ Scarica il modello</button> <button type="button" id="cl-noduli-elimina" class="ghost" hidden>🗑 Elimina il modello</button> <span id="cl-noduli-stato" class="muted small"></span></div>
+      <p id="cl-cartella-no" class="muted small" hidden>La cartella predefinita funziona in Chrome ed Edge sul computer.</p>
+      <div class="cl-cancella"><button type="button" id="cl-cancella-dati" class="ghost">🗑 Cancella i dati salvati in questo browser</button> <span id="cl-cancella-stato" class="muted small"></span>
+        <p class="muted small">Toglie bozze dei referti, immagini chiave, annotazioni, disegni delle scale, elenco degli esami recenti e cartella predefinita. Da fare a fine sessione sui computer condivisi. I file DICOM sul disco non vengono toccati.</p></div>
+    </details>
+
+    <div class="cl-note">
+    <div class="cl-locale" role="note">
+      <span class="cl-locale-ico" aria-hidden="true">🔒</span>
+      <div><b>I dati restano su questo computer.</b> <span>Immagini, referti, misure e dati dei pazienti non vengono inviati a nessun server, né a radio-quiz.it né ad altri. Il visualizzatore li legge dal disco e, dopo la prima apertura, funziona anche senza internet.</span></div>
+    </div>
+    <div class="cl-avviso" role="note">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <p><b>Non per uso medico.</b> Strumento didattico: non è un dispositivo medico e non va usato per diagnosi, refertazione o decisioni cliniche. <button type="button" class="link" id="cl-privacy-leggi">Avviso privacy e uso</button></p>
+    </div>
+
+    </div>
+    <section class="cl-funzioni" aria-label="Cosa può fare">
+      <article><span class="cl-ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></span><h3>Workstation didattica completa</h3><p>Finestre con un tasto, misure, ROI, coronale e sagittale nel riquadro, MPR e 3D, fino a 4 riquadri.</p></article>
+      <article><span class="cl-ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="9" height="12" rx="1.5"/><rect x="13" y="4" width="9" height="12" rx="1.5"/><path d="M6 20h12"/></svg></span><h3>Più schermi</h3><p>«Multischermo» apre l'esame sull'altro monitor; le finestre scorrono insieme.</p></article>
+      <article><span class="cl-ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg></span><h3>Esporta</h3><p>Immagini PNG o JPEG, serie in .zip e video MP4, sempre anonimi (testo impresso annerito).</p></article>
+      <article><span class="cl-ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><h3>Anonimizza</h3><p>Esporta l'esame in DICOM senza dati del paziente né della struttura.</p></article>
+      <article><span class="cl-ico">📸</span><h3>Immagini chiave</h3><p>Salva la vista con il tasto K ed esportala in DICOM (Secondary Capture) o in PDF.</p></article>
+      <article><span class="cl-ico">📝</span><h3>Referto</h3><p>Referto strutturato con i dati letti dalle immagini, misure e immagini chiave: stampa, PDF o Word.</p></article>
+    </section>
+    <p class="cl-manuale-riga"><a class="cl-manuale" href="/client/manuale-client.html" target="_blank" rel="noopener">📘 Leggi il manuale del visualizzatore</a></p>
+
+    <footer class="cl-piede"><span>Gratuito · open source · i file restano sul tuo computer</span><span><a href="/client/manuale-client.html" target="_blank" rel="noopener">Manuale</a> · <a href="/">radio-quiz.it</a> · <a href="/licenze.html">Licenze e crediti</a> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span></footer>
+  </div>
+</main>
+<dialog id="dlg-privacy-cl" class="dlg-privacy-cl" aria-labelledby="pr-titolo">
+  <h3 id="pr-titolo">Avviso privacy e uso</h3>
+  <p>Questo programma serve solo per la formazione e <b>non è un dispositivo medico</b>: non va usato per diagnosi, refertazione clinica o decisioni terapeutiche.</p>
+  <p><b>I dati restano sul tuo computer.</b> Le immagini e i dati dei pazienti che apri sono letti ed elaborati solo in questo dispositivo: nulla viene inviato a radio-quiz.it o a terzi (né immagini, né referti, né misure, né dati anagrafici). Bozze del referto, immagini chiave, annotazioni e impostazioni sono salvate solo nel browser di questo computer.</p>
+  <p><b>La responsabilità è tua.</b> Per gli esami che apri sei titolare del trattamento, o agisci per conto della tua struttura: devi avere titolo per accedervi e rispettare il GDPR (Reg. UE 2016/679), il Codice privacy (D.Lgs. 196/2003) e le regole della tua struttura.</p>
+  <p><b>Prima di condividere</b> immagini, video o referti esportati, usa l'anonimizzazione e controlla il risultato: testo impresso nei pixel, Secondary Capture e riepiloghi dose possono contenere ancora dati identificativi. Il referto contiene i dati del paziente e non va condiviso fuori dal contesto autorizzato.</p>
+  <p>Sui computer condivisi, a fine sessione usa <i>Impostazioni → Cancella i dati salvati in questo browser</i>.</p>
+  <p class="muted small">Contatti: <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></p>
+  <div class="pr-azioni"><button type="button" id="pr-accetto" class="primary">Ho letto e accetto</button></div>
+</dialog>
+<dialog id="dlg-esporta" class="dlg-esporta">
+  <h3>Esporta</h3>
+  <label class="check"><input type="radio" name="ex-cosa" value="png" checked> Immagine visibile (PNG o JPEG)</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="zip"> Serie del riquadro attivo: immagini PNG o JPEG (.zip)</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="mp4"> Serie del riquadro attivo: video MP4</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="misure"> Misure (file di testo)</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="sessione"> Sessione: misure, riquadri e finestre (file da riaprire o mandare)</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="sr"> Misure come referto strutturato DICOM (SR)</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="gsps"> Annotazioni DICOM (presentation state)</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="seg"> Volumi e calcificazioni come segmentazione DICOM (SEG) per 3D Slicer o altri visualizzatori</label>
+  <label class="check"><input type="radio" name="ex-cosa" value="dicom"> Esame anonimizzato (DICOM, .zip)</label>
+  <label class="check ex-chiave"><input type="radio" name="ex-cosa" value="chiave-dcm"> Immagini chiave: DICOM Secondary Capture</label>
+  <label class="check ex-chiave"><input type="radio" name="ex-cosa" value="chiave-pdf"> Immagini chiave: PDF</label>
+  <div id="ex-sc-riga" class="ex-riga" hidden><label class="check"><input type="checkbox" id="ex-sc-studio"> nello stesso studio dell'esame (con gli identificativi dello studio, accanto alle immagini)</label></div>
+  <div id="ex-formato-riga" class="ex-riga">Formato <select id="ex-formato"><option value="png">PNG (senza perdita)</option><option value="jpeg">JPEG (file più piccoli)</option></select>
+    <span id="ex-qualita-riga" hidden>qualità <input id="ex-qualita" type="range" min="50" max="100" step="1" value="92"> <output id="ex-qualita-val">92</output></span></div>
+  <div id="ex-video" class="ex-riga" hidden>Immagini al secondo <select id="ex-fps"><option>1</option><option>2</option><option>4</option><option>5</option><option>8</option><option selected>10</option><option>12</option><option>15</option><option>20</option><option>25</option><option>30</option></select></div>
+  <div id="ex-serie-riga" class="ex-riga" hidden>Dall'immagine <input id="ex-da" type="number" min="1" value="1" class="num-corto"> alla <input id="ex-a" type="number" min="1" value="1" class="num-corto"></div>
+  <div id="ex-testo-riga" class="ex-riga" hidden><label class="check"><input type="checkbox" id="ex-copri" checked> copri il testo impresso nelle immagini (nomi, date, struttura)</label></div>
+  <div id="ex-scritte-riga" class="ex-riga"><label class="check"><input type="checkbox" id="ex-scritte"> con scritte, misure e linee di riferimento</label></div>
+  <div id="ex-anonimo-riga" class="ex-riga"><label class="check"><input type="checkbox" id="ex-anonimo" checked> <b>anonimizza</b>: niente dati del paziente nelle scritte e testo impresso nelle immagini annerito</label><span id="ex-anonimo-avviso" class="ex-avviso" hidden>⚠ Senza anonimizzazione le immagini possono contenere nome, data o struttura: non condividerle fuori dall'ambito di cura.</span></div>
+  <p id="ex-info" class="muted small"></p>
+  <p class="muted small">⚠ Non per uso medico. Con «anonimizza» (scelta di base) le immagini PNG e JPEG e i video non hanno dati del paziente e il testo impresso viene annerito in automatico. La ricerca del testo non è infallibile: controlla sempre il risultato prima di condividerlo.</p>
+  <p id="ex-stato" class="stato"></p>
+  <p><button id="ex-vai" type="button">Esporta</button> <button id="ex-chiudi" type="button" class="ghost">Chiudi</button></p>
+</dialog>
+<dialog id="dlg-layout" class="dlg-esporta dlg-layout" aria-labelledby="lay-titolo">
+  <h3 id="lay-titolo">▦ Layout personalizzato dei riquadri</h3>
+  <p class="small">Scegli colonne e righe, poi <b>trascina sulla griglia</b> per creare un riquadro (anche di più celle); un clic su un riquadro lo toglie. Le celle libere diventano riquadri singoli. Al massimo 8 riquadri.</p>
+  <p class="lay-riga"><label>Colonne <select id="lay-col"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+    <label>Righe <select id="lay-rig"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+    <button type="button" id="lay-svuota" class="ghost piccolo">Svuota</button></p>
+  <p class="lay-riga small"><span class="muted">Parti da:</span> <span id="lay-modelli"></span></p>
+  <div id="lay-griglia" class="lay-griglia" role="application" aria-label="Griglia del layout: trascina per creare un riquadro"></div>
+  <p id="lay-info" class="small muted"></p>
+  <p class="lay-riga"><label class="largo">Nome <input id="lay-nome" maxlength="40" placeholder="es. TC torace: polmone grande + 2"></label></p>
+  <p class="dlg-ann-pulsanti"><button type="button" id="lay-salva" class="primary">Salva e applica</button><button type="button" id="lay-chiudi" class="ghost">Chiudi</button></p>
+  <h4>Layout salvati in questo browser</h4>
+  <ul id="lay-salvati" class="lay-salvati"></ul>
+</dialog>
+<dialog id="dlg-ann" class="dlg-ann"><form method="dialog">
+  <h3>Annotazioni non salvate</h3>
+  <p>Su questo esame ci sono misure, frecce o note non salvate: se chiudi senza salvarle, alla prossima apertura non ci saranno.</p>
+  <p class="dlg-ann-pulsanti"><button value="salva" class="primary">💾 Salva e chiudi</button><button value="no">Chiudi senza salvare</button><button value="annulla" class="ghost">Annulla</button></p>
+</form></dialog>
+<dialog id="dlg-referto" class="dlg-referto">
+  <div class="ref-testa"><h3>📝 Referto</h3><span class="cl-bollino"><i aria-hidden="true">⚠</i><span><b>Solo per la formazione</b><small>non per uso medico</small></span></span><span class="cl-bollino cl-bollino-locale solo-client"><i aria-hidden="true">🔒</i><span><b>Resta su questo computer</b><small>non viene inviato a nessun server</small></span></span><button type="button" id="ref-finestra" class="ghost" title="Apri il referto in una finestra separata: scorri le immagini mentre scrivi (anche su un altro schermo)">⧉ Finestra separata</button><button type="button" id="ref-pieno" class="ghost" title="Schermo intero / finestra">⛶ Schermo intero</button><button type="button" id="ref-chiudi" class="ghost" aria-label="Chiudi">✕</button></div>
+  <div class="ref-griglia">
+    <div class="ref-sx">
+    <fieldset class="ref-paz"><legend>Paziente ed esame <small class="muted">(letti dalle immagini; restano su questo computer)</small></legend>
+      <label>Cognome e nome<input id="ref-nome"></label><label>Data di nascita<input id="ref-nascita" placeholder="gg/mm/aaaa"></label>
+      <label>Sesso<input id="ref-sesso" maxlength="10"></label><label>Codice paziente (ID)<input id="ref-id"></label>
+      <label class="largo">Codice fiscale <span id="ref-cf-esito" class="ref-cf-esito"></span><input id="ref-cf" maxlength="16" autocapitalize="characters" spellcheck="false" placeholder="es. RSSMRA85T10A562S"></label>
+      <label>Data dell'esame<input id="ref-data"></label><label>N. di accesso<input id="ref-accesso"></label>
+      <label class="largo">Esame<input id="ref-esame"></label><label>Struttura<input id="ref-struttura"></label><label>Medico richiedente<input id="ref-richiedente"></label>
+    </fieldset>
+    <details class="ref-prof" id="ref-prof"><summary>🏥 Carta intestata e firma <small class="muted">(salvate su questo computer)</small></summary>
+      <div class="rp-griglia">
+      <label class="largo">Struttura (prima riga)<input id="rp-ente" placeholder="es. Azienda Ospedaliera …"></label>
+      <label class="largo">Reparto / Unità operativa<input id="rp-reparto" placeholder="es. U.O.C. Radiologia"></label>
+      <label class="largo">Indirizzo e contatti<input id="rp-indirizzo" placeholder="via, città · telefono · email"></label>
+      <div class="largo rp-logo-riga"><span class="ref-etich">Logo</span><img id="rp-logo-img" alt="" hidden><label class="btn ghost piccolo rp-carica">Scegli immagine…<input type="file" id="rp-logo" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden></label><button type="button" class="ghost piccolo" id="rp-logo-via" hidden>✕ Togli</button></div>
+      <label>Medico<input id="rp-medico" placeholder="Dott./Dott.ssa …"></label><label>Qualifica<input id="rp-qualifica" placeholder="es. Dirigente medico radiologo"></label>
+      <label class="check largo"><input type="checkbox" id="ref-con-ente" checked> carta intestata (logo e righe della struttura) nel referto</label>
+      <p class="muted small largo">La firma si compila da sola con medico e qualifica. Questi dati restano solo in questo browser.</p>
+      </div>
+    </details>
+    </div>
+    <div class="ref-corpo">
+      <div class="ref-riga"><label>Modello <select id="ref-modello"></select></label><button type="button" id="ref-misure-ins" title="Aggiunge al testo le misure fatte sulle immagini">＋ Inserisci le misure</button></div>
+      <label class="largo">Quesito clinico<input id="ref-quesito"></label>
+      <div class="largo ref-editor-box"><span class="ref-etich">Testo del referto</span>
+        <div class="ref-barra" role="toolbar" aria-label="Formattazione">
+          <button type="button" data-cmd="bold" title="Grassetto (Ctrl+B)"><b>G</b></button><button type="button" data-cmd="italic" title="Corsivo (Ctrl+I)"><i>C</i></button><button type="button" data-cmd="underline" title="Sottolineato (Ctrl+U)"><u>S</u></button>
+          <span class="ref-sep"></span><button type="button" data-cmd="titolo" title="Titolo di sezione">T</button><button type="button" data-cmd="insertUnorderedList" title="Elenco puntato">• ≡</button><button type="button" data-cmd="insertOrderedList" title="Elenco numerato">1. ≡</button>
+          <span class="ref-sep"></span><button type="button" data-cmd="maiuscolo" title="Testo selezionato in MAIUSCOLO">Aa</button><button type="button" data-cmd="removeFormat" title="Togli la formattazione">⌫ʙ</button>
+          <span class="ref-sep"></span><button type="button" data-cmd="undo" title="Annulla (Ctrl+Z)">↶</button><button type="button" data-cmd="redo" title="Ripeti (Ctrl+Maiusc+Z)">↷</button>
+          <span class="ref-sep"></span><button type="button" id="ref-scale" title="Scale e classificazioni (BI-RADS, PI-RADS, LI-RADS, Fleischner, RECIST…): il risultato si copia qui">Σ Scale</button><span class="ref-sep"></span><button type="button" id="ref-detta" title="Dettatura: solo se il riconoscimento della voce avviene su questo computer (l'audio non va su internet)">🎙 Detta</button>
+        </div>
+        <div id="ref-testo" class="ref-editor" contenteditable="true" spellcheck="true" role="textbox" aria-multiline="true" aria-label="Testo del referto"></div></div>
+      <label class="largo">Firma<input id="ref-firma" placeholder="Dott./Dott.ssa …"></label>
+      <div class="ref-opz"><label class="check"><input type="checkbox" id="ref-con-paz" checked> dati del paziente nell'intestazione</label>
+        <label class="check"><input type="checkbox" id="ref-con-img" checked> immagini chiave <span id="ref-n-img" class="muted"></span></label>
+        <label class="check"><input type="checkbox" id="ref-con-schemi" checked> disegni delle scale <span id="ref-n-schemi" class="muted"></span></label></div>
+      <div class="largo ref-schemi-box" id="ref-ic-box" hidden><span class="ref-etich">Immagini chiave (📸 o tasto K): la didascalia si modifica qui</span><div id="ref-ic" class="ref-schemi"></div></div>
+      <div class="largo ref-schemi-box" id="ref-schemi-box" hidden><span class="ref-etich">Disegni delle scale e classificazioni (da «Σ Scale» → «Copia nel referto»)</span><div id="ref-schemi" class="ref-schemi"></div></div>
+    </div>
+  </div>
+  <p class="muted small" id="ref-avviso">⚠ Strumento didattico, non è un dispositivo medico. Il referto e i dati del paziente restano su questo computer: la bozza si salva in questo browser.</p>
+  <p class="ref-pulsanti"><button type="button" id="ref-stampa" class="primary">🖨 Stampa</button><button type="button" id="ref-pdf">⤓ PDF</button><button type="button" id="ref-word">⤓ Word (.docx)</button><button type="button" id="ref-txt" class="ghost">Testo</button><span id="ref-stato" class="muted small"></span></p>
+</dialog>
+<main id="vista-elenco" class="elenco">
+  <section class="home-hero">
+    <div class="home-hero-testo">
+      <span class="home-kicker">Allenamento sulle immagini reali</span>
+      <div class="riga testa-elenco"><h1>Casi clinici</h1></div>
+      <p>Apri un caso, esamina le immagini nel visualizzatore e scegli le diagnosi corrette (una o più).</p>
+      <div id="home-numeri" class="home-numeri"></div>
+      <div class="home-cta">
+        <button id="btn-casuale" class="primary" title="Apre un caso a caso tra quelli della metodica scelta; dopo la risposta passi al successivo">Allenamento casuale</button>
+        <button id="btn-esame" class="ghost" title="Esame simulato: casi a tempo, correzione alla fine e confronto con la media degli iscritti">⏱ Esame simulato</button>
+        <button id="btn-installa" class="ghost" type="button" title="Installa questa piattaforma dei casi come app: si apre a schermo intero dalla sua icona (utile sul tablet). Il visualizzatore DICOM per i tuoi esami è un programma a parte">📲 Installa i casi come app</button>
+      </div>
+    </div>
+    <svg class="home-arte" viewBox="0 0 200 200" aria-hidden="true">
+      <defs><radialGradient id="ha-g" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".55" stop-color="#cfe3ff" stop-opacity=".55"/><stop offset="1" stop-color="#4ea1ff" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-opacity=".18" stroke-width="1.5"/>
+      <circle cx="100" cy="100" r="74" fill="none" stroke="currentColor" stroke-opacity=".28" stroke-width="1.5" stroke-dasharray="3 5"/>
+      <ellipse cx="100" cy="102" rx="58" ry="48" fill="url(#ha-g)" opacity=".55"/>
+      <path d="M62 100c0-22 17-38 38-38s38 16 38 38-17 34-38 34-38-12-38-34Z" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="2"/>
+      <path d="M78 96c4-10 12-14 16-12M122 96c-4-10-12-14-16-12" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="100" cy="112" r="7" fill="none" stroke="currentColor" stroke-opacity=".7" stroke-width="2"/>
+      <circle cx="124" cy="88" r="5" fill="#ff6b6b" opacity=".9"/><circle cx="124" cy="88" r="11" fill="none" stroke="#ff6b6b" stroke-opacity=".6" stroke-width="1.5"/>
+      <path d="M100 4v22M100 174v22M4 100h22M174 100h22" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/>
+    </svg>
+  </section>
+  <a class="cl-promo" href="/client/index.html" target="_blank" rel="noopener">
+    <span class="cl-promo-ico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M12 7v6M9 10l3 3 3-3"/></svg></span>
+    <span class="cl-promo-testo"><b>Visualizzatore DICOM per il tuo computer</b>
+      <span>Un programma a parte, per i tuoi esami (non per i casi del quiz): li apri dal disco, anche CD e .zip, con MPR, misure, video MP4, anonimizzazione. Le immagini non escono dal computer.</span>
+      <span class="cl-promo-tag"><i>Gratuito</i><i>Funziona offline</i><i>Open source</i><i class="cl-promo-avv">Non per uso medico</i></span></span>
+    <span class="cl-promo-cta">Scarica ↗</span>
+  </a>
+  <div id="gioco-card" class="gioco-card" hidden></div>
+  <section id="allenamento-card" class="all-card" hidden aria-label="Il tuo allenamento"></section>
+  <div class="cerca-quesito">
+    <div class="cerca-riga"><input id="cerca" type="text" placeholder="🔍 Cerca per sospetto clinico, distretto o titolo (es. nodulo, trauma, embolia)…" autocomplete="off" role="combobox" aria-controls="chip-quesiti" aria-expanded="false" aria-autocomplete="list" aria-label="Cerca casi per sospetto clinico, distretto o titolo">
+      <span id="cerca-n" class="muted small"></span><button id="cerca-via" type="button" class="ghost" title="Cancella la ricerca" hidden>✕</button></div>
+    <div id="chip-quesiti" class="sugg-quesiti" role="listbox" hidden></div>
+  </div>
+  <div id="percorsi" class="percorsi"></div>
+  <div class="barra-elenco">
+    <span class="be-tit">Filtra i casi</span>
+    <div id="filtro-origine" class="schede origine" role="tablist" aria-label="Origine dei casi" hidden></div>
+    <div id="filtro-area" class="schede aree" role="tablist" aria-label="Area"></div>
+    <div id="filtro-metodica" class="schede" role="tablist" aria-label="Metodica"></div>
+    <span class="spacer"></span>
+    <select id="filtro-diff" class="compatto" title="Difficoltà: calcolata dalle risposte degli iscritti quando ce ne sono almeno 5, altrimenti indicata dal docente">
+      <option value="">Tutte le difficoltà</option><option>Base</option><option>Intermedio</option><option>Avanzato</option></select>
+  </div>
+  <div id="lista-casi"></div>
+  <a id="btn-nuovo" class="nuovo-caso-card" href="#/nuovo" hidden><span class="nc-piu">＋</span><span><b>Nuovo caso</b><small>Carica le immagini anonimizzate e scrivi domande e risposte: resta in bozza fino alla revisione</small></span></a>
+  <div id="sponsor-home" class="sp-slot" hidden></div>
+</main>
+
+<!-- CASO -->
+<main id="vista-caso" class="caso" hidden>
+  <aside class="serie">
+    <h3><span class="serie-tit">Serie</span><button id="btn-serie" type="button" class="btn-serie" title="Nascondi la barra delle serie (più spazio alle immagini)" aria-expanded="true">Serie ▾</button><button id="btn-serie-finestra" type="button" class="btn-serie btn-serie-fin" title="Apri le serie in una finestra separata (spostala su un altro monitor)">⧉</button></h3>
+    <div class="serie-corpo">
+      <div id="tab-studi" class="tab-studi" role="tablist" aria-label="Studi della paziente" hidden></div>
+      <div id="lista-serie"></div>
+    </div>
+  </aside>
+
+  <section class="viewer">
+    <div id="q-promemoria" class="q-promemoria" hidden><span class="q-prom-testo"><b>Domanda:</b> <span id="q-prom-domanda"></span></span><button type="button" id="q-prom-vai" class="primary">Rispondi ↓</button></div>
+    <div class="barra-unica">
+    <div class="modi" role="tablist" aria-label="Modalità di visualizzazione">
+      <button id="modo-2d" class="on" role="tab">2D</button>
+      <button id="modo-mpr" role="tab" title="Ricostruzioni multiplanari e volume rendering">MPR + 3D</button>
+    </div>
+    <div class="grp" id="grp-client" role="group" aria-label="Versione client" hidden>
+      <button id="cl-apri" type="button" title="Apri un altro esame dal disco">📂<span class="et"> Apri</span></button>
+      <details class="cl-aggiungi" id="cl-aggiungi"><summary class="btn" title="Aggiungi un altro esame (precedente o successivo) per il confronto: si apre insieme a quello attuale">＋<span class="et"> Aggiungi</span></summary>
+        <div class="cl-aggiungi-voci"><label>📂 Cartella<input type="file" id="cl-aggiungi-cartella" webkitdirectory multiple hidden></label><label>🗎 File<input type="file" id="cl-aggiungi-file" multiple hidden></label><span class="muted small">oppure trascinali sulle immagini (anche .zip)</span><label>💾 Apri sessione…<input type="file" id="cl-sessione" accept=".json,.rqsess" hidden></label></div></details>
+      <button id="cl-chiave" type="button" title="Salva la vista attuale come immagine chiave (tasto K): anonima, con misure e frecce. Il numero mostra o nasconde la striscia delle immagini chiave">📸<span class="et"> Chiave</span> <span id="cl-chiave-n" class="cl-conta" hidden></span></button>
+      <details class="cl-aggiungi cl-ann" id="cl-ann"><summary class="btn" title="Salva le annotazioni (misure, frecce, note) per ritrovarle alla riapertura: quelle non salvate si perdono chiudendo l'esame (Ctrl+S salva l'esame)">💾<span class="et"> Salva</span> <span id="cl-ann-stato" class="cl-ann-stato" title="Ci sono annotazioni non salvate" hidden>●</span></summary>
+        <div class="cl-aggiungi-voci"><button type="button" id="cl-ann-esame">Salva annotazioni esame</button><button type="button" id="cl-ann-serie">Salva annotazioni serie</button><button type="button" id="cl-ann-via" class="ghost">Elimina le annotazioni salvate</button><span class="muted small">Le «A» sulla barra di scorrimento segnano le immagini con annotazioni (gialle se non salvate).</span></div></details>
+      <button id="cl-referto" type="button" title="Referto strutturato con i dati del paziente, le misure e le immagini chiave: stampa, PDF o Word, tutto su questo computer">📝<span class="et"> Referto</span></button>
+      <button id="cl-esporta" type="button" title="Esporta immagine, serie, video MP4 o esame anonimizzato">⤓<span class="et"> Esporta</span></button>
+      <button id="cl-chiudi" type="button" title="Chiudi l'esame aperto (con più esami aperti: scegli quale, o tutti)">✕<span class="et"> Chiudi</span></button>
+      <button id="cl-finestra" type="button" aria-label="Multischermo" title="Multischermo: apri un'altra finestra (sull'altro schermo, se c'è), sincronizzata nello scorrimento"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="9" height="12" rx="1.5"/><rect x="13" y="4" width="9" height="12" rx="1.5"/><path d="M6 20h12"/></svg></button>
+      <details class="cl-aggiungi cl-altro" id="cl-altro"><summary class="btn" title="Altre funzioni: collega finestre, disposizione automatica, dati del paziente, manuale" aria-label="Altre funzioni">⋯</summary>
+        <div class="cl-aggiungi-voci">
+          <label class="check" title="Le finestre seguono posizione, finestra (W/L) e zoom della finestra in cui lavori"><input type="checkbox" id="cl-sincro" checked> collega finestre</label>
+          <span class="cl-hp"><button id="hp-ricorda" type="button" title="Ricorda questa disposizione per gli esami dello stesso tipo">📌 Ricorda</button><label class="check" title="All'apertura lo schermo si organizza da solo secondo il tipo di esame"><input type="checkbox" id="hp-auto" checked> disposizione automatica</label></span>
+          <label class="check cl-paz" title="Nome, data di nascita con l'età all'esame e sesso del paziente sulla linguetta dell'esame (solo su questo schermo: mai nelle esportazioni)"><input type="checkbox" id="cl-paz-tab"> dati paziente sulla linguetta</label>
+          <label class="check cl-paz" title="Mostra nome, data di nascita, data dell'esame e struttura sull'immagine (solo su questo schermo: mai nelle esportazioni)"><input type="checkbox" id="cl-paziente"> dati paziente sull'immagine</label>
+          <a id="cl-manuale" class="btn" href="/client/manuale-client.html" target="_blank" rel="noopener" title="Manuale del visualizzatore (funziona anche senza rete)">📘 Manuale</a>
+        </div></details>
+      <span class="cl-bollino" title="Strumento per la formazione: non è un dispositivo medico e non va usato per diagnosi o refertazione clinica"><i aria-hidden="true">⚠</i><span><b>Solo formazione</b></span></span><span class="cl-bollino cl-bollino-locale" title="Immagini e dati dei pazienti restano su questo computer: non vengono inviati a nessun server"><i aria-hidden="true">🔒</i><span><b>Dati solo in locale</b></span></span>
+    </div>
+    <div class="toolbar" id="barra-2d">
+      <button type="button" id="btn-barra-tutti" class="barra-tutti" aria-pressed="false" title="Mostra o nascondi gli strumenti avanzati (misure speciali, confronti, IA, ricostruzioni). Chi inizia può lavorare con quelli essenziali">⚙ Tutti gli strumenti</button>
+      <div class="grp ws-mg" id="ws-mg" role="group" aria-label="Disposizioni mammografia" hidden>
+        <span class="ws-tit">Mammografia</span>
+        <button data-ws="4" title="Le 4 proiezioni dell'esame attuale (tasto 1)">4 viste <kbd>1</kbd></button>
+        <button data-ws="CC" title="CC destra e sinistra (tasto 2)">CC <kbd>2</kbd></button>
+        <button data-ws="MLO" title="MLO destra e sinistra (tasto 3)">MLO <kbd>3</kbd></button>
+        <button data-ws="CCP" class="ws-prec" title="CC attuale sopra, CC del precedente sotto (tasto 4)">CC+prec <kbd>4</kbd></button>
+        <button data-ws="MLOP" class="ws-prec" title="MLO attuale sopra, MLO del precedente sotto (tasto 5)">MLO+prec <kbd>5</kbd></button>
+        <select id="ws-prec" class="ws-prec" title="Esame precedente da confrontare"></select>
+      </div>
+      <div class="grp ws-mg" id="ws-fasi" role="group" aria-label="Fasi dinamiche" hidden>
+        <span class="ws-tit">Dinamica</span>
+      </div>
+      <div class="grp" role="group" aria-label="Navigazione">
+        <button data-tool="scroll" class="ico on" title="Scorri le immagini: tieni premuto il tasto sinistro e muovi il mouse su/giù (Esc). Destro: finestra; rotellina premuta: zoom" aria-label="Scorri"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="6" width="10" height="12" rx="1.5"/><path d="M12 1.5v3M10 3l2-1.5L14 3M12 22.5v-3M10 21l2 1.5 2-1.5"/></svg></button>
+        <button data-tool="wl" class="ico" title="Finestra/Livello (W)" aria-label="Finestra"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
+        <button data-tool="pan" title="Sposta" aria-label="Sposta" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg></button>
+        <button data-tool="zoom" title="Ingrandisci (Z)" aria-label="Zoom" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></button>
+        <button data-tool="lente" title="Lente d'ingrandimento: segue il mouse; trascinando regoli la finestra. Tasto L = lente con qualsiasi strumento; + e − (o Alt + rotellina) = ingrandimento; [ e ] = dimensione" aria-label="Lente" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M15 15l6 6"/><path d="M7 8.5a3.5 3.5 0 0 1 3-2" /></svg></button>
+        <button data-tool="collega" title="Punto collegato: clicca un reperto e gli altri riquadri (altri piani, esame precedente) vanno sullo stesso punto. Con qualsiasi strumento: Alt + clic. Esc toglie il segno" aria-label="Punto collegato" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="6"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></button>
+        <select id="preset" class="compatto" title="Preset di finestra">
+        <option value="">W/L…</option>
+        <option value="auto">Finestra originale dell'immagine</option>
+        <optgroup label="Encefalo e collo">
+        <option value="40,80">Encefalo (40/80)</option>
+        <option value="35,40">Ictus, sostanza grigia/bianca (35/40)</option>
+        <option value="75,215">Sangue / ematoma subdurale (75/215)</option>
+        <option value="80,200">Fossa posteriore (80/200)</option>
+        <option value="600,2800">Rocca petrosa / orecchio (600/2800)</option>
+        <option value="50,350">Collo, tessuti molli (50/350)</option>
+        </optgroup>
+        <optgroup label="Torace">
+        <option value="-600,1500">Polmone (−600/1500)</option>
+        <option value="-700,1000">Polmone ad alto contrasto, HRCT (−700/1000)</option>
+        <option value="-850,500">Enfisema (−850/500)</option>
+        <option value="50,350">Mediastino (50/350)</option>
+        <option value="100,700">Embolia polmonare (100/700)</option>
+        </optgroup>
+        <optgroup label="Addome">
+        <option value="40,400">Addome (40/400)</option>
+        <option value="60,160">Fegato (60/160)</option>
+        <option value="90,150">Fegato con mdc, lesioni (90/150)</option>
+        <option value="40,250">Pancreas / reni (40/250)</option>
+        <option value="-50,250">Grasso / surreni (−50/250)</option>
+        <option value="-500,1500">Aria libera / intestino (−500/1500)</option>
+        </optgroup>
+        <optgroup label="Vasi">
+        <option value="200,600">Angio (200/600)</option>
+        <option value="300,800">Angio con calcificazioni / stent (300/800)</option>
+        </optgroup>
+        <optgroup label="Osso e muscoli">
+        <option value="400,1800">Osso (400/1800)</option>
+        <option value="500,2000">Osso denso / metallo (500/2000)</option>
+        <option value="300,1500">Rachide, osso (300/1500)</option>
+        <option value="50,250">Rachide, dischi (50/250)</option>
+        <option value="40,350">Tessuti molli (40/350)</option>
+        </optgroup>
+        </select>
+      </div>
+      <div class="grp" id="grp-piani" role="group" aria-label="Piano del riquadro" hidden>
+        <button data-piano="assiale" title="Assiale nel riquadro attivo (A)">Ax</button>
+        <button data-piano="coronale" title="Coronale ricostruita nel solo riquadro attivo, senza aprire l'MPR (C)">Cor</button>
+        <button data-piano="sagittale" title="Sagittale ricostruita nel solo riquadro attivo, senza aprire l'MPR (S)">Sag</button>
+        <button id="btn-raddrizza" type="button" hidden aria-pressed="false" title="Piano orbito-meatale (OMP): dal canto esterno dell'occhio al centro del meato acustico esterno, dai due lati (punti di repere trovati in automatico). Di nuovo per tornare alle immagini originali">OMP</button>
+        <button id="btn-tasti" title="Elenco dei tasti rapidi (?)" aria-label="Tasti rapidi"><b>?</b></button>
+      </div>
+      <div class="grp" id="grp-strato" role="group" aria-label="Strato del riquadro">
+        <select id="slab" class="compatto" title="Spessore dello strato nel riquadro attivo: MIP, MinIP o media su più immagini (per noduli, vasi, enfisema)">
+        <option value="0">Strato</option><option value="5">5 mm</option><option value="10">10 mm</option><option value="20">20 mm</option><option value="40">40 mm</option></select>
+        <select id="slab-modo" class="compatto" title="Proiezione dello strato" hidden><option value="mip">MIP</option><option value="minip">MinIP</option><option value="media">Media</option></select>
+      </div>
+      <div class="grp" role="group" aria-label="Misure">
+        <button data-tool="misura" title="Misura distanza in mm (R)" aria-label="Misura" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16L16 3l5 5L8 21z"/><path d="M7 12l2 2M10 9l2 2M13 6l2 2"/></svg></button>
+        <button data-tool="recist" title="RECIST 1.1: una misura. Lesione: diametro massimo (bersaglio ≥ 10 mm). Clicca di nuovo il pulsante per i linfonodi: asse corto (bersaglio ≥ 15 mm). Al massimo 5 bersagli, 2 per organo" aria-label="RECIST" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18L20 6M9 6l6 12"/></svg></button>
+        <button data-tool="roi" title="ROI ellittica: densità media (HU), deviazione standard, min/max, area (E)" aria-label="ROI" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="6"/><path d="M12 12h.01"/></svg></button>
+        <button data-tool="roi-libera" title="ROI a mano libera (trascina) o poligonale (un clic per vertice; chiudi con doppio clic, Invio o cliccando il primo punto)" aria-label="ROI libera o poligonale" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l5-4 7 2 3 6-4 7-8-1-4-5z"/><path d="M12 12h.01"/></svg></button>
+        <button data-tool="angolo" title="Angolo: trascina il primo braccio, poi clicca il terzo punto" aria-label="Angolo" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M4 20L15 5"/><path d="M9 20a5 5 0 0 0-1.6-3.7"/></svg></button>
+        <button data-tool="nota" title="Freccia con nota: trascina dalla posizione del testo fino al reperto" aria-label="Freccia" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19L18 6M18 6h-7M18 6v7"/></svg></button>
+        <button data-tool="cmr" class="ico" aria-label="RM cardiaca" title="RM cardiaca: volumi, frazione di eiezione e massa dalla pila di asse corto (VS e VD), flusso con il contrasto di fase" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg></button>
+        <button data-tool="eco" class="ico" aria-label="Misure cardiache" title="Misure cardiache (ecocardiogramma): contorno dell'endocardio in diastole e sistole → volumi e frazione di eiezione del VS (Simpson), aree e FAC del VD" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M8 11h2l1-2 2 4 1-2h2"/></svg></button>
+        <details class="menu-barra" id="menu-misure">
+          <summary class="ico" title="Altre misure: profilo di densità, volume, angolo di Cobb, indice cardio-toracico, «Che struttura è?»" aria-label="Altre misure: profilo di densità, volume, angolo di Cobb, indice cardio-toracico, «Che struttura è?»"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17L17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/></svg><span class="freccia" aria-hidden="true">▾</span></summary>
+          <div class="menu-pop" role="menu">
+            <button data-tool="profilo" title="Profilo di densità: trascina una linea; sotto le immagini compare il grafico dei valori lungo la linea" aria-label="Profilo" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M3 15l4-5 4 3 4-8 6 6"/></svg></button>
+            <button data-tool="calcio" class="ico" aria-label="Calcio coronarico" title="Calcio coronarico (TC): scegli l'arteria e clicca su ogni calcificazione; punteggio di Agatston e categoria CAC-DRS, anche visiva per le TC del torace"><b style="font-size:10px;line-height:18px">CAC</b></button>
+            <button data-tool="volume" class="ico" aria-label="Volume" title="Volume semiautomatico: clicca dentro la lesione; la piattaforma la segue nelle immagini vicine e calcola il volume. Con un precedente misurato, anche il tempo di raddoppio; con più esami, «Segui nel tempo» ritrova la lesione negli altri e ne fa il grafico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></button>
+            <button data-tool="cobb" class="ico" aria-label="Angolo di Cobb" title="Angolo di Cobb: traccia la prima linea (piatto superiore della vertebra limite craniale), poi la seconda (piatto inferiore della vertebra limite caudale)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l16 3M4 18l16-4"/><path d="M14 8.5a6 6 0 0 1 0 6"/></svg></button>
+            <button data-tool="ict" class="ico" aria-label="Indice cardio-toracico" title="Indice cardio-toracico: traccia il diametro trasverso massimo del cuore, poi il diametro interno massimo del torace"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/><path d="M3 21h18"/></svg></button>
+            <button data-tool="t2s" class="ico" aria-label="T2* e ferro" title="T2* e ferro (RM multi-eco): disegna una ROI nel setto interventricolare o nel fegato; la ROI si riporta su tutti gli echi della fetta e si calcolano T2*, R2* e la classe del sovraccarico di ferro" hidden><b style="font-size:11px;line-height:18px">T2*</b></button>
+            <button id="btn-adc" class="ico" aria-label="Mappa ADC" hidden title="Mappa ADC calcolata dalle DWI con valori b diversi (b0, b800…): apri la serie di diffusione e premi; un secondo clic torna alla DWI. La ROI dà l'ADC in ×10⁻⁶ mm²/s (1000 = 1,0 × 10⁻³ mm²/s)"><b style="font-size:10px;letter-spacing:-.02em">ADC</b></button>
+            <button data-tool="anatomia" class="ico" aria-label="Che struttura è" title="Che struttura è? Clicca un punto: nome e contorno della struttura dalla segmentazione IA (TC)"><b style="font-size:13px;line-height:18px">?</b></button>
+          </div>
+        </details>
+      </div>
+      <div class="grp" role="group" aria-label="Immagine">
+        <button id="btn-ruota" title="Ruota di 90° (Maiusc+clic al contrario)" aria-label="Ruota di 90°" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-3-6.2"/><path d="M20 4v5h-5"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg></button>
+        <button id="btn-specchio" title="Speculare destra-sinistra (H)" aria-label="Speculare" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18" stroke-dasharray="2 2"/><path d="M9 6L3 18h6z"/><path d="M15 6l6 12h-6z" fill="currentColor"/></svg></button>
+        <button id="btn-inverti" title="Inverti" aria-label="Inverti" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 20L20 4v16z" fill="currentColor"/></svg></button>
+        <button id="btn-nitid" class="ico nitid" title="Nitidezza (sharpness, esalta i bordi): clic per aumentare 1 → 2 → 3 → spenta; Maiusc+clic per diminuire" aria-label="Nitidezza"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 3v16H3z" fill="currentColor" stroke="none"/></svg><b id="nitid-liv"></b></button>
+        <button id="btn-eq" class="ico" title="Contrasto locale (equalizzazione adattiva): rende leggibili insieme zone molto chiare e molto scure, utile nelle radiografie" aria-label="Contrasto locale"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 20V14M9 20V8M13 20V11M17 20V5"/></svg></button>
+        <button id="btn-cine" title="Riproduzione automatica" aria-label="▶ Cine" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l12 7-12 7z" fill="currentColor"/></svg></button><select id="cine-fps" class="cine-fps" title="Velocità del cine in fotogrammi al secondo. «auto»: velocità originale dei filmati ecografici, 12 per le altre serie" aria-label="Fotogrammi al secondo del cine"><option value="auto">auto</option><option value="5">5 fps</option><option value="10">10 fps</option><option value="15">15 fps</option><option value="25">25 fps</option><option value="30">30 fps</option><option value="50">50 fps</option></select>
+        <button id="btn-reset" title="Ripristina vista" aria-label="Reset" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg></button>
+      </div>
+      <div class="grp" role="group" aria-label="Referto">
+        <button id="btn-al-referto" title="Porta nel referto le misure dell'immagine (tasto I): «reperto di 14 × 11 mm (immagine 171)»" aria-label="Misure nel referto" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h3M8 17h8"/><path d="M14 13l2 2 3-4"/></svg></button>
+        <button id="btn-scale" class="ico" aria-label="Scale" title="Scale e classificazioni internazionali: RENAL, PADUA, Bosniak 2019, PI-RADS v2.1, ACR TI-RADS, Fleischner 2017 (il risultato si copia nel referto)"><b style="font-size:13px;line-height:18px">Σ</b></button>
+        <button id="btn-aspects" class="ico" aria-label="ASPECTS" title="Calcolatore ASPECTS (ictus nel territorio dell'arteria cerebrale media)" hidden><b style="font-size:11px;line-height:18px">AS</b></button>
+        <button id="btn-gsps" class="ico" hidden title="Salva frecce, misure e ROI in un file DICOM (presentation state) da aprire in un visualizzatore DICOM con le immagini del caso" aria-label="Annotazioni DICOM"><b style="font-size:9px;line-height:18px">GSPS</b></button>
+        <button id="btn-sr" class="ico" hidden title="Salva le misure (distanze, RECIST, ROI, angoli) come referto strutturato DICOM (SR, modello TID 1500): un visualizzatore DICOM le legge come dati, con l'immagine di origine" aria-label="Misure DICOM SR"><b style="font-size:9px;line-height:18px">SR</b></button>
+        <button id="btn-annulla" class="ico" title="Annulla (Ctrl+Z)" aria-label="Annulla" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
+        <button id="btn-ripeti" class="ico" title="Ripeti (Ctrl+Maiusc+Z)" aria-label="Ripeti" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/></svg></button>
+        <button id="btn-cancella" title="Cancella la misura selezionata (clic sulla misura, poi questo pulsante o Canc); senza selezione cancella tutte le misure dell'immagine" aria-label="Cancella misure" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></button>
+        <details class="menu-barra" id="menu-altro">
+          <summary class="ico" title="Altri strumenti: densità mammaria, vertebre numerate, quiz di anatomia, radiomica" aria-label="Altri strumenti: densità mammaria, vertebre numerate, quiz di anatomia, radiomica"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span class="freccia" aria-hidden="true">▾</span></summary>
+          <div class="menu-pop" role="menu">
+            <button id="btn-densita" class="ico" hidden title="Densità mammaria stimata (ACR A-D): tessuto denso evidenziato. Agli studenti dopo la risposta" aria-label="Densità"><b style="font-size:10px;line-height:18px">ACR</b></button>
+            <button id="btn-vertebre" class="ico" title="Vertebre numerate (dalla segmentazione IA): L1, T12… accanto alla colonna" aria-label="Vertebre"><b style="font-size:11px;line-height:18px">L1</b></button>
+            <button id="btn-quiz-anat" class="ico" title="Quiz di anatomia: la piattaforma chiede una struttura, la cerchi e la clicchi (segmentazione IA, TC)" aria-label="Quiz di anatomia"><b style="font-size:10px;line-height:18px">Anat</b></button>
+            <button id="btn-radiomica" class="ico" title="Radiomica didattica: istogramma, entropia e tessitura delle ROI e dei volumi disegnati, a confronto" aria-label="Radiomica"><b style="font-size:10px;line-height:18px">Rad</b></button>
+          </div>
+        </details>
+      </div>
+      <div class="grp" role="group" aria-label="Confronto">
+        <select id="riquadri" class="compatto" title="Riquadri — più serie insieme: la serie scelta a sinistra si apre nel riquadro attivo (bordo blu)">
+        <option value="1">▢ 1</option><option value="2" title="Due riquadri affiancati">▢ 2</option><option value="2v" title="Due riquadri uno sopra l'altro (schermi verticali)">▢ 2×1</option>
+        <option value="3">▢ 3</option><option value="4">▢ 4</option><option value="6">▢ 6</option><option value="8">▢ 8</option>
+        </select>
+        
+        <button id="btn-sm" class="ico" type="button" hidden aria-label="Lesioni sclerosi multipla" title="Lesioni iperintense FLAIR/STIR (stima automatica) e confronto con il precedente: in rosso le nuove"><b style="font-size:12px;line-height:18px">🧠 SM</b></button>
+        <button id="btn-noduli" class="ico" type="button" hidden aria-label="Noduli polmonari IA" title="Noduli polmonari trovati dall'IA (seconda lettura): cerchi sulle immagini ed elenco con «vai»"><b style="font-size:12px;line-height:18px">🫁 <span class="n"></span></b></button>
+        <button id="btn-confronto-ia" class="ico" hidden aria-label="Confronto IA con il precedente" title="Confronto con l'esame precedente: per ogni lesione volume e diametro prima e dopo, tempo di raddoppio, crescita Lung-RADS e RECIST (stime da verificare)">🤖</button>
+        <button id="btn-confronta" class="ico" hidden aria-label="Confronta con il precedente" title="Confronta con un altro esame: l'esame del riquadro attivo a sinistra, l'altro a destra (prima i precedenti, anche di altri distretti, poi i successivi) con la serie corrispondente, sincronizzati (studi diversi: coregistrazione automatica). Clic ripetuti: l'esame successivo della lista"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="9" height="14" rx="1.5"/><rect x="13" y="5" width="9" height="14" rx="1.5"/><path d="M9 3l-2 2 2 2M15 21l2-2-2-2"/></svg></button>
+        <button id="btn-confronta-tutti" class="ico" type="button" hidden aria-label="Confronta fino a 4 esami" title="Confronta fino a 4 esami insieme (anche fatti su apparecchi diversi): A = esame del riquadro attivo, gli altri allineati e ricostruiti sul suo piano, sincronizzati"><b style="font-size:11px;line-height:18px">⊞4</b></button>
+        <button id="btn-riallinea" class="ico" type="button" title="Precedente ricostruito sul piano dell'attuale (B segue A punto per punto, anche se il paziente era posizionato diversamente); di nuovo: immagini originali del precedente" aria-label="Precedente sul piano dell'attuale"><b style="font-size:13px;line-height:18px">⇄</b></button>
+        <span id="sincro-wrap" hidden>
+        <label class="check ico-check" title="Sincronizza (Ctrl+J): stessa posizione, zoom e spostamento nei riquadri con lo stesso piano; linee di riferimento tra piani diversi"><input type="checkbox" id="sincro" checked><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></label>
+        <button id="btn-allinea" title="Coregistrazione di studi diversi: clicca lo stesso punto anatomico in due riquadri" aria-label="Allinea" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="6"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/></svg></button>
+        <button id="btn-auto-allinea" class="ico" aria-label="Allineamento automatico" title="Coregistrazione automatica di due studi diversi, anche TC con RM o PET (traslazione, informazione mutua): il riquadro attivo è il riferimento. Poi si può affinare con «Allinea»"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="6"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><path d="M17 3l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="currentColor"/></svg></button>
+        </span>
+        <span id="fusione-wrap" hidden>
+        <button id="btn-fusione" title="Sovrapposizione (fusione): una serie sopra l'altra, in falsi colori. PET su TC, oppure due serie TC/RM scelte da te (studi diversi: prima la coregistrazione)" aria-label="Sovrapposizione" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></button>
+        <span id="fusione-controlli" hidden>
+        <label class="check" title="Serie di base (sotto): quella del riquadro attivo">Sotto <select id="fusione-base" class="compatto"></select></label>
+        <label class="check" title="Serie da sovrapporre a colori (sopra): PET, oppure un'altra TC o RM (fasi diverse della stessa seduta, o un altro esame dopo la coregistrazione)">Sopra <select id="fusione-serie" class="compatto"></select></label>
+        <select id="fusione-mappa" class="compatto" title="Mappa colore della PET"></select>
+        <label class="check" title="Opacità della serie sovrapposta">◐ <input type="range" id="fusione-opacita" min="10" max="90" value="50"></label>
+        <label class="check" title="Scala colori: soglia superiore (più bassa = più captazione evidenziata)">▤ <input type="range" id="fusione-max" min="10" max="200" value="100"></label>
+        <label class="check" title="Soglia: sotto questo valore la PET è trasparente (toglie il fondo di sangue, fegato e muscoli e lascia vedere la TC)">⊘ <input type="range" id="fusione-soglia" min="0" max="50" value="15"></label>
+        <span id="fusione-scala" class="muted small"></span>
+        </span>
+        </span>
+        <span id="sott-wrap" hidden>
+        <button id="btn-sott" title="Sottrazione tra fasi: l'immagine meno la serie scelta (di solito la basale) alla stessa posizione; resta solo l'impregnazione di contrasto" aria-label="Sottrazione" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 12h8"/></svg></button>
+        <select id="sott-serie" title="Serie da sottrarre"></select>
+        </span>
+        <span id="diff-wrap" hidden>
+        <button id="btn-diffprec" class="ico" title="Confronto con l'esame precedente: coregistrazione (anche ruotata), stessa posizione e sottrazione. Rosso = nuovo o più intenso (per es. nuove lesioni FLAIR), blu = ridotto" aria-label="Confronto con il precedente"><b style="font-size:11px;line-height:18px">Δ</b></button>
+        <select id="diff-modo" class="compatto" hidden title="Come mostrare il confronto"><option value="colori">rosso/blu sull'immagine</option><option value="differenza">immagine differenza</option><option value="precedente">precedente nello stesso piano</option></select>
+        </span>
+      </div>
+    </div>
+    <!-- MPR + 3D (Cornerstone3D, caricato solo quando serve) -->
+    <div class="toolbar" id="barra-mpr" hidden>
+      <div class="grp" role="group" aria-label="Navigazione MPR">
+        <button data-mpr-tool="scorri" class="ico on" title="Scorri gli strati: tieni premuto il tasto sinistro e muovi su/giù (la rotellina scorre sempre)" aria-label="Scorri"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/></svg></button>
+        <button data-mpr-tool="crosshair" class="ico" title="Linee di riferimento: trascina il centro per spostare i piani, le maniglie per ruotarli (MPR obliqua)" aria-label="Piani"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="3"/></svg></button>
+        <button data-mpr-tool="wl" title="Finestra/Livello" aria-label="Finestra" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
+        <button data-mpr-tool="pan" title="Sposta" aria-label="Sposta" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg></button>
+        <button data-mpr-tool="zoom" title="Ingrandisci" aria-label="Zoom" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></button>
+      </div>
+      <div class="grp" role="group" aria-label="Misure MPR">
+        <button data-mpr-tool="misura" title="Distanza in mm, anche sui piani obliqui" aria-label="Misura" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16L16 3l5 5L8 21z"/><path d="M7 12l2 2M10 9l2 2M13 6l2 2"/></svg></button>
+        <button data-mpr-tool="recist" title="RECIST 1.1, anche sui piani obliqui: diametro massimo della lesione (bersaglio ≥ 10 mm) e asse corto, quello dei linfonodi (bersaglio ≥ 15 mm)" aria-label="RECIST" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18L20 6"/><path d="M9 7l6 10"/></svg></button>
+        <button data-mpr-tool="roi" title="ROI ellittica: media, DS, min/max, area; e ROI 3D (ellissoide): diametri, volume e densità media" aria-label="ROI" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="6"/><path d="M12 12h.01"/></svg></button>
+        <button data-mpr-tool="angolo" title="Angolo" aria-label="Angolo" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M4 20L15 5"/><path d="M9 20a5 5 0 0 0-1.6-3.7"/></svg></button>
+        <button data-mpr-tool="sonda" title="Valore in un punto" aria-label="Punto" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/></svg></button>
+        <button id="mpr-volume" title="Volume semiautomatico della lesione al centro del mirino (crescita di regione 3D nella serie originale): porta il centro delle linee sulla lesione e premi" aria-label="Volume" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></button>
+        <button data-mpr-tool="gomma" title="Gomma: clic su una misura per cancellare solo quella (oppure clic sulla misura e tasto Canc)" aria-label="Cancella una misura" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 21h10M5.5 14.5l7-7a2 2 0 0 1 2.8 0l2.2 2.2a2 2 0 0 1 0 2.8L12 18H8.5z"/><path d="M9 11l4.5 4.5"/></svg></button>
+        <button id="mpr-cancella" title="Cancella tutte le misure fatte in MPR (una sola: «Gomma», oppure clic sulla misura e Canc)" aria-label="Cancella misure" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></button>
+        <button id="mpr-al-referto" title="Porta nel referto le misure fatte nell'MPR (tasto I)" aria-label="Misure nel referto" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h3M8 17h8"/><path d="M14 13l2 2 3-4"/></svg></button>
+      </div>
+      <div class="grp">
+        <select id="mpr-finestra" class="compatto" title="Finestra MPR">
+          <option value="">W/L…</option>
+          <optgroup label="Encefalo e collo">
+              <option value="40,80">Encefalo (40/80)</option>
+              <option value="35,40">Ictus, sostanza grigia/bianca (35/40)</option>
+              <option value="75,215">Sangue / ematoma subdurale (75/215)</option>
+              <option value="80,200">Fossa posteriore (80/200)</option>
+              <option value="600,2800">Rocca petrosa / orecchio (600/2800)</option>
+              <option value="50,350">Collo, tessuti molli (50/350)</option>
+          </optgroup>
+          <optgroup label="Torace">
+              <option value="-600,1500">Polmone (−600/1500)</option>
+              <option value="-700,1000">Polmone ad alto contrasto, HRCT (−700/1000)</option>
+              <option value="-850,500">Enfisema (−850/500)</option>
+              <option value="50,350">Mediastino (50/350)</option>
+              <option value="100,700">Embolia polmonare (100/700)</option>
+          </optgroup>
+          <optgroup label="Addome">
+              <option value="40,400">Addome (40/400)</option>
+              <option value="60,160">Fegato (60/160)</option>
+              <option value="90,150">Fegato con mdc, lesioni (90/150)</option>
+              <option value="40,250">Pancreas / reni (40/250)</option>
+              <option value="-50,250">Grasso / surreni (−50/250)</option>
+              <option value="-500,1500">Aria libera / intestino (−500/1500)</option>
+          </optgroup>
+          <optgroup label="Vasi">
+              <option value="200,600">Angio (200/600)</option>
+              <option value="300,800">Angio con calcificazioni / stent (300/800)</option>
+          </optgroup>
+          <optgroup label="Osso e muscoli">
+              <option value="400,1800">Osso (400/1800)</option>
+              <option value="500,2000">Osso denso / metallo (500/2000)</option>
+              <option value="300,1500">Rachide, osso (300/1500)</option>
+              <option value="50,250">Rachide, dischi (50/250)</option>
+              <option value="40,350">Tessuti molli (40/350)</option>
+          </optgroup>
+        </select>
+        <select id="mpr-spessore" title="Spessore di strato">
+          <option value="0">Strato sottile</option><option value="3">3 mm</option><option value="5">5 mm</option>
+          <option value="10">10 mm</option><option value="20">20 mm</option><option value="40">40 mm</option>
+        </select>
+        <select id="mpr-modo" title="Proiezione dello strato">
+          <option value="mip">MIP</option><option value="media">Media</option><option value="minip">MinIP</option>
+        </select>
+        <button id="mpr-3d" type="button" class="ico" hidden title="Mostra o nascondi il 3D (volume rendering). All'apertura solo i piani, per ricostruire anche quelli obliqui" aria-label="3D" aria-pressed="false"><b style="font-size:11px;line-height:18px">3D</b></button>
+        <select id="mpr-preset" title="Preset volume rendering"></select>
+        <label class="check" title="Il lettino della TC è tolto di base dal 3D: spunta per rimetterlo"><input type="checkbox" id="vr-lettino"> Aggiungi lettino</label>
+        <label class="check" title="3D senza l'osso: resta il resto, per esempio i vasi con il mezzo di contrasto (angio-TC)"><input type="checkbox" id="vr-osso"> Senza osso</label>
+        <label class="check" title="3D senza la gabbia toracica (coste, sterno, clavicole, scapole): restano colonna, cuore, polmoni e vasi del torace"><input type="checkbox" id="vr-gabbia"> Senza gabbia toracica</label>
+        <button id="mpr-taglio" type="button" class="ico" title="Ritaglio a mano libera nel 3D: disegna attorno a ciò che vuoi togliere (tutto lo spessore nella direzione di vista)" aria-label="Ritaglio"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg></button>
+        <button id="mpr-taglio-annulla" type="button" class="ico" title="Annulla l'ultimo ritaglio" aria-label="Annulla ritaglio" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+        <button id="mpr-taglio-reset" type="button" class="ico" title="Togli tutti i ritagli: di nuovo il volume intero" aria-label="Azzera ritagli" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+        <select id="mpr-seg" class="compatto" title="Segmentazione automatica: l'organo compare colorato nelle tre viste, con il volume; «Vasi» lascia nel 3D solo i vasi con mdc">
+          <option value="">Segmenta…</option><option value="polmoni">Polmoni</option><option value="fegato">Fegato (automatico)</option>
+          <option value="fegato-mirino">Fegato dal centro del mirino</option><option value="vasi">Vasi (angio-TC / angio-RM)</option><option value="aorta">Aorta</option><option value="reni">Reni (con mdc)</option><option value="vescica">Vescica</option><option value="intestino">Intestino (gas)</option><option value="encefalo">Encefalo</option><option value="via">Togli la segmentazione</option></select>
+        <button id="btn-cpr" class="ico" title="CPR, ricostruzione curva: clicca i punti lungo un vaso (o un altro tubo) nelle viste, poi «Crea CPR»" aria-label="CPR"><b style="font-size:11px;line-height:18px">CPR</b></button>
+        <button id="mpr-vertebre" class="ico" title="Vertebre numerate (dalla segmentazione IA)" aria-label="Vertebre"><b style="font-size:11px;line-height:18px">L1</b></button>
+        <button id="mpr-omp" type="button" hidden title="Piano orbito-meatale (OMP): i tre piani orientati dal canto esterno dell'occhio al centro del meato acustico esterno; poi «⊞ Serie» salva la serie su quel piano">OMP</button>
+        <button id="mpr-obliqua" class="ico" title="Crea una serie ricostruita dal piano del riquadro grande (anche obliquo, per esempio per raddrizzare una testa ruotata): si apre nel 2D, da scorrere e misurare" aria-label="Serie dal piano"><b style="font-size:11px;line-height:18px">⊞ Serie</b></button>
+        <button id="mpr-reset" title="Ripristina piani e rotazioni" aria-label="Reset" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg></button>
+        <button id="mpr-annulla" class="ico" title="Annulla l'ultima misura (Ctrl+Z)" aria-label="Annulla" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
+        <button id="mpr-ripeti" class="ico" title="Ripeti (Ctrl+Maiusc+Z)" aria-label="Ripeti" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/></svg></button>
+      </div>
+    </div>
+    <button id="btn-schermo" title="Visualizzatore a schermo intero (F11; doppio clic su un riquadro per ingrandirlo)" aria-label="Schermo intero" class="ico schermo"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+    <div class="stage" id="stage">
+      <canvas id="canvas"></canvas>
+      <canvas id="lente" class="lente" hidden aria-hidden="true"></canvas>
+      <div class="caricamento" id="caricamento" hidden></div>
+      <button id="grafico-chip" class="grafico-chip" type="button" hidden title="Mostra il grafico (istogramma della ROI o profilo)"></button>
+      <div id="grafico" class="grafico" hidden><button id="grafico-chiudi" class="ghost" title="Chiudi il grafico (resta l'etichetta per riaprirlo)">✕</button>
+        <div class="grafico-tit"><b id="grafico-titolo"></b> <span id="grafico-info" class="muted small"></span></div><canvas id="grafico-cv"></canvas></div>
+    </div>
+    <input type="range" id="slider" min="0" max="0" value="0" aria-label="Immagine">
+    <div id="slider-segni" class="slider-segni" hidden></div>
+    <div id="ic-striscia" class="ic-striscia" hidden><span class="ic-tit">📸 Immagini chiave</span><div id="ic-lista" class="ic-lista"></div>
+      <span class="ic-azioni"><button type="button" id="ic-referto">📝 Referto</button><button type="button" id="ic-esporta" title="DICOM Secondary Capture o PDF">⤓ Esporta</button><button type="button" id="ic-chiudi" class="ghost" title="Nascondi la striscia (le immagini chiave restano; ricompare alla prossima, o dal numero accanto a 📸 Chiave)">✕</button></span></div>
+    <div id="chiavi" class="chiavi" hidden></div>
+    <div id="volumi" class="chiavi" hidden></div>
+    <div id="traccia" class="traccia" hidden></div>
+    <div id="anatomia" class="anatomia chiavi" hidden></div>
+    <div id="radiomica" class="radiomica" hidden></div>
+    <div id="aspects" class="aspects" hidden></div>
+    <div id="misure-roi" class="misure-roi" hidden></div>
+    <p class="aiuto" id="aiuto-2d">Tasti: Esc scorri · clic su una misura: la modifichi, Canc la cancella · R distanza · E ROI · Z zoom · A/C/S assiale/coronale/sagittale · 1-7 finestre, 0 auto · Spazio cine · T freccia · K o B + clic: immagine chiave · Ctrl/⌘ + clic su una serie: nuovo riquadro · ✕ in alto a destra: chiudi il riquadro · ? tutti i tasti · Sinistro trascinato o rotellina / ↑↓: scorri immagini · Destro: finestra · Rotellina premuta su/giù: zoom · Maiusc + trascina: sposta · Esc: annulla la misura in corso · Con più riquadri: clicca un riquadro per attivarlo, poi scegli la serie · Doppio clic: ingrandisci il riquadro · Tablet: un dito scorre (o sposta le immagini singole), due dita allargando = zoom, due dita trascinate insieme = finestra, doppio tocco = ingrandisci il riquadro</p>
+
+    <div class="mpr" id="mpr" hidden>
+      <div class="mpr-cella"><div class="mpr-vp" id="vp-assiale"></div><span class="mpr-et">Assiale</span></div>
+      <div class="mpr-cella"><div class="mpr-vp" id="vp-sagittale"></div><span class="mpr-et">Sagittale</span></div>
+      <div class="mpr-cella"><div class="mpr-vp" id="vp-coronale"></div><span class="mpr-et">Coronale</span></div>
+      <div class="mpr-cella"><div class="mpr-vp" id="vp-3d"></div><span class="mpr-et">3D</span>
+        <div id="cpr-pannello" class="cpr-pannello" hidden>
+          <div class="cpr-barra"><b>CPR</b> <span id="cpr-lung" class="muted small"></span>
+            <label class="check" title="Rotazione attorno alla linea centrale">↻ <input type="range" id="cpr-angolo" min="0" max="180" value="0"></label>
+            <select id="cpr-larg" class="compatto" title="Larghezza della ricostruzione"><option value="40">4 cm</option><option value="80" selected>8 cm</option><option value="140">14 cm</option></select>
+            <button id="cpr-chiudi" class="ghost" title="Chiudi la CPR">✕</button></div>
+          <canvas id="cpr-tela"></canvas>
+          <div id="cpr-analisi" class="cpr-analisi" hidden><div class="cpr-an-riga"><div class="cpr-an-graf"><canvas id="cpr-profilo" height="90"></canvas><input type="range" id="cpr-pos" min="0" max="100" value="0" hidden title="Sezione perpendicolare: posizione lungo la linea centrale"></div><canvas id="cpr-sezione" width="170" height="170" hidden title="Sezione perpendicolare alla linea centrale"></canvas></div><div id="cpr-esito"></div></div>
+        </div></div>
+      <div class="caricamento" id="mpr-stato" hidden></div>
+      <div id="mpr-info" class="mpr-info"></div>
+      <div id="cpr-guida" class="cpr-guida" hidden><span id="cpr-testo"></span> <select id="cpr-ia-vaso" class="compatto" hidden title="Vaso per la linea centrale automatica"></select><button id="cpr-aorta" class="ghost" type="button" hidden title="Linea centrale del vaso dalla segmentazione IA, poi CPR e diametri: i punti si possono correggere">🩸 Linea IA</button> <button id="cpr-annulla" class="ghost" type="button">↶ Annulla punto</button> <button id="cpr-crea" class="primary" type="button" disabled>Crea CPR</button> <button id="cpr-diametri" class="primary" type="button" disabled title="Diametro massimo perpendicolare alla linea centrale lungo tutto il tratto (aneurismi, ectasie), con la sezione">⌀ Diametri</button> <button id="cpr-vaso" class="primary" type="button" disabled title="Linea centrale automatica tra i punti cliccati (inizio e fine del vaso), CPR e diametri lungo il vaso con la stenosi">Analisi vaso</button> <button id="cpr-esci" class="ghost" type="button">Esci</button></div>
+    </div>
+    <p class="aiuto" id="aiuto-mpr" hidden>Tasti 1-7: finestre (addome, polmone, osso, encefalo, angio, mediastino, fegato) · Piani: trascina le linee per spostarle, le maniglie per ruotarle (obliquo) · Rotellina: scorri · Destro: finestra · Doppio clic su una vista piccola: nel riquadro grande · Con le linee di riferimento, clic su un punto: centro delle linee · Gomma o Canc: cancella una misura · ⊞ Serie: serie ricostruita dal piano del riquadro grande · Rotellina premuta su/giù: ingrandisci/rimpicciolisci · Maiusc + trascina: sposta · 3D: trascina per ruotare · Doppio clic sulla vista grande: solo quella</p>
+    <div id="scale" class="aspects scale" hidden></div>
+  </section>
+
+  <button id="btn-pannello" class="btn-pannello" type="button" title="Nascondi il pannello delle domande (più spazio alle immagini)" aria-label="Nascondi il pannello delle domande" aria-expanded="true">›</button>
+  <aside class="quiz">
+    <div class="q-attrezzi"><button type="button" id="btn-quiz-finestra" class="ghost piccolo" title="Apri le domande in una finestra separata (spostala su un altro monitor, come il referto)">⧉ Finestra separata</button></div>
+    <h2 id="q-titolo"></h2>
+    <div class="anamnesi" id="q-anamnesi"></div>
+    <div id="q-richiesta" class="richiesta-caso" hidden></div>
+    <details id="q-precedenti" class="precedenti-caso" hidden><summary></summary><div class="prec-lista"></div></details>
+    <div class="fonte-img fonte-alto small" id="q-fonte" hidden></div>
+    <div id="q-revisione" class="q-revisione" hidden></div>
+    <div class="q-modo" role="group" aria-label="Modo di risposta"><button type="button" id="q-modo-scelte" class="on" title="Rispondi scegliendo tra le opzioni, distretto per distretto">☑ Risposte a scelta</button><button type="button" id="q-modo-referto" title="Scrivi il referto come in reparto, senza vedere le opzioni: dopo la conferma il confronto con il referto atteso">✍ Solo referto</button></div>
+    <h3 id="q-domanda"></h3>
+    <p id="q-scale" class="q-scale" hidden></p>
+    <p class="muted small" id="q-piu">Più risposte possono essere corrette.</p>
+    <p class="muted small" id="q-piu-conf">Per ogni risposta che scegli indica anche quanto ne sei sicuro (Sicuro, Probabile o Ipotesi): non cambia il punteggio, ma nelle tue statistiche mostra se ti fidi troppo o troppo poco della tua lettura.</p>
+    <nav id="q-passi" class="q-passi" hidden aria-label="Distretti del referto"></nav>
+    <form id="q-form"></form>
+    <div id="q-nav" class="q-nav" hidden><button id="q-prec" type="button" class="ghost">‹ Indietro</button><button id="q-succ" type="button" class="primary"></button></div>
+    <p id="q-nav-msg" class="avviso-vicino" role="alert" hidden></p>
+    <section id="q-com-blocco" class="q-com-blocco" hidden aria-labelledby="q-com-tit">
+      <h4 id="q-com-tit">📞 Comunicazione dell'esito</h4>
+      <p class="muted small">Oltre al referto, questo esito va comunicato a qualcuno? Fa parte della risposta e viene valutato.</p>
+      <div id="q-com-pannello" class="com-pannello">
+        <fieldset><legend class="sr-only">Urgenza</legend>
+          <label class="check"><input type="radio" name="com-liv" value="nessuna"> Basta il referto</label>
+          <label class="check"><input type="radio" name="com-liv" value="differita"> Differita: reperto inatteso rilevante, entro pochi giorni</label>
+          <label class="check"><input type="radio" name="com-liv" value="urgente"> Urgente: entro poche ore</label>
+          <label class="check"><input type="radio" name="com-liv" value="immediata"> Immediata: subito (minuti), pericolo di vita</label></fieldset>
+        <div id="com-dettagli" hidden>
+        <div class="com-riga"><label>A chi <select id="com-a"><option value="">—</option><option value="richiedente">Medico richiedente / reparto che ha in cura il paziente</option><option value="ps">Medico del Pronto soccorso</option><option value="mmg">Medico di medicina generale</option><option value="paziente">Paziente direttamente</option></select></label>
+          <label>Come <select id="com-come"><option value="">—</option><option value="telefono">Telefono, a voce, con conferma della ricezione</option><option value="messaggio">Messaggio tracciato (e-mail, sistema aziendale)</option><option value="referto">Solo nel referto</option></select></label></div>
+        <label>Che cosa dici <textarea id="com-testo" rows="2" maxlength="600" placeholder="es. Angio-TC: embolia polmonare bilaterale con dilatazione del ventricolo destro"></textarea></label>
+        <p><button type="button" id="com-registra" class="ghost">Scrivi nel referto che l'hai comunicato</button> <span class="muted small">(nel referto va indicato a chi, quando e come)</span></p>
+        </div>
+        <p id="com-stato" class="muted small" aria-live="polite"></p>
+      </div>
+    </section>
+    <details class="referto-libero" id="q-referto-box"><summary>✍ Scrivi il tuo referto (facoltativo)</summary>
+      <div class="referto-barra"><select id="q-modello" aria-label="Modello di referto strutturato" title="Parti da uno schema per distretto invece che dal foglio bianco"><option value="">📋 Modello di referto…</option></select>
+        <button type="button" id="q-ref-completo" class="ghost" title="Scrivi nell'editor del referto, come nel visualizzatore: formattazione, modelli, misure, scale con i disegni, immagini chiave, finestra separata. Il testo torna qui">📝 Editor del referto</button>
+        <button type="button" id="q-detta" class="ghost" title="Dettatura sul computer (Google Chrome): l'audio non va su internet. Comandi: «punto», «virgola», «due punti», «a capo», «nuovo paragrafo»; «14 per 11 millimetri» diventa «14 × 11 mm»." hidden>🎤 Detta</button>
+        <span id="q-detta-stato" class="muted small" aria-live="polite"></span></div>
+      <textarea id="q-referto" rows="6" maxlength="4000" placeholder="Tecnica, reperti per distretto e conclusione, come in un referto vero. Dopo la conferma lo confronti con il referto atteso."></textarea></details>
+    <details id="q-check" class="q-check" hidden><summary><span class="qc-tit">🧭 Checklist di lettura</span> <span class="qc-conto"></span> <span class="qc-obbl" hidden>obbligatoria</span></summary>
+      <p class="muted small qc-aiuto">Prima di rispondere controlla ogni zona, anche dopo aver trovato il reperto principale: fermarsi al primo reperto è l'errore più frequente.</p><div class="qc-voci"></div></details>
+    <div id="q-loc" class="q-loc" hidden><div><b>📍 Indica il reperto</b> <span id="q-loc-testo" class="muted small"></span></div>
+      <button id="btn-punta" type="button" class="ghost">Indica sull'immagine</button></div>
+    <button id="btn-conferma" class="primary">Conferma risposta</button>
+    <p id="q-casuale" class="casuale-info" hidden></p>
+    <div id="q-esito" hidden></div>
+    <button id="btn-reperto" hidden title="Porta il visualizzatore alla serie, all'immagine e alla finestra in cui il reperto si vede meglio">📍 Mostra il reperto</button>
+    <button id="btn-prossimo" class="primary" hidden>Prossimo caso casuale →</button>
+    <div id="q-docente-vista" class="docente-vista" hidden>
+      <button id="btn-salva-vista" title="Salva serie, immagine, finestra e zoom del riquadro attivo; l'ultima ROI disegnata diventa il segno del reperto; l'ultima distanza o RECIST diventa la misura di riferimento, confrontata con quella dello studente">📍 Imposta la vista del reperto</button>
+      <span id="vista-stato" class="muted small"></span>
+    </div>
+  </aside>
+</main>
+
+<!-- ACCOUNT (solo amministratore) -->
+<main id="vista-account" class="account" hidden>
+  <section class="acc-hero pagina-eroe">
+    <span class="acc-hero-ico" aria-hidden="true">👥</span>
+    <div class="acc-hero-testo"><h1>Iscritti e docenti</h1>
+      <p class="solo-vetrina">Chi si iscrive attiva l'account confermando l'email. Da qui scegli il ruolo di ognuno, assegni i docenti di riferimento, disattivi o elimini.</p>
+      <p class="solo-azienda">Gli account li crei tu con un invito per email: ognuno sceglie la propria password dal link (valido 7 giorni).</p>
+      <p class="acc-stat small" id="acc-stat"></p>
+      <details class="acc-come solo-vetrina"><summary>Come funziona</summary><p>L'iscrizione è automatica: chiunque si registra e attiva l'account confermando l'email; chi vuole si dichiara docente da sé.
+        Un docente vede i risultati solo di chi lo ha scelto come riferimento o di chi gli assegni da qui (l'iscritto riceve un'email e può toglierlo dal profilo).
+        L'autore può caricare e modificare i casi; i casi nuovi restano in bozza finché un revisore non li controlla.</p></details></div>
+    <div class="eroe-azioni"><button type="button" class="primary" id="acc-invita-apri" aria-expanded="false" aria-controls="form-invito">＋ Invita una persona</button></div>
+  </section>
+  <form id="form-invito" class="acc-invito" hidden>
+    <div class="inv-testa"><b>✉ Invita una persona</b><span class="muted small">riceve un'email con il link per scegliere la password (valido 7 giorni)</span>
+      <button type="button" class="ghost inv-chiudi" id="inv-chiudi" aria-label="Chiudi">✕</button></div>
+    <div class="inv-campi">
+      <label>Nome e cognome<input id="inv-nome" placeholder="Mario Rossi" required maxlength="80" autocomplete="off"></label>
+      <label>Email<input id="inv-email" type="email" placeholder="nome@ospedale.it" required maxlength="254" autocomplete="off"></label>
+    </div>
+    <fieldset class="inv-ruoli"><legend>Ruolo</legend>
+      <label class="inv-ruolo"><input type="radio" name="inv-r" value="specializzando" checked><span class="inv-ic" aria-hidden="true">🎓</span><span><b>Specializzando</b><small>svolge i casi e vede i propri progressi</small></span></label>
+      <label class="inv-ruolo"><input type="radio" name="inv-r" value="docente"><span class="inv-ic" aria-hidden="true">🧑‍🏫</span><span><b>Docente</b><small>segue i suoi studenti, crea classi e compiti</small></span></label>
+      <label class="inv-ruolo"><input type="radio" name="inv-r" value="admin"><span class="inv-ic" aria-hidden="true">🛡</span><span><b>Amministratore</b><small>gestisce account, casi, percorsi e statistiche</small></span></label>
+    </fieldset>
+    <select id="inv-ruolo" aria-label="Ruolo" hidden><option value="specializzando">Specializzando</option><option value="docente">Docente</option><option value="admin">Amministratore</option></select>
+    <div class="inv-fondo"><button class="primary" type="submit">Invia invito</button><span id="inv-msg" class="muted small" role="status"></span></div>
+  </form>
+  <div class="acc-barra">
+    <div class="acc-cerca"><span aria-hidden="true">🔍</span><input id="acc-filtro" type="search" placeholder="Cerca per nome, email, sede…" aria-label="Cerca"></div>
+    <div id="acc-riepilogo" class="acc-chip" role="tablist" aria-label="Filtra per ruolo e stato"></div>
+    <div class="riga acc-filtri">
+      <select id="acc-vista" title="Ruolo e stato" hidden><option value="">Tutti</option><option value="iscritti">Iscritti</option><option value="docenti">Docenti</option>
+        <option value="admin">Amministratori</option><option value="senza">Iscritti senza docente</option><option value="inattivi">Mai un caso</option>
+        <option value="attesa">Email da confermare</option><option value="off">Disattivati</option></select>
+      <select id="acc-cat" title="Chi è" aria-label="Categoria"><option value="">Ogni categoria</option></select>
+      <select id="acc-doc" title="Studenti di un docente" aria-label="Studenti di un docente"><option value="">Ogni docente</option></select>
+      <span class="spacer"></span><span id="acc-conta" class="muted small"></span>
+      <button type="button" class="ghost" id="acc-csv" title="Scarica l'elenco filtrato (per uso interno: contiene dati personali)">⤓ CSV</button>
+    </div>
+  </div>
+  <div class="scorri-x acc-tabella"><table class="tab-account">
+    <thead><tr><th data-ord="nome">Persona</th><th data-ord="ruolo">Ruolo e stato</th><th>Docenti / studenti</th>
+      <th data-ord="casi" title="Casi diversi svolti · punteggio medio al primo tentativo">Attività</th><th data-ord="accesso">Ultimo accesso</th><th><span class="sr-only">Azioni</span></th></tr></thead>
+    <tbody id="acc-lista"></tbody>
+  </table>
+  <div id="acc-vuoto" class="acc-vuoto" hidden><span aria-hidden="true">🔎</span><b>Nessuna persona trovata</b><span class="muted small">Cambia la ricerca o i filtri, oppure invita qualcuno.</span></div></div>
+  <p id="acc-msg" class="muted" role="status"></p>
+  <details class="acc-codici">
+    <summary>Account con codice personale (amministratori, prove)</summary>
+    <p class="muted small">Il codice si vede <b>una volta sola</b>, quando lo crei o lo rigeneri.</p>
+    <form id="form-account" class="riga">
+      <input id="acc-nome" placeholder="Nome e cognome" required maxlength="80">
+      <input id="acc-email" type="email" placeholder="Email (facoltativa)" maxlength="254">
+      <select id="acc-ruolo"><option value="specializzando">Studente</option><option value="docente">Docente</option><option value="admin">Amministratore del servizio</option></select>
+      <button class="primary" type="submit">Crea account</button>
+    </form>
+    <div id="acc-codice" class="codice-box" hidden></div>
+  </details>
+</main>
+
+<!-- PROFILO -->
+<main id="vista-profilo" class="account profilo" hidden>
+  <div id="pr-benvenuto" class="benvenuto-box" hidden>
+    <h2>Benvenuto! Il tuo account è attivo.</h2>
+    <p>Come funziona: apri un caso, guarda le immagini nel visualizzatore (rotellina o trascinamento per scorrere, tasto destro per la finestra), poi rispondi alle domande sotto o accanto alle immagini, un passo alla volta, e conferma: vedrai subito la correzione.</p>
+    <p class="riga"><button type="button" id="pr-inizia" class="primary">▶ Inizia con il primo caso</button> <a class="btn" href="#/aiuto/primi-passi">Guida rapida</a> <span class="muted small">Più in basso puoi completare il profilo e scegliere i tuoi docenti.</span></p>
+  </div>
+  <h1>Il mio profilo</h1>
+  <form id="form-profilo" class="profilo-form">
+    <label class="campo">Nome e cognome <input id="pr-nome" required maxlength="80"></label>
+    <label class="campo">Email <input id="pr-email" type="email" maxlength="254"></label>
+    <label class="campo">Chi sei
+      <select id="pr-categoria">
+        <option value="specializzando">Medico specializzando</option><option value="radiologo">Radiologo</option>
+        <option value="medico">Medico di altra specialità</option><option value="studente">Studente di medicina</option>
+        <option value="tsrm">Tecnico di radiologia (TSRM)</option><option value="infermiere">Infermiere</option><option value="altro">Altro</option>
+      </select></label>
+    <label class="campo">Sede <input id="pr-sede" maxlength="120" placeholder="Scuola di specializzazione, ospedale o università"></label>
+    <label class="campo" id="pr-anno-campo">Anno di corso <select id="pr-anno"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+    <label class="check"><input type="checkbox" id="pr-avvisi"> Ricevi per email gli avvisi dei compiti assegnati e i promemoria delle scadenze</label>
+    <button class="primary" type="submit">Salva</button> <span id="pr-msg" class="muted small"></span>
+  </form>
+
+  <section class="profilo-sez">
+    <h2>I miei docenti di riferimento</h2>
+    <p class="muted small">Scegli tu i docenti che seguono la tua formazione (anche più d'uno): vedranno i tuoi risultati e potranno assegnarti dei compiti. Puoi toglierli quando vuoi.</p>
+    <div id="pr-docenti-scelti" class="chips"></div>
+    <input id="pr-docenti-cerca" placeholder="Cerca un docente per nome o sede…">
+    <div id="pr-docenti-lista" class="pr-docenti-lista"></div>
+    <p id="pr-doc-msg" class="muted small"></p>
+  </section>
+
+  <section class="profilo-sez" id="pr-sez-docente">
+    <h2>Docente</h2>
+    <p class="muted small" id="pr-docente-testo"></p>
+    <button id="pr-docente-btn" class="ghost"></button>
+  </section>
+
+  <section class="profilo-sez">
+    <h2>Password</h2>
+    <form id="form-password" class="riga">
+      <input id="pw-attuale" type="password" autocomplete="current-password" placeholder="Password attuale" maxlength="200">
+      <input id="pw-nuova" type="password" autocomplete="new-password" placeholder="Nuova password" required minlength="10" maxlength="200">
+      <button class="ghost" type="submit">Cambia password</button> <span id="pw-msg" class="muted small"></span>
+    </form>
+  </section>
+
+  <section class="profilo-sez">
+    <h2>I miei dati</h2>
+    <p class="muted small">Puoi scaricare in un file tutti i dati che la piattaforma conserva su di te: profilo, docenti scelti, classi e risposte ai casi.</p>
+    <a class="btn ghost" href="/api/io/dati" download>⬇ Scarica i miei dati</a>
+  </section>
+
+  <section class="profilo-sez">
+    <h2>Cancella l'account</h2>
+    <p class="muted small">L'account e i dati del profilo vengono cancellati; le risposte ai casi restano solo in forma anonima, per le statistiche dei casi.</p>
+    <button id="pr-elimina" class="pericolo">Cancella il mio account</button>
+  </section>
+</main>
+
+<!-- STATISTICHE D'USO (amministratori) -->
+<main id="vista-tenant" class="account" hidden>
+  <section class="acc-hero">
+    <span class="acc-hero-ico" aria-hidden="true">🏥</span>
+    <div class="acc-hero-testo"><h1>Clienti e piattaforme</h1>
+      <p>Ogni cliente (azienda sanitaria, università, scuola di specializzazione) ha la sua piattaforma separata, vuota, con i propri casi e account su invito: un'installazione AWS a parte, con un suo indirizzo.</p></div>
+    <button type="button" id="tn-nuovo" class="primary">＋ Nuovo cliente</button>
+  </section>
+  <div id="tn-riepilogo" class="tn-riepilogo"></div>
+  <div id="tn-coda" class="tn-coda" hidden><b>💻 Ci sono richieste in coda.</b> Le piattaforme si creano dal Mac, dove sono le chiavi di AWS: nella cartella <code>cloud</code> fai doppio clic su <code>crea-istanze.command</code>. Lo script pubblica le piattaforme in coda (circa 10 minuti la prima volta), manda al referente l'invito come amministratore e aggiorna qui lo stato.</div>
+  <form id="tn-form" class="sp-form tn-form" hidden>
+    <h3>Nuovo cliente</h3>
+    <div class="sp-form-griglia">
+      <label>Cliente (ragione sociale)<input name="cliente" required maxlength="120" placeholder="es. AOU Policlinico G. Martino"></label>
+      <label>Nome mostrato nella piattaforma<input name="nomeIstanza" maxlength="80" placeholder="come compare nel sito e nelle email"></label>
+      <label>Identificativo (indirizzo)<input name="id" required pattern="[a-z0-9][a-z0-9-]{1,29}" maxlength="30" placeholder="es. polime"><small id="tn-anteprima" class="tn-anteprima"></small></label>
+      <label>Piano<select name="piano"><option value="pilota">Pilota</option><option value="base">Base</option><option value="pro">Pro</option><option value="personalizzato">Personalizzato</option></select></label>
+      <label>Referente (nome)<input name="referenteNome" maxlength="80"></label>
+      <label>Email del referente<input name="referenteEmail" type="email" required maxlength="254" placeholder="riceve l'invito come amministratore"></label>
+      <label>Contatto mostrato agli utenti<input name="contatto" type="email" maxlength="254" placeholder="di base l'email del referente"></label>
+      <label>Utenti massimi<input name="utentiMax" type="number" min="0" max="100000" placeholder="0 = senza limite"></label>
+      <label>Scadenza del contratto<input name="scadenza" type="date"><small class="muted">dopo questa data entra solo l'amministratore</small></label>
+      <label class="largo">Note interne<textarea name="note" rows="2" maxlength="1000" placeholder="accordi, referenti tecnici, fatturazione…"></textarea></label>
+    </div>
+    <p class="muted small">Limite di utenti, scadenza e sospensione valgono nella piattaforma del cliente dal prossimo aggiornamento: dopo una modifica usa «Aggiorna alla nuova versione» (o «Sospendi») nella scheda del cliente; con la creazione automatica parte subito su AWS, altrimenti con <b>crea-istanze.command</b> sul Mac. Con la piattaforma sospesa o scaduta entra solo l'amministratore, per esportare i dati.</p>
+    <p class="muted small">L'indirizzo è <span id="tn-zona"></span> (sottodominio di radio-quiz.it, con le email già configurate). L'identificativo non si può cambiare dopo la creazione.</p>
+    <p><button class="primary" type="submit">Salva</button> <button type="button" class="ghost" id="tn-annulla">Annulla</button> <span id="tn-esito" class="stato ko"></span></p>
+  </form>
+  <div id="tn-elenco" class="tn-elenco"></div>
+</main>
+
+<main id="vista-statistiche" class="account" hidden>
+  <section class="acc-hero"><span class="acc-hero-ico" aria-hidden="true">📊</span><div class="acc-hero-testo"><h1>Dashboard dell'amministratore</h1>
+    <p>Traffico e accessi, consumi dei server, sponsor e statistiche didattiche: solo numeri aggregati, senza dati personali.</p></div></section>
+  <section id="tr" class="tr dash-card">
+    <div class="tr-testa">
+      <span class="dash-ico" aria-hidden="true">📈</span><h2>Traffico e accessi</h2>
+      <div class="tr-periodo" role="group" aria-label="Periodo">
+        <button type="button" data-g="7">7 giorni</button><button type="button" data-g="30" class="on">30 giorni</button><button type="button" data-g="90">90 giorni</button><button type="button" data-g="365">1 anno</button>
+      </div>
+      <button type="button" id="tr-aggiorna" class="ghost" title="Aggiorna">↻ Aggiorna</button>
+    </div>
+    <div id="tr-corpo"><p class="muted">Caricamento…</p></div>
+  </section>
+  <section id="sp-gest" class="sp-gest dash-card" hidden>
+    <div class="tr-testa"><span class="dash-ico" aria-hidden="true">🤝</span><h2>Sponsor</h2><button type="button" id="sp-nuovo" class="primary">＋ Nuovo sponsor</button></div>
+    <p class="muted small">Solo nella versione gratuita (radio-quiz.it). Il logo compare nelle posizioni scelte con la scritta «Con il sostegno di»; mai durante il quiz. Si contano solo visualizzazioni e clic per giorno, senza dati personali.</p>
+    <form id="sp-form" class="sp-form" hidden>
+      <h3>Nuovo sponsor</h3>
+      <div class="sp-form-griglia">
+        <label>Nome<input name="nome" required maxlength="80"></label>
+        <label>Link (https://…)<input name="link" type="url" placeholder="https://" maxlength="300"></label>
+        <label class="largo">Testo breve (facoltativo)<input name="testo" maxlength="200" placeholder="es. Workstation e software per l'imaging"></label>
+        <label>Dal<input name="dal" type="date"></label><label>Al<input name="al" type="date"></label>
+        <div class="largo"><span class="sp-etich">Logo (PNG, JPEG, WebP o SVG, max 200 kB)</span><div class="sp-logo-riga"><div id="sp-anteprima" class="sp-anteprima"></div><input name="logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"></div></div>
+        <fieldset class="largo"><legend>Dove compare</legend>
+          <label class="check"><input type="checkbox" name="pos" value="accesso"> Pagina di accesso</label>
+          <label class="check"><input type="checkbox" name="pos" value="home"> Home (in fondo all'elenco dei casi)</label>
+          <label class="check"><input type="checkbox" name="pos" value="caso"> Fine del caso, dopo la risposta</label></fieldset>
+        <label class="check"><input type="checkbox" name="attivo" checked> Attivo</label>
+      </div>
+      <p><button class="primary" type="submit">Salva</button> <button type="button" class="ghost" id="sp-annulla">Annulla</button> <span id="sp-esito" class="stato ko"></span></p>
+    </form>
+    <div id="sp-elenco"></div>
+  </section>
+  <section id="sp-stat" class="sp-stat dash-card">
+    <div class="tr-testa"><span class="dash-ico" aria-hidden="true">🎓</span><h2>Statistiche didattiche</h2></div>
+    <p class="muted small">Solo numeri aggregati: nessun nome, email o dato personale; le categorie con meno di 3 iscritti sono accorpate. Si possono stampare o salvare in PDF, per esempio per il resoconto all'azienda o alla scuola.</p>
+    <p><button id="sp-stat-calcola" class="primary" type="button">Calcola le statistiche</button> <button id="sp-stat-stampa" class="ghost" type="button" hidden>Stampa o salva in PDF</button></p>
+    <div id="sp-stat-corpo"></div>
+  </section>
+</main>
+
+<!-- AIUTO -->
+<main id="vista-esame" class="pagina-esame" hidden><div id="esame-corpo"></div></main>
+<main id="vista-errore" class="pagina-esame" hidden><div id="errore-corpo"></div></main>
+
+<main id="vista-aiuto" class="aiuto-pagina" hidden>
+  <div class="riga testa-elenco aiuto-testa"><button type="button" id="aiuto-indietro" class="btn" title="Torna indietro (Esc)">← Indietro</button><h1>Aiuto</h1><span class="spacer"></span><a class="btn primario" href="/manuale.pdf" download>⬇ Manuale in PDF</a><button type="button" id="aiuto-chiudi" class="ghost btn" title="Chiudi l'aiuto (Esc)" aria-label="Chiudi l'aiuto">✕</button></div>
+  <nav id="aiuto-indice" class="aiuto-indice"></nav>
+  <div id="aiuto-corpo"></div>
+</main>
+
+<!-- GESTIONE CASI (amministratori) -->
+<main id="vista-gestione-casi" class="classi" hidden>
+  <section class="acc-hero">
+    <span class="acc-hero-ico" aria-hidden="true">🗂</span>
+    <div class="acc-hero-testo"><h1>Gestione dei casi</h1><p>Rendi visibili i casi agli studenti, mettili in bozza, modificali o aggiungi immagini. Le bozze diventano visibili solo dopo la revisione.</p></div>
+    <a class="btn primario gc-nuovo" href="#/nuovo">＋ Nuovo caso</a>
+  </section>
+  <div id="gc-riepilogo" class="gc-riepilogo"></div>
+  <details class="gc-ia-box"><summary><span class="gc-ia-ico">✨</span><b>Funzioni con IA</b> <span id="gc-ia-stato" class="muted small"></span></summary>
+  <label class="spunta gc-ia"><input type="checkbox" id="gc-ia"> <span><b>Segmentazione con IA (TotalSegmentator)</b> attiva per tutti: nell'MPR delle TC compaiono le strutture calcolate sul Mac. Senza spunta non la vede nessuno (studenti, docenti e amministratori). Si può anche spegnere caso per caso dall'editor.</span></label>
+  <label class="spunta gc-ia"><input type="checkbox" id="gc-referto-locale"> <span><b>Correzione del referto con IA open source nel browser</b> (sperimentale): dopo la risposta chi ha un browser con WebGPU può far correggere il referto da Qwen3-4B (Apache-2.0) sul proprio computer, con WebLLM. Nessun costo per il servizio e il referto non esce dal computer; la prima volta il browser scarica il modello (circa 2,3 GB). Modello piccolo: giudizio indicativo, non cambia il punteggio. Autori e docenti la possono provare anche se spenta.</span></label>
+  </details>
+  <div class="gc-filtri"><div class="riga gc-barra"><input id="gc-filtro" placeholder="🔍 Filtra per titolo, sospetto, codice…">
+    <select id="gc-stato" aria-label="Stato dei casi"><option value="">Tutti</option><option value="bozza">Solo bozze</option><option value="visibile">Solo visibili</option><option value="problemi">Con controlli da fare</option><option value="pronti">Bozze pronte da pubblicare</option></select>
+    <select id="gc-metodica" aria-label="Metodica"><option value="">Tutte le metodiche</option></select>
+    <select id="gc-distretto" aria-label="Distretto"><option value="">Tutti i distretti</option></select></div>
+  <div class="riga gc-barra"><span id="gc-sel" class="muted small"></span><span class="spacer"></span>
+    <button id="gc-pubblica" class="ghost">Rendi visibili</button><button id="gc-bozza" class="ghost">Metti in bozza</button>
+    <button id="gc-csv" class="ghost" title="Elenco dei casi (filtrati) in un file per Excel">Esporta elenco</button>
+    <button id="gc-elimina" class="pericolo" title="Elimina i casi selezionati: immagini cancellate, domande archiviate, risultati conservati">Elimina</button></div></div>
+  <p id="gc-msg" class="muted small"></p>
+  <div class="gc-tabella"><table class="tab-account gc-tab"><thead><tr><th><input type="checkbox" id="gc-tutti" aria-label="Seleziona tutti i casi dell'elenco"></th>
+    <th data-ord="id">Codice</th><th data-ord="titolo">Titolo</th><th data-ord="metodica">Metodica</th><th data-ord="distretto">Distretto</th>
+    <th data-ord="difficolta">Difficoltà</th><th data-ord="risposte" title="Risposte (primo tentativo) e punteggio medio">Risposte</th>
+    <th data-ord="controlli" title="Cosa manca prima di pubblicarlo">Controlli</th><th data-ord="aggiornato">Aggiornato</th><th data-ord="stato">Stato</th><th></th></tr></thead><tbody id="gc-lista"></tbody></table></div>
+</main>
+
+<!-- CLASSI E COMPITI (docenti) -->
+<main id="vista-classi" class="classi" hidden>
+  <div class="riga testa-elenco"><h1>Classi e compiti</h1><span class="spacer"></span><button id="cl-nuova" class="primary">+ Nuova classe</button></div>
+  <p class="muted">Raggruppa gli studenti e assegna loro un insieme di casi con una scadenza. Lo studente vede i compiti nell'elenco dei casi; qui segui chi li ha svolti e in tempo.</p>
+  <div id="cl-lista"></div>
+</main>
+
+<!-- REVISIONE DELLE BOZZE (autori) -->
+<main id="vista-revisione" class="classi" hidden>
+  <div class="riga testa-elenco"><h1>Revisione delle bozze</h1><span class="spacer"></span><a class="btn" href="#/gestione-casi">Tutti i casi</a></div>
+  <p class="muted">Per ogni caso: cosa controllare (dalla nota del docente e dai controlli automatici). Apri il caso con le immagini, poi «Confermo e pubblico» se va bene così, oppure «Correggo» per modificarlo. La conferma toglie il blocco «DA CONTROLLARE» dalla nota e lo rende visibile agli studenti.</p>
+  <div id="rv-lista"></div>
+</main>
+
+<!-- PERCORSI DIDATTICI DEI DOCENTI -->
+<main id="vista-percorsi" class="classi" hidden>
+  <div class="riga testa-elenco"><h1>Percorsi didattici</h1><span class="spacer"></span><button id="pd-nuovo" class="primary">+ Nuovo percorso</button></div>
+  <p class="muted">Un percorso è una sequenza di casi da fare in ordine, con l'avanzamento e l'attestato di completamento. I tuoi percorsi compaiono nella pagina iniziale degli iscritti che ti hanno scelto come docente, prima di quelli del sito. Puoi partire da un percorso del sito con «Copia e modifica».</p>
+  <div id="pd-lista"></div>
+</main>
+
+<!-- NUOVO CASO (docenti) -->
+<main id="vista-nuovo" class="nuovo" hidden>
+  <h1 id="nc-testa">Nuovo caso</h1>
+  <p class="muted">Scegli la cartella dell'esame (DICOM). Le immagini vengono <b>anonimizzate qui, nel tuo browser</b>:
+    nome, ID, date, ospedale e medici non lasciano mai il tuo computer. Le schermate di riepilogo (secondary capture)
+    vengono escluse.</p>
+  <div class="riga">
+    <label id="nc-id-riga">Codice del caso <input id="nc-id" pattern="[A-Za-z0-9_-]{1,64}" maxlength="64"></label>
+    <label class="largo" id="nc-titolo-riga">Titolo <input id="nc-titolo" placeholder="Esame e sospetto clinico, senza la diagnosi (es. TC addome: dolore in fossa iliaca destra)"></label>
+  </div>
+  <div id="nc-intro-proposta" class="avviso" hidden>Proponi un esame utile alla formazione: un docente lo controlla, scrive reperti e domande e lo pubblica.
+    Carica solo esami che hai titolo a condividere (con l'autorizzazione della tua struttura), senza dati che permettano di riconoscere il paziente o l'evento.</div>
+  <fieldset id="nc-proposta" class="ed-funzioni" hidden><legend>Per il docente</legend>
+    <label class="campo">Sospetto clinico <input id="nc-p-quesito" maxlength="200" placeholder="Es. dolore toracico acuto"></label>
+    <label class="campo">Anamnesi <span class="muted small">(età, sesso, sintomi; niente nomi né date)</span><textarea id="nc-p-anamnesi" rows="2" maxlength="2000"></textarea></label>
+    <label class="campo">Cosa mostra l'esame <span class="muted small">(reperti, diagnosi, esito se noto; lo legge solo il docente)</span><textarea id="nc-p-descrizione" rows="4" maxlength="4000"></textarea></label>
+    <label class="spunta"><input type="checkbox" id="nc-p-dich"> <span>Dichiaro di avere titolo a condividere questo esame per la formazione, con l'autorizzazione della struttura, e che immagini e testi <b>non contengono</b> dati che permettano di riconoscere il paziente, la struttura o i medici.</span></label>
+  </fieldset>
+  <div id="nc-zona" class="zona">
+    <p><b>Trascina qui la cartella dell'esame</b> oppure</p>
+    <div class="riga centro">
+      <label class="btn">Scegli cartella<input id="nc-cartella" type="file" webkitdirectory multiple hidden></label>
+      <label class="btn">Scegli file<input id="nc-file" type="file" multiple hidden></label>
+    </div>
+  </div>
+  <div id="nc-stato" class="stato" hidden></div>
+  <div id="nc-serie" hidden>
+    <h3>Serie trovate <span class="muted small">— la piattaforma cerca anche il testo impresso nelle immagini e lo evidenzia in rosso: scegli se coprirlo o escludere la serie. Guarda comunque tutte le anteprime.</span></h3>
+    <div id="nc-lista" class="serie-griglia"></div>
+    <p id="nc-esclusi" class="muted small"></p>
+    <label id="nc-distretti-riga" class="small" hidden><input type="checkbox" id="nc-distretti" checked> Crea un caso separato per ogni distretto (<span id="nc-distretti-elenco"></span>)</label>
+    <div id="nc-testo-avviso" class="avviso" hidden></div>
+    <label class="spunta"><input type="checkbox" id="nc-controllo"> <span>Ho guardato le anteprime: nelle immagini <b>non restano</b> nomi, date di nascita, codici del paziente o nomi della struttura e dei medici. Dichiaro di essere autorizzato dalla struttura di provenienza a usarle per la didattica. L'anonimizzazione automatica non sostituisce il controllo di chi carica.</span></label>
+    <button id="nc-carica" class="primary">Anonimizza e carica</button>
+  </div>
+  <div id="nc-mie"></div>
+</main>
+<div id="eco-pannello" class="eco-pannello" hidden></div>
+<div id="cmr-pannello" class="eco-pannello" hidden></div>
+<div id="t2s-pannello" class="eco-pannello" hidden></div>
+<div id="calcio-pannello" class="eco-pannello calcio-pannello" hidden></div>
+<div id="cfia-pannello" class="eco-pannello cfia-pannello" hidden></div>
+<div id="nod-pannello" class="eco-pannello cfia-pannello nod-pannello" hidden></div>
+<div id="sm-pannello" class="eco-pannello cfia-pannello sm-pannello" hidden></div>
+<main id="vista-confronto" class="pagina-esame" hidden><div id="confronto-corpo"></div></main>
+
+<!-- ANALISI (docenti) -->
+<main id="vista-allenamento" class="elenco" hidden>
+  <section class="acc-hero"><span class="acc-hero-ico" aria-hidden="true">🎯</span><div class="acc-hero-testo"><h1>Allenamento</h1>
+    <p>Allenamento casuale, esame simulato a tempo, percorsi tematici e «Cerca l'errore» nei referti.</p></div></section>
+  <div class="home-cta all-azioni" id="all-azioni"></div>
+</main>
+<main id="vista-progressi" class="elenco" hidden>
+  <section class="acc-hero"><span class="acc-hero-ico" aria-hidden="true">📈</span><div class="acc-hero-testo"><h1>I miei progressi</h1>
+    <p>Punti e livello, obiettivo del giorno e traguardi, statistiche personali, confronto anonimo con i colleghi e logbook da stampare.</p></div></section>
+</main>
+<main id="vista-vetrini" class="account" hidden>
+  <section class="acc-hero"><span class="acc-hero-ico" aria-hidden="true">🔬</span><div class="acc-hero-testo"><h1>Vetrini digitali</h1>
+    <p>Casi di anatomia patologica: sfoglia il vetrino a piccolo e a forte ingrandimento, poi scegli i reperti e la diagnosi istologica. <span id="vetrini-numeri"></span></p></div></section>
+  <div id="lista-vetrini" class="lista"></div>
+</main>
+<main id="vista-cruscotto" class="account" hidden>
+  <section class="acc-hero"><span class="acc-hero-ico" aria-hidden="true">🧭</span><div class="acc-hero-testo"><h1 id="cr-titolo">Cruscotto</h1>
+    <p id="cr-sotto">Cosa richiede attenzione oggi.</p></div><span class="spacer"></span><button type="button" id="cr-aggiorna" class="ghost" title="Aggiorna">↻ Aggiorna</button></section>
+  <div id="cr-corpo"><p class="muted">Caricamento…</p></div>
+</main>
+<main id="vista-analisi" class="analisi" hidden>
+  <div class="riga testa-elenco"><h1>Analisi</h1><span class="spacer"></span>
+    <select id="an-classe" class="compatto" hidden title="Solo gli studenti di una classe"></select>
+    <label class="spunta piccola"><input type="checkbox" id="an-primo" checked> <span>Solo primo tentativo</span></label>
+    <a class="btn" href="/api/risultati">Scarica CSV</a></div>
+  <div class="schede" role="tablist"><button data-scheda="casi" class="on">Casi</button><button data-scheda="persone">Studenti</button><button data-scheda="errori">Mappa degli errori</button><button data-scheda="referti">Referti</button><button data-scheda="esami">Esami</button><button data-scheda="mensile">Mensile</button></div>
+  <div id="an-corpo"></div>
+  <details class="legenda"><summary>Come leggere gli indicatori</summary>
+    <ul>
+      <li><b>Punteggio</b>: (risposte corrette − errate) / reperti presenti, su 100.</li>
+      <li><b>Corretti</b>: per un reperto, quanti lo hanno indicato; per un distrattore, quanti lo hanno evitato.</li>
+      <li><b>Discriminazione</b>: differenza di risposte giuste tra la metà più brava e quella meno brava del gruppo.
+        ≥ 0,30 buona · 0,10–0,30 discreta · &lt; 0,10 scarsa · negativa: l'opzione inganna i più bravi, va riletta. Serve un gruppo di almeno 4 persone.</li>
+      <li><b>Errori convinti</b>: distrattori scelti dichiarandosi «sicuri»: segnalano un'idea sbagliata, non una svista.</li>
+      <li><b>Reperti secondari mancati</b>: tra chi ha trovato il reperto principale, quanti si sono fermati lì («satisfaction of search»).</li>
+      <li><b>Calibrazione</b>: quanto spesso è corretta una scelta dichiarata sicura, probabile o ipotesi. Ben calibrato = sicuro ≈ 90–100%, ipotesi ≈ 50%.</li>
+      <li>Si considera di regola solo il <b>primo tentativo</b>: quelli successivi risentono della discussione già letta. Tempi e strumenti sono registrati dalle risposte date dopo questo aggiornamento.</li>
+    </ul></details>
+</main>
+
+<!-- EDITOR -->
+<main id="vista-editor" class="editor" hidden>
+  <h1>Modifica caso <span id="ed-id" class="muted"></span></h1>
+  <p id="ed-avviso" class="avviso" hidden></p>
+  <label>Titolo <input id="ed-titolo" placeholder="Esame e sospetto clinico, senza la diagnosi (es. Mammografia: screening)" title="Lo vedono gli studenti: niente reperti né diagnosi (per esempio niente ACR)"></label>
+  <label>Sospetto clinico (per la ricerca) <input id="ed-quesito" placeholder="es. nodulo mammario palpabile"></label>
+  <div class="riga">
+    <label>Distretto <input id="ed-distretto" placeholder="es. Addome"></label>
+    <label>Modalità <select id="ed-modalita"><option value=""></option><option>TC</option><option>RM</option><option>RX</option><option>Ecografia</option><option>Ecocardio</option><option>Mammografia</option><option>Medicina nucleare</option><option>Angiografia</option><option>Altro</option></select></label>
+    <label>Difficoltà <select id="ed-difficolta"><option></option><option>Base</option><option>Intermedio</option><option>Avanzato</option></select></label>
+  </div>
+  <label>Anamnesi / storia clinica e quesito <textarea id="ed-anamnesi" rows="5"></textarea></label>
+  <details class="ed-blocco" id="ed-richiesta-box"><summary><b>Richiesta clinica</b> <span class="muted small">(impegnativa: reparto, priorità, laboratorio, allergie…; facoltativa)</span></summary>
+    <div class="riga"><label>Reparto richiedente <input id="ed-ric-reparto" placeholder="es. Pronto soccorso, Oncologia, MMG"></label>
+      <label>Priorità <select id="ed-ric-priorita"><option value=""></option><option value="PS">Urgenza dal Pronto soccorso</option><option value="R">Paziente ricoverato</option><option value="U">Classe U (72 ore)</option><option value="B">Classe B (10 giorni)</option><option value="D">Classe D (60 giorni)</option><option value="P">Classe P (programmata)</option></select></label></div>
+    <label>Esami di laboratorio <span class="muted small">(uno per riga: «Creatinina: 0,9 mg/dL»)</span><textarea id="ed-ric-lab" rows="3"></textarea></label>
+    <div class="riga"><label>Allergie <input id="ed-ric-allergie"></label><label>Farmaci <input id="ed-ric-farmaci"></label></div>
+    <div class="riga"><label>Dispositivi impiantati <input id="ed-ric-dispositivi"></label><label>Gravidanza <input id="ed-ric-gravidanza"></label></div>
+  </details>
+  <details class="ed-blocco" id="ed-prec-box"><summary><b>Referti precedenti</b> <span class="muted small">(testo dei referti degli esami precedenti; facoltativi)</span></summary>
+    <div id="ed-prec-lista"></div><button type="button" id="ed-prec-aggiungi" class="ghost">+ Aggiungi un referto precedente</button>
+  </details>
+  <details class="ed-blocco" id="ed-com-box"><summary><b>Comunicazione dell'esito</b> <span class="muted small">(esiti critici: cosa ci si aspetta dallo studente; facoltativa)</span></summary>
+    <p class="muted small">Se compilata, la scelta dello studente (urgenza, a chi, come, che cosa, quando) viene valutata. Livelli come le categorie ACR degli esiti da comunicare: immediata (minuti), urgente (ore), differita (giorni); «basta il referto» per i casi senza comunicazione.</p>
+    <div class="riga"><label>Comunicazione attesa <select id="ed-com-livello"><option value="">— non valutata —</option><option value="nessuna">Basta il referto</option><option value="differita">Differita (giorni)</option><option value="urgente">Urgente (ore)</option><option value="immediata">Immediata (minuti)</option></select></label>
+      <label>Accettabili anche <span id="ed-com-acc"><label class="check"><input type="checkbox" value="nessuna"> referto</label><label class="check"><input type="checkbox" value="differita"> differita</label><label class="check"><input type="checkbox" value="urgente"> urgente</label><label class="check"><input type="checkbox" value="immediata"> immediata</label></span></label></div>
+    <div class="riga"><label>A chi <span id="ed-com-dest"><label class="check"><input type="checkbox" value="richiedente" checked> richiedente/reparto</label><label class="check"><input type="checkbox" value="ps"> PS</label><label class="check"><input type="checkbox" value="mmg"> MMG</label><label class="check"><input type="checkbox" value="paziente"> paziente</label></span></label>
+      <label>Parole chiave del messaggio <input id="ed-com-parole" placeholder="es. embolia, ventricolo destro"></label></div>
+    <label>Perché (lo legge lo studente dopo la risposta) <textarea id="ed-com-motivo" rows="2"></textarea></label>
+  </details>
+  <label>Serie da mostrare all'apertura <select id="ed-serie"></select></label>
+  <label>Riquadri all'apertura <select id="ed-riquadri">
+    <option value="0">automatico (una serie per riquadro se le serie sono da 2 a 4)</option>
+    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+  <fieldset class="ed-serie-box">
+    <legend>Serie mostrate agli studenti</legend>
+    <p class="muted small">Togli la spunta alle serie da nascondere (scout, doppioni, ricostruzioni inutili). I docenti le vedono comunque, segnate come nascoste.</p>
+    <div id="ed-serie-lista"></div>
+    <div class="ed-immagini-azioni">
+      <button type="button" class="ghost" id="ed-aggiungi" title="Anonimizza e carica altre immagini (nuove serie) in questo caso">＋ Aggiungi immagini</button>
+      <button type="button" class="ghost" id="ed-scarica" title="Scarica le immagini anonimizzate del caso in un file .zip">⤓ Scarica lo studio (.zip)</button>
+      <button type="button" class="ghost" id="ed-tempi" title="Più esami nel caso (es. controlli post-operatori): scegli la cartella originale e si calcola l'intervallo di ogni esame dal primo (si salva solo l'intervallo, non date né orari)">⏱ Intervalli tra gli esami</button>
+      <input type="file" id="ed-tempi-cartella" webkitdirectory multiple hidden>
+      <span id="ed-immagini-stato" class="muted small"></span>
+    </div>
+    <div id="ed-immagini" class="ed-immagini" hidden>
+      <div class="ed-imm-testa"><b id="ed-imm-titolo"></b>
+        <span class="muted small">Clic: guarda l'immagine · casella: la scegli per toglierla · Maiusc+clic sulla casella: un intervallo</span>
+        <span class="ed-imm-bottoni"><button type="button" class="ghost piccolo" id="ed-imm-tutte">Scegli tutte</button>
+        <button type="button" class="ghost piccolo" id="ed-imm-nessuna">Nessuna</button>
+        <button type="button" class="pericolo piccolo" id="ed-imm-togli" disabled>Togli le immagini scelte</button>
+        <button type="button" class="ghost piccolo" id="ed-imm-chiudi">Chiudi</button></span></div>
+      <div class="ed-imm-corpo"><div id="ed-imm-griglia" class="ed-imm-griglia"></div>
+        <div class="ed-imm-grande"><canvas id="ed-imm-tela" width="512" height="512"></canvas><div id="ed-imm-info" class="muted small"></div></div></div>
+    </div>
+    <p class="muted small">Disposizione all'apertura (opzionale: se la imposti, ha la precedenza sulle scelte qui sopra):</p>
+    <div class="ed-disp-griglia">
+      <label>A <select class="ed-disp"></select></label><label>B <select class="ed-disp"></select></label>
+      <label>C <select class="ed-disp"></select></label><label>D <select class="ed-disp"></select></label>
+    </div>
+  </fieldset>
+  <label>Domanda <input id="ed-domanda"></label>
+  <fieldset class="ed-sezioni-box">
+    <legend>Referto guidato per distretti <span class="muted small">— facoltativo: lo studente risponde un distretto alla volta, nell'ordine indicato (es. TC total body: encefalo → torace → addome). In ogni distretto conviene un'opzione «nessun reperto significativo».</span></legend>
+    <div id="ed-sezioni"></div>
+    <div class="riga"><button id="ed-sez-aggiungi" class="ghost" type="button">+ Aggiungi distretto</button>
+      <select id="ed-sez-modello"><option value="">Usa un modello…</option></select></div>
+  </fieldset>
+  <h3>Opzioni <span class="muted small">(per ognuna indica se è il reperto principale, un reperto secondario — entrambi corretti — o un distrattore; la nota appare dopo la risposta)</span></h3>
+  <div id="ed-opzioni"></div>
+  <button id="ed-aggiungi" class="ghost">+ Aggiungi opzione</button>
+  <label>Spiegazione (mostrata dopo la risposta) <textarea id="ed-spiegazione" rows="6"></textarea></label>
+  <label>Nota per i docenti (fonte dei reperti, verifiche: non la vedono gli studenti) <textarea id="ed-nota-docente" rows="3"></textarea></label>
+  <label class="spunta"><input type="checkbox" id="ed-ia" checked> <span><b>Segmentazione IA</b> — nell'MPR delle TC compaiono le strutture segmentate con TotalSegmentator (se calcolate sul Mac con <code>strumenti/segmenta_ia.py</code>). Togli la spunta per nasconderle in questo caso.</span></label>
+  <fieldset id="ed-funzioni" class="ed-funzioni"><legend>Funzioni per gli studenti in questo caso <span class="muted small">(le decide l'amministratore)</span></legend>
+    <label class="spunta"><input type="checkbox" id="ed-f-anatomia" checked> <span><b>Riconoscimento della parte anatomica</b> — «?» (che struttura è), quiz «Anat» e vertebre numerate, dalla segmentazione IA</span></label>
+    <label class="spunta"><input type="checkbox" id="ed-f-scelte" checked> <span><b>Risposte multiple</b> — le opzioni a scelta; senza spunta lo studente risponde solo scrivendo il referto</span></label>
+    <label class="spunta"><input type="checkbox" id="ed-f-score" checked> <span><b>Compilazione degli score</b> — il pannello Σ delle scale (BI-RADS, Bosniak, RECIST…) per lo studente</span></label>
+  </fieldset>
+  <fieldset class="ed-funzioni" id="ed-didattica"><legend>Uso didattico</legend>
+    <label class="campo">Checklist di lettura per lo studente <select id="ed-checklist"><option value="">Facoltativa (la spunta chi vuole)</option><option value="obbligatoria">Obbligatoria prima di rispondere</option><option value="spenta">Nascosta in questo caso</option></select></label>
+    <label class="spunta"><input type="checkbox" id="ed-mancato"> <span><b>Caso da un errore reale del reparto («mancato»)</b> — entra nel percorso «I mancati del reparto». Prima di caricarlo: immagini anonimizzate, nessun nome di paziente, medico o struttura, nessun dettaglio che permetta di riconoscere l'evento.</span></label>
+    <label class="campo" id="ed-lezione-campo">Lezione da trarne <span class="muted small">(mostrata dopo la risposta)</span><textarea id="ed-lezione" rows="2" maxlength="2000" placeholder="Es. nelle TC dell'addome guardare sempre le basi polmonari in finestra polmone"></textarea></label>
+    <label class="campo">Regola da ricordare <span class="muted small">(una riga, mostrata dopo la risposta)</span><input id="ed-regola" maxlength="300" placeholder="Es. una massa con livello idroaereo nel mediastino medio-inferiore è un'ernia iatale fino a prova contraria"></label>
+    <label class="campo">Lo stesso segno in altri casi <span class="muted small">(dopo la risposta; una riga per caso: <code>caso-120 | lesione escavata con livello idroaereo</code>)</span><textarea id="ed-rassegna" rows="3" maxlength="2000" placeholder="caso-120 | livello idroaereo in una cavità polmonare&#10;caso-003 | visceri addominali nel torace"></textarea></label>
+    <div class="riga"><label>Esito del caso <select id="ed-esito-tipo"><option value="istologia">istologia</option><option value="follow-up">follow-up</option><option value="intervento">intervento</option><option value="altro">altro</option></select></label></div>
+    <label class="campo">Testo dell'esito <span class="muted small">(mostrato dopo la risposta; vuoto = esito non noto)</span><textarea id="ed-esito" rows="2" maxlength="2000" placeholder="Es. biopsia: carcinoma duttale infiltrante G2; oppure: stabile al controllo TC a 12 mesi"></textarea></label>
+    <label class="spunta"><input type="checkbox" id="ed-acquisizione"> <span><b>Acquisizione sbagliata</b> — posizionamento, centratura, artefatti o protocollo da correggere: entra nella sezione «Acquisizioni sbagliate» per TSRM e radiologi.</span></label>
+    <label class="campo">Schede teoriche collegate <span class="muted small">(dopo la risposta; vuoto = scelte in automatico dal testo)</span><select id="ed-schede" multiple size="5"></select></label>
+  </fieldset>
+  <label class="spunta"><input type="checkbox" id="ed-localizza"> <span><b>Domanda sulla figura</b> — lo studente indica con un clic dove si trova il reperto; si confronta con il segno della «vista del reperto» (salvala dalla pagina del caso disegnando una ROI sul reperto). Vale il 20% del punteggio.</span></label>
+  <label class="spunta"><input type="checkbox" id="ed-visibile"> <span><b>Visibile agli studenti</b> — se non spunti, il caso resta in bozza e lo vedono solo i docenti</span></label>
+  <div class="riga">
+    <button id="ed-salva" class="primary">Salva</button>
+    <button id="ed-annulla" class="ghost">Torna al caso</button>
+    <span id="ed-msg" class="muted"></span>
+  </div>
+  <div class="zona-pericolo" id="ed-zona-elimina">
+    <h3>Elimina il caso</h3>
+    <p class="muted small">Le immagini vengono cancellate dal sito e il caso sparisce per tutti. I risultati già registrati restano
+      nell'analisi e nel CSV; domande e risposte vengono archiviate e si possono recuperare.</p>
+    <button id="ed-elimina" class="pericolo">Elimina caso…</button>
+    <span id="ed-elimina-conferma" hidden>
+      Scrivi il codice del caso (<b id="ed-elimina-id"></b>) per confermare:
+      <input id="ed-elimina-input" autocomplete="off" spellcheck="false" size="12">
+      <button id="ed-elimina-ok" class="pericolo" disabled>Elimina definitivamente</button>
+      <button id="ed-elimina-no" class="ghost">Annulla</button>
+    </span>
+    <span id="ed-elimina-msg" class="muted"></span>
+  </div>
+</main>
+
+<footer class="piede-sito"><span>radio-quiz.it · ideato e realizzato dall'<b>Ing. Salvatore Paolo Buemi</b> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span><span><a href="/qualita.html">Qualità e sicurezza del software</a> · <a href="/licenze.html">Licenze e crediti</a> · strumento didattico, non è un dispositivo medico</span></footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

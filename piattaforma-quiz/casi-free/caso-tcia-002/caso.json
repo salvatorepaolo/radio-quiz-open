@@ -1,0 +1,172 @@
+{
+ "titolo": "Mammografia bilaterale",
+ "titolo_interno": "Mammografia: massa irregolare ad alta densità di circa 2 cm nel QII della mammella destra; carcinoma (Luminal A)",
+ "distretto": "Mammella",
+ "quesito": "mammografia",
+ "modalita": "Mammografia",
+ "difficolta": "Base",
+ "anamnesi": "Donna di 54 anni. Mammografia bilaterale in due proiezioni (CC e MLO). Quesito clinico non disponibile.",
+ "domanda": "Referta in ordine: composizione, reperti, conclusione con categoria BI-RADS.",
+ "sezioni": [
+  {
+   "nome": "Composizione",
+   "domanda": "Composizione: cosa osservi?"
+  },
+  {
+   "nome": "Reperti",
+   "domanda": "Reperti: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Composizione mammaria ACR B: aree sparse di densità fibroghiandolare",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Composizione mammaria ACR D: mammella estremamente densa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Mammella destra: massa ad alta densità di circa 2 cm, di forma irregolare, a margini non circoscritti (indistinti, con brevi spicule), nel quadrante infero-interno (QII), a circa 7-8 cm dal capezzolo, visibile in entrambe le proiezioni",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Mammella sinistra senza masse, calcificazioni sospette o distorsioni",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa ovale a margini circoscritti, con alone chiaro, tipica di fibroadenoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa nel quadrante supero-esterno, in prossimità del prolungamento ascellare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Asimmetria visibile in una sola proiezione, da sovrapposizione di tessuto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Microcalcificazioni pleomorfe a distribuzione segmentaria",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Reperto altamente sospetto (BI-RADS 5, o almeno 4C): ecografia mirata e biopsia percutanea",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Reperto probabilmente benigno (BI-RADS 3): controllo mammografico ravvicinato a 6 mesi, senza biopsia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Esame negativo (BI-RADS 1): nessun reperto da segnalare, la paziente torna al programma di screening",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "I segni mammografici di malignità di una massa sono la forma irregolare, i margini non circoscritti (indistinti, microlobulati o spiculati) e l'alta densità. Una massa con queste caratteristiche, visibile in entrambe le proiezioni, va classificata BI-RADS 4C-5 e biopsiata (agobiopsia sotto guida ecografica, se visibile in ecografia).\nRicorda di confrontare sempre destra e sinistra e di guardare la massa in entrambe le proiezioni per localizzarla.\nL'esito istologico è un carcinoma mammario; il sottotipo molecolare Luminal A (recettori ormonali positivi, HER2 negativo, Ki-67 basso) è il più frequente e quello a prognosi più favorevole.",
+ "regola": "Massa irregolare a margini spiculati o indistinti: BI-RADS 4C-5, biopsia.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma mammario confermato da biopsia, sottotipo molecolare Luminal A (dati clinici CMMD)."
+ },
+ "scale": [
+  {
+   "id": "mammella",
+   "valori": {
+    "sede": {
+     "lato": "dx",
+     "ora": 5,
+     "quad": "quadrante infero-interno (QII)",
+     "breve": "QII",
+     "x": 135,
+     "y": 157,
+     "testo": "mammella destra, quadrante infero-interno (QII), ore 5"
+    },
+    "acr": "b",
+    "dist": 75,
+    "prof": "medio",
+    "d": 20,
+    "br": "5"
+   },
+   "valore": "BI-RADS 5",
+   "testo": "Mammella destra, quadrante infero-interno (QII), ore 5, a 7,5 cm dal capezzolo, terzo medio; diametro massimo 2,0 cm. Composizione ACR B. BI-RADS 5: biopsia (≥ 95%). Accettabile anche 4C."
+  }
+ ],
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CMMD (Chinese Mammography Database)",
+  "soggetto": "D2-0337",
+  "doi": "10.7937/tcia.eqde-4b16",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Cui C., Li L., Cai H., Fan Z., Zhang L., Dan T., Li J., Wang J. (2021). The Chinese Mammography Database (CMMD): An online mammography database with biopsy confirmed types for machine diagnosis of breast. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/cmmd/"
+ },
+ "disposizione": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "riquadri": 4,
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: verificati sulle immagini sede (QII destra, da PatientOrientation CC e MLO), diametro circa 2 cm (misurato su RCC con spaziatura 0,094 mm), distanza dal capezzolo circa 7 cm, ACR B, mammella sinistra negativa e BI-RADS 5/4C coerente con l'istologia CMMD; nessuna correzione.\nCaso importato da TCIA (prima numerato 139) il 12/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nProiezioni: CMMD non indica CC/MLO nell'intestazione; riconosciute a vista. La sede viene dall'orientamento DICOM (PatientOrientation): nella RCC il basso dell'immagine è mediale, nella RMLO è inferiore-mediale, quindi la massa è nel quadrante infero-interno (circa 3,3 cm medialmente e 3,5 cm inferiormente al capezzolo: ore 4-5, segnata come ore 5 nella scheda).\nDistanza dal capezzolo circa 7 cm (CC) e 8 cm (MLO); profondità circa al 60-65% della distanza capezzolo-parete (terzo medio, al limite col posteriore). Diametro circa 2 cm, stimato a vista sulla CC (spaziatura 0,094 mm): misurarlo.\nMammella sinistra senza reperti a una lettura d'insieme; nessun linfonodo ascellare evidente nella MLO. Immagini a 8 bit, già elaborate.\n[verifica 12/10/2026, Claude] Finestra delle immagini corretta (L 111 W 178, uguale nelle 4 proiezioni): con la finestra piena L 128 W 256 sembravano bruciate. Le misure dipendono dalla spaziatura dichiarata da CMMD (0,094 mm, immagini ridimensionate dall'archivio): vanno prese come indicative.\n[pubblicato il 13/10/2026 su richiesta dell'amministratore, dopo la revisione di Claude: restano i dubbi scritti sopra]",
+ "id": "caso-tcia-002",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:18",
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 1350,
+    "y": 1420
+   },
+   "b": {
+    "x": 1595,
+    "y": 1670
+   }
+  },
+  "nota": "Massa irregolare della mammella destra, QII"
+ }
+}

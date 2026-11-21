@@ -1,0 +1,99 @@
+{
+ "034": {
+  "testo": "▾\n✕\nMisure automatiche (IA) — stime da verificare con il righello e la ROI:\nAorta toracica: diametro massimo ≈ 33 mm (Pos -165.4 mm)\nAorta addominale: diametro massimo ≈ 24 mm (Pos -285.4 mm)\nMilza: 148 cm³, cranio-caudale 6,9 cm — nei limiti (non tutto nel volume)\nRene destro: 10 cm³, cranio-caudale 1,8 cm — piccolo (< 9 cm) (non tutto nel volume)\nFegato: 1302 cm³, densità 58 HU (fegato − milza +7 HU) (non tutto nel volume)\nSteatosi (solo TC senza mdc): fegato < 40 HU o fegato − milza < −10 HU → criteri non soddisfatti\nDensità di L1 (spongiosa): 235 HU — normale (≥ 160 HU)\nEnfisema (polmone < −950 HU): totale 1,4% · superiore dx 2,9%, medio 4,4%, inferiore dx 1%, superiore sn 1,7%, inferiore sn 0,5%\nCalcio coronarico (Agatston, stima): 4561 — severo (≥ 400) (comprende anche valvole e anulus mitralico)\nPancreas: 18 cm³ → scheda Steatosi\n\nAltre analisi IA Andamento negli esami\nVersamento pleurico: destro assente, sinistro assente · pericardico assente (fino a 50 mL è liquido fisiologico)\nNoduli polmonari (seconda lettura IA con due modelli, TotalSegmentator e MONAI: ● trovato da entrambi, ○ da uno solo; può sbagliare, controlla sempre sulle immagini):\n● 17,7 mm (18,8 × 16,6 mm), parzialmente solido, componente solida 7,3 mm · lobo superiore sinistro (dalla segmentazione) · Lung-RADS 4A (vicino alla soglia) vai · img 77\n● 14,5 mm (14,7 × 14,2 mm), solido · lobo inferiore destro (dalla segmentazione) · Lung-RADS 4A (vicino alla soglia) vai · img 166\n○ 10,8 mm (11,6 × 9,9 mm), a vetro smerigliato · lobo inferiore sinistro (dalla segmentazione) · Lung-RADS 2 vai · img 137\n● 6,1 mm (6,1 × 6,1 mm), solido · lobo superiore destro (dalla segmentazione) · Lung-RADS 3 (vicino alla soglia) vai · img 53\nLung-RADS v2022 come primo esame di screening (senza precedenti); diametro = media di asse lungo e corto, spicule escluse (può essere minore dell'asse lungo che si misura a occhio). L'IA non valuta le caratteristiche sospette (spicule, linfonodi, crescita): con queste una categoria 3 o 4 diventa 4X. Le misure vicine alla soglia vanno rifatte a mano. Per i noduli incidentali fuori dallo screening vale Fleischner (Σ Scale).\nFegato per segmenti (Couinaud): I 91 · II 228 · III 46 · IV 113 · V 19 · VI 83 · VII 448 · VIII 254 mL · totale 1281 mL\nFegato residuo dopo epatectomia destra (resta I-IV): 37% · dopo epatectomia sinistra (resta I, V-VIII): 70% · dopo trisezionectomia destra (resta I-III): 28% — minimo raccomandato 20-25% nel fegato sano, 30-40% dopo chemioterapia o con epatopatia\nLesioni epatiche (IA): 1; 6,2 mm (segm. VIII)\nCisti renali: nessuna trovata dall'IA",
+  "bottoni": [
+   "vai · img 77",
+   "vai · img 166",
+   "vai · img 137",
+   "vai · img 53"
+  ],
+  "mirino": {
+   "prima": [
+    -0.00009600000339560211,
+    -22.900089263916016,
+    -179.16000366210938
+   ],
+   "dopo": [
+    71,
+    -54.7,
+    -107.9
+   ],
+   "atteso": [
+    71,
+    -54.7,
+    -107.9
+   ],
+   "distanza_mm": 0,
+   "piani": {
+    "assiale": 0,
+    "coronale": 0,
+    "sagittale": 0,
+    "vr": 31.8
+   }
+  },
+  "errori": []
+ },
+ "001": {
+  "testo": "▾\n✕\nMisure automatiche (IA) — stime da verificare con il righello e la ROI:\nAorta toracica: diametro massimo ≈ 39 mm (Pos -231.7 mm)\nAorta addominale: diametro massimo ≈ 25 mm (Pos -354.2 mm) — ectasia (25-29 mm)\nMilza: 221 cm³, cranio-caudale 8,5 cm — nei limiti\nRene destro: 61 cm³, cranio-caudale 3,8 cm — piccolo (< 9 cm) (non tutto nel volume)\nRene sinistro: 48 cm³, cranio-caudale 3,0 cm — piccolo (< 9 cm) (non tutto nel volume)\nFegato: 1894 cm³, densità 65 HU (fegato − milza -11 HU) (non tutto nel volume)\nSteatosi (solo TC senza mdc): fegato < 40 HU o fegato − milza < −10 HU → criteri soddisfatti, se la serie è senza mdc\nDensità di L1 (spongiosa): 118 HU — zona incerta (101-159 HU): valutare DXA\nEnfisema (polmone < −950 HU): totale 2,2% · superiore dx 5,3%, medio 0,1%, inferiore dx 0%, superiore sn 1,9%, inferiore sn 0,4%\nCalcio coronarico: non calcolabile (serve la TC senza mdc)\nPancreas: 78 cm³ → scheda Steatosi\n\nAltre analisi IA Andamento negli esami\nVersamento pleurico: destro assente, sinistro assente · pericardico assente (fino a 50 mL è liquido fisiologico)\nNoduli polmonari (seconda lettura IA con due modelli, TotalSegmentator e MONAI: ● trovato da entrambi, ○ da uno solo; può sbagliare, controlla sempre sulle immagini):\n● 12,5 mm (15,8 × 9,3 mm), solido · lobo superiore destro (dalla segmentazione) · Lung-RADS 4A vai · img 27\n● 4,2 mm (4,4 × 4,0 mm), solido · lobo superiore sinistro (dalla segmentazione) · Lung-RADS 2 vai · img 44\nLung-RADS v2022 come primo esame di screening (senza precedenti); diametro = media di asse lungo e corto, spicule escluse (può essere minore dell'asse lungo che si misura a occhio). L'IA non valuta le caratteristiche sospette (spicule, linfonodi, crescita): con queste una categoria 3 o 4 diventa 4X. Le misure vicine alla soglia vanno rifatte a mano. Per i noduli incidentali fuori dallo screening vale Fleischner (Σ Scale).\nFegato per segmenti (Couinaud): I 111 · II 245 · III 79 · IV 243 · V 200 · VI 177 · VII 424 · VIII 457 mL · totale 1937 mL\nFegato residuo dopo epatectomia destra (resta I-IV): 35% · dopo epatectomia sinistra (resta I, V-VIII): 71% · dopo trisezionectomia destra (resta I-III): 22% — minimo raccomandato 20-25% nel fegato sano, 30-40% dopo chemioterapia o con epatopatia\nLesioni epatiche (IA): 2; 21,5 mm (segm. VIII), 14,8 mm (segm. VIII)\nCisti renali: nessuna trovata dall'IA",
+  "bottoni": [
+   "vai · img 27",
+   "vai · img 44"
+  ],
+  "mirino": {
+   "prima": [
+    -10.900121688842773,
+    -2.1001338958740234,
+    -226.75
+   ],
+   "dopo": [
+    -88,
+    67.6,
+    -119.2
+   ],
+   "atteso": [
+    -88,
+    67.6,
+    -119.2
+   ],
+   "distanza_mm": 0,
+   "piani": {
+    "assiale": 0,
+    "coronale": 0,
+    "sagittale": 0,
+    "vr": 69.7
+   }
+  },
+  "errori": []
+ },
+ "025": {
+  "testo": "▾\n✕\nMisure automatiche (IA) — stime da verificare con il righello e la ROI:\nAorta toracica: diametro massimo ≈ 35 mm (Pos -175.5 mm)\nAorta addominale: diametro massimo ≈ 33 mm (Pos -296.7 mm) — aneurisma (≥ 30 mm)\nMilza: 264 cm³, cranio-caudale 8,8 cm — nei limiti\nRene destro: 24 cm³, cranio-caudale 2,4 cm — piccolo (< 9 cm) (non tutto nel volume)\nRene sinistro: 78 cm³, cranio-caudale 4,8 cm — piccolo (< 9 cm) (non tutto nel volume)\nFegato: 1572 cm³, densità 49 HU (fegato − milza +4 HU) (non tutto nel volume)\nSteatosi (solo TC senza mdc): fegato < 40 HU o fegato − milza < −10 HU → criteri non soddisfatti\nDensità di L1 (spongiosa): 251 HU — normale (≥ 160 HU)\nEnfisema (polmone < −950 HU): totale 0,2% · superiore dx 0,3%, medio 0,3%, inferiore dx 0,1%, superiore sn 0,3%, inferiore sn 0,1%\nCalcio coronarico (Agatston, stima): 3926 — severo (≥ 400) (comprende anche valvole e anulus mitralico)\nPancreas: 63 cm³ → scheda Steatosi\n\nAltre analisi IA Andamento negli esami\nVersamento pleurico: destro assente, sinistro assente · pericardico assente (fino a 50 mL è liquido fisiologico)\nNoduli polmonari (seconda lettura IA con due modelli, TotalSegmentator e MONAI: ● trovato da entrambi, ○ da uno solo; può sbagliare, controlla sempre sulle immagini):\n● 19,1 mm (21,9 × 16,3 mm), parzialmente solido, componente solida 9,8 mm · lobo superiore sinistro (dalla segmentazione) · Lung-RADS 4B (vicino alla soglia) vai · img 70\nLung-RADS v2022 come primo esame di screening (senza precedenti); diametro = media di asse lungo e corto, spicule escluse (può essere minore dell'asse lungo che si misura a occhio). L'IA non valuta le caratteristiche sospette (spicule, linfonodi, crescita): con queste una categoria 3 o 4 diventa 4X. Le misure vicine alla soglia vanno rifatte a mano. Per i noduli incidentali fuori dallo screening vale Fleischner (Σ Scale).\nFegato per segmenti (Couinaud): I 95 · II 234 · III 75 · IV 237 · V 101 · VI 206 · VII 322 · VIII 383 mL · totale 1653 mL\nFegato residuo dopo epatectomia destra (resta I-IV): 39% · dopo epatectomia sinistra (resta I, V-VIII): 67% · dopo trisezionectomia destra (resta I-III): 24% — minimo raccomandato 20-25% nel fegato sano, 30-40% dopo chemioterapia o con epatopatia\nLesioni epatiche (IA): 1; 6,3 mm (segm. VII)\nCisti renali: nessuna trovata dall'IA",
+  "bottoni": [
+   "vai · img 70"
+  ],
+  "mirino": {
+   "prima": [
+    0.00006399999983841553,
+    0.00006399999983841553,
+    -175.5
+   ],
+   "dopo": [
+    66.9,
+    -14.8,
+    -119.2
+   ],
+   "atteso": [
+    66.9,
+    -14.8,
+    -119.2
+   ],
+   "distanza_mm": 0,
+   "piani": {
+    "assiale": 0,
+    "coronale": 0,
+    "sagittale": 0,
+    "vr": 14.8
+   }
+  },
+  "errori": []
+ }
+}

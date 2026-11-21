@@ -1,0 +1,159 @@
+{
+ "id": "caso-tcia-048",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:25",
+ "titolo": "Angio-TC del torace: dispnea improvvisa",
+ "titolo_interno": "Embolia polmonare bilaterale estesa (arteria polmonare destra e rami lobari e segmentari bilaterali), reflusso di mdc in cava inferiore e vene sovraepatiche, opacità periferiche a destra compatibili con infarti",
+ "distretto": "Torace",
+ "quesito": "sospetta embolia polmonare",
+ "modalita": "TC",
+ "difficolta": "Base",
+ "anamnesi": "Uomo di 52 anni con dispnea improvvisa. Angio-TC delle arterie polmonari per sospetta embolia polmonare (strati di 1 mm). Altri dati clinici non disponibili.",
+ "domanda": "Referta l'angio-TC: arterie polmonari, poi parenchima e cuore, poi la conclusione e che cosa fai.",
+ "sezioni": [
+  {
+   "nome": "Arterie polmonari",
+   "domanda": "Che cosa vedi nelle arterie polmonari?"
+  },
+  {
+   "nome": "Polmoni, cuore e altro",
+   "domanda": "Quali altri reperti ci sono?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Difetti di riempimento endoluminali nell'arteria polmonare destra, estesi ai rami lobari, e nei rami lobari e segmentari del polmone sinistro: embolia polmonare bilaterale",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "I trombi segmentati dai radiologi della collezione vanno a destra dal ramo principale ai lobari (superiore, medio e inferiore) e a sinistra dai lobari ai segmentari. Sono difetti centrali circondati da mdc o che occludono il vaso: aspetto acuto.",
+   "sezione": 0
+  },
+  {
+   "testo": "Embolo a sella a cavallo della biforcazione del tronco polmonare, che si estende per pochi centimetri nelle arterie principali destra e sinistra, senza altri difetti nei rami lobari",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Il tronco e la biforcazione sono liberi: i trombi cominciano nell'arteria polmonare destra.",
+   "sezione": 0
+  },
+  {
+   "testo": "Difetti di riempimento solo in alcuni rami subsegmentari del lobo inferiore destro, con arterie lobari e segmentarie pervie: embolia periferica minima",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "I trombi sono centrali e lobari, bilaterali.",
+   "sezione": 0
+  },
+  {
+   "testo": "Opacizzazione insufficiente delle arterie polmonari per bolo tardivo e artefatti respiratori: l'esame non è diagnostico e va ripetuto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Le arterie polmonari sono ben opacizzate e i difetti sono netti: l'esame è diagnostico.",
+   "sezione": 0
+  },
+  {
+   "testo": "Reflusso di mezzo di contrasto nella vena cava inferiore e nelle vene sovraepatiche",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Segno indiretto di sovraccarico del cuore destro (insufficienza tricuspidale). Va letto insieme al rapporto tra i diametri dei ventricoli destro e sinistro (> 1 è sfavorevole), alla posizione del setto e alla clinica: misura il rapporto sulle immagini assiali o sulla quattro camere ricostruita. In questo caso, sulle assiali, è circa 1,5 o più.",
+   "sezione": 1
+  },
+  {
+   "testo": "Opacità periferiche a vetro smerigliato e consolidazione a base pleurica nel polmone destro, compatibili con infarti polmonari (diagnosi differenziale: polmonite)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Opacità periferiche, a cuneo o rotondeggianti, nel territorio dei rami occlusi: tipiche dell'infarto o dell'emorragia polmonare.",
+   "sezione": 1
+  },
+  {
+   "testo": "Versamento pleurico bilaterale abbondante con atelettasia compressiva dei lobi inferiori",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Non c'è versamento pleurico significativo.",
+   "sezione": 1
+  },
+  {
+   "testo": "Dissezione dell'aorta toracica discendente con flap intimale e falso lume opacizzato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "L'aorta è regolare, senza flap intimale.",
+   "sezione": 1
+  },
+  {
+   "testo": "Embolia polmonare acuta bilaterale estesa, con reflusso in cava (possibile sovraccarico destro): comunicazione immediata al medico, stratificazione del rischio (ecocardiogramma, troponina) e terapia",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Esame negativo per embolia polmonare: arterie polmonari pervie fino ai rami subsegmentari, nessuna comunicazione urgente necessaria",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Embolia polmonare cronica con trombi parietali organizzati, reti endoluminali e arterie ridotte di calibro: nessuna urgenza né comunicazione immediata, valutazione ambulatoriale per ipertensione polmonare tromboembolica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Mancano i segni della cronicità (trombi eccentrici adesi alla parete, bande e reti, vasi ridotti di calibro, circoli collaterali bronchiali): i trombi sono centrali e occlusivi, aspetto acuto.",
+   "sezione": 2
+  },
+  {
+   "testo": "Polmonite del polmone destro con consolidazioni periferiche, arterie polmonari pervie: terapia antibiotica, nessuna comunicazione urgente",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Lettura dell'angio-TC polmonare: si segue ogni arteria dal tronco ai rami segmentari e, se la qualità lo permette, ai subsegmentari, con una finestra larga (per esempio 100/700) per non «bruciare» i trombi nel mdc. Un embolo acuto è un difetto di riempimento centrale circondato da mdc (segno della «caramella forata» in sezione trasversa, del «binario» in sezione longitudinale) o un'occlusione con vaso di calibro normale o aumentato; l'embolia cronica ha invece trombi eccentrici adesi alla parete, bande e reti, vasi ristretti.\n\nDopo i trombi si guarda sempre il cuore destro, perché decide la gravità: rapporto tra diametro del ventricolo destro e del sinistro (> 1 sfavorevole), setto interventricolare rettilineo o spostato verso sinistra, reflusso del mdc nella vena cava inferiore e nelle vene sovraepatiche (presente in questo caso, con un rapporto VD/VS sulle assiali di circa 1,5 o più). Poi il parenchima: infarti (opacità periferiche a base pleurica, a cuneo), versamento, diagnosi alternative.\n\nL'embolia polmonare acuta è un esito critico da comunicare subito, a voce, al medico che ha in cura il paziente, e da registrare nel referto (a chi, quando, come). La stratificazione del rischio (sPESI, ecocardiogramma, troponina) e la terapia (anticoagulazione; trombolisi solo se instabilità emodinamica) sono del clinico, ma il radiologo deve scrivere i segni di sovraccarico destro.",
+ "regola": "Embolia polmonare in angio-TC: dopo i trombi guarda sempre il cuore destro (rapporto VD/VS, setto, reflusso in cava) e chiama subito.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Embolia polmonare confermata nel dataset FUMPE: i trombi sono stati segnati da due radiologi e segmentati in modo semiautomatico. Nessun altro dato clinico disponibile."
+ },
+ "fonte": {
+  "archivio": "figshare",
+  "collezione": "FUMPE",
+  "soggetto": "Patient07",
+  "doi": "10.6084/m9.figshare.c.4107803",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Masoudi M., Pourreza H.R., Saadatmand-Tarzjan M., Eftekhari N., Zargar F.S., Rad M.P. (2018). A new dataset of computed-tomography angiography images for computer-aided detection of pulmonary embolism. Scientific Data 5, 180180. doi:10.1038/sdata.2018.180",
+  "url": "https://figshare.com/collections/_/4107803"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 0,
+ "vista": {
+  "serie": 0,
+  "idx": 111,
+  "wc": 100,
+  "ww": 700,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Trombi nell'arteria polmonare destra e nel ramo lobare inferiore sinistro"
+ },
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente",
+   "ps"
+  ],
+  "parole": [
+   "embolia",
+   "bilaterale",
+   "destro"
+  ],
+  "motivo": "Embolia polmonare acuta estesa con segni di sovraccarico destro: è un esito critico (categoria 1 ACR), da comunicare a voce entro minuti al medico che ha in cura il paziente, dicendo sede, estensione e segni di sovraccarico destro, e da registrare nel referto."
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: verificato sulle immagini: difetti di riempimento nell'arteria polmonare destra e nei rami lobari/segmentari bilaterali con tronco e biforcazione liberi, reflusso di mdc in cava inferiore e sovraepatiche, VD dilatato, opacità periferiche a base pleurica nel polmone destro; testo, opzioni e vista coerenti. Nessuna correzione.\nDataset FUMPE (figshare, CC BY 4.0), Patient07: CTA polmonare originale DICOM (scanner NeuViz 16), già anonimizzata alla fonte (nome, ID e date vuoti). Maschere dei trombi (label-edited/PAT007.mat): due componenti, destra (dal ramo principale ai lobari) e sinistra (lobari e segmentari). Reflusso in cava/sovraepatiche e opacità periferiche a destra: lettura di Claude, rivista il 24/10. [verifica 25/10/2026] Rapporto VD/VS misurato sulle assiali 72-76 perpendicolarmente al setto (la cavità del VS si riconosce dalla densità, circa 230-300 HU, contro circa 100 HU del miocardio; il VD è più opacizzato): VD circa 50-57 mm, VS circa 27-39 mm, rapporto circa 1,5-1,8 (> 1), con reflusso in cava inferiore e sovraepatiche (visibile anche all'immagine 45). Misura approssimata per il mescolamento del mdc nel VS.\n[verifica 24/10/2026] Rivisto: reflusso di mdc in cava inferiore e vene sovraepatiche, opacità periferiche del polmone destro, trombi nelle sedi delle maschere. Reso visibile."
+}

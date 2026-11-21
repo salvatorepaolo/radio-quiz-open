@@ -1,0 +1,115 @@
+{
+ "id": "caso-tcia-027",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:22",
+ "titolo": "TC reni: massa renale sinistra poco vascolarizzata",
+ "titolo_interno": "Carcinoma renale papillare: massa ipovascolare e omogenea",
+ "distretto": "Rene",
+ "quesito": "addome",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 73 anni. Massa renale sinistra riscontrata con l'ecografia. TC dell'addome in tre fasi (basale, corticomidollare, tardiva).",
+ "domanda": "Referta in ordine: massa, comportamento contrastografico, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Massa",
+   "domanda": "Come descrivi la massa?"
+  },
+  {
+   "nome": "Contrasto",
+   "domanda": "Come si comporta dopo il mezzo di contrasto?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa solida di circa 4,5 × 4 cm del polo inferiore del rene sinistro, a sede posterolaterale, in parte esofitica, omogenea",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Grasso macroscopico all'interno della massa (valori negativi in basale, sotto -20 HU), come da angiomiolipoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesione cistica del polo inferiore a parete sottile e regolare, senza setti né componente solida che si impregna",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Densità basale circa 30-35 HU; impregnazione debole e lenta: circa 45 HU in fase corticomidollare e 45-50 HU in fase tardiva (aumento di circa 10-20 HU), molto meno della corticale",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Densità basale circa 30 HU; impregnazione intensa in fase corticomidollare (simile a quella della corticale, oltre 100 HU) con lavaggio evidente nella fase tardiva (circa 70 HU)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa renale solida ipovascolare e omogenea: probabile carcinoma papillare; stadiazione e intervento (nefrectomia parziale o radicale)",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Cisti renale complicata Bosniak II a contenuto iperdenso, senza impregnazione tra basale e fasi post-contrasto: lesione benigna, nessun controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Carcinoma renale a cellule chiare tipico, ipervascolare: nefrectomia radicale senza ulteriore stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Un aumento di densità di almeno 20 HU dopo contrasto indica tessuto solido che si impregna; tra 10 e 20 HU il dato è dubbio, e i papillari stanno spesso proprio qui: un papillare può essere scambiato per una cisti iperdensa se non si confrontano basale e post-contrasto nella stessa regione (ROI).\nDiagnosi differenziale delle masse renali solide senza grasso: il carcinoma a cellule chiare è ipervascolare ed eterogeneo (necrosi); il papillare è ipovascolare e omogeneo (impregnazione debole e lenta, spesso < 20-30 HU); il cromofobo ha impregnazione intermedia e omogenea, a volte cicatrice centrale come l'oncocitoma, da cui in imaging non si distingue; l'angiomiolipoma povero di grasso è spesso iperdenso in basale. Le lesioni infiltrative che conservano la forma del rene fanno pensare a carcinoma uroteliale, linfoma, metastasi o pielonefrite, non a un carcinoma renale tipico.\nPer misurare l'impregnazione si mette la ROI nella stessa zona della massa in tutte le fasi, evitando bordi e calcificazioni.",
+ "regola": "Massa renale omogenea che si impregna poco e lentamente: pensa al carcinoma papillare (e non chiamarla cisti senza confrontare le fasi).",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma renale papillare, ISUP 2, pT3 (dati clinici della collezione C4KC-KiTS; dimensione patologica 5,4 cm)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "C4KC-KiTS",
+  "soggetto": "KiTS-00002",
+  "doi": "10.7937/TCIA.2019.IX49E8NX",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Heller N. et al. (2019). Data from C4KC-KiTS [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/c4kc-kits/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 86,
+  "wc": 40,
+  "ww": 400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa ipovascolare del polo inferiore sinistro"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: verificato sulle tre fasi: massa omogenea ipovascolare posterolaterale del terzo inferiore del rene sinistro, circa 4-4,5 cm, coerente con segmentazione e istologia; ROI di controllo (basale ~35, corticomidollare ~45, tardiva ~45-55 HU) un po' diverse dai valori indicati, per cui l'opzione sulle densità è stata resa più prudente (aumento di circa 10-20 HU).\nCaso importato da TCIA il 17/10/2026 (bozza). Sede e dimensioni verificate con la segmentazione della massa fornita dalla collezione (KiTS19); densità misurate da Claude nella segmentazione.\nMassa tra z −169 e −210 mm, circa 4,4 × 3,7 cm sul piano assiale. HU mediani nella segmentazione: basale 30, corticomidollare 43, tardiva 48. Lo stadio pT3 del registro non è spiegato (seno renale o grasso perirenale?): non chiesto. Serie ridotte a uno strato ogni 2 mm (erano sovrapposte a 1 mm) e fase tardiva tagliata sotto z −285."
+}

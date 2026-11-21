@@ -1,0 +1,126 @@
+{
+ "distretto": "Muscolo-scheletrico",
+ "modalita": "RX",
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  1
+ ],
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "fonte": {
+  "archivio": "figshare (Scientific Data), non TCIA",
+  "collezione": "GRAZPEDWRI-DX",
+  "doi": "10.6084/m9.figshare.14825193",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Nagy E., Janisch M., Hržić F., Sorantin E., Tschauner S. (2022). A pediatric wrist trauma X-ray dataset (GRAZPEDWRI-DX) for machine learning. Scientific Data 9, 222. https://doi.org/10.1038/s41597-022-01328-z",
+  "url": "https://doi.org/10.6084/m9.figshare.14825193",
+  "nota": "Immagini convertite da PNG a 16 bit in DICOM da radio-quiz.it: non sono DICOM originali. Nessuna modifica dei pixel."
+ },
+ "titolo": "RX polso destro dopo trauma: ragazzo di 13 anni",
+ "titolo_interno": "Distacco epifisario Salter-Harris II del radio distale con spostamento dorsale + frattura dello stiloide ulnare (GRAZPEDWRI-DX paziente 5357, AO 23r-E/2.1; 23u-E/7)",
+ "quesito": "trauma del polso",
+ "difficolta": "Base",
+ "anamnesi": "Ragazzo di 13 anni giunto in Pronto soccorso per trauma del polso destro (dinamica non fornita dalla collezione). Prima radiografia, in AP e laterale. Nessun gesso, nessun intervento precedente.",
+ "domanda": "Descrivi la lesione, classificala e indica come prosegue la gestione.",
+ "opzioni": [
+  {
+   "testo": "Distacco dell'epifisi distale del radio con spostamento dorsale, ben visibile in laterale, con un frammento metafisario dorsale (Salter-Harris II)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "La linea di frattura attraversa la fisi e risale nella metafisi: il frammento metafisario (segno di Thurston-Holland) definisce il tipo II."
+  },
+  {
+   "testo": "Piccola frattura dello stiloide ulnare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Annotata anche dalla collezione (AO 23u-E/7). Frequente insieme alle fratture distali del radio."
+  },
+  {
+   "testo": "Fisi distale del radio regolare: frattura a toro della metafisi senza interessamento epifisario",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Lussazione perilunare del carpo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Frattura della diafisi dell'ulna",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Frattura Salter-Harris II del radio distale scomposta dorsalmente, con frattura dello stiloide ulnare: consulenza ortopedica per riduzione e controllo radiografico dopo la riduzione",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Frattura Salter-Harris V (schiacciamento della fisi del radio distale), senza scomposizione: prognosi peggiore per l'accrescimento, nessuna riduzione né consulenza ortopedica, solo gesso e controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Frattura a toro (buckle) della metafisi radiale, stabile: tutore rimovibile per 3 settimane e nessun controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Radiografia normale: nessuna frattura né scomposizione, dimissione con ghiaccio e analgesico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Nel bambino la fisi è il punto debole dello scheletro: dopo una caduta sulla mano tesa, il radio distale si rompe spesso attraverso la cartilagine di accrescimento. Classificazione di Salter-Harris: I solo fisi (slargata o scivolata); II fisi + frammento metafisario (il più frequente, circa 75%); III fisi + epifisi (articolare); IV epifisi + fisi + metafisi; V schiacciamento della fisi (spesso riconosciuto solo dopo). Qui l'epifisi è scivolata dorsalmente e si porta dietro un frammento triangolare di metafisi: tipo II. In AP lo spostamento può sembrare minimo: la laterale è la proiezione che mostra lo scivolamento. Le fratture tipo I-II del radio distale hanno buona prognosi, ma se scomposte vanno ridotte presto; dopo una riduzione si controlla la posizione. Va sempre cercata anche la frattura dello stiloide ulnare.",
+ "regola": "Polso del bambino: guarda la fisi in entrambe le proiezioni; un frammento metafisario con la fisi slargata o scivolata è un Salter-Harris II.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Annotazione della collezione GRAZPEDWRI-DX (radiologi pediatrici, Graz): classificazione AO pediatrica 23r-E/2.1 (radio, epifisi: Salter-Harris II) e 23u-E/7 (stiloide ulnare). Nessun dato sul trattamento."
+ },
+ "vista": {
+  "serie": 1,
+  "idx": 0,
+  "zoom": 1.6,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Laterale: epifisi radiale scivolata dorsalmente con frammento metafisario"
+ },
+ "comunicazione": {
+  "livello": "urgente",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "salter",
+   "radio"
+  ],
+  "motivo": "Frattura epifisaria scomposta in Pronto soccorso: il medico va informato presto perché chieda l'ortopedico per la riduzione; non è un esito critico immediato."
+ },
+ "nota_docente": "Controllato il 25/10/2026: lesione e classificazione verificate in AP e laterale. Caso nuovo 25/10/2026 (Claude). GRAZPEDWRI-DX paziente 5357, studio 1, file 5357_0715450325_01_WRI-R1_M013 (AP) e 5357_0715450401_01_WRI-R2_M013 (laterale); età 13,3, maschio, polso destro, primo esame, senza gesso, pixel 0,144 mm; AO 23r-E/2.1; 23u-E/7 dalla tabella della collezione. Convertite da PNG 16 bit in DICOM DX (strumenti_claude/vm/rx2dcm.py), pixel invariati. Lettura di Claude: in laterale epifisi del radio spostata dorsalmente con frammento metafisario dorsale; in AP linea metafisaria e piccolo frammento dello stiloide ulnare. [revisione indipendente 25/10/2026] In laterale epifisi radiale spostata in senso dorsale (lato volare riconosciuto dall'eminenza tenar) con frammento metafisario dorsale: Salter-Harris II confermato; in AP piccolo frammento dello stiloide ulnare. Lato (marcatore R), anonimizzazione e assenza di testo personale verificati. Correzione: titolo «dopo trauma» invece di «dopo caduta» (la dinamica non è nota).",
+ "id": "caso-tcia-094",
+ "visibile": true
+}

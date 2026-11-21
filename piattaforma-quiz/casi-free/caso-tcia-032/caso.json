@@ -1,0 +1,136 @@
+{
+ "id": "caso-tcia-032",
+ "visibile": true,
+ "aggiornato": "2026-11-05 20:20",
+ "titolo": "RM pelvi: piccolo carcinoma della cervice in giovane donna",
+ "titolo_interno": "Carcinoma squamoso della cervice uterina confinato alla cervice (FIGO IB1)",
+ "distretto": "Pelvi",
+ "quesito": "stadiazione oncologica",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 29 anni con perdite ematiche vaginali. Biopsia di una lesione cervicale: carcinoma squamoso. RM della pelvi per la stadiazione locale (gel endovaginale; sequenze disponibili: T2 sagittale, T2 assiale obliquo e T2 coronale ad alta risoluzione, mappa ADC).",
+ "domanda": "Referta in ordine: tumore, parametri e organi vicini, conclusione.",
+ "sezioni": [
+  {
+   "nome": "Tumore",
+   "domanda": "Tumore primitivo: cosa osservi?"
+  },
+  {
+   "nome": "Parametri e organi vicini",
+   "domanda": "Parametri, vagina, vescica e retto: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Piccola lesione esofitica del labbro posteriore della cervice, circa 2,5-3 cm, a segnale intermedio in T2, ben delineata dal gel",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Restrizione della diffusione nella lesione (ADC basso, circa 0,6 × 10⁻³ mm²/s)",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Voluminosa massa che sostituisce la cervice ed espande il segmento uterino inferiore (oltre 6 cm)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Cisti di Naboth multiple senza lesione solida",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 0
+  },
+  {
+   "testo": "Anello stromale ipointenso conservato tutto attorno alla lesione: parametri liberi",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Fornici e pareti vaginali regolari, distesi dal gel; vescica e retto con piani adiposi conservati",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Interruzione dell'anello stromale con spiculature nel grasso parametriale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Ispessimento del terzo inferiore della vagina",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 1
+  },
+  {
+   "testo": "Carcinoma della cervice confinato alla cervice, ≤ 4 cm (FIGO IB1): candidabile a chirurgia (isterectomia radicale o, se desidera gravidanze, trachelectomia radicale da valutare)",
+   "corretta": true,
+   "tipo": "principale",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Carcinoma della cervice con invasione parametriale e perdita dell'anello stromale (FIGO IIB): non candidabile a chirurgia, indicazione a chemio-radioterapia concomitante",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  },
+  {
+   "testo": "Lesione benigna della cervice (polipo cervicale o cisti di Naboth): asportazione ambulatoriale, nessun ulteriore accertamento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Il carcinoma squamoso della cervice è quasi sempre legato all'infezione persistente da HPV ad alto rischio (soprattutto 16 e 18): la classificazione OMS 2020 distingue i tumori HPV-associati (la grande maggioranza) da quelli HPV-indipendenti (rari, per lo più adenocarcinomi di tipo gastrico). Lo screening (test HPV e Pap test) individua le lesioni intraepiteliali, che in RM non si vedono: la RM serve quando il carcinoma è invasivo.\nNella stadiazione la RM misura il tumore e decide tra chirurgia e chemio-radioterapia. La sequenza chiave è il T2 ad alta risoluzione orientato perpendicolarmente al canale cervicale: lo stroma cervicale normale è un anello ipointenso; se l'anello è integro tutto attorno al tumore, i parametri sono liberi. Il gel endovaginale distende i fornici e mette in risalto le lesioni esofitiche. La diffusione (ADC basso) aiuta a riconoscere il tumore e a misurarlo.\nFIGO 2009 (usata in TCGA): IB1 ≤ 4 cm confinato alla cervice. FIGO 2018: IB1 < 2 cm, IB2 2-4 cm, IB3 > 4 cm; con queste misure questa lesione sarebbe IB2. Nei tumori piccoli di una donna giovane che desidera gravidanze conta anche la distanza dall'orifizio uterino interno (per la trachelectomia).",
+ "regola": "Anello stromale ipointenso integro attorno al tumore = parametri liberi: stadio I, chirurgia possibile.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma squamoso della cervice, stadio FIGO IB1 (FIGO 2009; dati clinici TCGA della collezione TCGA-CESC). Genotipo HPV della paziente non disponibile nei dati pubblici."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-CESC",
+  "doi": "10.7937/K9/TCIA.2016.SQ4M8YP4",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Lucchesi F. R., Aredes N. D. (2016). The Cancer Genome Atlas Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma Collection (TCGA-CESC) (Version 3) [Data set]. The Cancer Imaging Archive. The results here are in whole or part based upon data generated by the TCGA Research Network: http://cancergenome.nih.gov/.",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-cesc/",
+  "soggetto": "TCGA-VS-A9V2"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 0,
+  "idx": 18,
+  "wc": 700,
+  "ww": 1400,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Lesione del labbro posteriore"
+ },
+ "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificato sulle immagini: lesione a segnale intermedio in T2 del labbro posteriore della cervice, sporgente nel fornice posteriore disteso dal gel (sagittale 17-19, assiale obliqua 13-16), circa 2-3 cm alla misura con PixelSpacing, anello stromale ipointenso laterale conservato, vagina, vescica e retto regolari, ADC basso nella lesione. Nessuna correzione; la misura resta una stima (FIGO 2018 verosimilmente IB2, come già detto in spiegazione).\nCaso importato da TCIA il 18/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nLesione esofitica del labbro posteriore visibile nel T2 sagittale (fette ~17-19) e assiale (fette ~13-16), circondata dal gel; anello stromale ipointenso apparentemente integro; ADC basso nella lesione (fette ~12-14 della mappa, valore mediano ~0,6 × 10⁻³ mm²/s, misura automatica grossolana di Claude). Dimensione stimata da Claude in circa 2,5-3 cm: da misurare con il calibro (decide IB1/IB2 secondo FIGO 2018). Stadio IB1 dai dati TCGA (FIGO 2009).\nTCGA riporta solo età, istologia e stadio (i sintomi in anamnesi sono generici, non dai dati); il genotipo HPV di questa paziente non è nei dati pubblici (cercato in GDC, cBioPortal e nelle tabelle di TCGA Nature 2017). Esclusa la serie di diffusione b800 (due valori b nella stessa serie); tenuta la mappa ADC generata dall'apparecchio.\n[ricontrollato e pubblicato il 18/10/2026 su richiesta dell'amministratore («valida e metti on line»): lesione, anello stromale e ADC confermati da Claude; la misura in mm resta una stima]"
+}

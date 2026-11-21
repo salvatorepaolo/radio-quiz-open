@@ -1,0 +1,115 @@
+{
+ "distretto": "Cuore",
+ "modalita": "Angiografia",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "fonte": {
+  "archivio": "Mendeley Data, non TCIA",
+  "collezione": "CADICA",
+  "doi": "10.17632/p9bpx9ctcv.5",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Jiménez-Navarro M. (2025). CADICA: a new dataset for coronary artery disease. Mendeley Data, V5, doi 10.17632/p9bpx9ctcv.5. Articolo: Jiménez-Partinen A., Molina-Cabello M.A., Thurnhofer-Hemsi K., Palomo E.J., Rodríguez-Capitán J., Molina-Ramos A.I., Jiménez-Navarro M. (2024). CADICA: A new dataset for coronary artery disease detection by using invasive coronary angiography. Expert Systems 41(12), e13708. doi 10.1111/exsy.13708",
+  "url": "https://data.mendeley.com/datasets/p9bpx9ctcv/5",
+  "nota": "Fotogrammi PNG (512 × 512, 10 fotogrammi al secondo, ricavati dai DICOM originali dagli autori) convertiti in DICOM da radio-quiz.it: non sono DICOM originali. Nessuna modifica dei pixel. Le proiezioni angiografiche (angoli) non sono fornite dalla collezione: le sequenze sono indicate solo come coronaria sinistra o destra."
+ },
+ "difficolta": "Intermedio",
+ "visibile": true,
+ "quesito": "sindrome coronarica acuta",
+ "titolo": "Coronarografia: uomo di 80 anni con NSTEMI",
+ "titolo_interno": "Stenosi severa (90-98%) della coronaria destra distale; stenosi lieve-moderata prossimale; coronaria sinistra senza stenosi critiche nella sequenza mostrata (CADICA paziente 16)",
+ "anamnesi": "Uomo di 80 anni con sindrome coronarica acuta senza sopraslivellamento del tratto ST (NSTEMI). Frazione di eiezione del ventricolo sinistro conservata (> 55%). Coronarografia nella stessa degenza. Altri dati clinici non forniti dalla collezione. Le sequenze sono filmati: usa il cine (10 fotogrammi al secondo).",
+ "domanda": "Descrivi le stenosi, indica la lesione più significativa e il passo successivo.",
+ "opzioni": [
+  {
+   "testo": "Stenosi severa (90-98%) del tratto distale della coronaria destra, in prossimità della crux, visibile in tutte e tre le sequenze della destra",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Annotazione 90-98% della collezione nelle sequenze v1, v13 e v22."
+  },
+  {
+   "testo": "Stenosi lieve-moderata (20-50%) del tratto prossimale-medio della coronaria destra",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Annotazione 20-50% nelle sequenze v13 e v22 (in una proiezione non inclusa la collezione la stima 70-90%)."
+  },
+  {
+   "testo": "Coronaria sinistra senza stenosi critiche nella sequenza mostrata",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Nella sequenza v27 della sinistra la collezione non annota lesioni; in un'altra proiezione (non inclusa) annota una stenosi intermedia (50-70%) di un ramo."
+  },
+  {
+   "testo": "Occlusione totale della coronaria destra all'origine",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Stenosi critica del tronco comune",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Dissezione spontanea della coronaria destra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "NSTEMI con lesione colpevole verosimile nella coronaria destra distale (stenosi 90-98%): angioplastica con stent della lesione",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Malattia trivasale con stenosi critiche di IVA, circonflessa e coronaria destra: indicazione al bypass aortocoronarico, senza angioplastica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Stenosi coronariche non significative: solo terapia medica ottimizzata, nessuna angioplastica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Stenosi della coronaria destra da spasmo: test di provocazione con ergonovina",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "La coronaria destra si vede bene nelle proiezioni oblique anteriori sinistre (decorso a «C») e in quella destra (decorso a «L»): qui in tutte e tre le sequenze c'è un restringimento serrato del tratto distale, in prossimità della crux, dove nascono la discendente posteriore e il ramo posterolaterale. Una lesione così (90-98%), in un paziente con NSTEMI, è la candidata più probabile a essere la colpevole e si tratta con angioplastica e stent.\nStima della stenosi: confronta il diametro minimo con il segmento sano vicino, in almeno due proiezioni. La stenosi prossimale è lieve-moderata nella maggior parte delle proiezioni: l'unica proiezione che la fa sembrare più severa può dipendere da scorcio o sovrapposizione, per questo si valuta su più viste (e, nei casi dubbi, con la FFR).\nTrappole: lo spasmo da catetere all'ostio della destra; un ramo ventricolare destro sovrapposto che simula una stenosi; il movimento cardiaco che sfuoca i fotogrammi (scegli quello in telediastole, vaso fermo e ben opacizzato).",
+ "regola": "Ogni stenosi si giudica in almeno due proiezioni, sul fotogramma con il vaso fermo e pieno di contrasto.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Annotazione della collezione CADICA: NSTEMI, 1 vaso coinvolto, massimo grado > 70%; lesioni annotate 90-98% sulla coronaria destra distale, 20-50% prossimale; in una proiezione della sinistra non inclusa 50-70%. Eventi successivi: polmonite COVID."
+ },
+ "vista": {
+  "serie": 0,
+  "idx": 22,
+  "zoom": 1.4,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Coronaria destra, sequenza 1: stenosi serrata del tratto distale"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "nota_docente": "Caso nuovo 25/10/2026, Claude. CADICA paziente p16 (80 anni, M, NSTEMI, FE > 55%, 1 vaso, max > 70%), video v1, v13, v22 (coronaria destra) e v27 (coronaria sinistra), 10 fps. Esclusi: v12 (destra, annota 70-90% nel tratto prossimale, in disaccordo con le altre viste), v14 (sinistra, 50-70% di un ramo), v18 (destra senza stenosi significative: forse dopo il trattamento, la collezione non lo dice). Sede «distale prima della crux» letta da Claude dalle immagini. Immagini convertite da PNG, senza calibrazione. Modalità «Altro». [revisione indipendente 25/10/2026] Controllato il 25/10/2026: viste le 4 sequenze: coronaria destra dominante con restringimento serrato del tratto distale vicino alla biforcazione in discendente posteriore e posterolaterale (sequenze 1-3), tratto prossimale-medio con irregolarità; coronaria sinistra senza stenosi critiche evidenti nella sequenza mostrata. Corretto «prima della crux» in «in prossimità della crux» (la sede esatta rispetto alla crux non si stabilisce senza proiezioni note).",
+ "id": "caso-tcia-115"
+}
