@@ -14,6 +14,7 @@ VER="$(cat piattaforma-quiz/cloud/.versione 2>/dev/null || echo '?')"; COMMIT="$
 find "$PUB" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 git archive HEAD | tar -x -C "$PUB"
 rm -rf "$PUB/strumenti_claude/controlli"
+rm -f "$PUB/piattaforma-quiz/cloud/cdk.context.json"   # cache del CDK: numero dell'account AWS e zone DNS di altri siti; si rigenera da sola
 # controlli prima di pubblicare
 MIA="$(bash -c 'source piattaforma-quiz/cloud/.segreti >/dev/null 2>&1; echo "${INOLTRO_POSTA:-}"')"
 if [ -n "$MIA" ] && grep -rIl --exclude-dir=.git -F "$MIA" "$PUB" >/dev/null; then echo "✖ l'email personale compare in:"; grep -rIl --exclude-dir=.git -F "$MIA" "$PUB"; exit 1; fi

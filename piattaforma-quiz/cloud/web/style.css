@@ -1494,6 +1494,7 @@ details.sezione,.analisi .riquadro,.classi .classe,.percorso-doc,.rv-caso{border
 /* riferimenti dell'autore */
 .piede-sito{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;padding:14px 20px 18px;margin-top:24px;border-top:1px solid var(--bord);font-size:.78rem;color:var(--mut)}
 .piede-sito a{color:inherit;text-decoration:underline;text-underline-offset:2px}.piede-sito b{color:inherit;font-weight:700}
+.piede-sito .piede-avviso{flex-basis:100%;line-height:1.45}
 body:has(#vista-caso:not([hidden])) .piede-sito,body:has(#vista-client:not([hidden])) .piede-sito,body:has(#vista-editor:not([hidden])) .piede-sito{display:none}
 .autore-sito{opacity:.85}
 @media print{.piede-sito{display:none}}

@@ -284,10 +284,14 @@
     "Quiz Radiologia è una proof of concept (POC): un servizio dimostrativo e sperimentale di formazione, gratuito e aperto a tutti i maggiorenni, che mostra la piattaforma offerta alle aziende sanitarie e alle scuole di specializzazione. È fornito così com'è, senza garanzie di disponibilità o di continuità.",
     [
      "I casi servono solo alla formazione: non sono indicazioni diagnostiche o terapeutiche e non sostituiscono il giudizio clinico. Domande e risposte sono preparate con cura ma possono contenere imprecisioni: segnalale a privacy@radio-quiz.it o al tuo docente.",
+     "I contenuti didattici (domande, opzioni, spiegazioni e percorsi) sono preparati con il supporto di strumenti di intelligenza artificiale e controllati da un medico prima della pubblicazione. Durante l'uso, l'IA interviene solo dove è indicato (correzione del referto, ricerca dei noduli) e non concorre mai al punteggio.",
+     "I contenuti possono essere incompleti, imprecisi o non aggiornati e sono forniti senza garanzie. Per le decisioni cliniche fanno fede le linee guida delle società scientifiche (per esempio SIRM, ESR, ACR) e la letteratura primaria.",
      "Il visualizzatore scaricabile è uno strumento di formazione e di educazione: non è un dispositivo medico ai sensi del Regolamento (UE) 2017/745 e non va usato per diagnosi, refertazione clinica o decisioni di cura. Non si collega ai sistemi dell'ospedale (PACS). I dati degli esami aperti restano sul computer di chi lo usa, che ne è responsabile.",
      "Le immagini sono anonime. È vietato tentare di risalire all'identità dei pazienti, scaricare in massa le immagini o diffonderle fuori dalla piattaforma.",
      "L'account è personale: non condividere la password. Chi si dichiara docente vede solo i dati di chi lo sceglie e li usa solo per la formazione.",
-     "Possiamo sospendere gli account usati in modo scorretto. Il servizio può cambiare o interrompersi; le condizioni aggiornate sono sempre in questa pagina."
+     "Possiamo sospendere gli account usati in modo scorretto. Il servizio può cambiare o interrompersi; le condizioni aggiornate sono sempre in questa pagina.",
+     "Nei limiti consentiti dalla legge, l'autore non risponde dei danni derivanti dall'uso delle informazioni al di fuori della formazione.",
+     "Chi ritiene che un contenuto leda propri diritti (per esempio il diritto d'autore) può scrivere a info@radio-quiz.it: il contenuto verrà verificato e, se necessario, corretto o rimosso."
     ]
    ]
   }
