@@ -2440,3 +2440,4 @@ body.solo-vetrino #vista-caso .viewer > :not(#vt-incorporato):not(#q-promemoria)
 @media (min-width:701px){.viewer #barra-2d .barra-tutti{margin-left:2px}.viewer .barra-unica .schermo{order:98}}
 /* metodica Angiografia (21/11): rosso scuro, come il sangue nei vasi */
 .met-angiografia,#vista-elenco .met-angiografia,#vista-gestione-casi .met-angiografia{--m:#e03131}
+.home-v .hv-kicker-link{color:inherit;text-decoration:underline;text-underline-offset:3px}

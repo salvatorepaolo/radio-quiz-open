@@ -35,6 +35,8 @@ const esiti = [];
 async function foto(p, nome) {
   await p.addStyleTag({ content: `*, *::before, *::after { ${ferma} }` }).catch(() => {});
   await p.waitForLoadState('networkidle', { timeout: 5000 }).catch(() => {}); await p.waitForTimeout(800);
+  // sempre dall'inizio della pagina: lo scorrimento dipende da quanto in fretta si carica (falsi allarmi sul telefono)
+  await p.evaluate(() => { window.scrollTo(0, 0); document.scrollingElement && (document.scrollingElement.scrollTop = 0); }).catch(() => {}); await p.waitForTimeout(300);
   const maschere = []; for (const s of MASCHERE) maschere.push(p.locator(s));
   const buf = await p.screenshot({ animations: 'disabled', caret: 'hide', mask: maschere, maskColor: '#888' });
   const att = path.join(ATT, nome + '.png'); fs.writeFileSync(att, buf);

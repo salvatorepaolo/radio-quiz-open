@@ -24,4 +24,4 @@ echo "✓ nessun segreto, nessuna email personale, nessun DICOM"
 cd "$PUB"; git add -A
 if git diff --cached --quiet; then echo "· niente di nuovo da salvare"
 else git -c user.name="Salvatore Paolo Buemi" -c user.email="info@radio-quiz.it" commit -q -m "radio-quiz 1.${VER} (dal commit ${COMMIT})"; fi
-git push -q -u origin main && echo "✓ copia pubblica aggiornata: versione ${VER}"
+git push -q -u origin main && echo "✓ copia pubblica aggiornata: versione 1.${VER}"
