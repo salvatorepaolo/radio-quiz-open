@@ -2442,3 +2442,8 @@ body.solo-vetrino #vista-caso .viewer > :not(#vt-incorporato):not(#q-promemoria)
 /* metodica Angiografia (21/11): rosso scuro, come il sangue nei vasi */
 .met-angiografia,#vista-elenco .met-angiografia,#vista-gestione-casi .met-angiografia{--m:#e03131}
 .home-v .hv-kicker-link{color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+/* 1.292 «Gestione» dentro il menu del profilo: si apre in linea (il menu esterno scorre e taglierebbe un riquadro sovrapposto) */
+header.top .menu-utente .menu-gestione .menu-voci{position:static;min-width:0;width:100%;max-height:none;overflow:visible;box-shadow:none;border:0;border-top:1px solid var(--bord);border-radius:0;margin-top:6px;padding:6px 0 0}
+header.top .menu-utente .menu-gestione>summary{width:100%;text-align:left}
+@media (max-width:700px){header.top .menu-utente #menu-gestione>summary{font-size:.95rem;min-height:36px}header.top .menu-utente #menu-gestione>summary::before{content:none}}
