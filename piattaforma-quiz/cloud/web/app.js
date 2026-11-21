@@ -55,6 +55,7 @@ let ADMIN = false, REFERENTE = false, AUTORE = DOCENTE, UTENTE = null;
 let ISTANZA = { modo: 'vetrina', nome: '', contatto: '' };
 const AZIENDA = () => ISTANZA.modo === 'azienda';
 // risposte chieste da index.html prima che arrivasse app.js (si usano una volta sola: il corpo si legge una volta)
+setTimeout(() => document.documentElement.classList.remove('apre-caso'), 20000);   // rotta.js: mai pagina vuota per sempre
 window.__rqAppAvviato = true;   // per prima.js, se arriva dopo app.js
 const rispostaPrima = (k) => { const x = window.__rqPrima?.[k]; if (x) delete window.__rqPrima[k]; return x; };
 const istanzaPronta = (CLIENT ? Promise.resolve(null) : (rispostaPrima('istanza') || fetch('/api/istanza', { credentials: 'same-origin' })).then((r) => (r?.ok ? r.json() : null)).catch(() => null)).then((x) => {
@@ -7002,6 +7003,8 @@ function eroePagina(nome) {
   if (testa) { const az = document.createElement('div'); az.className = 'eroe-azioni'; [...testa.children].filter((x) => !x.matches('.spacer')).forEach((x) => az.append(x)); if (az.children.length) sez.append(az); testa.remove(); }
 }
 function vista(nome) {
+  // 1.293: fine dell'attesa per un link diretto a un caso (rotta.js): l'elenco torna visibile se è la vista scelta
+  if (nome !== 'elenco' || !location.hash.startsWith('#/caso/')) document.documentElement.classList.remove('apre-caso');
   eroePagina(nome);
   aggiornaMenuVetrini();
   // 1.263: sul telefono il pannello delle domande diventa «foglio» in basso nello stesso istante in cui il caso compare

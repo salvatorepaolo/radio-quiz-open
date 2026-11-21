@@ -5,7 +5,7 @@
 const CACHE = 'rq-client-13';
 const PROPRI = /^\/client\/(sw\.js|avvio\.js|manifest\.json|icona-\d+\.png)$/;
 const FILE = ['/index.html', '/app.js', '/style.css', '/logo.svg', '/versione.json', '/licenze.html', '/anonimizza.js', '/analisi.js', '/cmr.js', '/ecosemi.js',
-  '/t2star.js', '/refertolocale.js', '/scale.js', '/scale-dati.js', '/scale-indice.js', '/prima.js', '/cmr-ui.js', '/docenti.js', '/gestione-sito.js', '/noduli-client.js', '/noduli-worker.js', '/aiuto.json', '/schede.json', '/modelli-referto.json', '/protocolli.json', '/percorsi.json',
+  '/t2star.js', '/refertolocale.js', '/scale.js', '/scale-dati.js', '/scale-indice.js', '/prima.js', '/rotta.js', '/cmr-ui.js', '/docenti.js', '/gestione-sito.js', '/noduli-client.js', '/noduli-worker.js', '/aiuto.json', '/schede.json', '/modelli-referto.json', '/protocolli.json', '/percorsi.json',
   '/lib/dicomParser.min.js', '/lib/lossless-min.js', '/lib/mpr3d.js', '/lib/mp4-muxer.js', '/lib/openseadragon.min.js', '/vetrini.js', '/vetrini-sop.js', '/vetrini-ann.js', '/vetrini-dec.js', '/vetrini-worker.js',
   '/lib/codec/openjpegwasm_decode.js', '/lib/codec/openjpegwasm_decode.wasm', '/lib/codec/charlswasm_decode.js', '/lib/codec/charlswasm_decode.wasm',
   '/lib/codec/libjpegturbowasm_decode.js', '/lib/codec/libjpegturbowasm_decode.wasm', '/lib/codec/jpegimage.js',

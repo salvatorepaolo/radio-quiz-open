@@ -2447,3 +2447,5 @@ body.solo-vetrino #vista-caso .viewer > :not(#vt-incorporato):not(#q-promemoria)
 header.top .menu-utente .menu-gestione .menu-voci{position:static;min-width:0;width:100%;max-height:none;overflow:visible;box-shadow:none;border:0;border-top:1px solid var(--bord);border-radius:0;margin-top:6px;padding:6px 0 0}
 header.top .menu-utente .menu-gestione>summary{width:100%;text-align:left}
 @media (max-width:700px){header.top .menu-utente #menu-gestione>summary{font-size:.95rem;min-height:36px}header.top .menu-utente #menu-gestione>summary::before{content:none}}
+/* 1.293 link diretto a un caso: elenco e piè di pagina nascosti finché app.js non mostra il caso (rotta.js) */
+html.apre-caso #vista-elenco,html.apre-caso .piede-sito{display:none!important}

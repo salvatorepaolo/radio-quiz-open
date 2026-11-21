@@ -13,6 +13,9 @@ MOD = {'CR': 'RX', 'DX': 'RX', 'CT': 'TC', 'MR': 'RM', 'US': 'Ecografia', 'MG': 
 PHI = ['PatientBirthDate', 'InstitutionName', 'InstitutionAddress', 'ReferringPhysicianName', 'OperatorsName', 'PerformingPhysicianName',
        'AccessionNumber', 'StudyDate', 'StudyTime', 'PatientAddress', 'OtherPatientIDs', 'PatientWeight', 'StationName', 'PatientTelephoneNumbers']
 errori, avvisi = collections.defaultdict(list), collections.defaultdict(list)
+# StudyDescription: testo libero dell'ospedale. Restano solo i valori già controllati a mano; anonimizza.py ora lo toglie.
+_vf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'descrizioni_studio_verificate.json')
+STUDIO_OK = set(json.load(open(_vf))['valori']) if os.path.exists(_vf) else set()
 for cdir in sorted(glob.glob(os.path.join(base, 'caso-*'))):
     c = os.path.basename(cdir)
     if not os.path.exists(f'{cdir}/serie.json'):
@@ -46,6 +49,9 @@ for cdir in sorted(glob.glob(os.path.join(base, 'caso-*'))):
             mods[MOD.get(str(d.get('Modality', '')), str(d.get('Modality', '')))] += 1
             if not str(d.get('PatientName', '')).startswith('ANONIMO'):
                 errori[c].append(f'nome paziente non anonimo in {f}')
+            sd = str(d.get('StudyDescription', '') or '').strip()
+            if sd and sd not in STUDIO_OK:
+                errori[c].append(f'StudyDescription non verificata in {f}: «{sd[:40]}» (toglierla o, se solo tecnica, aggiungerla a strumenti/descrizioni_studio_verificate.json)')
             for t in PHI:
                 v = d.get(t)
                 if v not in (None, '') and str(v).strip():

@@ -1,0 +1,10 @@
+{
+ "data": "2026-11-21T20:40:00Z",
+ "nota": "primo giro, sito vero 1.292: 4 gradini da 10 s, accesso amministratore, /api/io, /api/casi, /api/casi/caso-tcia-001",
+ "righe": [
+  {"insieme": 5, "richieste": 195, "al_secondo": 19.2, "mediana_ms": 106, "p95_ms": 488, "max_ms": 6899, "stati": {"200": 195}},
+  {"insieme": 10, "richieste": 593, "al_secondo": 58.3, "mediana_ms": 99, "p95_ms": 238, "max_ms": 6834, "stati": {"200": 593}},
+  {"insieme": 20, "richieste": 1240, "al_secondo": 122.1, "mediana_ms": 100, "p95_ms": 263, "max_ms": 6574, "stati": {"200": 1240}},
+  {"insieme": 40, "richieste": 2488, "al_secondo": 243.7, "mediana_ms": 103, "p95_ms": 253, "max_ms": 6651, "stati": {"200": 2488}}
+ ]
+}

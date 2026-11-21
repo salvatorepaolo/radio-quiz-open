@@ -35,7 +35,7 @@ test('moduli a richiesta: niente import di app.js, ponte completo, niente istruz
   }
 });
 test('client offline: ogni file della pagina e ogni modulo è nella cache del service worker', () => {
-  const sw = leggi('client/sw.js'), tutti = new Set([...grafo('app.js'), ...Object.keys(A_RICHIESTA).flatMap((f) => [...grafo(f)]), 'prima.js', 'lib/dicomParser.min.js', 'style.css']);
+  const sw = leggi('client/sw.js'), tutti = new Set([...grafo('app.js'), ...Object.keys(A_RICHIESTA).flatMap((f) => [...grafo(f)]), 'prima.js', 'rotta.js', 'lib/dicomParser.min.js', 'style.css']);
   for (const f of tutti) assert.ok(sw.includes(`'/${f}'`), `${f} non è in client/sw.js`);
 });
 test('nessuno script scritto dentro la pagina (la Content Security Policy li blocca)', () => {

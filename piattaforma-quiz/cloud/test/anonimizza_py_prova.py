@@ -23,7 +23,7 @@ def finto(**extra):
     ds.PatientName = "ROSSIGNOLI^MARCELLO"; ds.PatientID = "RSSMRC80A01H501Z"; ds.PatientBirthDate = "19800101"; ds.PatientAddress = "VIA GARIBALDI 12"
     ds.PatientSex = "M"; ds.PatientAge = "044Y"; ds.StudyDate = "20240311"; ds.StudyTime = "101500"; ds.AccessionNumber = "ACC9988776"
     ds.InstitutionName = "OSPEDALE SANTACROCE"; ds.ReferringPhysicianName = "BIANCHERI^LUIGINO"; ds.OperatorsName = "VERDOLINI^ANSELMO"
-    ds.StationName = "TCSTAZIONE7"; ds.DeviceSerialNumber = "SN12345"; ds.ImageComments = "commento con ROSSIGNOLI"
+    ds.StationName = "TCSTAZIONE7"; ds.DeviceSerialNumber = "SN12345"; ds.ImageComments = "commento con ROSSIGNOLI"; ds.StudyDescription = "TC TORACE ROSSIGNOLI"
     ds.add_new(0x00091010, "LO", "PRIVATOCOSTRUTTORE"); ds.add_new(0x60003000, "OW", bytes(8))   # tag privato e overlay
     rich = Dataset(); rich.RequestingPhysician = "MEDICORICHIEDENTE^X"; ds.RequestAttributesSequence = Sequence([rich])
     rif = Dataset(); rif.ReferencedSOPClassUID = "1.2.840.10008.5.1.4.1.1.2"; rif.ReferencedSOPInstanceUID = "1.2.3.4.5.6.7.9"
@@ -51,7 +51,7 @@ class Anonimizza(unittest.TestCase):
         ds = A.anonimizza_dataset(finto(), CASO, SALE)
         self.assertEqual(str(ds.PatientName), f"ANONIMO^{CASO}"); self.assertEqual(ds.PatientID, CASO); self.assertEqual(ds.PatientIdentityRemoved, "YES")
         for kw in ["PatientBirthDate", "PatientAddress", "AccessionNumber", "InstitutionName", "ReferringPhysicianName", "OperatorsName",
-                   "StationName", "DeviceSerialNumber", "ImageComments", "RequestAttributesSequence", "PatientSex", "PatientAge"]:
+                   "StationName", "DeviceSerialNumber", "ImageComments", "StudyDescription", "RequestAttributesSequence", "PatientSex", "PatientAge"]:
             self.assertFalse(kw in ds and str(ds.get(kw) or ""), kw)
         self.assertFalse(any(t.is_private for t in ds.keys()), "tag privati rimasti")
         self.assertFalse(any(0x6000 <= t.group <= 0x60FF for t in ds.keys()), "overlay rimasti")

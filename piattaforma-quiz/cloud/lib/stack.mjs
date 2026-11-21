@@ -68,6 +68,8 @@ export class QuizStack extends Stack {
       sortKey: { name: 'sk', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
+      // 1.293: la tabella non si può cancellare per sbaglio (console, CLI o stack), nemmeno da un amministratore distratto
+      deletionProtection: true,
       removalPolicy: RemovalPolicy.RETAIN,
     });
 

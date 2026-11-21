@@ -1,7 +1,7 @@
 // prova_lighthouse.mjs: tempi di caricamento misurati con Lighthouse (Apache-2.0) come su un telefono di fascia media con
 // rete 4G lenta (simulata), sul simulatore locale. Pagine: home, caso aperto (con accesso) e pagina della qualità.
 // Il primo giro salva i valori di riferimento in lighthouse-limiti.json; i giri successivi falliscono se una pagina
-// peggiora oltre il margine (punteggio −10, LCP e blocco del thread +30%, peso +20%, spostamenti CLS oltre 0,1, tranne il caso sul telefono: vedi sotto).
+// peggiora oltre il margine (punteggio −10, LCP e blocco del thread +30%, peso +20%, spostamenti CLS oltre 0,1).
 // Il simulatore non comprime i file come CloudFront: i pesi sono più alti del sito vero, conta il confronto nel tempo.
 // Uso: node prova_lighthouse.mjs [--nuovi-limiti]
 import { spawn } from 'node:child_process'; import { createRequire } from 'node:module'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
@@ -40,10 +40,8 @@ for (const [nome, m] of Object.entries(misure)) {
   esito(m.punteggio >= r.punteggio - 10, `${nome}: punteggio`, `${m.punteggio} (riferimento ${r.punteggio})`);
   esito(m.lcp <= r.lcp * 1.3 + 300, `${nome}: contenuto principale visibile (LCP)`, `${(m.lcp / 1000).toFixed(1)} s (riferimento ${(r.lcp / 1000).toFixed(1)} s)`);
   esito(m.tbt <= r.tbt * 1.3 + 100, `${nome}: pagina bloccata (TBT)`, `${m.tbt} ms (riferimento ${r.tbt} ms)`);
-  // caso sul telefono: il visualizzatore cambia altezza quando compare il pannello delle domande (CLS da 0 a 0,8 secondo i tempi):
-  // noto, da migliorare; qui si segnala soltanto
-  if (nome === 'caso') console.log(`${m.cls > 0.1 ? '⚠ ' : 'OK'}  caso: spostamenti della pagina (CLS) → ${m.cls}${m.cls > 0.1 ? ' (noto, da migliorare)' : ''}`);
-  else esito(m.cls <= 0.1, `${nome}: spostamenti della pagina (CLS)`, `${m.cls}`);
+  // 1.293: anche il caso sul telefono (prima l'elenco compariva e si riassestava: 0,25; ora rotta.js lo tiene nascosto)
+  esito(m.cls <= 0.1, `${nome}: spostamenti della pagina (CLS)`, `${m.cls}`);
   esito(m.peso <= r.peso * 1.2 + 50, `${nome}: peso scaricato`, `${m.peso} kB (riferimento ${r.peso} kB)`);
 }
 console.log(`ℹ pass ${ok}\nℹ fail ${ko}`);

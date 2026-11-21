@@ -27,6 +27,8 @@
      browser lo scarica dopo app.js e la richiesta parte tardi -->
 <script src="prima.js" async fetchpriority="high"></script>
 <link rel="stylesheet" href="style.css">
+<!-- 1.293: link diretto a un caso: l'elenco resta nascosto finché il caso non è pronto (niente salto della pagina) -->
+<script src="rotta.js"></script>
 <script src="lib/dicomParser.min.js" defer></script>
 <!-- 1.249: i moduli che app.js importa si scaricano subito, insieme ad app.js, invece che dopo averlo letto
      (un giro di rete in meno all'apertura). L'elenco deve coincidere con gli import: lo controlla test/pagina.test.mjs -->

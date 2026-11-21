@@ -241,9 +241,9 @@ def prepara_ecografia(ds):
 
 # LISTA BIANCA: gli unici campi di testo che restano (solo tecnici, mai identificativi).
 # Qualsiasi altro campo testuale (LO, SH, LT, ST, UT, AE, UC, UN, AS, CS non elencati)
-# viene eliminato.
+# viene eliminato. StudyDescription (testo libero dell'ospedale) non c'è più dal 1.293, come in web/anonimizza.js.
 TESTO_CONSENTITO = {
-    "SpecificCharacterSet", "ImageType", "Modality", "SeriesDescription", "StudyDescription",
+    "SpecificCharacterSet", "ImageType", "Modality", "SeriesDescription",
     "BodyPartExamined", "ScanOptions", "PatientPosition", "AcquisitionType", "ConvolutionKernel",
     "FilterType", "PhotometricInterpretation", "RescaleType", "WindowCenterWidthExplanation",
     "ExposureModulationType", "ContrastBolusAgent", "ContrastBolusRoute", "RotationDirection",
