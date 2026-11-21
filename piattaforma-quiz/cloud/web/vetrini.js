@@ -732,7 +732,13 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
       g.fillStyle = 'rgba(255,255,255,.88)'; g.fillRect(12 * k, oh - 44 * k, Math.max(px, 60 * k) + 16 * k, 32 * k);
       g.fillStyle = '#111'; g.font = `600 ${Math.round(12 * k)}px system-ui,sans-serif`; g.fillText(fmt(um), 20 * k, oh - 28 * k); g.fillRect(20 * k, oh - 22 * k, px, 5 * k);
     }
-    if (did) { g.fillStyle = '#111'; g.font = `${Math.round(13 * k)}px system-ui,sans-serif`; g.fillText(did.slice(0, 240), 10 * k, oh + 21 * k); }
+    if (did) {   // la didascalia entra nella larghezza: carattere più piccolo, poi «…»
+      let fs = 13 * k, t = did.slice(0, 240); g.fillStyle = '#111'; g.font = `${fs}px system-ui,sans-serif`;
+      while (g.measureText(t).width > ow - 20 * k && fs > 8) { fs -= 0.5; g.font = `${fs}px system-ui,sans-serif`; }
+      while (g.measureText(t).width > ow - 20 * k && t.length > 4) t = t.slice(0, -2).trimEnd() + '…';
+      if (t.endsWith('……')) t = t.replace(/…+$/, '…');
+      g.fillText(t, 10 * k, oh + 21 * k);
+    }
     return cv;
   }
   // fattori di riduzione proposti: come sullo schermo, piena risoluzione, metà, un quarto (oltre i limiti del browser: non disponibili)
@@ -746,7 +752,7 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   }
   function apriRitaglio(P, rett) {
     const d = document.createElement('dialog'); d.className = 'vt-dlg vt-rit';
-    const ris = risoluzioni(P, rett), prima = ris.find((x) => x.id === 'piena' && x.ok) ? 'piena' : 'schermo';
+    const ris = risoluzioni(P, rett), prima = (['piena', 'meta', 'quarto'].map((id) => ris.find((x) => x.id === id && x.ok)).find(Boolean) || ris[0]).id;   // la più fine che il browser regge
     const mis = P.sp ? `${fmt(rett[2] * P.sp)} × ${fmt(rett[3] * P.sp)}` : `${Math.round(rett[2])} × ${Math.round(rett[3])} px`;
     d.innerHTML = `<h3>✂ ${tr('Ritaglio')} <span class="muted small">${mis}</span></h3><div class="vt-rit-ant"><p class="muted small">${tr('Anteprima…')}</p></div>
       <div class="vt-rit-opz"><label>${tr('Risoluzione')} <select class="vt-rit-ris">${ris.map((x) => `<option value="${x.id}"${x.ok ? '' : ' disabled'}${x.id === prima ? ' selected' : ''}>${x.nome}: ${x.ow.toLocaleString()} × ${x.oh.toLocaleString()} px${x.um ? ` (${x.um.toFixed(2).replace('.', ',')} µm/pixel)` : ''}${x.ok ? '' : ' — ' + tr('troppo grande')}</option>`).join('')}</select></label>
