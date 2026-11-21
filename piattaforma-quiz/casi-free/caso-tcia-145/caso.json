@@ -1,0 +1,149 @@
+{
+ "id": "caso-tcia-145",
+ "visibile": true,
+ "aggiornato": "2026-11-21 20:38",
+ "titolo": "Ecografia e CEUS del fegato: lesione focale da caratterizzare",
+ "titolo_interno": "Ascesso epatico: in CEUS anello che si impregna in fase arteriosa e centro mai impregnato fino a 5 minuti; lesione di circa 1,8 cm mal visibile in B-mode (B-mode-and-CEUS-Liver LiverUS-92)",
+ "distretto": "Addome",
+ "quesito": "lesione focale epatica",
+ "modalita": "Ecografia",
+ "difficolta": "Avanzato",
+ "anamnesi": "Paziente adulto con una lesione focale del fegato all'ecografia, inviato per un'ecografia con mezzo di contrasto (CEUS). Età, sesso e dati clinici non disponibili.",
+ "domanda": "Descrivi la lesione in B-mode e il comportamento dopo il mezzo di contrasto, poi indica l'interpretazione e il passo successivo.",
+ "sezioni": [
+  {
+   "nome": "B-mode",
+   "domanda": "Che cosa vedi prima del contrasto?"
+  },
+  {
+   "nome": "CEUS",
+   "domanda": "Come si comporta la lesione dopo il contrasto?"
+  },
+  {
+   "nome": "Interpretazione",
+   "domanda": "Che cosa significa questo comportamento?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "In B-mode un'area ipoecogena mal definita, poco visibile, nel parenchima epatico",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 0 e metà sinistra delle immagini della serie 1: la lesione si distingue a fatica dal parenchima."
+  },
+  {
+   "testo": "Lesione anecogena a pareti sottili con rinforzo posteriore (cisti semplice)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Non è anecogena e non ha pareti sottili nette."
+  },
+  {
+   "testo": "Anello periferico che si impregna in fase arteriosa e centro che non si impregna mai, dalla fase arteriosa fino a 5 minuti",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Serie 1, metà destra: a 0:18-0:26 (immagini 2 e 3) anello di impregnazione intorno a un centro scuro; a 0:54, 1:25, 2:00, 3:04 e 5:04 (immagini 4-8) il centro resta senza segnale, circa 1,8 cm (immagine 5)."
+  },
+  {
+   "testo": "Iperimpregnazione arteriosa globale e omogenea, senza wash-out",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "È il comportamento di iperplasia nodulare focale o emangioma a riempimento rapido, non questo."
+  },
+  {
+   "testo": "Impregnazione nodulare periferica discontinua con riempimento centripeto progressivo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "È l'emangioma tipico; qui il centro non si riempie mai."
+  },
+  {
+   "testo": "Il centro che non si impregna in nessuna fase non è vascolarizzato: necrosi oppure raccolta liquida (pus)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": ""
+  },
+  {
+   "testo": "Anello che si impregna con centro non impregnato: ascesso, ma anche metastasi necrotica o colangiocarcinoma; servono la clinica (febbre, indici di flogosi) e, se serve, l'agoaspirato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Nei tumori l'anello solido di solito perde rapidamente il contrasto (wash-out precoce e marcato, entro 60 secondi); nell'ascesso spesso ci sono setti che si impregnano e iperemia del parenchima intorno."
+  },
+  {
+   "testo": "È sicuramente un epatocarcinoma, perché c'è un'impregnazione in fase arteriosa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "L'impregnazione arteriosa solo ad anello non è quella dell'epatocarcinoma (globale e non ad anello); inoltre la LI-RADS vale solo per pazienti a rischio."
+  },
+  {
+   "testo": "Lesione con anello che si impregna e centro mai impregnato: nel giusto contesto clinico compatibile con ascesso epatico; agoaspirato o drenaggio con esame colturale",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": ""
+  },
+  {
+   "testo": "Epatocarcinoma tipico (LR-5): nessun altro accertamento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": ""
+  },
+  {
+   "testo": "Cisti biliare semplice: nessun controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": ""
+  }
+ ],
+ "spiegazione": "La CEUS mostra la vascolarizzazione in tempo reale. Una parte che non si impregna in nessuna fase non ha flusso: è necrosi, liquido, sangue o pus.\nL'ascesso piogenico in CEUS ha tipicamente un anello e spesso setti interni che si impregnano in fase arteriosa, un centro mai impregnato e a volte un'iperemia del parenchima intorno; nelle fasi tardive l'anello può perdere contrasto. In B-mode, nelle fasi iniziali, può essere solo un'area ipoecogena mal definita, come qui.\nLa diagnosi differenziale principale sono i tumori con necrosi centrale (metastasi, colangiocarcinoma): l'anello solido del tumore perde il contrasto presto e in modo marcato (categoria LR-M nei pazienti a rischio). La CEUS da sola non sempre basta: decidono la clinica (febbre, leucocitosi, PCR, fonti biliari o intestinali) e l'agoaspirato, che è anche terapeutico.",
+ "regola": "Centro mai impregnato = niente flusso (necrosi o pus): decide il contesto clinico, spesso con l'agoaspirato.",
+ "esito_clinico": {
+  "tipo": "diagnosi",
+  "testo": "Ascesso epatico (diagnosi finale della collezione B-mode-and-CEUS-Liver: «Benign mass: abscess»)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "B-mode-and-CEUS-Liver",
+  "soggetto": "LiverUS-92",
+  "doi": "10.7937/TCIA.2021.v4z7-tc39",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Eisenbrey J., Lyshchik A., Wessner C. (2021). Ultrasound data of a variety of liver masses (B-mode-and-CEUS-Liver) [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/b-mode-and-ceus-liver/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 1,
+  "idx": 5,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 855,
+    "y": 306
+   },
+   "b": {
+    "x": 925,
+    "y": 306
+   }
+  },
+  "nota": "1:25 dopo il contrasto: centro senza impregnazione, circa 1,8 cm"
+ },
+ "comunicazione": null,
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. B-mode-and-CEUS-Liver LiverUS-92 (CC BY 4.0), diagnosi finale «Benign mass: abscess». Nell'archivio solo filmati (9 clip, 1,8 GB): tenuti 10 fotogrammi (B-mode trasversale; CEUS sagittale a 0:09, ~0:13, 0:18, 0:26, 0:54, 1:25, 2:00, 3:04, 5:04), convertiti in scala di grigi come nel caso 125 (strumenti_claude/vm/us2dcm.py). Testo nei pixel solo tecnico (LIVER TRANS/SAG, LOGIQ E9, parametri, T1). Misura dalla scala di profondità (circa 39 pixel per cm). DUBBI: età, sesso, clinica e segmento non noti; setti interni non chiaramente visibili nei fotogrammi scelti."
+}

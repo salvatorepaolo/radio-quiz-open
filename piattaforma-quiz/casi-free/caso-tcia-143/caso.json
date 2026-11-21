@@ -1,0 +1,149 @@
+{
+ "id": "caso-tcia-143",
+ "visibile": true,
+ "aggiornato": "2026-11-21 20:38",
+ "titolo": "Donna di 57 anni: mammografia bilaterale",
+ "titolo_interno": "Carcinoma della mammella destra, immunofenotipo triplo negativo: massa ad alta densità di circa 1,5 cm nei quadranti inferiori, visibile in CC e MLO (CMMD D2-0356)",
+ "distretto": "Mammella",
+ "quesito": "mammografia",
+ "modalita": "Mammografia",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 57 anni. Mammografia bilaterale in proiezione cranio-caudale (CC) e medio-laterale obliqua (MLO).",
+ "domanda": "Descrivi la densità delle mammelle e il reperto principale, assegna una categoria BI-RADS e indica che cosa fare.",
+ "sezioni": [
+  {
+   "nome": "Densità",
+   "domanda": "Come classifichi la densità mammaria?"
+  },
+  {
+   "nome": "Reperto",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "BI-RADS",
+   "domanda": "Quale categoria e quale condotta?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Mammelle eterogeneamente dense (ACR C): il tessuto ghiandolare può nascondere piccole lesioni",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "In entrambe le mammelle il tessuto fibroghiandolare è abbondante e disomogeneo; la sensibilità della mammografia si riduce."
+  },
+  {
+   "testo": "Mammelle quasi interamente adipose (ACR A)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il tessuto fibroghiandolare occupa gran parte della mammella."
+  },
+  {
+   "testo": "Massa ad alta densità di circa 1,3-1,5 cm della mammella destra, visibile in entrambe le proiezioni, nei quadranti inferiori, di forma irregolare e con margini non circoscritti",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Immagine 2 (CC destra): massa densa di circa 1,5 cm. Immagine 3 (MLO destra): la stessa massa nella parte inferiore della mammella, circa 1,3 cm. È più densa del tessuto intorno e i margini sono indistinti, non netti."
+  },
+  {
+   "testo": "Nessuna massa corrispondente nella mammella sinistra: è un reperto vero, non tessuto sovrapposto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "La massa c'è in due proiezioni e non ha un corrispondente a sinistra (immagini 0 e 1)."
+  },
+  {
+   "testo": "Asimmetria visibile in una sola proiezione, da sovrapposizione di tessuto normale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Si vede in entrambe le proiezioni ed è una massa, con bordi convessi."
+  },
+  {
+   "testo": "Microcalcificazioni pleomorfe raggruppate come reperto principale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il reperto principale è una massa; i tumori triplo negativi hanno spesso poche o nessuna calcificazione."
+  },
+  {
+   "testo": "BI-RADS 4C-5: biopsia percutanea con ago tranciante, sotto guida ecografica (o stereotassica)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Una massa nuova, densa, a margini non circoscritti richiede la biopsia. L'ecografia mirata aiuta a guidarla."
+  },
+  {
+   "testo": "BI-RADS 3: controllo a 6 mesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "La categoria 3 è per reperti con probabilità di malignità ≤ 2%, per esempio una massa ovale circoscritta tipica; non per una massa a margini indistinti."
+  },
+  {
+   "testo": "BI-RADS 2: reperto benigno, nessun accertamento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": ""
+  },
+  {
+   "testo": "Massa sospetta della mammella destra da sottoporre a biopsia: la forma tondeggiante non basta a dirla benigna",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": ""
+  },
+  {
+   "testo": "Fibroadenoma: nessun accertamento",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": ""
+  }
+ ],
+ "spiegazione": "Per descrivere una massa in mammografia contano forma, margini e densità. I margini sono la caratteristica più importante: circoscritti per oltre il 75% fanno pensare a una lesione benigna; oscurati, microlobulati, indistinti o spiculati richiedono la biopsia.\nI carcinomi triplo negativi (senza recettori ormonali e senza HER2) ingannano: spesso sono masse rotondeggianti o ovali, ad alta densità, con margini solo in parte indistinti e poche calcificazioni, e all'ecografia possono avere un rinforzo posteriore. Crescono in fretta e sono frequenti tra i tumori di intervallo e nelle donne più giovani.\nUna massa vista in due proiezioni, senza un corrispondente nella mammella controlaterale e con margini non circoscritti, si biopsia. Nelle mammelle dense (ACR C e D) si aggiunge l'ecografia.",
+ "regola": "Margini non circoscritti = biopsia, anche se la massa è rotondeggiante.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma maligno, immunofenotipo triplo negativo (dati clinici della collezione CMMD)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CMMD (Chinese Mammography Database)",
+  "soggetto": "D2-0356",
+  "doi": "10.7937/tcia.eqde-4b16",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Cui C., Li L., Cai H., Fan Z., Zhang L., Dan T., Li J., Wang J. (2021). The Chinese Mammography Database (CMMD): An online mammography database with biopsy confirmed types for machine diagnosis of breast. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/cmmd/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 2,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 1540,
+    "y": 1270
+   },
+   "b": {
+    "x": 1701,
+    "y": 1270
+   }
+  },
+  "nota": "CC destra: massa ad alta densità di circa 1,5 cm a margini indistinti"
+ },
+ "comunicazione": null,
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. CMMD D2-0356 (CC BY 4.0): 57 anni, mammella destra, massa, maligna, triplo negativo. Immagini: 0 CC sinistra, 1 MLO sinistra, 2 CC destra, 3 MLO destra (ordine dei file). Massa misurata come larghezza a metà intensità: circa 15 mm in CC e 13 mm in MLO. DUBBI: quadrante in CC (interno o esterno) non indicato perché l'orientamento delle immagini dell'archivio non è quello di lettura abituale; categoria BI-RADS proposta (4C-5) da confermare."
+}

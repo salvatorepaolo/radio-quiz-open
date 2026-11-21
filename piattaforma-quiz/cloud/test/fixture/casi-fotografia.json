@@ -8246,5 +8246,404 @@
    "errori": 6
   },
   "controlli": []
+ },
+ "caso-tcia-142": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 14,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    0,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    67,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 86,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 6
+  },
+  "controlli": []
+ },
+ "caso-tcia-143": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 6
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-144": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 7
+  },
+  "controlli": []
+ },
+ "caso-tcia-145": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    50,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    0,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 6
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-146": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 5,
+   "errori": 4
+  },
+  "punto": "centrato",
+  "controlli": []
+ },
+ "caso-tcia-147": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 20,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 80,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 5,
+   "attesi": 5,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 1,
+   "attesi": 5,
+   "errori": 3
+  },
+  "punto": "centrato",
+  "controlli": []
  }
 }

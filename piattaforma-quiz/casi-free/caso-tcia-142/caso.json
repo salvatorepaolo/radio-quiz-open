@@ -1,0 +1,164 @@
+{
+ "id": "caso-tcia-142",
+ "visibile": true,
+ "aggiornato": "2026-11-21 20:38",
+ "titolo": "Donna di 42 anni con tosse e dispnea, ricoverata: tre radiografie del torace a letto",
+ "titolo_interno": "Polmonite da SARS-CoV-2 (COVID-19) in peggioramento in 3 giorni, con intubazione: tubo endotracheale, sondino orogastrico e catetere venoso centrale giugulare destro (COVID-19-NY-SBU A901027)",
+ "distretto": "Torace",
+ "quesito": "polmonite",
+ "modalita": "RX",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 42 anni con obesità grave e diabete, tampone positivo per SARS-CoV-2. Ricoverata dopo 3 giorni di tosse, dispnea, nausea e diarrea. Radiografie del torace a letto in proiezione antero-posteriore: all'ingresso (giorno 0), al giorno 3 al mattino e la sera dello stesso giorno, dopo l'intubazione.",
+ "domanda": "Descrivi il quadro polmonare e come cambia nei tre esami, poi controlla i dispositivi nell'ultima radiografia.",
+ "sezioni": [
+  {
+   "nome": "Tecnica",
+   "domanda": "Che cosa devi sapere di queste radiografie prima di leggerle?"
+  },
+  {
+   "nome": "Polmoni",
+   "domanda": "Che cosa vedi nei polmoni all'ingresso?"
+  },
+  {
+   "nome": "Evoluzione",
+   "domanda": "Come cambia il quadro al giorno 3?"
+  },
+  {
+   "nome": "Dispositivi",
+   "domanda": "Che cosa controlli nell'ultima radiografia?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Proiezioni AP a letto: il cuore e il mediastino sembrano più larghi che in PA, e nella paziente obesa i tessuti molli riducono la penetrazione, soprattutto alle basi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Le tre immagini sono AP (scritta PORTABLE). Il rapporto cardio-toracico in AP non si confronta con i valori della PA; le basi sono velate anche dai tessuti molli."
+  },
+  {
+   "testo": "In AP l'indice cardio-toracico si misura come in PA: se supera 0,5 c'è cardiomegalia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "In AP il cuore è più lontano dalla cassetta e viene ingrandito: lo stesso limite di 0,5 non vale."
+  },
+  {
+   "testo": "Opacità a vetro smerigliato e consolidazioni a chiazze in entrambi i polmoni, prevalenti nei campi medi e inferiori",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1,
+   "nota": "Serie 0 (giorno 0): opacità bilaterali a chiazze, più evidenti nei campi medi e inferiori di entrambi i lati; apici relativamente risparmiati. È la distribuzione tipica della polmonite da SARS-CoV-2 (bilaterale, periferica e basale)."
+  },
+  {
+   "testo": "Consolidazione di un solo lobo con broncogramma aereo, come nella polmonite pneumococcica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Le opacità sono in entrambi i polmoni e a chiazze, non confinate a un lobo."
+  },
+  {
+   "testo": "Edema polmonare cardiogeno: linee B di Kerley, ridistribuzione del flusso verso gli apici e grandi versamenti pleurici",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Non ci sono i segni tipici dell'edema cardiogeno; il contesto (tampone positivo, febbre e sintomi respiratori da 3 giorni) indica una polmonite."
+  },
+  {
+   "testo": "Al giorno 3 le opacità sono più estese e confluenti in entrambi i polmoni: il quadro è peggiorato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Serie 1 (giorno 3, mattina): opacità diffuse bilaterali, più estese che all'ingresso. Serie 2 (sera): consolidazione estesa soprattutto a sinistra e alle basi."
+  },
+  {
+   "testo": "Al giorno 3 le opacità si sono ridotte: buona risposta alla terapia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "È il contrario: il quadro si estende e la paziente viene intubata."
+  },
+  {
+   "testo": "Tubo endotracheale in trachea: verificare che la punta stia circa 3-5 cm sopra la carena (con il collo in posizione neutra)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": "Serie 2: il tubo endotracheale scende lungo la linea mediana nella trachea. Con il mediastino denso e la scarsa penetrazione la carena si vede male: se la punta non è chiaramente sopra la carena va chiesto un controllo."
+  },
+  {
+   "testo": "Sondino orogastrico: il percorso va seguito lungo l'esofago fino a sotto il diaframma; la punta deve stare nello stomaco",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": "Il sondino (annotato OGT sull'immagine) decorre lungo la linea mediana accanto al tubo. Un sondino nelle vie aeree o con la punta nell'esofago è un errore da segnalare subito."
+  },
+  {
+   "testo": "Catetere venoso centrale da destra (giugulare interna), che scende verso la vena cava superiore: la punta ideale è alla giunzione con l'atrio destro",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": "Serie 2: il catetere entra dal collo a destra e scende a destra della trachea. Dopo ogni catetere si cercano anche pneumotorace e malposizioni."
+  },
+  {
+   "testo": "Tubo endotracheale nel bronco principale destro, con il polmone sinistro collassato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": "Il tubo è sulla linea mediana e il polmone sinistro è ancora aerato nei campi superiori."
+  },
+  {
+   "testo": "Polmonite bilaterale da SARS-CoV-2 in rapido peggioramento, con insufficienza respiratoria che ha richiesto l'intubazione; i dispositivi vanno ricontrollati a ogni radiografia",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 4,
+   "nota": ""
+  },
+  {
+   "testo": "Edema polmonare cardiogeno: terapia diuretica e controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 4,
+   "nota": ""
+  },
+  {
+   "testo": "Quadro stabile rispetto all'ingresso, senza variazioni rilevanti",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 4,
+   "nota": ""
+  }
+ ],
+ "spiegazione": "La polmonite da SARS-CoV-2 in radiografia dà opacità a vetro smerigliato e consolidazioni bilaterali, a chiazze, prevalenti nei campi medi e inferiori e in periferia; nei primi giorni la radiografia può anche essere quasi normale. Il peggioramento rapido verso opacità diffuse e confluenti indica un danno alveolare diffuso (ARDS) e spesso precede l'intubazione. Per descrivere l'estensione si usano punteggi semplici (per esempio RALE o Brixia), utili per confrontare gli esami.\nLe radiografie a letto sono AP: cuore e mediastino sembrano più larghi, le basi sono velate dai tessuti molli (qui obesità grave) e i versamenti si vedono meno, perché il liquido si stratifica posteriormente.\nDopo ogni procedura la prima cosa da guardare sono i dispositivi: tubo endotracheale (punta circa 3-5 cm sopra la carena), sondino (punta nello stomaco, mai nelle vie aeree), catetere venoso centrale (punta alla giunzione tra vena cava superiore e atrio destro), e poi pneumotorace e posizione degli elettrodi. Quando la carena non si vede bene, come qui, va detto nel referto e, se serve, va chiesta un'altra immagine.",
+ "regola": "Radiografia a letto dopo una procedura: prima i dispositivi (tubo, sondino, catetere), poi i polmoni.",
+ "esito_clinico": {
+  "tipo": "follow-up",
+  "testo": "Terapia intensiva e ventilazione invasiva per 2 giorni; dimessa dopo 9 giorni di ricovero (dati clinici della collezione COVID-19-NY-SBU)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "COVID-19-NY-SBU",
+  "soggetto": "A901027",
+  "doi": "10.7937/TCIA.BBAG-2923",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Saltz J., Saltz M., Prasanna P., Moffitt R., Hajagos J., Bremer E., Balsamo J., Kurc T. (2021). Stony Brook University COVID-19 Positive Cases [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/covid-19-ny-sbu/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 2,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Sera del giorno 3, dopo l'intubazione: tubo endotracheale, sondino orogastrico e catetere giugulare destro; consolidazioni estese"
+ },
+ "comunicazione": null,
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. COVID-19-NY-SBU A901027 (CC BY 4.0): donna 18-59 anni (età 42 dall'intestazione), obesità (BMI > 35), diabete, positiva, terapia intensiva, ventilazione invasiva 2 giorni, dimessa dopo 9 giorni. Tre radiografie AP (le tre ore dell'archivio: giorno 0 sera, giorno 3 alle 13 e alle 20); dell'archivio sono state tenute le immagini della serie 2 (ogni radiografia era doppia). Testo nei pixel: solo PORTABLE, SITTING, ett, OGT, central line e la L di lato. DUBBI: posizione esatta delle punte di tubo e catetere non misurabile con certezza (carena poco visibile); i distrattori non affermano posizioni precise."
+}

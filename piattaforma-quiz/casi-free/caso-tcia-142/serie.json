@@ -1,0 +1,29 @@
+[
+ {
+  "descrizione": "RX torace AP a letto, giorno 0 (all ingresso)",
+  "numero": 2,
+  "files": [
+   "serie/s1_0002_Studio_1_dic_1900_AP/img_00001_00000.dcm"
+  ],
+  "data": "dic 1900",
+  "eta": 42
+ },
+ {
+  "descrizione": "RX torace AP a letto, giorno 3 (mattina)",
+  "numero": 2,
+  "files": [
+   "serie/s2_0002_Studio_2_gen_1901_AP/img_00001_00000.dcm"
+  ],
+  "data": "gen 1901",
+  "eta": 42
+ },
+ {
+  "descrizione": "RX torace AP a letto, giorno 3 (sera, dopo l intubazione)",
+  "numero": 2,
+  "files": [
+   "serie/s3_0002_Studio_3_gen_1901_AP/img_00001_00000.dcm"
+  ],
+  "data": "gen 1901",
+  "eta": 42
+ }
+]

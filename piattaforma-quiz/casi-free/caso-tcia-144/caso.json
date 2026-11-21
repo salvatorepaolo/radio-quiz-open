@@ -1,0 +1,147 @@
+{
+ "id": "caso-tcia-144",
+ "visibile": true,
+ "aggiornato": "2026-11-21 20:38",
+ "titolo": "Ragazza di 20 anni con linfoma alla biopsia: PET-TC con FDG prima della terapia",
+ "titolo_interno": "Linfoma con localizzazioni linfonodali solo sopra il diaframma (cervicale basso/sovraclaveare destra, stretto toracico superiore, mediastino prevascolare; SUVmax circa 18): stadio II (FDG-PET-CT-Lesions PETCT_04ab5c61c9)",
+ "distretto": "Total body",
+ "quesito": "stadiazione oncologica",
+ "modalita": "Medicina nucleare",
+ "difficolta": "Intermedio",
+ "anamnesi": "Ragazza di 20 anni con diagnosi istologica di linfoma. PET-TC con 18F-FDG total body, con mezzo di contrasto, per la stadiazione prima della terapia.",
+ "domanda": "Indica le sedi di malattia, lo stadio e le trappole da evitare in questa PET di stadiazione.",
+ "sezioni": [
+  {
+   "nome": "Sedi",
+   "domanda": "Dove vedi malattia?"
+  },
+  {
+   "nome": "Stadio",
+   "domanda": "Quale stadio?",
+   "singola": true
+  },
+  {
+   "nome": "Trappole",
+   "domanda": "Che cosa va ricordato nella lettura?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Linfonodi ipermetabolici solo sopra il diaframma: cervicale basso/sovraclaveare destro (SUVmax circa 18), stretto toracico superiore e mediastino prevascolare",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1 (PET), immagini 223 (collo basso a destra, SUVmax circa 18), 213 (stretto toracico superiore, più a sinistra della trachea) e 198 (mediastino prevascolare); nella TC (serie 0, immagini 72, 84 e 102 circa) corrispondono a linfonodi di 1-2 cm."
+  },
+  {
+   "testo": "Sotto il diaframma solo captazioni fisiologiche: reni, vie urinarie, vescica e intestino; milza e linfonodi addominali senza focolai",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "La captazione dei reni e della vescica è l'FDG eliminato con le urine; quella intestinale è diffusa e segue le anse."
+  },
+  {
+   "testo": "Splenomegalia con focolai ipermetabolici e adenopatie retroperitoneali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "La milza non capta più del fegato e non ci sono linfonodi addominali ipermetabolici."
+  },
+  {
+   "testo": "Stadio II: più stazioni linfonodali dallo stesso lato del diaframma",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Classificazione di Lugano (da Ann Arbor): I una stazione; II due o più stazioni dallo stesso lato del diaframma; III stazioni sopra e sotto il diaframma; IV malattia extranodale diffusa (per esempio midollo, fegato, polmone)."
+  },
+  {
+   "testo": "Stadio I: malattia confinata a un'unica regione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Stadio III: interessamento di entrambi i versanti diaframmatici",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Stadio IV: interessamento midollare diffuso",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Nei giovani il grasso bruno del collo e delle regioni sovraclaveari può captare FDG: si riconosce sulla TC perché la captazione cade nel grasso, senza linfonodi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Qui le captazioni del collo e del mediastino corrispondono a linfonodi sulla TC: non è grasso bruno."
+  },
+  {
+   "testo": "Il punteggio di Deauville si assegna già alla PET di stadiazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Il punteggio di Deauville (1-5) confronta le lesioni con mediastino e fegato nelle PET durante e dopo la terapia, per valutare la risposta."
+  },
+  {
+   "testo": "Ogni captazione del collo in una ragazza è grasso bruno e si può ignorare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": ""
+  },
+  {
+   "testo": "Linfoma con malattia linfonodale sopradiaframmatica (collo basso destro e mediastino), stadio II, senza malattia sotto il diaframma né extranodale",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": ""
+  },
+  {
+   "testo": "Linfoma in stadio avanzato con interessamento della milza e del midollo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": ""
+  }
+ ],
+ "spiegazione": "Nei linfomi che captano FDG (Hodgkin e la maggior parte dei non Hodgkin aggressivi) la PET-TC è l'esame di stadiazione di riferimento: trova i linfonodi coinvolti anche se non ingranditi, la milza e il midollo, e spesso rende inutile la biopsia osteomidollare.\nLo stadio si assegna con la classificazione di Lugano: conta da che parte del diaframma stanno le stazioni coinvolte e se c'è malattia fuori dai linfonodi. Va segnalata anche la malattia voluminosa (bulky), che cambia la terapia.\nTrappole: grasso bruno (collo, regioni sovraclaveari, paravertebrali; più frequente nei giovani e al freddo), timo nei giovani dopo la chemioterapia, captazione muscolare, intestinale e urinaria. La TC fusa dice se la captazione cade in un linfonodo.\nLa PET di stadiazione è anche il punto di partenza per la risposta: le PET successive si leggono con il punteggio di Deauville.",
+ "regola": "Linfoma: stadio secondo il diaframma (Lugano) e ogni captazione va confermata sulla TC fusa.",
+ "esito_clinico": {
+  "tipo": "diagnosi",
+  "testo": "Linfoma (diagnosi della collezione FDG-PET-CT-Lesions; l'istotipo non è indicato). Esame di stadiazione primaria."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "FDG-PET-CT-Lesions",
+  "soggetto": "PETCT_04ab5c61c9",
+  "doi": "10.7937/gkr0-xv29",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Gatidis S., Kuestner T. (2022). A whole-body FDG-PET/CT dataset with manually annotated tumor lesions (FDG-PET-CT-Lesions) [Data set]. The Cancer Imaging Archive. Versione con volto oscurato (defaced).",
+  "url": "https://www.cancerimagingarchive.net/collection/fdg-pet-ct-lesions/"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 1,
+  "idx": 223,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Linfonodo ipermetabolico cervicale basso/sovraclaveare destro, SUVmax circa 18"
+ },
+ "comunicazione": null,
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. FDG-PET-CT-Lesions PETCT_04ab5c61c9 (CC BY 4.0): donna 20 anni, diagnosi LYMPHOMA, studio «primaer mit KM» (stadiazione). La segmentazione della collezione ha 3 lesioni (z -794, -748, -718 mm; 10, 15 e 21 ml); SUVmax calcolato dal peso: 17,8 la più intensa. DUBBI: istotipo non noto (probabile Hodgkin per età e sedi, non dichiarato nel caso); assenza di malattia bulky stimata a vista."
+}

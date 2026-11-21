@@ -1,0 +1,144 @@
+{
+ "id": "caso-tcia-146",
+ "visibile": true,
+ "aggiornato": "2026-11-21 20:38",
+ "titolo": "Donna di 78 anni con sospetta neoplasia del pancreas: TC con mezzo di contrasto",
+ "titolo_interno": "Adenocarcinoma duttale della coda del pancreas: massa ipodensa mal definita di circa 4,5 cm estesa all'ilo splenico, con i vasi splenici a contatto (pT4 N0 nei dati); protesi valvolare aortica (CPTAC-PDA C3N-02971)",
+ "distretto": "Pancreas",
+ "quesito": "oncologico",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 78 anni con sospetta neoplasia del pancreas. TC del torace e dell'addome con mezzo di contrasto, in fase arteriosa e portale.",
+ "domanda": "Descrivi la lesione e i suoi rapporti, segnala gli altri reperti e indica come proseguire.",
+ "sezioni": [
+  {
+   "nome": "Lesione",
+   "domanda": "Che cosa vedi nel pancreas?"
+  },
+  {
+   "nome": "Rapporti",
+   "domanda": "Che cosa conta per decidere se è operabile?"
+  },
+  {
+   "nome": "Altri reperti",
+   "domanda": "Che altro vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa ipodensa mal definita della coda del pancreas, circa 4,5 cm, che arriva all'ilo splenico",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1 (portale, 3 mm), immagini 41-54, meglio la 47: massa meno densa del pancreas sano, a margini sfumati, tra la coda e l'ilo della milza, circa 4,4 × 4,5 cm."
+  },
+  {
+   "testo": "I vasi splenici decorrono a contatto e in parte dentro la massa",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Immagini 46-48: un vaso splenico (con una calcificazione di parete) attraversa la massa."
+  },
+  {
+   "testo": "Pancreatite acuta della coda con raccolta peripancreatica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Non ci sono strie infiammatorie né raccolte fluide; è una massa solida."
+  },
+  {
+   "testo": "Milza accessoria all'ilo splenico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Una milza accessoria è piccola, rotonda, con la stessa densità della milza; questa è grande, ipodensa e mal definita."
+  },
+  {
+   "testo": "Per la resecabilità contano i rapporti con tripode celiaco, arteria mesenterica superiore, arteria epatica comune e asse venoso mesenterico-portale (contatto più o meno di 180°)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Per i tumori della coda conta soprattutto il tripode celiaco: un contatto oltre 180° rende il tumore localmente avanzato."
+  },
+  {
+   "testo": "Nei tumori della coda i vasi non contano: si opera sempre",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Protesi valvolare aortica (fase arteriosa del torace)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Serie 0, immagini 80-85 circa: anello e struttura metallica della protesi nella radice aortica. Va segnalata (anticoagulanti, rischio operatorio)."
+  },
+  {
+   "testo": "Metastasi epatiche multiple ipodense",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Il fegato è omogeneo nelle fasi acquisite."
+  },
+  {
+   "testo": "Adenocarcinoma della coda del pancreas localmente esteso: CA 19-9, valutazione multidisciplinare della resecabilità secondo i vasi ed eventuale conferma istologica",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": ""
+  },
+  {
+   "testo": "Neoplasia cistica mucinosa a basso rischio: controllo a un anno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": ""
+  }
+ ],
+ "spiegazione": "L'adenocarcinoma duttale è una massa ipodensa (ipovascolare) e mal definita, che si vede meglio nella fase pancreatica tardiva-arteriosa e in fase portale. Quelli della coda non danno ittero e vengono scoperti tardi, quando sono grandi.\nNel referto contano: sede e dimensioni; rapporti con le arterie (tripode celiaco, arteria mesenterica superiore, arteria epatica comune) e con le vene (mesenterica superiore e porta), descritti come contatto inferiore o superiore a 180° e come deformazione o occlusione; organi vicini (milza, stomaco, surrene, colon); linfonodi; metastasi epatiche e peritoneali. Da qui viene la categoria: resecabile, borderline o localmente avanzato.\nCon la classificazione TNM attuale (AJCC 8) T4 indica il coinvolgimento del tripode celiaco, dell'arteria mesenterica superiore o dell'arteria epatica comune, qualunque sia la dimensione.\nI reperti collaterali, come una protesi valvolare, vanno sempre segnalati: cambiano il rischio dell'intervento e la gestione della terapia anticoagulante.",
+ "regola": "Tumore del pancreas: dimensioni sì, ma decidono i vasi (gradi di contatto) e le metastasi.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Adenocarcinoma duttale infiltrante del pancreas, pT4 N0, stadio III (dati GDC della collezione CPTAC-PDA)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "CPTAC-PDA",
+  "soggetto": "C3N-02971",
+  "doi": "10.7937/K9/TCIA.2018.SC20FO18",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC). (2018). The Clinical Proteomic Tumor Analysis Consortium Pancreatic Ductal Adenocarcinoma Collection (CPTAC-PDA) (Version 15) [dataset]. The Cancer Imaging Archive. Data used in this publication were generated by the National Cancer Institute Clinical Proteomic Tumor Analysis Consortium (CPTAC).",
+  "url": "https://www.cancerimagingarchive.net/collection/cptac-pda/"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 1,
+ "vista": {
+  "serie": 1,
+  "idx": 47,
+  "wc": 40,
+  "ww": 350,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 321,
+    "y": 286
+   },
+   "b": {
+    "x": 380,
+    "y": 286
+   }
+  },
+  "nota": "Massa ipodensa della coda del pancreas, circa 4,5 cm, fino all'ilo splenico"
+ },
+ "comunicazione": null,
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. CPTAC-PDA C3N-02971 (CC BY 4.0): donna 78 anni (intestazione), adenocarcinoma duttale infiltrante, T4 N0 MX stadio III (GDC). Sede verificata con il contorno «PANCREAS - 1» della collezione (RTSTRUCT): coda, z 145-178 mm, 45 × 50 mm. La «fase arteriosa» dell'archivio copre torace e addome superiore. DUBBI: il motivo del T4 (tripode o arteria epatica) non si ricava con certezza dalle immagini: il caso non lo afferma; protesi valvolare aortica riconosciuta a vista (tipo non determinato)."
+}

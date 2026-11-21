@@ -1,0 +1,135 @@
+{
+ "id": "caso-tcia-147",
+ "visibile": true,
+ "aggiornato": "2026-11-21 20:38",
+ "titolo": "Donna di 41 anni con carcinoma della mammella destra alla biopsia: RM con mezzo di contrasto",
+ "titolo_interno": "Carcinoma duttale infiltrante triplo negativo della mammella destra: massa di circa 3 cm nei quadranti superiori, irregolare, con impregnazione ad anello e centro non impregnato, curva di tipo 2 (plateau); pT2 N2 (TCGA-BRCA TCGA-E2-A1L7)",
+ "distretto": "Mammella",
+ "quesito": "carcinoma mammario noto",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 41 anni con carcinoma duttale infiltrante della mammella destra alla biopsia (recettori per estrogeni e progesterone negativi, HER2 negativo). RM delle mammelle con mezzo di contrasto per la stadiazione locale prima dell'intervento.",
+ "domanda": "Descrivi la lesione, la curva di impregnazione e che cosa deve cercare la RM in questa paziente.",
+ "sezioni": [
+  {
+   "nome": "Lesione",
+   "domanda": "Come descrivi la lesione?"
+  },
+  {
+   "nome": "Cinetica",
+   "domanda": "Come si comporta nel tempo?"
+  },
+  {
+   "nome": "Stadiazione locale",
+   "domanda": "Che cosa cerchi oltre al tumore noto?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa di circa 3 cm nei quadranti superiori della mammella destra, di forma irregolare, con impregnazione disomogenea ad anello e centro che non si impregna",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 2 (T1 dopo contrasto, fase 1), immagini 103-113 circa, meglio la 109: massa irregolare di circa 3 × 3,5 cm nella parte alta della mammella destra; l'anello si impregna, il centro no."
+  },
+  {
+   "testo": "Il centro non impregnato corrisponde a necrosi, frequente nei carcinomi triplo negativi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Nella sequenza T2 (serie 0) il centro necrotico può essere iperintenso."
+  },
+  {
+   "testo": "Impregnazione non a massa con distribuzione segmentaria, senza una massa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È una massa, con margini e volume propri."
+  },
+  {
+   "testo": "Salita rapida nella prima fase dopo il contrasto, poi plateau nelle fasi 2 e 3 (curva di tipo 2)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "ROI nell'anello: circa +140% nella prima fase rispetto alla base, poi variazione entro il 10% (plateau). Il wash-out (tipo 3) è più tipico dei tumori, ma anche il plateau è sospetto."
+  },
+  {
+   "testo": "Impregnazione lenta e progressiva (curva di tipo 1), tipica delle lesioni benigne",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": ""
+  },
+  {
+   "testo": "Cercare altre lesioni nella stessa mammella (multifocalità e multicentricità) e nella controlaterale, e guardare i linfonodi ascellari e mammari interni",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "La mammella sinistra, nella MIP delle sottrazioni, non mostra masse sospette. Le ascelle sono coperte solo in parte da queste sezioni sagittali: i linfonodi vanno valutati anche con l'ecografia."
+  },
+  {
+   "testo": "La RM serve solo a misurare il tumore noto: la mammella sinistra non va guardata",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": ""
+  },
+  {
+   "testo": "Carcinoma noto della mammella destra di circa 3 cm (BI-RADS 6), senza altre lesioni sospette evidenti nella mammella sinistra",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 3,
+   "nota": ""
+  },
+  {
+   "testo": "Fibroadenoma complesso: nessuna terapia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 3,
+   "nota": ""
+  }
+ ],
+ "spiegazione": "La RM con contrasto è l'esame più sensibile per l'estensione del carcinoma mammario: misura il tumore, trova altri focolai nella stessa mammella e nella controlaterale e valuta il rapporto con il muscolo pettorale e la parete toracica.\nPer una massa si descrivono forma, margini e impregnazione interna (omogenea, disomogenea, ad anello) e la curva nel tempo: tipo 1 progressiva, tipo 2 plateau, tipo 3 wash-out. Sono sospetti la forma irregolare, i margini spiculati o irregolari, l'impregnazione ad anello, il plateau e il wash-out.\nI carcinomi triplo negativi sono spesso masse con impregnazione ad anello e centro necrotico, a volte iperintenso in T2, con margini a tratti netti che possono sembrare benigni. Crescono in fretta e la terapia spesso comincia con la chemioterapia neoadiuvante: la RM di partenza serve a misurarne la risposta.\nBI-RADS 6 indica un tumore già dimostrato dalla biopsia.",
+ "regola": "RM di stadiazione: misura il tumore noto, poi cerca tutto il resto (stessa mammella, controlaterale, linfonodi).",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma duttale infiltrante triplo negativo (ER−, PR−, HER2−), pT2 N2 M0, stadio IIIA (dati GDC e referto strutturato della collezione TCGA-BRCA)."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "TCGA-BRCA",
+  "soggetto": "TCGA-E2-A1L7",
+  "doi": "10.7937/K9/TCIA.2016.AB2NAZRP",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "Lingle W., Erickson B. J., Zuley M. L., Jarosz R., Bonaccio E., Filippini J., Net J. M., Levi L., Morris E. A., Figler G. G., Elnajjar P., Kirk S., Lee Y., Giger M., Gruszauskas N. (2016). The Cancer Genome Atlas Breast Invasive Carcinoma Collection (TCGA-BRCA) (Version 3) [Data set]. The Cancer Imaging Archive.",
+  "url": "https://www.cancerimagingarchive.net/collection/tcga-brca/"
+ },
+ "serie_iniziale": 2,
+ "riquadri": 1,
+ "vista": {
+  "serie": 2,
+  "idx": 109,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "segno": {
+   "a": {
+    "x": 100,
+    "y": 82
+   },
+   "b": {
+    "x": 141,
+    "y": 82
+   }
+  },
+  "nota": "Massa della mammella destra con impregnazione ad anello e centro necrotico, circa 3 cm"
+ },
+ "comunicazione": null,
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. TCGA-BRCA TCGA-E2-A1L7 (CC BY 3.0 per le immagini): 41 anni (GDC), carcinoma duttale infiltrante, T2 N2 M0 stadio IIIA; il referto strutturato dell'archivio dice BI-RADS 6, ER-, PR-, HER2-. RM 1,5 T del 2001 (data spostata). Le tre fasi dopo contrasto erano una sola serie di 408 immagini: divise per TriggerTime (0, 148 e 295 s) in tre serie. Curva misurata in una ROI 5×5 nell'anello: 204 → 485 → 487 → 469. DUBBI: lato destro dedotto dalla posizione (x negativa) e dal T2 «RIGHT»; quadrante (esterno o interno) non indicato; linfonodi N2 non visibili con certezza in queste sezioni."
+}
