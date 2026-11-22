@@ -6683,7 +6683,8 @@ $('#btn-conferma').addEventListener('click', async () => {
       <div id="sponsor-caso" class="sp-slot" hidden></div>
 `;
     mostraSponsor($('#sponsor-caso'), 'caso');
-    b.textContent = 'Riprova'; b.dataset.stato = 'fatto'; aggiornaBottoneVetrini(); setTimeout(() => { try { aggiornaBottoneNoduli(); disegna(); } catch {} }, 50);
+    b.textContent = 'Riprova'; b.dataset.stato = 'fatto'; aggiornaBottoneVetrini();
+    if (r.correlazioni?.length) { V.caso.correlazioni = r.correlazioni; aggiornaCorrelazioni(); } setTimeout(() => { try { aggiornaBottoneNoduli(); disegna(); } catch {} }, 50);
     correggiRefertoIA($('#q-referto').value);
     if (r.sezioni) vaiPasso(QZ.passo);   // tutti i distretti visibili, con l'esito
     if (GIOCO) { GIOCO.casi = { ...GIOCO.casi, [V.caso.id]: Math.max(GIOCO.casi[V.caso.id] ?? 0, r.punteggio) }; }
@@ -7190,6 +7191,7 @@ async function apriCaso(id, locale = null) {
   { const met = metodicaDi(V.caso || {}); if (V.tool === 'scroll' || V.tool === 'wl') scegliStrumento(/^(RX|Mammografia|Ecografia|Ecocardio)$/.test(met) ? 'wl' : 'scroll'); }
   // 1.274: casi di soli vetrini (sezione «Vetrini»): il vetrino è l'immagine del caso e si apre subito nel riquadro del
   // visualizzatore, prima della risposta (negli altri casi si vede solo dopo, perché suggerirebbe la diagnosi)
+  chiudiVetrinoAccanto(); VT_ACCANTO = false; try { aggiornaCorrelazioni(); } catch {}
   V.soloVetrino = !CLIENT && !V.serie.length && V.vetriniCaso.length > 0;
   document.body.classList.toggle('solo-vetrino', V.soloVetrino);
   if (V.soloVetrino) { aggiornaBottoneVetrini(); await apriVetrinoClient(0, { incorporato: true }); return; }
@@ -12071,9 +12073,71 @@ async function vaiVistaVetrino(vt) {
   await apriVetrinoClient(vt?.i || 0, { incorporato: !!V.soloVetrino });
   for (let t = 0; t < 100 && !VT_APERTO?.vaiVista(vt); t++) await new Promise((r) => setTimeout(r, 100));
 }
-const vetrinoDavanti = () => (!!qs1('#vista-vetrino') && !qs1('#vista-vetrino').hidden) || document.body.classList.contains('solo-vetrino');
-async function apriVetrinoClient(i = 0, { incorporato = false } = {}) {
-  let box = $(incorporato ? '#vt-incorporato' : '#vista-vetrino');
+const vetrinoDavanti = () => (!!qs1('#vista-vetrino') && !qs1('#vista-vetrino').hidden) || document.body.classList.contains('solo-vetrino') || (VT_FOCO && !!qs1('#vt-accanto'));
+// 1.297 vetrino accanto alle immagini radiologiche: #stage e il vetrino affiancati nello stesso contenitore; i tasti vanno
+// a quello su cui si è cliccato per ultimo
+let VT_ACCANTO = false, VT_FOCO = false;
+document.addEventListener('pointerdown', (e) => { VT_FOCO = !!e.target.closest?.('#vt-accanto'); }, true);
+function contenitoreAccanto(on) {
+  const st = $('#stage'); let w = $('#vt-accanto-wrap');
+  if (on && !w) { w = document.createElement('div'); w.id = 'vt-accanto-wrap'; w.className = 'vt-accanto-wrap'; st.parentNode.insertBefore(w, st); w.append(st); }
+  if (!on && w) { w.parentNode.insertBefore(st, w); w.remove(); }
+  document.body.classList.toggle('vetrino-accanto', !!on);
+}
+function chiudiVetrinoAccanto() {
+  const b = $('#vt-accanto'); if (!b) return;
+  if (VT_APERTO && b.contains(VT_APERTO.viewer?.element || null)) { VT_APERTO.chiudi(); VT_APERTO = null; }
+  b.remove(); contenitoreAccanto(false); VT_FOCO = false;
+}
+const conRadiologia = () => (V.serie || []).length > 0 && !$('#vista-caso').hidden;
+// --- correlazione radio-patologica: il docente salva «immagine radiologica ↔ zona del vetrino» con una nota
+function vistaRadiologica() {
+  const p = P(); if (!p?.frames?.length) return null; const s = V.serie[p.sIdx];
+  return { serie: s._i, idx: p.idx, wc: Math.round(p.wc), ww: Math.round(p.ww), zoom: +(+p.zoom || 1).toFixed(3), panX: Math.round(p.panX || 0), panY: Math.round(p.panY || 0), ...(p.piano ? { piano: p.piano } : {}) };
+}
+async function salvaCorrispondenza() {
+  const rx = vistaRadiologica(); if (!rx || !VT_APERTO) { avvisoBreve('Servono un\'immagine radiologica e il vetrino aperti'); return; }
+  const nota = prompt('Che cosa mostra questa corrispondenza? (per esempio «margine infiltrativo della massa renale»)', ''); if (nota === null) return;
+  try {
+    const completo = await getJSON(`/api/casi/${V.caso.id}/completo`);
+    const l = [...(completo.correlazioni || []), { nota: nota.trim(), rx, vt: VT_APERTO.vista() }].slice(-8);
+    await getJSON(`/api/casi/${V.caso.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...completo, correlazioni: l }) });
+    V.caso.correlazioni = l; aggiornaCorrelazioni(); avvisoBreve(`🔗 Corrispondenza ${l.length} salvata`);
+  } catch (e) { avvisoBreve('Corrispondenza non salvata: ' + e.message); }
+}
+async function togliCorrispondenza(k) {
+  if (!confirm('Togliere questa corrispondenza dal caso?')) return;
+  try {
+    const completo = await getJSON(`/api/casi/${V.caso.id}/completo`), l = (completo.correlazioni || []).filter((_, j) => j !== k);
+    await getJSON(`/api/casi/${V.caso.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...completo, correlazioni: l }) });
+    V.caso.correlazioni = l; aggiornaCorrelazioni();
+  } catch (e) { avvisoBreve('Non tolta: ' + e.message); }
+}
+async function mostraCorrispondenza(c) {
+  const i = V.serie.findIndex((s) => s._i === c.rx.serie);
+  if (i >= 0) {
+    if (MPR.attivo) modo2D();
+    const k = V.attivo; await selezionaSerie(i, k, { idx: c.rx.piano ? undefined : c.rx.idx });
+    if (c.rx.piano) await pianoRiquadro(c.rx.piano, k);
+    await mostraDi(k, Math.min(c.rx.idx, P(k).frames.length - 1));
+    Object.assign(P(k), { ...(c.rx.ww ? { wc: c.rx.wc, ww: c.rx.ww, wl0: true } : {}), zoom: c.rx.zoom || 1, panX: c.rx.panX || 0, panY: c.rx.panY || 0 }); disegna();
+  }
+  VT_ACCANTO = !V.soloVetrino; await vaiVistaVetrino(c.vt);
+}
+function aggiornaCorrelazioni() {
+  let el = $('#q-correlazioni'); const l = V.caso?.correlazioni || [], mod = !CLIENT && AUTORE;
+  if (!el) { el = document.createElement('div'); el.id = 'q-correlazioni'; el.className = 'correlazioni'; ($('#q-fonte') || $('#q-anamnesi'))?.after(el); }
+  el.hidden = CLIENT || !l.length;
+  el.innerHTML = `<h3>🔗 Correlazione radio-patologica</h3><p class="muted small">Immagine radiologica e zona del vetrino affiancate${mod ? ' · per aggiungerne una: apri il vetrino accanto alle immagini e usa «🔗 Salva corrispondenza»' : ''}</p>
+    <ol>${l.map((c, k) => `<li><span>${esc(c.nota || 'Corrispondenza ' + (k + 1))}</span> <button type="button" class="ghost piccolo" data-corr="${k}">◧ Mostra</button>${mod ? `<button type="button" class="ghost piccolo" data-corr-via="${k}" title="Togli questa corrispondenza">✕</button>` : ''}</li>`).join('')}</ol>`;
+  el.querySelectorAll('[data-corr]').forEach((b) => { b.onclick = () => mostraCorrispondenza(l[+b.dataset.corr]).catch((e) => avvisoBreve('Corrispondenza non mostrata: ' + e.message)); });
+  el.querySelectorAll('[data-corr-via]').forEach((b) => { b.onclick = () => togliCorrispondenza(+b.dataset.corrVia); });
+}
+async function apriVetrinoClient(i = 0, { incorporato = false, accanto = VT_ACCANTO } = {}) {
+  accanto = accanto && !incorporato && conRadiologia();
+  if (!incorporato) { if (accanto) { const f = $('#vista-vetrino'); if (f && !f.hidden) { if (VT_APERTO && f.contains(VT_APERTO.viewer?.element || null)) { VT_APERTO.chiudi(); VT_APERTO = null; } f.hidden = true; } } else chiudiVetrinoAccanto(); }
+  if (accanto && !$('#vt-accanto')) { contenitoreAccanto(true); const b = document.createElement('div'); b.id = 'vt-accanto'; b.className = 'vista-vetrino accanto'; $('#vt-accanto-wrap').append(b); }
+  let box = $(incorporato ? '#vt-incorporato' : accanto ? '#vt-accanto' : '#vista-vetrino');
   if (!box && incorporato) { box = document.createElement('div'); box.id = 'vt-incorporato'; box.className = 'vista-vetrino incorporato'; qs1('#vista-caso .viewer').append(box); }
   if (!box) { box = document.createElement('div'); box.id = 'vista-vetrino'; box.className = 'vista-vetrino'; document.body.append(box); }
   VT_APERTO?.chiudi(); box.hidden = false; box.innerHTML = '<p class="vt-attesa">Apro il vetrino…</p>';
@@ -12081,14 +12145,21 @@ async function apriVetrinoClient(i = 0, { incorporato = false } = {}) {
     const lista = await vetriniDisponibili(), V0 = lista[i]; if (!V0) throw new Error('vetrino non leggibile');
     const [OSD, M] = await Promise.all([caricaOSD(), import('./vetrini.js')]);
     VT_APERTO = await M.apriVetrino(box, V0, { OSD, conPaziente: CLIENT && !!V.datiPaziente, client: CLIENT, tutti: lista, indice: i, lento: risparmioDati(), dicomParser: window.dicomParser,
-      onChiave: aggiungiChiaveVetrino, onReferto: () => apriReferto(), onMisure: misureVetrinoAlReferto, credito: creditoVetrino() });
+      onChiave: aggiungiChiaveVetrino, onReferto: () => apriReferto(), onMisure: misureVetrinoAlReferto, credito: creditoVetrino(), conTasti: accanto ? () => VT_FOCO : null });
+    if (!incorporato && conRadiologia()) {   // accanto alle immagini ⇄ a tutto schermo, mantenendo la vista
+      const bm = document.createElement('button'); bm.type = 'button'; bm.className = 'vt-modo-accanto';
+      bm.textContent = accanto ? '⛶ A tutto schermo' : '◧ Accanto alle immagini'; bm.title = accanto ? 'Il vetrino a tutto schermo' : 'Il vetrino accanto alle immagini radiologiche, per confrontarli';
+      bm.onclick = async () => { const v = VT_APERTO?.vista(); VT_ACCANTO = !accanto; await apriVetrinoClient(i, { accanto: VT_ACCANTO }); if (v) for (let t = 0; t < 100 && !VT_APERTO?.vaiVista(v); t++) await new Promise((r) => setTimeout(r, 100)); };
+      box.querySelector('.vt-barra')?.insertBefore(bm, box.querySelector('.vt-info'));
+      if (accanto && !CLIENT && AUTORE) { const bc = document.createElement('button'); bc.type = 'button'; bc.className = 'vt-corr'; bc.textContent = '🔗 Salva corrispondenza'; bc.title = 'Salva l\'immagine radiologica attuale e questa zona del vetrino come corrispondenza del caso (la vedono gli studenti dopo la risposta)'; bc.onclick = salvaCorrispondenza; box.querySelector('.vt-barra')?.insertBefore(bc, box.querySelector('.vt-info')); }
+    }
     VT_APERTO.segnaChiavi?.(IC.lista.filter((c) => c.vt).length);
     if (lista.length > 1) {
       const sel = document.createElement('select'); sel.className = 'vt-scegli';
       sel.innerHTML = lista.map((v, k) => `<option value="${k}"${k === i ? ' selected' : ''}>${esc(v.descrizione || 'Vetrino ' + (k + 1))}</option>`).join('');
       sel.onchange = () => apriVetrinoClient(+sel.value, { incorporato }); box.querySelector('.vt-barra')?.insertBefore(sel, box.querySelector('.vt-info'));
     }
-    box.querySelector('.vt-chiudi').onclick = () => { VT_APERTO?.chiudi(); VT_APERTO = null; box.hidden = true; };
+    box.querySelector('.vt-chiudi').onclick = () => { if (accanto) { chiudiVetrinoAccanto(); VT_ACCANTO = false; return; } VT_APERTO?.chiudi(); VT_APERTO = null; box.hidden = true; };
     if (incorporato) box.querySelector('.vt-chiudi').hidden = true;
     if (CLIENT && !CL.studio) box.querySelector('.vt-chiudi').textContent = '← Pagina iniziale';
   } catch (e) { box.innerHTML = `<p class="errore">Vetrino non aperto: ${esc(e.message)}</p><button type="button" class="vt-chiudi">Chiudi</button>`; box.querySelector('.vt-chiudi').onclick = () => { box.hidden = true; }; }
@@ -12263,7 +12334,7 @@ if (document.documentElement.lang === 'en') {
   for (const [c, h] of [['bold', '<b>B</b>'], ['italic', '<i>I</i>'], ['underline', '<u>U</u>']]) { const b = qs1(`.ref-barra [data-cmd="${c}"]`); if (b) { b.innerHTML = h; b.classList.add('no-tr'); } }
 }
 
-if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && (location.search.includes('prova') || CLIENT)) window.__dbg = { apriVetrinoClient, get VT() { return VT_APERTO; }, IC, vaiIC, didascaliaBase, vaiChiaveDoc, dettagliTraccia, salvaAnnotazioni, misureMPREsporta, pixelDa, risultatiEco, immagineDi, normaleDi, ETICHETTE, statisticheROI, vistaDi, misureSR, graficiMisura, sommaMisureRecist, GPU2D, CPRS, CAC, CFIA, FIN_REF, vaiNoduloIA, calcioDa, mostraDi, anteprimaDi, esportaSEG, RAW, disegna, ricordaManiglie, fileDaManiglie, riapriUltimo, esportaGSPS, datiSessione, applicaSessione, CL, caricaClient, esportaClient, decodificaDicom, caricaCodec, misuraSotto, V, P, FUS, MPR, htmlSchede, elencoProfilo, impostaRiquadri, selezionaSerie, sincronizzaDa, collegaPunto, COLL, geometriaDi, aSchermo, aImmagine, volumeDa, seguiNelTempo, ANAT, cheStruttura, rispostaAnatomia, vaiAllaStruttura, etichetteImmagine, ECO, puntoEco, chiudiEco, geometria, mostra, isMultiEco, isCine, verificaEco, ME, CMR, autoCmr, puntoCmr, cifreCmr, recistDaMaschere, registraArchivio, ULTIMO, NOD, NODC, rett: rettangolo, puntiOMP, raddrizzaEncefalo, volumeDi, vaiPunto: async (w, k = V.attivo) => { const p = P(k); const t = await fettaVicina(p.frames, w, null).catch(() => null); if (t) await mostraDi(k, t.i); }, attiva: (k) => { V.attivo = k; } };
+if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && (location.search.includes('prova') || CLIENT)) window.__dbg = { apriVetrinoClient, get VT() { return VT_APERTO; }, mostraCorrispondenza, vistaRadiologica, IC, vaiIC, didascaliaBase, vaiChiaveDoc, dettagliTraccia, salvaAnnotazioni, misureMPREsporta, pixelDa, risultatiEco, immagineDi, normaleDi, ETICHETTE, statisticheROI, vistaDi, misureSR, graficiMisura, sommaMisureRecist, GPU2D, CPRS, CAC, CFIA, FIN_REF, vaiNoduloIA, calcioDa, mostraDi, anteprimaDi, esportaSEG, RAW, disegna, ricordaManiglie, fileDaManiglie, riapriUltimo, esportaGSPS, datiSessione, applicaSessione, CL, caricaClient, esportaClient, decodificaDicom, caricaCodec, misuraSotto, V, P, FUS, MPR, htmlSchede, elencoProfilo, impostaRiquadri, selezionaSerie, sincronizzaDa, collegaPunto, COLL, geometriaDi, aSchermo, aImmagine, volumeDa, seguiNelTempo, ANAT, cheStruttura, rispostaAnatomia, vaiAllaStruttura, etichetteImmagine, ECO, puntoEco, chiudiEco, geometria, mostra, isMultiEco, isCine, verificaEco, ME, CMR, autoCmr, puntoCmr, cifreCmr, recistDaMaschere, registraArchivio, ULTIMO, NOD, NODC, rett: rettangolo, puntiOMP, raddrizzaEncefalo, volumeDi, vaiPunto: async (w, k = V.attivo) => { const p = P(k); const t = await fettaVicina(p.frames, w, null).catch(() => null); if (t) await mostraDi(k, t.i); }, attiva: (k) => { V.attivo = k; } };
 
 $('#btn-vertebre')?.addEventListener('click', () => attivaVertebre(!VERT.attivo));
 $('#mpr-vertebre')?.addEventListener('click', () => attivaVertebre(!VERT.attivo));

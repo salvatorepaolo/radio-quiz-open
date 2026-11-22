@@ -416,6 +416,8 @@ const pulisciCaso = (id, d) => ({
   visibile: d.visibile === true,            // in bozza finché il docente non lo pubblica
   // vista del reperto per la correzione guidata: serie, immagine, finestra, zoom e un segno (ellisse)
   vista: pulisciVista(d.vista),
+  // 1.297 correlazione radio-patologica: immagine radiologica ↔ zona del vetrino, con una nota (mostrata dopo la risposta)
+  ...(pulisciCorrelazioni(d.correlazioni).length ? { correlazioni: pulisciCorrelazioni(d.correlazioni) } : {}),
   // scale internazionali compilate dal docente (risposta attesa), solo quelle adatte al caso
   ...(pulisciScale(d.scale).length ? { scale: pulisciScale(d.scale) } : {}),
   // domanda sulla figura: lo studente indica il reperto, confrontato con il segno della vista
@@ -507,6 +509,17 @@ const TEORIA_SBAGLIATA = /\b(sempre|mai|serve|servono|richied\w*|influisc\w*|si 
 const PAROLE_VUOTE_R = new Set([...PAROLE_VUOTE].map((w) => w.slice(0, 6)));
 // modelli di referto strutturato: i titoli in MAIUSCOLO a inizio riga («PARENCHIMA POLMONARE:») e i segnaposto «…»
 // non sono reperti scritti dallo studente e non contano (né per il punteggio né per la lunghezza minima)
+function pulisciCorrelazioni(l) {
+  if (!Array.isArray(l)) return [];
+  const n = (x, a, b) => (Number.isFinite(+x) ? Math.max(a, Math.min(b, +x)) : null);
+  return l.slice(0, 8).map((c) => {
+    const r = c?.rx || {}; if (!Number.isInteger(r.serie) || r.serie < 0 || !Number.isInteger(r.idx) || r.idx < 0 || !c?.vt || typeof c.vt !== 'object') return null;
+    const rx = { serie: r.serie, idx: Math.min(r.idx, 100000), ...(Number.isFinite(+r.ww) && +r.ww > 0 ? { wc: Math.round(n(r.wc, -1e5, 1e5)), ww: Math.round(n(r.ww, 1, 2e5)) } : {}),
+      zoom: Math.round((n(r.zoom, 0.2, 20) ?? 1) * 1000) / 1000, panX: Math.round(n(r.panX, -5000, 5000) ?? 0), panY: Math.round(n(r.panY, -5000, 5000) ?? 0),
+      ...(['assiale', 'coronale', 'sagittale'].includes(r.piano) ? { piano: r.piano } : {}) };
+    return { nota: String(c.nota || '').trim().slice(0, 300), rx, vt: vistaVetrino(c.vt) };
+  }).filter(Boolean);
+}
 function vistaVetrino(v) {
   const int = (x, max) => Math.round(Math.max(0, Math.min(max, Number(x) || 0)));
   const c = Array.isArray(v.c) ? v.c.slice(0, 2).map((x) => int(x, 1e7)) : [0, 0];
@@ -2046,6 +2059,8 @@ export async function gestisci(req, cfg) {
       if (k < 0 || tolte[c.vista.idx]) { delete c.vista; delete c.localizza; }
       else c.vista = { ...c.vista, serie: k, idx: c.vista.idx - tolte.slice(0, c.vista.idx).filter(Boolean).length };
     }
+    if (Array.isArray(c.correlazioni)) c.correlazioni = c.correlazioni.map((x) => { const vs = x.rx?.serie, k = nuovoIdx(vs), tolte = tolteIn[vs] || [];
+      return k < 0 || tolte[x.rx.idx] ? null : { ...x, rx: { ...x.rx, serie: k, idx: x.rx.idx - tolte.slice(0, x.rx.idx).filter(Boolean).length } }; }).filter(Boolean);
     // immagini aggiunte a una proposta non ancora pubblicata: il controllo dell'anonimato va rifatto
     if (nuove.length && c.proposta?.controllo && c.proposta.stato !== 'approvata') { const { controllo: _c, ...pr } = c.proposta; c.proposta = pr; }
     await M.scriviSerie(id, risultato);
@@ -2065,8 +2080,9 @@ export async function gestisci(req, cfg) {
     return { 'set-cookie': `qc=${val}; Path=/casi/${id}; Max-Age=${DURATA}; ${opzCookie.replace(/^Path=\/; /, "")}` };
   };
   if (metodo === 'GET' && azione === '') {
-    const { spiegazione, opzioni, vista, titolo_interno, nota_docente, localizza, scale, lezione, esito_clinico, proposta, regola, rassegna, fonte, comunicazione, ...resto } = caso;
+    const { spiegazione, opzioni, vista, titolo_interno, nota_docente, localizza, scale, lezione, esito_clinico, proposta, regola, rassegna, fonte, comunicazione, correlazioni, ...resto } = caso;
     if (comunicazione && (autore || docente)) resto.comunicazione = comunicazione;
+    if (correlazioni?.length && (autore || docente)) resto.correlazioni = correlazioni;   // agli studenti con la correzione
     // fonte delle immagini: prima della risposta solo archivio e licenza (agli autori e ai docenti tutto)
     if (fonte) resto.fonte = autore || docente ? fonte : { archivio: fonte.archivio, ...(fonte.licenza ? { licenza: fonte.licenza } : {}), ...(fonte.licenza_url ? { licenza_url: fonte.licenza_url } : {}) };
     // scale: lo studente sa quali compilare, il risultato del docente arriva con la correzione (gli autori lo vedono subito)
@@ -2152,6 +2168,7 @@ export async function gestisci(req, cfg) {
     const { scelteTesti, ...pubblico } = r;
     if (caso.vista) pubblico.vista = caso.vista;
     if (caso.lezione) pubblico.lezione = caso.lezione;
+    if (caso.correlazioni?.length) pubblico.correlazioni = caso.correlazioni;
     if (caso.regola) pubblico.regola = caso.regola;
     // altri casi con lo stesso segno: solo quelli pubblicati, con il titolo che vedono gli studenti
     if (caso.rassegna?.length) {

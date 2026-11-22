@@ -392,7 +392,7 @@ const scarica = (blob, nome) => { const a = document.createElement('a'); a.href 
 // onChiave(canvas, info) → numero di immagini chiave: 📸 e tasto K (anche dal ritaglio); onReferto(): 📝 apre il referto;
 // onMisure(frasi): tasto I e «Misure nel referto»; credito: archivio, collezione e licenza (didascalie del ritaglio)
 export async function apriVetrino(box, V, { OSD, conPaziente = false, client = true, tr = null, tutti = null, indice = 0, lento = false, dicomParser = globalThis.dicomParser,
-  onChiave = null, onReferto = null, onMisure = null, credito = '' } = {}) {
+  onChiave = null, onReferto = null, onMisure = null, credito = '', conTasti = null } = {}) {
   const A = await import('./vetrini-ann.js');
   if (!tr) { const t = await import('./i18n.js').then((m) => m.tr, () => null); tr = (s) => (t && t(s)) ?? s; }
   const altri = (tutti || []).map((v, k) => [v, k]).filter(([, k]) => k !== indice);
@@ -446,6 +446,9 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
       maxZoomPixelRatio: 2, minZoomImageRatio: 0.8, visibilityRatio: 0.5, imageLoaderLimit: lento ? 0 : 8, timeout: lento ? 3.6e6 : 3e4, crossOriginPolicy: false,
       gestureSettingsMouse: { clickToZoom: false, dblClickToZoom: true }, gestureSettingsTouch: { clickToZoom: false, dblClickToZoom: true, pinchToZoom: true, pinchRotate: false, flickEnabled: true, flickMomentum: 0.2 },
       animationTime: touch ? 0.35 : 0.6, springStiffness: touch ? 9 : 6.5, zoomPerScroll: 1.25 });
+    // i tasti li gestisce questo modulo (tasti()): senza questo OpenSeadragon, con il vetrino cliccato, ruotava, spostava e
+    // ingrandiva una seconda volta (R ruotava di 180°)
+    P.viewer.addHandler('canvas-key', (e) => { e.preventDefaultAction = true; });
     P.rifai = () => { P.stato.gen++; P.viewer.world.getItemAt(0)?.reset(); P.viewer.forceRedraw(); };
     const maxL = Math.ceil(Math.log2(Math.max(Vp.W, Vp.H)));
     P.izoom = () => P.viewer.viewport.viewportToImageZoom(P.viewer.viewport.getZoom(true));   // pixel dello schermo per pixel del vetrino
@@ -862,7 +865,7 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   // tastiera: frecce per spostarsi, + e − per ingrandire, 1–5 ingrandimenti, 0 tutto il vetrino, R ruota, F schermo intero,
   // B vista precedente, Canc toglie l'ultima annotazione, Invio chiude l'area, Esc smette di disegnare, PagSu/PagGiù piani
   const tasti = (e) => {
-    if (box.hidden || box.querySelector('dialog[open]')) return;
+    if (box.hidden || box.querySelector('dialog[open]') || (conTasti && !conTasti())) return;   // accanto alle immagini: solo se si sta usando il vetrino
     if (e.target?.closest?.('input, textarea, select') && e.key !== 'Escape') return;
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const vp = attivo.viewer.viewport, b = vp.getBounds(true), k = e.key;
