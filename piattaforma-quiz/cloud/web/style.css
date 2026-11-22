@@ -2476,3 +2476,7 @@ html.apre-caso #vista-elenco,html.apre-caso .piede-sito{display:none!important}
 .correlazioni ol{margin:4px 0 0;padding-left:20px}
 .correlazioni li{margin:3px 0}
 .correlazioni[hidden]{display:none}
+.vista-vetrino.accanto.vt-compatto:not(.aperti) .vt-strumenti{display:none}
+.vista-vetrino.accanto .vt-info{display:none}
+.vista-vetrino.accanto .vt-barra{gap:4px;padding:6px}
+.vista-vetrino.accanto .vt-barra button,.vista-vetrino.accanto .vt-barra select{padding:3px 7px;min-height:30px}
