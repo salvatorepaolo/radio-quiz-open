@@ -2504,3 +2504,5 @@ html.client header.top .btn-client{display:none!important}
 .hv-client-riga>span:nth-child(2){color:var(--txt)}.hv-client-riga>span:nth-child(2) b{color:var(--acc)}
 .hv-client-punti{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}
 @media (max-width:700px){body:has(#vista-caso:not([hidden])) header.top .btn-client{display:none}}
+/* 1.301 MPR + 3D: la vista 2D è nascosta, il suo contenitore (1.278, colonna dei risultati) non deve prendere metà altezza vuota */
+.area-imm:has(.stage[hidden]),.area-imm:has(.stage[hidden])>.col-stage{flex:none}

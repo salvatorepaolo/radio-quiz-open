@@ -65,6 +65,16 @@ try {
   p = await nuova({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true }); await entra(p); await p.goto(B + `#/caso/${c.id}`);
   await p.waitForSelector('#vista-caso:not([hidden])', { timeout: 15000 }); await foto(p, '06-caso-telefono');
   p = await nuova(); await p.goto(B + '/client/index.html'); await p.waitForTimeout(1500); await foto(p, '07-client');
+  // 1.301 visualizzatore scaricabile con un esame TC aperto, in 2D e in MPR + 3D (lo spazio vuoto sopra le viste MPR della 1.278
+  // non lo vedeva nessuna prova): esame del caso 004 dal disco, come lo aprirebbe l'utente
+  { const fs2 = await import('node:fs'), pa = await import('node:path'), dir = '/Volumes/Caloggero/piattaforma-quiz/casi-free/caso-tcia-004/serie';
+    const files = fs2.readdirSync(dir, { recursive: true }).filter((x) => /\.dcm$/i.test(x)).map((x) => pa.join(dir, x));
+    p = await nuova(); await p.addInitScript(() => { try { localStorage.setItem('rq-cl-privacy-1', '1'); } catch {} });
+    await p.goto(B + '/client/index.html'); await p.waitForSelector('#vista-client:not([hidden])', { timeout: 30000 });
+    await p.setInputFiles('#cl-file', files); await p.waitForFunction(() => window.__dbg?.P(0)?.img, null, { timeout: 90000 }); await p.waitForTimeout(1500);
+    await foto(p, '12-client-caso-2d');
+    await p.click('#modo-mpr'); await p.waitForFunction(() => window.__dbg?.MPR?.attivo && document.querySelector('#vp-assiale canvas') && document.querySelector('#mpr-stato')?.hidden, null, { timeout: 120000 }); await p.waitForTimeout(2500);
+    await foto(p, '13-client-caso-mpr'); }
   p = await nuova(); await p.goto(B + '/client/manuale-client.html'); await foto(p, '08-manuale-client');
   p = await nuova(); await p.goto(B + '/qualita.html'); await foto(p, '09-qualita');
   p = await nuova({ colorScheme: 'dark' }); await p.goto(B + '/qualita.en.html'); await foto(p, '10-qualita-inglese-scuro');
