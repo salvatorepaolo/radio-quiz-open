@@ -912,7 +912,7 @@ async function selezionaSerie(si, k = V.attivo, { idx } = {}) {
   p.frames = s.files.map((f) => ({ url: `/casi/${V.caso.id}/${f}` }));
   p.cache.clear(); p.piano = null;
   try { if (k === V.attivo) { noduliSerie(si); aggiornaBottoneNoduli(); } } catch {}
-  p.idx = Number.isInteger(idx) ? Math.min(idx, p.frames.length - 1) : Math.floor(p.frames.length / 2);
+  p.idx = Number.isInteger(idx) ? Math.min(idx, p.frames.length - 1) : ME_NOME.test(s.descrizione || '') && isMultiEco({ sIdx: si }) ? 0 : Math.floor(p.frames.length / 2);   // multi-eco: dal primo eco
   p.zoom = 1; p.panX = p.panY = 0; p.rot = 0; p.fl = false; p.img = null; p.wl0 = false; p.adc = false; $('#btn-adc')?.classList.remove('on');
   evidenziaSerie();
   if (k === V.attivo) { const sl = $('#slider'); sl.max = p.frames.length - 1; sl.value = p.idx; }
@@ -3919,7 +3919,7 @@ qsAll('[data-tool]').forEach((b) => b.addEventListener('click', () => {
   canvas.style.cursor = V.tool === 'lente' ? 'none' : STRUMENTI_MISURA.includes(V.tool) || V.tool === 'eco' || V.tool === 'cmr' || V.tool === 'calcio' || V.tool === 'collega' ? 'crosshair' : V.tool === 'scroll' ? 'default' : '';
   $('#eco-pannello').hidden = V.tool !== 'eco'; if (V.tool === 'eco') { stopCine(); pannelloEco(); }
   $('#cmr-pannello').hidden = V.tool !== 'cmr' && !FIN_ALTRE.cmr; if (V.tool === 'cmr') { stopCine(); pannelloCmr(); }
-  $('#t2s-pannello').hidden = V.tool !== 't2s'; if (V.tool === 't2s') { stopCine(); pannelloT2s(); }
+  $('#t2s-pannello').hidden = V.tool !== 't2s'; if (V.tool === 't2s') { stopCine(); pannelloT2s(); posizionaPannelloT2s(); }
   $('#calcio-pannello').hidden = V.tool !== 'calcio' && !CAC.lesioni.length; if (V.tool === 'calcio') { stopCine(); pannelloCalcio(); }
   aggiornaMenuBarra(); disegna();
 }));
@@ -5014,7 +5014,21 @@ function fraseMisura(m, img, idx, sIdx) {
 // ---- T2* / R2* (sovraccarico di ferro) su una serie multi-eco: la ROI disegnata con lo strumento T2* si riporta su
 // tutti gli echi della stessa fetta (stessa posizione), si fa il fit (t2star.js) e il pannello mostra valori e curva.
 const SERIE_MULTIECO = /T2\*|t2 ?star|multi.?ec|\becho|\bechi\b|\beco\b|ME-?GRE|mGRE/i;
-const T2SS = { ris: null, organo: null, errore: '', lavoro: false, ridotto: false, dove: '' };
+const T2SS = { ris: null, organo: null, errore: '', lavoro: false, ridotto: false, dove: '', sIdx: null, manuale: {}, spostato: false };
+// organo della serie: la scelta fatta a mano nel pannello vale per quella serie; altrimenti dalla descrizione (fegato/cuore)
+const organoT2sDi = (p) => T2SS.manuale[p?.sIdx] || organoT2sPredefinito(p);
+// il pannello si mette dalla parte opposta al riquadro su cui si misura, per non coprire l'immagine (se non l'ha spostato l'utente)
+// (a impaginazione assestata: subito dopo la ROI la tela si stringe per un attimo, poi torna larga)
+function posizionaPannelloT2s(k = V.attivo, attesa = 0) {
+  setTimeout(() => requestAnimationFrame(() => {
+    const box = $('#t2s-pannello'); if (!box || box.hidden || T2SS.spostato) return;
+    const cr = canvas.getBoundingClientRect(), R = rettangolo(k), w = Math.min(380, innerWidth - 28);   // larghezza del CSS (.eco-pannello)
+    if (!cr.width || !R.w) return;
+    const aSinistra = cr.left + R.x + R.w / 2 <= cr.left + cr.width / 2 + 1;
+    const left = aSinistra ? cr.right - w - 14 : cr.left + 14;
+    Object.assign(box.style, { left: Math.round(Math.max(0, Math.min(innerWidth - w, left))) + 'px', top: '', bottom: '14px' });
+  }), attesa);
+}
 function organoT2sPredefinito(p) {
   const d = `${V.serie[p?.sIdx]?.descrizione || ''}`;
   if (/fegat|liver|epat/i.test(d)) return 'fegato';
@@ -5034,11 +5048,11 @@ async function calcolaT2s(k, roi) {
       if (ref.ipp && img.ipp && Math.hypot(...img.ipp.map((v, j) => v - ref.ipp[j])) > 0.5) continue;   // altra fetta
       const st = statisticheROI(img, roi); if (st) { te.push(img.te); sig.push(st.media); }
     }
-    T2SS.organo = T2SS.organo || organoT2sPredefinito(p);
+    T2SS.sIdx = p.sIdx; T2SS.organo = organoT2sDi(p);
     const r = T2S.analizza(te, sig, T2SS.organo);
     if (!r) { T2SS.ris = null; T2SS.errore = 'Servono almeno 3 tempi di eco diversi nella stessa fetta: apri una serie T2* multi-eco e ridisegna la ROI.'; }
     else { T2SS.ris = r; T2SS.dove = `${nomeSerie(V.serie[p.sIdx])}, ${r.te.length} echi`; }
-  } finally { T2SS.lavoro = false; pannelloT2s(); }
+  } finally { T2SS.lavoro = false; pannelloT2s(); posizionaPannelloT2s(k, 400); }
 }
 function graficoT2s(r) {
   const W = 330, H = 160, L = 38, B = 26, tmax = r.te[r.te.length - 1] * 1.08, smax = Math.max(...r.s) * 1.1 || 1;
@@ -5061,7 +5075,7 @@ function fraseT2s(r) {
 }
 function pannelloT2s() {
   const box = $('#t2s-pannello'); if (!box || box.hidden) return;
-  const r = T2SS.ris, p = P(V.attivo), org = T2SS.organo || organoT2sPredefinito(p);
+  const r = T2SS.ris, p = P(V.attivo), org = r ? T2SS.organo : organoT2sDi(p);
   const riga = (n, m) => (m ? `<tr><td>${n}</td><td><b>${msT2s(m.t2)}</b></td><td>${Number.isFinite(m.r2star) ? Math.round(m.r2star) : '—'} s⁻¹</td><td>${virgola(m.r2, 3)}</td></tr>` : '');
   box.classList.toggle('ridotto', !!T2SS.ridotto);
   box.innerHTML = `<div class="riga eco-testa" title="Trascina per spostare il pannello"><b>T2* · ferro</b><span class="eco-breve small muted">${r ? esc(msT2s(r.principale.t2)) : ''}</span><span class="spacer"></span><button class="ghost piccolo" id="t2s-riduci">${T2SS.ridotto ? '▴' : '▾'}</button><button class="ghost piccolo" id="t2s-chiudi" title="Chiudi">✕</button></div>
@@ -5076,12 +5090,12 @@ function pannelloT2s() {
       <div class="riga"><button class="piccolo" id="t2s-referto">Copia nel referto</button></div>` : ''}`;
   $('#t2s-chiudi').onclick = () => { box.hidden = true; scegliStrumento('wl'); };
   $('#t2s-riduci').onclick = () => { T2SS.ridotto = !T2SS.ridotto; pannelloT2s(); };
-  $('#t2s-organo').onchange = (e) => { T2SS.organo = e.target.value; if (T2SS.ris) T2SS.ris = modT2s.m.analizza(T2SS.ris.te, T2SS.ris.s, T2SS.organo); pannelloT2s(); };
+  $('#t2s-organo').onchange = (e) => { const si = r ? T2SS.sIdx : P(V.attivo)?.sIdx; if (si != null) T2SS.manuale[si] = e.target.value; T2SS.organo = e.target.value; if (T2SS.ris) T2SS.ris = modT2s.m.analizza(T2SS.ris.te, T2SS.ris.s, T2SS.organo); pannelloT2s(); };
   $('#t2s-referto')?.addEventListener('click', () => { if (inserisciNelReferto(fraseT2s(T2SS.ris) + '.')) avvisoBreve('Misura T2* inserita nel referto'); else avvisoBreve('Apri il referto per inserire la misura.'); });
   box.querySelector('.eco-testa').onpointerdown = (e) => {
     if (e.target.closest('button')) return;
     const r0 = box.getBoundingClientRect(), dx = e.clientX - r0.left, dy = e.clientY - r0.top;
-    const muovi = (ev) => Object.assign(box.style, { left: Math.max(0, Math.min(innerWidth - r0.width, ev.clientX - dx)) + 'px', top: Math.max(0, Math.min(innerHeight - 40, ev.clientY - dy)) + 'px', bottom: 'auto' });
+    const muovi = (ev) => (T2SS.spostato = true, Object.assign(box.style, { left: Math.max(0, Math.min(innerWidth - r0.width, ev.clientX - dx)) + 'px', top: Math.max(0, Math.min(innerHeight - 40, ev.clientY - dy)) + 'px', bottom: 'auto' }));
     const fine = () => { removeEventListener('pointermove', muovi); removeEventListener('pointerup', fine); };
     addEventListener('pointermove', muovi); addEventListener('pointerup', fine);
   };
@@ -7237,7 +7251,7 @@ function adattaStrumenti() {
   $('#eco-pannello').hidden = true;
   if ($('[data-tool="cmr"]')) $('[data-tool="cmr"]').hidden = !(metodicaDi(V.caso || {}) === 'RM' && /cuor|cardi/i.test(`${V.caso?.distretto || ''} ${V.caso?.titolo || ''}`));
   chiudiCmrFinestra(); $('#cmr-pannello').hidden = true;
-  $('#t2s-pannello').hidden = true; Object.assign(T2SS, { ris: null, organo: null, errore: '' });
+  $('#t2s-pannello').hidden = true; Object.assign(T2SS, { ris: null, organo: null, errore: '', sIdx: null, manuale: {}, spostato: false });
   if ($('[data-tool="t2s"]')) $('[data-tool="t2s"]').hidden = true;
   $('#preset').hidden = via.has('preset');
   const met = metodicaDi(V.caso || {});
