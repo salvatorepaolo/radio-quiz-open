@@ -401,6 +401,10 @@ button[hidden],select[hidden]{display:none !important}
 .aiuto-pagina .aiuto-video video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#0b1224;display:block}
 .aiuto-pagina .aiuto-video figcaption{font-size:.88em;color:var(--mut);margin-top:6px;line-height:1.35}
 .aiuto-pagina .aiuto-video figcaption b{color:var(--txt,inherit)}
+.aiuto-pagina .aiuto-yt{position:relative;display:block;border-radius:14px;overflow:hidden;background:#0b1224}
+.aiuto-pagina .aiuto-yt img{width:100%;aspect-ratio:9/16;object-fit:cover;display:block}
+.aiuto-pagina .aiuto-play{position:absolute;left:50%;top:72%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:24px;line-height:58px;text-align:center;padding-left:4px}
+.aiuto-pagina .aiuto-yt:hover .aiuto-play,.aiuto-pagina .aiuto-yt:focus-visible .aiuto-play{background:#e00}
 .hv-video{margin:-6px 0 16px}
 .aiuto-indice{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
 .aiuto-indice a{padding:4px 10px;border:1px solid var(--bord);border-radius:14px;color:inherit;text-decoration:none;font-size:.9em}
@@ -2606,3 +2610,36 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .sf-durata-libera input.errore{border-color:var(--ko)}
 .sf-evidenza{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 25%,transparent)}
 .sf-scheda .stato:empty{display:none}
+
+/* tasti dei social (solo vetrina): link semplici, nessun codice o tracciamento dei social */
+.social{display:inline-flex;gap:8px;vertical-align:middle;flex-wrap:wrap}
+.social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--bord);background:var(--pan2,transparent);color:var(--txt);text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+.social a:hover,.social a:focus-visible{color:#fff;border-color:transparent}
+.social a.social-facebook:hover,.social a.social-facebook:focus-visible{background:#1877f2}
+.social a.social-instagram:hover,.social a.social-instagram:focus-visible{background:#d62976}
+.social a.social-linkedin:hover,.social a.social-linkedin:focus-visible{background:#0a66c2}
+.social a.social-youtube:hover,.social a.social-youtube:focus-visible{background:#e00}
+.social.social-piccolo a{width:28px;height:28px}.social.social-piccolo svg{width:15px;height:15px}
+.hv-social{display:flex;align-items:center;gap:10px;margin:-6px 0 18px;color:var(--mut);font-size:.92rem}
+.piede-social{display:inline-flex;align-items:center;gap:8px}
+.piede-sito .social a,.cl-piede .social a{text-decoration:none;color:var(--mut)}
+.piede-sito .social a:hover,.cl-piede .social a:hover{color:#fff}
+
+/* dopo la correzione: sfida un amico e cartolina del risultato */
+.esito-condividi{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px}
+.esito-condividi .stato{flex-basis:100%;margin:0}
+#cartolina-box{flex-basis:100%;margin-top:8px}
+.cartolina-img{display:block;width:min(260px,100%);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.cartolina-azioni{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.esito-condividi .stato:empty{display:none}
+
+/* caso della settimana nella home */
+.hv-settimana{display:flex;gap:14px;align-items:center;margin:0 0 16px;padding:10px 14px 10px 10px;border:1px solid var(--bord);border-radius:14px;background:var(--pan,transparent);color:inherit;text-decoration:none;max-width:560px}
+.hv-settimana:hover{border-color:var(--acc)}
+.hv-settimana img{width:96px;height:96px;border-radius:10px;object-fit:cover;background:#000;flex:none}
+.hvs-testo{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hvs-testo small{font-weight:700;color:var(--acc);letter-spacing:.02em}
+.hvs-testo b{line-height:1.3}
+.hvs-cta{font-weight:600;color:var(--acc)}
+.hvs-fonte{font-size:.75rem;color:var(--mut)}
+.hv-settimana .hvs-testo b{color:var(--txt)}

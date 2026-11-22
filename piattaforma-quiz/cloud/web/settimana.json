@@ -1,0 +1,82 @@
+[
+ {
+  "da": "2026-11-22",
+  "id": "caso-tcia-048",
+  "titolo": "Angio-TC del torace: uomo di 52 anni con dispnea improvvisa",
+  "titolo_en": "Chest CT angiography: 52-year-old man with sudden dyspnoea",
+  "metodica": "TC",
+  "distretto": "Torace",
+  "img": "/img/settimana/caso-tcia-048.jpg",
+  "fonte": "figshare · CC BY 4.0"
+ },
+ {
+  "da": "2026-11-30",
+  "id": "caso-tcia-062",
+  "titolo": "RM encefalo: donna di 74 anni con carcinoma renale",
+  "titolo_en": "Brain MRI: 74-year-old woman with renal cell carcinoma",
+  "metodica": "RM",
+  "distretto": "Encefalo",
+  "img": "/img/settimana/caso-tcia-062.jpg",
+  "fonte": "The Cancer Imaging Archive (TCIA) · CC BY 4.0"
+ },
+ {
+  "da": "2026-12-07",
+  "id": "caso-tcia-094",
+  "titolo": "RX del polso dopo un trauma: ragazzo di 13 anni",
+  "titolo_en": "Wrist X-ray after trauma: 13-year-old boy",
+  "metodica": "RX",
+  "distretto": "Muscolo-scheletrico",
+  "img": "/img/settimana/caso-tcia-094.jpg",
+  "fonte": "figshare (Scientific Data), non TCIA · CC BY 4.0"
+ },
+ {
+  "da": "2026-12-14",
+  "id": "caso-tcia-118",
+  "titolo": "Angio-TC dell'aorta: dolore toracico e dorsale",
+  "titolo_en": "Aortic CT angiography: chest and back pain",
+  "metodica": "TC",
+  "distretto": "Torace",
+  "img": "/img/settimana/caso-tcia-118.jpg",
+  "fonte": "figshare · CC BY 4.0"
+ },
+ {
+  "da": "2026-12-21",
+  "id": "caso-tcia-002",
+  "titolo": "Mammografia bilaterale in donna di 54 anni",
+  "titolo_en": "Bilateral mammography in a 54-year-old woman",
+  "metodica": "Mammografia",
+  "distretto": "Mammella",
+  "img": "/img/settimana/caso-tcia-002.jpg",
+  "fonte": "The Cancer Imaging Archive (TCIA) · CC BY 4.0"
+ },
+ {
+  "da": "2026-12-28",
+  "id": "caso-tcia-028",
+  "titolo": "TC addome: massa renale in giovane donna",
+  "titolo_en": "Abdominal CT: renal mass in a young woman",
+  "metodica": "TC",
+  "distretto": "Rene",
+  "img": "/img/settimana/caso-tcia-028.jpg",
+  "fonte": "The Cancer Imaging Archive (TCIA) · CC BY 3.0"
+ },
+ {
+  "da": "2027-01-04",
+  "id": "caso-tcia-060",
+  "titolo": "RM encefalo: lesione frontale in donna di 22 anni",
+  "titolo_en": "Brain MRI: frontal lesion in a 22-year-old woman",
+  "metodica": "RM",
+  "distretto": "Encefalo",
+  "img": "/img/settimana/caso-tcia-060.jpg",
+  "fonte": "The Cancer Imaging Archive (TCIA) · CC BY 4.0"
+ },
+ {
+  "da": "2027-01-11",
+  "id": "caso-tcia-105",
+  "titolo": "Ecografia del fegato: paziente con melanoma",
+  "titolo_en": "Liver ultrasound: patient with melanoma",
+  "metodica": "Ecografia",
+  "distretto": "Addome",
+  "img": "/img/settimana/caso-tcia-105.jpg",
+  "fonte": "The Cancer Imaging Archive (TCIA) · CC BY 4.0"
+ }
+]

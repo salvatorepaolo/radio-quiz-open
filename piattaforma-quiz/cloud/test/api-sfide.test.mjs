@@ -117,6 +117,15 @@ test('creazione, adesione, classifica facoltativa, punteggi, chiusura, uscita', 
   assert.deepEqual((await chiama('bea', '/api/sfide')).j, []);
 });
 
+test('sfida dal caso appena risolto: un solo caso solo con daCaso', async () => {
+  assert.equal((await chiama('bea', '/api/sfide', { titolo: 'Un caso', casi: CASI.slice(0, 1) })).stato, 400, 'senza daCaso servono almeno 3 casi');
+  const r = await chiama('bea', '/api/sfide', { titolo: 'Un caso di TC', casi: CASI.slice(0, 1), durata: 7, unita: 'giorni', daCaso: true });
+  assert.equal(r.stato, 200); assert.equal(r.j.n, 1); assert.match(r.j.link, /\/s\/[A-Z0-9]{8}$/);
+  assert.equal((await chiama('bea', '/api/sfide', { titolo: 'Un caso', casi: ['caso-che-non-esiste'], daCaso: true })).stato, 400, 'caso inesistente');
+  const an = await fetch(BASE + `/api/sfide/${r.j.codice}/anteprima`).then(async (x) => ({ stato: x.status, j: await x.json() }));
+  assert.equal(an.stato, 200); assert.equal(an.j.casi.length, 1);
+});
+
 test('limite di sfide al giorno; cancellazione dell\'account: fuori dalle classifiche', async () => {
   const fatte = []; let r;
   for (let i = 0; i < L.SFIDE_AL_GIORNO + 1; i++) { r = await chiama('dino', '/api/sfide', { titolo: 'Prova ' + i, casi: CASI.slice(0, 3) }); if (r.stato === 200) fatte.push(r.j.codice); }

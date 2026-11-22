@@ -6785,6 +6785,7 @@ $('#btn-conferma').addEventListener('click', async () => {
     { const pt = qs1('#q-esito .esito-testa') || qs1('#q-esito .punteggio'), az = document.createElement('div'); az.className = 'esito-azioni';
       if (pt) { pt.after(az); if (!$('#btn-reperto').hidden) az.append($('#btn-reperto')); if (!$('#btn-prossimo').hidden) az.append($('#btn-prossimo')); if (!az.children.length) az.remove(); }
       { const h = htmlTraccia(r); if (h) { const t = document.createElement('div'); t.innerHTML = h; const dopo = az.isConnected ? az : pt; if (dopo) dopo.after(t.firstElementChild); else $('#q-esito').prepend(t.firstElementChild); } }
+      aggiungiCondivisioneCaso(r);
       disegnaSchema();
       requestAnimationFrame(() => $('#q-esito').scrollIntoView({ block: 'start', behavior: 'smooth' })); }
   } catch (e) {
@@ -6793,6 +6794,96 @@ $('#btn-conferma').addEventListener('click', async () => {
   }
   b.disabled = false;
 });
+// ---------------------------------------------------------------- dopo la correzione: sfida un amico e cartolina (22/11/2026)
+// «Sfida un amico su questo caso»: crea una sfida di un solo caso (7 giorni) e apre l'invito con il testo del post.
+// «Condividi il risultato»: immagine verticale per le storie con l'immagine del caso, metodica e distretto, punteggio,
+// radio-quiz.it e la fonte con la licenza; mai la diagnosi né i reperti. Non negli esami e nelle sfide in corso.
+function aggiungiCondivisioneCaso(r) {
+  try {
+    if (!CLOUD || ADMIN || !V.caso || !Number.isFinite(r?.punteggio)) return;
+    const g = leggiSessione('quiz-giro', null); if (g?.tipo === 'esame' && g.casi?.includes(V.caso.id)) return;
+    qs1('#q-esito .esito-condividi')?.remove();
+    const dopo = qs1('#q-esito .esito-azioni') || qs1('#q-esito .esito-testa'); if (!dopo) return;
+    const box = document.createElement('div'); box.className = 'esito-condividi';
+    box.innerHTML = `<button type="button" class="ghost" id="btn-sfida-caso">🏁 Sfida un amico su questo caso</button>${AZIENDA() ? '' : '<button type="button" class="ghost" id="btn-cartolina">📸 Condividi il risultato</button>'}<p class="stato small" id="esito-condividi-msg" role="status"></p><div id="cartolina-box" hidden></div>`;
+    dopo.after(box);
+    const msg = (t) => { const m = $('#esito-condividi-msg'); if (m) m.textContent = t; };
+    $('#btn-sfida-caso').onclick = async (e) => {
+      const b = e.currentTarget; b.disabled = true; msg('');
+      try {
+        const titolo = String(V.caso.titolo || `Un caso di ${metodicaDi(V.caso) || 'radiologia'}`).slice(0, 80);
+        const x = await postJSON('/api/sfide', { titolo: titolo.length >= 3 ? titolo : 'Un caso di radiologia', casi: [V.caso.id], durata: 7, unita: 'giorni', daCaso: true });
+        try { localStorage.setItem('rq-sfida-nuova', JSON.stringify(x.codice)); localStorage.setItem('rq-sfida-mio-' + x.codice, JSON.stringify(r.punteggio)); } catch {}
+        location.hash = '#/sfida/' + x.codice;
+      } catch (err) { if (!(err instanceof NonAutorizzato)) msg(err.message); b.disabled = false; }
+    };
+    const bc = $('#btn-cartolina');
+    if (bc) bc.onclick = async () => { bc.disabled = true; msg(''); try { await mostraCartolina(r.punteggio); } catch (err) { msg('Immagine non riuscita: ' + err.message); } bc.disabled = false; };
+  } catch {}
+}
+async function disegnaCartolina(punteggio) {
+  const EN = document.documentElement.lang === 'en', W = 1080, H = 1920;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const k = cv.getContext('2d');
+  const gr = k.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#0b1224'); gr.addColorStop(1, '#13284a'); k.fillStyle = gr; k.fillRect(0, 0, W, H);
+  const F = (peso, px) => `${peso} ${px}px Inter, "Segoe UI", system-ui, -apple-system, sans-serif`;
+  const centro = (t, y, font, col) => { k.font = font; k.fillStyle = col; k.textAlign = 'center'; k.fillText(t, W / 2, y); };
+  const adatta = (t, max, peso, px) => { let p = px; k.font = F(peso, p); while (k.measureText(t).width > max && p > 24) { p -= 2; k.font = F(peso, p); } return F(peso, p); };
+  k.font = F(800, 34); k.fillStyle = '#38bdf8'; k.textAlign = 'left'; k.fillText('QUIZ RADIOLOGIA', 80, 120);
+  // l'immagine del caso: lo strato visibile nel riquadro attivo (senza segni né misure) o il vetrino
+  const IX = 90, IY = 520, IS = 900;
+  k.fillStyle = '#000'; k.beginPath(); k.roundRect?.(IX, IY, IS, IS, 36); k.fill();
+  let fatta = false;
+  try { const img = P()?.img; if (img?.pix && img.cols) { const c = document.createElement('canvas'); c.width = IS; c.height = IS; disegnaAnteprima(c, img); k.save(); k.beginPath(); k.roundRect?.(IX, IY, IS, IS, 36); k.clip(); k.drawImage(c, IX, IY); k.restore(); fatta = true; } } catch {}
+  if (!fatta) { const o = [...document.querySelectorAll('.vt-osd canvas')].find((x) => x.offsetParent && x.width > 50); if (o) { const s = Math.min(IS / o.width, IS / o.height), w = o.width * s, h = o.height * s; k.save(); k.beginPath(); k.roundRect?.(IX, IY, IS, IS, 36); k.clip(); k.fillStyle = '#fff'; k.fillRect(IX, IY, IS, IS); k.drawImage(o, IX + (IS - w) / 2, IY + (IS - h) / 2, w, h); k.restore(); fatta = true; } }
+  if (!fatta) centro('🩻', IY + IS / 2 + 60, F(400, 200), '#fff');
+  const met = metodicaDi(V.caso) || V.caso.modalita || '', dis = V.caso.distretto || '';
+  const cosa = [met, dis].filter(Boolean).join(' · ');
+  centro(punteggio >= 50 ? (EN ? 'I solved a case' : 'Ho risolto un caso') : (EN ? 'I tried a case' : 'Ho provato un caso'), 250, F(800, 76), '#f8fafc');
+  if (cosa) centro(cosa, 335, adatta(cosa, W - 160, 700, 56), '#38bdf8');
+  // punteggio: anello sopra l'immagine, in basso a destra
+  const R = 120, cx = IX + IS - R - 34, cy = IY + IS - R - 34, p = Math.max(0, Math.min(100, punteggio));
+  k.fillStyle = '#0b1224'; k.beginPath(); k.arc(cx, cy, R + 18, 0, Math.PI * 2); k.fill();
+  k.lineWidth = 22; k.strokeStyle = '#1e3a5f'; k.beginPath(); k.arc(cx, cy, R, 0, Math.PI * 2); k.stroke();
+  k.strokeStyle = p >= 80 ? '#3ccf8e' : p >= 50 ? '#f5b84a' : '#ff6b6b'; k.lineCap = 'round'; k.beginPath(); k.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p / 100); k.stroke();
+  k.font = F(800, 92); k.fillStyle = '#f8fafc'; k.textAlign = 'center'; k.textBaseline = 'middle'; k.fillText(`${p}%`, cx, cy + 4); k.textBaseline = 'alphabetic';
+  centro(EN ? 'Can you do better?' : 'Sai fare meglio?', 1580, F(700, 58), '#f8fafc');
+  centro('radio-quiz.it', 1680, F(800, 92), '#38bdf8');
+  centro(EN ? 'Real anonymised cases · free · open source' : 'Casi reali anonimi · gratuito · open source', 1745, F(600, 34), '#cbd5e1');
+  const f = V.caso.fonte; if (f?.archivio) { const t = `${EN ? 'Images' : 'Immagini'}: ${f.archivio}${f.licenza ? ' · ' + f.licenza : ''}`; centro(t, 1835, adatta(t, W - 120, 500, 28), '#94a3b8'); }
+  centro(EN ? 'Educational tool, not a medical device' : 'Strumento didattico, non è un dispositivo medico', 1880, F(400, 24), '#64748b');
+  return cv;
+}
+async function mostraCartolina(punteggio) {
+  const box = $('#cartolina-box'); if (!box) return;
+  const cv = await disegnaCartolina(punteggio);
+  const blob = await new Promise((ok, ko) => cv.toBlob((b) => (b ? ok(b) : ko(new Error('canvas'))), 'image/jpeg', 0.9));
+  const nome = `quiz-radiologia-${V.caso.id}.jpg`, url = URL.createObjectURL(blob), file = new File([blob], nome, { type: 'image/jpeg' });
+  const puoCondividere = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  box.innerHTML = `<img src="${url}" alt="Cartolina con il tuo risultato" class="cartolina-img">
+    <div class="cartolina-azioni">${puoCondividere ? '<button type="button" class="primary" id="cartolina-condividi">Condividi…</button>' : ''}<a class="btn${puoCondividere ? '' : ' primary'}" id="cartolina-scarica" href="${url}" download="${nome}">Scarica l'immagine</a></div>
+    <p class="muted small">Pronta per le storie di Instagram, WhatsApp o Facebook: c'è il tuo punteggio, mai la diagnosi, così chi la vede può provare il caso. In basso la fonte delle immagini, come chiede la licenza.</p>`;
+  box.hidden = false;
+  const cb = $('#cartolina-condividi');
+  if (cb) cb.onclick = async () => { try { await navigator.share({ files: [file], text: (document.documentElement.lang === 'en' ? 'Can you do better? ' : 'Sai fare meglio? ') + 'https://radio-quiz.it' }); } catch {} };
+  box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+// ---------------------------------------------------------------- caso della settimana (22/11/2026), solo nel sito pubblico
+// settimana.json: un caso per settimana (da lunedì, data «da»), scelto a mano, con l'immagine chiave senza segni e la fonte.
+// Nella home un riquadro con immagine e titolo (mai la diagnosi); chi non è entrato va all'accesso e poi al caso.
+async function caricaSettimana() {
+  const a = $('#hv-settimana'); if (!a || AZIENDA() || CLIENT) return;
+  let l; try { l = await fetch('/settimana.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)); } catch { return; }
+  if (!Array.isArray(l)) return;
+  const oggi = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Rome' });
+  const c = l.filter((x) => x && x.da <= oggi && /^caso-[a-z0-9-]{1,40}$/i.test(x.id)).sort((x, y) => (x.da < y.da ? 1 : -1))[0];
+  if (!c) return;
+  const EN = document.documentElement.lang === 'en';
+  a.href = '#/caso/' + c.id;
+  a.innerHTML = `<img src="${esc(c.img || '')}" alt="" width="96" height="96" loading="lazy"><span class="hvs-testo"><small>🗓 Caso della settimana</small><b>${esc((EN && c.titolo_en) || c.titolo || '')}</b><span class="hvs-cta">Qual è la tua diagnosi? Prova →</span>${c.fonte ? `<span class="hvs-fonte">${esc((EN ? 'Images: ' : 'Immagini: ') + c.fonte)}</span>` : ''}</span>`;
+  a.onclick = () => { if (!UTENTE) try { localStorage.setItem('rq-caso-dopo', JSON.stringify({ c: c.id, t: Date.now() })); } catch {} };
+  a.hidden = false;
+}
+istanzaPronta.then(() => caricaSettimana()).catch(() => {});
 // correzione del referto libero con il modello open source nel browser (refertolocale.js), se attivata
 // dall'amministratore; autori e docenti la possono sempre provare
 async function correggiRefertoIA(testo) {
@@ -8639,6 +8730,9 @@ async function router() {
   if (!pronto) pronto = chiSono();
   if (!(await pronto)) { pronto = null; return; }
   // dopo l'accesso o l'iscrizione partiti dalla pagina di una sfida: si torna lì
+  // dopo l'accesso o l'iscrizione partiti dal «Caso della settimana» della home: si apre il caso
+  { let x = null; try { x = JSON.parse(localStorage.getItem('rq-caso-dopo')); localStorage.removeItem('rq-caso-dopo'); } catch {}
+    if (x && Date.now() - x.t < 864e5 && /^caso-[a-z0-9-]{1,40}$/i.test(x.c) && !(tipo === 'caso' && id === x.c)) { location.hash = '#/caso/' + x.c; return; } }
   if (tipo !== 'sfida' && localStorage.getItem('rq-sfida-dopo')) { const c = (await caricaSfide()).inSospeso(); if (c) { location.hash = '#/sfida/' + c; return; } }
   if (ANN.hashCaso && location.hash !== ANN.hashCaso) {
     // si lascia il caso: prima le annotazioni non salvate (Salva / Non salvare / Annulla)
@@ -10217,7 +10311,10 @@ async function mostraAiuto(ancora = '') {
   const mio = !UTENTE && CLOUD ? ['tutti', 'specializzando'] : ADMIN ? null : DOCENTE ? ['tutti', 'docente', 'specializzando'] : ['tutti', 'specializzando'];
   setTimeout(() => { if (ancora) document.getElementById('aiuto-' + ancora)?.scrollIntoView(); }, 50);
   const sez = AIUTO.sezioni.filter((z) => !mio || mio.includes(z.per));
-  const blocco = (b) => (b && b.video   // video tutorial: si scarica solo quando si preme play
+  // video tutorial: su YouTube, solo come link (la copertina è nostra, la pagina non si collega a YouTube finché non si apre il video)
+  const blocco = (b) => (b && b.youtube
+    ? `<figure class="aiuto-video"><a class="aiuto-yt" href="${esc(b.youtube)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(b.titolo)} (YouTube)"><img src="${esc(b.poster || '')}" alt="" loading="lazy"><span class="aiuto-play" aria-hidden="true">▶</span></a><figcaption><b>${esc(b.titolo)}</b><br>${esc(b.testo || '')}<br><a href="${esc(b.youtube)}" target="_blank" rel="noopener noreferrer">Guarda su YouTube ↗</a></figcaption></figure>`
+    : b && b.video   // video ospitato nel sito (non più usato dal 22/11/2026: i tutorial sono su YouTube)
     ? `<figure class="aiuto-video"><video controls playsinline preload="none" src="${esc(b.video)}" poster="${esc(b.poster || '')}"></video><figcaption><b>${esc(b.titolo)}</b><br>${esc(b.testo || '')}</figcaption></figure>`
     : Array.isArray(b) ? `<ul>${b.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p>${esc(b)}</p>`);
   $('#aiuto-indice').innerHTML = sez.map((z) => `<a href="#/aiuto" data-v="${z.id}">${esc(z.titolo)}</a>`).join('');

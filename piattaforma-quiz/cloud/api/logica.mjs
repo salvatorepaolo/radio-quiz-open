@@ -2140,7 +2140,9 @@ export async function gestisci(req, cfg) {
       if (titolo.length < 3) return json(400, { errore: 'Dai un titolo alla sfida (almeno 3 caratteri).' });
       const vis = await visibili();
       const casi = [...new Set((Array.isArray(dati.casi) ? dati.casi : []).filter((x) => typeof x === 'string' && ID_OK.test(x) && vis.has(x)))];
-      if (casi.length < SFIDA_MIN || casi.length > SFIDA_MAX) return json(400, { errore: `Scegli da ${SFIDA_MIN} a ${SFIDA_MAX} casi.` });
+      // dal caso appena risolto («Sfida un amico su questo caso»): basta un caso
+      const minimo = dati.daCaso === true ? 1 : SFIDA_MIN;
+      if (casi.length < minimo || casi.length > SFIDA_MAX) return json(400, { errore: minimo === 1 ? 'Caso non disponibile per una sfida.' : `Scegli da ${SFIDA_MIN} a ${SFIDA_MAX} casi.` });
       const oggi = giornoItalia(), scadenza = /^\d{4}-\d{2}-\d{2}$/.test(dati.scadenza || '') ? dati.scadenza : '';
       if (scadenza && (scadenza < oggi || scadenza > piuGiorni(oggi, SFIDA_GIORNI))) return json(400, { errore: `La scadenza va da oggi a ${SFIDA_GIORNI} giorni.` });
       const conDurata = dati.durata != null && dati.durata !== '', minuti = conDurata ? minutiDurata(dati.durata, dati.unita) : null;

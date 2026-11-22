@@ -35,45 +35,45 @@
    "titolo": "Video tutorial",
    "per": "tutti",
    "blocchi": [
-    "Brevi video (circa un minuto ciascuno, senza voce, con didascalie) che mostrano la piattaforma in uso sul telefono e, nell'ultimo, il visualizzatore client. Si scaricano solo quando premi play.",
+    "Brevi video (circa un minuto ciascuno, senza voce, con didascalie) che mostrano la piattaforma in uso sul telefono e il visualizzatore client. Sono su YouTube, nella playlist «Quiz Radiologia – Tutorial»: tocca un video per aprirlo. Finché non lo apri, questa pagina non si collega a YouTube.",
     {
-     "video": "/video/tutorial-1-primo-caso.mp4",
+     "youtube": "https://youtube.com/shorts/FD4_kYvjjFw",
      "poster": "/video/tutorial-1-primo-caso.jpg",
      "titolo": "Il tuo primo caso",
      "testo": "Dalla scelta del caso alla correzione: visualizzatore, reperti con il livello di sicurezza, diagnosi e discussione."
     },
     {
-     "video": "/video/tutorial-2-visualizzatore.mp4",
+     "youtube": "https://youtube.com/shorts/3KbOm-DuGYM",
      "poster": "/video/tutorial-2-visualizzatore.jpg",
      "titolo": "Il visualizzatore DICOM",
      "testo": "Scorrimento degli strati, finestre polmone, osso e mediastino, zoom, misure in millimetri e confronto tra serie."
     },
     {
-     "video": "/video/tutorial-3-mpr-3d.mp4",
+     "youtube": "https://youtube.com/shorts/bIiGxYPJvjg",
      "poster": "/video/tutorial-3-mpr-3d.jpg",
      "titolo": "MPR e 3D",
      "testo": "Assiale, sagittale e coronale insieme, con il punto che li collega, e il volume 3D da ruotare."
     },
     {
-     "video": "/video/tutorial-4-referto-statistiche.mp4",
+     "youtube": "https://youtube.com/shorts/H6w1sazXbzU",
      "poster": "/video/tutorial-4-referto-statistiche.jpg",
      "titolo": "Referto e statistiche",
      "testo": "Modalità «Solo referto», confronto con il referto atteso, «Mostra il reperto», progressi e statistiche."
     },
     {
-     "video": "/video/tutorial-5-vetrini.mp4",
+     "youtube": "https://youtube.com/shorts/7dHgPO6hnPM",
      "poster": "/video/tutorial-5-vetrini.jpg",
      "titolo": "I vetrini digitali",
      "testo": "Vetrini di anatomia patologica dal piccolo al forte ingrandimento, misure in micrometri, diagnosi istologica."
     },
     {
-     "video": "/video/tutorial-6-formati-vetrini.mp4",
+     "youtube": "https://youtube.com/shorts/TY5tFzLsEWs",
      "poster": "/video/tutorial-6-formati-vetrini.jpg",
      "titolo": "I formati dei vetrini",
      "testo": "Il visualizzatore client apre i vetrini dei principali scanner: i 12 vetrini di esempio, da Aperio SVS a Olympus VSI, dall'intero al forte ingrandimento."
     },
     {
-     "video": "/video/tutorial-7-sfide.mp4",
+     "youtube": "https://youtube.com/shorts/3USC_ClWN9U",
      "poster": "/video/tutorial-7-sfide.jpg",
      "titolo": "Sfida i tuoi amici",
      "testo": "Crea una sfida con da 3 a 10 casi, scegli quanto dura e tagga gli amici: stessi casi per tutti, correzioni alla fine, classifica."

@@ -35,45 +35,45 @@
    "titolo": "Video tutorials",
    "per": "tutti",
    "blocchi": [
-    "Short videos (about one minute each, no voice, with captions) that show the platform in use on a phone and, in the last one, the client viewer. They load only when you press play.",
+    "Short videos (about one minute each, no voice, with Italian captions) that show the platform in use on a phone and the client viewer. They are on YouTube, in the playlist “Quiz Radiologia – Tutorial”: tap a video to open it. Until you open one, this page does not connect to YouTube.",
     {
-     "video": "/video/tutorial-1-primo-caso.mp4",
+     "youtube": "https://youtube.com/shorts/FD4_kYvjjFw",
      "poster": "/video/tutorial-1-primo-caso.jpg",
      "titolo": "Your first case",
      "testo": "From choosing a case to the correction: viewer, findings with your confidence level, diagnosis and discussion."
     },
     {
-     "video": "/video/tutorial-2-visualizzatore.mp4",
+     "youtube": "https://youtube.com/shorts/3KbOm-DuGYM",
      "poster": "/video/tutorial-2-visualizzatore.jpg",
      "titolo": "The DICOM viewer",
      "testo": "Scrolling through slices, lung, bone and mediastinum windows, zoom, measurements in millimetres and side-by-side series."
     },
     {
-     "video": "/video/tutorial-3-mpr-3d.mp4",
+     "youtube": "https://youtube.com/shorts/bIiGxYPJvjg",
      "poster": "/video/tutorial-3-mpr-3d.jpg",
      "titolo": "MPR and 3D",
      "testo": "Axial, sagittal and coronal together, linked by a shared point, and a 3D volume you can rotate."
     },
     {
-     "video": "/video/tutorial-4-referto-statistiche.mp4",
+     "youtube": "https://youtube.com/shorts/H6w1sazXbzU",
      "poster": "/video/tutorial-4-referto-statistiche.jpg",
      "titolo": "Report and statistics",
      "testo": "“Report only” mode, comparison with the expected report, “Show the finding”, progress and statistics."
     },
     {
-     "video": "/video/tutorial-5-vetrini.mp4",
+     "youtube": "https://youtube.com/shorts/7dHgPO6hnPM",
      "poster": "/video/tutorial-5-vetrini.jpg",
      "titolo": "Digital slides",
      "testo": "Pathology slides from low to high magnification, measurements in micrometres, histological diagnosis."
     },
     {
-     "video": "/video/tutorial-6-formati-vetrini.mp4",
+     "youtube": "https://youtube.com/shorts/TY5tFzLsEWs",
      "poster": "/video/tutorial-6-formati-vetrini.jpg",
      "titolo": "Slide formats",
      "testo": "The client viewer opens slides from the main scanners: the 12 sample slides, from Aperio SVS to Olympus VSI, from the whole slide to high magnification."
     },
     {
-     "video": "/video/tutorial-7-sfide.mp4",
+     "youtube": "https://youtube.com/shorts/3USC_ClWN9U",
      "poster": "/video/tutorial-7-sfide.jpg",
      "titolo": "Challenge your friends",
      "testo": "Create a challenge with 3 to 10 cases, choose how long it lasts and tag your friends: same cases for everyone, corrections at the end, leaderboard."

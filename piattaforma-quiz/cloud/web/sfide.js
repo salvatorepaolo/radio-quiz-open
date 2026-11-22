@@ -22,14 +22,16 @@ const scriviLocale = (k, v) => { try { if (v == null) localStorage.removeItem(k)
 
 // ---------------------------------------------------------------- condivisione
 // i social non permettono di taggare dal sito: si condivide il link e gli amici li tagga chi pubblica
-function testoPost(titolo, n, fine) {
+function testoPost(titolo, n, fine, mio) {
+  // sfida nata da un caso appena risolto: il punteggio di chi la lancia (mai la diagnosi)
+  if (Number.isFinite(mio)) return mio >= 50 ? `🏁 Ti sfido su Quiz Radiologia: ho risolto «${titolo}» con il ${mio}%. Fai meglio di me? Hai tempo fino a ${dataOra(fine)}.\n@ @ @` : `🏁 Questo caso su Quiz Radiologia mi ha messo in difficoltà (${mio}%): «${titolo}». Tu come te la cavi? Hai tempo fino a ${dataOra(fine)}.\n@ @ @`;
   return `🏁 Ti sfido su Quiz Radiologia: «${titolo}», ${n} ${n === 1 ? 'caso' : 'casi'} di diagnostica per immagini. Hai tempo fino a ${dataOra(fine)}: chi legge meglio?\n@ @ @`;
 }
-function htmlCondividi(link, titolo, n, fine) {
+function htmlCondividi(link, titolo, n, fine, mio) {
   return `<div class="sf-condividi">
     <ol class="sf-passi"><li>Scrivi il post: sostituisci le <b>@</b> con gli amici da sfidare (sui social, scrivendo @ e il nome compaiono i tuoi contatti).</li>
       <li>Scegli dove pubblicarlo: il link della sfida è già aggiunto.</li></ol>
-    <label>Testo del post <textarea id="sf-testo" rows="4">${A.esc(testoPost(titolo, n, fine))}</textarea></label>
+    <label>Testo del post <textarea id="sf-testo" rows="4">${A.esc(testoPost(titolo, n, fine, mio))}</textarea></label>
     <div class="sf-social">
       ${navigator.share ? '<button type="button" class="primary" id="sf-condividi">📤 Condividi…</button>' : ''}
       <a class="btn ghost" target="_blank" rel="noopener" data-sf="wa">WhatsApp</a>
@@ -95,7 +97,7 @@ export async function apriSfida(codice) {
   const corr = leggiLocale('rq-sfida-corr-' + c);
   // chi ha appena creato la sfida (e non gioca ancora): l'invito agli amici viene per primo
   const invitoInCima = d.creatore && !io && d.aperta;
-  const invito = `<section class="sf-scheda"><h2>${io?.finito ? 'Rilancia la sfida' : 'Invita gli amici'}</h2>${htmlCondividi(d.link, d.titolo, n, d.fine)}</section>`;
+  const invito = `<section class="sf-scheda"><h2>${io?.finito ? 'Rilancia la sfida' : 'Invita gli amici'}</h2>${htmlCondividi(d.link, d.titolo, n, d.fine, d.creatore ? leggiLocale('rq-sfida-mio-' + c) : null)}</section>`;
   const stato = !d.aperta ? 'Sfida chiusa' : io?.finito ? 'Hai completato la sfida' : io ? `Ne hai svolti ${io.fatti} su ${n}` : '';
   corpo().innerHTML = `<section class="sf-testa"><span class="sf-ico" aria-hidden="true">🏁</span><div>
       <p class="sf-sopra">Sfida${d.creatore ? ' · l\'hai creata tu' : ''}</p><h1>${A.esc(d.titolo)}</h1>
