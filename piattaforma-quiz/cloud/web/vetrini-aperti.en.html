@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open digital slides: where to download them — Quiz Radiologia</title>
+<link rel="icon" href="logo.svg">
+<style>
+  :root { --sf: #ffffff; --txt: #1d2430; --muto: #5b6575; --bord: #d9dee6; --acc: #1f5fbf; --riga: #f4f6f9; }
+  @media (prefers-color-scheme: dark) { :root { --sf: #12161d; --txt: #e6e9ee; --muto: #9aa4b2; --bord: #2b3340; --acc: #6ea2ff; --riga: #1a2029; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--sf); color: var(--txt); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  header img { width: 44px; height: 44px; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  h2 { font-size: 1.15rem; margin: 32px 0 8px; color: var(--acc); }
+  a { color: var(--acc); }
+  p.muto, .muto { color: var(--muto); }
+  .tab { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  .tab th, .tab td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--bord); }
+  .tab th { font-weight: 600; background: var(--riga); }
+  .scorri { overflow-x: auto; }
+  .lic { white-space: nowrap; font-weight: 600; }
+  @media (max-width: 600px) {
+    .tab thead { display: none; }
+    .tab tr { display: block; border-bottom: 1px solid var(--bord); padding: 8px 0; }
+    .tab td { display: block; border: 0; padding: 2px 0; }
+    .tab td:nth-child(2), .tab td:nth-child(4) { color: var(--muto); font-size: .9rem; }
+    .tab td.lic::before { content: "Licenza: "; font-weight: 400; color: var(--muto); }
+  }
+  .nota { border-left: 3px solid var(--acc); background: var(--riga); padding: 10px 14px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="logo.svg" alt=""><h1>Open digital slides: where to download them</h1></header>
+  <p>Public archives with digital pathology slides to download and open in the <a href="client/index.html">viewer</a>: everything happens in the browser, files are not sent to anyone. Licences and terms are those stated by the archives: always check them at the source before using the data.</p>
+  <div class="scorri"><table class="tab">
+    <thead><tr><th>Archive</th><th>Format</th><th>Licence</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://openslide.cs.cmu.edu/download/openslide-testdata/" target="_blank" rel="noopener">OpenSlide test data</a></td><td>All formats: Aperio SVS, Hamamatsu NDPI, 3DHISTECH MRXS, Leica SCN, Ventana BIF, Philips TIFF, Zeiss CZI, Olympus VSI, DICOM</td><td class="lic">CC0 or freely distributable (stated file by file)</td><td>Direct download, no registration. Ideal to try the viewer with every format.</td></tr>
+      <tr><td><a href="https://portal.imaging.datacommons.cancer.gov/" target="_blank" rel="noopener">NCI Imaging Data Commons (IDC)</a></td><td>DICOM (TCGA, CPTAC, HTAN and other collections; fluorescence too)</td><td class="lic">Mostly CC BY; a small part CC BY-NC (stated file by file)</td><td>No registration. DICOM slides open here as they are.</td></tr>
+      <tr><td><a href="https://portal.gdc.cancer.gov/" target="_blank" rel="noopener">Genomic Data Commons — TCGA</a></td><td>Aperio SVS (diagnostic slides and frozen sections)</td><td class="lic">Open-access data (GDC data use policies)</td><td>Filter «Data Type: Slide Image», access «open»; download from the portal or with the GDC Data Transfer Tool.</td></tr>
+      <tr><td><a href="https://www.cancerimagingarchive.net/" target="_blank" rel="noopener">The Cancer Imaging Archive — CPTAC collections</a></td><td>Aperio SVS</td><td class="lic">CC BY 3.0 (depending on the collection)</td><td>Often with CT, MRI and PET of the same patient: useful for radiology-pathology correlation.</td></tr>
+      <tr><td><a href="https://registry.opendata.aws/camelyon/" target="_blank" rel="noopener">CAMELYON16 and CAMELYON17</a></td><td>Pyramidal TIFF (sentinel lymph nodes, breast cancer)</td><td class="lic">CC0 according to AWS Open Data and GigaScience; the challenge page states CC BY-NC-ND: check before redistributing</td><td>Metastasis outlines drawn by pathologists (XML).</td></tr>
+      <tr><td><a href="https://huggingface.co/collections/histai/histai-whole-slide-images-dataset" target="_blank" rel="noopener">HISTAI</a></td><td>TIFF (over 60,000 slides, many tissues and stains, with reports)</td><td class="lic">CC BY-NC 4.0, research only</td><td>On Hugging Face, after accepting the terms of use.</td></tr>
+      <tr><td><a href="https://zenodo.org/record/5037046" target="_blank" rel="noopener">OpenPhi test slide</a></td><td>Philips iSyntax (one slide, 495 MB)</td><td class="lic">MIT</td><td>To try the iSyntax format.</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Before using them</h2>
+  <p>For personal study it is enough to respect the licence. To put a slide in a case of the platform you need a licence that allows redistribution (CC0, CC BY, MIT) and the citation of the source; label and overview must be removed with <code>strumenti/prepara_vetrino.py</code> (or <code>anonimizza_vetrino.py</code> for DICOM). Data under non-commercial (NC) or no-derivatives (ND) licences stay for personal study.</p>
+  <p class="muto">List updated on 22 November 2026. Educational tool only: not a medical device. <a href="vetrini-aperti.html">Italiano</a> · <a href="licenze.html">Licences and credits</a></p>
+</main>
+</body>
+</html>

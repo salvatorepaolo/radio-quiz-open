@@ -34,7 +34,12 @@ new QuizStack(app, process.env.STACK || 'QuizRadiologia', {
   utentiMax: process.env.UTENTI_MAX || '',
   scadenza: process.env.SCADENZA || '',
   sospesa: process.env.SOSPESA === '1',
-  sponsor: process.env.SPONSOR === '1',   // sponsor nella vetrina: spenti salvo SPONSOR="1" in .segreti (21/11/2026)
+  sponsor: process.env.SPONSOR === '1',
+  // accesso con Google (22/11/2026): client OAuth in .segreti (GOOGLE_ID, GOOGLE_SEGRETO); vuoti = pulsante nascosto
+  googleId: process.env.GOOGLE_ID || '',
+  googleSegreto: process.env.GOOGLE_SEGRETO || '',
+  linkedinId: process.env.LINKEDIN_ID || '',
+  linkedinSegreto: process.env.LINKEDIN_SEGRETO || '',   // sponsor nella vetrina: spenti salvo SPONSOR="1" in .segreti (21/11/2026)
   emailCondivisa: process.env.EMAIL_CONDIVISA === '1',
   // limiti di spesa (21 nov 2026): LIMITE_API = esecuzioni contemporanee della Lambda (vuoto: 50 vetrina, 10 aziende; 0 = nessun
   // tetto); BUDGET_QUIZ_USD = budget mensile del progetto (vuoto: 30; 0 = nessun budget), avvisi a EMAIL_BUDGET (vuoto: la

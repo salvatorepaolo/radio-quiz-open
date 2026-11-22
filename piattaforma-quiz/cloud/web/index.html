@@ -126,7 +126,7 @@
       <ul class="hv-client-punti">
         <li><b>Lettura completa</b><span>finestre, MPR, MIP e 3D, confronto con i precedenti, misure e ROI</span></li>
         <li><b>Referto</b><span>modelli strutturati, immagini chiave, stampa, PDF e Word</span></li>
-        <li><b>Vetrini digitali</b><span>anatomia patologica in DICOM, misure in µm, ritaglio in JPEG</span></li>
+        <li><b>Vetrini digitali</b><span>anatomia patologica in DICOM, SVS, NDPI, MRXS, CZI, iSyntax e altri formati, misure in µm, ritaglio in JPEG</span></li>
         <li><b>Anonimizzazione</b><span>esporta immagini e video senza i dati del paziente</span></li>
       </ul>
       <p class="hv-client-az"><a class="btn primario" href="/client/index.html" target="_blank" rel="noopener">🖥 Apri il visualizzatore ↗</a> <a class="btn" href="/client/manuale-client.html" target="_blank" rel="noopener">📘 Manuale</a> <span class="cl-promo-avv">Solo per la formazione · non per uso medico</span></p>
@@ -173,6 +173,9 @@
       <input id="acc-in-email" type="email" autocomplete="username" placeholder="Email" required maxlength="254">
       <input id="acc-in-pw" type="password" autocomplete="current-password" placeholder="Password" required maxlength="200">
       <button class="primary" type="submit">Entra</button>
+      <div class="acc-google solo-esterni" hidden><span class="acc-oppure">oppure</span>
+        <a class="btn btn-google solo-google" href="/api/google/inizia" data-esterno="google" hidden><svg class="g-logo" viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Continua con Google</span></a>
+        <a class="btn btn-google solo-linkedin" href="/api/linkedin/inizia" data-esterno="linkedin" hidden><svg class="g-logo li-logo" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.6h-2.6V19h2.6V9.6zM5.8 5.2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM19.5 13.7c0-2.6-.6-4.4-3.6-4.4-1.5 0-2.4.8-2.8 1.5V9.6h-2.5V19h2.6v-4.7c0-1.2.2-2.4 1.8-2.4 1.5 0 1.5 1.4 1.5 2.5V19h2.6v-5.3z"/></svg><span>Continua con LinkedIn</span></a></div>
       <p class="link-accesso"><a href="#" data-vai="dimenticata">Password dimenticata?</a> · <a href="#" data-vai="codice">Entra con un codice</a></p>
       <div class="acc-nuovo solo-vetrina"><span>Prima volta qui?</span><a class="btn acc-iscriviti" href="#/iscriviti">Crea un account gratuito</a></div>
       <p class="link-accesso solo-azienda">Non hai un account? Chiedilo all'amministratore<span class="contatto-istanza"></span>.</p>
@@ -187,6 +190,9 @@
     <!-- iscrizione -->
     <form id="form-iscrizione" data-pannello="iscriviti" hidden>
       <h2>Crea il tuo account</h2>
+      <div class="acc-google solo-esterni" hidden><a class="btn btn-google solo-google" href="/api/google/inizia" data-esterno="google" hidden><svg class="g-logo" viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Iscriviti con Google</span></a>
+        <a class="btn btn-google solo-linkedin" href="/api/linkedin/inizia" data-esterno="linkedin" hidden><svg class="g-logo li-logo" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.6h-2.6V19h2.6V9.6zM5.8 5.2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM19.5 13.7c0-2.6-.6-4.4-3.6-4.4-1.5 0-2.4.8-2.8 1.5V9.6h-2.5V19h2.6v-4.7c0-1.2.2-2.4 1.8-2.4 1.5 0 1.5 1.4 1.5 2.5V19h2.6v-5.3z"/></svg><span>Iscriviti con LinkedIn</span></a>
+        <span class="acc-oppure">oppure con la tua email</span></div>
       <input id="isc-nome" autocomplete="name" placeholder="Nome e cognome" required maxlength="80">
       <input id="isc-email" type="email" autocomplete="email" placeholder="Email" required maxlength="254">
       <div class="pw-campo"><input id="isc-pw" type="password" autocomplete="new-password" placeholder="Password" required minlength="10" maxlength="200">
@@ -216,6 +222,34 @@
       <button class="primary" type="submit">Iscriviti</button>
       <p class="muted small">Riceverai un'email con il link per attivare l'account.</p>
       <p class="link-accesso"><a href="#" data-vai="entra">← Ho già un account</a></p>
+    </form>
+    <!-- prima volta con Google: si completa l'iscrizione (condizioni, 18 anni, chi sei), senza password -->
+    <form id="form-google" data-pannello="google" hidden>
+      <h2>Completa l'iscrizione</h2>
+      <p class="muted small gg-conto"><span data-logo="google"><svg class="g-logo" viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><span data-logo="linkedin" hidden><svg class="g-logo li-logo" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.6h-2.6V19h2.6V9.6zM5.8 5.2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM19.5 13.7c0-2.6-.6-4.4-3.6-4.4-1.5 0-2.4.8-2.8 1.5V9.6h-2.5V19h2.6v-4.7c0-1.2.2-2.4 1.8-2.4 1.5 0 1.5 1.4 1.5 2.5V19h2.6v-5.3z"/></svg></span><span id="gg-email"></span></p>
+      <p class="muted small">Non serve una password: entrerai sempre con lo stesso pulsante.</p>
+      <input id="gg-nome" autocomplete="name" placeholder="Nome e cognome" required maxlength="80">
+      <label class="campo">Chi sei
+        <select id="gg-categoria" required>
+          <option value="" disabled selected>Seleziona…</option>
+          <option value="specializzando">Medico specializzando</option><option value="radiologo">Radiologo</option>
+          <option value="medico">Medico di altra specialità</option><option value="studente">Studente di medicina</option>
+          <option value="tsrm">Tecnico di radiologia (TSRM)</option><option value="infermiere">Infermiere</option><option value="altro">Altro</option>
+        </select></label>
+      <label class="campo">Sede <span class="muted small">(facoltativo)</span>
+        <input id="gg-sede" placeholder="Scuola, ospedale o università" maxlength="120"></label>
+      <label class="campo" id="gg-anno-campo" hidden>Anno di corso <span class="muted small">(facoltativo)</span>
+        <select id="gg-anno"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+      <label class="check"><input type="checkbox" id="gg-docente"> <span>Sono anche docente: voglio seguire studenti o colleghi (ti vedranno solo quelli che ti scelgono)</span></label>
+      <fieldset class="isc-condizioni">
+        <legend>Prima di iscriverti, leggi e accetta</legend>
+        <p class="isc-scopo"><b>🎓 Radio-quiz è uno strumento educativo.</b> Serve solo per la formazione su casi anonimi di archivi pubblici. Non è un dispositivo medico: non usarlo per fare o confermare diagnosi su pazienti reali e non caricare dati di pazienti. Le correzioni e le proposte dell'IA possono contenere errori.</p>
+        <label class="check isc-voce"><input type="checkbox" id="gg-educativo" required> <span>Ho capito che la piattaforma ha <b>solo scopo educativo</b> e non va usata per la diagnosi o la cura di pazienti</span></label>
+        <label class="check isc-voce"><input type="checkbox" id="gg-privacy" required> <span>Accetto le <a href="#/aiuto/condizioni" target="_blank">condizioni d'uso</a> e ho letto l'<a href="#/aiuto/dati" target="_blank">informativa sul trattamento dei dati</a></span></label>
+        <label class="check isc-voce"><input type="checkbox" id="gg-maggiorenne" required> <span>Ho almeno 18 anni</span></label>
+      </fieldset>
+      <button class="primary" type="submit">Iscriviti ed entra</button>
+      <p class="link-accesso"><a href="#" data-vai="entra">← Annulla</a></p>
     </form>
     <!-- password dimenticata -->
     <form id="form-dimenticata" data-pannello="dimenticata" hidden>
@@ -279,6 +313,8 @@
         <label class="cl-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg> Scegli file<input type="file" id="cl-file" multiple hidden></label>
       </div>
       <p class="cl-nota">CD con DICOMDIR, cartelle, file o archivi .zip · TC, RM, RX, mammografia, ecografia (anche clip), angiografia, PET-TC · DICOM compressi (JPEG, JPEG 2000, JPEG-LS, RLE)</p>
+      <p class="cl-nota">Vetrini digitali: DICOM, Aperio SVS, Hamamatsu NDPI, Philips TIFF e iSyntax, Leica SCN, Ventana BIF, 3DHISTECH MRXS, Zeiss CZI, Olympus VSI, TIFF piramidali e OME-TIFF (per MRXS e VSI apri la cartella che contiene anche i file di dati)</p>
+      <p class="cl-nota"><a href="/vetrini-aperti.html" target="_blank" rel="noopener">Dove scaricare vetrini aperti</a></p>
       <div id="cl-esempio-box" class="cl-esempio" hidden>
         <button type="button" id="cl-esempio" class="cl-btn">🧪 Prova con un esame di esempio</button>
         <button type="button" id="cl-guida-apri" class="cl-btn">❔ Guida rapida</button>
@@ -329,7 +365,7 @@
     </section>
     <p class="cl-manuale-riga"><a class="cl-manuale" href="/client/manuale-client.html" target="_blank" rel="noopener">📘 Leggi il manuale del visualizzatore</a></p>
 
-    <footer class="cl-piede"><span>Gratuito · open source · i file restano sul tuo computer</span><span><a href="/client/manuale-client.html" target="_blank" rel="noopener">Manuale</a> · <a href="/">radio-quiz.it</a> · <a href="/licenze.html">Licenze e crediti</a> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span></footer>
+    <footer class="cl-piede"><span>Gratuito · open source · i file restano sul tuo computer</span><span><a href="/client/manuale-client.html" target="_blank" rel="noopener">Manuale</a> · <a href="/vetrini-aperti.html" target="_blank" rel="noopener">Vetrini aperti</a> · <a href="/">radio-quiz.it</a> · <a href="/licenze.html">Licenze e crediti</a> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span></footer>
   </div>
 </main>
 <dialog id="dlg-privacy-cl" class="dlg-privacy-cl" aria-labelledby="pr-titolo">
@@ -980,6 +1016,13 @@
     <button id="pr-docente-btn" class="ghost"></button>
   </section>
 
+  <section class="profilo-sez solo-esterni" id="pr-sez-esterni" hidden>
+    <h2>Accesso con Google e LinkedIn</h2>
+    <p class="muted small">Collega il tuo account Google o LinkedIn per entrare con un clic, senza password. Il collegamento vale solo per l'accesso: non pubblichiamo nulla e non riceviamo i tuoi contatti.</p>
+    <p class="riga solo-google" hidden><svg class="g-logo" viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span class="pr-esterno-stato" data-per="google"></span> <a class="btn ghost" href="/api/google/inizia?collega=1" data-collega="google">Collega Google</a></p>
+    <p class="riga solo-linkedin" hidden><svg class="g-logo li-logo" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.6h-2.6V19h2.6V9.6zM5.8 5.2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM19.5 13.7c0-2.6-.6-4.4-3.6-4.4-1.5 0-2.4.8-2.8 1.5V9.6h-2.5V19h2.6v-4.7c0-1.2.2-2.4 1.8-2.4 1.5 0 1.5 1.4 1.5 2.5V19h2.6v-5.3z"/></svg><span class="pr-esterno-stato" data-per="linkedin"></span> <a class="btn ghost" href="/api/linkedin/inizia?collega=1" data-collega="linkedin">Collega LinkedIn</a></p>
+  </section>
+
   <section class="profilo-sez">
     <h2>Password</h2>
     <form id="form-password" class="riga">
@@ -1331,7 +1374,7 @@
   </div>
 </main>
 
-<footer class="piede-sito"><span>radio-quiz.it · ideato e realizzato dall'<b>Ing. Salvatore Paolo Buemi</b> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a> · <a href="https://www.linkedin.com/in/salvatore-paolo-buemi-62252737/" target="_blank" rel="noopener">LinkedIn</a></span><span><a href="/client/index.html" target="_blank" rel="noopener">Visualizzatore DICOM</a> · <a href="/qualita.html">Qualità e sicurezza del software</a> · <a href="/licenze.html">Licenze e crediti</a> · <a href="https://github.com/salvatorepaolo/radio-quiz-open" rel="noopener">Codice sorgente</a> · strumento didattico, non è un dispositivo medico</span><span class="piede-avviso">Piattaforma open source a scopo esclusivamente formativo, per medici e studenti. I contenuti sono preparati con il supporto dell'intelligenza artificiale e revisionati da medici: possono contenere errori. <a href="#/aiuto/condizioni">Condizioni d'uso</a> · Segnalazioni: <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span></footer>
+<footer class="piede-sito"><span>radio-quiz.it · ideato e realizzato dall'<b>Ing. Salvatore Paolo Buemi</b> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a> · <a href="https://www.linkedin.com/in/salvatorepaolobuemi/" target="_blank" rel="noopener">LinkedIn</a></span><span><a href="/client/index.html" target="_blank" rel="noopener">Visualizzatore DICOM</a> · <a href="/vetrini-aperti.html">Vetrini aperti</a> · <a href="/qualita.html">Qualità e sicurezza del software</a> · <a href="/licenze.html">Licenze e crediti</a> · <a href="https://github.com/salvatorepaolo/radio-quiz-open" rel="noopener">Codice sorgente</a> · strumento didattico, non è un dispositivo medico</span><span class="piede-avviso">Piattaforma open source a scopo esclusivamente formativo, per medici e studenti. I contenuti sono preparati con il supporto dell'intelligenza artificiale e revisionati da medici: possono contenere errori. <a href="#/aiuto/condizioni">Condizioni d'uso</a> · Segnalazioni: <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span></footer>
 <script type="module" src="app.js"></script>
 </body>
 </html>

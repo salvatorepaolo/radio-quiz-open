@@ -106,6 +106,7 @@ test('librerie e modelli distribuiti: ognuno con il testo della sua licenza', ()
     'lib/webllm.js': 'lib/LICENSE-web-llm', 'lib/codec/jpegimage.js': 'lib/codec/LICENSE-jpegimage',
     'lib/codec/charlswasm_decode': 'lib/codec/LICENSE-codec-charls', 'lib/codec/libjpegturbowasm_decode': 'lib/codec/LICENSE-codec-libjpeg-turbo',
     'lib/codec/openjpegwasm_decode': 'lib/codec/LICENSE-codec-openjpeg',
+    'lib/jpegxr.mjs': 'lib/LICENSE-jpegxr', 'lib/fzstd.mjs': 'lib/LICENSE-fzstd', 'lib/isyntax.mjs': 'lib/LICENSE-libisyntax',
     'modelli-ia/noduli-v2/ort': 'modelli-ia/noduli-v2/LICENSE-onnxruntime-web.txt', 'modelli-ia/noduli-v2/noduli.onnx': 'modelli-ia/noduli-v2/LICENSE-MONAI-lung_nodule_ct_detection.txt',
   };
   const file = [];

@@ -67,6 +67,10 @@ const istanzaPronta = (CLIENT ? Promise.resolve(null) : (rispostaPrima('istanza'
     qs1('#vista-accesso')?.prepend(d);
   }
   document.body.classList.toggle('azienda', AZIENDA());
+  // accesso con Google e LinkedIn: solo i fornitori che il server offre
+  qsAll('.solo-google').forEach((e) => { e.hidden = !ISTANZA.google; });
+  qsAll('.solo-linkedin').forEach((e) => { e.hidden = !ISTANZA.linkedin; });
+  qsAll('.solo-esterni').forEach((e) => { e.hidden = !(ISTANZA.google || ISTANZA.linkedin); });
   if (AZIENDA()) {
     qsAll('.nome-istanza').forEach((e) => { e.textContent = ISTANZA.nome || 'questa azienda'; });
     qsAll('.contatto-istanza').forEach((e) => { e.textContent = ''; if (/^[^\s@<>"]+@[^\s@<>"]+$/.test(ISTANZA.contatto)) { const a = document.createElement('a'); a.href = 'mailto:' + ISTANZA.contatto; a.textContent = ISTANZA.contatto; e.append(' (', a, ')'); } });
@@ -226,6 +230,49 @@ $('#form-nuova').addEventListener('submit', (e) => { e.preventDefault(); conBott
   $('#nuova-pw').value = $('#nuova-pw2').value = ''; entrato(r.dati, '#/');
 }); });
 // link ricevuti per email: conferma dell'iscrizione e nuova password (funzionano senza sessione)
+// accesso con Google e LinkedIn: il pulsante porta al server, che manda al fornitore; si torna alla pagina in cui si era
+const NOMI_ESTERNI = { google: 'Google', linkedin: 'LinkedIn' };
+qsAll('[data-esterno]').forEach((a) => a.addEventListener('click', () => {
+  const h = location.hash, dopo = /^#\/(caso|percorso|percorsi|compito|aiuto|vetrino|vetrini)\//.test(h) ? h : '';
+  a.href = `/api/${a.dataset.esterno}/inizia` + (dopo ? '?dopo=' + encodeURIComponent(dopo) : '');
+}));
+const ESITI_ESTERNI = {
+  annullato: 'Accesso con {f} annullato.',
+  scaduto: 'Il passaggio da {f} è scaduto o è stato aperto in un altro browser: riprova.',
+  errore: 'Accesso con {f} non riuscito: riprova, oppure entra con email e password.',
+  email: '{f} non ci ha dato un indirizzo email verificato: iscriviti con email e password.',
+  collega: 'Esiste già un account con questo indirizzo: entra con email e password (se non la ricordi, scegli «Password dimenticata?»), poi collega {f} dal tuo profilo.',
+  disattivato: 'Account disattivato: scrivi all\'amministratore della piattaforma.',
+  bloccata: 'In questo momento non si può entrare nella piattaforma.',
+  invito: 'L\'accesso è solo su invito: chiedi un account all\'amministratore della piattaforma.',
+  collegato: 'Account {f} collegato: d\'ora in poi puoi entrare anche con «Continua con {f}».',
+  'gia-usato': 'Questo account {f} è già collegato a un altro iscritto.',
+};
+let ESTERNO_NUOVO = 'google';
+async function esitoEsterno(prov, esito) {
+  const f = NOMI_ESTERNI[prov] || prov, testo = (ESITI_ESTERNI[esito] || ESITI_ESTERNI.errore).replaceAll('{f}', f);
+  // collegamento dal profilo: si torna al profilo con un avviso
+  if (esito === 'collegato' || esito === 'gia-usato') { location.hash = '#/profilo'; setTimeout(() => avvisoBreve(testo), 600); return; }
+  history.replaceState(null, '', '#/');
+  if (esito !== 'iscrizione') { mostraAccesso(testo); return; }
+  mostraAccesso();
+  let r; try { r = await fetch(`/api/${prov}/nuovo`, { credentials: 'same-origin' }); } catch { r = null; }
+  const d = r?.ok ? await r.json() : null;
+  if (!d) { mostraAccesso(ESITI_ESTERNI.scaduto.replaceAll('{f}', f)); return; }
+  ESTERNO_NUOVO = prov;
+  pannelloAccesso('google');
+  qsAll('#form-google [data-logo]').forEach((e) => { e.hidden = e.dataset.logo !== prov; });
+  $('#gg-email').textContent = d.email; $('#gg-nome').value = d.nome || '';
+  versoScheda();
+}
+$('#gg-categoria').addEventListener('change', () => annoVisibile('#gg-categoria', '#gg-anno-campo'));
+$('#form-google').addEventListener('submit', (e) => { e.preventDefault(); conBottone(e.target, async () => {
+  const r = await inviaAccesso(`/api/${ESTERNO_NUOVO}/completa`, { nome: $('#gg-nome').value, categoria: $('#gg-categoria').value, sede: $('#gg-sede').value,
+    anno: $('#gg-categoria').value === 'specializzando' ? $('#gg-anno').value : '', docente: $('#gg-docente').checked,
+    privacy: $('#gg-privacy').checked, maggiorenne: $('#gg-maggiorenne').checked });
+  if (!r.ok) { $('#msg-accesso').textContent = r.dati.errore || 'Iscrizione non riuscita.'; return; }
+  entrato(r.dati, '#/profilo/benvenuto');
+}); });
 async function linkDaEmail(tipo, codice) {
   if (tipo === 'conferma') {
     mostraAccesso(); avvisoAccesso('Conferma dell\'indirizzo in corso…');
@@ -8549,6 +8596,7 @@ async function router() {
   if (CLIENT) return routerClient(tipo);
   // pagine raggiungibili anche senza accesso: link ricevuti per email e aiuto (con l'informativa sui dati)
   if ((tipo === 'conferma' || tipo === 'nuova-password') && id) return linkDaEmail(tipo, decodeURIComponent(id));
+  if ((tipo === 'google' || tipo === 'linkedin') && id) return esitoEsterno(tipo, id);
   if (tipo === 'iscriviti') {
     if (AZIENDA() || (await istanzaPronta).modo === 'azienda') { location.hash = '#/'; return; }   // nelle aziende solo su invito
     if (!pronto) pronto = chiSono();
@@ -8681,6 +8729,12 @@ async function apriProfilo(benvenuto = false) {
   $('#pr-categoria').value = io.categoria || 'altro'; $('#pr-sede').value = io.sede; $('#pr-anno').value = io.anno || '';
   $('#pr-avvisi').checked = io.avvisi; annoVisibile('#pr-categoria', '#pr-anno-campo');
   $('#pw-attuale').hidden = !io.conPassword;
+  // accessi collegati (Google, LinkedIn): stato e pulsante «Collega»
+  for (const [prov, con] of [['google', io.conGoogle], ['linkedin', io.conLinkedin]]) {
+    const st = qs1(`.pr-esterno-stato[data-per="${prov}"]`), b = qs1(`[data-collega="${prov}"]`);
+    if (st) st.textContent = con ? `${NOMI_ESTERNI[prov]}: collegato ✓` : `${NOMI_ESTERNI[prov]}: non collegato`;
+    if (b) b.hidden = !!con;
+  }
   $('#pr-msg').textContent = '';
   $('#pr-benvenuto').hidden = !benvenuto;
   if (benvenuto) setTimeout(() => { scrollTo(0, 0); $('#pr-inizia').focus({ preventScroll: true }); }, 400);   // il benvenuto in cima, non il campo dei docenti
@@ -10689,6 +10743,8 @@ async function caricaClient(files, { aggiungi = false } = {}) {
     let info = null;
     // vetrino digitale (anatomia patologica): solo il tipo dall'intestazione del file, il resto lo legge vetrini.js
     try { const t = new Uint8Array(await f.slice(0, Math.min(f.size, 65536)).arrayBuffer()); if (dicomParser.readPart10Header(t).string('x00020002')?.replace(/\0/g, '').trim() === SOP_VETRINO) return { vetrino: true }; } catch {}
+    // altri formati di vetrino (SVS, NDPI, TIFF piramidali, MRXS, CZI, VSI, iSyntax): li legge vetrini-formati.js
+    if (!(await eDicomFile(f))) { const fm = await formatoVetrinoFile(f); if (fm) return { vetrino: true, formato: fm }; }
     if (f.size > 65536) {
       const b = await f.slice(0, 65536).arrayBuffer();
       let finita = false; try { finita = !!dicomParser.parseDicom(new Uint8Array(b), { untilTag: 'x7fe00010' }).elements.x7fe00010; } catch {}
@@ -12103,21 +12159,38 @@ function aggiornaBottoneVetrini() {
   if (b) { b.hidden = !n; b.textContent = `🔬 ${n === 1 ? 'Vetrino' : `Vetrini (${n})`}`; b.title = CLIENT ? 'Vetrini digitali di anatomia patologica aperti con l\'esame' : 'Istologia del caso: vetrino digitale di anatomia patologica'; }
 }
 // file del sito letto a pezzi (richieste parziali): stessa interfaccia di File per vetrini.js (name, size, slice → arrayBuffer)
-function fileRemoto(url, size) {
-  return { name: url, size, slice: (a, b) => ({ arrayBuffer: async () => {
-    const fine = Math.min(b ?? size, size) - 1;
-    const r = await fetch(url, { credentials: 'same-origin', headers: { Range: `bytes=${a}-${fine}` } });
+function fileRemoto(url, size, base = 0) {
+  // file del sito letto a pezzi (richieste parziali), con la stessa interfaccia di File: name, size, slice() (anche annidata,
+  // per gli allegati dei CZI), arrayBuffer(). «percorso» distingue i file con lo stesso nome in casi diversi; webkitRelativePath
+  // (relativo al caso) serve ai formati a più file (MRXS, VSI) per riconoscere la cartella
+  const nome = url.split('/').pop(), rel = url.replace(/^\/casi\/[^/]+\//, '');
+  const leggi = async (a, b) => {
+    const fine = Math.min(b ?? size, size) - 1; if (fine < a) return new ArrayBuffer(0);
+    const r = await fetch(url, { credentials: 'same-origin', headers: { Range: `bytes=${base + a}-${base + fine}` } });
     if (r.status === 206) return r.arrayBuffer();
-    if (r.status === 200 && size < 5e7) return (await r.arrayBuffer()).slice(a, fine + 1);
+    if (r.status === 200 && base + size < 5e7) return (await r.arrayBuffer()).slice(base + a, base + fine + 1);
     r.body?.cancel().catch(() => {}); throw new Error(r.status === 200 ? 'il server non accetta le richieste parziali' : 'HTTP ' + r.status);
-  } }) };
+  };
+  return { name: nome, webkitRelativePath: rel, percorso: base ? `${url}#${base}` : url, url, base, size,
+    slice: (a = 0, b = size) => fileRemoto(url, Math.max(0, Math.min(b ?? size, size) - a), base + a),
+    arrayBuffer: () => leggi(0, size) };
+}
+async function eDicomFile(f) { try { return f.size > 132 && new TextDecoder().decode(new Uint8Array(await f.slice(128, 132).arrayBuffer())) === 'DICM'; } catch { return false; } }
+async function formatoVetrinoFile(f) {
+  if (!/\.(svs|tif|tiff|ndpi|scn|bif|qptiff|ptif|vtif|btf|mrxs|dat|ini|czi|vsi|ets|isyntax)$/i.test(f.name || '')) {   // senza estensione nota: solo l'intestazione TIFF
+    try { const t = new Uint8Array(await f.slice(0, 4).arrayBuffer()); if (!((t[0] === 0x49 && t[1] === 0x49 && t[2] >= 42 && t[2] <= 43) || (t[0] === 0x4d && t[1] === 0x4d && t[3] >= 42 && t[3] <= 43))) return null; } catch { return null; }
+  }
+  return (await import('./vetrini-formati.js')).formatoVetrino(f);
 }
 async function vetriniDisponibili() {
   if (CLIENT) return CL.vetrini || [];
   if (!V.vetriniPronti) {
     const { preparaVetrini } = await import('./vetrini.js'), out = [];
     for (const s of V.vetriniCaso || []) {
-      const l = await preparaVetrini(s.files.map((f, k) => fileRemoto(`/casi/${V.caso.id}/${f}`, s.dimensioni?.[k] || 0)));
+      // un vetrino non leggibile non impedisce di aprire gli altri del caso
+      let l = [];
+      try { l = await preparaVetrini(s.files.map((f, k) => fileRemoto(`/casi/${V.caso.id}/${f}`, s.dimensioni?.[k] || 0))); }
+      catch (e) { console.warn('vetrino non leggibile', s.descrizione, e); if (!(V.vetriniCaso.length > 1)) throw e; avvisoBreve(`Vetrino «${s.descrizione || ''}» non leggibile: ${e.message}`); }
       for (const v of l) out.push({ ...v, descrizione: s.descrizione || v.descrizione });
     }
     V.vetriniPronti = out;

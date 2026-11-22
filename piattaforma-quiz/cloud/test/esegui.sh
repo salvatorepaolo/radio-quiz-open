@@ -11,6 +11,7 @@
 #   referto.test.mjs  referto PDF, Word e stampa: file ben formati, accenti, pagine, figure, testo dell'utente
 #   logica-avvisi.test.mjs conservazione dei dati (cancellazioni con avviso), promemoria, riepiloghi ai docenti, email
 #   api-iscrizione.test.mjs iscrizione, conferma email, nuova password, blocco, diritti (profilo, i miei dati, cancellazione)
+#   api-google.test.mjs accesso con Google (Google finto nel simulatore): prima volta, account esistenti, attesa, errori
 #   api-proposte.test.mjs casi proposti dagli iscritti: senza controllo dell'anonimato positivo non si pubblicano
 #   proprieta.test.mjs regole della correzione su migliaia di casi e risposte a caso (fast-check; FC_GIRI, FC_SEME)
 #   api-fuzz.test.mjs     400 richieste a caso a tutte le rotte: mai errori del server, dettagli interni o dati altrui (API_GIRI)
@@ -30,4 +31,4 @@ if [ ! -d node_modules/playwright ] || [ ! -f .chromium-pronto ]; then
   if npm install --no-audit --no-fund --silent >/dev/null 2>&1 && npx --yes playwright install chromium >/dev/null 2>&1; then touch .chromium-pronto
   else echo "  Playwright non installato: eseguo solo i test dell'API"; fi
 fi
-node --test --test-reporter=spec pagina.test.mjs scale.test.mjs anonimizza.test.mjs anonimizza-fuzz.test.mjs anonimizza-py.test.mjs strumenti-py.test.mjs moduli.test.mjs analisi.test.mjs referto.test.mjs logica.test.mjs logica-avvisi.test.mjs proprieta.test.mjs casi.test.mjs traduzioni.test.mjs api.test.mjs api-iscrizione.test.mjs api-proposte.test.mjs api-fuzz.test.mjs date.test.mjs formati.test.mjs azienda.test.mjs limiti.test.mjs automazione.test.mjs account_admin.test.mjs cmr.test.mjs t2star.test.mjs browser.test.mjs
+node --test --test-reporter=spec pagina.test.mjs scale.test.mjs anonimizza.test.mjs anonimizza-fuzz.test.mjs anonimizza-py.test.mjs strumenti-py.test.mjs moduli.test.mjs analisi.test.mjs referto.test.mjs logica.test.mjs logica-avvisi.test.mjs proprieta.test.mjs casi.test.mjs traduzioni.test.mjs api.test.mjs api-iscrizione.test.mjs api-google.test.mjs api-proposte.test.mjs api-fuzz.test.mjs date.test.mjs formati.test.mjs azienda.test.mjs limiti.test.mjs automazione.test.mjs account_admin.test.mjs cmr.test.mjs t2star.test.mjs browser.test.mjs

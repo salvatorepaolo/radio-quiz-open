@@ -36,6 +36,15 @@ for cdir in sorted(glob.glob(os.path.join(base, 'caso-*'))):
     distr = lambda r: r.split(' ', 1)[-1]   # «TC torace» e «RX torace» sono lo stesso distretto
     if len({distr(x['regione']) for x in s if x.get('regione')}) > 1:
         avvisi[c].append('distretti diversi nello stesso caso: ' + ', '.join(sorted({x['regione'] for x in s if x.get('regione')})))
+    # vetrini in altri formati (SVS, NDPI, MRXS, CZI, iSyntax, …): preparati con prepara_vetrino.py; si ricontrolla che
+    # etichetta e panoramica siano azzerate e che nei metadati non ci siano date, codici o nomi
+    for x in s:
+        if x.get('tipo') == 'vetrino' and x['files'] and not x['files'][0].lower().endswith('.dcm'):
+            try:
+                import prepara_vetrino
+                for v in dict.fromkeys(prepara_vetrino.controlla(f"{cdir}/{x['files'][0]}")): errori[c].append(f"vetrino {x['files'][0]}: {v} (usa strumenti/prepara_vetrino.py)")
+            except SystemExit as e: errori[c].append(f"vetrino {x['files'][0]}: {e}")
+            except Exception as e: errori[c].append(f"vetrino {x['files'][0]} non controllabile: {e}")
     if pydicom is None:
         continue
     mods = collections.Counter(); hashes = collections.defaultdict(list)

@@ -122,6 +122,7 @@ async function costruisciIndice(L) {
   return L.indice;
 }
 async function byteFotogramma(L, k) {
+  if (L.byteTessera) return L.byteTessera(k);   // altri formati (vetrini-formati.js): byte già pronti per il decodificatore
   const [a, b] = (await indiceFotogrammi(L))[k];
   const u = new Uint8Array(await L.f.slice(a, b).arrayBuffer());
   if (!L.incapsulato) return u;
@@ -137,7 +138,8 @@ async function byteFotogramma(L, k) {
 const TS = { jpeg: ['1.2.840.10008.1.2.4.50'], jpeg12: ['1.2.840.10008.1.2.4.51'], lossless: ['1.2.840.10008.1.2.4.57', '1.2.840.10008.1.2.4.70', '1.2.840.10008.1.2.4.14'],
   j2k: ['1.2.840.10008.1.2.4.90', '1.2.840.10008.1.2.4.91', '1.2.840.10008.1.2.4.92', '1.2.840.10008.1.2.4.93', '1.2.840.10008.1.2.4.201', '1.2.840.10008.1.2.4.202', '1.2.840.10008.1.2.4.203'],
   jls: ['1.2.840.10008.1.2.4.80', '1.2.840.10008.1.2.4.81'], jxl: ['1.2.840.10008.1.2.4.110', '1.2.840.10008.1.2.4.111', '1.2.840.10008.1.2.4.112'], rle: ['1.2.840.10008.1.2.5'],
-  nativi: ['1.2.840.10008.1.2', '1.2.840.10008.1.2.1'] };
+  nativi: ['1.2.840.10008.1.2', '1.2.840.10008.1.2.1'], webp: ['webp'], png: ['png'], bmp: ['bmp'] };
+const MIME = { jxl: 'image/jxl', webp: 'image/webp', png: 'image/png', bmp: 'image/bmp', jpeg: 'image/jpeg' };
 const tipoTs = (ts) => Object.keys(TS).find((k) => TS[k].includes(ts)) || null;
 export const sintassiSupportata = (ts) => !!tipoTs(ts);
 // decodifica delle tessere in un gruppo di web worker (vetrini-worker.js), fuori dal filo principale: lo scorrimento resta
@@ -164,12 +166,13 @@ function nelWorker(t, b, P) {
   return new Promise((ok, ko) => { POOL.attesa.set(id, { ok, ko }); w.postMessage({ id, t, b: buf, P }, [buf]); });
 }
 async function tessera(L, k) {
+  if (L.tesseraPropria) return L.tesseraPropria(k);   // formati con decodifica propria (CZI): { bm } oppure { pix, w, h, spp, bits }
   const t = tipoTs(L.ts), colore = L.spp === 3, P = { w: L.tw, h: L.th, spp: L.spp, bits: L.bits, conSegno: L.conSegno, foto: L.foto, piani: L.piani };
   if (!t) throw new Error('compressione delle tessere non supportata: ' + L.ts);
-  if ((t === 'jpeg' && colore) || t === 'jxl') {
+  if ((t === 'jpeg' && colore) || t in MIME) {
     const b = await byteFotogramma(L, k);
-    try { const bm = await createImageBitmap(new Blob([b], { type: t === 'jxl' ? 'image/jxl' : 'image/jpeg' })); DEC.browser++; return { bm }; }
-    catch { if (t === 'jxl') throw new Error('questo browser non legge le tessere JPEG XL (Safari sì)'); }   // JPEG: libjpeg-turbo
+    try { const bm = await createImageBitmap(new Blob([b], { type: MIME[t] })); DEC.browser++; return { bm }; }
+    catch { if (t === 'jxl') throw new Error('questo browser non legge le tessere JPEG XL (Safari sì)'); if (t !== 'jpeg') throw new Error(`tessera ${t.toUpperCase()} non leggibile`); }   // JPEG: libjpeg-turbo
   }
   const p = nelWorker(t === 'jpeg' && L.bits > 8 ? 'jpeg12' : t, await byteFotogramma(L, k), P);
   if (p) { try { const r = await p; DEC.worker++; return r; } catch (e) { if (!e.worker) throw e; } }
@@ -186,9 +189,18 @@ async function bitmapRGB(t) {
 }
 
 // ---------------------------------------------------------------- un vetrino: livelli, piani focali, canali, immagini accessorie
+const eDicom = async (f) => { try { const u = new Uint8Array(await f.slice(128, 132).arrayBuffer()); return String.fromCharCode(...u) === 'DICM'; } catch { return false; } };
 export async function preparaVetrini(files) {
-  const voci = [];
-  for (const f of files) { try { voci.push(await analizzaVetrino(f)); } catch (e) { console.warn('vetrino', f.name, e); } }
+  const voci = [], altri = [];
+  for (const f of files) {
+    if (!(await eDicom(f)) && await (await import('./vetrini-formati.js')).formatoVetrino(f)) { altri.push(f); continue; }
+    try { voci.push(await analizzaVetrino(f)); } catch (e) { console.warn('vetrino', f.name, e); }
+  }
+  // SVS, NDPI, TIFF piramidali, MRXS, … (vetrini-formati.js): stessa struttura dei vetrini DICOM
+  const daAltri = altri.length ? await (await import('./vetrini-formati.js')).vetriniDaFormati(altri) : [];
+  return [...preparaDicom(voci), ...daAltri];
+}
+function preparaDicom(voci) {
   const perSerie = new Map();
   for (const v of voci) { const k = v.serie || v.studio || 'vetrino'; if (!perSerie.has(k)) perSerie.set(k, []); perSerie.get(k).push(v); }
   return [...perSerie.values()].map((l) => {
@@ -235,7 +247,7 @@ export async function preparaVetrini(files) {
 // cache delle tessere decodificate (le ultime 500)
 const CACHE = new Map();
 function tesseraCache(v, k) {
-  const ch = v.f.name + '|' + v.f.size + '|' + k;
+  const ch = (v.chiave || (v.f.percorso || v.f.name) + '|' + v.f.size) + '|' + k;   // altri formati: più livelli nello stesso file
   if (CACHE.has(ch)) { const x = CACHE.get(ch); CACHE.delete(ch); CACHE.set(ch, x); return x; }
   const p = tessera(v, k).catch((e) => { CACHE.delete(ch); throw e; });
   CACHE.set(ch, p);
@@ -277,6 +289,15 @@ async function stimaCanali(V) {
   }
 }
 
+// tessere del livello L che toccano la zona (pixel del livello) e loro posizione: di norma una griglia regolare; alcuni formati
+// (MRXS) hanno tessere in posizioni proprie, date da L.trova e L.pos
+function tessereIn(L, x0, y0, w, h) {
+  if (L.trova) return L.trova(x0, y0, w, h);
+  const a0 = Math.max(0, Math.floor(x0 / L.tw)), a1 = Math.floor((x0 + w - 1) / L.tw), b0 = Math.max(0, Math.floor(y0 / L.th)), b1 = Math.floor((y0 + h - 1) / L.th), o = [];
+  for (let b = b0; b <= b1; b++) for (let a = a0; a <= a1; a++) o.push([a, b]);
+  return o;
+}
+const posTessera = (L, a, b) => L.pos?.get(`${a},${b}`) || [a * L.tw, b * L.th];
 // sorgente di tessere per OpenSeadragon: i livelli di OpenSeadragon sono potenze di 2; ogni tessera si compone dal livello
 // DICOM più vicino (con un fattore di riduzione non più grande di quello richiesto), riducendo sul canvas.
 // Lo stato (piano focale, canali) fa parte dell'indirizzo della tessera, così cambiandolo le tessere si rifanno.
@@ -292,10 +313,10 @@ function sorgente(OSD, V, stato, T = 256) {
     const cv = document.createElement('canvas'); cv.width = cw; cv.height = chh; const g = cv.getContext('2d');
     g.fillStyle = V.mono ? '#000' : '#f3f3f3'; g.fillRect(0, 0, cw, chh);
     const s = L.ds / f;     // pixel del livello DICOM → pixel della tessera
-    const a0 = Math.floor(rx / L.ds / L.tw), a1 = Math.floor((rx + rw - 1) / L.ds / L.tw), b0 = Math.floor(ry / L.ds / L.th), b1 = Math.floor((ry + rh - 1) / L.ds / L.th);
     const lavori = [];
-    for (let b = b0; b <= b1; b++) for (let a = a0; a <= a1; a++) {
-      lavori.push(immagineTessera(V, L, a, b, stato).then((bm) => { if (!bm) return; g.imageSmoothingQuality = 'high'; g.drawImage(bm, (a * L.tw * L.ds - rx) / f, (b * L.th * L.ds - ry) / f, L.tw * s, L.th * s); if (V.mono || bm._tmp) bm.close?.(); }));
+    for (const [a, b] of tessereIn(L, rx / L.ds, ry / L.ds, rw / L.ds, rh / L.ds)) {
+      const [px, py] = posTessera(L, a, b);
+      lavori.push(immagineTessera(V, L, a, b, stato).then((bm) => { if (!bm) return; g.imageSmoothingQuality = 'high'; g.drawImage(bm, (px * L.ds - rx) / f, (py * L.ds - ry) / f, (bm.width || L.tw) * s, (bm.height || L.th) * s); if (V.mono || bm._tmp) bm.close?.(); }));
     }
     Promise.allSettled(lavori).then((r) => {
       const err = r.find((z) => z.status === 'rejected');
@@ -329,12 +350,11 @@ async function regione(V, stato, x0, y0, w, h, f, avanza) {
   const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch; const g = cv.getContext('2d');
   g.fillStyle = V.mono ? '#000' : '#f3f3f3'; g.fillRect(0, 0, cw, ch); g.imageSmoothingQuality = 'high';
   const L = [...V.livelli].reverse().find((q) => q.ds <= f * 1.01) || V.livelli[0], s = L.ds / f;
-  const a0 = Math.max(0, Math.floor(x0 / L.ds / L.tw)), a1 = Math.floor((x0 + w - 1) / L.ds / L.tw), b0 = Math.max(0, Math.floor(y0 / L.ds / L.th)), b1 = Math.floor((y0 + h - 1) / L.ds / L.th);
-  const lav = []; for (let b = b0; b <= b1; b++) for (let a = a0; a <= a1; a++) lav.push([a, b]);
+  const lav = tessereIn(L, x0 / L.ds, y0 / L.ds, w / L.ds, h / L.ds);
   let fatti = 0, falliti = 0;
   for (let i = 0; i < lav.length; i += 12) {
     await Promise.all(lav.slice(i, i + 12).map(async ([a, b]) => {
-      try { const bm = await immagineTessera(V, L, a, b, stato); if (bm) { g.drawImage(bm, (a * L.tw * L.ds - x0) / f, (b * L.th * L.ds - y0) / f, L.tw * s, L.th * s); if (V.mono || bm._tmp) bm.close?.(); } }
+      try { const bm = await immagineTessera(V, L, a, b, stato); const [px, py] = posTessera(L, a, b); if (bm) { g.drawImage(bm, (px * L.ds - x0) / f, (py * L.ds - y0) / f, (bm.width || L.tw) * s, (bm.height || L.th) * s); if (V.mono || bm._tmp) bm.close?.(); } }
       catch { falliti++; }
       fatti++;
     }));
@@ -826,7 +846,7 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   // ------------------------------------------------ comandi
   const P0 = await creaPannello(V); pannelli.push(P0); attiva(P0);
   const sp = P0.sp;
-  $('.vt-info').textContent = `${V.W.toLocaleString()} × ${V.H.toLocaleString()} pixel · ${V.livelli.length} ${tr('livelli')}${V.piani.length > 1 ? ` · ${V.piani.length} ${tr('piani focali')}` : ''}${V.mono && V.canali.length > 1 ? ` · ${V.canali.length} ${tr('canali')}` : ''}${sp ? ` · ${sp.toFixed(3).replace('.', ',')} µm/pixel (≈ ${Math.round(10 / sp)}×)` : ' · ' + tr('senza calibrazione: misure in pixel')}`;
+  $('.vt-info').textContent = `${V.formato ? V.formato + ' · ' : ''}${V.W.toLocaleString()} × ${V.H.toLocaleString()} pixel · ${V.livelli.length} ${tr('livelli')}${V.piani.length > 1 ? ` · ${V.piani.length} ${tr('piani focali')}` : ''}${V.mono && V.canali.length > 1 ? ` · ${V.canali.length} ${tr('canali')}` : ''}${sp ? ` · ${sp.toFixed(3).replace('.', ',')} µm/pixel (≈ ${Math.round(10 / sp)}×)` : ' · ' + tr('senza calibrazione: misure in pixel')}`;
   const zIn = $('.vt-z'), zEtEl = $('.vt-z-et');
   const vaiZ = (z) => { P0.stato.z = Math.max(0, Math.min(V.piani.length - 1, z)); if (zIn) zIn.value = String(P0.stato.z); if (zEtEl) zEtEl.textContent = zEt(P0.stato.z); P0.rifai(); };
   if (zIn) { zEtEl.textContent = zEt(P0.stato.z); zIn.oninput = () => vaiZ(+zIn.value); }
@@ -873,7 +893,19 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   const mostra = async (v, titolo) => {
     const d = document.createElement('dialog'); d.className = 'vt-dlg'; d.innerHTML = `<h3></h3><p class="muted">${tr('Caricamento…')}</p><p><button type="button">${tr('Chiudi')}</button></p>`;
     d.querySelector('h3').textContent = titolo; d.querySelector('button').onclick = () => d.close(); d.onclose = () => d.remove(); box.append(d); d.showModal();
-    try { const cv = await immagineIntera(v); cv.className = 'vt-img'; d.querySelector('.muted').replaceWith(cv); } catch (e) { d.querySelector('.muted').textContent = e.message; }
+    try {
+      const cv = await immagineIntera(v); cv.className = 'vt-img'; d.querySelector('.muted').replaceWith(cv);
+      // codici a barre, DataMatrix e QR (di solito l'identificativo del paziente o del campione): avviso, nel browser, senza rete
+      const av = document.createElement('p'); av.className = 'vt-avviso-dati small'; cv.after(av);
+      if ('BarcodeDetector' in globalThis) {
+        try {
+          const cod = await new globalThis.BarcodeDetector().detect(cv);
+          av.textContent = cod.length ? `⚠ ${tr('Contiene')} ${cod.length === 1 ? tr('un codice') : cod.length + ' ' + tr('codici')} (${[...new Set(cod.map((c) => c.format))].join(', ')}): ${tr('può identificare il paziente. Non includerlo in immagini o documenti da condividere.')}`
+            : tr('Nessun codice a barre riconosciuto; scritte e numeri possono comunque identificare il paziente.');
+          if (cod.length) av.classList.add('trovato');
+        } catch { av.textContent = tr('Scritte e codici dell\'etichetta possono identificare il paziente.'); }
+      } else av.textContent = tr('Scritte e codici dell\'etichetta possono identificare il paziente.');
+    } catch (e) { d.querySelector('.muted').textContent = e.message; }
   };
   const bp = $('.vt-panoramica'); if (bp) bp.onclick = () => mostra(V.panoramica, tr('Panoramica del vetrino'));
   const be = $('.vt-etichetta');

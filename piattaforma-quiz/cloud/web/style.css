@@ -2537,3 +2537,24 @@ body.solo-immagini #vista-caso .viewer{padding:4px}
 .cl-guida li span{font-size:.88rem;color:var(--mut);line-height:1.45}
 .cl-guida-az{display:flex;justify-content:flex-end;margin:10px 0 0}
 #barra-mpr #menu-mpr-avanzate>summary{font-size:.95rem!important;line-height:1.2;min-height:32px;padding:4px 10px;font-weight:600}
+
+/* accesso con Google (22/11/2026): pulsante bianco con il logo, come chiedono le linee guida di Google */
+.acc-google { display: flex; flex-direction: column; align-items: stretch; gap: 10px; margin: 6px 0 4px; }
+.acc-google[hidden] { display: none; }
+.acc-oppure { display: flex; align-items: center; gap: 10px; color: var(--muted, #6b7280); font-size: .85rem; }
+.acc-oppure::before, .acc-oppure::after { content: ""; flex: 1; border-top: 1px solid var(--bordo, #d9dee5); }
+.btn.btn-google { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: #1f1f1f;
+  border: 1px solid #747775; border-radius: 6px; font-weight: 500; min-height: 42px; text-decoration: none; }
+.btn.btn-google:hover { background: #f8f9fa; }
+.btn.btn-google .g-logo, .gg-conto .g-logo { flex: none; }
+.gg-conto { display: flex; align-items: center; gap: 8px; }
+.gg-conto span { font-weight: 600; color: inherit; }
+
+/* accesso con LinkedIn e accessi collegati nel profilo (22/11/2026) */
+.acc-google .btn-google + .btn-google { margin-top: 0; }
+#pr-sez-esterni .riga { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0; }
+#pr-sez-esterni .pr-esterno-stato { min-width: 12em; }
+.gg-conto [data-logo] { display: inline-flex; }
+.gg-conto [data-logo][hidden] { display: none; }
+
+.vt-avviso-dati{margin:.4rem 0 0;color:var(--muted,#666)}.vt-avviso-dati.trovato{color:#b45309;font-weight:600}

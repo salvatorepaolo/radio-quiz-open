@@ -111,6 +111,10 @@ export class QuizStack extends Stack {
         UTENTI_MAX: String(props.utentiMax || ''),
         SCADENZA: props.scadenza || '',
         SOSPESA: props.sospesa ? '1' : '0',
+        GOOGLE_ID: props.googleId || '',
+        GOOGLE_SEGRETO: props.googleSegreto || '',
+        LINKEDIN_ID: props.linkedinId || '',
+        LINKEDIN_SEGRETO: props.linkedinSegreto || '',
         SPONSOR: props.sponsor ? '1' : '0',      // sponsor nella vetrina: spenti salvo SPONSOR=1 (21/11/2026)
       },
     });

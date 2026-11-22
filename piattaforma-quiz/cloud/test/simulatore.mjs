@@ -49,6 +49,13 @@ const cfg = { hashAdmin: impronta(CODICE_ADMIN), segreto: SEG, magazzino, sicuro
   creazione: process.env.CREAZIONE_FINTA ? { avvia: async (x) => { LAVORI.set(x.id, { ...x, stato: 'IN_PROGRESS' }); return 'lavoro:' + x.id; },
     stato: async (ids) => Object.fromEntries(ids.map((i) => [i, LAVORI.get(i.replace(/^lavoro:/, ''))?.stato || 'IN_PROGRESS'])) } : null,
   avvisiA: 'info@prova.example',
+  // accesso con Google finto (22/11/2026): /__google fa la parte di accounts.google.com e rimanda indietro con un codice che
+  // contiene le affermazioni (email da ?email=, altrimenti un indirizzo Gmail inventato); GOOGLE=0 lo spegne;
+  // nelle piattaforme delle aziende è spento, come online (pubblica.command passa GOOGLE_ID solo alla vetrina)
+  google: process.env.GOOGLE === '0' || process.env.MODO === 'azienda' ? null : { id: 'finto.apps.googleusercontent.com', segreto: 'finto', autorizza: `http://localhost:${PORTA}/__google`,
+    scambia: async (codice) => JSON.parse(Buffer.from(codice, 'base64url').toString('utf8')) },
+  linkedin: process.env.GOOGLE === '0' || process.env.MODO === 'azienda' ? null : { id: 'finto-linkedin', segreto: 'finto', autorizza: `http://localhost:${PORTA}/__linkedin`,
+    scambia: async (codice) => JSON.parse(Buffer.from(codice, 'base64url').toString('utf8')) },
   // consumi AWS finti (solo nel simulatore, per vedere la dashboard): serie giornaliere plausibili
   traffico: process.env.TRAFFICO_FINTO ? async (n) => { const g = (k) => new Date(Date.now() - k * 864e5).toISOString().slice(0, 10), s = (f) => Array.from({ length: n }, (_, i) => [g(n - 1 - i), f(i)]);
     return { distribuzione: true, memoriaMB: 256, richieste: s((i) => 8000 + 400 * i + 3000 * Math.sin(i)), byte: s((i) => 2.5e9 + 1e8 * i), err5: s(() => 0.02), err4: s(() => 1.1),
@@ -94,6 +101,15 @@ const server = http.createServer(async (q, s) => {
     if (u.pathname === '/__lavori') { s.writeHead(200, { 'content-type': 'application/json' }); return s.end(JSON.stringify(Object.fromEntries(LAVORI))); }
     if (u.pathname === '/__lavori/fallito') { for (const v of LAVORI.values()) v.stato = 'FAILED'; s.writeHead(200); return s.end('ok'); }
     if (u.pathname === '/__copertura' && COP) { try { const x = JSON.parse(corpo); copPagine.set(x.id, x.o); } catch {} s.writeHead(204); return s.end(); }
+    if (u.pathname === '/__google' || u.pathname === '/__linkedin') {
+      const li = u.pathname === '/__linkedin';
+      const p = u.searchParams, email = (p.get('email') || 'mario.rossi@gmail.com').toLowerCase();
+      if (p.get('annulla')) { s.writeHead(302, { location: `${p.get('redirect_uri')}?error=access_denied&state=${p.get('state')}` }); return s.end(); }
+      const c = { iss: li ? 'https://www.linkedin.com' : 'https://accounts.google.com', aud: p.get('client_id'), exp: Math.floor(Date.now() / 1000) + 600, ...(li && !p.get('connonce') ? {} : { nonce: p.get('nonce') }),
+        sub: p.get('sub') || (li ? 'L' : 'g') + Buffer.from(email).toString('hex').slice(0, 20), email, email_verified: p.get('verificata') !== '0',
+        name: p.get('nome') ?? 'Mario Rossi', ...(p.get('hd') ? { hd: p.get('hd') } : {}) };
+      s.writeHead(302, { location: `${p.get('redirect_uri')}?code=${Buffer.from(JSON.stringify(c)).toString('base64url')}&state=${p.get('state')}` }); return s.end();
+    }
     if (u.pathname === '/__posta') { s.writeHead(200, { 'content-type': 'application/json' }); return s.end(JSON.stringify(posta)); }
     if (u.pathname.startsWith('/api/')) { const r = await gestisci({ metodo: q.method, percorso: u.pathname, query: Object.fromEntries(u.searchParams), headers: q.headers, corpo }, cfg); s.writeHead(r.stato, r.headers); return s.end(r.corpo); }
     if (u.pathname.startsWith('/s3put/')) {                    // caricamenti: solo serie.json in memoria (niente scritture su disco)
@@ -127,7 +143,10 @@ const server = http.createServer(async (q, s) => {
       return fs.createReadStream(file, { start: da, end: a }).pipe(s); }
     if (strumenta && file.startsWith(WEB) && file.endsWith('.js') && !/\/(lib|backup_vista|client)\/|worker|\/sw\.js$/.test(file)) {
       s.writeHead(200, { 'content-type': 'text/javascript', 'content-security-policy': CSP, 'cache-control': 'no-store' }); return s.end(strumenta(file)); }
-    s.writeHead(200, { 'content-type': mime[path.extname(file)] || 'application/octet-stream', 'content-security-policy': CSP }); fs.createReadStream(file).pipe(s);
+    // come S3: lunghezza e «accept-ranges» anche senza Range (e per HEAD, che usano i lettori a pezzi nei worker, es. iSyntax)
+    s.writeHead(200, { 'content-type': mime[path.extname(file)] || 'application/octet-stream', 'content-security-policy': CSP, ...(file.startsWith(CASI) ? { 'content-length': tot, 'accept-ranges': 'bytes' } : {}) });
+    if (q.method === 'HEAD') return s.end();
+    fs.createReadStream(file).pipe(s);
   } catch (e) { console.error(e); s.writeHead(500); s.end(String(e?.message || e)); }
 });
 server.listen(PORTA, () => console.log(`simulatore pronto su ${PORTA} (${Object.keys(casi).length} casi)`));

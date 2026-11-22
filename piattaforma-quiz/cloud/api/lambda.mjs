@@ -17,6 +17,8 @@ const s3 = new S3Client({});
 const db = new DynamoDBClient({});
 const ses = new SESv2Client({});
 const { BUCKET_DATI, BUCKET_SITO, TABELLA, HASH_ADMIN, SEGRETO, SEGRETO_ORIGINE, AWS_REGION, MITTENTE, INDIRIZZO, RISPONDI_A } = process.env;
+// accesso con Google (facoltativo): client OAuth della console di Google Cloud, da GOOGLE_ID e GOOGLE_SEGRETO in .segreti
+const { GOOGLE_ID, GOOGLE_SEGRETO, LINKEDIN_ID, LINKEDIN_SEGRETO } = process.env;
 // istanza: «vetrina» (radio-quiz.it) o «azienda» (piattaforma di un'azienda, accesso solo su invito)
 const ISTANZA = { modo: process.env.MODO || 'vetrina', nome: process.env.NOME_ISTANZA || '', contatto: process.env.CONTATTO || '',
   utentiMax: process.env.UTENTI_MAX || '', scadenza: process.env.SCADENZA || '', sospesa: process.env.SOSPESA === '1',
@@ -43,7 +45,7 @@ const firmaCaricamento = (chiave) => urlFirmato({ bucket: BUCKET_SITO, regione: 
 
 // account: pk "ACCOUNT", sk = id
 // i dati dell'iscrizione (impronta della password, categoria, docenti scelti, gettoni di conferma…) stanno in «dati» (JSON)
-const EXTRA = ['pw', 'categoria', 'sede', 'anno', 'docenti', 'stato', 'conferma', 'reset', 'noDocente', 'avvisi', 'errori', 'bloccatoFino', 'ultimoInvio', 'privacy', 'condizioni', 'sessioneDa', 'avvisoInattivo'];
+const EXTRA = ['pw', 'categoria', 'sede', 'anno', 'docenti', 'stato', 'conferma', 'reset', 'noDocente', 'avvisi', 'errori', 'bloccatoFino', 'ultimoInvio', 'privacy', 'condizioni', 'sessioneDa', 'avvisoInattivo', 'google', 'linkedin'];
 const daItem = (i) => {
   if (!i) return i;
   let extra = {};
@@ -328,9 +330,11 @@ export async function handler(event) {
       query: event.queryStringParameters || {},
       headers: { cookie: cookieHeader },
       corpo,
-    }, { hashAdmin: HASH_ADMIN, segreto: SEGRETO, magazzino, firmaCaricamento, inviaEmail, indirizzo: INDIRIZZO, istanza: ISTANZA, traffico, creazione, avvisiA: RISPONDI_A || '' });
+    }, { hashAdmin: HASH_ADMIN, segreto: SEGRETO, magazzino, firmaCaricamento, inviaEmail, indirizzo: INDIRIZZO, istanza: ISTANZA, traffico, creazione, avvisiA: RISPONDI_A || '',
+      google: GOOGLE_ID && GOOGLE_SEGRETO ? { id: GOOGLE_ID, segreto: GOOGLE_SEGRETO } : null,
+      linkedin: LINKEDIN_ID && LINKEDIN_SEGRETO ? { id: LINKEDIN_ID, segreto: LINKEDIN_SEGRETO } : null });
     const { 'set-cookie': setCookie, ...altri } = r.headers;
-    return { statusCode: r.stato, headers: altri, body: r.corpo, ...(setCookie ? { cookies: [setCookie] } : {}) };
+    return { statusCode: r.stato, headers: altri, body: r.corpo, ...(setCookie && setCookie.length ? { cookies: [].concat(setCookie) } : {}) };
   } catch (e) {
     console.error(e);
     return { statusCode: 500, headers: { 'content-type': 'application/json' }, body: JSON.stringify({ errore: 'errore interno' }) };

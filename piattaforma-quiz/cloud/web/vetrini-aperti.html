@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vetrini digitali aperti: dove scaricarli — Quiz Radiologia</title>
+<link rel="icon" href="logo.svg">
+<style>
+  :root { --sf: #ffffff; --txt: #1d2430; --muto: #5b6575; --bord: #d9dee6; --acc: #1f5fbf; --riga: #f4f6f9; }
+  @media (prefers-color-scheme: dark) { :root { --sf: #12161d; --txt: #e6e9ee; --muto: #9aa4b2; --bord: #2b3340; --acc: #6ea2ff; --riga: #1a2029; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--sf); color: var(--txt); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  header img { width: 44px; height: 44px; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  h2 { font-size: 1.15rem; margin: 32px 0 8px; color: var(--acc); }
+  a { color: var(--acc); }
+  p.muto, .muto { color: var(--muto); }
+  .tab { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  .tab th, .tab td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--bord); }
+  .tab th { font-weight: 600; background: var(--riga); }
+  .scorri { overflow-x: auto; }
+  .lic { white-space: nowrap; font-weight: 600; }
+  @media (max-width: 600px) {
+    .tab thead { display: none; }
+    .tab tr { display: block; border-bottom: 1px solid var(--bord); padding: 8px 0; }
+    .tab td { display: block; border: 0; padding: 2px 0; }
+    .tab td:nth-child(2), .tab td:nth-child(4) { color: var(--muto); font-size: .9rem; }
+    .tab td.lic::before { content: "Licenza: "; font-weight: 400; color: var(--muto); }
+  }
+  .nota { border-left: 3px solid var(--acc); background: var(--riga); padding: 10px 14px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="logo.svg" alt=""><h1>Vetrini digitali aperti: dove scaricarli</h1></header>
+  <p>Archivi pubblici con vetrini digitali di anatomia patologica da scaricare e aprire nel <a href="client/index.html">visualizzatore</a>: tutto avviene nel browser, i file non vengono inviati a nessuno. Licenze e condizioni sono quelle indicate dagli archivi: controllale sempre alla fonte prima di usare i dati.</p>
+  <div class="scorri"><table class="tab">
+    <thead><tr><th>Archivio</th><th>Formato</th><th>Licenza</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://openslide.cs.cmu.edu/download/openslide-testdata/" target="_blank" rel="noopener">OpenSlide test data</a></td><td>Tutti i formati: Aperio SVS, Hamamatsu NDPI, 3DHISTECH MRXS, Leica SCN, Ventana BIF, Philips TIFF, Zeiss CZI, Olympus VSI, DICOM</td><td class="lic">CC0 o liberamente distribuibili (indicato file per file)</td><td>Scaricamento diretto, senza registrazione. Ideale per provare il visualizzatore con ogni formato.</td></tr>
+      <tr><td><a href="https://portal.imaging.datacommons.cancer.gov/" target="_blank" rel="noopener">NCI Imaging Data Commons (IDC)</a></td><td>DICOM (TCGA, CPTAC, HTAN e altre collezioni; anche fluorescenza)</td><td class="lic">In gran parte CC BY; una piccola parte CC BY-NC (indicato file per file)</td><td>Nessuna registrazione. I vetrini DICOM si aprono qui così come sono.</td></tr>
+      <tr><td><a href="https://portal.gdc.cancer.gov/" target="_blank" rel="noopener">Genomic Data Commons — TCGA</a></td><td>Aperio SVS (vetrini diagnostici e sezioni al congelatore)</td><td class="lic">Dati ad accesso aperto (politiche di uso del GDC)</td><td>Filtro «Data Type: Slide Image», accesso «open»; si scaricano dal portale o con il GDC Data Transfer Tool.</td></tr>
+      <tr><td><a href="https://www.cancerimagingarchive.net/" target="_blank" rel="noopener">The Cancer Imaging Archive — collezioni CPTAC</a></td><td>Aperio SVS</td><td class="lic">CC BY 3.0 (secondo la collezione)</td><td>Spesso con TC, RM e PET dello stesso paziente: utili per la correlazione radio-patologica.</td></tr>
+      <tr><td><a href="https://registry.opendata.aws/camelyon/" target="_blank" rel="noopener">CAMELYON16 e CAMELYON17</a></td><td>TIFF piramidali (linfonodi sentinella, carcinoma mammario)</td><td class="lic">CC0 secondo AWS Open Data e GigaScience; la pagina della sfida indica CC BY-NC-ND: verificare prima di ridistribuire</td><td>Contorni delle metastasi disegnati dai patologi (XML).</td></tr>
+      <tr><td><a href="https://huggingface.co/collections/histai/histai-whole-slide-images-dataset" target="_blank" rel="noopener">HISTAI</a></td><td>TIFF (oltre 60.000 vetrini, molti tessuti e colorazioni, con referti)</td><td class="lic">CC BY-NC 4.0, solo ricerca</td><td>Su Hugging Face, dopo aver accettato le condizioni d'uso.</td></tr>
+      <tr><td><a href="https://zenodo.org/record/5037046" target="_blank" rel="noopener">Vetrino di prova OpenPhi</a></td><td>Philips iSyntax (un vetrino, 495 MB)</td><td class="lic">MIT</td><td>Per provare il formato iSyntax.</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Prima di usarli</h2>
+  <p>Per lo studio personale basta rispettare la licenza. Per mettere un vetrino in un caso della piattaforma servono una licenza che permetta di ridistribuirlo (CC0, CC BY, MIT) e la citazione della fonte; etichetta e panoramica vanno tolte con <code>strumenti/prepara_vetrino.py</code> (o <code>anonimizza_vetrino.py</code> per i DICOM). I dati con licenza non commerciale (NC) o senza opere derivate (ND) restano per lo studio personale.</p>
+  <p class="muto">Elenco aggiornato al 22 novembre 2026. Strumento solo formativo: non è un dispositivo medico. <a href="vetrini-aperti.en.html">English</a> · <a href="licenze.html">Licenze e crediti</a></p>
+</main>
+</body>
+</html>

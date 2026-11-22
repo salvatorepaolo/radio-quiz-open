@@ -1,0 +1,40 @@
+diff --git a/src/platform/linux_utils.c b/src/platform/linux_utils.c
+index ebb38ba..9b0559f 100644
+--- a/src/platform/linux_utils.c
++++ b/src/platform/linux_utils.c
+@@ -62,6 +62,9 @@ i64 file_stream_get_filesize(file_stream_t file_stream) {
+ }
+ 
+ i64 file_stream_get_pos(file_stream_t file_stream) {
++#ifdef __EMSCRIPTEN__ // RQ_EMS
++	return ftello(file_stream);
++#endif
+ 	fpos_t prev_read_pos = {0}; // NOTE: fpos_t may be a struct!
+ 	int ret = fgetpos64(file_stream, &prev_read_pos); // for restoring the file position later
+ 	ASSERT(ret == 0); (void)ret;
+@@ -75,6 +78,9 @@ i64 file_stream_get_pos(file_stream_t file_stream) {
+ }
+ 
+ bool file_stream_set_pos(file_stream_t file_stream, i64 offset) {
++#ifdef __EMSCRIPTEN__ // RQ_EMS: in musl fpos_t non è un intero
++	return fseeko(file_stream, offset, SEEK_SET) == 0;
++#endif
+ 	fpos_t pos = {offset};
+ 	int ret = fsetpos64(file_stream, &pos);
+ 	return (ret == 0);
+diff --git a/src/platform/platform.c b/src/platform/platform.c
+index 59bca49..6988318 100644
+--- a/src/platform/platform.c
++++ b/src/platform/platform.c
+@@ -176,7 +176,11 @@ system_info_t get_system_info(bool verbose) {
+         system_info.running_from_app_bundle = true;
+     }
+ #elif LINUX
++#ifdef __EMSCRIPTEN__
++    system_info.logical_cpu_count = 1;   // radio-quiz: nel browser un solo filo, niente pthread
++#else
+     system_info.logical_cpu_count = sysconf( _SC_NPROCESSORS_ONLN );
++#endif
+     system_info.physical_cpu_count = system_info.logical_cpu_count; // TODO(pvalkema): how to read this on Linux?
+     system_info.os_page_size = (u32) getpagesize();
+     system_info.page_alignment_mask = ~((u64)(sysconf(_SC_PAGE_SIZE) - 1));

@@ -24,6 +24,7 @@
    Gettone (cookie "quiz"):  ruolo.id.scadenza.firmaHMAC
    ============================================================ */
 import { createHash, createHmac, timingSafeEqual, randomBytes, randomInt, scryptSync } from 'node:crypto';
+import { FORNITORI, inizio as inizioEsterno, scambia as scambiaEsterno, controllaAffermazioni, emailAutorevole, firmato as firmatoEsterno, leggiFirmato, leggiCookie } from './google.mjs';
 
 export const RUOLI = ['admin', 'referente', 'docente', 'specializzando'];
 export const normalizza = (c) => String(c || '').toLowerCase().replace(/[\s-]/g, '');
@@ -1031,7 +1032,7 @@ async function profiloDi(a, M) {
   const docenti = (a.docenti || []).map((d) => tutti.find((x) => x.id === d)).filter(eDocente).map((x) => ({ id: x.id, nome: x.nome }));
   return { id: a.id, ruolo: a.ruolo === 'referente' ? 'docente' : a.ruolo, nome: a.nome, autore: a.ruolo === 'admin' || (a.ruolo === 'docente' && !!a.autore),
     email: a.email || '', categoria: a.categoria || '', sede: a.sede || '', anno: a.anno || '', docenti, avvisi: a.avvisi !== false,
-    noDocente: !!a.noDocente, conPassword: !!a.pw, profilo: profiloDidattico(a.categoria),
+    noDocente: !!a.noDocente, conPassword: !!a.pw, conGoogle: !!a.google, conLinkedin: !!a.linkedin, profilo: profiloDidattico(a.categoria),
     seguaci: a.ruolo === 'docente' ? tutti.filter((x) => (x.docenti || []).includes(a.id) && x.attivo !== false).length : 0 };
 }
 // dati del profilo inviati dall'utente (iscrizione o modifica)
@@ -1059,7 +1060,7 @@ export async function gestisci(req, cfg) {
   const opzCookie = `Path=/; HttpOnly; SameSite=Lax${cfg.sicuro === false ? '' : '; Secure'}`;
   const IST = istanzaDi(cfg), AZIENDA = IST.modo === 'azienda';
   // tipo di istanza, pubblico: la pagina si adatta prima dell'accesso (iscrizione, nome dell'azienda)
-  if (parti[1] === 'istanza' && metodo === 'GET') return json(200, IST, { 'cache-control': 'public, max-age=300' });
+  if (parti[1] === 'istanza' && metodo === 'GET') return json(200, { ...IST, ...(cfg.google?.id ? { google: true } : {}), ...(cfg.linkedin?.id ? { linkedin: true } : {}) }, { 'cache-control': 'public, max-age=300' });
   // esito del lavoro di creazione di una piattaforma (AWS CodeBuild, crea-tenant.sh): senza sessione, autorizzato dal
   // gettone monouso consegnato all'avvio (se ne conserva solo l'impronta, scade dopo 3 ore)
   if (parti[1] === 'tenant' && parti[3] === 'esito' && metodo === 'POST' && !AZIENDA && M.leggiAzienda) {
@@ -1228,6 +1229,92 @@ export async function gestisci(req, cfg) {
     if (!passwordValida(dati.password)) return json(400, { errore: 'La password deve avere almeno 10 caratteri, con lettere e almeno un numero o simbolo.' });
     if (a.attivo === false) return json(403, { errore: 'Account disattivato.' });
     return entra({ ...a, pw: improntaPassword(dati.password), reset: null, sessioneDa: Date.now() });   // chiude le altre sessioni
+  }
+
+  // ---------------- accesso con Google e LinkedIn (OpenID Connect): attivo solo se il client del fornitore è configurato
+  // (GOOGLE_ID/GOOGLE_SEGRETO, LINKEDIN_ID/LINKEDIN_SEGRETO). Account: campo «google» o «linkedin» = sub del fornitore
+  if (FORNITORI[parti[1]]) {
+    const prov = parti[1];
+    if (!cfg[prov]?.id) return json(404, { errore: `accesso con ${FORNITORI[prov].nome} non attivo` });
+    const ritorno = radice(cfg.indirizzo) + `/api/${prov}/ritorno`;
+    const opzG = opzCookie.replace(/^Path=\/;/, `Path=/api/${prov};`);
+    const vai = (dove, cookies = []) => ({ stato: 302, headers: { location: radice(cfg.indirizzo) + '/' + dove, 'cache-control': 'no-store', 'set-cookie': cookies }, corpo: '' });
+    const esito = (e, cookies = []) => vai(`#/${prov}/${e}`, [`qg=; Max-Age=0; ${opzG}`, ...cookies]);
+    // chi è già dentro (per «Collega» dal profilo): gettone valido di un account attivo
+    const sessione = async () => {
+      const g = leggiGettone(cfg.segreto, cookie(req.headers));
+      if (!g || g.id === 'admin') return null;
+      const a = await M.leggiAccount(g.id);
+      return a && a.attivo !== false && a.stato !== 'attesa' && a.ruolo === g.ruolo ? a : null;
+    };
+    if (parti[2] === 'inizia' && metodo === 'GET') {
+      let u = '';
+      if (req.query?.collega) { const io = await sessione(); if (!io) return vai('#/profilo'); u = io.id; }
+      const { url, valore } = inizioEsterno(cfg, ritorno, u ? '#/profilo' : req.query?.dopo, Date.now(), prov, u);
+      return { stato: 302, headers: { location: url, 'cache-control': 'no-store', 'set-cookie': [`qg=${valore}; Max-Age=600; ${opzG}`] }, corpo: '' };
+    }
+    if (parti[2] === 'ritorno' && metodo === 'GET') {
+      const q = req.query || {}, st = leggiFirmato(cfg.segreto, 'qg', leggiCookie(req.headers, 'qg'));
+      if (q.error) return esito('annullato');
+      if (!st || !q.state || !uguali(q.state, st.s) || !q.code) return esito('scaduto');
+      let c;
+      try { c = await scambiaEsterno(cfg, String(q.code).slice(0, 2000), st.v, ritorno, prov); } catch (e) { console.error(prov, e?.message || e); return esito('errore'); }
+      const motivo = controllaAffermazioni(c, cfg, st.n, Date.now(), prov);
+      if (motivo) { console.error(`${prov}: affermazioni non valide`, motivo); return esito(motivo === 'email' ? 'email' : 'errore'); }
+      const email = pulisciEmail(c.email);
+      if (!email) return esito('email');
+      const tutti = await M.elencoAccount();
+      const giaSuo = tutti.find((x) => x[prov] === c.sub);
+      // collegamento dal profilo: solo nella stessa sessione che l'ha chiesto, e se l'account del fornitore non è già di un altro
+      if (st.u) {
+        const io = await sessione();
+        if (!io || io.id !== st.u) return esito('scaduto');
+        if (giaSuo && giaSuo.id !== io.id) return esito('gia-usato');
+        await M.scriviAccount({ ...io, [prov]: c.sub });
+        return esito('collegato');
+      }
+      let a = giaSuo;
+      if (!a) {
+        const stessa = tutti.find((x) => x.email === email);
+        if (stessa && !emailAutorevole(c, prov)) return esito('collega');   // si entra con la password e si collega dal profilo
+        if (stessa) a = { ...stessa, [prov]: c.sub };
+      }
+      if (a) {
+        if (a.attivo === false) return esito('disattivato');
+        // iscrizione in attesa di conferma: il fornitore ha verificato l'indirizzo, ma la password l'ha scelta chi ha compilato
+        // il modulo (forse un altro): si toglie, così l'account resta solo del titolare dell'email
+        if (a.stato === 'attesa') a = { ...a, stato: '', conferma: null, pw: '', sessioneDa: Date.now(), privacy: a.privacy || ora16(), condizioni: a.condizioni || ora16() };
+        const r = await entra(a);
+        if (r.stato !== 200) return esito('bloccata');
+        await conta('_' + prov);
+        return vai(st.d, [`qg=; Max-Age=0; ${opzG}`, r.headers['set-cookie']]);
+      }
+      if (AZIENDA) return esito('invito');
+      const nuovo = firmatoEsterno(cfg.segreto, 'qn', { sub: c.sub, email, nome: pulisciTesto(c.name || [c.given_name, c.family_name].filter(Boolean).join(' '), 80), d: st.d, scad: Date.now() + 1800000 });
+      return esito('iscrizione', [`qn=${nuovo}; Max-Age=1800; ${opzG}`]);
+    }
+    // prima volta: la pagina mostra email e nome e chiede il resto (condizioni, 18 anni, chi sei)
+    const nuovo = leggiFirmato(cfg.segreto, 'qn', leggiCookie(req.headers, 'qn'));
+    const scaduto = `Il passaggio da ${FORNITORI[prov].nome} è scaduto: premi di nuovo «Continua con ${FORNITORI[prov].nome}».`;
+    if (parti[2] === 'nuovo' && metodo === 'GET') return nuovo ? json(200, { email: nuovo.email, nome: nuovo.nome || '' }) : json(404, { errore: scaduto });
+    if (parti[2] === 'completa' && metodo === 'POST') {
+      if (!nuovo || AZIENDA) return json(400, { errore: scaduto });
+      const p = datiProfilo(dati);
+      if (!p.nome || p.nome.length < 3) return json(400, { errore: 'Scrivi nome e cognome.' });
+      if (dati.privacy !== true) return json(400, { errore: 'Per iscriverti devi accettare le condizioni d\'uso e leggere l\'informativa sul trattamento dei dati.' });
+      if (dati.maggiorenne !== true) return json(400, { errore: 'Per iscriverti devi avere almeno 18 anni.' });
+      const tutti = await M.elencoAccount();
+      if (tutti.some((x) => x[prov] === nuovo.sub || x.email === nuovo.email)) return json(409, { errore: `Questo account esiste già: premi di nuovo «Continua con ${FORNITORI[prov].nome}».` });
+      const acc = { id: randomBytes(6).toString('hex'), ...p, categoria: p.categoria || 'altro', email: nuovo.email, [prov]: nuovo.sub,
+        ruolo: dati.docente === true ? 'docente' : 'specializzando', pw: '', hash: '', attivo: true, stato: '', creato: ora16(),
+        avvisi: true, docenti: [], privacy: ora16(), condizioni: ora16() };
+      await M.scriviAccount(acc);
+      await conta('_' + prov);
+      const r = await entra(acc);
+      if (r.stato === 200) r.headers['set-cookie'] = [r.headers['set-cookie'], `qn=; Max-Age=0; ${opzG}`];
+      return r;
+    }
+    return json(404, { errore: 'non trovato' });
   }
 
   // ---------------- da qui serve un gettone valido, di un account ancora attivo

@@ -133,6 +133,7 @@ if (EN) {
     document.querySelectorAll('a[href="/client/manuale-client.html"]').forEach((a) => { a.href = '/client/manuale-client.en.html'; });
     // pagina sulla qualità del software in inglese
     document.querySelectorAll('a[href="/qualita.html"]').forEach((a) => { a.href = '/qualita.en.html'; });
+    document.querySelectorAll('a[href="/vetrini-aperti.html"]').forEach((a) => { a.href = '/vetrini-aperti.en.html'; });
     traduciAlbero(document.body); document.title = tr(document.title) || document.title;
     new MutationObserver((ms) => {
       for (const m of ms) {

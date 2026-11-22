@@ -107,6 +107,9 @@ if [ "${MODO}" = "vetrina" ]; then
 fi
 # sponsor nella vetrina: spenti; SPONSOR="1" in .segreti per riaccenderli (21/11/2026)
 export SPONSOR
+# accesso con Google, solo nella vetrina (22/11/2026): GOOGLE_ID e GOOGLE_SEGRETO in .segreti (console di Google Cloud)
+# accesso con LinkedIn, solo nella vetrina (22/11/2026): LINKEDIN_ID e LINKEDIN_SEGRETO in .segreti (portale sviluppatori LinkedIn)
+if [ "${MODO}" = "vetrina" ]; then export GOOGLE_ID GOOGLE_SEGRETO LINKEDIN_ID LINKEDIN_SEGRETO; else unset GOOGLE_ID GOOGLE_SEGRETO LINKEDIN_ID LINKEDIN_SEGRETO; fi
 ok "impronta calcolata: il codice in chiaro non finisce su AWS"
 
 # ---------- 4. dipendenze ----------

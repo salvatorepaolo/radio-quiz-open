@@ -2,11 +2,11 @@
 // /client/index.html (e ogni pagina sotto /client/) riceve la pagina del sito; /client/<file> → /<file>.
 // Prima la rete (aggiornamenti), poi la copia salvata. /api/ e /casi/ non passano di qui. Nessun dato del paziente
 // viene salvato: in cache vanno solo i file del sito.
-const CACHE = 'rq-client-13';
+const CACHE = 'rq-client-14';
 const PROPRI = /^\/client\/(sw\.js|avvio\.js|manifest\.json|icona-\d+\.png)$/;
 const FILE = ['/index.html', '/app.js', '/style.css', '/logo.svg', '/versione.json', '/licenze.html', '/anonimizza.js', '/analisi.js', '/cmr.js', '/ecosemi.js',
   '/t2star.js', '/refertolocale.js', '/scale.js', '/scale-dati.js', '/scale-indice.js', '/prima.js', '/rotta.js', '/cmr-ui.js', '/docenti.js', '/gestione-sito.js', '/noduli-client.js', '/noduli-worker.js', '/aiuto.json', '/schede.json', '/modelli-referto.json', '/protocolli.json', '/percorsi.json',
-  '/lib/dicomParser.min.js', '/lib/lossless-min.js', '/lib/mpr3d.js', '/lib/mp4-muxer.js', '/lib/openseadragon.min.js', '/vetrini.js', '/vetrini-sop.js', '/vetrini-ann.js', '/vetrini-dec.js', '/vetrini-worker.js',
+  '/lib/dicomParser.min.js', '/lib/lossless-min.js', '/lib/mpr3d.js', '/lib/mp4-muxer.js', '/lib/openseadragon.min.js', '/vetrini.js', '/vetrini-sop.js', '/vetrini-ann.js', '/vetrini-dec.js', '/vetrini-worker.js', '/vetrini-formati.js', '/vetrini-formati2.js', '/lib/jpegxr.mjs', '/lib/fzstd.mjs', '/lib/isyntax.mjs', '/vetrini-isyntax-worker.js',
   '/lib/codec/openjpegwasm_decode.js', '/lib/codec/openjpegwasm_decode.wasm', '/lib/codec/charlswasm_decode.js', '/lib/codec/charlswasm_decode.wasm',
   '/lib/codec/libjpegturbowasm_decode.js', '/lib/codec/libjpegturbowasm_decode.wasm', '/lib/codec/jpegimage.js',
   '/gsps.js', '/referto.js', '/manuale-client.html', '/manuale-client.en.html', '/i18n.js', '/lingua/en.json', '/lingua/en/modelli-referto.json', '/lingua/en/aiuto.json', '/lingua/en/schede.json', '/decodifica.js', '/decodifica-worker.js', '/client/manifest.json', '/client/icona-192.png', '/client/icona-512.png'];
