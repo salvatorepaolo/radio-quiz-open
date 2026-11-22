@@ -4,7 +4,9 @@ Non stampa il codice dell'amministratore. Con --allinea riporta nei caso.json lo
 Uso: python3 strumenti/confronta_online.py [--allinea]"""
 import json, os, re, sys, urllib.request, http.cookiejar
 BASE = "https://radio-quiz.it"
+# cartella dei casi: «casi», oppure «casi-free» (quella usata dalla pubblicazione del sito gratuito)
 radice = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CARTELLA_CASI = os.environ.get("CASI") or ("casi" if os.path.isdir(os.path.join(radice, "casi")) else "casi-free")
 codice = re.search(r'^\s*CODICE_AMMINISTRATORE="?([^"\n]+)"?', open(os.path.join(radice, "cloud", ".segreti")).read(), re.M).group(1)
 op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
 def chiama(m, p, d=None):
@@ -13,7 +15,7 @@ def chiama(m, p, d=None):
 chiama("POST", "/api/accesso", {"codice": codice})
 elenco = chiama("GET", "/api/casi")
 online = {c["id"]: c for c in elenco}
-locali = sorted(d for d in os.listdir(os.path.join(radice, "casi")) if d.startswith("caso-") and os.path.exists(os.path.join(radice, "casi", d, "caso.json")))
+locali = sorted(d for d in os.listdir(os.path.join(radice, CARTELLA_CASI)) if d.startswith("caso-") and os.path.exists(os.path.join(radice, CARTELLA_CASI, d, "caso.json")))
 print(f"online {len(online)} casi ({sum(1 for c in elenco if c.get('visibile') is False)} bozze), locali {len(locali)}")
 solo_loc = [c for c in locali if c not in online]; solo_on = [c for c in online if c not in locali]
 if solo_loc: print("solo in locale:", solo_loc)
@@ -23,7 +25,7 @@ diff = {}
 for cid in locali:
     if cid not in online: continue
     c = chiama("GET", f"/api/casi/{cid}/completo")
-    p = os.path.join(radice, "casi", cid, "caso.json"); l = json.load(open(p))
+    p = os.path.join(radice, CARTELLA_CASI, cid, "caso.json"); l = json.load(open(p))
     d = [k for k in ("titolo", "visibile", "nota_docente", "spiegazione", "domanda", "modalita", "distretto") if (l.get(k) if k != "visibile" else l.get(k) is not False) != (c.get(k) if k != "visibile" else c.get(k) is not False)]
     if len(l.get("opzioni") or []) != len(c.get("opzioni") or []): d.append("opzioni")
     if d: diff[cid] = d

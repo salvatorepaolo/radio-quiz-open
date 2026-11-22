@@ -7380,8 +7380,12 @@ function disegnaElenco() {
   $('#filtro-metodica').innerHTML = ['Tutte', ...metodiche].map((m) => {
     const n = m === 'Tutte' ? casi.length : casi.filter((c) => metodicaDi(c) === m).length;
     return `<button role="tab" data-m="${esc(m)}" class="${m === filtroMetodica ? 'on' : ''}">${esc(m)} <small>${n}</small></button>`;
-  }).join('');
-  qsAll('#filtro-metodica button').forEach((b) => b.onclick = () => { filtroMetodica = b.dataset.m; scriviSessione('quiz-filtro', filtroMetodica); disegnaElenco(); });
+  }).join('') + (() => {   // 1.299: i casi di soli vetrini restano nella loro pagina, ma il filtro li fa vedere e ci porta
+    const n = filtroArea === 'Tutte' && !cercaTesto.trim() ? ELENCO.filter((c) => eVetrini(c) && c.visibile !== false && origineDi(c) === filtroOrigine).length : 0;
+    return n ? `<button type="button" role="tab" aria-selected="false" class="filtro-vetrini" data-vai-vetrini="1" title="Casi di anatomia patologica con il vetrino digitale: sono nella pagina «Vetrini»">🔬 Vetrini <small>${n}</small> →</button>` : '';
+  })();
+  qsAll('#filtro-metodica button[data-m]').forEach((b) => b.onclick = () => { filtroMetodica = b.dataset.m; scriviSessione('quiz-filtro', filtroMetodica); disegnaElenco(); });
+  const bv = qs1('#filtro-metodica [data-vai-vetrini]'); if (bv) bv.onclick = () => { location.hash = '#/vetrini'; };
   const gruppi = (filtroMetodica === 'Tutte' ? metodiche : [filtroMetodica]).map((m) => [m, casi.filter((c) => metodicaDi(c) === m)]);
   // metodiche chiuse a ogni nuova visita; dentro la stessa visita (ritorno da un caso) restano come le si è lasciate
   const aperteForzate = !!cercaTesto.trim() || filtroMetodica !== 'Tutte' || gruppi.length === 1;
@@ -7441,7 +7445,8 @@ function aggiornaMenuVetrini() {
   const pc = $('#percorsi'); if (pc) va.append(pc);
   // obiettivo del giorno, giorni di fila, settimane e traguardi sono progressi: con punti e livello
   for (const id of ['gioco-card', 'allenamento-card']) { const e = $('#' + id); if (e) vp.append(e); }
-  const promo = qs1('#vista-elenco .cl-promo'), aiuto = $('#vista-aiuto'); if (promo && aiuto) aiuto.prepend(promo);
+  // 1.299: il riquadro del visualizzatore DICOM resta anche nella pagina dei casi (richiesta dell'utente); una copia nell'Aiuto
+  const promo = qs1('#vista-elenco .cl-promo'), aiuto = $('#vista-aiuto'); if (promo && aiuto) aiuto.prepend(promo.cloneNode(true));
 })();
 async function apriSezioneStudente(nome) {
   vista(nome); $('#titolo-caso').textContent = '';
@@ -7853,6 +7858,7 @@ function numeriHome() {
   const vis = ELENCO.filter((c) => c.visibile !== false && !eVetrini(c)), met = new Set(vis.map(metodicaDi).filter(Boolean));
   const svolti = GIOCO ? vis.filter((c) => GIOCO.casi[c.id] != null).length : 0;
   const v = [[vis.length, 'casi'], [met.size, met.size === 1 ? 'metodica' : 'metodiche'], [(() => { try { return PERCORSI.filter((p) => percorsoPerMe(p) && statoPercorso(p).casi.length).length; } catch { return PERCORSI.length; } })(), 'percorsi']];   // stesso conteggio della sezione «Percorsi tematici»
+  const nVt = ELENCO.filter((c) => c.visibile !== false && eVetrini(c)).length; if (nVt) v.splice(1, 0, [nVt, nVt === 1 ? 'vetrino' : 'vetrini']);   // 1.299
   if (GIOCO) v.push([`${vis.length ? Math.round(100 * svolti / vis.length) : 0}%`, 'già svolti']);
   $('#home-numeri').innerHTML = v.filter(([n]) => n !== 0).map(([n, t]) => `<span><b>${esc(String(n))}</b> ${esc(t)}</span>`).join('');
 }
