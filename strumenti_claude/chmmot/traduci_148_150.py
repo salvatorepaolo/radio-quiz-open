@@ -42,7 +42,7 @@ EN['148'] = {**SEZ,
  "spiegazione": BASE_EN + (
     "In this girl the myocardium does not lose signal appreciably over the echoes (collection T2* 29.6 ms, normal), while the liver is almost black from the fourth echo (T2* 2.0 ms, R2* 500 s⁻¹, LIC about 16 mg/g: severe). "
     "In children transfusional iron deposits first in the liver; the heart usually loads later, but it must be checked periodically with MRI. "
-    "In small hearts the septum is thin: keep the ROI in the myocardium, even if only a few pixels, because cavity blood has a long T2* and raises the value."),
+    "In small hearts the septum is thin: zoom in before drawing the ROI and keep it in the myocardium, even if only a few pixels, because cavity blood has a long T2* and raises the value (an ROI that includes blood gives values above 100-200 ms with the T2* tool)."),
  "esito_clinico.testo": "CHMMOTv1 collection values: cardiac T2* 29.6 ms (R2* 33.1 s⁻¹, MIC 0.94 mg/g), heart «Normal»; liver T2* 2.0 ms (R2* 499.7 s⁻¹), liver «Severe»; ferritin 5,410 µg/L.",
  "comunicazione.motivo": "Severe hepatic overload with an iron-free heart: report it to the hematologist with the report to adjust chelation, not urgently.",
  "regola": "In children iron deposits first in the liver: always measure liver and heart, and in a small heart keep the ROI in the myocardium, out of the blood.",

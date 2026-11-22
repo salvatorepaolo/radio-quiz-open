@@ -71,7 +71,7 @@ casi["148"] = {
     "spiegazione": SPIEGAZIONE_BASE + (
         "In questa bambina il miocardio non perde segnale in modo apprezzabile negli echi (T2* della collezione 29,6 ms, normale), mentre il fegato è quasi nero dal quarto eco (T2* 2,0 ms, R2* 500 s⁻¹, LIC circa 16 mg/g: grave). "
         "Nel bambino il ferro trasfusionale si deposita prima nel fegato; il cuore si carica di solito più tardi, ma va controllato periodicamente con la RM. "
-        "Nei cuori piccoli il setto è sottile: la ROI va tenuta nel miocardio, anche a costo di pochi pixel, perché il sangue delle cavità ha un T2* lungo e alza il valore."
+        "Nei cuori piccoli il setto è sottile: ingrandisci l'immagine prima di disegnare la ROI e tienila nel miocardio, anche a costo di pochi pixel, perché il sangue delle cavità ha un T2* lungo e alza il valore (una ROI che prende il sangue dà con lo strumento T2* valori oltre 100-200 ms)."
     ),
     "esito_clinico": {"tipo": "altro", "testo": "Valori della collezione CHMMOTv1: T2* cardiaco 29,6 ms (R2* 33,1 s⁻¹, MIC 0,94 mg/g), cuore «Normal»; T2* epatico 2,0 ms (R2* 499,7 s⁻¹), fegato «Severe»; ferritina 5.410 µg/L."},
     "comunicazione": {"livello": "differita", "accettabili": ["urgente"], "destinatari": ["richiedente"],
