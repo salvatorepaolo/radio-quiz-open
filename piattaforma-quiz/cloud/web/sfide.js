@@ -5,32 +5,59 @@
 let A = null;
 export const collega = (p) => { A = p; };
 const MIN = 3, MAX = 10;
-const dataIt = (o16) => { const d = new Date(String(o16).replace(' ', 'T') + ':00Z'); return isNaN(d) ? '' : d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }); };
 const mmss = (s) => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60; return h ? `${h}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}` : `${m}:${String(x).padStart(2, '0')}`; };
 const corpo = () => A.$('#sfida-corpo');
+const dataOra = (o16) => { const d = new Date(String(o16).replace(' ', 'T') + ':00Z'); return isNaN(d) ? '' : d.toLocaleString('it-IT', { weekday: 'short', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }); };
+// «chiude tra 5 ore e 20 minuti», «chiude tra 3 giorni»
+function traQuanto(o16) {
+  const ms = new Date(String(o16).replace(' ', 'T') + ':00Z') - Date.now(); if (!(ms > 0)) return 'chiusa';
+  const min = Math.round(ms / 60000), g = Math.floor(min / 1440), h = Math.floor((min % 1440) / 60), m = min % 60;
+  if (g >= 2) return `chiude tra ${g} giorni`;
+  if (g === 1) return `chiude tra 1 giorno${h ? ` e ${h} ${h === 1 ? 'ora' : 'ore'}` : ''}`;
+  if (h) return `chiude tra ${h} ${h === 1 ? 'ora' : 'ore'}${m ? ` e ${m} min` : ''}`;
+  return `chiude tra ${Math.max(1, m)} min`;
+}
 const leggiLocale = (k) => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } };
 const scriviLocale = (k, v) => { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); } catch {} };
 
 // ---------------------------------------------------------------- condivisione
 // i social non permettono di taggare dal sito: si condivide il link e gli amici li tagga chi pubblica
-function htmlCondividi(link, titolo) {
-  const testo = `Ti sfido su Quiz Radiologia: «${titolo}». Accetti?`, u = encodeURIComponent(link), t = encodeURIComponent(testo);
+function testoPost(titolo, n, fine) {
+  return `🏁 Ti sfido su Quiz Radiologia: «${titolo}», ${n} ${n === 1 ? 'caso' : 'casi'} di diagnostica per immagini. Hai tempo fino a ${dataOra(fine)}: chi legge meglio?\n@ @ @`;
+}
+function htmlCondividi(link, titolo, n, fine) {
   return `<div class="sf-condividi">
-    <div class="sf-link"><input id="sf-link" readonly value="${A.esc(link)}" aria-label="Link della sfida"><button type="button" class="primary" id="sf-copia">Copia il link</button></div>
+    <ol class="sf-passi"><li>Scrivi il post: sostituisci le <b>@</b> con gli amici da sfidare (sui social, scrivendo @ e il nome compaiono i tuoi contatti).</li>
+      <li>Scegli dove pubblicarlo: il link della sfida è già aggiunto.</li></ol>
+    <label>Testo del post <textarea id="sf-testo" rows="4">${A.esc(testoPost(titolo, n, fine))}</textarea></label>
     <div class="sf-social">
-      ${navigator.share ? '<button type="button" class="ghost" id="sf-condividi">📤 Condividi…</button>' : ''}
-      <a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(testo + ' ' + link)}">WhatsApp</a>
-      <a class="btn ghost" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=${u}">LinkedIn</a>
-      <a class="btn ghost" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${u}">Facebook</a>
-      <a class="btn ghost" target="_blank" rel="noopener" href="https://x.com/intent/post?text=${t}&url=${u}">X</a>
-      <a class="btn ghost" href="mailto:?subject=${encodeURIComponent('Sfida su Quiz Radiologia')}&body=${encodeURIComponent(testo + '\n\n' + link)}">Email</a>
+      ${navigator.share ? '<button type="button" class="primary" id="sf-condividi">📤 Condividi…</button>' : ''}
+      <a class="btn ghost" target="_blank" rel="noopener" data-sf="wa">WhatsApp</a>
+      <a class="btn ghost" target="_blank" rel="noopener" data-sf="x">X</a>
+      <a class="btn ghost" target="_blank" rel="noopener" data-sf="li" title="LinkedIn apre il post con il link: incolla il testo (è già copiato)">LinkedIn</a>
+      <a class="btn ghost" target="_blank" rel="noopener" data-sf="fb" title="Facebook apre il post con il link: incolla il testo (è già copiato)">Facebook</a>
+      <a class="btn ghost" data-sf="mail">Email</a>
+      <button type="button" class="ghost" id="sf-copia-tutto">Copia testo e link</button>
     </div>
-    <p class="muted small">Gli amici li tagghi tu nel post o nella storia: il sito non conosce i loro contatti e non pubblica nulla per te.</p>
+    <div class="sf-link"><input id="sf-link" readonly value="${A.esc(link)}" aria-label="Link della sfida"><button type="button" class="ghost" id="sf-copia">Copia il link</button></div>
+    <p class="muted small">Il sito non pubblica nulla per te e non conosce i contatti dei tuoi amici: i tag li metti tu nel post o nella storia (Instagram: copia testo e link e incollali nella storia). LinkedIn e Facebook non accettano un testo già scritto: lo copiamo noi, tu lo incolli.</p>
   </div>`;
 }
 function attivaCondividi(link, titolo) {
-  const b = A.$('#sf-copia'); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(link); b.textContent = 'Copiato ✓'; } catch { A.$('#sf-link').select(); document.execCommand?.('copy'); b.textContent = 'Copiato ✓'; } setTimeout(() => { b.textContent = 'Copia il link'; }, 2500); };
-  const s = A.$('#sf-condividi'); if (s) s.onclick = () => navigator.share({ title: 'Sfida su Quiz Radiologia', text: `Ti sfido su Quiz Radiologia: «${titolo}». Accetti?`, url: link }).catch(() => {});
+  const testo = () => (A.$('#sf-testo')?.value || '').trim(), tutto = () => `${testo()}\n${link}`;
+  const copia = async (t, b, et) => { try { await navigator.clipboard.writeText(t); } catch { const x = document.createElement('textarea'); x.value = t; document.body.append(x); x.select(); document.execCommand?.('copy'); x.remove(); }
+    if (b) { b.textContent = 'Copiato ✓'; setTimeout(() => { b.textContent = et; }, 2500); } };
+  const b = A.$('#sf-copia'); if (b) b.onclick = () => copia(link, b, 'Copia il link');
+  const bt = A.$('#sf-copia-tutto'); if (bt) bt.onclick = () => copia(tutto(), bt, 'Copia testo e link');
+  const u = encodeURIComponent(link);
+  const indirizzi = { wa: () => `https://wa.me/?text=${encodeURIComponent(tutto())}`, x: () => `https://x.com/intent/post?text=${encodeURIComponent(testo())}&url=${u}`,
+    li: () => `https://www.linkedin.com/sharing/share-offsite/?url=${u}`, fb: () => `https://www.facebook.com/sharer/sharer.php?u=${u}`,
+    mail: () => `mailto:?subject=${encodeURIComponent('Sfida su Quiz Radiologia: ' + titolo)}&body=${encodeURIComponent(tutto())}` };
+  for (const a of document.querySelectorAll('#sfida-corpo [data-sf]')) {
+    const k = a.dataset.sf; a.href = indirizzi[k]();
+    a.onclick = () => { a.href = indirizzi[k](); if (k === 'li' || k === 'fb') { copia(tutto()); A.avvisoBreve('Testo copiato: incollalo nel post e tagga gli amici.'); } };
+  }
+  const s = A.$('#sf-condividi'); if (s) s.onclick = () => navigator.share({ title: 'Sfida su Quiz Radiologia', text: testo(), url: link }).catch(() => {});
 }
 
 // ---------------------------------------------------------------- dopo l'accesso: si torna alla sfida
@@ -48,7 +75,7 @@ export async function apriPubblica(codice) {
   if (!d) { corpo().innerHTML = `<section class="sf-testa"><h1>🏁 Sfida</h1><p class="stato errore">${A.esc(err)}</p><p><a href="#/">Vai a Quiz Radiologia</a></p></section>`; return; }
   corpo().innerHTML = `<section class="sf-testa"><span class="sf-ico" aria-hidden="true">🏁</span><div>
       <p class="sf-sopra">Sfida su Quiz Radiologia</p><h1>${A.esc(d.titolo)}</h1>
-      <p class="muted">${d.casi.length} ${d.casi.length === 1 ? 'caso' : 'casi'} · ${d.partecipanti} ${d.partecipanti === 1 ? 'partecipante' : 'partecipanti'} · ${d.aperta ? 'aperta fino al ' + dataIt(d.fine) : 'sfida chiusa'}</p></div></section>
+      <p class="muted">${d.casi.length} ${d.casi.length === 1 ? 'caso' : 'casi'} · ${d.partecipanti} ${d.partecipanti === 1 ? 'partecipante' : 'partecipanti'} · ${d.aperta ? `<b>${traQuanto(d.fine)}</b> (${dataOra(d.fine)})` : 'sfida chiusa'}</p></div></section>
     <ol class="sf-casi">${d.casi.map((x) => `<li><b>${A.esc(x.titolo)}</b> <span class="muted small">${A.esc([x.modalita, x.distretto].filter(Boolean).join(' · '))}</span></li>`).join('')}</ol>
     ${d.aperta ? `<div class="sf-azioni"><button type="button" class="primary" id="sf-entra">Entra o iscriviti per accettare</button></div>
       <p class="muted small">Serve un account gratuito (per salvare il punteggio; solo per maggiorenni). Con Google o LinkedIn bastano due clic, poi torni qui.</p>` : '<p class="avviso">La sfida è chiusa: non si possono più aggiungere partecipanti.</p>'}
@@ -66,13 +93,17 @@ export async function apriSfida(codice) {
   A.$('#titolo-caso').textContent = '';
   const io = d.io, n = d.casi.length, daFare = io ? d.casi.filter((x) => io.casi[x.id] == null) : d.casi;
   const corr = leggiLocale('rq-sfida-corr-' + c);
+  // chi ha appena creato la sfida (e non gioca ancora): l'invito agli amici viene per primo
+  const invitoInCima = d.creatore && !io && d.aperta;
+  const invito = `<section class="sf-scheda"><h2>${io?.finito ? 'Rilancia la sfida' : 'Invita gli amici'}</h2>${htmlCondividi(d.link, d.titolo, n, d.fine)}</section>`;
   const stato = !d.aperta ? 'Sfida chiusa' : io?.finito ? 'Hai completato la sfida' : io ? `Ne hai svolti ${io.fatti} su ${n}` : '';
   corpo().innerHTML = `<section class="sf-testa"><span class="sf-ico" aria-hidden="true">🏁</span><div>
       <p class="sf-sopra">Sfida${d.creatore ? ' · l\'hai creata tu' : ''}</p><h1>${A.esc(d.titolo)}</h1>
-      <p class="muted">${n} ${n === 1 ? 'caso' : 'casi'} · ${d.partecipanti} ${d.partecipanti === 1 ? 'partecipante' : 'partecipanti'} · ${d.aperta ? 'aperta fino al ' + dataIt(d.fine) : 'chiusa'}</p>
+      <p class="muted">${n} ${n === 1 ? 'caso' : 'casi'} · ${d.partecipanti} ${d.partecipanti === 1 ? 'partecipante' : 'partecipanti'} · ${d.aperta ? `<b>${traQuanto(d.fine)}</b> (${dataOra(d.fine)})` : 'chiusa'}</p>
       ${stato ? `<p class="sf-stato">${A.esc(stato)}${io ? ` · punteggio medio <b>${io.media}%</b>` : ''}</p>` : ''}</div></section>
 
-    ${!io && d.aperta ? `<section class="sf-scheda sf-accetta"><h2>Accetti la sfida?</h2>
+    ${invitoInCima ? invito : ''}
+    ${!io && d.aperta ? `<section class="sf-scheda sf-accetta"><h2>${d.creatore ? 'Giochi anche tu?' : 'Accetti la sfida?'}</h2>
       <p>Risolvi i casi come al solito: <b>le correzioni le vedi alla fine</b>, quando hai consegnato tutti i casi. Conta la prima risposta che dai a ogni caso da adesso.</p>
       <label class="check"><input type="checkbox" id="sf-in-classifica"> Mostra il mio nome e il mio punteggio nella classifica della sfida</label>
       <label id="sf-nome-riga" hidden>Nome da mostrare (anche uno pseudonimo) <input id="sf-nome" maxlength="40" value="${A.esc((A.UTENTE?.nome || '').split(/\s+/)[0] || '')}"></label>
@@ -94,7 +125,7 @@ export async function apriSfida(codice) {
         <p class="muted small">Ordine: punteggio medio sui ${n} casi (i casi non svolti valgono 0), poi tempo totale.</p>`
         : '<p class="muted">Nessuno in classifica per ora: entra in classifica solo chi lo sceglie.</p>'}</section>
 
-    ${io || d.creatore ? `<section class="sf-scheda"><h2>${io?.finito ? 'Rilancia la sfida' : 'Invita gli amici'}</h2>${htmlCondividi(d.link, d.titolo)}</section>` : ''}
+    ${(io || d.creatore) && !invitoInCima ? invito : ''}
 
     ${io ? `<details class="sf-scheda"><summary>La mia partecipazione</summary>
       <label class="check"><input type="checkbox" id="sf-in-classifica2" ${io.classifica ? 'checked' : ''}> Mostra il mio nome e il mio punteggio nella classifica</label>
@@ -134,6 +165,7 @@ export async function apriSfida(codice) {
   };
   const ch = A.$('#sf-chiudi');
   if (ch) ch.onclick = async () => { if (!confirm('Chiudere la sfida? Nessuno potrà più accettarla.')) return; try { await A.postJSON(`/api/sfide/${c}/chiudi`, {}); apriSfida(c); } catch (e) { if (!(e instanceof A.NonAutorizzato)) alert(e.message); } };
+  if (leggiLocale('rq-sfida-nuova') === c) { scriviLocale('rq-sfida-nuova', null); const inv = A.$('#sf-testo'); if (inv) { inv.closest('.sf-scheda').classList.add('sf-evidenza'); inv.closest('.sf-scheda').scrollIntoView({ block: 'start', behavior: 'smooth' }); A.avvisoBreve('Sfida creata: ora invita gli amici.'); } }
   if (leggiLocale('rq-sfida-fine') === c) { scriviLocale('rq-sfida-fine', null); A.avvisoBreve(io?.finito ? '🏁 Sfida completata: guarda la classifica e le correzioni.' : 'Risposte salvate: puoi continuare quando vuoi.'); }
 }
 function htmlCorrezioni(corr) {
@@ -160,7 +192,7 @@ export async function apriElencoSfide() {
       <p>Scegli da ${MIN} a ${MAX} casi, condividi il link sui social o in chat e vedi chi legge meglio. Le correzioni arrivano alla fine; in classifica solo chi lo sceglie.</p></div></section>
     <div class="sf-azioni"><a class="btn primary" href="#/sfide/nuova">＋ Crea una sfida</a></div>
     <section class="sf-scheda"><h2>Le mie sfide</h2>${l.length ? `<ul class="sf-elenco">${l.map((s) => `<li><a href="#/sfida/${A.esc(s.codice)}"><b>${A.esc(s.titolo)}</b></a>
-      <span class="muted small">${s.n} casi · ${s.partecipanti} ${s.partecipanti === 1 ? 'partecipante' : 'partecipanti'} · ${s.aperta ? 'aperta' : 'chiusa'}${s.creatore ? ' · creata da te' : ''}</span>
+      <span class="muted small">${s.n} casi · ${s.partecipanti} ${s.partecipanti === 1 ? 'partecipante' : 'partecipanti'} · ${s.aperta ? traQuanto(s.fine) : 'chiusa'}${s.creatore ? ' · creata da te' : ''}</span>
       ${s.mio ? `<span class="sf-punti ${s.mio.finito ? 'ok' : 'medio'}">${s.mio.finito ? 'completata' : `${s.mio.fatti}/${s.n}`} · ${s.mio.media}%</span>` : ''}</li>`).join('')}</ul>`
       : '<p class="muted">Non hai ancora sfide: creane una o apri il link che ti hanno mandato.</p>'}</section>`;
 }
@@ -169,13 +201,16 @@ export async function apriNuova() {
   const casi = A.ELENCO.filter((x) => x.titolo);
   const metodiche = [...new Set(casi.map((x) => x.modalita).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'it'));
   const scelti = new Set();
-  const oggi = new Date(), max = new Date(Date.now() + 90 * 864e5), iso = (d) => d.toISOString().slice(0, 10);
   corpo().innerHTML = `<section class="sf-testa"><span class="sf-ico" aria-hidden="true">🏁</span><div><h1>Crea una sfida</h1>
-      <p>Scegli da ${MIN} a ${MAX} casi e dai un titolo. Chi apre il link vede titolo ed esami, non le diagnosi.</p></div></section>
+      <p>Scegli da ${MIN} a ${MAX} casi, dai un titolo e decidi quanto dura (in ore o in giorni). Poi inviti gli amici taggandoli nel post. Chi apre il link vede titolo ed esami, non le diagnosi.</p></div></section>
     <section class="sf-scheda sf-nuova">
       <label>Titolo <input id="sf-titolo" maxlength="80" placeholder="Es. Sfida torace del lunedì" value=""></label>
-      <label>Scadenza (facoltativa) <input id="sf-scadenza" type="date" min="${iso(oggi)}" max="${iso(max)}"></label>
-      <p class="muted small">Senza scadenza la sfida resta aperta 90 giorni.</p>
+      <fieldset class="sf-durata"><legend>Durata</legend>
+        <div class="sf-chip">${[[1, 'ore', '1 ora'], [3, 'ore', '3 ore'], [24, 'ore', '24 ore'], [3, 'giorni', '3 giorni'], [7, 'giorni', '1 settimana'], [30, 'giorni', '1 mese']]
+          .map(([v, u, t]) => `<button type="button" class="ghost${v === 3 && u === 'giorni' ? ' on' : ''}" data-d="${v}" data-u="${u}">${t}</button>`).join('')}</div>
+        <div class="sf-durata-libera"><input id="sf-durata" type="number" min="1" max="90" value="3" aria-label="Durata"><select id="sf-unita" aria-label="Unità"><option value="ore">ore</option><option value="giorni" selected>giorni</option></select>
+          <span class="muted small" id="sf-chiude"></span></div>
+        <p class="muted small">Da 1 ora a 90 giorni: allo scadere nessuno può più accettare né rispondere per la classifica.</p></fieldset>
       <div class="sf-filtri"><input id="sf-cerca" type="search" placeholder="Cerca tra i casi" aria-label="Cerca tra i casi">
         <select id="sf-metodica" aria-label="Metodica"><option value="">Tutte le metodiche</option>${metodiche.map((m) => `<option>${A.esc(m)}</option>`).join('')}</select>
         <button type="button" class="ghost" id="sf-caso">🎲 5 a caso</button></div>
@@ -194,11 +229,21 @@ export async function apriNuova() {
       if (i.checked) scelti.add(i.value); else scelti.delete(i.value); conta(); });
   };
   A.$('#sf-cerca').oninput = disegna; A.$('#sf-metodica').onchange = disegna;
+  const chiude = () => { const n = +A.$('#sf-durata').value, u = A.$('#sf-unita').value, ok = Number.isInteger(n) && n >= 1 && n * (u === 'ore' ? 1 : 24) <= 90 * 24;
+    A.$('#sf-durata').max = u === 'ore' ? 2160 : 90;
+    A.$('#sf-chiude').textContent = ok ? 'chiude ' + new Date(Date.now() + n * (u === 'ore' ? 36e5 : 864e5)).toLocaleString('it-IT', { weekday: 'short', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : 'da 1 ora a 90 giorni';
+    A.$('#sf-durata').classList.toggle('errore', !ok); return ok; };
+  A.$('#sf-durata').oninput = () => { A.$('.sf-chip').querySelectorAll('button').forEach((b) => b.classList.remove('on')); chiude(); };
+  A.$('#sf-unita').onchange = A.$('#sf-durata').oninput;
+  A.$('.sf-chip').querySelectorAll('button').forEach((b) => b.onclick = () => { A.$('#sf-durata').value = b.dataset.d; A.$('#sf-unita').value = b.dataset.u; chiude(); A.$('.sf-chip').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); });
+  chiude();
   A.$('#sf-caso').onclick = () => { const l = filtrati().map((x) => x.id).sort(() => Math.random() - 0.5); scelti.clear(); l.slice(0, 5).forEach((x) => scelti.add(x)); disegna(); conta(); };
   A.$('#sf-crea').onclick = async () => {
     const b = A.$('#sf-crea'); b.disabled = true; A.$('#sf-msg').textContent = '';
     try {
-      const r = await A.postJSON('/api/sfide', { titolo: A.$('#sf-titolo').value, casi: [...scelti], scadenza: A.$('#sf-scadenza').value });
+      if (!chiude()) throw new Error('La durata va da 1 ora a 90 giorni.');
+      const r = await A.postJSON('/api/sfide', { titolo: A.$('#sf-titolo').value, casi: [...scelti], durata: +A.$('#sf-durata').value, unita: A.$('#sf-unita').value });
+      scriviLocale('rq-sfida-nuova', r.codice);
       location.hash = '#/sfida/' + r.codice;
     } catch (e) { if (!(e instanceof A.NonAutorizzato)) A.$('#sf-msg').textContent = e.message; b.disabled = false; }
   };

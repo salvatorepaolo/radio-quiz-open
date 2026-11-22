@@ -143,6 +143,9 @@ function mostraAccesso(msg = '', pannello = 'entra') {
   $('#btn-profilo').hidden = $('#btn-esci').hidden = $('#btn-editor').hidden = $('#menu-gestione').hidden = true;
   $('#chi').hidden = true; $('#gioco-chip').hidden = true; GIOCO = null; $('#campo-nome').hidden = true;
   $('#titolo-caso').textContent = '';
+  // dopo «Esci»: via la barra delle sezioni e il menu 👤 (prima restavano finché non si cambiava pagina)
+  if ($('#menu-utente')) { $('#menu-utente').open = false; $('#menu-utente').hidden = true; }
+  aggiornaMenuVetrini();
   pannelloAccesso(pannello);
   $('#msg-accesso').textContent = msg;
 }

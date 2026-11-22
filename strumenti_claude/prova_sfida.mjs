@@ -41,11 +41,17 @@ try {
   await a.fill('#sf-titolo', 'Sfida di prova del lunedì');
   const voci = await a.$$('#sf-lista .sf-voce input'); for (const v of voci.slice(0, 3)) await v.check();
   esito(await a.$eval('#sf-conta', (e) => e.textContent) === '3 casi scelti' && !(await a.$eval('#sf-crea', (e) => e.disabled)), 'scelta di 3 casi: «Crea la sfida» attivo');
+  await a.click('.sf-chip button[data-d="24"]');
+  esito(await a.$eval('#sf-unita', (e) => e.value) === 'ore' && /chiude/.test(await a.textContent('#sf-chiude')), 'durata: 24 ore', await a.textContent('#sf-chiude'));
   await a.click('#sf-crea'); await a.waitForFunction(() => /#\/sfida\/[A-Z2-9]{8}$/.test(location.hash), null, { timeout: 15000 });
   codice = await a.evaluate(() => location.hash.split('/').pop());
   await a.waitForSelector('#sf-link');
   esito((await a.$eval('#sf-link', (e) => e.value)).endsWith('/s/' + codice), 'sfida creata: link /s/codice da condividere', codice);
   esito((await a.$$('.sf-social a')).length >= 5, 'pulsanti WhatsApp, LinkedIn, Facebook, X, email');
+  const post = await a.$eval('#sf-testo', (e) => e.value);
+  esito(/Sfida di prova del lunedì/.test(post) && /@/.test(post), 'testo del post pronto con lo spazio per i tag', post.replace(/\s+/g, ' ').slice(0, 100));
+  esito(/chiude tra (23 ore|1 giorno)/.test(await a.textContent('.sf-testa')), 'testata: «chiude tra …»', (await a.textContent('.sf-testa .muted')).trim());
+  esito((await a.$eval('a[data-sf="wa"]', (e) => e.href)).includes(encodeURIComponent('/s/')), 'WhatsApp con testo e link');
   await a.screenshot({ path: '/tmp/sfida-creata.png', fullPage: true });
   // senza accesso: /s/codice → pagina pubblica
   const n = await pagina(null);
@@ -80,6 +86,10 @@ try {
   // Ada vede Bea in classifica
   await a.goto(B + '/#/sfide'); await a.goto(B + '/#/sfida/' + codice); await a.waitForSelector('.sf-classifica', { timeout: 20000 });
   esito(/Bea la Rossa/.test(await a.$eval('.sf-classifica', (e) => e.textContent)), 'chi ha creato la sfida vede la classifica');
+  // uscita: niente barra delle sezioni né menu 👤
+  await a.evaluate(() => { const m = document.querySelector('#menu-utente'); if (m) m.open = true; });
+  await a.click('#btn-esci'); await a.waitForSelector('#vista-accesso:not([hidden])');
+  esito(await a.$eval('#nav-principale', (e) => e.hidden) && await a.$eval('#menu-utente', (e) => e.hidden && !e.open), 'dopo «Esci» niente barra delle sezioni né menu 👤');
   const el = await api(ckBea, '/api/sfide'); esito(el.j?.[0]?.mio?.finito === true, 'elenco delle sfide di Bea: completata');
 } catch (e) { esito(false, 'prova interrotta', e.message.split('\n')[0]); }
 esito(!err.length, 'nessun errore JavaScript', err.slice(0, 3).join(' | '));

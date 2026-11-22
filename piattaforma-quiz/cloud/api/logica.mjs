@@ -1058,8 +1058,16 @@ const piuMinuti = (o16, min) => new Date(Date.parse(o16.replace(' ', 'T') + ':00
 // fine della sfida (ora16 UTC): la scadenza scelta (fine del giorno in Italia) o 90 giorni dalla creazione
 export function fineSfida(s) {
   const max = piuMinuti(s.creata, SFIDA_GIORNI * 1440);
-  const sc = /^\d{4}-\d{2}-\d{2}$/.test(s.scadenza || '') ? fineGiornoItalia(s.scadenza) : '';
+  // durata scelta in ore o in giorni (fine già calcolata alla creazione), oppure scadenza come data (fine del giorno in Italia)
+  const sc = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(s.fine || '') ? s.fine : /^\d{4}-\d{2}-\d{2}$/.test(s.scadenza || '') ? fineGiornoItalia(s.scadenza) : '';
   return sc && sc < max ? sc : max;
+}
+// durata dell'evento: da 1 ora a 90 giorni, in ore o in giorni
+export function minutiDurata(durata, unita) {
+  const n = Number(durata);
+  if (!Number.isInteger(n) || n < 1) return null;
+  const min = unita === 'ore' ? n * 60 : unita === 'giorni' ? n * 1440 : null;
+  return min && min <= SFIDA_GIORNI * 1440 ? min : null;
 }
 export const sfidaAperta = (s, adesso = new Date().toISOString().slice(0, 16).replace('T', ' ')) => !s.chiusa && adesso < fineSfida(s);
 // punteggi dei partecipanti: per ogni caso la prima risposta data dopo l'adesione e prima della fine
@@ -1097,7 +1105,7 @@ export async function gestisci(req, cfg) {
   const { metodo } = req;
   const parti = req.percorso.replace(/\/+$/, '').split('/').filter(Boolean);
   // anteprima per i social di una sfida (radio-quiz.it/s/<codice>, CloudFront → questa funzione)
-  if (parti[0] === 's' && metodo === 'GET' && parti.length === 2) {
+  if (parti[0] === 's' && (metodo === 'GET' || metodo === 'HEAD') && parti.length === 2) {   // HEAD: alcuni social controllano prima il link
     const c = String(parti[1]).toUpperCase(), M0 = cfg.magazzino;
     const s = CODICE_SFIDA.test(c) && M0.leggiSfida ? await M0.leggiSfida(c) : null;
     const casi = s ? new Set((await M0.elencoCasi()).filter(visibile).map((x) => x.id)) : null;
@@ -2135,10 +2143,12 @@ export async function gestisci(req, cfg) {
       if (casi.length < SFIDA_MIN || casi.length > SFIDA_MAX) return json(400, { errore: `Scegli da ${SFIDA_MIN} a ${SFIDA_MAX} casi.` });
       const oggi = giornoItalia(), scadenza = /^\d{4}-\d{2}-\d{2}$/.test(dati.scadenza || '') ? dati.scadenza : '';
       if (scadenza && (scadenza < oggi || scadenza > piuGiorni(oggi, SFIDA_GIORNI))) return json(400, { errore: `La scadenza va da oggi a ${SFIDA_GIORNI} giorni.` });
+      const conDurata = dati.durata != null && dati.durata !== '', minuti = conDurata ? minutiDurata(dati.durata, dati.unita) : null;
+      if (conDurata && !minuti) return json(400, { errore: `La durata va da 1 ora a ${SFIDA_GIORNI} giorni.` });
       const tutte = await M.elencoSfide(), adesso = ora16();
       if (tutte.filter((s) => s.creatore === io.id && String(s.creata) > piuMinuti(adesso, -1440)).length >= SFIDE_AL_GIORNO) return json(429, { errore: `Puoi creare al massimo ${SFIDE_AL_GIORNO} sfide al giorno.` });
       let codice = codiceSfida(); while (tutte.some((s) => s.codice === codice)) codice = codiceSfida();
-      const s = { codice, titolo, casi, creatore: io.id, creata: adesso, scadenza, chiusa: false };
+      const s = { codice, titolo, casi, creatore: io.id, creata: adesso, scadenza: minuti ? '' : scadenza, ...(minuti ? { fine: piuMinuti(adesso, minuti) } : {}), chiusa: false };
       await M.scriviSfida(s);
       await conta('_sfida');
       return json(200, { codice, titolo, n: casi.length, fine: fineSfida(s), link: radice(cfg.indirizzo) + '/s/' + codice });

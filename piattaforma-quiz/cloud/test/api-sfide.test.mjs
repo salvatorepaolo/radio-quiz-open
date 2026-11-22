@@ -47,6 +47,13 @@ test('regole pure: codici, fine della sfida, punteggi dalla prima risposta dopo 
   assert.deepEqual(p[1].casi, { a: 40 });
 });
 
+test('durata in ore o in giorni: da 1 ora a 90 giorni', () => {
+  assert.equal(L.minutiDurata(1, 'ore'), 60); assert.equal(L.minutiDurata(3, 'giorni'), 4320); assert.equal(L.minutiDurata(2160, 'ore'), 129600);
+  for (const [d, u] of [[0, 'ore'], [2161, 'ore'], [91, 'giorni'], [1.5, 'ore'], ['x', 'giorni'], [3, 'settimane']]) assert.equal(L.minutiDurata(d, u), null, `${d} ${u}`);
+  const s = { casi: ['a'], creata: '2026-11-22 10:00', fine: '2026-11-22 13:00' };
+  assert.equal(L.fineSfida(s), '2026-11-22 13:00'); assert.equal(L.sfidaAperta(s, '2026-11-22 12:59'), true); assert.equal(L.sfidaAperta(s, '2026-11-22 13:00'), false);
+});
+
 test('senza accesso: anteprima pubblica senza dati di chi gioca, pagina per i social; le altre rotte chiedono l\'accesso', async () => {
   assert.equal((await chiama('nessuno', '/api/sfide')).stato, 401);
   assert.equal((await chiama('nessuno', '/api/sfide', { titolo: 'x', casi: CASI })).stato, 401);
@@ -60,6 +67,11 @@ test('creazione, adesione, classifica facoltativa, punteggi, chiusura, uscita', 
   assert.equal((await chiama('ada', '/api/sfide', { titolo: 'x', casi: CASI.slice(0, 3) })).stato, 400, 'titolo troppo corto');
   assert.equal((await chiama('ada', '/api/sfide', { titolo: 'Torace', casi: [...CASI.slice(0, 2), 'caso-che-non-esiste'] })).stato, 400, 'casi inesistenti scartati');
   assert.equal((await chiama('ada', '/api/sfide', { titolo: 'Torace', casi: CASI.slice(0, 3), scadenza: '2020-01-01' })).stato, 400, 'scadenza passata');
+  assert.equal((await chiama('ada', '/api/sfide', { titolo: 'Torace', casi: CASI.slice(0, 3), durata: 91, unita: 'giorni' })).stato, 400, 'più di 90 giorni');
+  const breve = await chiama('ada', '/api/sfide', { titolo: 'Sfida lampo', casi: CASI.slice(0, 3), durata: 2, unita: 'ore' });
+  assert.equal(breve.stato, 200); const ms = Date.parse(breve.j.fine.replace(' ', 'T') + ':00Z') - Date.now();
+  assert.ok(ms > 118 * 60000 && ms <= 120 * 60000, 'chiude tra 2 ore');
+  assert.equal((await chiama('nessuno', '/s/' + breve.j.codice, null, 'HEAD')).stato, 200, 'HEAD sulla pagina per i social');
   const cr = await chiama('ada', '/api/sfide', { titolo: 'Sfida "torace" & addome di Ada <b>', casi: [...CASI.slice(0, 3), CASI[0]] });
   assert.equal(cr.stato, 200); const c = cr.j.codice; assert.match(c, L.CODICE_SFIDA); assert.equal(cr.j.n, 3, 'casi doppi tolti');
   assert.ok(cr.j.link.endsWith('/s/' + c));
@@ -89,7 +101,7 @@ test('creazione, adesione, classifica facoltativa, punteggi, chiusura, uscita', 
   assert.ok(!JSON.stringify(a).includes('Cleo'));
   const c2 = (await chiama('cleo', '/api/sfide/' + c)).j; assert.equal(c2.io.fatti, 1); assert.equal(c2.io.classifica, false);
   // elenco delle mie sfide
-  assert.deepEqual((await chiama('ada', '/api/sfide')).j.map((x) => [x.codice, x.creatore]), [[c, true]]);
+  assert.deepEqual((await chiama('ada', '/api/sfide')).j.map((x) => [x.codice, x.creatore]).sort(), [[c, true], [breve.j.codice, true]].sort());
   assert.deepEqual((await chiama('bea', '/api/sfide')).j.map((x) => [x.codice, x.creatore, x.mio.fatti]), [[c, false, 2]]);
   // i miei dati: la partecipazione c'è
   const dati = await chiama('bea', '/api/io/dati'); assert.match(dati.t, /Bea la Rossa/);

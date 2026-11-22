@@ -35,7 +35,7 @@
    "titolo": "Video tutorials",
    "per": "tutti",
    "blocchi": [
-    "Short videos (about one minute each, no voice, with captions) that show the platform in use on a phone. They load only when you press play.",
+    "Short videos (about one minute each, no voice, with captions) that show the platform in use on a phone and, in the last one, the client viewer. They load only when you press play.",
     {
      "video": "/video/tutorial-1-primo-caso.mp4",
      "poster": "/video/tutorial-1-primo-caso.jpg",
@@ -65,6 +65,12 @@
      "poster": "/video/tutorial-5-vetrini.jpg",
      "titolo": "Digital slides",
      "testo": "Pathology slides from low to high magnification, measurements in micrometres, histological diagnosis."
+    },
+    {
+     "video": "/video/tutorial-6-formati-vetrini.mp4",
+     "poster": "/video/tutorial-6-formati-vetrini.jpg",
+     "titolo": "Slide formats",
+     "testo": "The client viewer opens slides from the main scanners: the 12 sample slides, from Aperio SVS to Olympus VSI, from the whole slide to high magnification."
     }
    ]
   },

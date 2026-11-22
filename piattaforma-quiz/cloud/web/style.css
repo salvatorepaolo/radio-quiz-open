@@ -2595,3 +2595,14 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .sf-voce input{margin-top:3px}
 .sf-corr{border-top:1px solid var(--bord);padding-top:8px;margin-top:8px}
 .sf-corr h3{font-size:1rem;margin:4px 0}
+.sf-passi{margin:0 0 8px;padding-left:1.3em}
+.sf-condividi textarea{width:100%;font:inherit;margin-top:4px;resize:vertical}
+.sf-durata{border:1px solid var(--bord);border-radius:10px;padding:8px 12px;margin:10px 0}
+.sf-durata legend{font-weight:600;padding:0 4px}
+.sf-chip{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.sf-chip button.on{border-color:var(--acc);color:var(--acc);font-weight:700}
+.sf-durata-libera{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sf-durata-libera input{width:90px}
+.sf-durata-libera input.errore{border-color:var(--ko)}
+.sf-evidenza{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 25%,transparent)}
+.sf-scheda .stato:empty{display:none}
