@@ -71,6 +71,12 @@
      "poster": "/video/tutorial-6-formati-vetrini.jpg",
      "titolo": "Slide formats",
      "testo": "The client viewer opens slides from the main scanners: the 12 sample slides, from Aperio SVS to Olympus VSI, from the whole slide to high magnification."
+    },
+    {
+     "video": "/video/tutorial-7-sfide.mp4",
+     "poster": "/video/tutorial-7-sfide.jpg",
+     "titolo": "Challenge your friends",
+     "testo": "Create a challenge with 3 to 10 cases, choose how long it lasts and tag your friends: same cases for everyone, corrections at the end, leaderboard."
     }
    ]
   },

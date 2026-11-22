@@ -71,6 +71,12 @@
      "poster": "/video/tutorial-6-formati-vetrini.jpg",
      "titolo": "I formati dei vetrini",
      "testo": "Il visualizzatore client apre i vetrini dei principali scanner: i 12 vetrini di esempio, da Aperio SVS a Olympus VSI, dall'intero al forte ingrandimento."
+    },
+    {
+     "video": "/video/tutorial-7-sfide.mp4",
+     "poster": "/video/tutorial-7-sfide.jpg",
+     "titolo": "Sfida i tuoi amici",
+     "testo": "Crea una sfida con da 3 a 10 casi, scegli quanto dura e tagga gli amici: stessi casi per tutti, correzioni alla fine, classifica."
     }
    ]
   },
