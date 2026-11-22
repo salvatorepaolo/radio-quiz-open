@@ -8645,5 +8645,176 @@
   },
   "punto": "centrato",
   "controlli": []
+ },
+ "caso-tcia-148": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 5
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
+ },
+ "caso-tcia-149": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 7,
+   "citati": 2,
+   "attesi": 3,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 100,
+  "controlli": []
+ },
+ "caso-tcia-150": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 25,
+   "ok": false,
+   "sez": [
+    0,
+    100
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    67,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 75,
+   "ok": false,
+   "sez": [
+    67,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 4,
+   "attesi": 4,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 2,
+   "attesi": 4,
+   "errori": 4
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "controlli": []
  }
 }

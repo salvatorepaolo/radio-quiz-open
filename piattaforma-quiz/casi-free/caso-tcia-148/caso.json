@@ -1,0 +1,150 @@
+{
+ "titolo": "RM cardiaca e del fegato T2*: bambina di 6 anni con talassemia major in terapia trasfusionale",
+ "titolo_interno": "Bambina: cuore senza sovraccarico (T2* 29,6 ms) e fegato con sovraccarico grave (T2* 2,0 ms, R2* 500 s⁻¹, LIC circa 16 mg/g) – CHMMOTv1 1023",
+ "distretto": "Cuore",
+ "modalita": "RM",
+ "difficolta": "Avanzato",
+ "quesito": "sovraccarico di ferro",
+ "anamnesi": "Bambina di 6 anni con talassemia major, trasfusa regolarmente. RM a 1,5 T per il controllo del sovraccarico di ferro: gradient-echo multi-eco (12 echi) in asse corto del cuore (2 fette) e assiale del fegato (4 fette). Ferritina 5.410 µg/L, AST 27, ALT 38, ALP 325 U/L. Terapia chelante in corso (tipo e dosi non forniti dalla collezione).",
+ "richiesta": {
+  "reparto": "Ematologia pediatrica (centro talassemie)",
+  "priorita": "P",
+  "lab": [
+   [
+    "Ferritina",
+    "5.410 µg/L"
+   ],
+   [
+    "AST / ALT",
+    "27 / 38 U/L"
+   ],
+   [
+    "ALP",
+    "325 U/L"
+   ]
+  ],
+  "allergie": "",
+  "farmaci": "Terapia chelante (dettagli non forniti)",
+  "dispositivi": "",
+  "gravidanza": ""
+ },
+ "domanda": "Scorri gli echi delle serie T2* (dal TE più breve al più lungo) nel cuore e nel fegato. Che cosa vedi e come lo quantifichi? Qual è la conclusione?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Miocardio con segnale conservato fino agli ultimi echi, come il muscolo della parete toracica: T2* miocardico normale (> 20 ms)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Valore della collezione: T2* 29,6 ms (R2* 33 s⁻¹, MIC 0,94 mg/g). Misura indicativa di radio-quiz.it: circa 25 ms su una ROI di parete del ventricolo sinistro; sul setto, spesso solo 2-3 pixel in una bambina, la ROI prende anche il sangue delle cavità e il valore sale oltre 80 ms."
+  },
+  {
+   "testo": "Fegato chiaro nel primo eco che diventa quasi nero già al quarto eco (TE circa 5 ms), molto prima della milza e dei muscoli: sovraccarico epatico grave",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Collezione: T2* epatico 2,0 ms, R2* 500 s⁻¹ (la LIC del foglio, «1518», è un refuso: con la calibrazione della collezione R2* 500 dà circa 16 mg/g). Misura indicativa di radio-quiz.it sulle fette 2-3: 2,1-2,3 ms con il modello con offset."
+  },
+  {
+   "testo": "In un cuore piccolo il setto è spesso pochi pixel: una ROI troppo larga prende il sangue delle cavità, che ha un T2* lungo, e falsa la misura verso valori alti",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Il miocardio scurisce rapidamente come il fegato: sovraccarico cardiaco grave",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il miocardio resta grigio fino agli ultimi echi; scurisce rapidamente il fegato."
+  },
+  {
+   "testo": "Il fegato è già scuro nel primo eco, quindi il T2* non è misurabile",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Nel primo eco (TE circa 1 ms) il fegato ha ancora segnale: il calo nei 3-4 echi successivi basta per il fit (T2* circa 2 ms)."
+  },
+  {
+   "testo": "Sovraccarico di ferro epatico grave con cuore senza ferro: segnalarlo all'ematologo con il referto per adeguare la chelazione e ripetere la RM T2* di cuore e fegato nei controlli periodici",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1
+  },
+  {
+   "testo": "Sovraccarico di ferro cardiaco grave: rischio di scompenso, chelazione intensiva per il cuore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessun sovraccarico significativo: a 6 anni il ferro non si accumula ancora e la ferritina alta è dovuta a infiammazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il ferro trasfusionale si accumula fin dai primi anni, prima nel fegato; il cuore di solito si carica più tardi."
+  },
+  {
+   "testo": "Esame non valutabile nei bambini: la misura T2* vale solo negli adulti",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La RM T2* si usa anche nei bambini, quando riescono a stare fermi e trattenere il respiro (spesso dai 6-8 anni; prima può servire la sedazione)."
+  }
+ ],
+ "spiegazione": "Il ferro accorcia il T2*: nelle sequenze gradient-echo multi-eco il segnale dei tessuti carichi di ferro cala tanto più in fretta quanto più ferro c'è. Si mette una ROI e si adatta una curva S(TE) = S0·e^(−TE/T2*); R2* = 1000/T2* (s⁻¹). Cuore: ROI a tutto spessore sul setto interventricolare della fetta medioventricolare in asse corto (lontano dagli artefatti di suscettibilità di vene cardiache e polmone della parete laterale). Soglie del cuore a 1,5 T: T2* > 20 ms normale, 10-20 ms sovraccarico lieve-moderato, < 10 ms grave. Fegato: ROI nel parenchima del lobo destro lontano dai vasi; dall'R2* si stima la concentrazione di ferro epatico (LIC, mg Fe/g di peso secco) con una curva di calibrazione (la collezione usa quella di Garbowski 2014: LIC ≈ 0,029·R2*^1,014). Classi della LIC più usate: < 2 mg/g normale (fino a circa 1,8), 2-7 lieve, 7-15 moderato, > 15 grave. Con segnali molto bassi il rumore crea un «pavimento»: un fit su tutti gli echi sovrastima il T2*; si usano il troncamento degli echi finali o un modello con costante (offset). Nel visualizzatore lo strumento T2* (Altre misure → T2*) riporta la ROI su tutti gli echi della fetta, mostra la curva, il T2* e l'R2* con i due modelli e, per il fegato, la LIC. In questa bambina il miocardio non perde segnale in modo apprezzabile negli echi (T2* della collezione 29,6 ms, normale), mentre il fegato è quasi nero dal quarto eco (T2* 2,0 ms, R2* 500 s⁻¹, LIC circa 16 mg/g: grave). Nel bambino il ferro trasfusionale si deposita prima nel fegato; il cuore si carica di solito più tardi, ma va controllato periodicamente con la RM. Nei cuori piccoli il setto è sottile: la ROI va tenuta nel miocardio, anche a costo di pochi pixel, perché il sangue delle cavità ha un T2* lungo e alza il valore.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Valori della collezione CHMMOTv1: T2* cardiaco 29,6 ms (R2* 33,1 s⁻¹, MIC 0,94 mg/g), cuore «Normal»; T2* epatico 2,0 ms (R2* 499,7 s⁻¹), fegato «Severe»; ferritina 5.410 µg/L."
+ },
+ "fonte": {
+  "archivio": "Mendeley Data",
+  "collezione": "CHMMOTv1 (Cardiac and Hepatic Multi-Echo T2* MRI Images and Clinical Dataset for Iron Overload on Thalassemia Patients)",
+  "doi": "10.17632/3d8bwn2fsh.1",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Jalilian M., Abedi I., Zamanian M., Bolhasani H. (2023). CHMMOTv1: Cardiac and Hepatic Multi-Echo (T2*) MRI Images and Clinical Dataset for Iron Overload on Thalassemia Patients (Version 1) [Data set]. Mendeley Data. https://doi.org/10.17632/3d8bwn2fsh.1. DICOM originali GE 1,5 T; serie riorganizzate da radio-quiz.it (una serie per fetta, echi in ordine di TE), pixel non modificati."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "disposizione": [
+  0,
+  3
+ ],
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1.8,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Asse corto, primo eco: scorri gli echi e confronta miocardio e fegato"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "fegato",
+   "T2*"
+  ],
+  "motivo": "Sovraccarico epatico grave con cuore senza ferro: va segnalato all'ematologo con il referto per adeguare la chelazione, senza urgenza."
+ },
+ "regola": "Nel bambino il ferro si deposita prima nel fegato: misura sempre fegato e cuore, e nel cuore piccolo tieni la ROI nel miocardio, fuori dal sangue.",
+ "nota_docente": "Preparato il 22/11/2026. CHMMOTv1 (Mendeley, CC BY 4.0), paziente 1023 del foglio «With Follow-Up» (F, 6 anni), seconda riga del foglio (T2* cuore 29,6 ms, fegato 2,0 ms). Importate: 1023_3/SR_12 e SR_14 (T2* cuore, 2 fette × 12 echi), 1023_4/SR_3 (T2* fegato, 4 fette × 12 echi); nessuna cine per questo esame. Serie divise per fetta e ordinate per TE con strumenti_claude/chmmot/prepara2.py (pixel non modificati), poi anonimizza.py; descrizioni e numeri di serie ripuliti. L'altro esame della stessa paziente (prima riga: cuore 5,7 ms, fegato 0,3 ms; cartelle 1023_1 e 1023_2) è stato escluso: la collezione non dà l'intervallo né la data delle visite, l'età è 6 anni in entrambe e un miglioramento del cuore da 5,7 a 29,6 ms con ferritina in aumento non è plausibile senza dati; le serie sono in _tcia_grezzi/chmmot/escluse_148_esameA. Immagini: corrispondenza confermata (esame escluso con fegato nero già al primo eco, questo con fegato chiaro al primo eco e nero al quarto). La LIC del foglio (1518) è un refuso: con la formula della collezione R2* 499,7 dà circa 15,8 mg/g. Misure di Claude (strumenti_claude/chmmot/t2star*.py): fegato fetta 2 e 3 (ROI x 165-195, y 265-290) T2* 2,1-2,3 ms con offset; cuore: parete del VS (x 133-139, y 133-139, fetta 1) circa 25 ms; ROI sul setto (x 114-118) 80-120 ms perché il setto è di 2-3 pixel e la ROI prende il sangue. Funzione ventricolare non valutabile (nessuna cine).",
+ "id": "caso-tcia-148",
+ "visibile": true
+}

@@ -1,0 +1,143 @@
+{
+ "titolo": "RM cardiaca e del fegato T2*: ragazza di 14 anni con talassemia major in terapia trasfusionale",
+ "titolo_interno": "Cuore senza sovraccarico (T2* 33,9 ms) e fegato con sovraccarico lieve (T2* 7,4 ms, LIC 4,3 mg/g) – CHMMOTv1 2014",
+ "distretto": "Cuore",
+ "modalita": "RM",
+ "difficolta": "Base",
+ "quesito": "sovraccarico di ferro",
+ "anamnesi": "Ragazza di 14 anni con talassemia major, trasfusa regolarmente. RM a 1,5 T per il controllo del sovraccarico di ferro: gradient-echo multi-eco (12 echi) in asse corto del cuore e assiale del fegato, cine bSSFP. Ferritina 1.997 µg/L, AST 19, ALT 12, ALP 349 U/L. Terapia chelante in corso (tipo e dosi non forniti dalla collezione).",
+ "richiesta": {
+  "reparto": "Ematologia (centro talassemie)",
+  "priorita": "P",
+  "lab": [
+   [
+    "Ferritina",
+    "1.997 µg/L"
+   ],
+   [
+    "AST / ALT",
+    "19 / 12 U/L"
+   ],
+   [
+    "ALP",
+    "349 U/L"
+   ]
+  ],
+  "allergie": "",
+  "farmaci": "Terapia chelante (dettagli non forniti)",
+  "dispositivi": "",
+  "gravidanza": ""
+ },
+ "domanda": "Scorri gli echi delle serie T2* (dal TE più breve al più lungo) nel cuore e nel fegato. Che cosa vedi e come lo quantifichi? Qual è la conclusione?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Setto interventricolare con segnale conservato fino agli ultimi echi: T2* miocardico normale (> 20 ms)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Collezione: T2* 33,9 ms (R2* 29,5 s⁻¹, MIC 0,94 mg/g). Misura indicativa di radio-quiz.it sul setto della fetta 2: 25-27 ms."
+  },
+  {
+   "testo": "Fegato che scurisce in modo graduale negli echi, più del muscolo paravertebrale ma senza diventare nero: sovraccarico epatico lieve",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Collezione: T2* epatico 7,4 ms, R2* 138 s⁻¹, LIC 4,3 mg/g (lieve: 2-7 mg/g). Misura indicativa di radio-quiz.it sulla fetta 3: circa 7,8 ms con offset."
+  },
+  {
+   "testo": "Fegato quasi nero già dal secondo eco: sovraccarico epatico grave",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È il quadro dei casi con T2* epatico di 1-2 ms (per esempio 108 e 150); qui il fegato ha ancora segnale agli ultimi echi."
+  },
+  {
+   "testo": "Il T2* epatico di circa 7 ms è nella norma, quindi non c'è ferro nel fegato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Conta la LIC stimata dall'R2*: 4,3 mg/g è sopra il normale (fino a circa 1,8-2 mg/g), e la collezione la classifica «Mild». Alcune tabelle mettono il limite del T2* epatico intorno ai 6 ms, ma con le calibrazioni su biopsia (come quella di Garbowski) una LIC normale corrisponde a un T2* di circa 15 ms o più."
+  },
+  {
+   "testo": "Sovraccarico di ferro epatico lieve, cuore senza ferro: quadro controllato dalla chelazione; refertare con i valori e proseguire i controlli RM periodici",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1
+  },
+  {
+   "testo": "Sovraccarico cardiaco lieve-moderato (T2* 10-20 ms): rivalutare la chelazione per il cuore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Sovraccarico epatico grave: avvisare subito l'ematologo per intensificare la chelazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessun accumulo di ferro: con questa ferritina la RM è inutile",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La LIC è 4,3 mg/g, sopra il normale, e la ferritina non predice il ferro cardiaco né quello epatico con precisione."
+  }
+ ],
+ "spiegazione": "Il ferro accorcia il T2*: nelle sequenze gradient-echo multi-eco il segnale dei tessuti carichi di ferro cala tanto più in fretta quanto più ferro c'è. Si mette una ROI e si adatta una curva S(TE) = S0·e^(−TE/T2*); R2* = 1000/T2* (s⁻¹). Cuore: ROI a tutto spessore sul setto interventricolare della fetta medioventricolare in asse corto (lontano dagli artefatti di suscettibilità di vene cardiache e polmone della parete laterale). Soglie del cuore a 1,5 T: T2* > 20 ms normale, 10-20 ms sovraccarico lieve-moderato, < 10 ms grave. Fegato: ROI nel parenchima del lobo destro lontano dai vasi; dall'R2* si stima la concentrazione di ferro epatico (LIC, mg Fe/g di peso secco) con una curva di calibrazione (la collezione usa quella di Garbowski 2014: LIC ≈ 0,029·R2*^1,014). Classi della LIC più usate: < 2 mg/g normale (fino a circa 1,8), 2-7 lieve, 7-15 moderato, > 15 grave. Con segnali molto bassi il rumore crea un «pavimento»: un fit su tutti gli echi sovrastima il T2*; si usano il troncamento degli echi finali o un modello con costante (offset). Nel visualizzatore lo strumento T2* (Altre misure → T2*) riporta la ROI su tutti gli echi della fetta, mostra la curva, il T2* e l'R2* con i due modelli e, per il fegato, la LIC. In questa ragazza il setto resta grigio fino agli ultimi echi (T2* 33,9 ms nella collezione: normale), mentre il fegato scurisce gradualmente: T2* 7,4 ms, R2* 138 s⁻¹, LIC 4,3 mg/g, sovraccarico lieve. Attenzione a non leggere il T2* epatico con le soglie del cuore: per il fegato si ragiona sulla LIC. È un quadro di buon controllo della chelazione: si referta con i valori e si prosegue con i controlli periodici.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Valori della collezione CHMMOTv1: T2* cardiaco 33,9 ms (R2* 29,5 s⁻¹, MIC 0,94 mg/g), cuore «Normal»; T2* epatico 7,4 ms (R2* 138,2 s⁻¹, LIC 4,3 mg/g), fegato «Mild»; ferritina 1.997 µg/L."
+ },
+ "fonte": {
+  "archivio": "Mendeley Data",
+  "collezione": "CHMMOTv1 (Cardiac and Hepatic Multi-Echo T2* MRI Images and Clinical Dataset for Iron Overload on Thalassemia Patients)",
+  "doi": "10.17632/3d8bwn2fsh.1",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Jalilian M., Abedi I., Zamanian M., Bolhasani H. (2023). CHMMOTv1: Cardiac and Hepatic Multi-Echo (T2*) MRI Images and Clinical Dataset for Iron Overload on Thalassemia Patients (Version 1) [Data set]. Mendeley Data. https://doi.org/10.17632/3d8bwn2fsh.1. DICOM originali GE 1,5 T; serie riorganizzate da radio-quiz.it (una serie per fetta, echi in ordine di TE), pixel non modificati."
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  6
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 0,
+  "zoom": 1.6,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Fetta medioventricolare, primo eco: scorri gli echi e guarda il setto"
+ },
+ "comunicazione": {
+  "livello": "nessuna",
+  "accettabili": [
+   "differita"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "fegato",
+   "lieve"
+  ],
+  "motivo": "Sovraccarico epatico lieve e cuore normale: basta il referto, non serve una comunicazione a parte."
+ },
+ "regola": "Per il fegato conta la LIC stimata dall'R2*, non le soglie del T2* cardiaco.",
+ "nota_docente": "Preparato il 22/11/2026. CHMMOTv1 (Mendeley, CC BY 4.0), paziente 2014 del foglio «Without Follow-Up» (F, 14 anni). Importate: 2014_1/SR_9 (T2* cuore, 3 fette × 12 echi), 2014_1/SR_6 (cine bSSFP, 30 fasi), 2014_2/SR_3 (T2* fegato, 4 fette × 12 echi). Serie divise per fetta e ordinate per TE con strumenti_claude/chmmot/prepara2.py (pixel non modificati), poi anonimizza.py. Misure di Claude (strumenti_claude/chmmot/t2star*.py): setto fetta 2 (x 116-122, y 113-130) 25-27 ms; fegato fetta 3 (x 140-220, y 230-270) 7,8-7,9 ms con offset, 8,7-9,3 ms log-lineare. Coerente con la collezione (33,9 e 7,4 ms). La LIC 4,3 mg/g torna con la formula della collezione (0,029·138,2^1,014). Le colonne della bilirubina del foglio non sono usate (in alcuni pazienti la diretta supera la totale).",
+ "id": "caso-tcia-149",
+ "visibile": true
+}

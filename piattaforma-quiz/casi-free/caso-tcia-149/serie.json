@@ -1,0 +1,164 @@
+[
+ {
+  "descrizione": "Cuore T2* asse corto - fetta 1/3 - 12 echi, TE 1,8-17,9 ms",
+  "numero": 101,
+  "files": [
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00001_00000.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00002_00001.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00003_00002.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00004_00003.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00005_00004.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00006_00005.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00007_00006.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00008_00007.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00009_00008.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00010_00009.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00011_00010.dcm",
+   "serie/s2_0101_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Cuore T2* asse corto - fetta 2/3 - 12 echi, TE 1,8-17,9 ms",
+  "numero": 102,
+  "files": [
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00001_00000.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00002_00001.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00003_00002.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00004_00003.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00005_00004.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00006_00005.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00007_00006.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00008_00007.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00009_00008.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00010_00009.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00011_00010.dcm",
+   "serie/s2_0102_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Cuore T2* asse corto - fetta 3/3 - 12 echi, TE 1,8-17,9 ms",
+  "numero": 103,
+  "files": [
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00001_00000.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00002_00001.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00003_00002.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00004_00003.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00005_00004.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00006_00005.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00007_00006.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00008_00007.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00009_00008.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00010_00009.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00011_00010.dcm",
+   "serie/s2_0103_Studio_2_gen_1900_Cuore_T2_asse_corto_fe/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Cine bSSFP - 30 fasi",
+  "numero": 201,
+  "files": [
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00001_00000.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00002_00001.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00003_00002.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00004_00003.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00005_00004.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00006_00005.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00007_00006.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00008_00007.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00009_00008.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00010_00009.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00011_00010.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00012_00011.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00013_00012.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00014_00013.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00015_00014.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00016_00015.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00017_00016.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00018_00017.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00019_00018.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00020_00019.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00021_00020.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00022_00021.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00023_00022.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00024_00023.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00025_00024.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00026_00025.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00027_00026.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00028_00027.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00029_00028.dcm",
+   "serie/s2_0201_Studio_2_gen_1900_Cine_bSSFP_30_fasi/img_00030_00029.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 1/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 301,
+  "files": [
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00001_00000.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00002_00001.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00003_00002.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00004_00003.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00005_00004.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00006_00005.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00007_00006.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00008_00007.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00009_00008.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00010_00009.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00011_00010.dcm",
+   "serie/s1_0301_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 2/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 302,
+  "files": [
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00001_00000.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00002_00001.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00003_00002.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00004_00003.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00005_00004.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00006_00005.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00007_00006.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00008_00007.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00009_00008.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00010_00009.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00011_00010.dcm",
+   "serie/s1_0302_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 3/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 303,
+  "files": [
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00001_00000.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00002_00001.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00003_00002.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00004_00003.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00005_00004.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00006_00005.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00007_00006.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00008_00007.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00009_00008.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00010_00009.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00011_00010.dcm",
+   "serie/s1_0303_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 4/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 304,
+  "files": [
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00001_00000.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00002_00001.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00003_00002.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00004_00003.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00005_00004.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00006_00005.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00007_00006.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00008_00007.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00009_00008.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00010_00009.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00011_00010.dcm",
+   "serie/s1_0304_Studio_1_gen_1900_Fegato_T2_assiale_fett/img_00012_00011.dcm"
+  ]
+ }
+]

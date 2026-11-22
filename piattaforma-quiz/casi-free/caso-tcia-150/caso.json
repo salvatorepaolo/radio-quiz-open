@@ -1,0 +1,145 @@
+{
+ "titolo": "RM cardiaca e del fegato T2*: donna di 35 anni con talassemia major, ferritina 1.191 µg/L",
+ "titolo_interno": "Ferritina non elevatissima ma sovraccarico cardiaco lieve-moderato (T2* 11 ms) ed epatico grave (T2* 1,6 ms, LIC 19,9 mg/g) – CHMMOTv1 2003",
+ "distretto": "Cuore",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "quesito": "sovraccarico di ferro",
+ "anamnesi": "Donna di 35 anni con talassemia major, trasfusa regolarmente. RM a 1,5 T per il controllo del sovraccarico di ferro: gradient-echo multi-eco (12 echi) in asse corto del cuore e assiale del fegato, cine bSSFP. Ferritina 1.191 µg/L, AST 17, ALT 21, ALP 295 U/L. Terapia chelante in corso (tipo e dosi non forniti dalla collezione).",
+ "richiesta": {
+  "reparto": "Ematologia (centro talassemie)",
+  "priorita": "P",
+  "lab": [
+   [
+    "Ferritina",
+    "1.191 µg/L"
+   ],
+   [
+    "AST / ALT",
+    "17 / 21 U/L"
+   ],
+   [
+    "ALP",
+    "295 U/L"
+   ]
+  ],
+  "allergie": "",
+  "farmaci": "Terapia chelante (dettagli non forniti)",
+  "dispositivi": "",
+  "gravidanza": ""
+ },
+ "domanda": "Scorri gli echi delle serie T2* (dal TE più breve al più lungo) nel cuore e nel fegato. Che cosa vedi e come lo quantifichi? Qual è la conclusione?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Setto che perde segnale negli echi intermedi più del muscolo scheletrico, ma senza diventare nero: T2* miocardico tra 10 e 20 ms, sovraccarico cardiaco lieve-moderato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Collezione: T2* 11,0 ms (R2* 91 s⁻¹, MIC 2,7 mg/g). Misura indicativa di radio-quiz.it sul setto della fetta 2: 11-12 ms."
+  },
+  {
+   "testo": "Fegato quasi nero dal secondo-terzo eco: sovraccarico epatico grave (LIC oltre 15 mg/g)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Collezione: T2* 1,6 ms, R2* 627 s⁻¹, LIC 19,9 mg/g («Very severe» nella collezione). Misura indicativa di radio-quiz.it sulla fetta 3: circa 1,4 ms con offset; un fit log-lineare su tutti gli echi dà circa 9 ms per il pavimento di rumore."
+  },
+  {
+   "testo": "Anche la milza scurisce rapidamente negli echi: c'è ferro anche nella milza, come atteso nell'emosiderosi trasfusionale",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Misura indicativa sulla milza (fetta 3): T2* circa 1 ms."
+  },
+  {
+   "testo": "Il setto ha lo stesso segnale del muscolo scheletrico in tutti gli echi: cuore senza ferro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Sovraccarico cardiaco lieve-moderato ed epatico grave nonostante una ferritina non molto alta: segnalarlo all'ematologo con il referto per rivedere la chelazione",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1
+  },
+  {
+   "testo": "Con una ferritina di circa 1.200 µg/L il sovraccarico è per forza modesto: nessuna modifica della terapia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La ferritina stima male il ferro dei tessuti, soprattutto quello cardiaco: per questo si fa la RM."
+  },
+  {
+   "testo": "Sovraccarico cardiaco grave (T2* sotto 10 ms): rischio immediato di scompenso e aritmie, comunicazione urgente",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il T2* è di 11 ms: lieve-moderato, vicino alla soglia del grave. Va segnalato, ma non è il quadro sotto i 10 ms."
+  },
+  {
+   "testo": "Quadro di emocromatosi primitiva: test genetico HFE e salassi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Nella talassemia trasfusa il ferro viene dalle trasfusioni (milza coinvolta); il salasso non si può fare in un'anemia trasfusione-dipendente."
+  }
+ ],
+ "spiegazione": "Il ferro accorcia il T2*: nelle sequenze gradient-echo multi-eco il segnale dei tessuti carichi di ferro cala tanto più in fretta quanto più ferro c'è. Si mette una ROI e si adatta una curva S(TE) = S0·e^(−TE/T2*); R2* = 1000/T2* (s⁻¹). Cuore: ROI a tutto spessore sul setto interventricolare della fetta medioventricolare in asse corto (lontano dagli artefatti di suscettibilità di vene cardiache e polmone della parete laterale). Soglie del cuore a 1,5 T: T2* > 20 ms normale, 10-20 ms sovraccarico lieve-moderato, < 10 ms grave. Fegato: ROI nel parenchima del lobo destro lontano dai vasi; dall'R2* si stima la concentrazione di ferro epatico (LIC, mg Fe/g di peso secco) con una curva di calibrazione (la collezione usa quella di Garbowski 2014: LIC ≈ 0,029·R2*^1,014). Classi della LIC più usate: < 2 mg/g normale (fino a circa 1,8), 2-7 lieve, 7-15 moderato, > 15 grave. Con segnali molto bassi il rumore crea un «pavimento»: un fit su tutti gli echi sovrastima il T2*; si usano il troncamento degli echi finali o un modello con costante (offset). Nel visualizzatore lo strumento T2* (Altre misure → T2*) riporta la ROI su tutti gli echi della fetta, mostra la curva, il T2* e l'R2* con i due modelli e, per il fegato, la LIC. Qui la ferritina è relativamente bassa (1.191 µg/L), ma la RM mostra un fegato quasi nero dal secondo-terzo eco (T2* 1,6 ms, LIC 19,9 mg/g: grave) e un setto che scurisce più del muscolo (T2* 11 ms: lieve-moderato, vicino alla soglia del grave). Anche la milza perde segnale rapidamente: nel sovraccarico trasfusionale il ferro si accumula nei macrofagi del sistema reticolo-endoteliale (fegato e milza), mentre nell'emocromatosi primitiva la milza è risparmiata. La ferritina è un indicatore indiretto e imperfetto: non sostituisce la misura del ferro nel cuore e nel fegato.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Valori della collezione CHMMOTv1: T2* cardiaco 11,0 ms (R2* 91,2 s⁻¹, MIC 2,7 mg/g), cuore «Moderate»; T2* epatico 1,6 ms (R2* 626,9 s⁻¹, LIC 19,92 mg/g), fegato «Very severe»; ferritina 1.191 µg/L."
+ },
+ "fonte": {
+  "archivio": "Mendeley Data",
+  "collezione": "CHMMOTv1 (Cardiac and Hepatic Multi-Echo T2* MRI Images and Clinical Dataset for Iron Overload on Thalassemia Patients)",
+  "doi": "10.17632/3d8bwn2fsh.1",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Jalilian M., Abedi I., Zamanian M., Bolhasani H. (2023). CHMMOTv1: Cardiac and Hepatic Multi-Echo (T2*) MRI Images and Clinical Dataset for Iron Overload on Thalassemia Patients (Version 1) [Data set]. Mendeley Data. https://doi.org/10.17632/3d8bwn2fsh.1. DICOM originali GE 1,5 T; serie riorganizzate da radio-quiz.it (una serie per fetta, echi in ordine di TE), pixel non modificati."
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  6
+ ],
+ "vista": {
+  "serie": 1,
+  "idx": 0,
+  "zoom": 1.6,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Fetta medioventricolare, primo eco: scorri gli echi e guarda il setto"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "T2*",
+   "cuore",
+   "fegato"
+  ],
+  "motivo": "Ferro cardiaco lieve-moderato ed epatico grave con ferritina non molto alta: l'ematologo deve saperlo per rivedere la chelazione; non è un'urgenza da minuti."
+ },
+ "regola": "La ferritina non basta: un fegato grave e un cuore già carico possono esserci anche con ferritina di poco sopra i 1.000 µg/L.",
+ "nota_docente": "Preparato il 22/11/2026. CHMMOTv1 (Mendeley, CC BY 4.0), paziente 2003 del foglio «Without Follow-Up» (F, 35 anni). Importate: 2003_1/SR_9 (T2* cuore, 3 fette × 12 echi), 2003_1/SR_6 (cine bSSFP, 30 fasi), 2003_2/SR_3 (T2* fegato, 4 fette × 12 echi). Serie divise per fetta e ordinate per TE con strumenti_claude/chmmot/prepara2.py (pixel non modificati), poi anonimizza.py. Misure di Claude (strumenti_claude/chmmot/t2star*.py): setto fetta 2 (x 114-119, y 110-130) 11,2-11,8 ms; fegato fetta 3 (x 100-160, y 240-290) 1,4 ms con offset, 8,7-9,4 ms log-lineare (pavimento di rumore); milza (x 340-360, y 280-320) circa 0,8 ms con offset. Coerente con la collezione (11,0 e 1,6 ms). Nelle soglie della LIC usate nel caso (> 15 mg/g grave) 19,9 mg/g è «grave»; la collezione lo chiama «Very severe». Le colonne della bilirubina del foglio non sono usate (diretta 2,1 > totale 0,3: incoerenti).",
+ "id": "caso-tcia-150",
+ "visibile": true
+}

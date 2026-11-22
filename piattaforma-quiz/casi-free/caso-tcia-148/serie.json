@@ -1,0 +1,110 @@
+[
+ {
+  "descrizione": "Cuore T2* asse corto - fetta 1/2 - 12 echi, TE 1,8-17,8 ms",
+  "numero": 101,
+  "files": [
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00001_00000.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00002_00001.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00003_00002.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00004_00003.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00005_00004.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00006_00005.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00007_00006.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00008_00007.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00009_00008.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00010_00009.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00011_00010.dcm",
+   "serie/s1_0111_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Cuore T2* asse corto - fetta 2/2 - 12 echi, TE 1,8-17,8 ms",
+  "numero": 102,
+  "files": [
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00001_00000.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00002_00001.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00003_00002.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00004_00003.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00005_00004.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00006_00005.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00007_00006.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00008_00007.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00009_00008.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00010_00009.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00011_00010.dcm",
+   "serie/s1_0112_Studio_1_gen_1900_Controllo_Cuore_T2_ass/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 1/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 301,
+  "files": [
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00001_00000.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00002_00001.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00003_00002.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00004_00003.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00005_00004.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00006_00005.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00007_00006.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00008_00007.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00009_00008.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00010_00009.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00011_00010.dcm",
+   "serie/s4_0311_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 2/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 302,
+  "files": [
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00001_00000.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00002_00001.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00003_00002.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00004_00003.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00005_00004.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00006_00005.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00007_00006.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00008_00007.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00009_00008.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00010_00009.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00011_00010.dcm",
+   "serie/s4_0312_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 3/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 303,
+  "files": [
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00001_00000.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00002_00001.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00003_00002.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00004_00003.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00005_00004.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00006_00005.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00007_00006.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00008_00007.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00009_00008.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00010_00009.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00011_00010.dcm",
+   "serie/s4_0313_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00012_00011.dcm"
+  ]
+ },
+ {
+  "descrizione": "Fegato T2* assiale - fetta 4/4 - 12 echi, TE 1,0-15,1 ms",
+  "numero": 304,
+  "files": [
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00001_00000.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00002_00001.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00003_00002.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00004_00003.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00005_00004.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00006_00005.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00007_00006.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00008_00007.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00009_00008.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00010_00009.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00011_00010.dcm",
+   "serie/s4_0314_Studio_4_gen_1900_Controllo_Fegato_T2_as/img_00012_00011.dcm"
+  ]
+ }
+]
