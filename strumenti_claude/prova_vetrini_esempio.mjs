@@ -3,11 +3,11 @@
 // simulatore a pezzi come da CloudFront. Per ogni formato: si apre, calibrazione presente, tessere al livello pieno, nessun errore.
 import { spawn } from 'node:child_process'; import fs from 'node:fs'; import { createRequire } from 'node:module';
 const T = '/Volumes/Caloggero/piattaforma-quiz/cloud/test/', { chromium } = createRequire(T + 'package.json')('playwright');
-const PORTA = +process.env.PORTA_PROVA || 23761, B = `http://localhost:${PORTA}`;
+const PORTA = +process.env.PORTA_PROVA || 23761, B = process.env.SITO || `http://localhost:${PORTA}`;   // SITO=https://radio-quiz.it: sul sito vero
 const SOLO = process.argv.slice(2);
 const elenco = JSON.parse(fs.readFileSync('/Volumes/Caloggero/piattaforma-quiz/cloud/web/esempi/vetrini/elenco.json', 'utf8')).filter((v) => !SOLO.length || SOLO.includes(v.id));
-const sim = spawn(process.execPath, [T + 'simulatore.mjs'], { env: { ...process.env, PORTA: String(PORTA) }, stdio: ['ignore', 'pipe', 'inherit'] });
-await new Promise((r) => sim.stdout.on('data', (d) => { if (/pronto/.test(d)) r(); }));
+const sim = process.env.SITO ? null : spawn(process.execPath, [T + 'simulatore.mjs'], { env: { ...process.env, PORTA: String(PORTA) }, stdio: ['ignore', 'pipe', 'inherit'] });
+if (sim) await new Promise((r) => sim.stdout.on('data', (d) => { if (/pronto/.test(d)) r(); }));
 let ok = 0, ko = 0; const esito = (c, msg, d = '') => { if (c) ok++; else ko++; console.log(`${c ? 'OK' : 'KO'}  ${msg}${d !== '' ? ' → ' + d : ''}`); };
 const b = await chromium.launch(), ctx = await b.newContext({ viewport: { width: 1300, height: 850 }, locale: 'it-IT' }), err = [];
 await ctx.addInitScript(() => { localStorage.setItem('rq-cl-privacy-1', '1'); localStorage.setItem('rq-cl-guida-1', '1'); });
@@ -44,4 +44,4 @@ try {
 } catch (e) { esito(false, 'prova interrotta', e.message.split('\n')[0]); }
 esito(!err.length, 'nessun errore JavaScript', err.slice(0, 3).join(' | '));
 console.log(`\n${ok} superati, ${ko} non superati`);
-await b.close(); sim.kill(); process.exit(ko ? 1 : 0);
+await b.close(); sim?.kill(); process.exit(ko ? 1 : 0);

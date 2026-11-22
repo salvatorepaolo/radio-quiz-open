@@ -288,9 +288,12 @@ export async function vetriniTiff(f) {
   const ndpi = T.ifd.some((d) => d.tag[65420]);
   const tutti = T.ifd.flatMap((d) => [d, ...(d.sub || [])]);
   const desc = (d) => testoTag(d, 270);
-  const eEtichetta = (d) => /\blabel/i.test(desc(d)) || (ndpi && uno(d, 65421) === -2);
-  const ePanoramica = (d) => /\bmacro|overview|slide ?preview/i.test(desc(d)) || (ndpi && uno(d, 65421) === -1);
-  const eMiniatura = (d) => /thumbnail/i.test(desc(d)) && !d.tag[322];
+  // etichetta, panoramica e miniatura si riconoscono dalla descrizione breve dell'immagine («label 387x463», «Macro»); non da
+  // un XML lungo (Philips TIFF: l'XML della prima immagine nomina LABELIMAGE e MACROIMAGE, ma è l'immagine piena)
+  const breve = (d) => { const s = desc(d); return s.length < 2000 && !/^\s*<(\?xml|DataObject)/i.test(s) ? s : ''; };
+  const eEtichetta = (d) => /\blabel/i.test(breve(d)) || (ndpi && uno(d, 65421) === -2);
+  const ePanoramica = (d) => /\bmacro|overview|slide ?preview/i.test(breve(d)) || (ndpi && uno(d, 65421) === -1);
+  const eMiniatura = (d) => /thumbnail/i.test(breve(d)) && !d.tag[322];
   const scn = /<scn\b/i.test(desc(T.ifd[0])) ? leggiScn(desc(T.ifd[0])) : null;
   const immagini = scn ? T.ifd.filter((d, i) => scn.ifd.has(i)) : tutti.filter((d) => !eEtichetta(d) && !ePanoramica(d) && !eMiniatura(d) && uno(d, 256) > 0);
   // immagine principale: la più grande; livelli: stesse proporzioni (±3%), tassellate (o strisce NDPI), più piccole
@@ -315,7 +318,8 @@ export async function vetriniTiff(f) {
     const c = L.nCanali++;
     if (c >= 8) continue;
     const nx = Math.ceil(v.W / v.tw), ny = Math.ceil(v.H / v.th);
-    for (let k = 0; k < Math.min(v.n, nx * ny); k++) L.voci.set(`${k % nx},${Math.floor(k / nx)},0,${c}`, [v, k]);
+    // tessere vuote (0 byte: zone non acquisite, es. Philips TIFF): niente voce, resta lo sfondo
+    for (let k = 0; k < Math.min(v.n, nx * ny); k++) if (!v.indice || v.indice[k][1] > v.indice[k][0]) L.voci.set(`${k % nx},${Math.floor(k / nx)},0,${c}`, [v, k]);
   }
   const L0 = livelli[0], P0 = voci[0], mono = P0.spp === 1;
   const nc = Math.max(1, L0.nCanali);

@@ -103,7 +103,10 @@ def livelli_tiff(f, e, ifd):
         t = [b for b in blocchi if not b[0]] or blocchi
         return {ifd[i]['off'] for i in max(t, key=lambda b: b[1])[2] if i < len(ifd)}
     sl = lambda d: uno(f, e, d, 65421, 0) if ndpi else 0
-    etich = lambda d: re.search(rb'(?i)\blabel', desc(d)) or (ndpi and sl(d) in (-1, -2)) or re.search(rb'(?i)macro|overview|slide ?preview|thumbnail', desc(d))
+    # descrizione breve («label 387x463», «Macro»), non un XML lungo: nei Philips TIFF l'XML della prima immagine nomina
+    # LABELIMAGE e MACROIMAGE ma è l'immagine piena (con la regola vecchia finiva azzerata)
+    breve = lambda d: desc(d) if len(desc(d)) < 2000 and not re.match(rb'\s*<(\?xml|DataObject)', desc(d), re.I) else b''
+    etich = lambda d: re.search(rb'(?i)\blabel', breve(d)) or (ndpi and sl(d) in (-1, -2)) or re.search(rb'(?i)macro|overview|slide ?preview|thumbnail', breve(d))
     cand = [d for d in ifd if not etich(d) and uno(f, e, d, 256)]
     if not cand: return set()
     area = lambda d: uno(f, e, d, 256) * uno(f, e, d, 257); base = max(cand, key=area)

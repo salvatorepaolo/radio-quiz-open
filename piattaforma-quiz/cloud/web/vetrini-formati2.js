@@ -163,7 +163,9 @@ async function vetriniVsi(f, files) {
     return livelli;
   };
   const livelli = costruisci(lette[0], `${f.name}|vsi|0`), L0 = livelli[0];
-  for (const L of livelli) L.ds = L0.W / L.W;
+  // livello l = metà del precedente (2^l): le dimensioni non si ricavano dalle tessere, che ai livelli piccoli sono quasi
+  // vuote (una tessera da 512 per un'immagine di 190 pixel), altrimenti l'immagine finisce schiacciata in un angolo
+  for (const L of livelli) { L.W = Math.ceil(L0.W / L.ds); L.H = Math.ceil(L0.H / L.ds); }
   const mono = lette[0].E.sizeC < 3, nc = mono ? Math.max(1, lette[0].E.sizeC) : 1;
   const COL = [[40, 110, 255], [0, 255, 0], [255, 40, 40], [255, 0, 255]];
   const canali = Array.from({ length: nc }, (_, k) => ({ id: String(k + 1), nome: '', onda: 0, colore: mono ? (nc === 1 ? [255, 255, 255] : COL[k % 4]) : null, acceso: true, guadagno: 1, max: null }));
