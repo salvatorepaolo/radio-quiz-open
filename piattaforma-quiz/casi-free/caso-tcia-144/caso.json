@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-144",
  "visibile": true,
- "aggiornato": "2026-11-21 20:38",
+ "aggiornato": "2026-11-22 21:19",
  "titolo": "Ragazza di 20 anni con linfoma alla biopsia: PET-TC con FDG prima della terapia",
  "titolo_interno": "Linfoma con localizzazioni linfonodali solo sopra il diaframma (cervicale basso/sovraclaveare destra, stretto toracico superiore, mediastino prevascolare; SUVmax circa 18): stadio II (FDG-PET-CT-Lesions PETCT_04ab5c61c9)",
  "distretto": "Total body",
@@ -143,5 +143,5 @@
   "nota": "Linfonodo ipermetabolico cervicale basso/sovraclaveare destro, SUVmax circa 18"
  },
  "comunicazione": null,
- "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. FDG-PET-CT-Lesions PETCT_04ab5c61c9 (CC BY 4.0): donna 20 anni, diagnosi LYMPHOMA, studio «primaer mit KM» (stadiazione). La segmentazione della collezione ha 3 lesioni (z -794, -748, -718 mm; 10, 15 e 21 ml); SUVmax calcolato dal peso: 17,8 la più intensa. DUBBI: istotipo non noto (probabile Hodgkin per età e sedi, non dichiarato nel caso); assenza di malattia bulky stimata a vista.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: metadati FDG-PET-CT-Lesions PETCT_04ab5c61c9: LYMPHOMA, 20 anni, F, stadiazione primaria. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico."
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. FDG-PET-CT-Lesions PETCT_04ab5c61c9 (CC BY 4.0): donna 20 anni, diagnosi LYMPHOMA, studio «primaer mit KM» (stadiazione). La segmentazione della collezione ha 3 lesioni (z -794, -748, -718 mm; 10, 15 e 21 ml); SUVmax calcolato dal peso: 17,8 la più intensa. DUBBI: istotipo non noto (probabile Hodgkin per età e sedi, non dichiarato nel caso); assenza di malattia bulky stimata a vista.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: metadati FDG-PET-CT-Lesions PETCT_04ab5c61c9: LYMPHOMA, 20 anni, F, stadiazione primaria. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.\n[revisione approfondita 22/11/2026] Immagini rilette: SUVmax ricalcolato da peso (45 kg) e dose dell'originale: 17,8 al collo basso destro (img 223), 14,3 allo stretto toracico superiore a sinistra della trachea (img 213), 11,6 al mediastino prevascolare (img 198); captazioni su linfonodi alla TC. Testo confermato. Il contenuto didattico resta da confermare dal medico."
 }

@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-143",
  "visibile": true,
- "aggiornato": "2026-11-21 20:38",
+ "aggiornato": "2026-11-22 21:19",
  "titolo": "Donna di 57 anni: mammografia bilaterale",
  "titolo_interno": "Carcinoma della mammella destra, immunofenotipo triplo negativo: massa ad alta densità di circa 1,5 cm nei quadranti inferiori, visibile in CC e MLO (CMMD D2-0356)",
  "distretto": "Mammella",
@@ -45,7 +45,7 @@
    "nota": "Il tessuto fibroghiandolare occupa gran parte della mammella."
   },
   {
-   "testo": "Massa ad alta densità di circa 1,3-1,5 cm della mammella destra, visibile in entrambe le proiezioni, nei quadranti inferiori, di forma irregolare e con margini non circoscritti",
+   "testo": "Massa ad alta densità di circa 1,3-1,5 cm della mammella destra, visibile in entrambe le proiezioni, nei quadranti inferiori, di forma ovale-lobulata e con margini non circoscritti (indistinti)",
    "corretta": true,
    "tipo": "principale",
    "sezione": 1,
@@ -73,11 +73,11 @@
    "nota": "Il reperto principale è una massa; i tumori triplo negativi hanno spesso poche o nessuna calcificazione."
   },
   {
-   "testo": "BI-RADS 4C-5: biopsia percutanea con ago tranciante, sotto guida ecografica (o stereotassica)",
+   "testo": "BI-RADS 4 (sospetta, 4B-4C): biopsia percutanea con ago tranciante, sotto guida ecografica (o stereotassica)",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 2,
-   "nota": "Una massa nuova, densa, a margini non circoscritti richiede la biopsia. L'ecografia mirata aiuta a guidarla."
+   "nota": "Una massa densa a margini non circoscritti, vista in due proiezioni, richiede la biopsia anche senza esami precedenti per il confronto. Non ha le spiculazioni che porterebbero al BI-RADS 5. L'ecografia mirata aiuta a guidarla."
   },
   {
    "testo": "BI-RADS 3: controllo a 6 mesi",
@@ -112,7 +112,7 @@
  "regola": "Margini non circoscritti = biopsia, anche se la massa è rotondeggiante.",
  "esito_clinico": {
   "tipo": "istologia",
-  "testo": "Carcinoma maligno, immunofenotipo triplo negativo (dati clinici della collezione CMMD)."
+  "testo": "Carcinoma, immunofenotipo triplo negativo (dati clinici della collezione CMMD)."
  },
  "fonte": {
   "archivio": "The Cancer Imaging Archive (TCIA)",
@@ -145,5 +145,5 @@
   "nota": "CC destra: massa ad alta densità di circa 1,5 cm a margini indistinti"
  },
  "comunicazione": null,
- "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. CMMD D2-0356 (CC BY 4.0): 57 anni, mammella destra, massa, maligna, triplo negativo. Immagini: 0 CC sinistra, 1 MLO sinistra, 2 CC destra, 3 MLO destra (ordine dei file). Massa misurata come larghezza a metà intensità: circa 15 mm in CC e 13 mm in MLO. DUBBI: quadrante in CC (interno o esterno) non indicato perché l'orientamento delle immagini dell'archivio non è quello di lettura abituale; categoria BI-RADS proposta (4C-5) da confermare.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: foglio clinico CMMD D2-0356: mammella destra, 57 anni, massa maligna, triplo negativo; ImageLaterality R/L presente nei DICOM. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico."
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. CMMD D2-0356 (CC BY 4.0): 57 anni, mammella destra, massa, maligna, triplo negativo. Immagini: 0 CC sinistra, 1 MLO sinistra, 2 CC destra, 3 MLO destra (ordine dei file). Massa misurata come larghezza a metà intensità: circa 15 mm in CC e 13 mm in MLO. DUBBI: quadrante in CC (interno o esterno) non indicato perché l'orientamento delle immagini dell'archivio non è quello di lettura abituale; categoria BI-RADS proposta (4C-5) da confermare.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: foglio clinico CMMD D2-0356: mammella destra, 57 anni, massa maligna, triplo negativo; ImageLaterality R/L presente nei DICOM. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.\n[revisione approfondita 22/11/2026] Immagini rilette: massa densa della mammella destra a margini indistinti, ovale-lobulata in CC (circa 1,5-1,8 cm) e tondeggiante in MLO (circa 1,3 cm, metà inferiore); ACR C. Corretti: forma (era «irregolare», in contrasto con la conclusione «tondeggiante»), «massa nuova» senza esami precedenti, BI-RADS «4C-5» → «4 (4B-4C)» (niente spiculazioni), esito «Carcinoma maligno». Il contenuto didattico resta da confermare dal medico."
 }

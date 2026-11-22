@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-146",
  "visibile": true,
- "aggiornato": "2026-11-21 20:38",
+ "aggiornato": "2026-11-22 21:19",
  "titolo": "Donna di 78 anni con sospetta neoplasia del pancreas: TC con mezzo di contrasto",
  "titolo_interno": "Adenocarcinoma duttale della coda del pancreas: massa ipodensa mal definita di circa 4,5 cm estesa all'ilo splenico, con i vasi splenici a contatto (pT4 N0 nei dati); protesi valvolare aortica (CPTAC-PDA C3N-02971)",
  "distretto": "Pancreas",
@@ -140,5 +140,5 @@
   "nota": "Massa ipodensa della coda del pancreas, circa 4,5 cm, fino all'ilo splenico"
  },
  "comunicazione": null,
- "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. CPTAC-PDA C3N-02971 (CC BY 4.0): donna 78 anni (intestazione), adenocarcinoma duttale infiltrante, T4 N0 MX stadio III (GDC). Sede verificata con il contorno «PANCREAS - 1» della collezione (RTSTRUCT): coda, z 145-178 mm, 45 × 50 mm. La «fase arteriosa» dell'archivio copre torace e addome superiore. DUBBI: il motivo del T4 (tripode o arteria epatica) non si ricava con certezza dalle immagini: il caso non lo afferma; protesi valvolare aortica riconosciuta a vista (tipo non determinato).\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC C3N-02971: adenocarcinoma duttale, pancreas, T4 N0, stadio III, 78 anni (DICOM 078Y F). Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico."
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. CPTAC-PDA C3N-02971 (CC BY 4.0): donna 78 anni (intestazione), adenocarcinoma duttale infiltrante, T4 N0 MX stadio III (GDC). Sede verificata con il contorno «PANCREAS - 1» della collezione (RTSTRUCT): coda, z 145-178 mm, 45 × 50 mm. La «fase arteriosa» dell'archivio copre torace e addome superiore. DUBBI: il motivo del T4 (tripode o arteria epatica) non si ricava con certezza dalle immagini: il caso non lo afferma; protesi valvolare aortica riconosciuta a vista (tipo non determinato).\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC C3N-02971: adenocarcinoma duttale, pancreas, T4 N0, stadio III, 78 anni (DICOM 078Y F). Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.\n[revisione approfondita 22/11/2026] Immagini rilette: massa ipodensa della coda fino all'ilo splenico con vaso splenico calcifico; protesi valvolare aortica alle immagini 83-87 (anello e montanti), cerchiaggio sternale all'immagine 72. Testo confermato. Il contenuto didattico resta da confermare dal medico."
 }

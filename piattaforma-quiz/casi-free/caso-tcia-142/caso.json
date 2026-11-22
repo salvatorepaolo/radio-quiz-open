@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-142",
  "visibile": true,
- "aggiornato": "2026-11-21 20:38",
+ "aggiornato": "2026-11-22 21:19",
  "titolo": "Donna di 42 anni con tosse e dispnea, ricoverata: tre radiografie del torace a letto",
  "titolo_interno": "Polmonite da SARS-CoV-2 (COVID-19) in peggioramento in 3 giorni, con intubazione: tubo endotracheale, sondino orogastrico e catetere venoso centrale giugulare destro (COVID-19-NY-SBU A901027)",
  "distretto": "Torace",
@@ -67,7 +67,7 @@
    "corretta": false,
    "tipo": "distrattore",
    "sezione": 1,
-   "nota": "Non ci sono i segni tipici dell'edema cardiogeno; il contesto (tampone positivo, febbre e sintomi respiratori da 3 giorni) indica una polmonite."
+   "nota": "Non ci sono i segni tipici dell'edema cardiogeno; il contesto (tampone positivo, tosse e dispnea da 3 giorni) indica una polmonite."
   },
   {
    "testo": "Al giorno 3 le opacità sono più estese e confluenti in entrambi i polmoni: il quadro è peggiorato",
@@ -160,5 +160,5 @@
   "nota": "Sera del giorno 3, dopo l'intubazione: tubo endotracheale, sondino orogastrico e catetere giugulare destro; consolidazioni estese"
  },
  "comunicazione": null,
- "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. COVID-19-NY-SBU A901027 (CC BY 4.0): donna 18-59 anni (età 42 dall'intestazione), obesità (BMI > 35), diabete, positiva, terapia intensiva, ventilazione invasiva 2 giorni, dimessa dopo 9 giorni. Tre radiografie AP (le tre ore dell'archivio: giorno 0 sera, giorno 3 alle 13 e alle 20); dell'archivio sono state tenute le immagini della serie 2 (ogni radiografia era doppia). Testo nei pixel: solo PORTABLE, SITTING, ett, OGT, central line e la L di lato. DUBBI: posizione esatta delle punte di tubo e catetere non misurabile con certezza (carena poco visibile); i distrattori non affermano posizioni precise.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: dati clinici COVID-19-NY-SBU A901027: donna 18-59 anni (DICOM 42), BMI 39,5, diabete, sintomi da 3 giorni (tosse, dispnea, nausea, diarrea), terapia intensiva, ventilazione invasiva 2 giorni, ricovero 9 giorni. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico."
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. COVID-19-NY-SBU A901027 (CC BY 4.0): donna 18-59 anni (età 42 dall'intestazione), obesità (BMI > 35), diabete, positiva, terapia intensiva, ventilazione invasiva 2 giorni, dimessa dopo 9 giorni. Tre radiografie AP (le tre ore dell'archivio: giorno 0 sera, giorno 3 alle 13 e alle 20); dell'archivio sono state tenute le immagini della serie 2 (ogni radiografia era doppia). Testo nei pixel: solo PORTABLE, SITTING, ett, OGT, central line e la L di lato. DUBBI: posizione esatta delle punte di tubo e catetere non misurabile con certezza (carena poco visibile); i distrattori non affermano posizioni precise.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: dati clinici COVID-19-NY-SBU A901027: donna 18-59 anni (DICOM 42), BMI 39,5, diabete, sintomi da 3 giorni (tosse, dispnea, nausea, diarrea), terapia intensiva, ventilazione invasiva 2 giorni, ricovero 9 giorni. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.\n[revisione approfondita 22/11/2026] Testo e immagini riletti: opacità bilaterali basali al giorno 0, più estese al giorno 3, la sera consolidazione soprattutto a sinistra; tubo e sondino sulla linea mediana; catetere dal collo a destra (giugulare interna) fino alla cava superiore (il tubo laterale con i connettori è esterno). Corretta una nota che citava la febbre (temperatura 37 °C nei dati della collezione). Il contenuto didattico resta da confermare dal medico."
 }

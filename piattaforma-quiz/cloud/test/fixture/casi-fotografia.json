@@ -3248,9 +3248,7 @@
   },
   "comGiusta": 100,
   "comAssente": 100,
-  "controlli": [
-   "nota: da verificare"
-  ]
+  "controlli": []
  },
  "caso-tcia-056": {
   "tutteGiuste": {
@@ -7778,9 +7776,7 @@
   "comGiusta": 100,
   "comAssente": 100,
   "punto": "centrato",
-  "controlli": [
-   "nota: da verificare"
-  ]
+  "controlli": []
  },
  "caso-tcia-134": {
   "tutteGiuste": {
@@ -8376,7 +8372,7 @@
   },
   "refertoSbagliato": {
    "p": 0,
-   "citati": 1,
+   "citati": 0,
    "attesi": 5,
    "errori": 6
   },

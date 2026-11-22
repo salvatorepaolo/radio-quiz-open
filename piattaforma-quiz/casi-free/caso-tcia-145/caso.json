@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-145",
  "visibile": true,
- "aggiornato": "2026-11-21 20:38",
+ "aggiornato": "2026-11-22 21:19",
  "titolo": "Ecografia e CEUS del fegato: lesione focale da caratterizzare",
  "titolo_interno": "Ascesso epatico: in CEUS anello che si impregna in fase arteriosa e centro mai impregnato fino a 5 minuti; lesione di circa 1,8 cm mal visibile in B-mode (B-mode-and-CEUS-Liver LiverUS-92)",
  "distretto": "Addome",
@@ -145,5 +145,5 @@
   "nota": "1:25 dopo il contrasto: centro senza impregnazione, circa 1,8 cm"
  },
  "comunicazione": null,
- "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. B-mode-and-CEUS-Liver LiverUS-92 (CC BY 4.0), diagnosi finale «Benign mass: abscess». Nell'archivio solo filmati (9 clip, 1,8 GB): tenuti 10 fotogrammi (B-mode trasversale; CEUS sagittale a 0:09, ~0:13, 0:18, 0:26, 0:54, 1:25, 2:00, 3:04, 5:04), convertiti in scala di grigi come nel caso 125 (strumenti_claude/vm/us2dcm.py). Testo nei pixel solo tecnico (LIVER TRANS/SAG, LOGIQ E9, parametri, T1). Misura dalla scala di profondità (circa 39 pixel per cm). DUBBI: età, sesso, clinica e segmento non noti; setti interni non chiaramente visibili nei fotogrammi scelti.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: Reference Standards B-mode-and-CEUS-Liver LiverUS-92: «Benign mass: abscess». Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico."
+ "nota_docente": "Caso creato da Claude il 21/11/2026 e pubblicato subito visibile su richiesta del responsabile della piattaforma: NON ancora rivisto da un medico. B-mode-and-CEUS-Liver LiverUS-92 (CC BY 4.0), diagnosi finale «Benign mass: abscess». Nell'archivio solo filmati (9 clip, 1,8 GB): tenuti 10 fotogrammi (B-mode trasversale; CEUS sagittale a 0:09, ~0:13, 0:18, 0:26, 0:54, 1:25, 2:00, 3:04, 5:04), convertiti in scala di grigi come nel caso 125 (strumenti_claude/vm/us2dcm.py). Testo nei pixel solo tecnico (LIVER TRANS/SAG, LOGIQ E9, parametri, T1). Misura dalla scala di profondità (circa 39 pixel per cm). DUBBI: età, sesso, clinica e segmento non noti; setti interni non chiaramente visibili nei fotogrammi scelti.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: Reference Standards B-mode-and-CEUS-Liver LiverUS-92: «Benign mass: abscess». Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.\n[revisione approfondita 22/11/2026] Immagini rilette: centro sempre senza segnale da 0:18 a 5:04 con sottile orletto iniziale, diametro circa 1,7-1,8 cm sulla scala di profondità, B-mode ipoecogeno sfumato. Testo confermato. Il contenuto didattico resta da confermare dal medico."
 }
