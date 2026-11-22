@@ -744,7 +744,7 @@ function pulisciSponsor(d, prima = {}) {
     creato: prima.creato || new Date().toISOString().slice(0, 10) };
 }
 const sponsorAttivo = (x, oggi = giornoItalia()) => x.attivo !== false && (!x.dal || x.dal <= oggi) && (!x.al || x.al >= oggi);
-const PAGINE_TRAFFICO = new Set(['cruscotto', 'vetrini', 'allenamento', 'progressi', 'elenco', 'caso', 'editor', 'nuovo', 'aggiungi', 'analisi', 'esame', 'confronto', 'proponi', 'errore', 'aiuto', 'profilo',
+const PAGINE_TRAFFICO = new Set(['sfida', 'sfide', 'cruscotto', 'vetrini', 'allenamento', 'progressi', 'elenco', 'caso', 'editor', 'nuovo', 'aggiungi', 'analisi', 'esame', 'confronto', 'proponi', 'errore', 'aiuto', 'profilo',
   'gestione-casi', 'classi', 'percorsi', 'revisione', 'account', 'accesso', 'iscriviti', 'conferma', 'nuova-password']);
 const ora16 = () => new Date().toISOString().slice(0, 16).replace('T', ' ');
 
@@ -1045,10 +1045,65 @@ function datiProfilo(d, prima = {}) {
   if (typeof d.avvisi === 'boolean') out.avvisi = d.avvisi;
   return out;
 }
+// ---------------- sfide tra amici (22/11/2026): chi è iscritto sceglie da 3 a 10 casi e condivide un link
+// radio-quiz.it/s/<codice>. Chi lo apre e accetta gioca gli stessi casi; conta la prima risposta a ogni caso data dopo
+// aver accettato, entro la chiusura (scadenza scelta, al massimo 90 giorni). In classifica solo chi lo sceglie, con il nome
+// che sceglie (anche uno pseudonimo): punteggio medio e tempo, mai le risposte.
+// Sfida: pk "SFIDA", sk = codice; partecipanti: pk "SFIDA#<codice>", sk = account
+export const SFIDA_MIN = 3, SFIDA_MAX = 10, SFIDE_AL_GIORNO = 5, SFIDA_GIORNI = 90, SFIDA_PARTECIPANTI = 500;
+const ALFA_SFIDA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';     // senza 0/O e 1/I: si legge e si detta senza errori
+export const CODICE_SFIDA = /^[A-HJ-NP-Z2-9]{8}$/;
+export const codiceSfida = () => [...randomBytes(8)].map((x) => ALFA_SFIDA[x & 31]).join('');   // 40 bit, non indovinabile
+const piuMinuti = (o16, min) => new Date(Date.parse(o16.replace(' ', 'T') + ':00Z') + min * 60000).toISOString().slice(0, 16).replace('T', ' ');
+// fine della sfida (ora16 UTC): la scadenza scelta (fine del giorno in Italia) o 90 giorni dalla creazione
+export function fineSfida(s) {
+  const max = piuMinuti(s.creata, SFIDA_GIORNI * 1440);
+  const sc = /^\d{4}-\d{2}-\d{2}$/.test(s.scadenza || '') ? fineGiornoItalia(s.scadenza) : '';
+  return sc && sc < max ? sc : max;
+}
+export const sfidaAperta = (s, adesso = new Date().toISOString().slice(0, 16).replace('T', ' ')) => !s.chiusa && adesso < fineSfida(s);
+// punteggi dei partecipanti: per ogni caso la prima risposta data dopo l'adesione e prima della fine
+export function punteggiSfida(s, partecipanti, righe) {
+  const fine = fineSfida(s), casi = new Set(s.casi), n = s.casi.length;
+  return partecipanti.map((p) => {
+    const mie = righe.filter((r) => r.account === p.account && casi.has(String(r.caso)) && String(r.data) >= p.dal && String(r.data) <= fine)
+      .sort((a, b) => String(a.data).localeCompare(String(b.data)));
+    const per = {};
+    for (const r of mie) if (!(r.caso in per)) per[r.caso] = { punteggio: Number(r.punteggio) || 0, tempo: Math.max(0, Math.min(36000, Number(r.dettagli?.tempo) || 0)) };
+    const v = Object.values(per), fatti = v.length;
+    return { account: p.account, nome: p.nome, classifica: !!p.classifica, dal: p.dal, fatti, finito: fatti === n,
+      media: Math.round(v.reduce((t, x) => t + x.punteggio, 0) / n), tempo: Math.round(v.reduce((t, x) => t + x.tempo, 0)),
+      casi: Object.fromEntries(Object.entries(per).map(([k, x]) => [k, x.punteggio])) };
+  }).sort((a, b) => b.media - a.media || b.fatti - a.fatti || a.tempo - b.tempo || String(a.dal).localeCompare(String(b.dal)));
+}
+// pagina per i social (radio-quiz.it/s/<codice>): anteprima (Open Graph) e rimando alla pagina della sfida
+export function paginaSfida(s, n, indirizzo) {
+  const base = radice(indirizzo), url = `${base}/#/sfida/${s ? s.codice : ''}`;
+  const titolo = s ? `Sfida: ${s.titolo}` : 'Sfida su Quiz Radiologia';
+  const descr = s ? `${n} ${n === 1 ? 'caso' : 'casi'} di diagnostica per immagini da risolvere. Accetti la sfida su Quiz Radiologia?` : 'Sfida non trovata o chiusa.';
+  return `<!doctype html><html lang="it"><head><meta charset="utf-8"><title>${escH(titolo)} · Quiz Radiologia</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Quiz Radiologia">
+<meta property="og:title" content="${escH(titolo)}"><meta property="og:description" content="${escH(descr)}">
+<meta property="og:url" content="${escH(s ? `${base}/s/${s.codice}` : base)}"><meta property="og:image" content="${escH(base)}/img/sfida.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Sfida su Quiz Radiologia: casi reali di diagnostica per immagini">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escH(titolo)}"><meta name="twitter:description" content="${escH(descr)}"><meta name="twitter:image" content="${escH(base)}/img/sfida.jpg">
+<meta http-equiv="refresh" content="0; url=${escH(url)}"></head>
+<body style="font-family:system-ui,sans-serif;padding:2em"><p><a href="${escH(url)}">${escH(titolo)}: apri la sfida su Quiz Radiologia</a></p></body></html>`;
+}
+
 export async function gestisci(req, cfg) {
   const json = (stato, obj, extra = {}) => ({ stato, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...extra }, corpo: JSON.stringify(obj) });
   const { metodo } = req;
   const parti = req.percorso.replace(/\/+$/, '').split('/').filter(Boolean);
+  // anteprima per i social di una sfida (radio-quiz.it/s/<codice>, CloudFront → questa funzione)
+  if (parti[0] === 's' && metodo === 'GET' && parti.length === 2) {
+    const c = String(parti[1]).toUpperCase(), M0 = cfg.magazzino;
+    const s = CODICE_SFIDA.test(c) && M0.leggiSfida ? await M0.leggiSfida(c) : null;
+    const casi = s ? new Set((await M0.elencoCasi()).filter(visibile).map((x) => x.id)) : null;
+    const n = s ? s.casi.filter((x) => casi.has(x)).length : 0;
+    return { stato: s ? 200 : 404, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=300' }, corpo: paginaSfida(s, n, cfg.indirizzo) };
+  }
   if (parti[0] !== 'api') return json(404, { errore: 'non trovato' });
   let dati = {};
   if (metodo === 'POST' && req.corpo) {
@@ -1126,6 +1181,15 @@ export async function gestisci(req, cfg) {
     return entra(chi);
   }
   if (parti[1] === 'esci') return json(200, { ok: true }, { 'set-cookie': `quiz=; Max-Age=0; ${opzCookie}` });
+  // sfida: anteprima pubblica (prima dell'accesso), senza dati di chi gioca: titolo, esami (titoli senza diagnosi), quanti
+  if (parti[1] === 'sfide' && parti[3] === 'anteprima' && metodo === 'GET' && parti.length === 4) {
+    const c = String(parti[2] || '').toUpperCase(), s = CODICE_SFIDA.test(c) && M.leggiSfida ? await M.leggiSfida(c) : null;
+    if (!s) return json(404, { errore: 'Sfida non trovata: controlla il link.' });
+    const casi = new Map((await M.elencoCasi()).filter(visibile).map((x) => [x.id, x]));
+    const n = (await M.partecipantiSfida(c)).length;
+    return json(200, { codice: c, titolo: s.titolo, aperta: sfidaAperta(s), fine: fineSfida(s), partecipanti: n,
+      casi: s.casi.filter((x) => casi.has(x)).map((x) => ({ titolo: casi.get(x).titolo || 'Caso', modalita: casi.get(x).modalita || '', distretto: casi.get(x).distretto || '' })) });
+  }
 
   // pagina vista (anche prima dell'accesso): solo il nome della pagina, e per i casi l'identificativo del caso
   if (parti[1] === 'visita' && metodo === 'POST') {
@@ -1438,6 +1502,7 @@ export async function gestisci(req, cfg) {
     if (admin) return json(400, { errore: 'non disponibile per l\'amministratore' });
     if (io.pw && !verificaPassword(dati.password, io.pw)) { await ritardo(400); return json(400, { errore: 'Password non corretta.' }); }
     if (M.anonimizzaRisultati) await M.anonimizzaRisultati(io.id);
+    if (M.eliminaPartecipante) for (const c of Array.isArray(io.sfide) ? io.sfide : []) await M.eliminaPartecipante(c, io.id).catch(() => {});   // via dalle classifiche
     await M.eliminaAccount(io.id);
     return json(200, { ok: true }, { 'set-cookie': `quiz=; Max-Age=0; ${opzCookie}` });
   }
@@ -1446,7 +1511,10 @@ export async function gestisci(req, cfg) {
     const { pw, hash, conferma, reset, errori, bloccatoFino, sessioneDa, ...profilo } = io;
     const righe = (await M.risultati()).filter((r) => r.account === io.id);
     const classi = M.elencoClassi ? (await M.elencoClassi()).filter((c) => (c.membri || []).includes(io.id)).map((c) => ({ nome: c.nome, compiti: c.compiti })) : [];
-    const doc = { esportato: new Date().toISOString(), titolare: 'Quiz Radiologia — privacy@radio-quiz.it', profilo, classi, risposte: righe };
+    const sfide = M.partecipantiSfida ? (await Promise.all((Array.isArray(io.sfide) ? io.sfide : []).map(async (c) => {
+      const s = await M.leggiSfida(c).catch(() => null), p = s && (await M.partecipantiSfida(c)).find((x) => x.account === io.id);
+      return p ? { sfida: s.titolo, codice: c, nome: p.nome, classifica: p.classifica, dal: p.dal } : null; }))).filter(Boolean) : [];
+    const doc = { esportato: new Date().toISOString(), titolare: 'Quiz Radiologia — privacy@radio-quiz.it', profilo, classi, sfide, risposte: righe };
     return { stato: 200, headers: { 'content-type': 'application/json; charset=utf-8', 'content-disposition': 'attachment; filename="i-miei-dati-quiz-radiologia.json"', 'cache-control': 'no-store' },
       corpo: JSON.stringify(doc, null, 2) };
   }
@@ -2038,6 +2106,79 @@ export async function gestisci(req, cfg) {
         r.dettagli?.valutazione?.punteggio ?? '', r.dettagli?.revisione?.voto ?? '', r.dettagli?.revisione?.commento || '']
         .map(csvCampo).join(';'))].join('\n');
     return { stato: 200, headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="risultati-quiz.csv"', 'cache-control': 'no-store' }, corpo: '﻿' + csv };
+  }
+
+  // ---------------- sfide tra amici (vedi punteggiSfida)
+  if (parti[1] === 'sfide' && M.leggiSfida) {
+    if (admin) return json(403, { errore: 'Le sfide si giocano con un account personale, non con quello dell\'amministratore.' });
+    const c = parti[2] ? String(parti[2]).toUpperCase() : '';
+    const visibili = async () => new Map((await M.elencoCasi()).filter(visibile).map((x) => [x.id, x]));
+    const vivi = async (l) => { const ids = new Set((await M.elencoAccount()).map((a) => a.id)); return l.filter((p) => ids.has(p.account)); };   // account cancellati: fuori
+    // elenco: le mie sfide (create o accettate)
+    if (!c && metodo === 'GET') {
+      const mie = new Set(Array.isArray(io.sfide) ? io.sfide : []);
+      const tutte = (await M.elencoSfide()).filter((s) => s.creatore === io.id || mie.has(s.codice)).sort((a, b) => String(b.creata).localeCompare(String(a.creata)));
+      const righe = (await M.risultati()).filter((r) => r.account === io.id);
+      return json(200, await Promise.all(tutte.slice(0, 100).map(async (s) => {
+        const part = await vivi(await M.partecipantiSfida(s.codice)), mio = part.find((p) => p.account === io.id);
+        const pm = mio ? punteggiSfida(s, [mio], righe)[0] : null;
+        return { codice: s.codice, titolo: s.titolo, n: s.casi.length, creata: s.creata, fine: fineSfida(s), aperta: sfidaAperta(s), creatore: s.creatore === io.id,
+          partecipanti: part.length, ...(pm ? { mio: { fatti: pm.fatti, media: pm.media, finito: pm.finito } } : {}) };
+      })));
+    }
+    // nuova sfida
+    if (!c && metodo === 'POST') {
+      const titolo = pulisciTesto(dati.titolo, 80);
+      if (titolo.length < 3) return json(400, { errore: 'Dai un titolo alla sfida (almeno 3 caratteri).' });
+      const vis = await visibili();
+      const casi = [...new Set((Array.isArray(dati.casi) ? dati.casi : []).filter((x) => typeof x === 'string' && ID_OK.test(x) && vis.has(x)))];
+      if (casi.length < SFIDA_MIN || casi.length > SFIDA_MAX) return json(400, { errore: `Scegli da ${SFIDA_MIN} a ${SFIDA_MAX} casi.` });
+      const oggi = giornoItalia(), scadenza = /^\d{4}-\d{2}-\d{2}$/.test(dati.scadenza || '') ? dati.scadenza : '';
+      if (scadenza && (scadenza < oggi || scadenza > piuGiorni(oggi, SFIDA_GIORNI))) return json(400, { errore: `La scadenza va da oggi a ${SFIDA_GIORNI} giorni.` });
+      const tutte = await M.elencoSfide(), adesso = ora16();
+      if (tutte.filter((s) => s.creatore === io.id && String(s.creata) > piuMinuti(adesso, -1440)).length >= SFIDE_AL_GIORNO) return json(429, { errore: `Puoi creare al massimo ${SFIDE_AL_GIORNO} sfide al giorno.` });
+      let codice = codiceSfida(); while (tutte.some((s) => s.codice === codice)) codice = codiceSfida();
+      const s = { codice, titolo, casi, creatore: io.id, creata: adesso, scadenza, chiusa: false };
+      await M.scriviSfida(s);
+      await conta('_sfida');
+      return json(200, { codice, titolo, n: casi.length, fine: fineSfida(s), link: radice(cfg.indirizzo) + '/s/' + codice });
+    }
+    if (!CODICE_SFIDA.test(c)) return json(404, { errore: 'Sfida non trovata: controlla il link.' });
+    const s = await M.leggiSfida(c);
+    if (!s) return json(404, { errore: 'Sfida non trovata: controlla il link.' });
+    const part = await vivi(await M.partecipantiSfida(c)), mio = part.find((p) => p.account === io.id), aperta = sfidaAperta(s);
+    const azione = parti[3] || '';
+    if (metodo === 'GET' && !azione) {
+      const vis = await visibili(), righe = await M.risultati(), pt = punteggiSfida(s, part, righe), io2 = pt.find((p) => p.account === io.id);
+      return json(200, { codice: c, titolo: s.titolo, aperta, chiusa: !!s.chiusa, fine: fineSfida(s), creata: s.creata, creatore: s.creatore === io.id, link: radice(cfg.indirizzo) + '/s/' + c,
+        casi: s.casi.filter((x) => vis.has(x)).map((x) => ({ id: x, titolo: vis.get(x).titolo || x, modalita: vis.get(x).modalita || '', distretto: vis.get(x).distretto || '' })),
+        partecipanti: part.length,
+        io: mio ? { nome: mio.nome, classifica: !!mio.classifica, dal: mio.dal, fatti: io2.fatti, media: io2.media, tempo: io2.tempo, finito: io2.finito, casi: io2.casi } : null,
+        // classifica: solo chi ha scelto di entrarci; nome scelto, casi svolti, punteggio medio, tempo (mai le risposte)
+        classifica: pt.filter((p) => p.classifica).map((p) => ({ nome: p.nome, fatti: p.fatti, media: p.media, tempo: p.tempo, ...(p.account === io.id ? { io: true } : {}) })) });
+    }
+    if (metodo === 'POST' && azione === 'partecipa') {
+      const nome = pulisciTesto(dati.nome, 40), classifica = dati.classifica === true;
+      if (classifica && nome.length < 2) return json(400, { errore: 'Scrivi il nome da mostrare in classifica (anche uno pseudonimo).' });
+      if (!mio && !aperta) return json(400, { errore: 'La sfida è chiusa: non si possono più aggiungere partecipanti.' });
+      if (!mio && part.length >= SFIDA_PARTECIPANTI) return json(400, { errore: 'La sfida ha raggiunto il numero massimo di partecipanti.' });
+      const p = { account: io.id, nome, classifica, dal: mio?.dal || ora16() };
+      await M.scriviPartecipante(c, p);
+      if (!mio) { const l = Array.isArray(io.sfide) ? io.sfide : []; if (!l.includes(c)) await M.scriviAccount({ ...io, sfide: [...l, c].slice(-200) }); }
+      return json(200, { ok: true, nome, classifica, dal: p.dal });
+    }
+    if (metodo === 'POST' && azione === 'lascia') {
+      if (mio) await M.eliminaPartecipante(c, io.id);
+      const l = Array.isArray(io.sfide) ? io.sfide : [];
+      if (l.includes(c)) await M.scriviAccount({ ...io, sfide: l.filter((x) => x !== c) });
+      return json(200, { ok: true });
+    }
+    if (metodo === 'POST' && azione === 'chiudi') {
+      if (s.creatore !== io.id) return json(403, { errore: 'Solo chi ha creato la sfida può chiuderla.' });
+      await M.scriviSfida({ ...s, chiusa: true });
+      return json(200, { ok: true });
+    }
+    return json(404, { errore: 'percorso non valido' });
   }
 
   // ---------------- casi

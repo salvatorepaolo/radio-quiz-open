@@ -21,6 +21,7 @@ for (const d of fs.readdirSync(CASI)) {
 }
 const visite = new Map();
 const LAVORI = new Map();
+const sfide = new Map(), partSfide = new Map();
 const ris = [], acc = new Map(), classi = new Map(), aziende = new Map(), spons = new Map(), sstat = new Map(), perc = new Map(), esami = [], errori = [], tent = new Map(), posta = [], IMP = {};
 const magazzino = {
   elencoCasi: async () => Object.entries(casi).map(([id, c]) => ({ ...c, id })), leggiCaso: async (id) => (Object.hasOwn(casi, id) ? JSON.parse(JSON.stringify(casi[id])) : null),
@@ -31,6 +32,10 @@ const magazzino = {
   anonimizzaRisultati: async (id) => { for (const r of ris) if (r.account === id) { r.account = 'eliminato'; r.nome = 'Account eliminato'; } for (let i = esami.length - 1; i >= 0; i--) if (esami[i].account === id) esami.splice(i, 1); for (let i = errori.length - 1; i >= 0; i--) if (errori[i].account === id) errori.splice(i, 1); },
   elencoAccount: async () => [...acc.values()].map((a) => ({ ...a })), leggiAccount: async (id) => (acc.has(id) ? { ...acc.get(id) } : null),
   scriviAccount: async (a) => { acc.set(a.id, { ...a }); }, eliminaAccount: async (id) => { acc.delete(id); }, ripristinaCodice: async () => {},
+  elencoSfide: async () => [...sfide.values()].map((x) => ({ ...x })), leggiSfida: async (c) => (sfide.has(c) ? { ...sfide.get(c) } : null), scriviSfida: async (x) => { sfide.set(x.codice, { ...x }); },
+  partecipantiSfida: async (c) => [...(partSfide.get(c) || new Map()).values()].map((x) => ({ ...x })),
+  scriviPartecipante: async (c, x) => { if (!partSfide.has(c)) partSfide.set(c, new Map()); partSfide.get(c).set(x.account, { ...x }); },
+  eliminaPartecipante: async (c, a) => { partSfide.get(c)?.delete(a); },
   elencoClassi: async () => [...classi.values()], scriviClasse: async (c) => { classi.set(c.id, c); }, eliminaClasse: async (id) => { classi.delete(id); },
   elencoAziende: async () => [...aziende.values()], leggiAzienda: async (id) => aziende.get(id) || null, scriviAzienda: async (a) => { aziende.set(a.id, a); }, eliminaAzienda: async (id) => { aziende.delete(id); },
   elencoSponsor: async () => [...spons.values()], scriviSponsor: async (x) => { spons.set(x.id, x); }, eliminaSponsor: async (id) => { spons.delete(id); },
@@ -111,7 +116,7 @@ const server = http.createServer(async (q, s) => {
       s.writeHead(302, { location: `${p.get('redirect_uri')}?code=${Buffer.from(JSON.stringify(c)).toString('base64url')}&state=${p.get('state')}` }); return s.end();
     }
     if (u.pathname === '/__posta') { s.writeHead(200, { 'content-type': 'application/json' }); return s.end(JSON.stringify(posta)); }
-    if (u.pathname.startsWith('/api/')) { const r = await gestisci({ metodo: q.method, percorso: u.pathname, query: Object.fromEntries(u.searchParams), headers: q.headers, corpo }, cfg); s.writeHead(r.stato, r.headers); return s.end(r.corpo); }
+    if (u.pathname.startsWith('/api/') || /^\/s\/[^/]+$/.test(u.pathname)) { const r = await gestisci({ metodo: q.method, percorso: u.pathname, query: Object.fromEntries(u.searchParams), headers: q.headers, corpo }, cfg); s.writeHead(r.stato, r.headers); return s.end(r.corpo); }
     if (u.pathname.startsWith('/s3put/')) {                    // caricamenti: solo serie.json in memoria (niente scritture su disco)
       const m = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/serie\.json$/); if (m) try { serie[m[1]] = JSON.parse(corpo); } catch {}
       s.writeHead(200); return s.end(); }

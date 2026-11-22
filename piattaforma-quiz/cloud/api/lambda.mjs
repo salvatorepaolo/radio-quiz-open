@@ -45,7 +45,7 @@ const firmaCaricamento = (chiave) => urlFirmato({ bucket: BUCKET_SITO, regione: 
 
 // account: pk "ACCOUNT", sk = id
 // i dati dell'iscrizione (impronta della password, categoria, docenti scelti, gettoni di conferma…) stanno in «dati» (JSON)
-const EXTRA = ['pw', 'categoria', 'sede', 'anno', 'docenti', 'stato', 'conferma', 'reset', 'noDocente', 'avvisi', 'errori', 'bloccatoFino', 'ultimoInvio', 'privacy', 'condizioni', 'sessioneDa', 'avvisoInattivo', 'google', 'linkedin'];
+const EXTRA = ['pw', 'categoria', 'sede', 'anno', 'docenti', 'stato', 'conferma', 'reset', 'noDocente', 'avvisi', 'errori', 'bloccatoFino', 'ultimoInvio', 'privacy', 'condizioni', 'sessioneDa', 'avvisoInattivo', 'google', 'linkedin', 'sfide'];
 const daItem = (i) => {
   if (!i) return i;
   let extra = {};
@@ -237,6 +237,16 @@ const magazzino = {
   elencoPercorsi: async () => (await interroga('PERCORSO')).map((i) => { try { return JSON.parse(i.dati.S); } catch { return null; } }).filter(Boolean),
   scriviPercorso: (p) => db.send(new PutItemCommand({ TableName: TABELLA, Item: { pk: { S: 'PERCORSO' }, sk: { S: p.id }, dati: { S: JSON.stringify(p) } } })),
   eliminaPercorso: (id) => db.send(new DeleteItemCommand({ TableName: TABELLA, Key: { pk: { S: 'PERCORSO' }, sk: { S: id } } })),
+  // sfide tra amici: pk "SFIDA", sk = codice, dati JSON; partecipanti: pk "SFIDA#<codice>", sk = account, dati JSON
+  elencoSfide: async () => (await interroga('SFIDA')).map((i) => { try { return JSON.parse(i.dati.S); } catch { return null; } }).filter(Boolean),
+  async leggiSfida(c) {
+    const r = await db.send(new GetItemCommand({ TableName: TABELLA, Key: { pk: { S: 'SFIDA' }, sk: { S: c } }, ConsistentRead: true }));
+    try { return r.Item ? JSON.parse(r.Item.dati.S) : null; } catch { return null; }
+  },
+  scriviSfida: (x) => db.send(new PutItemCommand({ TableName: TABELLA, Item: { pk: { S: 'SFIDA' }, sk: { S: x.codice }, dati: { S: JSON.stringify(x) } } })),
+  partecipantiSfida: async (c) => (await interroga('SFIDA#' + c)).map((i) => { try { return JSON.parse(i.dati.S); } catch { return null; } }).filter(Boolean),
+  scriviPartecipante: (c, p) => db.send(new PutItemCommand({ TableName: TABELLA, Item: { pk: { S: 'SFIDA#' + c }, sk: { S: p.account }, dati: { S: JSON.stringify(p) } } })),
+  eliminaPartecipante: (c, a) => db.send(new DeleteItemCommand({ TableName: TABELLA, Key: { pk: { S: 'SFIDA#' + c }, sk: { S: a } } })),
   // classi: pk "CLASSE", sk = id, dati JSON
   elencoClassi: async () => (await interroga('CLASSE')).map((i) => { try { return JSON.parse(i.dati.S); } catch { return null; } }).filter(Boolean),
   scriviClasse: (c) => db.send(new PutItemCommand({ TableName: TABELLA, Item: { pk: { S: 'CLASSE' }, sk: { S: c.id }, dati: { S: JSON.stringify(c) } } })),

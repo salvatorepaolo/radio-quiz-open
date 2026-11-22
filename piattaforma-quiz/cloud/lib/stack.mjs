@@ -289,6 +289,7 @@ function handler(event) {
 
     // dominio di secondo livello (es. radioquiz.it): risponde anche www.radioquiz.it
     const nomi = dominio ? (dominio === zona ? [dominio, `www.${dominio}`] : [dominio]) : undefined;
+    const origineApi = new origins.FunctionUrlOrigin(urlApi, { customHeaders: { 'x-origine-quiz': segretoOrigine } });
     const distribuzione = new cloudfront.Distribution(this, 'Cdn', {
       comment: nomeIstanza ? `Quiz Radiologia - ${nomeIstanza}`.slice(0, 120) : 'Quiz Radiologia',
       defaultRootObject: 'index.html',
@@ -307,8 +308,17 @@ function handler(event) {
         functionAssociations: [{ function: indici, eventType: cloudfront.FunctionEventType.VIEWER_REQUEST }, risposta],
       },
       additionalBehaviors: {
+        // link delle sfide da condividere (radio-quiz.it/s/<codice>): pagina con l'anteprima per i social, scritta dalla funzione
+        '/s/*': {
+          origin: origineApi,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          functionAssociations: [risposta],
+        },
         '/api/*': {
-          origin: new origins.FunctionUrlOrigin(urlApi, { customHeaders: { 'x-origine-quiz': segretoOrigine } }),
+          origin: origineApi,
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.HTTPS_ONLY,
           allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
           cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,

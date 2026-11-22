@@ -33,10 +33,10 @@ before(async () => {
 after(() => { sim?.kill(); });
 
 const ROTTE = ['accesso', 'account', 'analisi', 'classi', 'conferma', 'docenti', 'esami', 'esci', 'impostazioni', 'io', 'iscrizione', 'istanza', 'password', 'percorsi',
-  'proposte', 'referti', 'riepilogo-mensile', 'risultati', 'specializzandi', 'sponsor', 'statistiche', 'tenant', 'visita', 'casi'];
+  'proposte', 'referti', 'riepilogo-mensile', 'risultati', 'specializzandi', 'sponsor', 'statistiche', 'tenant', 'visita', 'sfide', 'casi'];
 const SEGMENTI = ['confronto', 'dati', 'dimenticata', 'elimina', 'email', 'errori', 'gestione', 'invia', 'nuova', 'password', 'profilo', 'progressi', 'revisione', 'statistiche',
-  'temi', 'traffico', 'tutti', 'viste', 'caso-tcia-001', 'caso-tcia-002', 'prop-a1b2c3d4', 'admin', '..', '%2e%2e', '%00', 'a'.repeat(300), 'caso-tcia-001;drop', '<script>', 'ñ€😀'];
-const AZIONI = ['atteso', 'caricamento', 'completo', 'controllo', 'elimina', 'errore', 'immagini', 'risposta', 'scala', 'smonta', 'esito', 'vai'];
+  'temi', 'traffico', 'tutti', 'viste', 'ABCDEFGH', 'abcdefgh', 'caso-tcia-001', 'caso-tcia-002', 'prop-a1b2c3d4', 'admin', '..', '%2e%2e', '%00', 'a'.repeat(300), 'caso-tcia-001;drop', '<script>', 'ñ€😀'];
+const AZIONI = ['atteso', 'caricamento', 'completo', 'controllo', 'elimina', 'errore', 'immagini', 'risposta', 'scala', 'smonta', 'esito', 'vai', 'anteprima', 'partecipa', 'lascia', 'chiudi'];
 const percorso = fc.tuple(fc.constantFrom(...ROTTE), fc.option(fc.oneof(fc.constantFrom(...SEGMENTI), fc.string({ maxLength: 12 })), { nil: null }), fc.option(fc.constantFrom(...AZIONI), { nil: null }))
   .map(([r, s, a]) => '/api/' + [r, s, a].filter((x) => x != null).map((x) => (/^[\w.%-]*$/.test(x) ? x : encodeURIComponent(x))).join('/'));
 // valori plausibili nei campi che il server legge davvero, e valori assurdi

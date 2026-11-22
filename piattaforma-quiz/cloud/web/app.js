@@ -233,7 +233,7 @@ $('#form-nuova').addEventListener('submit', (e) => { e.preventDefault(); conBott
 // accesso con Google e LinkedIn: il pulsante porta al server, che manda al fornitore; si torna alla pagina in cui si era
 const NOMI_ESTERNI = { google: 'Google', linkedin: 'LinkedIn' };
 qsAll('[data-esterno]').forEach((a) => a.addEventListener('click', () => {
-  const h = location.hash, dopo = /^#\/(caso|percorso|percorsi|compito|aiuto|vetrino|vetrini)\//.test(h) ? h : '';
+  const h = location.hash, dopo = /^#\/(caso|percorso|percorsi|compito|aiuto|vetrino|vetrini|sfida)\//.test(h) ? h : '';
   a.href = `/api/${a.dataset.esterno}/inizia` + (dopo ? '?dopo=' + encodeURIComponent(dopo) : '');
 }));
 const ESITI_ESTERNI = {
@@ -7098,7 +7098,7 @@ function vista(nome) {
   // tablet: il promemoria della domanda occupa il suo spazio subito, non quando arriva il testo del caso
   if (nome === 'caso' && !CLIENT && matchMedia('(max-width:1100px)').matches) { const pr = $('#q-promemoria'); if (pr && pr.hidden && !$('#q-prom-domanda').textContent) { $('#q-prom-domanda').textContent = '…'; pr.hidden = false; } }
   $('#btn-indietro').hidden = nome === 'elenco' || nome === 'accesso';
-  for (const v of ['elenco', 'caso', 'editor', 'accesso', 'account', 'nuovo', 'analisi', 'cruscotto', 'vetrini', 'allenamento', 'progressi', 'classi', 'percorsi', 'revisione', 'gestione-casi', 'aiuto', 'profilo', 'statistiche', 'esame', 'errore', 'confronto', 'client', 'tenant']) $(`#vista-${v}`).hidden = v !== nome;
+  for (const v of ['elenco', 'caso', 'editor', 'accesso', 'account', 'nuovo', 'analisi', 'cruscotto', 'vetrini', 'allenamento', 'progressi', 'classi', 'percorsi', 'revisione', 'gestione-casi', 'aiuto', 'profilo', 'statistiche', 'esame', 'errore', 'confronto', 'client', 'tenant', 'sfida']) $(`#vista-${v}`).hidden = v !== nome;
   if (!['caso', 'editor'].includes(nome)) $('#titolo-caso').textContent = '';
   // menù «Gestione»: amministratori (casi, aziende, account), referenti (account), docenti (classi, specializzandi, risultati)
   $('#mg-casi').hidden = !(AUTORE && CLOUD); $('#btn-nuovo-menu').hidden = !(AUTORE && CLOUD);
@@ -7512,6 +7512,7 @@ function aggiornaMenuVetrini() {
   const nav = $('#nav-principale'); if (!nav) return;
   const dentro = !CLOUD || !ELENCO.length || location.hash.startsWith('#/caso/') || $('#vista-accesso') && !$('#vista-accesso').hidden;
   nav.hidden = dentro; $('#btn-vetrini-pagina').hidden = !ELENCO.some(eVetrini);
+  { const sf = qs1('a[data-nav="sfide"]'); if (sf) sf.hidden = ADMIN; }   // le sfide si giocano con un account personale
   const att = (location.hash.replace(/^#\/?/, '').split('/')[0]) || 'elenco';
   nav.querySelectorAll('a[data-nav]').forEach((a) => { a.classList.toggle('on', a.dataset.nav === att); if (a.dataset.nav === att) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   const mu = $('#menu-utente'); if (mu) mu.hidden = $('#btn-profilo').hidden && $('#btn-esci').hidden;
@@ -7524,6 +7525,7 @@ function aggiornaMenuVetrini() {
   const esame = $('#btn-esame'); if (esame) az.append(esame);
   const cas = document.createElement('button'); cas.type = 'button'; cas.className = 'primary'; cas.textContent = '▸ Allenamento casuale'; cas.title = 'Un caso a caso tra quelli non ancora visti; dopo la risposta passi al successivo';
   cas.onclick = () => $('#btn-casuale').click(); az.prepend(cas);
+  const sf = document.createElement('a'); sf.className = 'btn ghost'; sf.href = '#/sfide'; sf.textContent = '🏁 Sfida i tuoi amici'; sf.title = 'Scegli dei casi e condividi il link: stessi casi per tutti, correzioni alla fine, classifica'; az.append(sf);
   const pc = $('#percorsi'); if (pc) va.append(pc);
   // obiettivo del giorno, giorni di fila, settimane e traguardi sono progressi: con punti e livello
   for (const id of ['gioco-card', 'allenamento-card']) { const e = $('#' + id); if (e) vp.append(e); }
@@ -8470,6 +8472,17 @@ function mostraEsame(g, pos) {
   if (g.risultati[V.caso.id]) { prossimoEsame(g); return; }        // caso già consegnato: si va avanti
   $('#btn-reperto').hidden = true;
   if (g.livello === 'lista') { mostraCasoLista(g); return; }
+  if (g.livello === 'sfida') {                                     // sfida tra amici: correzioni alla fine, tempo che passa
+    const tot = g.totale || g.casi.length, n = (g.giaFatti || 0) + pos;
+    const aggiorna = () => {
+      const el = $('#q-casuale'); if (!el || !esameDelCaso()) { clearInterval(cronoEsame); cronoEsame = null; return; }
+      el.innerHTML = `<b>🏁 Sfida «${esc(g.titolo)}»</b>: caso ${n} di ${tot} · <span class="crono">⏱ ${mmss(Date.now() - g.inizio)}</span> · correzioni alla fine · <a href="#/sfida/${esc(g.sfida)}" id="esci-giro">interrompi</a>`;
+      $('#esci-giro').onclick = (e) => { e.preventDefault(); if (!confirm('Interrompere la sfida? Le risposte date restano: puoi continuare dalla pagina della sfida.')) return; chiudiEsame(); };
+    };
+    clearInterval(cronoEsame); cronoEsame = setInterval(aggiorna, 1000); aggiorna();
+    $('#btn-prossimo').textContent = 'Consegna e vai al prossimo →';
+    return;
+  }
   const aggiorna = () => {
     const resta = g.scadenza - Date.now(), el = $('#q-casuale');
     if (!el || !esameDelCaso()) { clearInterval(cronoEsame); cronoEsame = null; return; }
@@ -8524,6 +8537,11 @@ function prossimoEsame(g) {
 function chiudiEsame() {
   const g = leggiSessione('quiz-giro', null);
   clearInterval(cronoEsame); cronoEsame = null;
+  if (g?.tipo === 'esame' && g.livello === 'sfida') {          // sfida: correzioni salvate qui, poi la pagina della sfida
+    scriviSessione('quiz-giro', null);
+    caricaSfide().then((m) => m.fineGiro(g, Object.fromEntries(ELENCO.map((c) => [c.id, c])))).catch(() => { location.hash = '#/sfida/' + g.sfida; });
+    return;
+  }
   if (g?.tipo === 'esame') {
     const titoli = Object.fromEntries(ELENCO.map((c) => [c.id, c]));
     if (g.livello === 'lista') { g.tempi ||= {}; if (g.corrente) { g.tempi[g.corrente.id] = (g.tempi[g.corrente.id] || 0) + (Date.now() - g.corrente.da); g.corrente = null; } }
@@ -8609,8 +8627,16 @@ async function router() {
     if (!UTENTE) { pronto = null; vista('aiuto'); $('#vista-accesso').hidden = true; segnaVisita('aiuto'); await mostraAiuto(id); return; }
     if (!ok) return;
   }
+  // sfida (link condiviso sui social): prima dell'accesso la pagina pubblica, con «Entra o iscriviti per accettare»
+  if (tipo === 'sfida' && id && !UTENTE && !CLIENT) {
+    const ok = await (pronto ||= chiSono());
+    if (!UTENTE) { pronto = null; vista('sfida'); $('#vista-accesso').hidden = true; segnaVisita('sfida'); await (await caricaSfide()).apriPubblica(decodeURIComponent(id)); return; }
+    if (!ok) return;
+  }
   if (!pronto) pronto = chiSono();
   if (!(await pronto)) { pronto = null; return; }
+  // dopo l'accesso o l'iscrizione partiti dalla pagina di una sfida: si torna lì
+  if (tipo !== 'sfida' && localStorage.getItem('rq-sfida-dopo')) { const c = (await caricaSfide()).inSospeso(); if (c) { location.hash = '#/sfida/' + c; return; } }
   if (ANN.hashCaso && location.hash !== ANN.hashCaso) {
     // si lascia il caso: prima le annotazioni non salvate (Salva / Non salvare / Annulla)
     if (annotazioniNonSalvate()) {
@@ -8644,6 +8670,8 @@ async function router() {
     else if (tipo === 'vetrini' && CLOUD) { vista('vetrini'); await apriVetriniPagina(); }
     else if ((tipo === 'allenamento' || tipo === 'progressi') && CLOUD) await apriSezioneStudente(tipo);
     else if (tipo === 'esame') { if (!ELENCO.length) ELENCO = await getJSON('/api/casi'); vista('esame'); if (id === 'esito') apriEsitoEsame(); else if (id === 'lista') apriListaLavoro(); else if (id === 'protocollo') apriProtocollo(); else apriImpostaEsame(); }
+    else if (tipo === 'sfida' && id && CLOUD) { vista('sfida'); if (!ELENCO.length) await caricaElencoDati().catch(() => {}); aggiornaMenuVetrini(); await (await caricaSfide()).apriSfida(decodeURIComponent(id)); }
+    else if (tipo === 'sfide' && CLOUD && !ADMIN) { vista('sfida'); if (!ELENCO.length) await caricaElencoDati().catch(() => {}); aggiornaMenuVetrini(); const m = await caricaSfide(); if (id === 'nuova') await m.apriNuova(); else await m.apriElencoSfide(); }
     else if (tipo === 'confronto' && CLOUD) { vista('confronto'); await apriConfronto(); }
     else if (tipo === 'mie-statistiche' && CLOUD) { if (!ELENCO.length) ELENCO = await getJSON('/api/casi'); vista('confronto'); await apriStatistiche(); }
     else if (tipo === 'proponi' && CLOUD && !ADMIN && !AUTORE) { vista('nuovo'); await apriNuovo({ proposta: true }); }
@@ -8669,7 +8697,7 @@ $('#btn-editor').addEventListener('click', () => { location.hash = `#/editor/${V
 
 
 // ---------------------------------------------------------------- traffico: pagine viste (solo totali giornalieri, nessun identificativo)
-const PAGINE_VISITA = new Set(['cruscotto', 'vetrini', 'allenamento', 'progressi', 'elenco', 'caso', 'editor', 'nuovo', 'aggiungi', 'analisi', 'esame', 'confronto', 'mie-statistiche', 'proponi', 'errore', 'aiuto', 'profilo',
+const PAGINE_VISITA = new Set(['sfida', 'sfide', 'cruscotto', 'vetrini', 'allenamento', 'progressi', 'elenco', 'caso', 'editor', 'nuovo', 'aggiungi', 'analisi', 'esame', 'confronto', 'mie-statistiche', 'proponi', 'errore', 'aiuto', 'profilo',
   'gestione-casi', 'classi', 'percorsi', 'revisione', 'account']);
 let ULTIMA_VISITA = '';
 function segnaVisita(p, c = '') {
@@ -8796,6 +8824,12 @@ window.addEventListener('hashchange', router);
 router();
 // Docenti e autori: nuovo caso, analisi, classi e compiti, revisione delle bozze, percorsi didattici, gestione dei casi: in docenti.js, scaricato la prima volta che serve (1.272). Qui il ponte e le funzioni di ingresso.
 const PONTE_DOC = { get $() { return $; }, get ADMIN() { return ADMIN; }, get AN() { return AN; }, get AZIENDA() { return AZIENDA; }, get ELENCO() { return ELENCO; }, set ELENCO(v) { ELENCO = v; }, get ESAME_MIN() { return ESAME_MIN; }, get ESAME_N() { return ESAME_N; }, get LIVELLI_ESAME() { return LIVELLI_ESAME; }, get NonAutorizzato() { return NonAutorizzato; }, get PERCORSI() { return PERCORSI; }, get PERCORSI_DOC() { return PERCORSI_DOC; }, get PERCORSI_FISSI() { return PERCORSI_FISSI; }, get PERCORSI_FISSI_TUTTI() { return PERCORSI_FISSI_TUTTI; }, get RE_STUDIO() { return RE_STUDIO; }, get aGruppi() { return aGruppi; }, get barra() { return barra; }, get caricaPercorsi() { return caricaPercorsi; }, get caricaScale() { return caricaScale; }, get decodificaDicom() { return decodificaDicom; }, get disegnaAnteprima() { return disegnaAnteprima; }, get disegnaMensile() { return disegnaMensile; }, get esc() { return esc; }, get getJSON() { return getJSON; }, get htmlChecklistDoc() { return htmlChecklistDoc; }, get htmlChiaviDoc() { return htmlChiaviDoc; }, get impostazioniIA() { return impostazioniIA; }, get istanteDicom() { return istanteDicom; }, get metodicaDi() { return metodicaDi; }, get modAnalisi() { return modAnalisi; }, get modAnon() { return modAnon; }, get normal() { return normal; }, get pausa() { return pausa; }, get postJSON() { return postJSON; }, get qs1() { return qs1; }, get qsAll() { return qsAll; }, get scriviSessione() { return scriviSessione; }, get slug() { return slug; }, get testoEta() { return testoEta; }, get testoImpresso() { return testoImpresso; }, get AUTORE() { return AUTORE; } };
+// Sfide tra amici: in sfide.js, scaricato la prima volta che serve (22/11/2026)
+const PONTE_SF = { get $() { return $; }, get esc() { return esc; }, get getJSON() { return getJSON; }, get postJSON() { return postJSON; }, get NonAutorizzato() { return NonAutorizzato; },
+  get UTENTE() { return UTENTE; }, get ELENCO() { return ELENCO; }, get caricaElencoDati() { return caricaElencoDati; }, get normal() { return normal; }, get avvisoBreve() { return avvisoBreve; },
+  get mostraAccesso() { return mostraAccesso; }, get scriviSessione() { return scriviSessione; }, get leggiSessione() { return leggiSessione; } };
+let caricaSfide_P = null;
+const caricaSfide = () => (caricaSfide_P ||= import('./sfide.js').then((m) => { m.collega(PONTE_SF); return m; }).catch((e) => { caricaSfide_P = null; throw e; }));
 let caricaDocenti_P = null;
 const caricaDocenti = () => (caricaDocenti_P ||= import('./docenti.js').then((m) => { m.collega(PONTE_DOC); m.avvio(); return m; }).catch((e) => { caricaDocenti_P = null; throw e; }));
 function apriNuovo(...a) { return caricaDocenti().then((m) => m.apriNuovo(...a)); }

@@ -2560,3 +2560,38 @@ body.solo-immagini #vista-caso .viewer{padding:4px}
 .vt-avviso-dati{margin:.4rem 0 0;color:var(--muted,#666)}.vt-avviso-dati.trovato{color:#b45309;font-weight:600}
 .cl-esempio-vetrino{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px}
 .cl-esempio-vetrino select{max-width:240px}
+/* sfide tra amici (22/11/2026) */
+.sfida-pagina #sfida-corpo{max-width:860px;margin:0 auto}
+.sf-testa{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;margin:8px 0 14px;border:1px solid var(--bord);border-radius:14px;background:linear-gradient(135deg,var(--pan),var(--pan2))}
+.sf-testa h1{margin:2px 0 6px;font-size:1.6rem}
+.sf-ico{font-size:2.4rem;line-height:1}
+.sf-sopra{margin:0;color:var(--acc);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+.sf-stato{margin:6px 0 0;font-weight:600}
+.sf-scheda{border:1px solid var(--bord);border-radius:12px;padding:14px 16px;margin:12px 0;background:var(--pan)}
+.sf-scheda h2{margin:0 0 10px;font-size:1.15rem}
+details.sf-scheda summary{cursor:pointer;font-weight:600}
+.sf-scheda label{display:block;margin:8px 0}
+.sf-scheda label input:not([type=checkbox]){display:block;width:100%;max-width:420px;margin-top:4px}
+.sf-scheda label.check{display:flex;gap:8px;align-items:flex-start}
+.sf-accetta{border-color:var(--acc)}
+.sf-azioni{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.sf-casi{margin:0;padding-left:1.4em}
+.sf-casi li{padding:6px 0;border-bottom:1px solid var(--bord)}
+.sf-casi li:last-child{border-bottom:0}
+.sf-punti{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:99px;font-weight:700;font-size:.85rem;border:1px solid currentColor}
+.sf-punti.ok{color:var(--ok)}.sf-punti.medio{color:var(--warn)}.sf-punti.ko{color:var(--ko)}
+.sf-classifica{width:100%;border-collapse:collapse}
+.sf-classifica th,.sf-classifica td{padding:7px 8px;border-bottom:1px solid var(--bord);text-align:left}
+.sf-classifica tr.io td{background:var(--pan2);font-weight:600}
+.sf-condividi .sf-link{display:flex;gap:8px;flex-wrap:wrap}
+.sf-condividi .sf-link input{flex:1;min-width:220px}
+.sf-social{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.sf-elenco{list-style:none;margin:0;padding:0}
+.sf-elenco li{padding:9px 0;border-bottom:1px solid var(--bord);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.sf-filtri{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.sf-filtri input{flex:1;min-width:200px}
+.sf-lista{max-height:420px;overflow:auto;border:1px solid var(--bord);border-radius:10px;padding:4px 10px}
+.sf-voce{display:flex !important;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--bord);margin:0 !important;cursor:pointer}
+.sf-voce input{margin-top:3px}
+.sf-corr{border-top:1px solid var(--bord);padding-top:8px;margin-top:8px}
+.sf-corr h3{font-size:1rem;margin:4px 0}
