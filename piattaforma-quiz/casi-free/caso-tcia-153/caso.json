@@ -1,0 +1,113 @@
+{
+ "id": "caso-tcia-153",
+ "visibile": true,
+ "aggiornato": "2026-11-22 21:58",
+ "titolo": "Lombalgia in RM (3/5): uomo, guarda l'allineamento",
+ "titolo_interno": "Anterolistesi di L5 su S1 di grado I con disco L5-S1 collassato (Pfirrmann 5); degenerazione L4-L5 con Modic 2 (SPIDER 7)",
+ "distretto": "Rachide",
+ "quesito": "lombalgia",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo con storia di lombalgia. RM del rachide lombare senza mezzo di contrasto: T1 e T2 sagittali. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Valuta l'allineamento dei muri posteriori e i dischi lombari bassi.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Grado",
+   "domanda": "Come si gradua lo scivolamento?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "L5 scivolata in avanti rispetto a S1 (anterolistesi), con il disco L5-S1 assottigliato e scuro",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1 (T2), immagini 7-10: il muro posteriore di L5 è davanti a quello di S1 di circa 5-7 mm; il disco L5-S1 è molto basso e nero (Pfirrmann 5 nella gradazione della collezione)."
+  },
+  {
+   "testo": "Disco L4-L5 degenerato con alterazioni dei piatti vicini (chiari in T1: Modic 2)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 0 (T1), immagini 6-8: banda chiara sotto il piatto inferiore di L4. Modic 2 = sostituzione adiposa del midollo osseo vicino al piatto (chiaro in T1 e in T2); Modic 1 = edema (scuro in T1, chiaro in T2); Modic 3 = sclerosi (scuro in entrambe)."
+  },
+  {
+   "testo": "Frattura da compressione di L5",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "L5 ha altezza conservata: è spostata in avanti, non schiacciata."
+  },
+  {
+   "testo": "Retrolistesi di L4 su L5",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Lo scivolamento è a L5-S1 ed è in avanti."
+  },
+  {
+   "testo": "Grado I di Meyerding: scivolamento fino al 25% del piatto superiore di S1",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Si misura quanto il muro posteriore di L5 è avanzato rispetto a quello di S1, in percentuale della lunghezza del piatto di S1: I fino al 25%, II 25-50%, III 50-75%, IV 75-100%, V oltre (spondiloptosi). Qui circa 15-20%."
+  },
+  {
+   "testo": "Grado III di Meyerding: oltre metà del piatto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Lo spostamento è di pochi millimetri, ben sotto metà del piatto."
+  },
+  {
+   "testo": "Anterolistesi di L5 su S1 di grado I con disco L5-S1 collassato; degenerazione L4-L5. Per l'istmo (spondilolisi) servono sagittali paramediane o una TC",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Esame negativo: l'allineamento è normale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "La spondilolistesi è lo scivolamento di una vertebra sulla sottostante. Si guarda la linea dei muri posteriori: deve essere continua. Il grado si misura con Meyerding (da I a V, a quarti del piatto della vertebra sotto).\nLe cause principali sono due: degenerativa (artrosi delle faccette, più spesso a L4-L5, istmo integro) e istmica (spondilolisi, interruzione della pars interarticularis, più spesso a L5-S1). Nella forma istmica l'arco posteriore resta indietro e il canale si allarga; nella degenerativa il canale si restringe.\nL'istmo si valuta nelle sagittali paramediane e, meglio, in TC; qui la collezione dà solo la presenza della listesi e la RM non permette di concludere sulla causa.\nLe alterazioni dei piatti di Modic accompagnano la degenerazione del disco: il tipo 1 (edema) è quello più spesso associato a dolore.",
+ "regola": "Muri posteriori in fila: se uno scalino c'è, misura il grado e cerca la causa.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Gradazioni del radiologo muscoloscheletrico della collezione SPIDER: L5-S1 spondilolistesi, alterazione del piatto inferiore, riduzione di altezza, protrusione, Pfirrmann 5; L4-L5 Modic 2, alterazione del piatto, riduzione di altezza, protrusione, Pfirrmann 5; L3-L4 riduzione di altezza e protrusione, Pfirrmann 3; livelli superiori Pfirrmann 2."
+ },
+ "fonte": {
+  "archivio": "Zenodo (Scientific Data), non TCIA",
+  "collezione": "SPIDER – Lumbar spine segmentation in MR images",
+  "soggetto": "paziente 7 (file 7_t1 e 7_t2)",
+  "doi": "10.5281/zenodo.10159290",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "van der Graaf J.W., van Hooff M.L., Buckens C.F.M., Rutten M., van Susante J.L.C., Kroeze R.J., de Kleuver M., van Ginneken B., Lessmann N. (2024). Lumbar spine segmentation in MR images: a dataset and a public benchmark. Scientific Data 11, 264. https://doi.org/10.1038/s41597-024-03090-w. Dati: SPIDER, Zenodo, doi:10.5281/zenodo.10159290.",
+  "url": "https://zenodo.org/records/10159290",
+  "nota": "Immagini convertite da MHA in DICOM da radio-quiz.it: non sono DICOM originali. Pixel e spaziatura invariati; in molte serie le intensità sono già normalizzate nella collezione. Risposte di riferimento: gradazioni per livello di un radiologo muscoloscheletrico della collezione (26 anni di esperienza). Età e dati clinici oltre alla lombalgia non disponibili."
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 8,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "T2 sagittale mediana: scalino tra i muri posteriori di L5 e di S1"
+ },
+ "nota_docente": "Caso creato da Claude il 22/11/2026 dalla collezione SPIDER (Zenodo 10159290, CC BY 4.0), convertita da MHA in DICOM con strumenti_claude/spider/spider2dcm.py (orientamento dalla matrice di direzione, pixel invariati); testi da strumenti_claude/spider/scrivi_151_155.py. Livelli contati dal sacro (le etichette della collezione sono posizionali: disco 1 = sotto la vertebra lombare più bassa). Reperti controllati sulle immagini con le maschere della collezione sovrapposte. NON ancora rivisto dal medico. Paziente SPIDER 7 (M, Siemens 1,5 T): la T2 ha intensità grezze, la T1 normalizzate dalla collezione. Spostamento misurato sulla T2 sagittale mediana (circa 5-7 mm). Istmo non valutato."
+}

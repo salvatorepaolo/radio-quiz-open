@@ -1,0 +1,120 @@
+{
+ "id": "caso-tcia-154",
+ "visibile": true,
+ "aggiornato": "2026-11-22 21:58",
+ "titolo": "Lombalgia in RM (4/5): uomo, T1 e T2 sagittali a 3 T",
+ "titolo_interno": "Discopatia degenerativa su tutti i livelli lombari con Modic 2 dei piatti, osteofiti ed ernia L5-S1 (SPIDER 59)",
+ "distretto": "Rachide",
+ "quesito": "lombalgia",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo con storia di lombalgia. RM del rachide lombare senza mezzo di contrasto: T1 e T2 sagittali. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Descrivi dischi, piatti vertebrali e midollo osseo vicino; confronta T1 e T2.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Piatti vertebrali",
+   "domanda": "Che tipo di alterazione dei piatti è?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Dischi lombari scuri in T2 e ridotti in altezza a tutti i livelli, con osteofiti marginali",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1 (T2), immagini 9-13: nessun disco conserva il nucleo chiaro (Pfirrmann 4 a tutti i livelli nella gradazione della collezione)."
+  },
+  {
+   "testo": "Bande chiare in T1 lungo i piatti vertebrali di più livelli",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Serie 0 (T1), immagini 9-13: il midollo osseo sotto e sopra i dischi è più chiaro del resto del corpo vertebrale."
+  },
+  {
+   "testo": "Ernia discale posteriore L5-S1",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Gradazione della collezione: ernia solo a L5-S1."
+  },
+  {
+   "testo": "Metastasi vertebrali multiple",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Le alterazioni seguono i piatti, a banda e in modo simmetrico ai due lati del disco; le metastasi sono focali, scure in T1 e non rispettano questa distribuzione."
+  },
+  {
+   "testo": "Modic 2: midollo chiaro in T1 e in T2, sostituzione adiposa",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "È il tipo più frequente e il più stabile nel tempo."
+  },
+  {
+   "testo": "Modic 1: midollo scuro in T1 e chiaro in T2, edema",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Qui le bande sono chiare in T1, non scure."
+  },
+  {
+   "testo": "Modic 3: sclerosi, scuro in T1 e in T2",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Discopatia degenerativa lombare su tutti i livelli con alterazioni dei piatti di tipo Modic 2 ed ernia L5-S1",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Spondilodiscite su più livelli",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Nella spondilodiscite il midollo vicino al disco è scuro in T1 (edema) e i piatti sono erosi; qui è chiaro in T1 e i piatti sono netti."
+  }
+ ],
+ "spiegazione": "Le alterazioni di Modic sono cambi del midollo osseo vicino ai piatti vertebrali che accompagnano la degenerazione del disco:\ntipo 1, edema e infiammazione: scuro in T1, chiaro in T2 (il più associato a dolore, può evolvere);\ntipo 2, sostituzione adiposa: chiaro in T1 e in T2 (il più frequente, stabile);\ntipo 3, sclerosi: scuro in T1 e in T2.\nIl confronto T1-T2 è il punto chiave. Il Modic 1 va distinto dalla spondilodiscite: in entrambi il midollo è scuro in T1, ma nell'infezione i piatti sono erosi, il disco è chiaro in T2 e spesso ci sono raccolte paravertebrali.\nIn un rachide degenerato su tutti i livelli bisogna comunque cercare il livello che può spiegare i sintomi (qui l'ernia L5-S1).",
+ "regola": "Modic: confronta sempre T1 e T2; chiaro-chiaro = grasso (tipo 2).",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Gradazioni del radiologo muscoloscheletrico della collezione SPIDER: tutti e sei i livelli con Modic 2, alterazioni dei piatti superiore e inferiore, riduzione di altezza, protrusione e Pfirrmann 4; ernia a L5-S1."
+ },
+ "fonte": {
+  "archivio": "Zenodo (Scientific Data), non TCIA",
+  "collezione": "SPIDER – Lumbar spine segmentation in MR images",
+  "soggetto": "paziente 59 (file 59_t1 e 59_t2)",
+  "doi": "10.5281/zenodo.10159290",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "van der Graaf J.W., van Hooff M.L., Buckens C.F.M., Rutten M., van Susante J.L.C., Kroeze R.J., de Kleuver M., van Ginneken B., Lessmann N. (2024). Lumbar spine segmentation in MR images: a dataset and a public benchmark. Scientific Data 11, 264. https://doi.org/10.1038/s41597-024-03090-w. Dati: SPIDER, Zenodo, doi:10.5281/zenodo.10159290.",
+  "url": "https://zenodo.org/records/10159290",
+  "nota": "Immagini convertite da MHA in DICOM da radio-quiz.it: non sono DICOM originali. Pixel e spaziatura invariati; in molte serie le intensità sono già normalizzate nella collezione. Risposte di riferimento: gradazioni per livello di un radiologo muscoloscheletrico della collezione (26 anni di esperienza). Età e dati clinici oltre alla lombalgia non disponibili."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 2,
+ "vista": {
+  "serie": 0,
+  "idx": 11,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "T1 sagittale: bande chiare lungo i piatti (Modic 2) e dischi assottigliati"
+ },
+ "nota_docente": "Caso creato da Claude il 22/11/2026 dalla collezione SPIDER (Zenodo 10159290, CC BY 4.0), convertita da MHA in DICOM con strumenti_claude/spider/spider2dcm.py (orientamento dalla matrice di direzione, pixel invariati); testi da strumenti_claude/spider/scrivi_151_155.py. Livelli contati dal sacro (le etichette della collezione sono posizionali: disco 1 = sotto la vertebra lombare più bassa). Reperti controllati sulle immagini con le maschere della collezione sovrapposte. NON ancora rivisto dal medico. Paziente SPIDER 59 (M, Philips 3 T). Scelto al posto dei pazienti 154 (Modic 1) e 78 (Modic 3): su quelle immagini normalizzate i Modic 1 e 3 non si riconoscevano con sicurezza. Scartato anche il 186 (volume ricampionato in modo anomalo)."
+}

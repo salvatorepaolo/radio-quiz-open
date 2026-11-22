@@ -1,0 +1,50 @@
+[
+ {
+  "descrizione": "T1 sagittale (convertita da MHA)",
+  "numero": 1,
+  "files": [
+   "serie/0001_T1_sagittale/img_00001.dcm",
+   "serie/0001_T1_sagittale/img_00002.dcm",
+   "serie/0001_T1_sagittale/img_00003.dcm",
+   "serie/0001_T1_sagittale/img_00004.dcm",
+   "serie/0001_T1_sagittale/img_00005.dcm",
+   "serie/0001_T1_sagittale/img_00006.dcm",
+   "serie/0001_T1_sagittale/img_00007.dcm",
+   "serie/0001_T1_sagittale/img_00008.dcm",
+   "serie/0001_T1_sagittale/img_00009.dcm",
+   "serie/0001_T1_sagittale/img_00010.dcm",
+   "serie/0001_T1_sagittale/img_00011.dcm",
+   "serie/0001_T1_sagittale/img_00012.dcm",
+   "serie/0001_T1_sagittale/img_00013.dcm",
+   "serie/0001_T1_sagittale/img_00014.dcm",
+   "serie/0001_T1_sagittale/img_00015.dcm",
+   "serie/0001_T1_sagittale/img_00016.dcm",
+   "serie/0001_T1_sagittale/img_00017.dcm",
+   "serie/0001_T1_sagittale/img_00018.dcm"
+  ]
+ },
+ {
+  "descrizione": "T2 sagittale con soppressione del grasso (convertita da MHA)",
+  "numero": 2,
+  "files": [
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00001.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00002.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00003.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00004.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00005.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00006.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00007.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00008.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00009.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00010.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00011.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00012.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00013.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00014.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00015.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00016.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00017.dcm",
+   "serie/0002_T2_sagittale_con_soppressione_del_grasso/img_00018.dcm"
+  ]
+ }
+]

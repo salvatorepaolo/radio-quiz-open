@@ -1,0 +1,120 @@
+{
+ "id": "caso-tcia-151",
+ "visibile": true,
+ "aggiornato": "2026-11-22 21:58",
+ "titolo": "Lombalgia in RM (1/5): uomo, T1 e T2 sagittali",
+ "titolo_interno": "Discopatia L4-L5 con ernia discale posteriore, disco disidratato e ridotto in altezza (Pfirrmann 4); altri dischi conservati (SPIDER 12)",
+ "distretto": "Rachide",
+ "quesito": "lombalgia",
+ "modalita": "RM",
+ "difficolta": "Base",
+ "anamnesi": "Uomo con storia di lombalgia. RM del rachide lombare senza mezzo di contrasto: T1 e T2 sagittali. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Guarda i dischi lombari: quale livello è patologico e come lo descrivi?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Livello",
+   "domanda": "Come si individua il livello?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Disco L4-L5 disidratato (scuro in T2) e ridotto in altezza, con ernia posteriore che impronta il sacco durale",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1 (T2), immagini centrali 7-9: il disco L4-L5 ha perso il segnale chiaro del nucleo, è più basso degli altri e il margine posteriore sporge nel canale. Gradazione della collezione: ernia, riduzione di altezza, Pfirrmann 4."
+  },
+  {
+   "testo": "Gli altri dischi lombari conservano altezza e segnale del nucleo in T2",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Pfirrmann 2 negli altri livelli; a L5-S1 la collezione segnala solo una lieve protrusione diffusa (bulging)."
+  },
+  {
+   "testo": "Frattura da compressione del corpo di L4 con edema del midollo osseo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "I corpi vertebrali hanno altezza e segnale conservati; il reperto è nel disco."
+  },
+  {
+   "testo": "Ernia L5-S1 con disco L4-L5 normale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È il livello sopra: contando dal sacro il disco patologico è il secondo, L4-L5."
+  },
+  {
+   "testo": "Si contano i dischi dal sacro verso l'alto: il disco patologico è il secondo, L4-L5",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Nelle sagittali lombari si parte dal sacro (S1, prima vertebra fusa) e si sale. Con una vertebra di transizione lombosacrale il conteggio va confermato con le coste o con le immagini del rachide dorsale: le sole sagittali lombari non bastano.",
+   "sezione": 1
+  },
+  {
+   "testo": "Si contano i dischi dall'alto partendo dal primo disco visibile nell'immagine",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Il primo disco in alto dipende da dove è centrato il campo di vista: può essere D11-D12 o D12-L1. Il riferimento sicuro è il sacro.",
+   "sezione": 1
+  },
+  {
+   "testo": "Discopatia degenerativa L4-L5 con ernia discale posteriore; gli altri livelli sono conservati",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Spondilodiscite L4-L5: serve un esame con mezzo di contrasto urgente",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Nella spondilodiscite i piatti vertebrali sono erosi e i corpi vicini hanno edema (scuri in T1, chiari in T2); qui i piatti sono netti e il segnale osseo è normale."
+  },
+  {
+   "testo": "Esame negativo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Nella RM lombare si legge un livello alla volta: altezza del disco, segnale del nucleo in T2, margine posteriore, piatti vertebrali e midollo osseo vicino, canale e forami.\nUn disco sano ha il nucleo chiaro in T2. Con la degenerazione perde acqua e diventa scuro e più basso: la scala di Pfirrmann va da 1 (normale) a 5 (disco collassato, nero).\nProtrusione diffusa (bulging) e ernia non sono la stessa cosa: il bulging coinvolge più del 25% della circonferenza del disco, l'ernia è uno spostamento localizzato del materiale discale (protrusione o estrusione). Il lato dell'ernia e il rapporto con le radici si vedono nelle immagini assiali, che questa collezione non ha.\nLe ernie sono frequenti anche nelle persone senza dolore: il reperto conta se corrisponde ai sintomi (per esempio una sciatica nel territorio della radice compressa).",
+ "regola": "Conta i livelli dal sacro, poi guarda ogni disco: altezza, segnale in T2, margine posteriore.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Gradazioni del radiologo muscoloscheletrico della collezione SPIDER: L4-L5 ernia, riduzione di altezza, Pfirrmann 4; L5-S1 lieve protrusione diffusa, Pfirrmann 2; livelli superiori Pfirrmann 2, senza alterazioni."
+ },
+ "fonte": {
+  "archivio": "Zenodo (Scientific Data), non TCIA",
+  "collezione": "SPIDER – Lumbar spine segmentation in MR images",
+  "soggetto": "paziente 12 (file 12_t1 e 12_t2)",
+  "doi": "10.5281/zenodo.10159290",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "van der Graaf J.W., van Hooff M.L., Buckens C.F.M., Rutten M., van Susante J.L.C., Kroeze R.J., de Kleuver M., van Ginneken B., Lessmann N. (2024). Lumbar spine segmentation in MR images: a dataset and a public benchmark. Scientific Data 11, 264. https://doi.org/10.1038/s41597-024-03090-w. Dati: SPIDER, Zenodo, doi:10.5281/zenodo.10159290.",
+  "url": "https://zenodo.org/records/10159290",
+  "nota": "Immagini convertite da MHA in DICOM da radio-quiz.it: non sono DICOM originali. Pixel e spaziatura invariati; in molte serie le intensità sono già normalizzate nella collezione. Risposte di riferimento: gradazioni per livello di un radiologo muscoloscheletrico della collezione (26 anni di esperienza). Età e dati clinici oltre alla lombalgia non disponibili."
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 8,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "T2 sagittale mediana: disco L4-L5 scuro e basso, con ernia posteriore"
+ },
+ "nota_docente": "Caso creato da Claude il 22/11/2026 dalla collezione SPIDER (Zenodo 10159290, CC BY 4.0), convertita da MHA in DICOM con strumenti_claude/spider/spider2dcm.py (orientamento dalla matrice di direzione, pixel invariati); testi da strumenti_claude/spider/scrivi_151_155.py. Livelli contati dal sacro (le etichette della collezione sono posizionali: disco 1 = sotto la vertebra lombare più bassa). Reperti controllati sulle immagini con le maschere della collezione sovrapposte. NON ancora rivisto dal medico. Paziente SPIDER 12 (M, Siemens 1,5 T); la serie T1 e la T2 avevano origini destra-sinistra fuori scala nella collezione: ricentrate."
+}

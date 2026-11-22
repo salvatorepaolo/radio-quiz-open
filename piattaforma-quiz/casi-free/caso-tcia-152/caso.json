@@ -1,0 +1,120 @@
+{
+ "id": "caso-tcia-152",
+ "visibile": true,
+ "aggiornato": "2026-11-22 21:58",
+ "titolo": "Lombalgia in RM (2/5): uomo, T1 e T2 sagittali a 3 T",
+ "titolo_interno": "Ernia discale posteriore L5-S1 con disco meno idratato (Pfirrmann 3); gli altri dischi normali (Pfirrmann 1) (SPIDER 95)",
+ "distretto": "Rachide",
+ "quesito": "lombalgia",
+ "modalita": "RM",
+ "difficolta": "Base",
+ "anamnesi": "Uomo con storia di lombalgia. RM del rachide lombare senza mezzo di contrasto: T1 e T2 sagittali. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Descrivi i dischi e indica il livello del reperto principale.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Livello",
+   "domanda": "Come si individua il livello?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Ernia discale posteriore L5-S1 che impronta il sacco durale, con disco meno chiaro in T2 degli altri",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1 (T2), immagini 10-12: il margine posteriore del disco L5-S1 sporge nel canale e il segnale del nucleo è ridotto. Gradazione della collezione: ernia, Pfirrmann 3 (anche alterazioni dei piatti di tipo Modic 2, poco evidenti in queste immagini)."
+  },
+  {
+   "testo": "Dischi da L1-L2 a L4-L5 normali: nucleo chiaro in T2 e altezza conservata",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Pfirrmann 1 in tutti i livelli superiori."
+  },
+  {
+   "testo": "Stenosi del canale su più livelli con ipertrofia dei legamenti gialli",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il canale è ampio ai livelli superiori; il reperto è limitato a L5-S1."
+  },
+  {
+   "testo": "Anterolistesi di L5 su S1",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "I muri posteriori di L5 e di S1 sono allineati."
+  },
+  {
+   "testo": "Si contano i dischi dal sacro: il disco patologico è il primo, tra L5 e S1",
+   "corretta": true,
+   "tipo": "secondario",
+   "nota": "Nelle sagittali lombari si parte dal sacro (S1, prima vertebra fusa) e si sale. Con una vertebra di transizione lombosacrale il conteggio va confermato con le coste o con le immagini del rachide dorsale: le sole sagittali lombari non bastano.",
+   "sezione": 1
+  },
+  {
+   "testo": "Si contano i dischi dall'alto partendo dal primo disco visibile nell'immagine",
+   "corretta": false,
+   "tipo": "distrattore",
+   "nota": "Il primo disco in alto dipende da dove è centrato il campo di vista: può essere D11-D12 o D12-L1. Il riferimento sicuro è il sacro.",
+   "sezione": 1
+  },
+  {
+   "testo": "Ernia discale posteriore L5-S1; gli altri dischi lombari sono normali",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Discopatia degenerativa diffusa su tutti i livelli",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Solo L5-S1 è alterato: gli altri dischi sono normali."
+  },
+  {
+   "testo": "Esame negativo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "L5-S1 e L4-L5 sono i livelli più colpiti dalle ernie lombari. Un'ernia L5-S1 posterolaterale comprime di solito la radice S1 (dolore e alterazioni della sensibilità nella parte posteriore della gamba e sul bordo laterale del piede, riflesso achilleo ridotto); un'ernia foraminale dello stesso livello comprime invece L5.\nPer dire il lato e quale radice è compressa servono le immagini assiali: nelle sole sagittali si vede che il disco sporge nel canale, non da che parte.\nUn disco che perde segnale in T2 a un solo livello, con gli altri normali, indica una degenerazione localizzata, spesso proprio nel livello dell'ernia.",
+ "regola": "Sagittali: livello e sporgenza; assiali: lato e radice.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Gradazioni del radiologo muscoloscheletrico della collezione SPIDER: L5-S1 ernia, alterazioni dei piatti di tipo Modic 2, Pfirrmann 3; livelli superiori Pfirrmann 1, senza alterazioni."
+ },
+ "fonte": {
+  "archivio": "Zenodo (Scientific Data), non TCIA",
+  "collezione": "SPIDER – Lumbar spine segmentation in MR images",
+  "soggetto": "paziente 95 (file 95_t1 e 95_t2)",
+  "doi": "10.5281/zenodo.10159290",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "van der Graaf J.W., van Hooff M.L., Buckens C.F.M., Rutten M., van Susante J.L.C., Kroeze R.J., de Kleuver M., van Ginneken B., Lessmann N. (2024). Lumbar spine segmentation in MR images: a dataset and a public benchmark. Scientific Data 11, 264. https://doi.org/10.1038/s41597-024-03090-w. Dati: SPIDER, Zenodo, doi:10.5281/zenodo.10159290.",
+  "url": "https://zenodo.org/records/10159290",
+  "nota": "Immagini convertite da MHA in DICOM da radio-quiz.it: non sono DICOM originali. Pixel e spaziatura invariati; in molte serie le intensità sono già normalizzate nella collezione. Risposte di riferimento: gradazioni per livello di un radiologo muscoloscheletrico della collezione (26 anni di esperienza). Età e dati clinici oltre alla lombalgia non disponibili."
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 11,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "T2 sagittale: ernia posteriore L5-S1"
+ },
+ "nota_docente": "Caso creato da Claude il 22/11/2026 dalla collezione SPIDER (Zenodo 10159290, CC BY 4.0), convertita da MHA in DICOM con strumenti_claude/spider/spider2dcm.py (orientamento dalla matrice di direzione, pixel invariati); testi da strumenti_claude/spider/scrivi_151_155.py. Livelli contati dal sacro (le etichette della collezione sono posizionali: disco 1 = sotto la vertebra lombare più bassa). Reperti controllati sulle immagini con le maschere della collezione sovrapposte. NON ancora rivisto dal medico. Paziente SPIDER 95 (M, Philips 3 T). Il Modic 2 di L5-S1 della gradazione non si vede chiaramente su queste immagini normalizzate: citato solo nella nota e nell'esito, non come risposta."
+}
