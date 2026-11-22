@@ -7302,7 +7302,9 @@ function barraEssenziale() {
   let pref = null; try { pref = localStorage.getItem('rq-barra'); } catch {}
   // nei test automatici (?prova) la barra resta completa, salvo «&essenziale»
   const q = new URLSearchParams(location.search), prova = q.has('prova') && !q.has('essenziale');
-  const ess = !CLIENT && !DOCENTE && !ADMIN && !prova && pref !== 'tutti';
+  // studenti: essenziale finché non scelgono «tutti»; docenti e amministratore: completa finché non scelgono «essenziali»
+  // (prima per loro la scelta era ignorata e il pulsante ⚙ non faceva nulla)
+  const ess = !CLIENT && !prova && (pref === 'essenziali' || (pref !== 'tutti' && !DOCENTE && !ADMIN));
   document.body.classList.toggle('barra-essenziale', ess);
   const b = $('#btn-barra-tutti'); if (b) { b.hidden = CLIENT; b.setAttribute('aria-pressed', String(!ess)); const t = ess ? 'Tutti gli strumenti' : 'Solo gli essenziali'; b.innerHTML = '⚙<span class="et"> ' + t + '</span>'; b.setAttribute('aria-label', t); }
 }
