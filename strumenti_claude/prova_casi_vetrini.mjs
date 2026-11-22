@@ -19,7 +19,8 @@ const cod = await pa.evaluate(async () => (await (await fetch('/api/account', { 
 await p.goto(B + '/?prova#/'); await p.waitForSelector('[data-vai="codice"]'); await p.click('[data-vai="codice"]'); await p.fill('#codice', cod); await p.press('#codice', 'Enter');
 await p.waitForSelector('#vista-elenco:not([hidden])', { timeout: 20000 });
 await p.waitForTimeout(1500);
-esito(!(await p.$('#lista-casi details[data-sez="m:Vetrini"]')) && !/Vetrini \d/.test(await p.textContent('#filtro-metodica')), 'pagina iniziale e filtri senza i casi-vetrino (1.275)');
+// dalla 1.298 i casi-vetrino hanno il loro filtro nell'elenco dei casi (prima erano solo nella pagina «Vetrini»)
+esito(/Vetrini/.test(await p.textContent('#filtro-metodica')), 'filtro «Vetrini» nell\'elenco dei casi (1.298)', (await p.textContent('#filtro-metodica')).replace(/\s+/g, ' ').slice(0, 160));
 esito(await p.$eval('#btn-vetrini-pagina', (x) => !x.hidden), 'pulsante «Vetrini» in alto');
 await p.click('#btn-vetrini-pagina'); await p.waitForSelector('#vista-vetrini:not([hidden]) .card', { timeout: 15000 });
 esito((await p.locator('#lista-vetrini .card').count()) >= 6, 'pagina «Vetrini» con i casi (almeno 6)');

@@ -431,6 +431,8 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   const touch = matchMedia('(pointer:coarse)').matches;
   const pannelli = []; let attivo = null, legato = true, sincronizzo = false;
   let strumento = null, inCorso = null;
+  // 1.303 domanda sul vetrino: un clic (punto) o un rettangolo (zona) chiesto da fuori; segni fissi (zona del docente, punto dello studente)
+  let chiesta = null; const segni = [];
   const storia = []; let tornando = false;
 
   // ------------------------------------------------ un pannello: vetrino, viewer, livello delle annotazioni, scala
@@ -497,6 +499,8 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   // ------------------------------------------------ strumenti di annotazione
   function inizia(P, e) {
     const q = aImg(P, e);
+    if (strumento === 'scelta') { const c = chiesta; chiesta = null; scegli('scelta'); c?.cb([Math.round(q[0]), Math.round(q[1])], indiceDi(P)); return; }
+    if (strumento === 'zona') { inCorso = { P, a: { t: 'zona', p: [q, q] } }; disegna(P); return; }
     if (strumento === 'punto') { aggiungi(P, { t: 'punto', p: [q] }); return; }
     if (strumento === 'hpf') { const d = +$('.vt-hpf-d').value, r = P.sp ? (d * 1000) / 2 / P.sp : 100; aggiungi(P, { t: 'hpf', c: q, rx: r, ry: r }); return; }
     if (strumento === 'poligono') {
@@ -526,6 +530,12 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
       if ((x1 - x0) * pxSch(P) > 8 && (y1 - y0) * pxSch(P) > 8) apriRitaglio(P, [x0, y0, x1 - x0, y1 - y0]);
       return;
     }
+    if (a.t === 'zona') {
+      inCorso = null; const c = chiesta; chiesta = null; scegli('zona');
+      const [p, q] = a.p, x0 = Math.max(0, Math.min(p[0], q[0])), y0 = Math.max(0, Math.min(p[1], q[1])), x1 = Math.min(P.V.W, Math.max(p[0], q[0])), y1 = Math.min(P.V.H, Math.max(p[1], q[1]));
+      if ((x1 - x0) * pxSch(P) > 6 && (y1 - y0) * pxSch(P) > 6) c?.cb([x0, y0, x1, y1].map(Math.round), indiceDi(P)); else c?.cb(null);
+      return;
+    }
     if (a.t === 'poligono') { inCorso.giu = false; if (inCorso.libero && a.p.length >= 8) chiudiPoligono(P); return; }   // a mano libera: si chiude alzando il dito
     inCorso = null;
     if (a.t === 'ellisse') { delete a.o; if (a.rx * pxSch(P) > 2 && a.ry * pxSch(P) > 2) aggiungi(P, a); else disegna(P); return; }
@@ -540,9 +550,10 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   function aggiungi(P, a) { P.ann.push(a); salva(P); disegna(P); riepilogo(); }
   function scegli(s) {
     strumento = strumento === s ? null : s; inCorso = null;
+    if (chiesta && strumento !== chiesta.tipo) { const c = chiesta; chiesta = null; c.cb(null); }
     box.querySelectorAll('.vt-s').forEach((b) => b.classList.toggle('on', b.dataset.s === strumento)); $('.vt-ritaglia')?.classList.toggle('on', strumento === 'ritaglio');
     for (const P of pannelli) { P.svg.style.pointerEvents = strumento ? 'auto' : 'none'; P.svg.style.cursor = strumento ? 'crosshair' : ''; P.svg.style.touchAction = strumento ? 'none' : ''; P.viewer.setMouseNavEnabled(!strumento); disegna(P); }
-    $('.vt-aiuto').textContent = !strumento ? '' : strumento === 'ritaglio' ? tr('trascina un rettangolo sulla zona da salvare; Esc per smettere') : tr(STRUMENTI.find((x) => x[0] === strumento)[3]);
+    $('.vt-aiuto').textContent = !strumento ? '' : chiesta ? chiesta.aiuto : strumento === 'ritaglio' ? tr('trascina un rettangolo sulla zona da salvare; Esc per smettere') : tr(STRUMENTI.find((x) => x[0] === strumento)[3]);
   }
 
   // ------------------------------------------------ disegno: forme in coordinate dello schermo, per l'SVG e per l'istantanea
@@ -550,6 +561,7 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
     const sp = P.sp || 1, cal = !!P.sp, out = [], l = conInCorso && inCorso?.P === P ? [...P.ann, inCorso.a] : P.ann;
     for (const a of l) {
       const col = COLORI_ANN[a.t];
+      if (a.t === 'zona') { const [p, q] = a.p; out.push({ k: 'area', p: [[p[0], p[1]], [q[0], p[1]], [q[0], q[1]], [p[0], q[1]]].map(map), col: '#ffd400', tratteggio: true }); continue; }
       if (a.t === 'ritaglio') { const [p, q] = a.p; out.push({ k: 'area', p: [[p[0], p[1]], [q[0], p[1]], [q[0], q[1]], [p[0], q[1]]].map(map), col: '#ffffff', tratteggio: true }); continue; }
       if (a.t === 'punto') { out.push({ k: 'punto', c: map(a.p[0]), col }); continue; }
       if (a.t === 'dist' || a.t === 'freccia') {
@@ -567,6 +579,10 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
         const n = P.ann.filter((x) => x.t === 'punto' && A.dentro(x.p[0], a)).length; if (n) s += ` · ${n} ✚`;
         out.push({ k: 'testo', x: top[0] + 6, y: top[1] - 6, s });
       }
+    }
+    for (const g of segni.filter((x) => x.i === indiceDi(P))) {
+      if (g.r) { const [x0, y0, x1, y1] = g.r, p = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]].map(map); out.push({ k: 'area', p, col: g.col || '#ffd400' }); if (g.testo) out.push({ k: 'testo', x: Math.min(...p.map((q) => q[0])) + 4, y: Math.min(...p.map((q) => q[1])) - 6, s: g.testo }); }
+      if (g.p) { const c = map(g.p); out.push({ k: 'punto', c, col: g.col || '#00e5ff' }); if (g.testo) out.push({ k: 'testo', x: c[0] + 9, y: c[1] - 9, s: g.testo }); }
     }
     return out;
   }
@@ -657,7 +673,7 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
       // all'inizio i due vetrini sono allineati al centro (poi si possono sganciare e riallineare)
       scost.x = (Q.V.W * (Q.sp || 1) - P0.V.W * (P0.sp || 1)) / 2; scost.y = (Q.V.H * (Q.sp || 1) - P0.V.H * (P0.sp || 1)) / 2;
       Q.viewer.addOnceHandler('open', () => { attiva(pannelli[0]); sincronizza(pannelli[0]); });
-      if (strumento) scegli(strumento), scegli(strumento);
+      if (strumento) { const s0 = strumento, c = chiesta; chiesta = null; scegli(s0); chiesta = c; scegli(s0); }
     }
     pannelli.forEach((x) => x.viewer.forceResize?.()); setTimeout(() => { pannelli.forEach((x) => { x.viewer.forceResize?.(); disegna(x); }); if (pannelli[0]) sincronizza(pannelli[0]); }, 60);
   }
@@ -895,6 +911,11 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   const API = {
     vista: () => vista(), vaiVista: (v) => vaiVista(v), chiave, frasiMisure: () => frasiMisure(), apriRitaglio: (r) => apriRitaglio(attivo, r), componi: (r, o) => componi(attivo, r, o), risoluzioni: (r) => risoluzioni(attivo, r), segnaChiavi,
     get viewer() { return pannelli[0].viewer; }, get misure() { return P0.ann; }, get ann() { return attivo.ann; }, stato: P0.stato, vaiZ, sp, V, pannelli,
+    // domanda sul vetrino: chiediPunto/chiediZona(aiuto) → Promise con [x, y] o [x0, y0, x1, y1] (pixel della scansione) e indice del vetrino, null se annullata
+    chiediPunto: (aiuto) => new Promise((ok) => { if (chiesta) { const c = chiesta; chiesta = null; c.cb(null); } chiesta = { tipo: 'scelta', aiuto, cb: (q, i) => ok(q ? { p: q, i } : null) }; if (strumento !== 'scelta') scegli('scelta'); else $('.vt-aiuto').textContent = aiuto; }),
+    chiediZona: (aiuto) => new Promise((ok) => { if (chiesta) { const c = chiesta; chiesta = null; c.cb(null); } chiesta = { tipo: 'zona', aiuto, cb: (r, i) => ok(r ? { r, i } : null) }; if (strumento !== 'zona') scegli('zona'); else $('.vt-aiuto').textContent = aiuto; }),
+    segna: (l) => { segni.length = 0; segni.push(...(l || [])); disegnaTutto(); },
+    get segni() { return segni.slice(); },
     scegli, vaiIngr, ingrAttuale: () => ingrAttuale(attivo), istantanea, affianca, indietro, aImg: (x, y) => { const s = attivo.svg.getBoundingClientRect(); return aImg(attivo, { clientX: x + s.left, clientY: y + s.top }); },
     _lung: (a) => A.lunghezza(a, sp || 1), riepilogo: () => A.riepilogo(attivo.ann, attivo.sp || 1), creaANN: () => A.creaANN(attivo.V, attivo.ann, attivo.sp), leggiANN: A.leggiANN,
     chiudi: () => { document.removeEventListener('keydown', tasti); document.removeEventListener('fullscreenchange', fsCambio); document.removeEventListener('webkitfullscreenchange', fsCambio); if (document.fullscreenElement === box) document.exitFullscreen?.().catch(() => {}); pannelli.forEach((P) => P.viewer.destroy()); box.innerHTML = ''; },

@@ -107,3 +107,20 @@ test('URL firmato S3 (SigV4): vettore di prova ufficiale AWS', () => {
     credenziali: { accessKeyId: 'AKIAIOSFODNN7EXAMPLE', secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' }, ora: new Date('2013-05-24T00:00:00Z') });
   assert.equal(u, 'https://examplebucket.s3.amazonaws.com/test.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=aeeed9bbccd4d02ee5c0109b86d86835f995330da4c265957d157751f604d404');
 });
+
+test('1.303 domanda sul vetrino: pulisciZonaVetrino e valutaPuntoVetrino', () => {
+  assert.equal(L.pulisciZonaVetrino(null), null);
+  assert.equal(L.pulisciZonaVetrino({ i: 0, r: [10, 10, 11, 11] }), null);   // troppo piccola
+  const z = L.pulisciZonaVetrino({ i: '1', r: [2000, 3000, 1000, 1000], nota: 'x'.repeat(400), domanda: 'si' });
+  assert.deepEqual(z.r, [1000, 1000, 2000, 3000]); assert.equal(z.i, 1); assert.equal(z.nota.length, 300); assert.equal(z.domanda, undefined);
+  const zona = { i: 0, r: [1000, 1000, 2000, 2000] };
+  assert.equal(L.valutaPuntoVetrino(zona, { vt: 0, x: 1500, y: 1500 }).esito, 'centrato');
+  assert.equal(L.valutaPuntoVetrino(zona, { vt: 0, x: 2100, y: 1500 }).esito, 'centrato');   // margine del 15%
+  assert.equal(L.valutaPuntoVetrino(zona, { vt: 0, x: 2600, y: 1500 }).esito, 'vicino');
+  assert.equal(L.valutaPuntoVetrino(zona, { vt: 0, x: 4000, y: 4000 }).esito, 'mancato');
+  assert.deepEqual(L.valutaPuntoVetrino(zona, { vt: 1, x: 1500, y: 1500 }), { esito: 'mancato', altroVetrino: true });
+  assert.equal(L.valutaPuntoVetrino(zona, null).esito, 'assente');
+  assert.equal(L.valutaPuntoVetrino(zona, { x: 1500, y: 1500 }).esito, 'assente');
+  assert.deepEqual(L.controlliCaso({ opzioni: [], localizza: true, zona_vetrino: { ...zona, domanda: true } }).filter((x) => /figura/.test(x)), []);
+  assert.ok(L.controlliCaso({ opzioni: [], localizza: true, zona_vetrino: zona }).includes('domanda sulla figura senza segno'));
+});

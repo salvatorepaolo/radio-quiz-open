@@ -5910,15 +5910,34 @@ function aggiornaChiuse() {
 }
 function preparaLocalizza() {
   V.punto = null; V.puntaAttivo = false; canvas.classList.remove('punta');
+  if (V.segniVetrino) { V.segniVetrino = null; segniSulVetrino(); }
   const L = V.caso?.localizza, box = $('#q-loc');
   box.hidden = !L;
   if (!L) return;
+  if (Number.isInteger(L.vetrino)) {   // 1.303 domanda sul vetrino
+    $('#q-loc-testo').textContent = 'Porta il vetrino sulla zona del reperto principale, poi premi «Indica sul vetrino» e cliccaci sopra.';
+    $('#btn-punta').textContent = 'Indica sul vetrino'; $('#btn-punta').disabled = false; return;
+  }
   const s = V.serie.find((x) => x._i === L.serie);
   $('#q-loc-testo').textContent = `Clicca sull'immagine${s ? ` della serie «${s.descrizione}»` : ''} nel punto in cui vedi il reperto principale.`;
   $('#btn-punta').textContent = 'Indica sull\'immagine'; $('#btn-punta').disabled = false;
 }
+// 1.303 domanda sul vetrino: lo studente clicca sul vetrino; il punto resta segnato (azzurro) finché non risponde
+async function puntaSulVetrino(L) {
+  if (!VT_APERTO || VT_APERTO.vista().i !== L.vetrino) await apriVetrinoClient(L.vetrino, { incorporato: !!V.soloVetrino }).catch(() => {});
+  for (let t = 0; t < 60; t++) { if (!VT_APERTO || VT_APERTO.viewer?.world.getItemCount()) break; await new Promise((ok) => setTimeout(ok, 100)); }
+  if (!VT_APERTO) { $('#q-loc-testo').textContent = 'Il vetrino non si è aperto: riprova.'; return; }
+  $('#q-loc-testo').textContent = 'Clicca sul reperto nel vetrino (Esc per annullare).';
+  const q = await VT_APERTO.chiediPunto('Clicca sul reperto principale (Esc per annullare)');
+  if (!q) { $('#q-loc-testo').textContent = V.punto ? 'Punto già indicato sul vetrino. Puoi cambiarlo prima di confermare.' : 'Porta il vetrino sulla zona del reperto principale, poi premi «Indica sul vetrino» e cliccaci sopra.'; return; }
+  V.punto = { vt: q.i, x: q.p[0], y: q.p[1] };
+  V.segniVetrino = [{ i: q.i, p: q.p, col: '#22d3ee', testo: 'Il tuo punto' }]; VT_APERTO.segna(V.segniVetrino);
+  $('#q-loc-testo').textContent = q.i === L.vetrino ? 'Punto indicato sul vetrino. Puoi cambiarlo prima di confermare.' : 'Punto indicato su un altro vetrino: il reperto va cercato nel vetrino della domanda.';
+  $('#btn-punta').textContent = 'Cambia punto';
+}
 $('#btn-punta').addEventListener('click', async () => {
   const L = V.caso?.localizza; if (!L) return;
+  if (Number.isInteger(L.vetrino)) { await puntaSulVetrino(L); return; }
   if (MPR.attivo) modo2D();
   const i = V.serie.findIndex((x) => x._i === L.serie);
   if (i >= 0 && P().sIdx !== i) await selezionaSerie(i, V.attivo);
@@ -6627,10 +6646,10 @@ $('#btn-conferma').addEventListener('click', async () => {
   const scaduto = leggiSessione('quiz-giro', null)?.scaduto;
   const ck = statoChecklist();
   if (ck && QZ.check?.obbl && ck.fatte < ck.totale && !scaduto) { $('#q-check').open = true; alertInline(`Checklist obbligatoria in questo caso: spunta tutte le zone che hai controllato (ne mancano ${ck.totale - ck.fatte}).`); return; }
-  if (V.caso.localizza && !V.punto && !scaduto && !solo) { alertInline('Indica anche sull\'immagine dove si trova il reperto principale (pulsante «Indica sull\'immagine»).'); return; }
+  if (V.caso.localizza && !V.punto && !scaduto && !solo) { alertInline(`${Number.isInteger(V.caso.localizza?.vetrino) ? 'Indica anche sul vetrino dove si trova il reperto principale (pulsante «Indica sul vetrino»).' : 'Indica anche sull\'immagine dove si trova il reperto principale (pulsante «Indica sull\'immagine»).'}`); return; }
   b.disabled = true;
   try {
-    const punto = V.punto ? { serie: V.punto.serie, idx: V.punto.idx, x: V.punto.x, y: V.punto.y } : null;
+    const punto = !V.punto ? null : Number.isInteger(V.punto.vt) ? { vt: V.punto.vt, x: V.punto.x, y: V.punto.y } : { serie: V.punto.serie, idx: V.punto.idx, x: V.punto.x, y: V.punto.y };
     const r = await getJSON(`/api/casi/${V.caso.id}/risposta`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ scelte, sicurezza, punto, ...(solo ? { modo: 'referto' } : {}), dettagli: { ...dettagliTraccia(), referto: $('#q-referto').value.trim().slice(0, 4000), scale: Object.values(V.scaleMie || {}), ...(ck ? { checklist: ck } : {}) }, nome: $('#nome').value }),
@@ -6681,7 +6700,7 @@ $('#btn-conferma').addEventListener('click', async () => {
       ${!solo && r.esito?.length ? `<p class="esito-conti"><span class="ok">✓ ${nEs('corretta')} ${nEs('corretta') === 1 ? 'giusta' : 'giuste'}</span>${nEs('errata') ? `<span class="ko">✗ ${nEs('errata')} ${nEs('errata') === 1 ? 'sbagliata' : 'sbagliate'}</span>` : ''}${nEs('mancata') ? `<span class="medio">○ ${nEs('mancata')} ${nEs('mancata') === 1 ? 'mancata' : 'mancate'}</span>` : ''}</p>` : ''}</div></div>
       ${!solo && !r.perfetta ? (() => { const n = (k) => r.esito.filter((e) => e.stato === k).length, tp = n('corretta'), fp = n('errata'), g = tp + n('mancata');
         return g ? `<p class="muted small come-punteggio">${esc(`Come si calcola: (risposte giuste indicate − sbagliate indicate) / risposte giuste del caso = (${tp} − ${fp}) / ${g}, tutti i passi insieme.`)}${r.localizzazione ? ' ' + esc('La localizzazione sull\'immagine pesa il 20%.') : ''}</p>` : ''; })() : ''}
-      ${r.localizzazione ? `<p class="loc-esito ${r.localizzazione.esito}">📍 ${{ centrato: 'Reperto localizzato correttamente', vicino: 'Localizzazione vicina al reperto, ma non centrata', mancato: r.localizzazione.altraSerie ? 'Il punto indicato è in un\'altra serie' : 'Il punto indicato non corrisponde al reperto', assente: 'Non hai indicato il reperto sull\'immagine' }[r.localizzazione.esito]}${r.vista?.segno ? ': il segno giallo mostra dove si trova.' : '.'}</p>` : ''}
+      ${r.localizzazione ? `<p class="loc-esito ${r.localizzazione.esito}">📍 ${{ centrato: 'Reperto localizzato correttamente', vicino: 'Localizzazione vicina al reperto, ma non centrata', mancato: r.localizzazione.altraSerie ? 'Il punto indicato è in un\'altra serie' : r.localizzazione.altroVetrino ? 'Il punto indicato è su un altro vetrino' : 'Il punto indicato non corrisponde al reperto', assente: r.zonaVetrino?.domanda ? 'Non hai indicato il reperto sul vetrino' : 'Non hai indicato il reperto sull\'immagine' }[r.localizzazione.esito]}${r.zonaVetrino?.domanda ? ': il rettangolo giallo sul vetrino mostra dove si trova.' : r.vista?.segno ? ': il segno giallo mostra dove si trova.' : '.'}</p>` : ''}
       ${r.gioco ? riquadroGioco(r.gioco, r.perfetta) : ''}
       ${convinti ? `<p class="avviso">Attenzione: ${convinti === 1 ? 'una risposta sbagliata era indicata' : convinti + ' risposte sbagliate erano indicate'} come «sicuro». Rileggi la discussione con calma.</p>` : ''}
       ${r.sezioni && !solo ? `<div class="sez-punteggi">${r.sezioni.map((z) => `<span class="${z.perfetta ? 'ok' : z.punteggio >= 50 ? 'medio' : 'ko'}">${esc(z.nome)} ${z.punteggio}%</span>`).join('')}</div>` : ''}
@@ -6698,7 +6717,8 @@ $('#btn-conferma').addEventListener('click', async () => {
 `;
     mostraSponsor($('#sponsor-caso'), 'caso');
     b.textContent = 'Riprova'; b.dataset.stato = 'fatto'; aggiornaBottoneVetrini();
-    if (r.correlazioni?.length) { V.caso.correlazioni = r.correlazioni; aggiornaCorrelazioni(); } setTimeout(() => { try { aggiornaBottoneNoduli(); disegna(); } catch {} }, 50);
+    if (r.correlazioni?.length) { V.caso.correlazioni = r.correlazioni; aggiornaCorrelazioni(); }
+    if (r.zonaVetrino) mostraZonaVetrino(r.zonaVetrino, r.localizzazione); setTimeout(() => { try { aggiornaBottoneNoduli(); disegna(); } catch {} }, 50);
     correggiRefertoIA($('#q-referto').value);
     if (r.sezioni) vaiPasso(QZ.passo);   // tutti i distretti visibili, con l'esito
     if (GIOCO) { GIOCO.casi = { ...GIOCO.casi, [V.caso.id]: Math.max(GIOCO.casi[V.caso.id] ?? 0, r.punteggio) }; }
@@ -7003,7 +7023,7 @@ $('#ed-salva').addEventListener('click', async () => {
     await getJSON(`/api/casi/${edCaso.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dati) });
     edCaso = dati; $('#ed-avviso').hidden = visibile;
     $('#ed-msg').textContent = (visibile ? 'Salvato ✓ — visibile agli studenti' : 'Salvato come bozza ✓')
-      + (dati.localizza && !dati.vista?.segno ? ' · Attenzione: per la domanda sulla figura manca il segno del reperto (apri il caso, disegna una ROI sul reperto e usa «Imposta la vista del reperto»).' : '');
+      + (dati.localizza && !dati.vista?.segno && !dati.zona_vetrino?.domanda ? ' · Attenzione: per la domanda sulla figura manca il segno del reperto (apri il caso, disegna una ROI sul reperto e usa «Imposta la vista del reperto»).' : '');
   } catch (e) { if (!(e instanceof NonAutorizzato)) $('#ed-msg').textContent = 'Errore: ' + e.message; }
 });
 
@@ -7199,7 +7219,7 @@ async function apriCaso(id, locale = null) {
   V.eq = null; MPR.presetScelto = false; SOT.attiva = false; SOT.cache.clear(); $('#btn-sott').classList.remove('on'); DIFF.attiva = false; DIFF.vol = null; DIFF.modo = 'colori'; $('#btn-diffprec')?.classList.remove('on'); if ($('#diff-modo')) { $('#diff-modo').hidden = true; $('#diff-modo').value = 'colori'; }
   V.n = 1; V.solo = null; V.attivo = 0; V.pannelli = Array.from({ length: MAX_RIQUADRI }, nuovoPannello); V.offset = {}; V.allinea = null; COREG.provati.clear(); SM.lesioni = null; if ($('#sm-pannello')) $('#sm-pannello').hidden = true;
   V.layout = null; $('#riquadri').value = '1'; $('#btn-allinea').classList.remove('on'); $('#sincro-wrap').hidden = true; $('#misure-roi').hidden = true; $('#misure-roi').innerHTML = '';
-  V.segno = null; V.vistaReperto = null; $('#btn-reperto').hidden = true; $('#q-esito').after($('#btn-reperto')); $('#btn-reperto').after($('#btn-prossimo'));
+  V.segno = null; V.vistaReperto = null; V.segniVetrino = null; $('#btn-reperto').hidden = true; $('#q-esito').after($('#btn-reperto')); $('#btn-reperto').after($('#btn-prossimo'));
   $('#q-docente-vista').hidden = !AUTORE; $('#vista-stato').textContent = AUTORE ? (V.caso.vista ? 'Vista del reperto già impostata' : 'Nessuna vista del reperto') : '';
   if (!CLIENT) { renderQuiz(); mostraModoCasuale(); mostraGiro(); } aggiornaWorkspaceMG(); aggiornaWorkspaceFasi();
   { const met = metodicaDi(V.caso || {}); if (V.tool === 'scroll' || V.tool === 'wl') scegliStrumento(/^(RX|Mammografia|Ecografia|Ecocardio)$/.test(met) ? 'wl' : 'scroll'); }
@@ -12196,6 +12216,37 @@ function aggiornaCorrelazioni() {
   el.querySelectorAll('[data-corr]').forEach((b) => { b.onclick = () => mostraCorrispondenza(l[+b.dataset.corr]).catch((e) => avvisoBreve('Corrispondenza non mostrata: ' + e.message)); });
   el.querySelectorAll('[data-corr-via]').forEach((b) => { b.onclick = () => togliCorrispondenza(+b.dataset.corrVia); });
 }
+// 1.303 zona del reperto sul vetrino: il docente la segna (rettangolo), la correzione la mostra; nei casi di solo vetrino
+// è la domanda sulla figura («indica sul vetrino»)
+function segniSulVetrino() {
+  if (!VT_APERTO) return;
+  const l = [...(V.segniVetrino || [])], z = V.caso?.zona_vetrino;
+  if (z && !CLIENT && (AUTORE || DOCENTE) && !l.some((g) => g.r)) l.push({ i: z.i, r: z.r, testo: z.nota || 'Zona del reperto' });
+  VT_APERTO.segna(l);
+}
+function mostraZonaVetrino(z, loc) {
+  const mio = (V.segniVetrino || []).filter((g) => g.p);
+  V.segniVetrino = [{ i: z.i, r: z.r, testo: z.nota || 'Zona del reperto' }, ...mio];
+  segniSulVetrino();
+  // casi di solo vetrino: se il punto non era centrato (o mancava), il vetrino va sulla zona
+  if (V.soloVetrino && (!loc || loc.esito !== 'centrato') && VT_APERTO?.vista().i === z.i) {
+    const cw = Math.max(300, VT_APERTO.viewer?.element?.clientWidth || 800);
+    VT_APERTO.vaiVista({ i: z.i, c: [(z.r[0] + z.r[2]) / 2, (z.r[1] + z.r[3]) / 2], s: Math.max(z.r[2] - z.r[0], z.r[3] - z.r[1]) / (0.6 * cw) });
+  }
+}
+async function salvaZonaVetrino() {
+  if (!VT_APERTO) return;
+  const q = await VT_APERTO.chiediZona('Trascina un rettangolo attorno al reperto (Esc per annullare)'); if (!q) return;
+  const nota = prompt('Che cosa c\'è in questa zona? (per esempio «carcinoma infiltrante»; facoltativo)', V.caso?.zona_vetrino?.nota || ''); if (nota === null) { segniSulVetrino(); return; }
+  const domanda = V.soloVetrino ? confirm('Chiedere agli studenti di indicare il reperto sul vetrino prima di rispondere? (domanda sulla figura: pesa il 20% del punteggio)') : false;
+  try {
+    const completo = await getJSON(`/api/casi/${V.caso.id}/completo`);
+    const zona = { i: q.i, r: q.r, nota: nota.trim(), ...(domanda ? { domanda: true } : {}) };
+    await getJSON(`/api/casi/${V.caso.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...completo, zona_vetrino: zona, ...(domanda ? { localizza: true } : {}) }) });
+    V.caso.zona_vetrino = zona; V.segniVetrino = (V.segniVetrino || []).filter((g) => !g.r); segniSulVetrino();
+    avvisoBreve(domanda ? '🎯 Zona salvata: gli studenti la indicano sul vetrino' : '🎯 Zona del reperto salvata (si vede nella correzione)');
+  } catch (e) { avvisoBreve('Zona non salvata: ' + e.message); segniSulVetrino(); }
+}
 async function apriVetrinoClient(i = 0, { incorporato = false, accanto = VT_ACCANTO } = {}) {
   accanto = accanto && !incorporato && conRadiologia();
   if (!incorporato) { if (accanto) { const f = $('#vista-vetrino'); if (f && !f.hidden) { if (VT_APERTO && f.contains(VT_APERTO.viewer?.element || null)) { VT_APERTO.chiudi(); VT_APERTO = null; } f.hidden = true; } } else chiudiVetrinoAccanto(); }
@@ -12221,6 +12272,8 @@ async function apriVetrinoClient(i = 0, { incorporato = false, accanto = VT_ACCA
       if (accanto && !CLIENT && AUTORE) { const bc = document.createElement('button'); bc.type = 'button'; bc.className = 'vt-corr'; bc.textContent = '🔗 Salva corrispondenza'; bc.title = 'Salva l\'immagine radiologica attuale e questa zona del vetrino come corrispondenza del caso (la vedono gli studenti dopo la risposta)'; bc.onclick = salvaCorrispondenza; box.querySelector('.vt-barra')?.insertBefore(bc, box.querySelector('.vt-info')); }
     }
     VT_APERTO.segnaChiavi?.(IC.lista.filter((c) => c.vt).length);
+    segniSulVetrino();
+    if (!CLIENT && AUTORE) { const bz = document.createElement('button'); bz.type = 'button'; bz.className = 'vt-zona'; bz.textContent = '🎯 Zona del reperto'; bz.title = 'Segna con un rettangolo dove si trova il reperto: si mostra agli studenti nella correzione e, nei casi di solo vetrino, serve per la domanda «indica sul vetrino»'; bz.onclick = salvaZonaVetrino; box.querySelector('.vt-barra')?.insertBefore(bz, box.querySelector('.vt-info')); }
     if (lista.length > 1) {
       const sel = document.createElement('select'); sel.className = 'vt-scegli';
       sel.innerHTML = lista.map((v, k) => `<option value="${k}"${k === i ? ' selected' : ''}>${esc(v.descrizione || 'Vetrino ' + (k + 1))}</option>`).join('');
@@ -12401,7 +12454,7 @@ if (document.documentElement.lang === 'en') {
   for (const [c, h] of [['bold', '<b>B</b>'], ['italic', '<i>I</i>'], ['underline', '<u>U</u>']]) { const b = qs1(`.ref-barra [data-cmd="${c}"]`); if (b) { b.innerHTML = h; b.classList.add('no-tr'); } }
 }
 
-if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && (location.search.includes('prova') || CLIENT)) window.__dbg = { apriVetrinoClient, get VT() { return VT_APERTO; }, mostraCorrispondenza, vistaRadiologica, IC, vaiIC, didascaliaBase, vaiChiaveDoc, dettagliTraccia, salvaAnnotazioni, misureMPREsporta, pixelDa, risultatiEco, immagineDi, normaleDi, ETICHETTE, statisticheROI, vistaDi, misureSR, graficiMisura, sommaMisureRecist, GPU2D, CPRS, CAC, CFIA, FIN_REF, vaiNoduloIA, calcioDa, mostraDi, anteprimaDi, esportaSEG, RAW, disegna, ricordaManiglie, fileDaManiglie, riapriUltimo, esportaGSPS, datiSessione, applicaSessione, CL, caricaClient, esportaClient, decodificaDicom, caricaCodec, misuraSotto, V, P, FUS, MPR, htmlSchede, elencoProfilo, impostaRiquadri, selezionaSerie, sincronizzaDa, collegaPunto, COLL, geometriaDi, aSchermo, aImmagine, volumeDa, seguiNelTempo, ANAT, cheStruttura, rispostaAnatomia, vaiAllaStruttura, etichetteImmagine, ECO, puntoEco, chiudiEco, geometria, mostra, isMultiEco, isCine, verificaEco, ME, CMR, autoCmr, puntoCmr, cifreCmr, recistDaMaschere, registraArchivio, ULTIMO, NOD, NODC, rett: rettangolo, puntiOMP, raddrizzaEncefalo, volumeDi, vaiPunto: async (w, k = V.attivo) => { const p = P(k); const t = await fettaVicina(p.frames, w, null).catch(() => null); if (t) await mostraDi(k, t.i); }, attiva: (k) => { V.attivo = k; } };
+if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && (location.search.includes('prova') || CLIENT)) window.__dbg = { apriVetrinoClient, get VT() { return VT_APERTO; }, mostraCorrispondenza, vistaRadiologica, mostraZonaVetrino, preparaLocalizza, IC, vaiIC, didascaliaBase, vaiChiaveDoc, dettagliTraccia, salvaAnnotazioni, misureMPREsporta, pixelDa, risultatiEco, immagineDi, normaleDi, ETICHETTE, statisticheROI, vistaDi, misureSR, graficiMisura, sommaMisureRecist, GPU2D, CPRS, CAC, CFIA, FIN_REF, vaiNoduloIA, calcioDa, mostraDi, anteprimaDi, esportaSEG, RAW, disegna, ricordaManiglie, fileDaManiglie, riapriUltimo, esportaGSPS, datiSessione, applicaSessione, CL, caricaClient, esportaClient, decodificaDicom, caricaCodec, misuraSotto, V, P, FUS, MPR, htmlSchede, elencoProfilo, impostaRiquadri, selezionaSerie, sincronizzaDa, collegaPunto, COLL, geometriaDi, aSchermo, aImmagine, volumeDa, seguiNelTempo, ANAT, cheStruttura, rispostaAnatomia, vaiAllaStruttura, etichetteImmagine, ECO, puntoEco, chiudiEco, geometria, mostra, isMultiEco, isCine, verificaEco, ME, CMR, autoCmr, puntoCmr, cifreCmr, recistDaMaschere, registraArchivio, ULTIMO, NOD, NODC, rett: rettangolo, puntiOMP, raddrizzaEncefalo, volumeDi, vaiPunto: async (w, k = V.attivo) => { const p = P(k); const t = await fettaVicina(p.frames, w, null).catch(() => null); if (t) await mostraDi(k, t.i); }, attiva: (k) => { V.attivo = k; } };
 
 $('#btn-vertebre')?.addEventListener('click', () => attivaVertebre(!VERT.attivo));
 $('#mpr-vertebre')?.addEventListener('click', () => attivaVertebre(!VERT.attivo));

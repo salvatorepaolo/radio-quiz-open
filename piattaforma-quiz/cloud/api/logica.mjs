@@ -422,6 +422,8 @@ const pulisciCaso = (id, d) => ({
   ...(pulisciScale(d.scale).length ? { scale: pulisciScale(d.scale) } : {}),
   // domanda sulla figura: lo studente indica il reperto, confrontato con il segno della vista
   ...(d.localizza ? { localizza: true } : {}),
+  // 1.303 zona del reperto sul vetrino (rettangolo in pixel della scansione): domanda sul vetrino e correzione
+  ...(pulisciZonaVetrino(d.zona_vetrino) ? { zona_vetrino: pulisciZonaVetrino(d.zona_vetrino) } : {}),
   // segmentazione con IA (TotalSegmentator) già calcolata: si può nascondere caso per caso
   ...(d.ia === false ? { ia: false } : {}),
   // funzioni per gli studenti scelte dall'amministratore caso per caso (assenti = attive)
@@ -591,6 +593,25 @@ function casoAtteso(caso) {
     caso.spiegazione ? `DISCUSSIONE DEL DOCENTE: ${String(caso.spiegazione).slice(0, 5000)}` : '',
   ].filter(Boolean).join('\n');
 }
+// 1.303 domanda sul vetrino: punto dello studente {vt, x, y} (pixel della scansione) rispetto alla zona del docente.
+// domanda: true → la domanda sulla figura del caso si fa sul vetrino (casi di solo vetrino); altrimenti la zona si mostra solo nella correzione.
+// «centrato» dentro la zona allargata del 15% del lato maggiore per parte, «vicino» entro un lato maggiore, altrimenti «mancato».
+export function pulisciZonaVetrino(z) {
+  if (!z || typeof z !== 'object' || !Array.isArray(z.r) || z.r.length !== 4 || !z.r.every((x) => Number.isFinite(+x))) return null;
+  const v = z.r.map((x) => Math.round(Math.max(0, Math.min(1e7, +x)))), r = [Math.min(v[0], v[2]), Math.min(v[1], v[3]), Math.max(v[0], v[2]), Math.max(v[1], v[3])];
+  if (r[2] - r[0] < 2 || r[3] - r[1] < 2) return null;
+  return { i: Math.round(Math.max(0, Math.min(50, Number(z.i) || 0))), r, nota: String(z.nota || '').trim().slice(0, 300), ...(z.domanda === true ? { domanda: true } : {}) };
+}
+export function valutaPuntoVetrino(zona, punto) {
+  if (!zona) return null;
+  if (!punto || !Number.isFinite(+punto.x) || !Number.isFinite(+punto.y) || !Number.isInteger(+punto.vt)) return { esito: 'assente' };
+  if (+punto.vt !== zona.i) return { esito: 'mancato', altroVetrino: true };
+  const [x0, y0, x1, y1] = zona.r, L = Math.max(x1 - x0, y1 - y0), x = +punto.x, y = +punto.y;
+  const dentro = (m) => x >= x0 - m && x <= x1 + m && y >= y0 - m && y <= y1 + m;
+  if (dentro(0.15 * L)) return { esito: 'centrato' };
+  if (dentro(L)) return { esito: 'vicino' };
+  return { esito: 'mancato' };
+}
 export function valutaPunto(vista, punto) {
   const sg = vista?.segno;
   if (!sg) return null;
@@ -646,7 +667,7 @@ export function controlliCaso(c) {
   const nota = c.nota_docente || '';
   if (/DA CONTROLLARE/.test(nota)) out.push('nota: DA CONTROLLARE');
   else if (/verificar|da controllare/i.test(nota) && !/confermat\w* dal docente/i.test(nota)) out.push('nota: da verificare');
-  if (c.localizza && !c.vista?.segno) out.push('domanda sulla figura senza segno');
+  if (c.localizza && !c.vista?.segno && !c.zona_vetrino?.domanda) out.push('domanda sulla figura senza segno');
   return out;
 }
 // Statistiche per caso dai risultati: solo il primo tentativo di ogni iscritto (non l'amministratore).
@@ -1943,7 +1964,7 @@ export async function gestisci(req, cfg) {
       const s = st[c.id];
       // difficoltà mostrata: quella calcolata dalle risposte quando ce ne sono abbastanza, altrimenti quella del docente
       return { id: c.id, titolo: c.titolo || c.id, distretto: c.distretto || '', difficolta: s?.livello || c.difficolta || '', modalita: c.modalita || '', quesito: c.quesito || '',
-        ...(s?.livello ? { difficoltaAuto: true, media: s.media, risposte: s.n } : {}), ...(c.localizza && c.vista?.segno ? { localizza: true } : {}),
+        ...(s?.livello ? { difficoltaAuto: true, media: s.media, risposte: s.n } : {}), ...(c.localizza && (c.vista?.segno || c.zona_vetrino?.domanda) ? { localizza: true } : {}),
         ...(c.mancato ? { mancato: true } : {}), ...(c.acquisizione ? { acquisizione: true } : {}), ...(c.esito_clinico ? { esitoNoto: true } : {}),
         // origine delle immagini: casi del Polime (predefinito) o da archivi pubblici (es. TCIA), tenuti separati nell'elenco
         ...(c.fonte?.archivio ? { origine: /TCIA|Cancer Imaging Archive/i.test(c.fonte.archivio) ? 'TCIA' : 'Archivio pubblico' } : {}),
@@ -2056,7 +2077,7 @@ export async function gestisci(req, cfg) {
     if (Array.isArray(c.sezioni)) c.sezioni = c.sezioni.map((z) => { if (!Number.isInteger(z.serie)) return z; const k = nuovoIdx(z.serie); const { serie: _, ...r } = z; return k >= 0 ? { ...r, serie: k } : r; });
     if (c.vista && Number.isInteger(c.vista.serie)) {
       const vs = c.vista.serie, k = nuovoIdx(vs), tolte = tolteIn[vs] || [];
-      if (k < 0 || tolte[c.vista.idx]) { delete c.vista; delete c.localizza; }
+      if (k < 0 || tolte[c.vista.idx]) { delete c.vista; if (!c.zona_vetrino?.domanda) delete c.localizza; }
       else c.vista = { ...c.vista, serie: k, idx: c.vista.idx - tolte.slice(0, c.vista.idx).filter(Boolean).length };
     }
     if (Array.isArray(c.correlazioni)) c.correlazioni = c.correlazioni.map((x) => { const vs = x.rx?.serie, k = nuovoIdx(vs), tolte = tolteIn[vs] || [];
@@ -2080,7 +2101,8 @@ export async function gestisci(req, cfg) {
     return { 'set-cookie': `qc=${val}; Path=/casi/${id}; Max-Age=${DURATA}; ${opzCookie.replace(/^Path=\/; /, "")}` };
   };
   if (metodo === 'GET' && azione === '') {
-    const { spiegazione, opzioni, vista, titolo_interno, nota_docente, localizza, scale, lezione, esito_clinico, proposta, regola, rassegna, fonte, comunicazione, correlazioni, ...resto } = caso;
+    const { spiegazione, opzioni, vista, titolo_interno, nota_docente, localizza, scale, lezione, esito_clinico, proposta, regola, rassegna, fonte, comunicazione, correlazioni, zona_vetrino, ...resto } = caso;
+    if (zona_vetrino && (autore || docente)) resto.zona_vetrino = zona_vetrino;   // agli studenti con la correzione
     if (comunicazione && (autore || docente)) resto.comunicazione = comunicazione;
     if (correlazioni?.length && (autore || docente)) resto.correlazioni = correlazioni;   // agli studenti con la correzione
     // fonte delle immagini: prima della risposta solo archivio e licenza (agli autori e ai docenti tutto)
@@ -2088,7 +2110,8 @@ export async function gestisci(req, cfg) {
     // scale: lo studente sa quali compilare, il risultato del docente arriva con la correzione (gli autori lo vedono subito)
     if (Array.isArray(scale) && scale.length) { resto.scaleRichieste = scale.map((x) => x.id); if (autore || docente) resto.scale = scale; }   // vista e titolo con la diagnosi: solo dopo la risposta / agli autori
     // domanda sulla figura: allo studente si dice solo in quale serie indicare il reperto
-    if (localizza && vista?.segno) resto.localizza = { serie: vista.serie };
+    if (localizza && zona_vetrino?.domanda) resto.localizza = { vetrino: zona_vetrino.i };   // domanda sul vetrino: solo quale vetrino
+    else if (localizza && vista?.segno) resto.localizza = { serie: vista.serie };
     return json(200, { ...resto, id, opzioni: (opzioni || []).map((o) => ({ testo: o.testo, ...(Number.isInteger(o.sezione) ? { sezione: o.sezione } : {}) })) }, await cookieImmagini());
   }
   if (metodo === 'GET' && azione === 'completo') {
@@ -2144,7 +2167,7 @@ export async function gestisci(req, cfg) {
       r.punteggio = vr.punteggio; r.perfetta = false; r.refertoAuto = vr; r.modo = 'referto';
     }
     // domanda sulla figura: la localizzazione pesa il 20% del punteggio e serve per la risposta perfetta
-    const loc = caso.localizza ? valutaPunto(caso.vista, dati.punto) : null;
+    const loc = !caso.localizza ? null : caso.zona_vetrino?.domanda ? valutaPuntoVetrino(caso.zona_vetrino, dati.punto) : valutaPunto(caso.vista, dati.punto);
     if (loc) {
       r.localizzazione = loc;
       r.punteggio = Math.round(r.punteggio * 0.8 + (loc.esito === 'centrato' ? 20 : loc.esito === 'vicino' ? 10 : 0));
@@ -2169,6 +2192,7 @@ export async function gestisci(req, cfg) {
     if (caso.vista) pubblico.vista = caso.vista;
     if (caso.lezione) pubblico.lezione = caso.lezione;
     if (caso.correlazioni?.length) pubblico.correlazioni = caso.correlazioni;
+    if (caso.zona_vetrino) pubblico.zonaVetrino = caso.zona_vetrino;
     if (caso.regola) pubblico.regola = caso.regola;
     // altri casi con lo stesso segno: solo quelli pubblicati, con il titolo che vedono gli studenti
     if (caso.rassegna?.length) {
