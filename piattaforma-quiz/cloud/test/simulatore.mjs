@@ -144,7 +144,7 @@ const server = http.createServer(async (q, s) => {
     if (strumenta && file.startsWith(WEB) && file.endsWith('.js') && !/\/(lib|backup_vista|client)\/|worker|\/sw\.js$/.test(file)) {
       s.writeHead(200, { 'content-type': 'text/javascript', 'content-security-policy': CSP, 'cache-control': 'no-store' }); return s.end(strumenta(file)); }
     // come S3: lunghezza e «accept-ranges» anche senza Range (e per HEAD, che usano i lettori a pezzi nei worker, es. iSyntax)
-    s.writeHead(200, { 'content-type': mime[path.extname(file)] || 'application/octet-stream', 'content-security-policy': CSP, ...(file.startsWith(CASI) ? { 'content-length': tot, 'accept-ranges': 'bytes' } : {}) });
+    s.writeHead(200, { 'content-type': mime[path.extname(file)] || 'application/octet-stream', 'content-security-policy': CSP, ...(file.startsWith(CASI) || u.pathname.startsWith('/esempi/') ? { 'content-length': tot, 'accept-ranges': 'bytes' } : {}) });
     if (q.method === 'HEAD') return s.end();
     fs.createReadStream(file).pipe(s);
   } catch (e) { console.error(e); s.writeHead(500); s.end(String(e?.message || e)); }

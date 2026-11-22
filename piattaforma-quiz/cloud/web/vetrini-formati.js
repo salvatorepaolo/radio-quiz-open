@@ -230,6 +230,29 @@ async function livelloNdpi(T, d, chiave) {
 }
 
 // ------------------------------------------------------------------------------------------------ vetrino TIFF
+// Frame numerati da 1 a serpentina a partire dal basso a sinistra (righe alternate da sinistra e da destra); «LEFT»: Tile1 a
+// sinistra di Tile2, «UP»: Tile1 sopra Tile2. Solo un'area di scansione (AOI) e frame grandi quanto le tessere del TIFF.
+function sovrapposizioniBif(x, L) {
+  const aoi = [...x.matchAll(/<AoiInfo\b[^>]*>/g)];
+  if (aoi.length !== 1) return;
+  const at = (k) => +(new RegExp(`${k}="(\\d+)"`).exec(aoi[0][0])?.[1] || 0);
+  const nc = at('NumCols'), nr = at('NumRows');
+  if (!nc || !nr || at('XIMAGESIZE') !== L.tw || at('YIMAGESIZE') !== L.th) return;
+  const cella = (n) => { const r = Math.floor((n - 1) / nc), i = (n - 1) % nc; return [r % 2 ? nc - 1 - i : i, nr - 1 - r]; };
+  const sx = new Map(), sy = new Map();   // sovrapposizione a destra di ogni frame, sotto ogni frame
+  for (const m of x.matchAll(/<TileJointInfo\b[^>]*?Direction="(\w+)"[^>]*?Tile1="(\d+)"[^>]*?Tile2="(\d+)"[^>]*?OverlapX="(-?\d+)"[^>]*?OverlapY="(-?\d+)"/gs)) {
+    const [, d, t1, t2, ox, oy] = m, a = cella(+t1), b = cella(+t2);
+    if (d === 'LEFT' && +ox) { const sx0 = a[0] < b[0] ? a : b; sx.set(`${sx0[0]},${sx0[1]}`, +ox); }
+    if (d === 'UP' && +oy) { const su = a[1] < b[1] ? a : b; sy.set(`${su[0]},${su[1]}`, +oy); }
+  }
+  if (!sx.size && !sy.size) return;
+  L.pos = new Map();
+  const NC = Math.ceil(L.W / L.tw), NR = Math.ceil(L.H / L.th);   // il TIFF può avere una colonna o una riga in più dell'area
+  for (let r = 0; r < NR; r++) { let dx = 0; for (let c = 0; c < NC; c++) { if (c) dx += sx.get(`${c - 1},${r}`) || 0; L.pos.set(`${c},${r}`, [c * L.tw - dx, r * L.th]); } }
+  for (let c = 0; c < NC; c++) { let dy = 0; for (let r = 1; r < NR; r++) { dy += sy.get(`${c},${r - 1}`) || 0; const p = L.pos.get(`${c},${r}`); p[1] -= dy; } }
+  L.trova = (x0, y0, w, h) => { const o = []; for (let b = Math.max(0, Math.floor(y0 / L.th) - 1); b <= Math.floor((y0 + h) / L.th) + 1; b++) for (let a = Math.max(0, Math.floor(x0 / L.tw) - 1); a <= Math.floor((x0 + w) / L.tw) + 1; a++) {
+    if (!L.voci.has(`${a},${b},0,0`)) continue; const p = L.pos.get(`${a},${b}`) || [a * L.tw, b * L.th]; if (p[0] < x0 + w && p[0] + L.tw > x0 && p[1] < y0 + h && p[1] + L.th > y0) o.push([a, b]); } return o; };
+}
 const rapporto = (d) => uno(d, 256) / Math.max(1, uno(d, 257));
 function micronPerPixel(T, d0, desc, W) {
   let m = /MPP\s*=\s*([\d.]+)/i.exec(desc); if (m) return +m[1];                                         // Aperio
@@ -240,8 +263,10 @@ function micronPerPixel(T, d0, desc, W) {
   if (m && px) return (+m[1] / +px[1]) / 1000;
   const xmp = testoTag(d0, 700); m = /ScanRes="([\d.]+)"/i.exec(xmp); if (m) return +m[1];               // Ventana BIF
   const x = uno(d0, 282), u = uno(d0, 296, 2);
-  if (x > 0 && u === 3) return 1e4 / x; if (x > 0 && u === 2 && x > 1000) return 25400 / x;               // pixel per cm / per pollice
-  return null;
+  // pixel per cm / per pollice; valori fuori dal possibile per un vetrino (es. 10 pixel per cm lasciati dal programma che ha
+  // scritto il TIFF) non sono una calibrazione
+  const r = x > 0 && u === 3 ? 1e4 / x : x > 0 && u === 2 ? 25400 / x : null;
+  return r && r >= 0.05 && r <= 50 ? r : null;
 }
 // Leica SCN: XML nell'IFD 0 con le immagini della collezione (panoramica del vetrino e una o più zone di tessuto), i loro
 // IFD per livello e canale, la dimensione reale in nm e i canali di fluorescenza con nome e colore
@@ -297,6 +322,10 @@ export async function vetriniTiff(f) {
   const nomiCanali = [...desc(T.ifd[0]).matchAll(/<Channel[^>]*Name="([^"]*)"/gi)].map((m) => m[1]);
   for (let c = 0; c < nc; c++) canali.push({ id: String(c + 1), nome: nomiCanali[c] || scn?.canali[c]?.nome || '', onda: 0 });
   for (const L of livelli) { L.ds = L0.W / L.W; L.zLista = [0]; }
+  // Ventana BIF: le immagini della fotocamera (frame) si sovrappongono di qualche pixel (TileJointInfo nell'XMP del livello 0);
+  // nel livello pieno ogni tessera va spostata della somma delle sovrapposizioni alla sua sinistra e sopra (XMP oltre 64 kB:
+  // si legge qui, non con l'IFD)
+  try { const t = base.tag[700], x = t?.tardi ? (t.cnt < 1 << 24 ? new TextDecoder().decode(await T.leggi(t.voff, t.cnt)) : '') : testoTag(base, 700); if (/<EncodeInfo/.test(x)) sovrapposizioniBif(x, L0); } catch (e) { console.warn('BIF: sovrapposizioni non lette', e.message); }
   const COL = [[40, 110, 255], [0, 255, 0], [255, 40, 40], [255, 0, 255], [0, 255, 255], [255, 255, 0], [255, 140, 0], [255, 255, 255]];
   canali.forEach((c, k) => { c.colore = mono ? (nc === 1 ? [255, 255, 255] : scn?.canali[k]?.colore || COL[k % COL.length]) : null; c.acceso = true; c.guadagno = 1; c.max = null; });
   const um = scn?.um || micronPerPixel(T, T.ifd[0], desc(base) + '\n' + desc(T.ifd[0]), L0.W);

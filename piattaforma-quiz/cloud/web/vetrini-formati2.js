@@ -173,8 +173,22 @@ async function vetriniVsi(f, files) {
   return [{ W: L0.W, H: L0.H, sp: um ? [um / 1000, um / 1000] : null, serie: `${f.percorso || f.name}|vsi`, livelli, piani: [0], canali, mono, bitsSt: 8,
     descrizione: nome, formato: 'Olympus VSI', etichetta: null, panoramica, studio: `${f.percorso || f.name}|vsi` }];
 }
-// dimensione del pixel dal file .vsi: il valore «Calibrazione» si cerca come coppia di double vicina all'etichetta testuale
-async function micronVsi(f) { return null; }
+// dimensione del pixel dal file .vsi: nell'albero dei metadati (formato cellSens, come lo legge Bio-Formats) il campo 2019
+// (scala del fotogramma, µm per pixel in x e y) è un array di due double: tipo 0x104, id 2019, lunghezza 16. Ce n'è uno per
+// immagine (panoramica, vetrino): il più piccolo è quello dell'immagine a piena risoluzione. Sulla piattaforma il .vsi è un
+// segnaposto (prepara_vetrino.py) che riporta solo «um=<valore>»
+async function micronVsi(f) {
+  if (!f.size || f.size > 64 << 20) return null;
+  const b = new Uint8Array(await f.arrayBuffer());
+  const t = /\bum=([\d.]+)/.exec(new TextDecoder().decode(b.subarray(0, 256))); if (t && f.size <= 256) return +t[1] || null;
+  const dv = new DataView(b.buffer, b.byteOffset, b.byteLength); let um = null;
+  for (let i = 0; i + 32 <= b.length; i++) {
+    if (b[i] !== 0x04 || b[i + 1] !== 0x01 || dv.getUint32(i, true) !== 0x104 || dv.getUint32(i + 4, true) !== 2019 || dv.getUint32(i + 12, true) !== 16) continue;
+    const x = dv.getFloat64(i + 16, true), y = dv.getFloat64(i + 24, true);
+    if (x > 0.01 && x < 1000 && Math.abs(y / x - 1) < 0.05 && (um === null || x < um)) um = x;
+  }
+  return um;
+}
 export const vsi = (f, files) => vetriniVsi(f, files);
 
 // ------------------------------------------------------------------------------------------------ Philips iSyntax

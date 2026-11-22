@@ -169,7 +169,7 @@ async function tessera(L, k) {
   if (L.tesseraPropria) return L.tesseraPropria(k);   // formati con decodifica propria (CZI): { bm } oppure { pix, w, h, spp, bits }
   const t = tipoTs(L.ts), colore = L.spp === 3, P = { w: L.tw, h: L.th, spp: L.spp, bits: L.bits, conSegno: L.conSegno, foto: L.foto, piani: L.piani };
   if (!t) throw new Error('compressione delle tessere non supportata: ' + L.ts);
-  if ((t === 'jpeg' && colore) || t in MIME) {
+  if ((t === 'jpeg' && colore) || (t !== 'jpeg' && t in MIME)) {   // JPEG monocromatiche (fluorescenza): campioni dal decodificatore
     const b = await byteFotogramma(L, k);
     try { const bm = await createImageBitmap(new Blob([b], { type: MIME[t] })); DEC.browser++; return { bm }; }
     catch { if (t === 'jxl') throw new Error('questo browser non legge le tessere JPEG XL (Safari sì)'); if (t !== 'jpeg') throw new Error(`tessera ${t.toUpperCase()} non leggibile`); }   // JPEG: libjpeg-turbo

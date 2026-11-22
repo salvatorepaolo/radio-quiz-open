@@ -212,6 +212,16 @@ def immagini_czi(path):
 
 # ------------------------------------------------------------------------------------------------ MRXS
 SEGNAPOSTO = b'radio-quiz: file principale senza immagini (tolte)\n'
+def micron_vsi(p):
+    # µm per pixel dal .vsi (formato cellSens): campo 2019 (scala del fotogramma), array di due double; il più piccolo è
+    # quello dell'immagine a piena risoluzione (lo stesso che cerca vetrini-formati2.js)
+    d = open(p, 'rb').read(); um = None; i = d.find(b'\x04\x01\x00\x00\xe3\x07\x00\x00')
+    while i >= 0:
+        if i + 32 <= len(d) and struct.unpack_from('<I', d, i + 12)[0] == 16:
+            x, y = struct.unpack_from('<dd', d, i + 16)
+            if 0.01 < x < 1000 and abs(y / x - 1) < 0.05 and (um is None or x < um): um = x
+        i = d.find(b'\x04\x01\x00\x00\xe3\x07\x00\x00', i + 1)
+    return um
 def mrxs_parti(mrxs):
     d = os.path.join(os.path.dirname(mrxs), os.path.splitext(os.path.basename(mrxs))[0]); return d
 def leggi_ini(p):
@@ -322,8 +332,10 @@ def prepara(src, caso, descr):
     elif fm == 'vsi':
         nome = os.path.splitext(os.path.basename(src))[0]; ets = sorted(glob.glob(os.path.join(os.path.dirname(src), f'_{nome}_', '**', '*.ets'), recursive=True), key=os.path.getsize)
         if not ets: raise SystemExit('VSI: file .ets non trovati')
-        principale = os.path.join(dst, 'vetrino.vsi'); open(principale, 'wb').write(SEGNAPOSTO)
-        rel = os.path.join('vetrino_ets', 'stack1', 'frame_t.ets')   # niente «_» iniziale: il sito non pubblica le cartelle che cominciano così; os.makedirs(os.path.dirname(os.path.join(dst, rel))); shutil.copyfile(ets[-1], os.path.join(dst, rel))
+        principale = os.path.join(dst, 'vetrino.vsi'); um = micron_vsi(src)
+        open(principale, 'wb').write(SEGNAPOSTO + (f'um={um:.5f}\n'.encode() if um else b''))   # calibrazione: la legge il visualizzatore
+        rel = os.path.join('vetrino_ets', 'stack1', 'frame_t.ets')   # niente «_» iniziale: il sito non pubblica le cartelle che cominciano così
+        os.makedirs(os.path.dirname(os.path.join(dst, rel))); shutil.copyfile(ets[-1], os.path.join(dst, rel))
         files = ['vetrino.vsi', rel]
     else:
         est = {'tiff': os.path.splitext(src)[1].lower() or '.tiff', 'czi': '.czi', 'isyntax': '.isyntax'}[fm]

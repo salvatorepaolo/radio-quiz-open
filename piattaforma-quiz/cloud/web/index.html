@@ -319,10 +319,27 @@
         <button type="button" id="cl-esempio" class="cl-btn">🧪 Prova con un esame di esempio</button>
         <button type="button" id="cl-guida-apri" class="cl-btn">❔ Guida rapida</button>
         <a id="cl-esempio-scarica" href="/esempi/tc-addome-esempio.zip" download class="small">o scaricalo (.zip, 38 MB)</a>
-        <button type="button" id="cl-esempio-vetrino" class="cl-btn">🔬 Prova con un vetrino di esempio</button>
+        <span class="cl-esempio-vetrino">
+          <button type="button" id="cl-esempio-vetrino" class="cl-btn">🔬 Prova con un vetrino di esempio</button>
+          <select id="cl-esempio-formato" aria-label="Formato del vetrino di esempio" title="Un vetrino di prova per ogni formato dei produttori">
+            <option value="zip">Aperio SVS, JPEG 2000 (aorta)</option>
+            <option value="aperio-svs">Aperio SVS, JPEG</option>
+            <option value="hamamatsu-ndpi">Hamamatsu NDPI</option>
+            <option value="tiff-generico">TIFF piramidale generico</option>
+            <option value="huron-tif">Huron TIFF</option>
+            <option value="ventana-bif">Roche Ventana BIF</option>
+            <option value="philips-tiff">Philips TIFF</option>
+            <option value="philips-isyntax">Philips iSyntax</option>
+            <option value="leica-scn">Leica SCN, fluorescenza</option>
+            <option value="mirax-mrxs">3DHISTECH MRXS</option>
+            <option value="zeiss-czi">Zeiss CZI, JPEG XR</option>
+            <option value="olympus-vsi">Olympus VSI</option>
+          </select>
+        </span>
         <a id="cl-esempio-vetrino-scarica" href="/esempi/vetrino-esempio.zip" download class="small">o scaricalo (.zip, 69 MB)</a>
         <p class="cl-nota">Non hai un esame a portata di mano? TC dell'addome con mezzo di contrasto in fase arteriosa, 137 immagini: da The Cancer Imaging Archive (TCIA), collezione TCGA-KICH, licenza <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a> (<a href="https://doi.org/10.7937/K9/TCIA.2016.YU3RBCZN" target="_blank" rel="noopener">citazione</a>). Si scarica da internet (38 MB) e si apre qui, come un esame del tuo computer.</p>
         <p class="cl-nota">Vetrino di esempio: sezione di aorta in ematossilina-eosina, 40× (0,25 µm per pixel), 3 livelli di ingrandimento più miniatura, etichetta e panoramica, tessere JPEG 2000. Dai dati di prova liberamente distribuibili di <a href="https://openslide.org/" target="_blank" rel="noopener">OpenSlide</a> (Carnegie Mellon University); l'etichetta riporta solo un numero di laboratorio.</p>
+        <p class="cl-nota">Vetrini di esempio negli altri formati: dai dati di prova di OpenSlide e, per iSyntax, dalla slide di prova di OpenPhi (licenza MIT). Si leggono dal sito a pezzi: si scarica solo la parte che guardi. Sono senza etichetta e panoramica, tolte come per i casi della piattaforma.</p>
       </div>
     </section>
     <p id="cl-stato" class="stato"></p>

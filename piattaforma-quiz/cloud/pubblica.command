@@ -314,11 +314,11 @@ NOPUB=(--exclude "*.bak*" --exclude "*.map" --exclude "backup_vista/*" --exclude
 # copia da caricare in .web-pub con app.js e style.css ridotti (minifica.mjs, esbuild): un terzo in meno
 # da leggere per il browser e circa un quinto in meno da scaricare; web/ resta com'è. Se la riduzione non riesce si carica web/.
 PUB="${STATICO}"
-if rsync -a --delete --exclude "/casi" --exclude "*.DS_Store" "${NOPUB[@]}" "${STATICO}/" ".web-pub/" \
+if rsync -a --delete --exclude "/casi" --exclude "/esempi/vetrini" --exclude "*.DS_Store" "${NOPUB[@]}" "${STATICO}/" ".web-pub/" \
    && node minifica.mjs .web-pub > .log-minifica.txt 2>&1 && node --check .web-pub/app.js; then
   PUB=".web-pub"; ok "$(tail -1 .log-minifica.txt)"
 else info "riduzione di app.js non riuscita (dettaglio in cloud/.log-minifica.txt): carico i file originali"; fi
-aws s3 sync "${PUB}" "s3://${SITO}/" --delete --exclude "casi/*" --exclude "*.DS_Store" --exclude "lib/*" "${NOPUB[@]}" \
+aws s3 sync "${PUB}" "s3://${SITO}/" --delete --exclude "casi/*" --exclude "esempi/vetrini/*" --exclude "*.DS_Store" --exclude "lib/*" "${NOPUB[@]}" \
     --cache-control "no-cache" --only-show-errors \
   || { errore "Caricamento della pagina non riuscito."; fine 1; }
 GIA_BR=(); [ -n "${BR_MPR}" ] && GIA_BR+=(--exclude "mpr3d.js"); [ -n "${BR_LLM}" ] && GIA_BR+=(--exclude "webllm.js")
@@ -336,6 +336,16 @@ for X in "mpr3d.js|${BR_MPR}" "webllm.js|${BR_LLM}"; do
       || { errore "Caricamento di lib/${NOME} non riuscito."; fine 1; }
   fi
 done
+# 1.305 vetrini di esempio del client, uno per formato (web/esempi/vetrini, ~1,7 GB, non in git; si rifanno con
+# strumenti_claude/esempi_vetrini/prepara.py): solo sul sito pubblico, a parte dalla cartella web/ (non si copiano in
+# .web-pub), solo i file cambiati, cache di un giorno; l'elenco per ultimo e sempre ricontrollato. Se non riesce il resto è online
+if [ "${MODO}" = "vetrina" ] && [ -f "${STATICO}/esempi/vetrini/elenco.json" ]; then
+  if aws s3 sync "${STATICO}/esempi/vetrini" "s3://${SITO}/esempi/vetrini/" --delete --exclude "*.DS_Store" --exclude "elenco.json" "${NOPUB[@]}" \
+       --cache-control "max-age=86400" --only-show-errors \
+     && aws s3 cp "${STATICO}/esempi/vetrini/elenco.json" "s3://${SITO}/esempi/vetrini/elenco.json" --cache-control "no-cache" \
+       --content-type "application/json; charset=utf-8" --only-show-errors; then ok "vetrini di esempio aggiornati"
+  else info "vetrini di esempio non caricati (riprova alla prossima pubblicazione)"; fi
+fi
 # e se ne erano finite online in passato, si tolgono (solo queste copie, mai i casi)
 aws s3 rm "s3://${SITO}/" --recursive --exclude "*" --include "*.bak*" --include "*.map" --include "backup_vista/*" --include "*~" --include "*.orig" --exclude "casi/*" --only-show-errors \
   || { errore "Pulizia delle copie di lavoro non riuscita."; fine 1; }

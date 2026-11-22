@@ -2558,3 +2558,5 @@ body.solo-immagini #vista-caso .viewer{padding:4px}
 .gg-conto [data-logo][hidden] { display: none; }
 
 .vt-avviso-dati{margin:.4rem 0 0;color:var(--muted,#666)}.vt-avviso-dati.trovato{color:#b45309;font-weight:600}
+.cl-esempio-vetrino{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px}
+.cl-esempio-vetrino select{max-width:240px}

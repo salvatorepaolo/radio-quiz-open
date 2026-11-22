@@ -2,7 +2,7 @@
 // /client/index.html (e ogni pagina sotto /client/) riceve la pagina del sito; /client/<file> → /<file>.
 // Prima la rete (aggiornamenti), poi la copia salvata. /api/ e /casi/ non passano di qui. Nessun dato del paziente
 // viene salvato: in cache vanno solo i file del sito.
-const CACHE = 'rq-client-14';
+const CACHE = 'rq-client-15';
 const PROPRI = /^\/client\/(sw\.js|avvio\.js|manifest\.json|icona-\d+\.png)$/;
 const FILE = ['/index.html', '/app.js', '/style.css', '/logo.svg', '/versione.json', '/licenze.html', '/anonimizza.js', '/analisi.js', '/cmr.js', '/ecosemi.js',
   '/t2star.js', '/refertolocale.js', '/scale.js', '/scale-dati.js', '/scale-indice.js', '/prima.js', '/rotta.js', '/cmr-ui.js', '/docenti.js', '/gestione-sito.js', '/noduli-client.js', '/noduli-worker.js', '/aiuto.json', '/schede.json', '/modelli-referto.json', '/protocolli.json', '/percorsi.json',

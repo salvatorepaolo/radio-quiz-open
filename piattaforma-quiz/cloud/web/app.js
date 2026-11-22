@@ -10411,7 +10411,23 @@ function avviaClient() {
     } finally { b.disabled = false; }
   };
   $('#cl-esempio')?.addEventListener('click', (e) => scaricaEsempio(e.currentTarget, '/esempi/tc-addome-esempio.zip', 'TC-addome-esempio_TCIA-TCGA-KICH.zip', false));
-  $('#cl-esempio-vetrino')?.addEventListener('click', (e) => scaricaEsempio(e.currentTarget, '/esempi/vetrino-esempio.zip', 'vetrino-esempio_aorta_OpenSlide.zip', true));
+  // 1.305 vetrini di esempio negli altri formati (uno per formato, ripuliti con prepara_vetrino.py): si leggono dal sito a pezzi
+  // come i vetrini dei casi, senza scaricarli interi; l'elenco (file e dimensioni) si chiede solo al clic
+  const apriVetrinoEsempio = async (b, id) => {
+    const st = (t, tipo = '') => { const el = $('#cl-stato'); el.textContent = t; el.className = 'stato ' + tipo; };
+    b.disabled = true; st('Apro il vetrino di esempio…');
+    try {
+      const r = await fetch('/esempi/vetrini/elenco.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error(r.status === 404 ? 'in questa installazione non c\'è' : 'file non disponibile (' + r.status + ')');
+      const v = (await r.json()).find((x) => x.id === id); if (!v) throw new Error('in questa installazione non c\'è');
+      dimenticaManiglie(); await caricaClient(v.files.map((p, k) => fileRemoto(`/esempi/vetrini/${id}/${p}`, v.dimensioni[k])));
+    } catch (x) { st(x.name === 'TypeError' ? 'Vetrino di esempio non aperto: serve la connessione a internet.' : 'Vetrino di esempio non disponibile: ' + x.message + '.', 'errore'); }
+    finally { b.disabled = false; }
+  };
+  const formatoEs = $('#cl-esempio-formato');
+  formatoEs?.addEventListener('change', () => { $('#cl-esempio-vetrino-scarica').hidden = formatoEs.value !== 'zip'; });
+  $('#cl-esempio-vetrino')?.addEventListener('click', (e) => { const id = formatoEs?.value || 'zip';
+    if (id === 'zip') scaricaEsempio(e.currentTarget, '/esempi/vetrino-esempio.zip', 'vetrino-esempio_aorta_OpenSlide.zip', true); else apriVetrinoEsempio(e.currentTarget, id); });
   initArchivio().catch((e) => console.warn('archivio', e)); initPacs();
   $('#cl-ultimo').onclick = () => riapriUltimo(false).catch((x) => { $('#cl-stato').textContent = 'Non riesco a riaprire l\'ultimo esame: ' + x.message; });
   mostraUltimo();
@@ -12163,7 +12179,7 @@ function fileRemoto(url, size, base = 0) {
   // file del sito letto a pezzi (richieste parziali), con la stessa interfaccia di File: name, size, slice() (anche annidata,
   // per gli allegati dei CZI), arrayBuffer(). «percorso» distingue i file con lo stesso nome in casi diversi; webkitRelativePath
   // (relativo al caso) serve ai formati a più file (MRXS, VSI) per riconoscere la cartella
-  const nome = url.split('/').pop(), rel = url.replace(/^\/casi\/[^/]+\//, '');
+  const nome = url.split('/').pop(), rel = url.replace(/^\/(casi|esempi\/vetrini)\/[^/]+\//, '');
   const leggi = async (a, b) => {
     const fine = Math.min(b ?? size, size) - 1; if (fine < a) return new ArrayBuffer(0);
     const r = await fetch(url, { credentials: 'same-origin', headers: { Range: `bytes=${base + a}-${base + fine}` } });
