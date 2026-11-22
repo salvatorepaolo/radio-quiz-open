@@ -19,7 +19,7 @@ const misura = (p) => p.evaluate(() => {
   const barra = r('#vista-caso .barra-unica'), img = r('#mpr') || r('#stage'), serie = r('#vista-caso aside.serie'), h = document.querySelector('header.top'), bu = document.querySelector('#vista-caso .barra-unica');
   const fondo = serie && serie.top > (img?.top || 0) ? serie.top : innerHeight;
   return { buco: img && barra ? Math.round(img.top - barra.bottom) : null, quota: img && barra ? +((img.height) / (fondo - barra.bottom)).toFixed(2) : null,
-    hImg: img ? Math.round(img.height) : 0, debordoTesta: h.scrollWidth - h.clientWidth, debordoBarra: bu ? bu.scrollWidth - bu.clientWidth : 0, mpr: !!r('#mpr') };
+    hImg: img ? Math.round(img.height) : 0, hBarra: barra ? Math.round(barra.height) : 0, debordoTesta: h.scrollWidth - h.clientWidth, debordoBarra: bu ? bu.scrollWidth - bu.clientWidth : 0, mpr: !!r('#mpr') };
 });
 try {
   for (const [w, hh] of [[1290, 900], [1440, 900], [1920, 1080], [1000, 800]]) {
@@ -32,6 +32,20 @@ try {
     await p.click('#modo-mpr'); await p.waitForFunction(() => window.__dbg?.MPR?.attivo && document.querySelector('#vp-assiale canvas'), null, { timeout: 120000 }); await p.waitForTimeout(2000);
     const dm = await misura(p);
     esito(dm.mpr && dm.buco !== null && dm.buco <= 20 && dm.quota >= 0.8 && dm.debordoTesta <= 1, `${w}×${hh} MPR + 3D: viste subito sotto la barra e grandi (niente spazio vuoto)`, JSON.stringify(dm));
+    // 1.302 barra MPR: non esce dallo schermo; con lo schermo largo al massimo due righe
+    esito(dm.debordoBarra <= 1 && (w < 1280 || dm.hBarra <= 110), `${w}×${hh} MPR + 3D: barra degli strumenti dentro lo schermo${w >= 1280 ? ', al massimo due righe' : ''}`, `alta ${dm.hBarra} px, deborda ${dm.debordoBarra} px`);
+    if (w === 1440) {
+      await p.click('#menu-mpr-avanzate > summary'); await p.waitForTimeout(300);
+      const av = await p.evaluate(() => ({ aperto: document.querySelector('#menu-mpr-avanzate').open, voci: [...document.querySelectorAll('#menu-mpr-avanzate .menu-pop > *')].filter((e) => e.getBoundingClientRect().width).length, cpr: !!document.querySelector('#menu-mpr-avanzate #btn-cpr') }));
+      esito(av.aperto && av.voci >= 8 && av.cpr, 'menu «⚙ Avanzate»: lettino, osso, gabbia, ritaglio, segmentazione, CPR, vertebre, serie', JSON.stringify(av));
+      await p.keyboard.press('Escape'); await p.waitForTimeout(200);
+      // solo immagini (tasto F): le viste occupano quasi tutta la finestra; F di nuovo le barre
+      await p.mouse.click(5, hh - 5).catch(() => {}); await p.keyboard.press('f'); await p.waitForTimeout(800);
+      const si = await p.evaluate(() => { const m = document.querySelector('#mpr').getBoundingClientRect(); return { h: Math.round(m.height), top: Math.round(m.top), barra: getComputedStyle(document.querySelector('#vista-caso .barra-unica')).display, testa: getComputedStyle(document.querySelector('header.top')).display, esci: !document.querySelector('#esci-solo-imm').hidden }; });
+      esito(si.barra === 'none' && si.testa === 'none' && si.top < 20 && si.h > hh * 0.85 && si.esci, 'tasto F → solo immagini: viste a tutta finestra, pulsante per tornare', JSON.stringify(si));
+      await p.keyboard.press('f'); await p.waitForTimeout(600);
+      esito(await p.evaluate(() => getComputedStyle(document.querySelector('#vista-caso .barra-unica')).display !== 'none' && !document.body.classList.contains('solo-immagini')), 'F di nuovo → barre visibili');
+    }
     await ctx.close();
   }
   // vetrino accanto all'esame

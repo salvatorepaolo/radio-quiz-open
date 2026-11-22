@@ -261,6 +261,16 @@
       </div>
     </header>
 
+    <section id="cl-guida" class="cl-guida" hidden aria-labelledby="cl-guida-tit">
+      <h2 id="cl-guida-tit">Come si usa, in 30 secondi</h2>
+      <ol>
+        <li><b>Apri un esame</b><span>Trascina qui sotto una cartella, un CD, dei file DICOM o un archivio .zip, oppure usa «Apri cartella». Per provare subito: «🧪 Prova con un esame di esempio».</span></li>
+        <li><b>Leggi le immagini</b><span>Rotellina o tasto sinistro trascinato: scorri · tasto destro: finestra · 1-7: finestre preimpostate · R distanza, E ROI · «MPR + 3D» per le ricostruzioni · F: solo immagini · ?: tutti i tasti.</span></li>
+        <li><b>Referta</b><span>K: immagine chiave · I: misure nel referto · «📝 Referto» per stampa, PDF e Word.</span></li>
+        <li><b>I dati restano qui</b><span>Le immagini non vengono inviate a nessuno: tutto avviene nel browser di questo computer, anche senza rete.</span></li>
+      </ol>
+      <p class="cl-guida-az"><button type="button" class="primary" id="cl-guida-ok">Ho capito</button></p>
+    </section>
     <section id="cl-zona" class="cl-zona" aria-label="Apri un esame">
       <div class="cl-zona-icona"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 10v6M9 13l3-3 3 3"/></svg></div>
       <h2>Trascina qui una cartella o dei file DICOM</h2>
@@ -271,6 +281,7 @@
       <p class="cl-nota">CD con DICOMDIR, cartelle, file o archivi .zip · TC, RM, RX, mammografia, ecografia (anche clip), angiografia, PET-TC · DICOM compressi (JPEG, JPEG 2000, JPEG-LS, RLE)</p>
       <div id="cl-esempio-box" class="cl-esempio" hidden>
         <button type="button" id="cl-esempio" class="cl-btn">🧪 Prova con un esame di esempio</button>
+        <button type="button" id="cl-guida-apri" class="cl-btn">❔ Guida rapida</button>
         <a id="cl-esempio-scarica" href="/esempi/tc-addome-esempio.zip" download class="small">o scaricalo (.zip, 38 MB)</a>
         <button type="button" id="cl-esempio-vetrino" class="cl-btn">🔬 Prova con un vetrino di esempio</button>
         <a id="cl-esempio-vetrino-scarica" href="/esempi/vetrino-esempio.zip" download class="small">o scaricalo (.zip, 69 MB)</a>
@@ -507,7 +518,7 @@
       <details class="cl-aggiungi cl-altro" id="cl-altro"><summary class="btn" title="Altre funzioni: collega finestre, disposizione automatica, dati del paziente, manuale" aria-label="Altre funzioni">⋯</summary>
         <div class="cl-aggiungi-voci">
           <label class="check" title="Le finestre seguono posizione, finestra (W/L) e zoom della finestra in cui lavori"><input type="checkbox" id="cl-sincro" checked> collega finestre</label>
-          <span class="cl-hp"><button id="hp-ricorda" type="button" title="Ricorda questa disposizione per gli esami dello stesso tipo">📌 Ricorda</button><label class="check" title="All'apertura lo schermo si organizza da solo secondo il tipo di esame"><input type="checkbox" id="hp-auto" checked> disposizione automatica</label></span>
+          <span class="cl-hp"><button id="hp-ricorda" type="button" title="Ricorda questa disposizione per gli esami dello stesso tipo">📌 Ricorda</button><label class="check" title="All'apertura lo schermo si organizza da solo secondo il tipo di esame"><input type="checkbox" id="hp-auto" checked> disposizione automatica</label><button id="hp-regole" type="button" title="Quali disposizioni automatiche usare: mammografia, esame precedente, TC del torace, RM, fasi">⚙ Regole</button></span>
           <label class="check cl-paz" title="Nome, data di nascita con l'età all'esame e sesso del paziente sulla linguetta dell'esame (solo su questo schermo: mai nelle esportazioni)"><input type="checkbox" id="cl-paz-tab"> dati paziente sulla linguetta</label>
           <label class="check cl-paz" title="Mostra nome, data di nascita, data dell'esame e struttura sull'immagine (solo su questo schermo: mai nelle esportazioni)"><input type="checkbox" id="cl-paziente"> dati paziente sull'immagine</label>
           <a id="cl-manuale" class="btn" href="/client/manuale-client.html" target="_blank" rel="noopener" title="Manuale del visualizzatore (funziona anche senza rete)">📘 Manuale</a>
@@ -743,26 +754,33 @@
         </select>
         <button id="mpr-3d" type="button" class="ico" hidden title="Mostra o nascondi il 3D (volume rendering). All'apertura solo i piani, per ricostruire anche quelli obliqui" aria-label="3D" aria-pressed="false"><b style="font-size:11px;line-height:18px">3D</b></button>
         <select id="mpr-preset" title="Preset volume rendering"></select>
-        <label class="check" title="Il lettino della TC è tolto di base dal 3D: spunta per rimetterlo"><input type="checkbox" id="vr-lettino"> Aggiungi lettino</label>
-        <label class="check" title="3D senza l'osso: resta il resto, per esempio i vasi con il mezzo di contrasto (angio-TC)"><input type="checkbox" id="vr-osso"> Senza osso</label>
-        <label class="check" title="3D senza la gabbia toracica (coste, sterno, clavicole, scapole): restano colonna, cuore, polmoni e vasi del torace"><input type="checkbox" id="vr-gabbia"> Senza gabbia toracica</label>
-        <button id="mpr-taglio" type="button" class="ico" title="Ritaglio a mano libera nel 3D: disegna attorno a ciò che vuoi togliere (tutto lo spessore nella direzione di vista)" aria-label="Ritaglio"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg></button>
-        <button id="mpr-taglio-annulla" type="button" class="ico" title="Annulla l'ultimo ritaglio" aria-label="Annulla ritaglio" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
-        <button id="mpr-taglio-reset" type="button" class="ico" title="Togli tutti i ritagli: di nuovo il volume intero" aria-label="Azzera ritagli" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
-        <select id="mpr-seg" class="compatto" title="Segmentazione automatica: l'organo compare colorato nelle tre viste, con il volume; «Vasi» lascia nel 3D solo i vasi con mdc">
-          <option value="">Segmenta…</option><option value="polmoni">Polmoni</option><option value="fegato">Fegato (automatico)</option>
-          <option value="fegato-mirino">Fegato dal centro del mirino</option><option value="vasi">Vasi (angio-TC / angio-RM)</option><option value="aorta">Aorta</option><option value="reni">Reni (con mdc)</option><option value="vescica">Vescica</option><option value="intestino">Intestino (gas)</option><option value="encefalo">Encefalo</option><option value="via">Togli la segmentazione</option></select>
-        <button id="btn-cpr" class="ico" title="CPR, ricostruzione curva: clicca i punti lungo un vaso (o un altro tubo) nelle viste, poi «Crea CPR»" aria-label="CPR"><b style="font-size:11px;line-height:18px">CPR</b></button>
-        <button id="mpr-vertebre" class="ico" title="Vertebre numerate (dalla segmentazione IA)" aria-label="Vertebre"><b style="font-size:11px;line-height:18px">L1</b></button>
-        <button id="mpr-omp" type="button" hidden title="Piano orbito-meatale (OMP): i tre piani orientati dal canto esterno dell'occhio al centro del meato acustico esterno; poi «⊞ Serie» salva la serie su quel piano">OMP</button>
-        <button id="mpr-obliqua" class="ico" title="Crea una serie ricostruita dal piano del riquadro grande (anche obliquo, per esempio per raddrizzare una testa ruotata): si apre nel 2D, da scorrere e misurare" aria-label="Serie dal piano"><b style="font-size:11px;line-height:18px">⊞ Serie</b></button>
+        <details class="menu-barra" id="menu-mpr-avanzate">
+          <summary title="Avanzate: 3D senza lettino, osso o gabbia toracica, ritaglio, segmentazione, CPR, vertebre, serie dal piano" aria-label="Avanzate">⚙ Avanzate<span class="freccia" aria-hidden="true">▾</span></summary>
+          <div class="menu-pop" role="menu">
+          <label class="check" title="Il lettino della TC è tolto di base dal 3D: spunta per rimetterlo"><input type="checkbox" id="vr-lettino"> Aggiungi lettino</label>
+          <label class="check" title="3D senza l'osso: resta il resto, per esempio i vasi con il mezzo di contrasto (angio-TC)"><input type="checkbox" id="vr-osso"> Senza osso</label>
+          <label class="check" title="3D senza la gabbia toracica (coste, sterno, clavicole, scapole): restano colonna, cuore, polmoni e vasi del torace"><input type="checkbox" id="vr-gabbia"> Senza gabbia toracica</label>
+          <button id="mpr-taglio" type="button" class="ico" title="Ritaglio a mano libera nel 3D: disegna attorno a ciò che vuoi togliere (tutto lo spessore nella direzione di vista)" aria-label="Ritaglio"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg></button>
+          <button id="mpr-taglio-annulla" type="button" class="ico" title="Annulla l'ultimo ritaglio" aria-label="Annulla ritaglio" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+          <button id="mpr-taglio-reset" type="button" class="ico" title="Togli tutti i ritagli: di nuovo il volume intero" aria-label="Azzera ritagli" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+          <select id="mpr-seg" class="compatto" title="Segmentazione automatica: l'organo compare colorato nelle tre viste, con il volume; «Vasi» lascia nel 3D solo i vasi con mdc">
+            <option value="">Segmenta…</option><option value="polmoni">Polmoni</option><option value="fegato">Fegato (automatico)</option>
+            <option value="fegato-mirino">Fegato dal centro del mirino</option><option value="vasi">Vasi (angio-TC / angio-RM)</option><option value="aorta">Aorta</option><option value="reni">Reni (con mdc)</option><option value="vescica">Vescica</option><option value="intestino">Intestino (gas)</option><option value="encefalo">Encefalo</option><option value="via">Togli la segmentazione</option></select>
+          <button id="btn-cpr" class="ico" title="CPR, ricostruzione curva: clicca i punti lungo un vaso (o un altro tubo) nelle viste, poi «Crea CPR»" aria-label="CPR"><b style="font-size:11px;line-height:18px">CPR</b></button>
+          <button id="mpr-vertebre" class="ico" title="Vertebre numerate (dalla segmentazione IA)" aria-label="Vertebre"><b style="font-size:11px;line-height:18px">L1</b></button>
+          <button id="mpr-omp" type="button" hidden title="Piano orbito-meatale (OMP): i tre piani orientati dal canto esterno dell'occhio al centro del meato acustico esterno; poi «⊞ Serie» salva la serie su quel piano">OMP</button>
+          <button id="mpr-obliqua" class="ico" title="Crea una serie ricostruita dal piano del riquadro grande (anche obliquo, per esempio per raddrizzare una testa ruotata): si apre nel 2D, da scorrere e misurare" aria-label="Serie dal piano"><b style="font-size:11px;line-height:18px">⊞ Serie</b></button>
+          </div>
+        </details>
         <button id="mpr-reset" title="Ripristina piani e rotazioni" aria-label="Reset" class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg></button>
         <button id="mpr-annulla" class="ico" title="Annulla l'ultima misura (Ctrl+Z)" aria-label="Annulla" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
         <button id="mpr-ripeti" class="ico" title="Ripeti (Ctrl+Maiusc+Z)" aria-label="Ripeti" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/></svg></button>
       </div>
     </div>
+    <button id="btn-solo-imm" type="button" class="ico schermo solo-imm-btn" title="Solo immagini: nasconde barre e pannelli (tasto F; F o Esc per tornare)" aria-label="Solo immagini" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 14h8" stroke-dasharray="2 2"/></svg></button>
     <button id="btn-schermo" title="Visualizzatore a schermo intero (F11; doppio clic su un riquadro per ingrandirlo)" aria-label="Schermo intero" class="ico schermo"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
+    <button id="esci-solo-imm" type="button" class="esci-solo-imm" hidden title="Mostra di nuovo barre e pannelli (F o Esc)">⤢ Mostra le barre</button>
     <div class="stage" id="stage">
       <canvas id="canvas"></canvas>
       <canvas id="lente" class="lente" hidden aria-hidden="true"></canvas>

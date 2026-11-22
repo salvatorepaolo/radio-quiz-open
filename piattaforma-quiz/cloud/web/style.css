@@ -2506,3 +2506,34 @@ html.client header.top .btn-client{display:none!important}
 @media (max-width:700px){body:has(#vista-caso:not([hidden])) header.top .btn-client{display:none}}
 /* 1.301 MPR + 3D: la vista 2D è nascosta, il suo contenitore (1.278, colonna dei risultati) non deve prendere metà altezza vuota */
 .area-imm:has(.stage[hidden]),.area-imm:has(.stage[hidden])>.col-stage{flex:none}
+/* 1.302 barra MPR: le funzioni avanzate nel menu «⚙ Avanzate» */
+#menu-mpr-avanzate>summary{font-size:.9rem;padding:5px 9px;gap:4px;white-space:nowrap}
+#menu-mpr-avanzate .menu-pop{min-width:270px;padding:6px}
+#menu-mpr-avanzate .menu-pop label.check{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;white-space:nowrap}
+#menu-mpr-avanzate .menu-pop label.check:hover{background:var(--pan2)}
+#menu-mpr-avanzate .menu-pop select{width:100%;margin:2px 0}
+/* 1.302 «solo immagini» (tasto F): niente barra in alto, barra degli strumenti, serie e domande */
+body.solo-immagini header.top,body.solo-immagini #vista-caso .barra-unica,body.solo-immagini #vista-caso>aside.serie,body.solo-immagini #vista-caso>aside.quiz,body.solo-immagini #vista-caso .btn-pannello,body.solo-immagini #vista-caso .aiuto,body.solo-immagini #btn-vetrini,body.solo-immagini .piede-sito{display:none!important}
+body.solo-immagini .caso{height:100vh;height:100dvh;grid-template-columns:1fr!important;grid-template-rows:1fr!important;grid-template-areas:"viewer"!important}
+body.solo-immagini #vista-caso .viewer{padding:4px}
+.esci-solo-imm{position:fixed;top:8px;right:10px;z-index:70;border-radius:999px;padding:6px 12px;font-weight:600;background:color-mix(in srgb,var(--pan) 85%,transparent);border:1px solid var(--bord);box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:.55}
+.esci-solo-imm:hover{opacity:1}
+.esci-solo-imm[hidden]{display:none}
+/* 1.302 regole delle disposizioni automatiche */
+.dlg-regole-hp{width:min(480px,94vw)}
+.dlg-regole-hp h3{margin:0 0 6px}
+.dlg-regole-hp .hp-regole{display:flex;flex-direction:column;gap:6px;margin:8px 0 6px 6px}
+.dlg-regole-hp .hp-regole.spente{opacity:.45;pointer-events:none}
+.dlg-regole-hp .hp-regole label.check{align-items:flex-start;gap:10px}
+.dlg-regole-hp .hp-regole span{display:flex;flex-direction:column}
+.dlg-regole-hp .hp-regole small{color:var(--mut)}
+.dlg-regole-hp .dlg-az{display:flex;justify-content:flex-end;margin:8px 0 0}
+/* 1.302 guida rapida del visualizzatore scaricabile (prima apertura) */
+.cl-guida{margin:0 0 14px;padding:16px 18px;border-radius:16px;border:1px solid color-mix(in srgb,var(--acc) 30%,var(--bord));background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 8%,var(--pan)),var(--pan))}
+.cl-guida[hidden]{display:none}
+.cl-guida h2{margin:0 0 8px;font-size:1.15rem}
+.cl-guida ol{margin:0;padding-left:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:8px 18px}
+.cl-guida li{display:flex;flex-direction:column;gap:2px}
+.cl-guida li span{font-size:.88rem;color:var(--mut);line-height:1.45}
+.cl-guida-az{display:flex;justify-content:flex-end;margin:10px 0 0}
+#barra-mpr #menu-mpr-avanzate>summary{font-size:.95rem!important;line-height:1.2;min-height:32px;padding:4px 10px;font-weight:600}

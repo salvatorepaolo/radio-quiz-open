@@ -69,7 +69,7 @@ try {
   // non lo vedeva nessuna prova): esame del caso 004 dal disco, come lo aprirebbe l'utente
   { const fs2 = await import('node:fs'), pa = await import('node:path'), dir = '/Volumes/Caloggero/piattaforma-quiz/casi-free/caso-tcia-004/serie';
     const files = fs2.readdirSync(dir, { recursive: true }).filter((x) => /\.dcm$/i.test(x)).map((x) => pa.join(dir, x));
-    p = await nuova(); await p.addInitScript(() => { try { localStorage.setItem('rq-cl-privacy-1', '1'); } catch {} });
+    p = await nuova(); await p.addInitScript(() => { try { localStorage.setItem('rq-cl-privacy-1', '1'); localStorage.setItem('rq-cl-guida-1', '1'); localStorage.setItem('rq-protocollo-auto', '0'); } catch {} });   // disposizioni automatiche spente: la sincronizzazione delle fasi rende variabile la foto (le disposizioni hanno prova_disposizioni)
     await p.goto(B + '/client/index.html'); await p.waitForSelector('#vista-client:not([hidden])', { timeout: 30000 });
     await p.setInputFiles('#cl-file', files); await p.waitForFunction(() => window.__dbg?.P(0)?.img, null, { timeout: 90000 }); await p.waitForTimeout(1500);
     await foto(p, '12-client-caso-2d');

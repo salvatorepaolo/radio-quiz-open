@@ -197,7 +197,7 @@ elif [ -f test/esegui.sh ]; then
   fi
 fi
 
-# confronto delle schermate (regressione grafica): 11 pagine fotografate e confrontate con il riferimento.
+# confronto delle schermate (regressione grafica): 13 pagine fotografate e confrontate con il riferimento.
 # Se una pagina cambia oltre la tolleranza non si pubblica. Cambiamento voluto: node strumenti_claude/prova_schermate.mjs --aggiorna
 # Solo su questo Mac (i riferimenti contengono immagini dei casi e non sono in git). Emergenza: SALTA_SCHERMATE=1
 SCHERMATE=/Volumes/Caloggero/strumenti_claude/prova_schermate.mjs
@@ -209,6 +209,18 @@ elif [ -f "$SCHERMATE" ] && [ -d /Volumes/Caloggero/strumenti_claude/schermate/r
     errore "L'aspetto di una pagina è cambiato: non pubblico. Rosso = differenze in strumenti_claude/schermate/differenze. Se è voluto: node strumenti_claude/prova_schermate.mjs --aggiorna"; fine 1
   fi
 else info "confronto delle schermate non disponibile su questo computer"
+fi
+
+# 1.302 giro completo del visualizzatore (scaricabile e piattaforma), come lo farebbe una persona: misura, immagine chiave,
+# referto e PDF, esportazioni, MPR + 3D, solo immagini, chiusura. Se qualcosa non funziona non si pubblica. Emergenza: SALTA_GIRO=1
+GIRO=/Volumes/Caloggero/strumenti_claude/prova_giro_completo.mjs
+if [ "${SALTA_TEST:-}" = "1" ] || [ "${SALTA_GIRO:-}" = "1" ]; then info "giro completo del visualizzatore saltato"
+elif [ -f "$GIRO" ]; then
+  if env -u CASI -u MODO -u STACK -u NOME_ISTANZA -u CONTATTO -u EMAIL_CONDIVISA -u INOLTRO_POSTA -u UTENTI_MAX -u SCADENZA -u SOSPESA node "$GIRO" > .log-giro.txt 2>&1; then ok "giro completo del visualizzatore ($(grep -cE '^OK' .log-giro.txt) controlli)"
+  else
+    grep -E '^KO' .log-giro.txt | head -10
+    errore "Il giro completo del visualizzatore non è passato: non pubblico. Il dettaglio è in cloud/.log-giro.txt"; fine 1
+  fi
 fi
 
 # sicurezza del codice: vulnerabilità note nelle librerie (osv-scanner) ed errori di sicurezza nel codice (semgrep).

@@ -3880,7 +3880,7 @@ const MENU_BARRA = [...qsAll('.menu-barra')];
 const DESC_MENU = { profilo: 'valori lungo una linea', calcio: 'Agatston e CAC-DRS', volume: 'clic dentro la lesione', cobb: 'due linee, scoliosi', ict: 'cuore / torace',
   t2s: 'ferro nel miocardio e nel fegato', 'btn-adc': 'dalle DWI con valori b diversi', anatomia: 'nome della struttura cliccata', 'btn-densita': 'ACR A-D, tessuto denso',
   'btn-vertebre': 'L1, T12… accanto alla colonna', 'btn-quiz-anat': 'trova la struttura richiesta', 'btn-radiomica': 'istogramma e tessitura' };
-const TIT_MENU = { 'menu-misure': 'Altre misure', 'menu-altro': 'Altri strumenti' };
+const TIT_MENU = { 'menu-misure': 'Altre misure', 'menu-altro': 'Altri strumenti', 'menu-mpr-avanzate': 'Avanzate MPR e 3D' };
 for (const d of MENU_BARRA) {
   const sum = d.querySelector('summary'), pop = d.querySelector('.menu-pop');
   sum.dataset.icona = sum.innerHTML;
@@ -5499,6 +5499,20 @@ function schermoIntero() {
   try { if (document.fullscreenElement) document.exitFullscreen(); else el.requestFullscreen?.(); } catch {}
 }
 $('#btn-schermo').addEventListener('click', schermoIntero);
+// 1.302 «solo immagini»: barre, serie e pannello delle domande nascosti (tasto F; F o Esc per tornare)
+function soloImmagini(on = !document.body.classList.contains('solo-immagini')) {
+  document.body.classList.toggle('solo-immagini', on); $('#btn-solo-imm')?.setAttribute('aria-pressed', String(on)); $('#btn-solo-imm')?.classList.toggle('on', on);
+  if ($('#esci-solo-imm')) $('#esci-solo-imm').hidden = !on;
+  setTimeout(() => { disegna(); if (MPR.attivo) MPR.modulo?.ridimensiona(); }, 60);
+  if (on) avvisoBreve('Solo immagini: F o Esc per rivedere le barre');
+}
+$('#btn-solo-imm')?.addEventListener('click', () => soloImmagini());
+$('#esci-solo-imm')?.addEventListener('click', () => soloImmagini(false));
+addEventListener('keydown', (e) => {
+  if ($('#vista-caso').hidden || e.ctrlKey || e.metaKey || e.altKey || vetrinoDavanti() || /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || '') || document.activeElement?.isContentEditable || qs1('dialog[open]')) return;
+  if (e.key === 'f' || e.key === 'F') { e.preventDefault(); soloImmagini(); }
+  else if (e.key === 'Escape' && document.body.classList.contains('solo-immagini')) soloImmagini(false);
+});
 document.addEventListener('fullscreenchange', () => { $('#btn-schermo').classList.toggle('on', !!document.fullscreenElement); setTimeout(() => { disegna(); if (MPR.attivo) MPR.modulo?.ridimensiona(); }, 100); });
 
 // ---------------------------------------------------------------- confronto tra fasi
@@ -7216,9 +7230,10 @@ async function apriCaso(id, locale = null) {
     return;
   }
   // hanging protocol automatico, se il docente non ha scelto la disposizione
-  // 11/11: niente disposizione automatica all'apertura: 1×1 (le disposizioni restano a portata nei pulsanti «Disposizioni»)
-  const auto = null;
-  V.protoAuto = !!auto;
+  // 1.302: disposizioni automatiche di nuovo attive, ognuna spegnibile («⚙ Regole» nel menu ⋯): qui TC del torace e RM;
+  // mammografia, esame precedente e fasi in disposizioneClient(). Con un precedente da confrontare vince il confronto.
+  const auto = hpAttivo() && !telefono() && !precedenteDaConfrontare() ? (() => { const a = protocolloAutomatico(); return a && regolaHP(a.tipo) ? a : null; })() : null;
+  V.protoAuto = !!auto; V.protoNota = auto?.nota || '';
   if (auto) {
     V.n = auto.length; $('#riquadri').value = valoreRiquadri(); $('#sincro-wrap').hidden = false;
     for (let k = 0; k < auto.length; k++) {
@@ -7267,13 +7282,13 @@ function protocolloAutomatico() {
     const punti = (d) => (/mediast|soft|stand/i.test(d) ? 4 : 0) + (/arter|torac|chest/i.test(d) ? 2 : 0) + (/\b[BI][2-4]\d/i.test(d) ? 1 : 0) - (/portal|venos|tardiv|addom|pelv/i.test(d) ? 1 : 0);
     const migliore = (l) => l.slice().sort((x, y) => punti(y.s.descrizione || '') - punti(x.s.descrizione || '') || y.s.files.length - x.s.files.length)[0];
     const P1 = grande(polm), M1 = migliore(med.length ? med : cand.filter((x) => !polm.includes(x)));
-    if (P1 && M1) return Object.assign([{ si: P1.si, wl: [-600, 1500] }, { si: M1.si, wl: [40, 400] }], { nota: 'Polmone a sinistra, mediastino a destra' });
-    const G = grande(cand); return Object.assign([{ si: G.si, wl: [-600, 1500] }, { si: G.si, wl: [40, 400] }], { nota: 'Stessa serie: finestra polmone a sinistra, mediastino a destra' });
+    if (P1 && M1) return Object.assign([{ si: P1.si, wl: [-600, 1500] }, { si: M1.si, wl: [40, 400] }], { nota: 'Polmone a sinistra, mediastino a destra', tipo: 'torace' });
+    const G = grande(cand); return Object.assign([{ si: G.si, wl: [-600, 1500] }, { si: G.si, wl: [40, 400] }], { nota: 'Stessa serie: finestra polmone a sinistra, mediastino a destra', tipo: 'torace' });
   }
   if (met === 'RM') {
     const dove = [V.caso?.distretto, V.caso?.titolo, ...V.serie.map((s) => `${s.regione || ''} ${s.descrizione || ''}`)].join(' ');
     const sc = SCHEMI.find((x) => x.dist && !x.finestre && x.mod.test('RM') && x.dist.test(dove));
-    if (sc) { const l = serieSchema(sc).filter((si) => !ult || studioDi(V.serie[si]).id === ult.id); if (l.length >= 2) return Object.assign(l.map((si) => ({ si })), { nota: sc.nome }); }
+    if (sc) { const l = serieSchema(sc).filter((si) => !ult || studioDi(V.serie[si]).id === ult.id); if (l.length >= 2) return Object.assign(l.map((si) => ({ si })), { nota: sc.nome, tipo: 'rm' }); }
     // nella RM il piano principale può essere sagittale (rachide) o coronale: si resta sul piano della prima sequenza
     const tutte = V.serie.map((s, si) => ({ s, si })).filter(({ s }) => (!ult || studioDi(s).id === ult.id) && s.files.length >= 12 && !/scout|localiz|survey|calib|mip/i.test(s.descrizione || ''));
     const piano = (d) => (/sag/i.test(d) ? 'sag' : /cor/i.test(d) ? 'cor' : /ax|tra|trs/i.test(d) ? 'ax' : '');
@@ -7284,7 +7299,7 @@ function protocolloAutomatico() {
     for (const re of [/t2|stir|flair|haste|space/i, /t1(?!.*(gd|mdc|post|\+c|contr))|in.?phase|dixon/i, /dwi|diff|adc|trace|b\d{3}/i, /gd|mdc|post|\+c|contr|lava|vibe|thrive|tardiv|dinamic/i]) {
       const x = scegli(re, usati); if (x) { usati.add(x.si); out.push({ si: x.si }); }
     }
-    if (out.length >= 2) return Object.assign(out, { nota: 'Sequenze affiancate: T2, T1, diffusione, dopo mdc' });
+    if (out.length >= 2) return Object.assign(out, { nota: 'Sequenze affiancate: T2, T1, diffusione, dopo mdc', tipo: 'rm' });
   }
   return null;
 }
@@ -8548,7 +8563,7 @@ async function router() {
       autoNeuro();
       $('#btn-gsps').hidden = !esportaPermesso(); if ($('#btn-sr')) $('#btn-sr').hidden = !esportaPermesso();
       // disposizione automatica (la propria «ricordata», mammografia nelle 4 viste, fasi affiancate), se il docente non ne ha scelta una
-      if (!(V.caso?.disposizione || []).length && !(V.caso?.riquadri >= 1) && !V.protoAuto) await disposizioneClient();
+      if (!(V.caso?.disposizione || []).length && !(V.caso?.riquadri >= 1)) await disposizioneClient();
       await ritrovaAnnotazioni(); ANN.hashCaso = location.hash;
       const pv = leggiSessione('quiz-vista', null);
       if (pv?.caso === V.caso?.id) { scriviSessione('quiz-vista', null); await vaiChiaveDoc(pv.k); }
@@ -10302,6 +10317,10 @@ function avviaClient() {
   // si scarica solo al clic (il visualizzatore non fa richieste da solo); nelle installazioni delle aziende il file non
   // si pubblica e il clic lo dice
   $('#cl-esempio-box').hidden = false;
+  // 1.302 guida rapida alla prima apertura (poi a richiesta con «❔ Guida rapida»)
+  { const G = 'rq-cl-guida-1', g = $('#cl-guida'); let vista = false; try { vista = localStorage.getItem(G) === '1'; } catch {}
+    if (g) { g.hidden = vista; $('#cl-guida-ok').onclick = () => { g.hidden = true; try { localStorage.setItem(G, '1'); } catch {} };
+      $('#cl-guida-apri').onclick = () => { g.hidden = false; g.scrollIntoView({ behavior: 'smooth', block: 'start' }); }; } }
   // anche un vetrino di esempio (OpenSlide test data, aorta, JPEG 2000 a 40×, con etichetta e panoramica)
   const scaricaEsempio = async (b, url, nome, vetrino) => {
     const st = (t, tipo = '') => { const el = $('#cl-stato'); el.textContent = t; el.className = 'stato ' + tipo; };
@@ -11446,17 +11465,54 @@ async function disposizioneClient() {
   aggiornaBottoneHP(!!pr);
   if (!hpAttivo()) return;
   try {
+    // 1) la disposizione che hai salvato per questo tipo di esame (📌 Ricorda) vince su tutto
     if (pr && await hpApplica(pr)) { avvisoBreve(`📌 Disposizione automatica: quella salvata per «${pr.nome}»`); return; }
-    return;   // 11/11: senza una disposizione salvata l'esame si apre 1×1 (le disposizioni proposte restano nei pulsanti)
-    // eslint-disable-next-line no-unreachable -- 11/11: le altre disposizioni automatiche sono sospese, tenute per ripristinarle
-    if (visibili().some(([q]) => studioDi(V.serie[q.sIdx]).id !== studioDi(V.serie[P(0).sIdx]).id)) { avvisoBreve('Disposizione automatica: esame attuale e precedente affiancati e allineati'); return; }
-    if (!$('#ws-mg').hidden && mappaMG().length) {
+    if (telefono()) return;   // sul telefono un riquadro
+    // 2) TC del torace o RM, già disposte all'apertura (apriCaso)
+    if (V.protoAuto) { avvisoBreve('Disposizione automatica: ' + V.protoNota + ' (⋯ → ⚙ Regole per cambiarla)'); return; }
+    // 3) mammografia nelle 4 viste, con le precedenti se ci sono
+    if (regolaHP('mammografia') && !$('#ws-mg').hidden && mappaMG().length) {
       const conPrec = mappaMG().length > 1;
       await apriWorkspaceMG(conPrec ? 'CCP' : '4'); avvisoBreve(conPrec ? 'Disposizione automatica: CC attuali e precedenti (tasti 1-5 per le altre)' : 'Disposizione automatica: mammografia nelle 4 viste'); return;
     }
+    // 4) esame precedente dello stesso distretto affiancato e allineato
+    if (regolaHP('precedente')) {
+      await confrontoAutomatico();
+      if (visibili().some(([q]) => studioDi(V.serie[q.sIdx]).id !== studioDi(V.serie[P(0).sIdx]).id)) return;
+    }
+    // 5) TC o RM multifase: fasi affiancate
+    //    (per la TC del torace il pulsante proposto è «polmone · mediastino»: dipende dalla regola del torace)
     const b = qs1('#ws-fasi button[data-auto="1"]') || [...qsAll('#ws-fasi button')].find((x) => /fasi affiancate|T1 · T2/.test(x.textContent));
-    if (b) { b.click(); avvisoBreve('Disposizione automatica: ' + b.textContent); }
+    if (b && regolaHP(/polmon|lung|mediast/i.test(b.textContent) ? 'torace' : 'fasi')) { b.click(); avvisoBreve('Disposizione automatica: ' + b.textContent + ' (⋯ → ⚙ Regole per cambiarla)'); }
   } catch (e) { console.warn('disposizione automatica', e); }
+}
+// 1.302 regole delle disposizioni automatiche, ognuna spegnibile (salvate nel browser); tutte accese di base
+const HP_REGOLE = 'rq-protocollo-regole';
+const REGOLE_HP = [['mammografia', 'Mammografia nelle 4 viste', 'con le precedenti accanto, se ci sono'], ['precedente', 'Esame precedente affiancato', 'stesso distretto, collegato e allineato'],
+  ['torace', 'TC del torace: polmone e mediastino', 'finestra polmone a sinistra, mediastino a destra'], ['rm', 'RM: sequenze affiancate', 'T2, T1, diffusione, dopo mdc'],
+  ['fasi', 'TC o RM multifase: fasi affiancate', 'basale, arteriosa, venosa, tardiva']];
+const regoleHP = () => { try { return JSON.parse(localStorage.getItem(HP_REGOLE) || '{}') || {}; } catch { return {}; } };
+const regolaHP = (k) => regoleHP()[k] !== false;
+// c'è un esame precedente dello stesso distretto da affiancare? (allora il confronto vince sui protocolli per tipo)
+function precedenteDaConfrontare() {
+  if (!regolaHP('precedente') || (V.studi || []).length < 2) return false;
+  const ult = V.studi[V.studi.length - 1]; return V.studi.some((x) => x.id !== ult.id && x.regione === ult.regione);
+}
+function apriRegoleHP() {
+  let d = $('#dlg-regole-hp');
+  if (!d) { d = document.createElement('dialog'); d.id = 'dlg-regole-hp'; d.className = 'dlg-regole-hp'; document.body.append(d); }
+  const r = regoleHP();
+  d.innerHTML = `<h3>⚙ Disposizioni automatiche</h3><p class="muted small">All'apertura di un esame lo schermo si organizza da solo. Spegni quelle che non vuoi. Una disposizione salvata con «📌 Ricorda» per un tipo di esame ha sempre la precedenza.</p>
+    <label class="check hp-tutte"><input type="checkbox" id="hp-reg-tutte"${hpAttivo() ? ' checked' : ''}> <b>Disposizioni automatiche attive</b></label>
+    <div class="hp-regole">${REGOLE_HP.map(([k, n, d2]) => `<label class="check"><input type="checkbox" data-r="${k}"${r[k] !== false ? ' checked' : ''}> <span><b>${n}</b><small>${d2}</small></span></label>`).join('')}</div>
+    <p class="muted small">Salvate: ${Object.keys(hpLeggi()).length} disposizioni personali per tipo di esame. <button type="button" class="ghost piccolo" id="hp-reg-cancella"${Object.keys(hpLeggi()).length ? '' : ' disabled'}>Dimentica tutte</button></p>
+    <p class="dlg-az"><button type="button" class="primary" id="hp-reg-ok">Fatto</button></p>`;
+  const agg = () => { d.querySelector('.hp-regole').classList.toggle('spente', !d.querySelector('#hp-reg-tutte').checked); };
+  d.querySelector('#hp-reg-tutte').onchange = (e) => { try { localStorage.setItem(HP_ATTIVO, e.target.checked ? '1' : '0'); } catch {} const c = $('#hp-auto'); if (c) c.checked = e.target.checked; agg(); };
+  d.querySelectorAll('[data-r]').forEach((x) => { x.onchange = () => { const o = regoleHP(); o[x.dataset.r] = x.checked; try { localStorage.setItem(HP_REGOLE, JSON.stringify(o)); } catch {} }; });
+  d.querySelector('#hp-reg-cancella').onclick = () => { if (!confirm('Dimenticare tutte le disposizioni salvate con «📌 Ricorda»?')) return; hpScrivi({}); aggiornaBottoneHP(false); apriRegoleHP(); };
+  d.querySelector('#hp-reg-ok').onclick = () => d.close();
+  agg(); if (!d.open) d.showModal();
 }
 
 // ---------------------------------------------------------------- immagini chiave e referto (versione client)
@@ -11905,6 +11961,7 @@ async function azioneReferto(tipo) {
   {
   $('#hp-ricorda').onclick = async () => { const t = await tipoEsame(); if (hpLeggi()[t.chiave]) await hpDimentica(); else await hpRicorda(); };
   $('#hp-auto').checked = hpAttivo(); $('#hp-auto').onchange = (e) => { try { localStorage.setItem(HP_ATTIVO, e.target.checked ? '1' : '0'); } catch {} };
+  $('#hp-regole')?.addEventListener('click', apriRegoleHP);
   }
   $('#cl-chiave').onclick = (e) => { if (e.target.id === 'cl-chiave-n') { IC.nascosta = !IC.nascosta; disegnaIC(); return; } catturaChiave(); };
   $('#ic-chiudi').onclick = () => { IC.nascosta = true; disegnaIC(); };
