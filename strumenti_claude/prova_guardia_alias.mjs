@@ -1,0 +1,28 @@
+// prova_guardia_alias.mjs (1.320): la guardia di CloudFront con le cartelle condivise (alias-immagini.json). Uso: cd piattaforma-quiz/cloud && node ../../strumenti_claude/prova_guardia_alias.mjs
+import fs from 'node:fs'; import crypto from 'node:crypto';
+const s = fs.readFileSync('lib/stack.mjs', 'utf8');
+const i = s.indexOf("new cloudfront.Function(this, 'GuardiaImmagini'"), a = s.indexOf('fromInline(`', i) + 'fromInline('.length, b = s.indexOf('`),', a);
+const segreto = 'segreto-prova', aliasImmagini = JSON.parse(fs.readFileSync('alias-immagini.json', 'utf8')).alias;
+const codice = eval(s.slice(a, b + 1)).replace("import crypto from 'crypto';", '');
+const handler = new Function('crypto', codice + '; return handler;')(crypto);
+const h = (t) => crypto.createHmac('sha256', segreto).update(t).digest('hex');
+const scad = Math.floor(Date.now() / 1000) + 3600;
+const quiz = (r) => `${r}.u1.${scad}.${h(`${r}.u1.${scad}`)}`;
+const qc = (id, lista = '') => `${id}~${scad}~${lista}~${h(`qc.${id}.${scad}.${lista}`)}`;
+const prova = (uri, ruolo, qcv) => handler({ request: { uri, cookies: { quiz: { value: quiz(ruolo) }, ...(qcv ? { qc: { value: qcv } } : {}) } } });
+let ko = 0; const ok = (c, m, d) => { if (!c) ko++; console.log((c ? 'OK ' : 'KO ') + m, d ?? ''); };
+let r = prova('/casi/caso-tcia-088/serie/vetrino/livello_0.dcm', 'specializzando', qc('caso-tcia-088'));
+ok(r.uri === '/casi/caso-tcia-141/serie/vetrino/livello_0.dcm', 'studente con il cookie del 088: vetrino letto dal 141', r.uri);
+r = prova('/casi/caso-tcia-088/serie/vetrino/livello_0.dcm', 'specializzando', qc('caso-tcia-141'));
+ok(r.statusCode === 403, 'cookie del 141 non apre il 088', r.statusCode);
+r = prova('/casi/caso-tcia-088/serie/0001_TC_senza_mdc_addome_superiore/img_00001.dcm', 'specializzando', qc('caso-tcia-088'));
+ok(r.uri === '/casi/caso-tcia-088/serie/0001_TC_senza_mdc_addome_superiore/img_00001.dcm', 'le altre serie del 088 non cambiano', r.uri);
+r = prova('/casi/caso-tcia-088/serie/vetrino/miniatura.dcm', 'specializzando', qc('caso-tcia-088', 'vetrino'));
+ok(r.statusCode === 403, 'vetrino nascosto nel cookie resta chiuso', r.statusCode);
+r = prova('/casi/caso-tcia-088/serie/vetrino/miniatura.dcm', 'admin');
+ok(r.uri === '/casi/caso-tcia-141/serie/vetrino/miniatura.dcm', 'amministratore: riscritto', r.uri);
+r = prova('/casi/caso-tcia-141/serie/vetrino/miniatura.dcm', 'specializzando', qc('caso-tcia-141'));
+ok(r.uri === '/casi/caso-tcia-141/serie/vetrino/miniatura.dcm', 'il 141 com\'era', r.uri);
+r = handler({ request: { uri: '/casi/caso-tcia-088/serie/vetrino/livello_0.dcm', cookies: {} } });
+ok(r.statusCode === 403, 'senza accesso 403', r.statusCode);
+console.log(ko ? `${ko} KO` : 'tutto OK'); process.exit(ko ? 1 : 0);

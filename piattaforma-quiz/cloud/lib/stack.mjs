@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 /* ============================================================
    Quiz Radiologia — infrastruttura come codice (AWS CDK).
 
@@ -198,11 +199,19 @@ export class QuizStack extends Stack {
     // Qui non si può consultare la tabella: un account disattivato perde subito
     // l'accesso ai casi e alle risposte (Lambda), le sole immagini anonime restano
     // leggibili fino alla scadenza del gettone (30 giorni) o all'uscita.
+    // 1.320: cartelle di immagini condivise tra casi (alias-immagini.json): dopo il controllo del permesso del caso
+    // richiesto, l'indirizzo si riscrive verso la copia unica (es. il vetrino del caso 088 è quello del 141)
+    const aliasImmagini = (() => { try { return JSON.parse(fs.readFileSync(new URL('../alias-immagini.json', import.meta.url), 'utf8')).alias || {}; } catch { return {}; } })();
+    for (const [da, a] of Object.entries(aliasImmagini)) if (!/^caso-[a-z0-9-]+\/[A-Za-z0-9_\/.-]+\/$/.test(da) || !/^caso-[a-z0-9-]+\/[A-Za-z0-9_\/.-]+\/$/.test(a)) throw new Error(`alias-immagini.json: cartella non valida ${da} → ${a}`);
     const guardia = new cloudfront.Function(this, 'GuardiaImmagini', {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
       code: cloudfront.FunctionCode.fromInline(`
 import crypto from 'crypto';
 var SEGRETO = ${JSON.stringify(segreto)};
+var ALIAS = ${JSON.stringify(aliasImmagini)};
+function alias(req) {
+  for (var k in ALIAS) { var p = '/casi/' + k; if (req.uri.indexOf(p) === 0) { req.uri = '/casi/' + ALIAS[k] + req.uri.slice(p.length); return; } }
+}
 // tutti tranne l'amministratore (chiunque può dichiararsi docente): serve il cookie «qc» del caso, rilasciato dall'API
 // quando il caso viene aperto (le bozze solo agli autori); le cartelle delle serie nascoste elencate nel cookie restano chiuse
 function casoConsentito(req) {
@@ -229,6 +238,7 @@ function handler(event) {
     if (f === p[3] && (p[0] === 'admin' || casoConsentito(event.request))) {
       delete event.request.cookies.quiz;   // i cookie non servono a S3 e non devono entrare nella cache
       delete event.request.cookies.qc;
+      alias(event.request);
       return event.request;
     }
   }

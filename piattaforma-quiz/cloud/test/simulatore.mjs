@@ -67,7 +67,9 @@ const cfg = { hashAdmin: impronta(CODICE_ADMIN), segreto: SEG, magazzino, sicuro
       invocazioni: s((i) => 900 + 30 * i), durata: s((i) => 120000 + 4000 * i), erroriApi: s(() => 0), sito: [[g(1), 7.1e9]], dati: [[g(1), 3.2e8]], tabellaByte: 4.1e6 }; } : null,
   istanza: { modo: process.env.MODO || 'vetrina', nome: process.env.NOME_ISTANZA || '', contatto: process.env.CONTATTO || '', utentiMax: process.env.UTENTI_MAX || '', scadenza: process.env.SCADENZA || '', sospesa: process.env.SOSPESA === '1' } };
 // la guardia di CloudFront è scritta nello stack (lib/stack.mjs): la stessa funzione, con il segreto dei test
-const src = fs.readFileSync(path.join(QUI, '../lib/stack.mjs'), 'utf8').match(/fromInline\(`([\s\S]*?)`\)/)[1].replace('${JSON.stringify(segreto)}', JSON.stringify(SEG));
+const src = fs.readFileSync(path.join(QUI, '../lib/stack.mjs'), 'utf8').match(/fromInline\(`([\s\S]*?)`\)/)[1].replace('${JSON.stringify(segreto)}', JSON.stringify(SEG))
+  // 1.320: cartelle condivise tra casi, come nello stack
+  .replace('${JSON.stringify(aliasImmagini)}', JSON.stringify((() => { try { return JSON.parse(fs.readFileSync(path.join(QUI, '../alias-immagini.json'), 'utf8')).alias || {}; } catch { return {}; } })()));
 const fg = path.join(os.tmpdir(), `guardia-test-${process.pid}.mjs`); fs.writeFileSync(fg, src + '\nexport { handler };');
 const { handler: guardia } = await import(pathToFileURL(fg).href); fs.unlinkSync(fg);
 const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.dcm': 'application/dicom', '.svg': 'image/svg+xml', '.pdf': 'application/pdf', '.gz': 'application/gzip', '.png': 'image/png', '.mjs': 'text/javascript', '.wasm': 'application/wasm' };
@@ -125,7 +127,7 @@ const server = http.createServer(async (q, s) => {
       const cookies = {}; (q.headers.cookie || '').split(/;\s*/).forEach((kv) => { const i = kv.indexOf('='); if (i > 0) { const n = kv.slice(0, i), v = { value: kv.slice(i + 1) }; if (cookies[n]) (cookies[n].multiValue ||= [{ value: cookies[n].value }]).push(v); else cookies[n] = v; } });
       const r = guardia({ request: { cookies, uri: u.pathname } }); if (r.statusCode) { s.writeHead(r.statusCode); return s.end('Forbidden'); }
       if (u.pathname.endsWith('caso.json')) { s.writeHead(403); return s.end(); }
-      const rel = decodeURIComponent(u.pathname.slice(6));
+      const rel = decodeURIComponent((r.uri || u.pathname).slice(6));   // 1.320: indirizzo riscritto dalla guardia (cartelle condivise)
       if (rel.split('/').some((x) => x.startsWith('_') || x === '..')) { s.writeHead(403); return s.end(); }
       if (rel.endsWith('/serie.json')) { const id = rel.split('/')[0]; s.writeHead(200, { 'content-type': 'application/json' }); return s.end(JSON.stringify((Object.hasOwn(serie, id) && serie[id]) || [])); }
       // 1.277: pacchetti di immagini (pacchetti-casi.mjs), se sono stati preparati: come S3, compressi con Content-Encoding br

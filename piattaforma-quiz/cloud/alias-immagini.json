@@ -1,0 +1,6 @@
+{
+ "nota": "Cartelle di immagini condivise tra casi (1.320): chi ha il permesso del caso a sinistra legge i file della cartella a destra. La copia a sinistra non si carica su S3. La guardia di CloudFront (lib/stack.mjs) controlla il cookie del caso richiesto, poi riscrive l'indirizzo. Usare solo per file identici.",
+ "alias": {
+  "caso-tcia-088/serie/vetrino/": "caso-tcia-141/serie/vetrino/"
+ }
+}

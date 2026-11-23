@@ -379,6 +379,10 @@ for ID in $(aws s3 ls "s3://${DATI}/eliminati/" 2>/dev/null | awk '/PRE/ {print 
     ESCLUSI+=(--exclude "${ID}/*"); info "${ID}: eliminato dal sito, non lo ricarico (per ripristinarlo: file AGGIORNA nella sua cartella)"
   fi
 done
+# 1.320: cartelle di immagini condivise tra casi (alias-immagini.json, riscritte dalla guardia di CloudFront):
+# la copia a sinistra resta sul Mac ma non si carica su S3
+ESCLUSI_ALIAS=()
+while IFS= read -r A; do [ -n "${A}" ] && ESCLUSI_ALIAS+=(--exclude "${A}*"); done < <(node -e 'try { for (const k of Object.keys(JSON.parse(require("fs").readFileSync("alias-immagini.json", "utf8")).alias || {})) console.log(k) } catch {}')
 # casi modificati nell'editor del sito (immagini aggiunte o tolte): prima si riprendono qui le immagini
 # nuove, serie.json e caso.json; le immagini tolte online vanno nella sottocartella «_rimosse» del caso
 for ID in $(aws s3 ls "s3://${DATI}/modifiche-immagini/" 2>/dev/null | awk '{print $4}' | sed 's/\.json$//'); do
@@ -453,7 +457,7 @@ info "carico tutta la cartella dei casi (prima volta, molti casi cambiati o TUTT
 # 1.272: i due caricamenti (originali senza .dcm, .dcm compressi) riguardano file diversi e vanno insieme
 # (ognuno elenca da solo ~40 000 oggetti online): circa metà del tempo
 aws s3 sync "${CASI}" "s3://${SITO}/casi/" --exclude "*caso.json" --exclude "*serie.json" --exclude "*serie-meta.json" --exclude "*AGGIORNA" --exclude "*.DS_Store" \
-    --exclude "*.dcm" --include "*/vetrino/*.dcm" --exclude "*/_rimosse/*" ${ESCLUSI[@]+"${ESCLUSI[@]}"} \
+    --exclude "*.dcm" --include "*/vetrino/*.dcm" --exclude "*/_rimosse/*" ${ESCLUSI[@]+"${ESCLUSI[@]}"} ${ESCLUSI_ALIAS[@]+"${ESCLUSI_ALIAS[@]}"} \
     --cache-control "max-age=86400" --only-show-errors &
 P_ORIG=$!
 aws s3 sync .casi-br "s3://${SITO}/casi/" --exclude "*" --include "*.dcm" ${ESCLUSI[@]+"${ESCLUSI[@]}"} \
@@ -479,9 +483,10 @@ else
 for ID in ${CAMBIATI}; do
   case " ${ESCLUSI[*]-} " in *" ${ID}/* "*) continue ;; esac
   D="s3://${SITO}/casi/${ID}/"
+  ESC_C=(); i=1; while [ "${i}" -lt "${#ESCLUSI_ALIAS[@]}" ]; do X="${ESCLUSI_ALIAS[${i}]}"; case "${X}" in "${ID}/"*) ESC_C+=(--exclude "${X#"${ID}/"}");; esac; i=$((i + 2)); done
   # stessi file e stesse intestazioni del caricamento di tutta la cartella, un caso alla volta
   aws s3 sync "${CASI}/${ID}" "${D}" --exclude "*caso.json" --exclude "*serie.json" --exclude "*serie-meta.json" --exclude "*AGGIORNA" --exclude "*.DS_Store" \
-      --exclude "*.dcm" --include "*vetrino/*.dcm" --exclude "*_rimosse/*" --cache-control "max-age=86400" --only-show-errors &
+      --exclude "*.dcm" --include "*vetrino/*.dcm" --exclude "*_rimosse/*" ${ESC_C[@]+"${ESC_C[@]}"} --cache-control "max-age=86400" --only-show-errors &
   P_ORIG=$!; P_BR=""; P_PK=""
   if [ -d ".casi-br/${ID}" ]; then
     aws s3 sync ".casi-br/${ID}" "${D}" --exclude "*" --include "*.dcm" \
