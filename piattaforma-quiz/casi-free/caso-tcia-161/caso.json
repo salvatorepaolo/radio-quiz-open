@@ -1,0 +1,112 @@
+{
+ "id": "caso-tcia-161",
+ "visibile": true,
+ "aggiornato": "2026-11-23 21:48",
+ "titolo": "Lombalgia in RM (6/6): uomo, T1 e T2 sagittali a 3 T",
+ "titolo_interno": "Anterolistesi degenerativa lieve di L4 su L5 con disco L4-L5 disidratato e ridotto, alterazioni dei piatti; altri dischi sani (SPIDER 218)",
+ "distretto": "Rachide",
+ "quesito": "lombalgia",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo con storia di lombalgia. RM del rachide lombare senza mezzo di contrasto: T1 e T2 sagittali. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Confronta i dischi tra loro e guarda l'allineamento dei corpi vertebrali.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Causa",
+   "domanda": "Qual è la causa più probabile dello scivolamento a questo livello?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione più adatta?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Disco L4-L5 scuro in T2 e più basso degli altri, unico livello alterato",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Serie 1 (T2), immagini 12-15: gli altri dischi lombari hanno il nucleo chiaro (Pfirrmann 1-2 nella collezione); L4-L5 è grigio scuro e ridotto (Pfirrmann 3)."
+  },
+  {
+   "testo": "Lieve scivolamento in avanti di L4 su L5 (anterolistesi di grado I)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Lo scalino tra i muri posteriori di L4 e L5 è di pochi millimetri: va cercato seguendo la linea dei muri posteriori dall'alto in basso."
+  },
+  {
+   "testo": "Ernia discale L5-S1 voluminosa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "L5-S1 ha altezza e segnale quasi normali e non sporge nel canale."
+  },
+  {
+   "testo": "Crollo vertebrale di L4",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Degenerativa: disco e faccette articolari usurati lasciano scivolare L4; l'istmo è di solito integro",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "La listesi degenerativa è tipica di L4-L5, spesso con artrosi delle faccette; la causa va confermata (faccette in assiale, istmo in TC o sagittali paramediane)."
+  },
+  {
+   "testo": "Istmica: la spondilolisi è tipica di L4-L5",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "La spondilolisi istmica è più frequente a L5-S1."
+  },
+  {
+   "testo": "Discopatia degenerativa isolata L4-L5 con lieve anterolistesi di grado I; gli altri livelli sono conservati",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Esame negativo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "In una colonna con dischi sani il livello malato spicca: in T2 il disco degenerato perde il segnale chiaro del nucleo e si abbassa.\nLa spondilolistesi degenerativa nasce dall'usura del disco e delle faccette articolari; colpisce soprattutto L4-L5 e può restringere il canale e i recessi laterali, causando claudicatio neurogena. La listesi istmica (da spondilolisi) è invece tipica di L5-S1.\nIl grado si misura con Meyerding (I fino al 25% del piatto). Gli scivolamenti lievi si vedono meglio seguendo la linea dei muri posteriori; nella RM in posizione supina possono ridursi rispetto alla radiografia in piedi.",
+ "regola": "Listesi a L4-L5: pensa alla forma degenerativa; a L5-S1: cerca la spondilolisi.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Gradazioni del radiologo muscoloscheletrico della collezione SPIDER: L4-L5 spondilolistesi, alterazioni dei piatti superiore e inferiore, riduzione di altezza, protrusione, Pfirrmann 3; L5-S1 Pfirrmann 2; livelli superiori Pfirrmann 1."
+ },
+ "fonte": {
+  "archivio": "Zenodo (Scientific Data), non TCIA",
+  "collezione": "SPIDER – Lumbar spine segmentation in MR images",
+  "soggetto": "paziente 218 (file 218_t1 e 218_t2)",
+  "doi": "10.5281/zenodo.10159290",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "van der Graaf J.W., van Hooff M.L., Buckens C.F.M., Rutten M., van Susante J.L.C., Kroeze R.J., de Kleuver M., van Ginneken B., Lessmann N. (2024). Lumbar spine segmentation in MR images: a dataset and a public benchmark. Scientific Data 11, 264. https://doi.org/10.1038/s41597-024-03090-w. Dati: SPIDER, Zenodo, doi:10.5281/zenodo.10159290.",
+  "url": "https://zenodo.org/records/10159290",
+  "nota": "Immagini convertite da MHA in DICOM da radio-quiz.it: non sono DICOM originali. Pixel e spaziatura invariati; in molte serie le intensità sono già normalizzate nella collezione. Risposte di riferimento: gradazioni per livello di un radiologo muscoloscheletrico della collezione (26 anni di esperienza). Età e dati clinici oltre alla lombalgia non disponibili."
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "vista": {
+  "serie": 1,
+  "idx": 14,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "T2 sagittale mediana: disco L4-L5 scuro tra dischi chiari"
+ },
+ "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione SPIDER (Zenodo 10159290, CC BY 4.0), convertita da MHA in DICOM con strumenti_claude/spider/spider2dcm.py; testi da strumenti_claude/eco2d/scrivi_156_164.py. Livelli contati dal sacro (disco 1 = L5-S1, verificato con le maschere della collezione). NON ancora rivisto dal medico. Paziente SPIDER 218 (M, Philips 3 T). La listesi è lieve e si vede meglio sulle fette 13-15; scartato il paziente 56 (ernia L3-L4 della gradazione non riconoscibile con sicurezza)."
+}

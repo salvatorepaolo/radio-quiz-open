@@ -2643,3 +2643,33 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .hvs-cta{font-weight:600;color:var(--acc)}
 .hvs-fonte{font-size:.75rem;color:var(--mut)}
 .hv-settimana .hvs-testo b{color:var(--txt)}
+
+/* 1.319: manichino per filtrare i casi per parte del corpo */
+.corpo-box{background:var(--pan);border:1px solid var(--bord);border-radius:12px;padding:8px 14px;margin:10px 0 4px}
+.corpo-box>summary{cursor:pointer;display:flex;align-items:center;gap:8px;list-style:none}
+.corpo-box>summary::-webkit-details-marker{display:none}
+.corpo-box>summary::after{content:'›';margin-left:auto;transform:rotate(90deg);transition:transform .15s;color:var(--mut)}
+.corpo-box:not([open])>summary::after{transform:none}
+.cb-scelta{color:var(--acc);font-weight:600}
+.cb-scelta:empty{display:none}
+.cb-dentro{display:flex;gap:18px;align-items:center;margin-top:8px}
+#manichino{width:130px;height:216px;flex:none;overflow:visible}
+#manichino [data-p],#manichino g[data-p]>*{fill:var(--pan2);stroke:var(--mut);stroke-width:1.1;cursor:pointer;transition:fill .15s,opacity .15s;outline:none}
+#manichino g[data-p]{stroke:none}
+#manichino [data-p]:hover,#manichino [data-p]:focus-visible,#manichino g[data-p]:hover>:not(.cb-spina-fondo),#manichino g[data-p]:focus-visible>:not(.cb-spina-fondo){fill:color-mix(in srgb,var(--acc) 35%,var(--pan2))}
+#manichino [data-p].on,#manichino [data-p].on:hover,#manichino [data-p].on:focus-visible,#manichino g[data-p].on>:not(.cb-spina-fondo),#manichino g[data-p].on:hover>:not(.cb-spina-fondo){fill:var(--acc)}
+#manichino g.cb-spina>rect{stroke-width:.9}
+#manichino g.cb-spina>.cb-spina-fondo{fill:transparent;stroke:none}
+#manichino g.cb-spina:hover>.cb-spina-fondo{fill:color-mix(in srgb,var(--acc) 10%,transparent)}
+#manichino g.cb-spina.on>rect:not(.cb-spina-fondo){fill:var(--acc)}
+#manichino .cb-intero{fill:transparent;stroke:var(--bord);stroke-dasharray:3 4}
+#manichino .cb-intero:hover{fill:color-mix(in srgb,var(--acc) 8%,transparent)}
+#manichino .cb-intero.on{fill:color-mix(in srgb,var(--acc) 14%,transparent);stroke:var(--acc)}
+#manichino .vuota,#manichino g.vuota>*{opacity:.3;cursor:default;pointer-events:none}
+.cb-lato{flex:1;min-width:0}
+.cb-aiuto{margin:0 0 8px}
+.cb-parti,.cb-distretti{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cb-distretti{margin-top:10px;padding-top:8px;border-top:1px dashed var(--bord)}
+.cb-parti button small,.cb-distretti button small{opacity:.7;margin-left:3px}
+.cb-parti button,.cb-distretti button{border-radius:999px;padding:4px 11px}
+@media (max-width:600px){.cb-dentro{gap:10px;align-items:flex-start}#manichino{width:92px;height:154px}.cb-aiuto{display:none}}

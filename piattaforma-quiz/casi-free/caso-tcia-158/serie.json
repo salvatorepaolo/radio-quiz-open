@@ -1,0 +1,10 @@
+[
+ {
+  "descrizione": "Ecografia mammaria (convertita da PNG)",
+  "numero": 1,
+  "files": [
+   "serie/0001_Ecografia_mammaria/img_00001.dcm",
+   "serie/0001_Ecografia_mammaria/img_00002.dcm"
+  ]
+ }
+]

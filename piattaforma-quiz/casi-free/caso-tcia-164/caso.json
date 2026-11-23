@@ -1,0 +1,111 @@
+{
+ "id": "caso-tcia-164",
+ "visibile": true,
+ "aggiornato": "2026-11-23 21:48",
+ "titolo": "Ecografia ostetrica (3/3): misura la testa fetale",
+ "titolo_interno": "Circonferenza cranica 259 mm, circa 28 settimane; nel terzo trimestre la CC non data la gravidanza (HC18 693)",
+ "distretto": "Ostetricia",
+ "quesito": "crescita fetale",
+ "modalita": "Ecografia",
+ "difficolta": "Intermedio",
+ "anamnesi": "Ecografia ostetrica del terzo trimestre per la crescita. La gravidanza è stata datata nel primo trimestre. Immagine assiale della testa fetale.",
+ "domanda": "Misura la circonferenza cranica e decidi come usarla.",
+ "sezioni": [
+  {
+   "nome": "Piano",
+   "domanda": "L'immagine è adatta alla misura?"
+  },
+  {
+   "nome": "Misura",
+   "domanda": "Quanto misura la circonferenza cranica?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Come si usa questa misura nel terzo trimestre?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Piano adatto della testa: teca ovale, linea mediana con il cavo del setto pellucido (triangolo scuro anteriore)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagine 0: il cavo del setto pellucido è il riferimento del piano corretto; la teca è un po' tagliata dal bordo del settore, ma il contorno si ricostruisce."
+  },
+  {
+   "testo": "Non adatto: è un piano coronale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Si stima una circonferenza di circa 260 mm",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Con il righello misura il diametro biparietale (da esterno a esterno della teca) e il diametro occipito-frontale; la circonferenza è circa 1,57 × (DBP + DOF). Con l'ellisse si misura direttamente sul contorno esterno della teca."
+  },
+  {
+   "testo": "Si stima una circonferenza di circa 170 mm",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Si stima una circonferenza di circa 210 mm",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Si stima una circonferenza di circa 340 mm",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "La misura della testa si confronta con le curve di crescita per l'epoca già nota dal primo trimestre; non si ridata la gravidanza",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Con la datazione del primo trimestre, 259 mm corrisponde a circa 28 settimane secondo Hadlock: se l'epoca vera è simile la crescita del cranio è regolare."
+  },
+  {
+   "testo": "Si ricalcola la data del parto in base a questa misura",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Nel terzo trimestre l'errore della datazione biometrica è di ±2-3 settimane: si perderebbero i ritardi di crescita."
+  }
+ ],
+ "spiegazione": "La circonferenza cranica (CC) si misura su un piano assiale della testa: ovale regolare e simmetrico, eco della linea mediana continua interrotta in avanti dal cavo del setto pellucido, talami visibili, cervelletto assente (se si vede il cervelletto il piano è troppo basso e inclinato). L'ellisse si appoggia sul bordo esterno della teca.\nNel primo trimestre l'epoca si data con la lunghezza vertice-sacro; nel secondo trimestre la CC è un buon parametro di datazione. Nel terzo trimestre la variabilità tra feti aumenta: la CC serve a seguire la crescita, non a datare la gravidanza (si usa la datazione del primo trimestre).",
+ "regola": "Si data una volta sola, presto; dopo si misura la crescita.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Collezione HC18: circonferenza cranica di riferimento 258,5 mm (ecografista esperto). Hadlock: circa 28 settimane."
+ },
+ "fonte": {
+  "archivio": "Zenodo (PLoS ONE), non TCIA",
+  "collezione": "HC18 – Fetal head circumference (Radboud UMC)",
+  "soggetto": "immagine 693_HC (circonferenza cranica di riferimento 258,5 mm)",
+  "doi": "10.5281/zenodo.1327317",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "van den Heuvel T.L.A., de Bruijn D., de Korte C.L., van Ginneken B. (2018). Automated measurement of fetal head circumference using 2D ultrasound images. PLoS ONE 13(8): e0200412. https://doi.org/10.1371/journal.pone.0200412. Dati: HC18, Zenodo, doi:10.5281/zenodo.1327317.",
+  "url": "https://zenodo.org/records/1327317",
+  "nota": "Immagine convertita da PNG in DICOM da radio-quiz.it: non è un DICOM originale, pixel invariati, spaziatura dei pixel dalla collezione (le misure nel visualizzatore sono in millimetri). Risposta di riferimento: circonferenza cranica misurata da un ecografista esperto (ellisse) nella collezione. L'epoca gestazionale non è nella collezione: è stimata dalla circonferenza con la formula di Hadlock (1984)."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Testa fetale in assiale, terzo trimestre"
+ },
+ "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione HC18 (Zenodo 1327317, CC BY 4.0), convertita da PNG in DICOM US con strumenti_claude/eco2d/png2us.py (spaziatura dei pixel dalla collezione); testi da strumenti_claude/eco2d/scrivi_156_164.py. Epoca gestazionale stimata con Hadlock: EG (settimane) = 8,96 + 0,540·CC + 0,0003·CC³, CC in cm. NON ancora rivisto dal medico. HC18 693: CC 258,5 mm, pixel 0,155 mm. La frase sulla datazione nel primo trimestre è un'ipotesi del caso, non un dato della collezione."
+}

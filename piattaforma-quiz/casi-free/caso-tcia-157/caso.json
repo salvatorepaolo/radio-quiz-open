@@ -1,0 +1,134 @@
+{
+ "id": "caso-tcia-157",
+ "visibile": true,
+ "aggiornato": "2026-11-23 21:48",
+ "titolo": "Ecografia mammaria (2/5): nodulo della mammella sinistra",
+ "titolo_interno": "Fibroadenoma: massa ovale, circoscritta, ipoecogena, orientamento parallelo; BI-RADS 3 (BUS-BRA 558)",
+ "distretto": "Mammella",
+ "quesito": "nodulo mammario",
+ "modalita": "Ecografia",
+ "difficolta": "Base",
+ "anamnesi": "Donna con nodulo mammario, inviata all'ecografia. Due proiezioni ortogonali della lesione. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Descrivi la lesione e assegna la categoria BI-RADS.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Come descrivi la lesione (lessico BI-RADS)?"
+  },
+  {
+   "nome": "BI-RADS",
+   "domanda": "Quale categoria BI-RADS?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Che cosa proponi?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa solida ovale, ipoecogena, a margini circoscritti, più larga che alta (orientamento parallelo)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini 0 e 1: la massa ha echi interni (è solida, non liquida), contorno liscio e asse maggiore parallelo alla cute; nessuna ombra posteriore."
+  },
+  {
+   "testo": "Cisti semplice",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Non è anecogena: ha echi interni fini. È solida."
+  },
+  {
+   "testo": "Margini spiculati e cono d'ombra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "BI-RADS 2: benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "BI-RADS 3: probabilmente benigno",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Massa solida ovale, circoscritta, parallela, senza altri segni di sospetto: probabilità di malignità sotto il 2%."
+  },
+  {
+   "testo": "BI-RADS 4: sospetto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Nessun criterio di sospetto: la biopsia si può fare su richiesta della paziente o se la massa cresce, non è l'indicazione standard."
+  },
+  {
+   "testo": "BI-RADS 5: altamente suggestivo di malignità",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessun controllo dedicato: si torna allo screening per l'età",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Massa solida ovale circoscritta della mammella sinistra, probabile fibroadenoma, BI-RADS 3: controllo ecografico a breve termine (6 mesi), poi a 12 e 24 mesi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Biopsia percutanea con ago tranciante sotto guida ecografica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Ragionevole se la massa è nuova in età avanzata, se cresce o se la paziente lo preferisce."
+  }
+ ],
+ "spiegazione": "Il lessico BI-RADS per l'ecografia descrive la massa con poche parole: forma (ovale, rotonda, irregolare), orientamento (parallelo alla cute = più larga che alta; non parallelo = più alta che larga), margini (circoscritti oppure indistinti, angolati, microlobulati, spiculati), ecostruttura (anecogena, ipoecogena, complessa…) e caratteristiche posteriori (rinforzo, ombra, nessuna).\nLa massa solida ovale, circoscritta, a orientamento parallelo e senza ombra è il quadro tipico del fibroadenoma: BI-RADS 3, probabilmente benigna (malignità sotto il 2%).\nBI-RADS 3 significa sorveglianza a breve: ecografia a 6 mesi, poi a 12 e 24 mesi. Se resta stabile si declassa a 2; se cresce o cambia aspetto si fa la biopsia.\nIn questa paziente la biopsia ha confermato un fibroadenoma.",
+ "regola": "Ovale, circoscritta, parallela, senza ombra: BI-RADS 3 e controllo a 6 mesi.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Collezione BUS-BRA: BI-RADS 3, istologia fibroadenoma (benigno)."
+ },
+ "scale": [
+  {
+   "id": "mammella",
+   "valori": {
+    "br": "3"
+   },
+   "valore": "BI-RADS 3",
+   "testo": "Mammella sinistra, quadrante supero-esterno: massa solida ovale circoscritta, probabile fibroadenoma. BI-RADS 3: controllo a 6 mesi."
+  }
+ ],
+ "fonte": {
+  "archivio": "Zenodo (Medical Physics), non TCIA",
+  "collezione": "BUS-BRA – Breast Ultrasound dataset (Brasile)",
+  "soggetto": "caso 558 (file bus_0558-l e bus_0558-r)",
+  "doi": "10.5281/zenodo.7730708",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Gómez-Flores W., Gregorio-Calas M.J., Coelho de Albuquerque Pereira W. (2024). BUS-BRA: A breast ultrasound dataset for assessing computer-aided diagnosis systems. Medical Physics 51, 3110-3123. https://doi.org/10.1002/mp.16812. Dati: BUS-BRA, Zenodo, doi:10.5281/zenodo.7730708.",
+  "url": "https://zenodo.org/records/7730708",
+  "nota": "Immagini convertite da PNG in DICOM da radio-quiz.it: non sono DICOM originali, pixel invariati. La collezione dà le immagini già ritagliate sulla lesione, senza spaziatura dei pixel: le misure si leggono sulle scritte dell'ecografo (in portoghese: MAMA DIREITA/ESQUERDA = mammella destra/sinistra). Risposte di riferimento: categoria BI-RADS assegnata dal radiologo e istologia della biopsia, dalla collezione. Età e dati clinici non disponibili."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa ovale ipoecogena circoscritta"
+ },
+ "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione BUS-BRA (Zenodo 7730708, CC BY 4.0; nel LICENSE.txt dello zip permesso di uso, modifica e distribuzione con citazione), convertita da PNG in DICOM US con strumenti_claude/eco2d/png2us.py; testi da strumenti_claude/eco2d/scrivi_156_164.py. Le due immagini sono le due proiezioni della stessa lesione. Scelte immagini senza date o nomi impressi. NON ancora rivisto dal medico. BUS-BRA 558, mammella sinistra (QSE), GE Logiq."
+}

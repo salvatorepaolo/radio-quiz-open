@@ -529,6 +529,28 @@
     <div id="chip-quesiti" class="sugg-quesiti" role="listbox" hidden></div>
   </div>
   <div id="percorsi" class="percorsi"></div>
+  <details id="corpo-box" class="corpo-box" open>
+    <summary><span class="cb-ico" aria-hidden="true">🧍</span><b>Parte del corpo</b><span id="corpo-scelta" class="cb-scelta"></span></summary>
+    <div class="cb-dentro">
+      <svg id="manichino" viewBox="0 0 150 250" role="group" aria-label="Manichino: tocca una parte del corpo per filtrare i casi">
+        <rect data-p="intero" role="button" class="cb-intero" x="2" y="2" width="116" height="246" rx="14"><title>Corpo intero</title></rect>
+        <g data-p="arti" role="button"><title>Arti e ossa</title>
+          <path d="M36 54 Q25 58 23 74 L17 131 Q16 140 22 141 L27 140 L33 92 L36 80 Z"/><path d="M84 54 Q95 58 97 74 L103 131 Q104 140 98 141 L93 140 L87 92 L84 80 Z"/>
+          <path d="M46 179 L59 179 L58 237 Q58 244 51 244 L45 244 Q41 243 43 236 Z"/><path d="M74 179 L61 179 L62 237 Q62 244 69 244 L75 244 Q79 243 77 236 Z"/></g>
+        <ellipse data-p="testa" role="button" cx="60" cy="21" rx="15" ry="18"><title>Testa</title></ellipse>
+        <rect data-p="collo" role="button" x="53" y="37" width="14" height="13" rx="3"><title>Collo</title></rect>
+        <path data-p="torace" role="button" d="M38 51 Q60 45 82 51 L85 106 L35 106 Z"><title>Torace</title></path>
+        <path data-p="addome" role="button" d="M35 108 L85 108 L84 146 L36 146 Z"><title>Addome</title></path>
+        <path data-p="pelvi" role="button" d="M36 148 L84 148 Q87 168 75 178 L45 178 Q33 168 36 148 Z"><title>Pelvi</title></path>
+        <g data-p="rachide" role="button" class="cb-spina"><title>Colonna</title><rect class="cb-spina-fondo" x="123" y="40" width="22" height="146" rx="6"/><rect x="128" y="44" width="12" height="8.5" rx="2"/><rect x="128" y="55" width="12" height="8.5" rx="2"/><rect x="128" y="66" width="12" height="8.5" rx="2"/><rect x="128" y="77" width="12" height="8.5" rx="2"/><rect x="128" y="88" width="12" height="8.5" rx="2"/><rect x="128" y="99" width="12" height="8.5" rx="2"/><rect x="128" y="110" width="12" height="8.5" rx="2"/><rect x="128" y="121" width="12" height="8.5" rx="2"/><rect x="128" y="132" width="12" height="8.5" rx="2"/><rect x="128" y="143" width="12" height="8.5" rx="2"/><rect x="128" y="154" width="12" height="8.5" rx="2"/><rect x="128" y="165" width="12" height="8.5" rx="2"/><rect x="127" y="176" width="14" height="8.5" rx="2"/></g>
+      </svg>
+      <div class="cb-lato">
+        <p class="muted small cb-aiuto">Tocca una parte del manichino: vedi i casi di quella zona in tutte le metodiche. Tocca di nuovo per togliere il filtro.</p>
+        <div id="corpo-parti" class="cb-parti" role="group" aria-label="Parte del corpo"></div>
+        <div id="corpo-distretti" class="cb-distretti" role="group" aria-label="Distretto" hidden></div>
+      </div>
+    </div>
+  </details>
   <div class="barra-elenco">
     <span class="be-tit">Filtra i casi</span>
     <div id="filtro-origine" class="schede origine" role="tablist" aria-label="Origine dei casi" hidden></div>

@@ -1,0 +1,135 @@
+{
+ "id": "caso-tcia-156",
+ "visibile": true,
+ "aggiornato": "2026-11-23 21:48",
+ "titolo": "Ecografia mammaria (1/5): nodulo della mammella sinistra",
+ "titolo_interno": "Cisti semplice: ovale, anecogena, circoscritta, con rinforzo posteriore; BI-RADS 2 (BUS-BRA 580)",
+ "distretto": "Mammella",
+ "quesito": "nodulo mammario",
+ "modalita": "Ecografia",
+ "difficolta": "Base",
+ "anamnesi": "Donna con nodulo mammario, inviata all'ecografia. Due proiezioni ortogonali della lesione. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Descrivi la lesione e assegna la categoria BI-RADS.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Come descrivi la lesione (lessico BI-RADS)?"
+  },
+  {
+   "nome": "BI-RADS",
+   "domanda": "Quale categoria BI-RADS?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Che cosa proponi?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Lesione ovale, anecogena (nera), a margini netti, con rinforzo acustico posteriore",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini 0 e 1: contenuto nero omogeneo, parete sottile, tessuto più chiaro dietro la lesione (il liquido non attenua gli ultrasuoni). Diametro maggiore circa 20 mm, dalle scritte dell'ecografo."
+  },
+  {
+   "testo": "Massa solida irregolare con cono d'ombra posteriore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Dietro la lesione il segnale aumenta (rinforzo), non si riduce (ombra)."
+  },
+  {
+   "testo": "Lesione complessa con componente solida vegetante nella parete",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Non ci sono vegetazioni né setti spessi: la parete è liscia."
+  },
+  {
+   "testo": "BI-RADS 2: benigno",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Cisti semplice: benigna, nessuna sorveglianza dedicata."
+  },
+  {
+   "testo": "BI-RADS 3: probabilmente benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "BI-RADS 4: sospetto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "BI-RADS 5: altamente suggestivo di malignità",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Cisti semplice anecogena della mammella sinistra, BI-RADS 2: nessun controllo dedicato: si torna allo screening per l'età",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Se la cisti è grande e dolente si può aspirare per il sintomo, non per la diagnosi."
+  },
+  {
+   "testo": "Controllo ecografico a breve termine (6 mesi), poi a 12 e 24 mesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Biopsia percutanea con ago tranciante sotto guida ecografica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Il lessico BI-RADS per l'ecografia descrive la massa con poche parole: forma (ovale, rotonda, irregolare), orientamento (parallelo alla cute = più larga che alta; non parallelo = più alta che larga), margini (circoscritti oppure indistinti, angolati, microlobulati, spiculati), ecostruttura (anecogena, ipoecogena, complessa…) e caratteristiche posteriori (rinforzo, ombra, nessuna).\nLa cisti semplice è la lesione mammaria più frequente. Per chiamarla «semplice» servono tutti e quattro i criteri: anecogena, circoscritta, parete sottile, rinforzo posteriore. Allora è BI-RADS 2.\nSe mancano (echi interni, setti, parete spessa, componente solida) è una cisti complicata o una massa complessa: la categoria sale (3 o 4).",
+ "regola": "Anecogena, circoscritta, parete sottile, rinforzo posteriore: cisti semplice, BI-RADS 2.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Collezione BUS-BRA: BI-RADS 2, istologia cisti (benigna)."
+ },
+ "scale": [
+  {
+   "id": "mammella",
+   "valori": {
+    "d": 20,
+    "br": "2"
+   },
+   "valore": "BI-RADS 2",
+   "testo": "Mammella sinistra, quadrante infero-interno: cisti semplice di circa 2 cm. BI-RADS 2: benigna."
+  }
+ ],
+ "fonte": {
+  "archivio": "Zenodo (Medical Physics), non TCIA",
+  "collezione": "BUS-BRA – Breast Ultrasound dataset (Brasile)",
+  "soggetto": "caso 580 (file bus_0580-l e bus_0580-r)",
+  "doi": "10.5281/zenodo.7730708",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Gómez-Flores W., Gregorio-Calas M.J., Coelho de Albuquerque Pereira W. (2024). BUS-BRA: A breast ultrasound dataset for assessing computer-aided diagnosis systems. Medical Physics 51, 3110-3123. https://doi.org/10.1002/mp.16812. Dati: BUS-BRA, Zenodo, doi:10.5281/zenodo.7730708.",
+  "url": "https://zenodo.org/records/7730708",
+  "nota": "Immagini convertite da PNG in DICOM da radio-quiz.it: non sono DICOM originali, pixel invariati. La collezione dà le immagini già ritagliate sulla lesione, senza spaziatura dei pixel: le misure si leggono sulle scritte dell'ecografo (in portoghese: MAMA DIREITA/ESQUERDA = mammella destra/sinistra). Risposte di riferimento: categoria BI-RADS assegnata dal radiologo e istologia della biopsia, dalla collezione. Età e dati clinici non disponibili."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Lesione anecogena ovale con rinforzo posteriore"
+ },
+ "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione BUS-BRA (Zenodo 7730708, CC BY 4.0; nel LICENSE.txt dello zip permesso di uso, modifica e distribuzione con citazione), convertita da PNG in DICOM US con strumenti_claude/eco2d/png2us.py; testi da strumenti_claude/eco2d/scrivi_156_164.py. Le due immagini sono le due proiezioni della stessa lesione. Scelte immagini senza date o nomi impressi. NON ancora rivisto dal medico. BUS-BRA 580, mammella sinistra (QII), GE Logiq."
+}

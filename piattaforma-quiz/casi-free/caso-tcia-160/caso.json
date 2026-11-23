@@ -1,0 +1,134 @@
+{
+ "id": "caso-tcia-160",
+ "visibile": true,
+ "aggiornato": "2026-11-23 21:48",
+ "titolo": "Ecografia mammaria (5/5): nodulo della mammella destra",
+ "titolo_interno": "Papilloma intraduttale: massa irregolare microlobulata, BI-RADS 4, biopsia benigna (BUS-BRA 623)",
+ "distretto": "Mammella",
+ "quesito": "nodulo mammario",
+ "modalita": "Ecografia",
+ "difficolta": "Avanzato",
+ "anamnesi": "Donna con nodulo mammario, inviata all'ecografia. Due proiezioni ortogonali della lesione. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Descrivi la lesione, assegna la categoria BI-RADS e interpreta l'istologia.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Come descrivi la lesione (lessico BI-RADS)?"
+  },
+  {
+   "nome": "BI-RADS",
+   "domanda": "Quale categoria BI-RADS?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "La biopsia dice papilloma intraduttale, benigno. E ora?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Massa ipoecogena eterogenea, di forma irregolare, a margini microlobulati e non circoscritti",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini 0 e 1: la lesione ha piccole lobulazioni sul contorno e struttura interna disomogenea; non è né una cisti né un nodulo ovale circoscritto."
+  },
+  {
+   "testo": "Cisti semplice",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Linfonodo intramammario con ilo adiposo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il linfonodo è ovale, circoscritto, con un ilo chiaro centrale: qui non c'è."
+  },
+  {
+   "testo": "BI-RADS 2: benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "BI-RADS 3: probabilmente benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "BI-RADS 4: sospetto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Margini microlobulati e forma irregolare: sospetto, biopsia."
+  },
+  {
+   "testo": "BI-RADS 5: altamente suggestivo di malignità",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa irregolare con biopsia di papilloma intraduttale: la concordanza va discussa; per il papilloma molti centri propongono l'asportazione chirurgica o con biopsia vacuum, per non perdere un'atipia o un carcinoma vicino",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Le lesioni papillari sono «a rischio incerto» (B3): l'ago tranciante può sottostimarle. Senza atipie alcune linee guida accettano la sorveglianza se la lesione è piccola e asportata in buona parte; la decisione è multidisciplinare."
+  },
+  {
+   "testo": "Benigno: si chiude, nessun controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2,
+   "nota": "Ogni biopsia va valutata per concordanza tra imaging e istologia; il papilloma non si chiude così."
+  },
+  {
+   "testo": "Mastectomia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Il lessico BI-RADS per l'ecografia descrive la massa con poche parole: forma (ovale, rotonda, irregolare), orientamento (parallelo alla cute = più larga che alta; non parallelo = più alta che larga), margini (circoscritti oppure indistinti, angolati, microlobulati, spiculati), ecostruttura (anecogena, ipoecogena, complessa…) e caratteristiche posteriori (rinforzo, ombra, nessuna).\nNon tutte le lesioni BI-RADS 4 sono tumori: la categoria indica che serve un prelievo, e molte biopsie BI-RADS 4 risultano benigne.\nDopo ogni biopsia il radiologo verifica la concordanza: il risultato spiega l'aspetto della lesione? Il papilloma intraduttale spiega una massa solida irregolare, ma è una lesione B3 (potenziale incerto): sulla biopsia con ago può mancare un'atipia o un carcinoma papillare. Per questo spesso si asporta.\nIl papilloma dà talvolta secrezione dal capezzolo, sierosa o ematica: in quel caso si cerca una lesione nei dotti retroareolari.",
+ "regola": "Dopo la biopsia: istologia e immagini devono concordare; le lesioni papillari si discutono.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Collezione BUS-BRA: BI-RADS 4, istologia papilloma intraduttale (benigno)."
+ },
+ "scale": [
+  {
+   "id": "mammella",
+   "valori": {
+    "br": "4"
+   },
+   "valore": "BI-RADS 4",
+   "testo": "Mammella destra, quadrante infero-interno: massa irregolare microlobulata. BI-RADS 4: biopsia con ago tranciante."
+  }
+ ],
+ "fonte": {
+  "archivio": "Zenodo (Medical Physics), non TCIA",
+  "collezione": "BUS-BRA – Breast Ultrasound dataset (Brasile)",
+  "soggetto": "caso 623 (file bus_0623-l e bus_0623-r)",
+  "doi": "10.5281/zenodo.7730708",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Gómez-Flores W., Gregorio-Calas M.J., Coelho de Albuquerque Pereira W. (2024). BUS-BRA: A breast ultrasound dataset for assessing computer-aided diagnosis systems. Medical Physics 51, 3110-3123. https://doi.org/10.1002/mp.16812. Dati: BUS-BRA, Zenodo, doi:10.5281/zenodo.7730708.",
+  "url": "https://zenodo.org/records/7730708",
+  "nota": "Immagini convertite da PNG in DICOM da radio-quiz.it: non sono DICOM originali, pixel invariati. La collezione dà le immagini già ritagliate sulla lesione, senza spaziatura dei pixel: le misure si leggono sulle scritte dell'ecografo (in portoghese: MAMA DIREITA/ESQUERDA = mammella destra/sinistra). Risposte di riferimento: categoria BI-RADS assegnata dal radiologo e istologia della biopsia, dalla collezione. Età e dati clinici non disponibili."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa irregolare microlobulata"
+ },
+ "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione BUS-BRA (Zenodo 7730708, CC BY 4.0; nel LICENSE.txt dello zip permesso di uso, modifica e distribuzione con citazione), convertita da PNG in DICOM US con strumenti_claude/eco2d/png2us.py; testi da strumenti_claude/eco2d/scrivi_156_164.py. Le due immagini sono le due proiezioni della stessa lesione. Scelte immagini senza date o nomi impressi. NON ancora rivisto dal medico. BUS-BRA 623, mammella destra (QIE), GE Logiq. La condotta dopo biopsia di papilloma senza atipie varia tra linee guida: da rivedere con il medico."
+}

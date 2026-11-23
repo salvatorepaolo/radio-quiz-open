@@ -7544,6 +7544,50 @@ const normal = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\
 let filtroDiff = leggiSessione('quiz-diff', '');
 const corrispondeDiff = (c) => !filtroDiff || c.difficolta === filtroDiff;
 const corrisponde = (c) => { const t = normal([c.quesito, c.titolo, c.distretto, metodicaDi(c)].join(' ')); return normal(cercaTesto).split(/\s+/).filter(Boolean).every((w) => t.includes(w)); };
+// 1.319: filtro per parte del corpo con il manichino. Lo studente tocca una parte e l'elenco mostra i casi di quel
+// distretto in tutte le metodiche (gli altri filtri restano). La parte viene dal campo «distretto» del caso (se non
+// basta, dal titolo); dentro la parte si può restringere a un distretto preciso (es. Torace → Mammella, Cuore).
+// La colonna viene prima di collo e testa (rachide cervicale), il corpo intero prima di tutto (PET total body).
+const PARTI_CORPO = [
+  ['intero', 'Corpo intero', /total.?body|whole.?body|corpo intero/],
+  ['rachide', 'Colonna', /rachid|colonna|vertebr|spinal|spine|midollo spin|lombar|sacr/],
+  ['testa', 'Testa', /encef|crani|cerebr|testa|capo|orbit|ipofis|sella|orecch|rocca|paranas|massicc|neuro|basicran|brain|head/],
+  ['collo', 'Collo', /collo|tiroid|laring|faring|paratir|salivar|parotid|neck|thyroid/],
+  ['torace', 'Torace', /torac|polmon|mediast|pleur|mammell|\bseno\b|breast|cuor|cardi|coronar|esofag|chest|lung|heart/],
+  ['addome', 'Addome', /addom|fegat|epat|pancrea|stomac|gastr|\bren[ei]\b|renal|surren|milz|colecist|bili|intestin|\bcolon\b|retroperit|abdom|liver|kidney/],
+  ['pelvi', 'Pelvi', /pelvi|prostat|vescic|uter|ovai|\bretto\b|ostetric|\bfet|gravid|cervice/],
+  ['arti', 'Arti e ossa', /muscol|schelet|\barti?\b|spall|gomit|polso|\bman[oi]\b|anca|ginocch|cavigl|piede|femor|tibi|omer|musculo/],
+];
+const parteDi = (c) => {
+  for (const t of [normal(c.distretto), normal(c.titolo)]) { if (!t) continue; for (const [k, , re] of PARTI_CORPO) if (re.test(t)) return k; }
+  return 'altro';
+};
+const nomeParte = (k) => PARTI_CORPO.find(([x]) => x === k)?.[1] || '';
+let filtroCorpo = leggiSessione('quiz-corpo', '');           // '' = tutto il corpo
+let filtroDistretto = leggiSessione('quiz-distretto', '');   // '' = tutti i distretti della parte
+const corrispondeCorpo = (c) => (!filtroCorpo || parteDi(c) === filtroCorpo) && (!filtroDistretto || (c.distretto || '') === filtroDistretto);
+function disegnaManichino(l) {
+  if (!$('#corpo-box')) return;
+  const n = {}; l.forEach((c) => { const p = parteDi(c); n[p] = (n[p] || 0) + 1; });
+  if (filtroCorpo && !n[filtroCorpo]) { filtroCorpo = ''; filtroDistretto = ''; }    // con gli altri filtri la parte non ha casi
+  qsAll('#manichino [data-p]').forEach((e) => { const k = e.dataset.p, on = k === filtroCorpo;
+    e.classList.toggle('on', on); e.classList.toggle('vuota', !n[k]); e.setAttribute('aria-pressed', on ? 'true' : 'false');
+    e.setAttribute('tabindex', n[k] ? '0' : '-1'); e.setAttribute('aria-disabled', n[k] ? 'false' : 'true');
+    const tt = e.querySelector('title'); if (tt) tt.textContent = `${nomeParte(k)}: ${n[k] || 0} ${n[k] === 1 ? 'caso' : 'casi'}`; });
+  $('#corpo-parti').innerHTML = `<button type="button" data-p="" class="${filtroCorpo ? '' : 'on'}">Tutto il corpo <small>${l.length}</small></button>`
+    + PARTI_CORPO.filter(([k]) => n[k]).map(([k, nome]) => `<button type="button" data-p="${k}" class="${k === filtroCorpo ? 'on' : ''}" aria-pressed="${k === filtroCorpo}">${esc(nome)} <small>${n[k]}</small></button>`).join('');
+  const dis = {};
+  if (filtroCorpo) l.filter((c) => parteDi(c) === filtroCorpo).forEach((c) => { if (c.distretto) dis[c.distretto] = (dis[c.distretto] || 0) + 1; });
+  if (filtroDistretto && !dis[filtroDistretto]) filtroDistretto = '';
+  const ld = Object.entries(dis).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  $('#corpo-distretti').hidden = ld.length < 2;
+  $('#corpo-distretti').innerHTML = ld.length < 2 ? '' : `<span class="muted small">Distretto</span><button type="button" data-d="" class="${filtroDistretto ? '' : 'on'}">Tutti</button>`
+    + ld.map(([d, k]) => `<button type="button" data-d="${esc(d)}" class="${d === filtroDistretto ? 'on' : ''}">${esc(d)} <small>${k}</small></button>`).join('');
+  $('#corpo-scelta').textContent = filtroDistretto || nomeParte(filtroCorpo);
+}
+function sceltaCorpo(p, d = '') {
+  filtroCorpo = p; filtroDistretto = d; scriviSessione('quiz-corpo', p); scriviSessione('quiz-distretto', d); disegnaElenco();
+}
 // metodiche nella home: nome per esteso e simbolo
 const INFO_METODICHE = { TC: { nome: 'Tomografia computerizzata', ico: '◎' }, RM: { nome: 'Risonanza magnetica', ico: '◍' }, RX: { nome: 'Radiografia', ico: '☢' },
   Ecografia: { nome: 'Ultrasuoni', ico: '〰' }, Mammografia: { nome: 'Senologia', ico: '◐' }, 'Medicina nucleare': { nome: 'PET e scintigrafia', ico: '✺' }, Angiografia: { nome: 'Angiografia e coronarografia', ico: '⟟' }, Vetrini: { nome: 'Anatomia patologica (vetrini digitali)', ico: '🔬' }, Altro: { nome: 'Altre metodiche', ico: '▦' } };
@@ -7563,7 +7607,9 @@ function disegnaElenco() {
     return `<button role="tab" data-a="${esc(a)}" class="${a === filtroArea ? 'on' : ''}">${esc(a === 'Tutte' ? 'Tutte le aree' : a)} <small>${n}</small></button>`;
   }).join('') : '';
   qsAll('#filtro-area button').forEach((b) => b.onclick = () => { filtroArea = b.dataset.a; filtroMetodica = 'Tutte'; scriviSessione('quiz-area', filtroArea); scriviSessione('quiz-filtro', 'Tutte'); disegnaElenco(); });
-  const casi = tuttiCasi.filter((c) => filtroArea === 'Tutte' || areaDi(c) === filtroArea);
+  const perArea = tuttiCasi.filter((c) => filtroArea === 'Tutte' || areaDi(c) === filtroArea);
+  disegnaManichino(perArea);
+  const casi = perArea.filter(corrispondeCorpo);
   $('#cerca-n').textContent = cercaTesto.trim() ? `${casi.length} ${casi.length === 1 ? 'caso' : 'casi'}` : '';
   $('#cerca-via').hidden = !cercaTesto;
   if ($('#cerca').value !== cercaTesto && document.activeElement !== $('#cerca')) $('#cerca').value = cercaTesto;
@@ -7590,7 +7636,8 @@ function disegnaElenco() {
       <div class="lista" data-gruppo="${esc(m)}"></div></details>`; }).join('')
     : `<p class="muted">${cercaTesto ? 'Nessun caso corrisponde alla ricerca.' : `Nessun caso disponibile${AUTORE ? ': aggiungine uno con «Nuovo caso».' : '.'}`}</p>`;
   const suffOrigine = origini.length > 1 && filtroOrigine === 'TCIA' ? ' · TCIA' : '';
-  $('#btn-casuale').textContent = (filtroMetodica !== 'Tutte' ? `Allenamento casuale · ${filtroMetodica}` : filtroArea !== 'Tutte' ? `Allenamento casuale · ${filtroArea}` : 'Allenamento casuale') + suffOrigine;
+  const ambitoCas = [filtroMetodica !== 'Tutte' ? filtroMetodica : filtroArea !== 'Tutte' ? filtroArea : '', filtroDistretto || nomeParte(filtroCorpo)].filter(Boolean).join(' · ');
+  $('#btn-casuale').textContent = (ambitoCas ? `Allenamento casuale · ${ambitoCas}` : 'Allenamento casuale') + suffOrigine;
   $('#btn-casuale').disabled = !casi.length;
   // le schede dei casi si costruiscono solo per le metodiche aperte (con centinaia di casi la pagina resta leggera)
   GRUPPI_ELENCO = new Map(gruppi);
@@ -8060,7 +8107,7 @@ function numeriHome() {
 async function casoCasuale() {
   const stato = leggiSessione('quiz-casuale', null) || { metodica: filtroMetodica, origine: filtroOrigine, visti: [] };
   if (!ELENCO.length) ELENCO = await getJSON('/api/casi');
-  const pool = ELENCO.filter((c) => !eVetrini(c) && (!stato.origine || origineDi(c) === stato.origine) && (stato.metodica === 'Tutte' || metodicaDi(c) === stato.metodica) && (!stato.area || stato.area === 'Tutte' || areaDi(c) === stato.area) && corrisponde(c) && (!AUTORE || c.visibile !== false || ELENCO.every((x) => x.visibile === false)));
+  const pool = ELENCO.filter((c) => !eVetrini(c) && (!stato.origine || origineDi(c) === stato.origine) && (stato.metodica === 'Tutte' || metodicaDi(c) === stato.metodica) && (!stato.area || stato.area === 'Tutte' || areaDi(c) === stato.area) && (!stato.corpo || parteDi(c) === stato.corpo) && (!stato.distretto || c.distretto === stato.distretto) && corrisponde(c) && (!AUTORE || c.visibile !== false || ELENCO.every((x) => x.visibile === false)));
   if (!pool.length) { location.hash = '#/'; return; }
   let liberi = pool.filter((c) => !stato.visti.includes(c.id));
   if (!liberi.length) { stato.visti = []; stato.giro = (stato.giro || 1) + 1; liberi = pool.filter((c) => c.id !== V.caso?.id); if (!liberi.length) liberi = pool; }
@@ -8069,7 +8116,13 @@ async function casoCasuale() {
   scriviSessione('quiz-casuale', stato);
   location.hash = `#/caso/${c.id}`;
 }
-$('#btn-casuale').addEventListener('click', () => { scriviSessione('quiz-giro', null); scriviSessione('quiz-casuale', { metodica: filtroMetodica, area: filtroArea, origine: filtroOrigine, visti: [] }); casoCasuale(); });
+$('#btn-casuale').addEventListener('click', () => { scriviSessione('quiz-giro', null); scriviSessione('quiz-casuale', { metodica: filtroMetodica, area: filtroArea, corpo: filtroCorpo, distretto: filtroDistretto, origine: filtroOrigine, visti: [] }); casoCasuale(); });
+// manichino: clic su una parte (di nuovo sulla stessa = tutto il corpo), tastiera, pulsanti con i nomi e i distretti
+$('#manichino')?.addEventListener('click', (e) => { const t = e.target.closest('[data-p]'); if (t && !t.classList.contains('vuota')) sceltaCorpo(t.dataset.p === filtroCorpo ? '' : t.dataset.p); });
+$('#manichino')?.addEventListener('keydown', (e) => { const t = e.target.closest('[data-p]'); if (t && (e.key === 'Enter' || e.key === ' ') && !t.classList.contains('vuota')) { e.preventDefault(); sceltaCorpo(t.dataset.p === filtroCorpo ? '' : t.dataset.p); } });
+$('#corpo-parti')?.addEventListener('click', (e) => { const b = e.target.closest('button[data-p]'); if (b) sceltaCorpo(b.dataset.p); });
+$('#corpo-distretti')?.addEventListener('click', (e) => { const b = e.target.closest('button[data-d]'); if (b) sceltaCorpo(filtroCorpo, b.dataset.d); });
+if ($('#corpo-box')) { if (leggiSessione('quiz-corpo-chiuso', false)) $('#corpo-box').open = false; $('#corpo-box').addEventListener('toggle', () => scriviSessione('quiz-corpo-chiuso', !$('#corpo-box').open)); }
 $('#btn-prossimo').addEventListener('click', () => { if (!prossimoGiro()) casoCasuale(); });
 $('#btn-esame').addEventListener('click', () => { location.hash = '#/esame'; });
 // ---------------------------------------------------------------- percorsi tematici e ripasso degli errori
@@ -8279,7 +8332,7 @@ const esameDelCaso = () => { const g = leggiSessione('quiz-giro', null); return 
 const mmss = (ms) => { const t = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
 function casiFiltrati() {
   return ELENCO.filter((c) => c.visibile !== false && !eVetrini(c) && origineDi(c) === filtroOrigine && corrisponde(c) && corrispondeDiff(c)
-    && (filtroArea === 'Tutte' || areaDi(c) === filtroArea) && (filtroMetodica === 'Tutte' || metodicaDi(c) === filtroMetodica));
+    && (filtroArea === 'Tutte' || areaDi(c) === filtroArea) && (filtroMetodica === 'Tutte' || metodicaDi(c) === filtroMetodica) && corrispondeCorpo(c));
 }
 // esame di livello: regole fisse (10 casi, 3 minuti a caso, casi di tutte le metodiche a rotazione) così i risultati
 // si confrontano nel tempo; lo storico è salvato sul server e il docente lo vede in Analisi → Esami.
@@ -8500,7 +8553,7 @@ async function apriImpostaEsame() {
   if (!ELENCO.length) ELENCO = await getJSON('/api/casi');
   const casi = casiFiltrati();
   const nLiv = (l) => Object.entries(LIVELLI_ESAME[l]).reduce((t, [d]) => t + elencoProfilo().filter((c) => c.visibile !== false && origineDi(c) === origineBase() && (c.difficolta || 'Intermedio') === d).length, 0);
-  const ambito = [filtroArea !== 'Tutte' ? filtroArea : '', filtroMetodica !== 'Tutte' ? filtroMetodica : '', filtroDiff, cercaTesto.trim() ? `«${cercaTesto.trim()}»` : ''].filter(Boolean).join(' · ') || 'tutti i casi';
+  const ambito = [filtroArea !== 'Tutte' ? filtroArea : '', filtroMetodica !== 'Tutte' ? filtroMetodica : '', filtroDistretto || nomeParte(filtroCorpo), filtroDiff, cercaTesto.trim() ? `«${cercaTesto.trim()}»` : ''].filter(Boolean).join(' · ') || 'tutti i casi';
   const ultimo = leggiSessione('quiz-esame-ultimo', null);
   const livelli = Object.keys(LIVELLI_ESAME).map((l) => ({ l, n: nLiv(l) }));
   $('#esame-corpo').innerHTML = `<header class="es-hero"><span class="es-hero-ico">⏱</span><div><h1>Esame simulato</h1>

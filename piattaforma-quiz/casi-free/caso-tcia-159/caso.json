@@ -1,0 +1,132 @@
+{
+ "id": "caso-tcia-159",
+ "visibile": true,
+ "aggiornato": "2026-11-23 21:48",
+ "titolo": "Ecografia mammaria (4/5): nodulo della mammella sinistra",
+ "titolo_interno": "Carcinoma lobulare invasivo: massa irregolare a margini angolati con ombra posteriore; BI-RADS 4 (BUS-BRA 566)",
+ "distretto": "Mammella",
+ "quesito": "nodulo mammario",
+ "modalita": "Ecografia",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna con nodulo mammario, inviata all'ecografia. Due proiezioni ortogonali della lesione. Età e altri dati clinici non disponibili nella collezione.",
+ "domanda": "Descrivi la lesione e assegna la categoria BI-RADS.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Come descrivi la lesione (lessico BI-RADS)?"
+  },
+  {
+   "nome": "BI-RADS",
+   "domanda": "Quale categoria BI-RADS?",
+   "singola": true
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Che cosa proponi?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Area ipoecogena irregolare a margini angolati e indistinti, con ombra posteriore",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini 0 e 1: la lesione ha prolungamenti a punta tra il tessuto ghiandolare e una banda d'ombra dietro di sé; il contorno non è netto in nessun punto."
+  },
+  {
+   "testo": "Tessuto fibroghiandolare normale, nessuna lesione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Il carcinoma lobulare può confondersi con il tessuto normale, ma l'ombra posteriore e i margini angolati sono reperti, non tessuto normale."
+  },
+  {
+   "testo": "Cisti complicata con echi interni",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "BI-RADS 2: benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "BI-RADS 3: probabilmente benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "BI-RADS 4: sospetto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1,
+   "nota": "Sospetto: margini non circoscritti e ombra. La collezione assegna 4; molti radiologi qui sceglierebbero 4C o 5: l'importante è la biopsia."
+  },
+  {
+   "testo": "BI-RADS 5: altamente suggestivo di malignità",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessun controllo dedicato: si torna allo screening per l'età",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Controllo ecografico a breve termine (6 mesi), poi a 12 e 24 mesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Area ipoecogena irregolare con ombra posteriore nella mammella sinistra, BI-RADS 4: biopsia percutanea con ago tranciante sotto guida ecografica",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  }
+ ],
+ "spiegazione": "Il lessico BI-RADS per l'ecografia descrive la massa con poche parole: forma (ovale, rotonda, irregolare), orientamento (parallelo alla cute = più larga che alta; non parallelo = più alta che larga), margini (circoscritti oppure indistinti, angolati, microlobulati, spiculati), ecostruttura (anecogena, ipoecogena, complessa…) e caratteristiche posteriori (rinforzo, ombra, nessuna).\nIl carcinoma lobulare invasivo cresce a file di cellule che si infiltrano tra le strutture senza formare una massa netta. Per questo in mammografia è spesso poco visibile (solo una distorsione) e in ecografia appare come un'area ipoecogena irregolare con ombra, a volte sottostimata.\nÈ più spesso multifocale e bilaterale: dopo la diagnosi la RM mammaria è utile per la stadiazione locale.\nBI-RADS 4 si divide in 4A (2-10%), 4B (10-50%) e 4C (50-95%); in tutti i casi l'indicazione è la biopsia.",
+ "regola": "Margini angolati e ombra bastano per il BI-RADS 4: biopsia.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Collezione BUS-BRA: BI-RADS 4, istologia carcinoma lobulare invasivo (maligno)."
+ },
+ "scale": [
+  {
+   "id": "mammella",
+   "valori": {
+    "br": "4"
+   },
+   "valore": "BI-RADS 4",
+   "testo": "Mammella sinistra, quadrante infero-interno: area ipoecogena irregolare con ombra posteriore. BI-RADS 4: biopsia con ago tranciante."
+  }
+ ],
+ "fonte": {
+  "archivio": "Zenodo (Medical Physics), non TCIA",
+  "collezione": "BUS-BRA – Breast Ultrasound dataset (Brasile)",
+  "soggetto": "caso 566 (file bus_0566-l e bus_0566-r)",
+  "doi": "10.5281/zenodo.7730708",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Gómez-Flores W., Gregorio-Calas M.J., Coelho de Albuquerque Pereira W. (2024). BUS-BRA: A breast ultrasound dataset for assessing computer-aided diagnosis systems. Medical Physics 51, 3110-3123. https://doi.org/10.1002/mp.16812. Dati: BUS-BRA, Zenodo, doi:10.5281/zenodo.7730708.",
+  "url": "https://zenodo.org/records/7730708",
+  "nota": "Immagini convertite da PNG in DICOM da radio-quiz.it: non sono DICOM originali, pixel invariati. La collezione dà le immagini già ritagliate sulla lesione, senza spaziatura dei pixel: le misure si leggono sulle scritte dell'ecografo (in portoghese: MAMA DIREITA/ESQUERDA = mammella destra/sinistra). Risposte di riferimento: categoria BI-RADS assegnata dal radiologo e istologia della biopsia, dalla collezione. Età e dati clinici non disponibili."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Area ipoecogena irregolare con ombra posteriore"
+ },
+ "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione BUS-BRA (Zenodo 7730708, CC BY 4.0; nel LICENSE.txt dello zip permesso di uso, modifica e distribuzione con citazione), convertita da PNG in DICOM US con strumenti_claude/eco2d/png2us.py; testi da strumenti_claude/eco2d/scrivi_156_164.py. Le due immagini sono le due proiezioni della stessa lesione. Scelte immagini senza date o nomi impressi. NON ancora rivisto dal medico. BUS-BRA 566, mammella sinistra (QIE), GE Logiq. Nota per il medico: la collezione dà BI-RADS 4; sulle immagini il quadro potrebbe essere letto 4C-5."
+}
