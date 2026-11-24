@@ -131,5 +131,11 @@
   "panY": 0,
   "nota": "Massa spiculata non parallela con ombra posteriore"
  },
- "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione BUS-BRA (Zenodo 7730708, CC BY 4.0; nel LICENSE.txt dello zip permesso di uso, modifica e distribuzione con citazione), convertita da PNG in DICOM US con strumenti_claude/eco2d/png2us.py; testi da strumenti_claude/eco2d/scrivi_156_164.py. Le due immagini sono le due proiezioni della stessa lesione. Scelte immagini senza date o nomi impressi. NON ancora rivisto dal medico. BUS-BRA 451, mammella destra, GE Logiq."
+ "nota_docente": "Caso creato da Claude il 23/11/2026 dalla collezione BUS-BRA (Zenodo 7730708, CC BY 4.0; nel LICENSE.txt dello zip permesso di uso, modifica e distribuzione con citazione), convertita da PNG in DICOM US con strumenti_claude/eco2d/png2us.py; testi da strumenti_claude/eco2d/scrivi_156_164.py. Le due immagini sono le due proiezioni della stessa lesione. Scelte immagini senza date o nomi impressi. NON ancora rivisto dal medico. BUS-BRA 451, mammella destra, GE Logiq.",
+ "rassegna": [
+  {
+   "caso": "caso-tcia-165",
+   "testo": "vetrino: carcinoma infiltrante di tipo non speciale (duttale), come la biopsia di questo nodulo"
+  }
+ ]
 }

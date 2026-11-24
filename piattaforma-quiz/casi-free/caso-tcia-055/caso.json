@@ -139,5 +139,11 @@
    "valore": "BI-RADS 6",
    "testo": "Mammella sinistra: massa di circa 3 cm con curva di tipo III. BI-RADS 6: carcinoma noto, terapia chirurgica o oncologica appropriata."
   }
+ ],
+ "rassegna": [
+  {
+   "caso": "caso-tcia-165",
+   "testo": "vetrino: carcinoma infiltrante di tipo non speciale (duttale), lo stesso istotipo"
+  }
  ]
 }

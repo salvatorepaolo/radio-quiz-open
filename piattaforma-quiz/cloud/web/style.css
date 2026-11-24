@@ -2725,3 +2725,11 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 #lista-vetrini .vt-scheda{margin-top:8px;font-size:.88em;color:var(--muto,#667)}
 #lista-vetrini .vt-dom{white-space:nowrap}
 #lista-vetrini .vt-titolo{margin:26px 0 4px;font-size:1.15em}
+
+/* 1.325 miniature nella cartella dei vetrini del client */
+.cl-vtc-mini{width:72px;padding:3px 6px!important}
+.cl-vtc-mini img{display:block;width:64px;height:48px;object-fit:contain;border-radius:4px;background:var(--pan2);border:1px solid var(--bord)}
+.cl-vtc-mini img:not(.ok){animation:cl-vtc-attesa 1.4s ease-in-out infinite}
+.cl-vtc-mini.vuota img{animation:none;opacity:.35}
+@keyframes cl-vtc-attesa{50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){.cl-vtc-mini img:not(.ok){animation:none}}

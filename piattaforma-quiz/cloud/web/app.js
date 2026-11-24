@@ -1,6 +1,6 @@
 // Piattaforma quiz di radiologia - visualizzatore DICOM + quiz a scelta multipla
 // Librerie open source: dicomParser (MIT), jpeg-lossless-decoder-js (MIT)
-import './i18n.js';   // lingua (italiano / inglese): prima di tutto il resto
+import { tr as trLingua } from './i18n.js';   // lingua (italiano / inglese): prima di tutto il resto
 import { SOP_VETRINO } from './vetrini-sop.js';
 import { TS_DEFLATE, sgonfiaDeflate, TS_LOSSLESS, TS_NATIVI, isAB, isBlob, TS_RLE, TS_CODEC, NOMI_TS, CODEC, CODEC_FILE, caricaCodec, decodificaCodec, TS_VISTI, assicuraCodec, decodificaRLE, frameIncapsulato, FG, fgFloat, DS_CACHE, FILE_CACHE, daFile, bufDi, slopeDi, interDi, latoParete, riquadroTessuto, finestraRX, contrastoLocale, decodificaDicom, impostaPaziente, VIDEO_CACHE, TS_VIDEO } from './decodifica.js';
 // Moduli usati da pochi (anonimizzazione, analisi, eco, RM cardiaca, T2*, referto IA): scaricati la prima volta che servono (1.272).
@@ -6260,7 +6260,10 @@ function modoReferto(on, ricorda = true) {
   $('aside.quiz').classList.toggle('solo-referto', QZ.soloReferto);
   $('#q-modo-scelte').classList.toggle('on', !QZ.soloReferto); $('#q-modo-referto').classList.toggle('on', QZ.soloReferto);
   const box = $('#q-referto-box'); if (QZ.soloReferto) box.open = true;
-  box.querySelector('summary').textContent = QZ.soloReferto ? '✍ Il tuo referto: tecnica, reperti per distretto, conclusione' : '✍ Scrivi il tuo referto (facoltativo)';
+  const vt = !!V.caso && eVetrini(V.caso);       // vetrino: referto di anatomia patologica, non radiologico
+  box.querySelector('summary').textContent = QZ.soloReferto ? (vt ? '✍ Il tuo referto: materiale, descrizione microscopica, diagnosi' : '✍ Il tuo referto: tecnica, reperti per distretto, conclusione') : '✍ Scrivi il tuo referto (facoltativo)';
+  $('#q-referto').placeholder = ((x) => trLingua(x) || x)(vt ? 'Materiale e colorazione, descrizione microscopica e diagnosi, come in un referto di anatomia patologica. Dopo la conferma lo confronti con il referto atteso.'
+    : 'Tecnica, reperti per distretto e conclusione, come in un referto vero. Dopo la conferma lo confronti con il referto atteso.');   // textarea: i18n.js non ne traduce gli attributi
   if ($('#btn-conferma').dataset.stato !== 'fatto') $('#btn-conferma').textContent = QZ.soloReferto ? 'Conferma referto' : 'Conferma risposta';
   if (QZ.gruppi?.length > 1 && $('#btn-conferma').dataset.stato !== 'fatto') vaiPasso(QZ.passo || 0, { senzaSerie: true });
   aggiornaBloccoCom();
@@ -6695,7 +6698,7 @@ $('#btn-conferma').addEventListener('click', async () => {
   if (b.dataset.stato === 'fatto') { const rq = renderQuiz(); iniziaTraccia(); return rq; }
   const solo = !!QZ.soloReferto;
   const scelte = solo ? [] : [...qsAll('#q-form input:checked')].map((x) => +x.value);
-  if (solo && togliModello($('#q-referto').value).length < 40) { alertInline('Scrivi il referto (almeno qualche riga): tecnica, reperti e conclusione.'); return; }
+  if (solo && togliModello($('#q-referto').value).length < 40) { alertInline(V.caso && eVetrini(V.caso) ? 'Scrivi il referto (almeno qualche riga): descrizione microscopica e diagnosi.' : 'Scrivi il referto (almeno qualche riga): tecnica, reperti e conclusione.'); return; }
   if (!solo && !scelte.length) { alertInline('Seleziona almeno una risposta.'); return; }
   // comunicazione dell'esito: senza una scelta si avvisa una volta (riquadro evidenziato); al secondo «Conferma» si
   // procede come «nessuna comunicazione indicata». Così non si allunga il caso quando non c'è niente da comunicare
@@ -10895,17 +10898,15 @@ async function mostraVetriniCartella() {
   const idx = await dbCl('indice', 'get', 'vetrini').catch(() => null), q = ($('#cl-vtc-cerca')?.value || '').trim().toLowerCase();
   $('#cl-vtc-nome').textContent = idx?.cartella ? `«${idx.cartella}»` : '';
   const l = (idx?.vetrini || []).filter((v) => !q || q.split(/\s+/).every((p) => `${v.nome} ${v.cartella} ${NOMI_FMT_VT[v.formato] || v.formato}`.toLowerCase().includes(p))).slice(0, 300);
-  $('#cl-vtc-lista').innerHTML = l.length ? `<table class="cl-rec-tab"><thead><tr><th>Vetrino</th><th>Formato</th><th>Dimensione</th><th>Data</th><th></th></tr></thead><tbody>${l.map((v, i) => `<tr>
-      <td><b>${esc(v.nome)}</b>${v.cartella ? `<span class="muted small"> · ${esc(v.cartella)}</span>` : ''}${v.incompleto ? ' <span class="cl-fonte" title="Manca la cartella con i dati accanto al file">incompleto</span>' : ''}</td>
+  $('#cl-vtc-lista').innerHTML = l.length ? `<table class="cl-rec-tab"><thead><tr><th></th><th>Vetrino</th><th>Formato</th><th>Dimensione</th><th>Data</th><th></th></tr></thead><tbody>${l.map((v, i) => `<tr>
+      <td class="cl-vtc-mini"><img alt="" data-mini="${esc(chiaveMiniVt(v))}" width="64" height="48"></td><td><b>${esc(v.nome)}</b>${v.cartella ? `<span class="muted small"> · ${esc(v.cartella)}</span>` : ''}${v.incompleto ? ' <span class="cl-fonte" title="Manca la cartella con i dati accanto al file">incompleto</span>' : ''}</td>
       <td>${esc(NOMI_FMT_VT[v.formato] || v.formato)}</td><td class="num">${dimLeggibile(v.dim)}</td><td class="num">${new Date(v.data).toLocaleDateString('it-IT')}</td>
       <td class="cl-rec-az"><button type="button" class="primary piccolo" data-vtc="${i}">Apri</button></td></tr>`).join('')}</tbody></table>`
     : `<p class="muted small">${!idx ? 'Scegli la cartella dei vetrini nelle impostazioni (⚙ qui sotto).' : q ? 'Nessun vetrino trovato.' : 'Nessun vetrino nella cartella: aggiorna l\'elenco se ne hai aggiunti.'}</p>`;
   box.querySelectorAll('[data-vtc]').forEach((b) => { b.onclick = () => apriVetrinoDaCartella(l[+b.dataset.vtc]).catch((e) => { const st = $('#cl-stato'); st.className = 'stato errore'; st.textContent = 'Vetrino non aperto: ' + e.message; }); });
+  miniatureVetriniCartella(l).catch((e) => console.warn('miniature', e));
 }
-async function apriVetrinoDaCartella(v) {
-  const dir = await dbCl('cartella', 'get', 'vetrini'); if (!dir) throw new Error('cartella dei vetrini non impostata');
-  await permessoLettura(dir);
-  const st = $('#cl-stato'); st.className = 'stato'; st.textContent = `Apro il vetrino «${v.nome}»…`;
+async function fileVetrinoCartella(dir, v) {
   const out = [];
   for (const p of v.percorsi) {
     try {
@@ -10915,8 +10916,38 @@ async function apriVetrinoDaCartella(v) {
       out.push(f);
     } catch {}
   }
+  return out;
+}
+async function apriVetrinoDaCartella(v) {
+  const dir = await dbCl('cartella', 'get', 'vetrini'); if (!dir) throw new Error('cartella dei vetrini non impostata');
+  await permessoLettura(dir);
+  const st = $('#cl-stato'); st.className = 'stato'; st.textContent = `Apro il vetrino «${v.nome}»…`;
+  const out = await fileVetrinoCartella(dir, v);
   if (!out.length) throw new Error('file non trovati: la cartella è cambiata o il disco è scollegato, aggiorna l\'elenco');
   return caricaClient(out);
+}
+// miniature dell'elenco: una alla volta, ricordate nel browser (chiave: percorso, dimensione e data del file); solo se il
+// permesso di lettura c'è già (nessuna richiesta di permesso senza un clic); vetrino non leggibile → segnato, non si riprova
+const chiaveMiniVt = (v) => `mini|${v.percorsi[0]}|${v.dim}|${v.data}`;
+let MINI_VT_GIRO = 0;
+async function miniatureVetriniCartella(l) {
+  const giro = ++MINI_VT_GIRO, dir = await dbCl('cartella', 'get', 'vetrini').catch(() => null);
+  if (!dir || await dir.queryPermission({ mode: 'read' }).catch(() => 'denied') !== 'granted') return;
+  for (const v of l) {
+    if (giro !== MINI_VT_GIRO) return;                       // elenco ridisegnato (ricerca, aggiornamento): si riparte da lì
+    const img = $(`#cl-vtc-lista img[data-mini="${CSS.escape(chiaveMiniVt(v))}"]`); if (!img || img.dataset.pronta) continue;
+    let m = await dbCl('indice', 'get', chiaveMiniVt(v)).catch(() => null);
+    if (m === undefined || m === null) {
+      try {
+        const { miniaturaVetrino } = await import('./vetrini.js'), cv = await miniaturaVetrino(await fileVetrinoCartella(dir, v));
+        m = cv ? cv.toDataURL('image/jpeg', 0.8) : '';
+      } catch (e) { console.warn('miniatura', v.nome, e); m = ''; }
+      await dbCl('indice', 'put', chiaveMiniVt(v), m).catch(() => {});
+    }
+    if (giro !== MINI_VT_GIRO) return;
+    const im = $(`#cl-vtc-lista img[data-mini="${CSS.escape(chiaveMiniVt(v))}"]`); if (!im) continue;
+    im.dataset.pronta = '1'; if (m) { im.src = m; im.classList.add('ok'); } else im.closest('.cl-vtc-mini')?.classList.add('vuota');
+  }
 }
 function initVetriniCartella() {
   const c = $('#cl-imp-vetrini'), box = $('#cl-vtc-box'); if (!c) return;

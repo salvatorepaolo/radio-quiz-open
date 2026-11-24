@@ -38,6 +38,13 @@ const stato = await p.locator('#cl-vtc-stato').innerText();
 const righe = await p.$$eval('#cl-vtc-lista tbody tr', (r) => r.map((x) => x.innerText.replace(/\s+/g, ' ').trim()));
 esito(righe.length === 3, 'tre vetrini trovati (SVS, CZI, MRXS); il TIFF piccolo e il testo esclusi', `${stato} | ${righe.join(' || ')}`);
 esito(righe.some((r) => /CMU-1-Saved-1_16.*MRXS/.test(r) && !/incompleto/.test(r)), 'MRXS con la sua cartella: un solo vetrino, completo');
+// 1.325: miniature (solo tessuto), una alla volta, ricordate nel browser
+const mini = await p.waitForFunction(() => document.querySelectorAll('#cl-vtc-lista img.ok').length + document.querySelectorAll('#cl-vtc-lista .vuota').length === 3, null, { timeout: 90000 }).then(() => true, () => false);
+const info = await p.$$eval('#cl-vtc-lista tbody tr', (r) => r.map((x) => { const im = x.querySelector('img'); return `${x.innerText.split('\n')[0].trim().slice(0, 30)}: ${im.classList.contains('ok') ? im.naturalWidth + '×' + im.naturalHeight : 'vuota'}`; }));
+esito(mini && info.filter((x) => /×/.test(x)).length === 3, 'miniature disegnate per i tre vetrini', info.join(' | '));
+const salvate = await p.evaluate(() => new Promise((ok) => { const r = indexedDB.open('rq-client'); r.onsuccess = () => { const q = r.result.transaction('indice').objectStore('indice').getAllKeys(); q.onsuccess = () => ok(q.result.filter((k) => String(k).startsWith('mini|')).length); }; }));
+esito(salvate === 3, 'miniature ricordate nel browser', salvate);
+await p.screenshot({ path: '/tmp/cartella-vetrini-miniature.png' });
 await p.fill('#cl-vtc-cerca', 'aperio'); await p.waitForTimeout(300);
 esito((await p.$$('#cl-vtc-lista tbody tr')).length === 1, 'ricerca «aperio»: solo l\'SVS');
 await p.fill('#cl-vtc-cerca', ''); await p.waitForTimeout(300);

@@ -105,6 +105,14 @@
   {
    "caso": "caso-tcia-147",
    "testo": "RM della STESSA paziente: massa irregolare con impregnazione ad anello e centro non impregnato"
+  },
+  {
+   "caso": "caso-tcia-055",
+   "testo": "RM: carcinoma duttale infiltrante con componente intraduttale, stesso istotipo"
+  },
+  {
+   "caso": "caso-tcia-158",
+   "testo": "Ecografia: massa spiculata, istologia carcinoma duttale invasivo"
   }
  ],
  "zona_vetrino": {

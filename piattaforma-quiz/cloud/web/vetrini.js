@@ -364,6 +364,15 @@ async function regione(V, stato, x0, y0, w, h, f, avanza) {
   if (!neutro(stato.colore)) applicaColore(g, cw, ch, stato.colore, V.mono);
   return cv;
 }
+// miniatura del vetrino intero (solo il tessuto: mai etichetta o panoramica), lato massimo «lato» pixel; null se il vetrino
+// non ha un livello abbastanza piccolo (per esempio un DICOM senza piramide: migliaia di tessere per una miniatura)
+export async function miniaturaVetrino(files, lato = 160) {
+  const V = (await preparaVetrini(files))[0]; if (!V) return null;
+  const f = Math.max(V.W, V.H) / lato, L = [...V.livelli].reverse().find((q) => q.ds <= f * 1.01) || V.livelli[0];
+  if (tessereIn(L, 0, 0, V.W / L.ds, V.H / L.ds).length > 400) return null;
+  await stimaCanali(V);
+  return regione(V, { z: Math.max(0, V.piani.indexOf(0)), colore: null }, 0, 0, V.W, V.H, f);
+}
 const MAX_LATO = 12000, MAX_PIXEL = 16e6;   // canvas che tutti i browser (anche Safari su iPad) sanno creare e salvare
 
 // ---------------------------------------------------------------- colore: luminosità, contrasto, gamma, ematossilina / DAB
