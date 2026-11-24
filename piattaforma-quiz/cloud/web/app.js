@@ -12557,11 +12557,12 @@ async function apriVetrinoClient(i = 0, { incorporato = false, accanto = VT_ACCA
       bm.textContent = accanto ? '⛶ A tutto schermo' : '◧ Accanto alle immagini'; bm.title = accanto ? 'Il vetrino a tutto schermo' : 'Il vetrino accanto alle immagini radiologiche, per confrontarli';
       bm.onclick = async () => { const v = VT_APERTO?.vista(); VT_ACCANTO = !accanto; await apriVetrinoClient(i, { accanto: VT_ACCANTO }); if (v) for (let t = 0; t < 100 && !VT_APERTO?.vaiVista(v); t++) await new Promise((r) => setTimeout(r, 100)); };
       box.querySelector('.vt-barra')?.insertBefore(bm, box.querySelector('.vt-info'));
-      if (accanto) {   // metà larghezza: gli strumenti di annotazione si aprono a richiesta, l'immagine resta grande
-        box.classList.add('vt-compatto'); const bs = document.createElement('button'); bs.type = 'button'; bs.className = 'vt-mostra-strumenti'; bs.textContent = '✏ Strumenti'; bs.title = 'Mostra o nascondi distanza, area, conteggi, esportazione';
-        bs.onclick = () => { box.classList.toggle('aperti'); bs.classList.toggle('on', box.classList.contains('aperti')); }; box.querySelector('.vt-barra')?.insertBefore(bs, box.querySelector('.vt-info'));
-      }
       if (accanto && !CLIENT && AUTORE) { const bc = document.createElement('button'); bc.type = 'button'; bc.className = 'vt-corr'; bc.textContent = '🔗 Salva corrispondenza'; bc.title = 'Salva l\'immagine radiologica attuale e questa zona del vetrino come corrispondenza del caso (la vedono gli studenti dopo la risposta)'; bc.onclick = salvaCorrispondenza; box.querySelector('.vt-barra')?.insertBefore(bc, box.querySelector('.vt-info')); }
+    }
+    // metà larghezza (accanto alle immagini) o telefono (1.321): gli strumenti di annotazione si aprono a richiesta, il vetrino resta grande
+    if (accanto || matchMedia('(max-width:700px)').matches) {
+      box.classList.add('vt-compatto'); const bs = document.createElement('button'); bs.type = 'button'; bs.className = 'vt-mostra-strumenti'; bs.textContent = '✏ Strumenti'; bs.title = 'Mostra o nascondi distanza, area, conteggi, esportazione';
+      bs.onclick = () => { box.classList.toggle('aperti'); bs.classList.toggle('on', box.classList.contains('aperti')); }; box.querySelector('.vt-barra')?.insertBefore(bs, box.querySelector('.vt-info'));
     }
     VT_APERTO.segnaChiavi?.(IC.lista.filter((c) => c.vt).length);
     segniSulVetrino();

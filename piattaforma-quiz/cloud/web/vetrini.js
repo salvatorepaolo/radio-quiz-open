@@ -649,7 +649,7 @@ export async function apriVetrino(box, V, { OSD, conPaziente = false, client = t
   // ------------------------------------------------ ingrandimento, sincronia, cronologia
   const ingrAttuale = (P) => (P.sp ? (10 * pxSch(P)) / P.sp : null);
   function aggiornaIngr() {
-    const P = attivo; if (!P) return; const m = ingrAttuale(P), maxM = P.sp ? (10 * 2) / (P.sp * (devicePixelRatio || 1)) * 1.001 : 0;
+    const P = attivo; if (!P) return; const m = ingrAttuale(P), maxM = P.sp ? ((10 * 2) / P.sp) * 1.001 : 0;   // 1.321: come OpenSeadragon (maxZoomPixelRatio 2, pixel CSS); prima si divideva per devicePixelRatio e sull'iPhone (3) 20× e 40× restavano spenti
     $('.vt-ingr-at').textContent = m ? `${m < 10 ? m.toFixed(1).replace('.', ',') : Math.round(m)}×` : '';
     box.querySelectorAll('.vt-ingr').forEach((b) => { b.disabled = !P.sp || +b.dataset.m > maxM; b.classList.toggle('on', !!m && Math.abs(m / +b.dataset.m - 1) < 0.04); });
   }

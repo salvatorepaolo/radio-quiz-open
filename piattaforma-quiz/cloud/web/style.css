@@ -2480,7 +2480,7 @@ html.apre-caso #vista-elenco,html.apre-caso .piede-sito{display:none!important}
 .correlazioni ol{margin:4px 0 0;padding-left:20px}
 .correlazioni li{margin:3px 0}
 .correlazioni[hidden]{display:none}
-.vista-vetrino.accanto.vt-compatto:not(.aperti) .vt-strumenti{display:none}
+.vista-vetrino.vt-compatto:not(.aperti) .vt-strumenti{display:none}
 .vista-vetrino.accanto .vt-info{display:none}
 .vista-vetrino.accanto .vt-barra{gap:4px;padding:6px}
 .vista-vetrino.accanto .vt-barra button,.vista-vetrino.accanto .vt-barra select{padding:3px 7px;min-height:30px}
@@ -2673,3 +2673,14 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .cb-parti button small,.cb-distretti button small{opacity:.7;margin-left:3px}
 .cb-parti button,.cb-distretti button{border-radius:999px;padding:4px 11px}
 @media (max-width:600px){.cb-dentro{gap:10px;align-items:flex-start}#manichino{width:92px;height:154px}.cb-aiuto{display:none}}
+/* 1.321 vetrino sul telefono: una sola riga di comandi che scorre di lato, strumenti a richiesta, il resto al vetrino */
+@media (max-width:700px){
+.vista-vetrino .vt-barra{flex-wrap:nowrap;overflow-x:auto;gap:5px;padding:5px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.vista-vetrino .vt-barra::-webkit-scrollbar{display:none}
+.vista-vetrino .vt-barra>*,.vista-vetrino .vt-barra .vt-gruppo>*{flex:none}
+.vista-vetrino .vt-barra .vt-gruppo{display:flex;flex:none;gap:4px}
+.vista-vetrino .vt-barra .vt-tit{display:none}
+.vista-vetrino .vt-barra button,.vista-vetrino .vt-barra select{padding:4px 9px;min-height:36px;white-space:nowrap}
+.vista-vetrino .vt-strumenti{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.vista-vetrino .vt-strumenti>*{flex:none}
+}
