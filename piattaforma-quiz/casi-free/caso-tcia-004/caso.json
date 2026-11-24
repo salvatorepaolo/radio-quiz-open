@@ -148,5 +148,11 @@
  "nota_docente": "[revisione indipendente 05/11/2026] Controllato il 05/11/2026: Verificati sulle immagini fasi, sede e aspetto a mosaico; misura dell'insieme corretta a circa 7 × 8 cm (portale, fetta 52); descrizione della fase arteriosa resa più prudente (aorta circa 290 HU, porta e fegato poco opacizzati). Diagnosi istologica TCGA confermata dalla collezione.\nCaso importato da TCIA il 12/10/2026 (bozza). Reperti letti da Claude sulle immagini: da confermare.\nLa lesione si vede meglio alla fetta 55/134 della portale e 16/46 dell'arteriosa. Le serie hanno coordinate del lettino diverse (la portale comprende anche il torace): per confrontare le fasi usare «Allinea».\nLa fase «arteriosa» è precoce (fegato quasi non impregnato): l'APHE è modesta ed eterogenea; il wash-out e la capsula sono invece evidenti in portale e tardiva. Dimensioni non misurate (lesione multinodulare di diversi cm). Non valutati in dettaglio: vena porta, epatopatia cronica, linfonodi.\n[verifica 12/10/2026, Claude] Rilettura: in fase arteriosa (precoce) l'APHE è debole; la capsula non è evidente in modo convincente, per cui è stata tolta dalle risposte; ipodensità dei noduli in portale e tardiva certa. Dimensioni dell'insieme circa 7 × 5,5 cm in portale (fetta 53). Diagnosi istologica (TCGA-LIHC): epatocarcinoma. [verifica 25/10/2026] Segno della vista: il riquadro (x 95-210, y 255-350 dell'immagine 54 della portale) contiene i noduli confluenti del lobo destro.\n[pubblicato il 13/10/2026 su richiesta dell'amministratore, dopo la revisione di Claude: restano i dubbi scritti sopra]",
  "id": "caso-tcia-004",
  "visibile": true,
- "aggiornato": "2026-11-05 20:20"
+ "aggiornato": "2026-11-05 20:20",
+ "rassegna": [
+  {
+   "caso": "caso-tcia-139",
+   "testo": "vetrino: carcinoma epatocellulare ben differenziato (trabecole, arterie «spaiate», cellule chiare)"
+  }
+ ]
 }

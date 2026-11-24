@@ -133,5 +133,11 @@
    "epatocarcinoma"
   ],
   "motivo": "Nuova diagnosi non invasiva di epatocarcinoma: non è un'urgenza, ma il referto deve indicare chiaramente LR-5 e l'avvio del percorso multidisciplinare."
- }
+ },
+ "rassegna": [
+  {
+   "caso": "caso-tcia-139",
+   "testo": "vetrino: carcinoma epatocellulare ben differenziato"
+  }
+ ]
 }
