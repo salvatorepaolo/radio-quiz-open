@@ -118,5 +118,17 @@
  "nota_docente": "Caso di anatomia patologica (sezione «Vetrini», 1.274). Vetrino diagnostico FFPE del TCGA da IDC, livelli e miniatura anonimizzati con anonimizza_vetrino.py (etichetta e panoramica scartate). Diagnosi dai dati clinici del GDC (primary_diagnosis); reperti controllati da Claude sulle immagini il 21/11/2026: da confermare da un patologo.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC TCGA-AA-3875: adenocarcinoma, colon ascendente, T1 N0 M0, stadio I. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.",
  "id": "caso-tcia-138",
  "visibile": true,
- "aggiornato": "2026-11-21 09:00"
+ "aggiornato": "2026-11-21 09:00",
+ "zona_vetrino": {
+  "i": 0,
+  "r": [
+   10000,
+   17000,
+   30500,
+   28500
+  ],
+  "domanda": true,
+  "nota": "Adenocarcinoma che infiltra la sottomucosa (pT1): ghiandole irregolari con nuclei allungati e stratificati in uno stroma desmoplastico con infiammazione (in alto la mucosa normale, in basso la parte esofitica della stessa neoplasia)"
+ },
+ "localizza": true
 }

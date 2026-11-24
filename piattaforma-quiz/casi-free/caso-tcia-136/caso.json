@@ -114,5 +114,15 @@
  "nota_docente": "Caso di anatomia patologica (sezione «Vetrini», 1.274). Vetrino diagnostico FFPE del TCGA da IDC, livelli e miniatura anonimizzati con anonimizza_vetrino.py (etichetta e panoramica scartate). Diagnosi dai dati clinici del GDC (primary_diagnosis); reperti controllati da Claude sulle immagini il 21/11/2026: da confermare da un patologo.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC TCGA-EM-A3SU: papillary adenocarcinoma, tiroide, T2 N1b, stadio I, lato destro. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.",
  "id": "caso-tcia-136",
  "visibile": true,
- "aggiornato": "2026-11-21 09:00"
+ "aggiornato": "2026-11-21 09:00",
+ "zona_vetrino": {
+  "i": 0,
+  "r": [
+   16200,
+   10300,
+   17800,
+   11700
+  ],
+  "nota": "Architettura papillare: assi fibrovascolari sottili rivestiti da epitelio con nuclei sovrapposti (ingrandisci per vedere i nuclei chiari con incisure)"
+ }
 }

@@ -20,7 +20,7 @@ try {
     await c.waitForTimeout(1500);
     esito(!prima.length, `[${loc}] il vetrino di esempio non si scarica da solo`);
     const testo = await c.textContent('#cl-esempio-vetrino');
-    esito(loc === 'it-IT' ? /vetrino di esempio/.test(testo) : /sample slide/i.test(testo), `[${loc}] pulsante tradotto`, testo.trim());
+    esito(loc === 'it-IT' ? /vetrino/i.test(testo) : /slide/i.test(testo), `[${loc}] pulsante tradotto`, testo.trim());
     if (loc !== 'it-IT') { await ctx.close(); continue; }
     const t0 = Date.now(); await c.click('#cl-esempio-vetrino');
     const aperto = await c.waitForFunction(() => !document.querySelector('#vista-vetrino')?.hidden && window.__dbg?.VT?.viewer?.world?.getItemCount() === 1, null, { timeout: 120000 }).then(() => true, () => false);

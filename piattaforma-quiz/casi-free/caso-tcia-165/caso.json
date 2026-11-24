@@ -1,0 +1,126 @@
+{
+ "titolo": "Vetrino: massa della mammella",
+ "titolo_interno": "Carcinoma infiltrante di tipo non speciale (duttale) triplo negativo, pT2 N2: stessa paziente del caso 147 (RM). Vetrino SVS originale del GDC",
+ "distretto": "Mammella",
+ "quesito": "massa mammaria",
+ "modalita": "Vetrini",
+ "difficolta": "Intermedio",
+ "anamnesi": "Donna di 40 anni con massa della mammella destra, operata. Vetrino in ematossilina-eosina del tumore, scansione a 40×.",
+ "domanda": "Sfoglia il vetrino: cosa osservi e qual è la diagnosi?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Sfoglia il vetrino a piccolo e a forte ingrandimento: cosa osservi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la diagnosi istologica più probabile?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Nidi solidi e cordoni di cellule epiteliali atipiche, con nuclei grandi e nucleoli evidenti, che infiltrano uno stroma fibroso",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Le cellule tumorali non stanno dentro dotti e lobuli con il loro strato mioepiteliale: invadono lo stroma, che reagisce con collagene (desmoplasia)."
+  },
+  {
+   "testo": "Linfociti nello stroma tra i nidi tumorali",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "I linfociti infiltranti il tumore (TIL) sono frequenti nei carcinomi tripli negativi e hanno valore prognostico."
+  },
+  {
+   "testo": "Tessuto adiposo mammario senza tumore nella parte inferiore del preparato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Dotti e lobuli normali con doppio strato di cellule (epiteliali e mioepiteliali) in tutto il preparato, senza neoplasia",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Cellule piccole, uniformi e poco coese, in fila indiana, senza formare nidi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È l'aspetto del carcinoma lobulare (perdita della E-caderina); qui le cellule sono grandi, coese e formano nidi solidi."
+  },
+  {
+   "testo": "Proliferazione di stroma ipercellulare a forma di foglia attorno a spazi epiteliali",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "È il tumore fillode; qui la componente che prolifera è epiteliale."
+  },
+  {
+   "testo": "Carcinoma mammario infiltrante di tipo non speciale (duttale infiltrante)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 1
+  },
+  {
+   "testo": "Carcinoma lobulare infiltrante",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Carcinoma duttale in situ senza invasione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Le cellule escono dai dotti e infiltrano lo stroma: è un carcinoma infiltrante."
+  },
+  {
+   "testo": "Fibroadenoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Il fibroadenoma è una lesione benigna ben delimitata con stroma e dotti compressi, senza atipie."
+  }
+ ],
+ "spiegazione": "Il carcinoma infiltrante di tipo non speciale (NST, un tempo «duttale infiltrante») è il tumore maligno della mammella più frequente. Le cellule neoplastiche formano nidi, cordoni o ghiandole che infiltrano lo stroma, spesso con reazione fibrosa. Il grado istologico (Nottingham) somma tre punteggi: formazione di tubuli, pleomorfismo nucleare e mitosi. Il sottotipo biologico non si vede in ematossilina-eosina: servono l'immunoistochimica per i recettori di estrogeni e progesterone e per HER2. In questa paziente il tumore era triplo negativo (ER−, PR−, HER2−): un sottotipo spesso di alto grado, a crescita solida con margini «spingenti», con infiltrato linfocitario e a volte necrosi centrale. Correlazione con la RM della stessa paziente (caso 147): la massa irregolare con impregnazione ad anello e centro non impregnato corrisponde a un tumore solido, cellulato alla periferia, con un centro meno vascolarizzato.\nQuesto vetrino è nel formato originale dello scanner (Aperio SVS), non in DICOM: il visualizzatore lo legge allo stesso modo, scaricando solo le parti guardate.",
+ "regola": "Carcinoma infiltrante: cellule atipiche fuori da dotti e lobuli, nello stroma; il sottotipo (ER, PR, HER2) richiede l'immunoistochimica.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Carcinoma duttale infiltrante (GDC: Infiltrating duct carcinoma, NOS), triplo negativo (ER−, PR−, HER2−), pT2 N2 M0, stadio IIIA, mammella destra."
+ },
+ "fonte": {
+  "archivio": "NCI Genomic Data Commons (GDC), vetrini diagnostici TCGA (file Aperio SVS originale)",
+  "collezione": "TCGA-BRCA",
+  "soggetto": "TCGA-E2-A1L7",
+  "licenza": "CC BY 3.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+  "citazione": "The Cancer Genome Atlas Research Network, TCGA-BRCA. Vetrino diagnostico TCGA-E2-A1L7-01Z-00-DX1, NCI Genomic Data Commons (accesso aperto), https://portal.gdc.cancer.gov/. Le stesse scansioni sono distribuite in DICOM da NCI Imaging Data Commons con licenza CC BY 3.0. Etichetta e metadati di scansione tolti da radio-quiz.it (prepara_vetrino.py); tessere non modificate.",
+  "url": "https://portal.gdc.cancer.gov/files/966c7061-a5e0-4340-8e51-2d5dd509c663"
+ },
+ "rassegna": [
+  {
+   "caso": "caso-tcia-147",
+   "testo": "RM della STESSA paziente: massa irregolare con impregnazione ad anello e centro non impregnato"
+  }
+ ],
+ "zona_vetrino": {
+  "i": 0,
+  "r": [
+   33500,
+   4000,
+   70500,
+   23000
+  ],
+  "domanda": true,
+  "nota": "Carcinoma infiltrante: nidi solidi di cellule atipiche nello stroma fibroso, con linfociti (sotto, tessuto adiposo senza tumore)"
+ },
+ "localizza": true,
+ "nota_docente": "Caso di anatomia patologica creato il 24/11/2026: primo caso con un vetrino NON DICOM (Aperio SVS originale, 354 MB, 81871×46773 px a 0,248 µm, JPEG). Scaricato dal GDC (file 966c7061-a5e0-4340-8e51-2d5dd509c663, accesso aperto) e preparato con strumenti/prepara_vetrino.py: nessun codice né testo su etichetta/panoramica (il file del GDC non ha l'etichetta), metadati di scansione azzerati (data, ora, utente, nome del file, ID dello scanner); resta il titolo TCGA-E2-A1L7-01Z-00-DX1, codice pubblico come la fonte. Diagnosi ed esito dai dati GDC già usati nel caso 147 (stessa paziente). Reperti controllati da Claude sulle immagini (nidi solidi di cellule grandi con nucleoli, stroma fibroso con linfociti, tessuto adiposo libero in basso): da confermare da un patologo. Il grado istologico non è dichiarato perché non è nei dati della fonte. Zona del reperto: carcinoma nella banda superiore (x 33500-70500, y 4000-23000 in pixel della scansione), domanda sul vetrino.",
+ "id": "caso-tcia-165",
+ "visibile": true,
+ "aggiornato": "2026-11-24 21:00"
+}

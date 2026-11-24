@@ -309,21 +309,33 @@
       <p class="cl-guida-az"><button type="button" class="primary" id="cl-guida-ok">Ho capito</button></p>
     </section>
     <section id="cl-zona" class="cl-zona" aria-label="Apri un esame">
-      <div class="cl-zona-icona"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 10v6M9 13l3-3 3 3"/></svg></div>
-      <h2>Trascina qui una cartella o dei file DICOM</h2>
-      <div class="cl-pulsanti">
-        <label class="cl-btn cl-primario"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Apri cartella<input type="file" id="cl-cartella" webkitdirectory multiple hidden></label>
-        <label class="cl-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg> Scegli file<input type="file" id="cl-file" multiple hidden></label>
+      <div class="cl-zona-drop">
+        <div class="cl-zona-icona"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 10v6M9 13l3-3 3 3"/></svg></div>
+        <h2>Trascina qui esami o vetrini</h2>
+        <p class="cl-zona-sotto">Una cartella, un CD, dei file DICOM, un archivio .zip o un vetrino digitale: si aprono qui, dal tuo disco.</p>
+        <div class="cl-pulsanti">
+          <label class="cl-btn cl-primario"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Apri cartella<input type="file" id="cl-cartella" webkitdirectory multiple hidden></label>
+          <label class="cl-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg> Scegli file<input type="file" id="cl-file" multiple hidden></label>
+        </div>
       </div>
-      <p class="cl-nota">CD con DICOMDIR, cartelle, file o archivi .zip · TC, RM, RX, mammografia, ecografia (anche clip), angiografia, PET-TC · DICOM compressi (JPEG, JPEG 2000, JPEG-LS, RLE)</p>
-      <p class="cl-nota">Vetrini digitali: DICOM, Aperio SVS, Hamamatsu NDPI, Philips TIFF e iSyntax, Leica SCN, Ventana BIF, 3DHISTECH MRXS, Zeiss CZI, Olympus VSI, TIFF piramidali e OME-TIFF (per MRXS e VSI apri la cartella che contiene anche i file di dati)</p>
-      <p class="cl-nota"><a href="/vetrini-aperti.html" target="_blank" rel="noopener">Dove scaricare vetrini aperti</a></p>
-      <div id="cl-esempio-box" class="cl-esempio" hidden>
-        <button type="button" id="cl-esempio" class="cl-btn">🧪 Prova con un esame di esempio</button>
-        <button type="button" id="cl-guida-apri" class="cl-btn">❔ Guida rapida</button>
-        <a id="cl-esempio-scarica" href="/esempi/tc-addome-esempio.zip" download class="small">o scaricalo (.zip, 38 MB)</a>
-        <span class="cl-esempio-vetrino">
-          <button type="button" id="cl-esempio-vetrino" class="cl-btn">🔬 Prova con un vetrino di esempio</button>
+      <div class="cl-formati">
+        <div class="cl-formato"><h3><span class="cl-formato-ico" aria-hidden="true">🩻</span> Esami radiologici</h3>
+          <p class="cl-chip-riga"><i>TC</i><i>RM</i><i>RX</i><i>Mammografia</i><i>Ecografia e clip</i><i>Angiografia</i><i>PET-TC</i></p>
+          <p class="cl-nota">CD con DICOMDIR, cartelle, file o archivi .zip · DICOM compressi (JPEG, JPEG 2000, JPEG-LS, RLE)</p></div>
+        <div class="cl-formato"><h3><span class="cl-formato-ico" aria-hidden="true">🔬</span> Vetrini digitali</h3>
+          <p class="cl-chip-riga"><i>DICOM WSI</i><i>Aperio SVS</i><i>Hamamatsu NDPI</i><i>Philips TIFF</i><i>Philips iSyntax</i><i>Leica SCN</i><i>Ventana BIF</i><i>3DHISTECH MRXS</i><i>Zeiss CZI</i><i>Olympus VSI</i><i>OME-TIFF</i></p>
+          <p class="cl-nota">Per MRXS e VSI apri la cartella che contiene anche i file di dati. <a href="/vetrini-aperti.html" target="_blank" rel="noopener">Dove scaricare vetrini aperti ↗</a></p></div>
+      </div>
+    </section>
+    <section id="cl-esempio-box" class="cl-esempi" hidden aria-labelledby="cl-esempi-tit">
+      <h2 id="cl-esempi-tit">Non hai un esame a portata di mano? Prova subito</h2>
+      <div class="cl-esempi-griglia">
+        <article class="cl-es-card"><div class="cl-es-ico" aria-hidden="true">🧪</div><h3>Esame di esempio</h3>
+          <p>TC dell'addome con mezzo di contrasto, fase arteriosa: 137 immagini, 38 MB. Si apre come un esame del tuo computer.</p>
+          <div class="cl-es-az"><button type="button" id="cl-esempio" class="cl-btn cl-primario">Apri l'esame</button><a id="cl-esempio-scarica" href="/esempi/tc-addome-esempio.zip" download class="small">Scarica (.zip)</a></div>
+          <details class="cl-es-fonte"><summary>Fonte e licenza</summary><p class="cl-nota">Non hai un esame a portata di mano? TC dell'addome con mezzo di contrasto in fase arteriosa, 137 immagini: da The Cancer Imaging Archive (TCIA), collezione TCGA-KICH, licenza <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a> (<a href="https://doi.org/10.7937/K9/TCIA.2016.YU3RBCZN" target="_blank" rel="noopener">citazione</a>). Si scarica da internet (38 MB) e si apre qui, come un esame del tuo computer.</p></details></article>
+        <article class="cl-es-card"><div class="cl-es-ico" aria-hidden="true">🔬</div><h3>Vetrino di esempio</h3>
+          <p>Un vetrino di prova per ogni formato dei produttori: si scarica solo la parte che guardi.</p>
           <select id="cl-esempio-formato" aria-label="Formato del vetrino di esempio" title="Un vetrino di prova per ogni formato dei produttori">
             <option value="zip">Aperio SVS, JPEG 2000 (aorta)</option>
             <option value="aperio-svs">Aperio SVS, JPEG</option>
@@ -338,11 +350,11 @@
             <option value="zeiss-czi">Zeiss CZI, JPEG XR</option>
             <option value="olympus-vsi">Olympus VSI</option>
           </select>
-        </span>
-        <a id="cl-esempio-vetrino-scarica" href="/esempi/vetrino-esempio.zip" download class="small">o scaricalo (.zip, 69 MB)</a>
-        <p class="cl-nota">Non hai un esame a portata di mano? TC dell'addome con mezzo di contrasto in fase arteriosa, 137 immagini: da The Cancer Imaging Archive (TCIA), collezione TCGA-KICH, licenza <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a> (<a href="https://doi.org/10.7937/K9/TCIA.2016.YU3RBCZN" target="_blank" rel="noopener">citazione</a>). Si scarica da internet (38 MB) e si apre qui, come un esame del tuo computer.</p>
-        <p class="cl-nota">Vetrino di esempio: sezione di aorta in ematossilina-eosina, 40× (0,25 µm per pixel), 3 livelli di ingrandimento più miniatura, etichetta e panoramica, tessere JPEG 2000. Dai dati di prova liberamente distribuibili di <a href="https://openslide.org/" target="_blank" rel="noopener">OpenSlide</a> (Carnegie Mellon University); l'etichetta riporta solo un numero di laboratorio.</p>
-        <p class="cl-nota">Vetrini di esempio negli altri formati: dai dati di prova di OpenSlide e, per iSyntax, dalla slide di prova di OpenPhi (licenza MIT). Si leggono dal sito a pezzi: si scarica solo la parte che guardi. Sono senza etichetta e panoramica, tolte come per i casi della piattaforma.</p>
+          <div class="cl-es-az"><button type="button" id="cl-esempio-vetrino" class="cl-btn cl-primario">Apri il vetrino</button><a id="cl-esempio-vetrino-scarica" href="/esempi/vetrino-esempio.zip" download class="small">Scarica (.zip, 69 MB)</a></div>
+          <details class="cl-es-fonte"><summary>Fonte e licenza</summary><p class="cl-nota">Vetrino di esempio: sezione di aorta in ematossilina-eosina, 40× (0,25 µm per pixel), 3 livelli di ingrandimento più miniatura, etichetta e panoramica, tessere JPEG 2000. Dai dati di prova liberamente distribuibili di <a href="https://openslide.org/" target="_blank" rel="noopener">OpenSlide</a> (Carnegie Mellon University); l'etichetta riporta solo un numero di laboratorio.</p><p class="cl-nota">Vetrini di esempio negli altri formati: dai dati di prova di OpenSlide e, per iSyntax, dalla slide di prova di OpenPhi (licenza MIT). Si leggono dal sito a pezzi: si scarica solo la parte che guardi. Sono senza etichetta e panoramica, tolte come per i casi della piattaforma.</p></details></article>
+        <article class="cl-es-card"><div class="cl-es-ico" aria-hidden="true">📖</div><h3>Guida rapida</h3>
+          <p>Come si apre un esame, si leggono le immagini, si misura e si referta: tutto in 30 secondi.</p>
+          <div class="cl-es-az"><button type="button" id="cl-guida-apri" class="cl-btn">Apri la guida</button></div></article>
       </div>
     </section>
     <p id="cl-stato" class="stato"></p>
@@ -353,15 +365,21 @@
       <div class="cl-rec-testa"><h2>Esami recenti</h2><input type="search" id="cl-rec-cerca" placeholder="Cerca per nome, data, metodica…" aria-label="Cerca negli esami"><button type="button" id="cl-rec-svuota" class="ghost piccolo" title="Svuota l'elenco degli esami recenti (i file sul disco non si toccano)">Svuota</button></div>
       <div id="cl-rec-lista"></div>
     </section>
+    <section id="cl-vtc" class="cl-recenti" hidden aria-label="Vetrini della cartella">
+      <div class="cl-rec-testa"><h2>🔬 Vetrini della cartella <span id="cl-vtc-nome" class="muted small"></span></h2><input type="search" id="cl-vtc-cerca" placeholder="Cerca per nome, cartella, formato…" aria-label="Cerca nei vetrini"><button type="button" id="cl-vtc-aggiorna" class="ghost piccolo" title="Rileggi la cartella (vetrini aggiunti o tolti)">↻ Aggiorna</button></div>
+      <div id="cl-vtc-lista"></div>
+    </section>
     <details id="cl-impostazioni" class="cl-impostazioni"><summary>⚙ Impostazioni del visualizzatore</summary>
       <label class="check"><input type="checkbox" id="cl-imp-recenti"> Ricorda gli esami aperti in questo browser (elenco «Esami recenti», con nome del paziente e data: restano solo su questo computer)</label>
       <label class="check"><input type="checkbox" id="cl-imp-cartella"> Cartella predefinita degli esami: il visualizzatore elenca gli studi che contiene (spenta di base; il browser chiede il permesso di leggerla)</label>
       <div id="cl-cartella-box" class="cl-cartella-box" hidden><button type="button" id="cl-cartella-scegli">📁 Scegli la cartella…</button> <button type="button" id="cl-cartella-leggi" class="ghost">↻ Aggiorna l'elenco</button> <span id="cl-cartella-stato" class="muted small"></span></div>
+      <label class="check"><input type="checkbox" id="cl-imp-vetrini"> Cartella dei vetrini: il visualizzatore elenca i vetrini digitali che contiene, in tutti i formati, e li apre dal disco senza copiarli (spenta di base; il browser chiede il permesso di leggerla)</label>
+      <div id="cl-vtc-box" class="cl-cartella-box" hidden><button type="button" id="cl-vtc-scegli">🔬 Scegli la cartella dei vetrini…</button> <button type="button" id="cl-vtc-leggi" class="ghost">↻ Aggiorna l'elenco</button> <span id="cl-vtc-stato" class="muted small"></span></div>
       <label class="check"><input type="checkbox" id="cl-imp-noduli"> Noduli polmonari con IA nelle TC del torace (facoltativo): un modello open source (MONAI, Apache-2.0) si scarica una volta e gira su questo computer; le immagini non escono</label>
       <div id="cl-noduli-box" class="cl-cartella-box" hidden><button type="button" id="cl-noduli-scarica">⬇ Scarica il modello</button> <button type="button" id="cl-noduli-elimina" class="ghost" hidden>🗑 Elimina il modello</button> <span id="cl-noduli-stato" class="muted small"></span></div>
-      <p id="cl-cartella-no" class="muted small" hidden>La cartella predefinita funziona in Chrome ed Edge sul computer.</p>
+      <p id="cl-cartella-no" class="muted small" hidden>Le cartelle degli esami e dei vetrini funzionano in Chrome ed Edge sul computer.</p>
       <div class="cl-cancella"><button type="button" id="cl-cancella-dati" class="ghost">🗑 Cancella i dati salvati in questo browser</button> <span id="cl-cancella-stato" class="muted small"></span>
-        <p class="muted small">Toglie bozze dei referti, immagini chiave, annotazioni, disegni delle scale, elenco degli esami recenti e cartella predefinita. Da fare a fine sessione sui computer condivisi. I file DICOM sul disco non vengono toccati.</p></div>
+        <p class="muted small">Toglie bozze dei referti, immagini chiave, annotazioni, disegni delle scale, elenco degli esami recenti e cartelle predefinite (esami e vetrini). Da fare a fine sessione sui computer condivisi. I file DICOM sul disco non vengono toccati.</p></div>
     </details>
 
     <div class="cl-note">

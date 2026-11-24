@@ -10514,7 +10514,7 @@ async function routerClient(tipo) {
   document.body.classList.remove('client-caso');
   if (tipo === 'aiuto') { vista('aiuto'); await mostraAiuto(); return; }
   vista('client'); $('#titolo-caso').textContent = '';
-  $('#cl-torna').hidden = !CL.studio; if (CL.studio) $('#cl-torna-nome').textContent = CL.studio.caso.titolo; mostraUltimo(); mostraArchivio(); mostraPacs(); if ($('#cl-precedente')) $('#cl-precedente').hidden = true;
+  $('#cl-torna').hidden = !CL.studio; if (CL.studio) $('#cl-torna-nome').textContent = CL.studio.caso.titolo; mostraUltimo(); mostraArchivio(); mostraVetriniCartella(); mostraPacs(); if ($('#cl-precedente')) $('#cl-precedente').hidden = true;
 }
 // ---- chiudere un esame: uno solo (con più esami aperti) o tutti. I file restano sul disco; misure e immagini chiave
 // restano salvate in questo browser per quando l'esame si riapre.
@@ -10631,7 +10631,7 @@ function avviaClient() {
   formatoEs?.addEventListener('change', () => { $('#cl-esempio-vetrino-scarica').hidden = formatoEs.value !== 'zip'; });
   $('#cl-esempio-vetrino')?.addEventListener('click', (e) => { const id = formatoEs?.value || 'zip';
     if (id === 'zip') scaricaEsempio(e.currentTarget, '/esempi/vetrino-esempio.zip', 'vetrino-esempio_aorta_OpenSlide.zip', true); else apriVetrinoEsempio(e.currentTarget, id); });
-  initArchivio().catch((e) => console.warn('archivio', e)); initPacs();
+  initArchivio().catch((e) => console.warn('archivio', e)); initVetriniCartella(); initPacs();
   $('#cl-ultimo').onclick = () => riapriUltimo(false).catch((x) => { $('#cl-stato').textContent = 'Non riesco a riaprire l\'ultimo esame: ' + x.message; });
   mostraUltimo();
   if (CL.eraCaso && !CL.finestra) riapriUltimo(true).catch(() => {});
@@ -10665,12 +10665,12 @@ function avvisoPrivacyClient(forza) {
   try { d.showModal(); } catch { d.setAttribute('open', ''); }
 }
 async function cancellaDatiClient() {
-  if (!confirm('Cancellare da questo browser bozze dei referti, immagini chiave, annotazioni, disegni delle scale, esami recenti e cartella predefinita? I file sul disco non vengono toccati.')) return;
+  if (!confirm('Cancellare da questo browser bozze dei referti, immagini chiave, annotazioni, disegni delle scale, esami recenti, cartella predefinita degli esami e cartella dei vetrini? I file sul disco non vengono toccati.')) return;
   try { for (const k of Object.keys(localStorage)) if (/^rq-(chiave:|referto:|schemi:)/.test(k)) localStorage.removeItem(k); } catch {}
   const via = (n) => new Promise((ok) => { try { const r = indexedDB.deleteDatabase(n); r.onsuccess = r.onerror = r.onblocked = () => ok(); } catch { ok(); } });
   await via('rq-client'); await via('rq-annotazioni');
   IC.lista = []; try { disegnaIC(); } catch {}
-  $('#cl-cancella-stato').textContent = 'Dati cancellati ✓'; try { mostraArchivio(); mostraUltimo(); } catch {}
+  $('#cl-cancella-stato').textContent = 'Dati cancellati ✓'; try { mostraArchivio(); mostraVetriniCartella(); mostraUltimo(); } catch {}
 }
 // ---- riapertura dopo un ricaricamento della pagina (Cmd/Ctrl+R, Maiusc+Cmd+R): si ricordano le cartelle e i file scelti.
 // Sono solo riferimenti (File System Access, Chrome ed Edge): nessuna copia dei file, che restano dove sono; dopo il
@@ -10803,6 +10803,108 @@ async function initArchivio() {
   $('#cl-rec-svuota').onclick = async () => { await dbCl('archivio', 'svuota').catch(() => {}); await dbCl('intestazioni', 'svuota').catch(() => {}); mostraArchivio(); };
   if (c.checked) { const i = await dbCl('indice', 'get', 'studi').catch(() => null); $('#cl-cartella-stato').textContent = i ? `${i.studi.length} studi in «${i.cartella}» · aggiornato il ${new Date(i.quando).toLocaleString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}` : 'Scegli la cartella.'; }
   mostraArchivio();
+}
+// ---- client (1.322): cartella dei vetrini. Si sceglie una volta (Chrome ed Edge); il client elenca i vetrini digitali che
+// contiene, in tutti i formati che sa leggere, e li apre dal disco senza copiarli. Maniglia della cartella ed elenco restano
+// solo in questo browser (IndexedDB «rq-client»), come la cartella predefinita degli esami. Spenta di base.
+const vetriniCartAttiva = () => { try { return localStorage.getItem('rq-cl-vetrini') === '1' && !!window.showDirectoryPicker; } catch { return false; } };
+const EST_VT = /\.(svs|tif|tiff|ndpi|scn|bif|qptiff|ptif|vtif|btf|czi|isyntax|i2syntax)$/i;
+const NOMI_FMT_VT = { svs: 'Aperio SVS', ndpi: 'Hamamatsu NDPI', scn: 'Leica SCN', bif: 'Ventana BIF', mrxs: '3DHISTECH MRXS', czi: 'Zeiss CZI', isyntax: 'Philips iSyntax',
+  i2syntax: 'Philips iSyntax', vsi: 'Olympus VSI', tif: 'TIFF', tiff: 'TIFF', qptiff: 'QPTIFF', ptif: 'TIFF', vtif: 'TIFF', btf: 'BigTIFF', dicom: 'DICOM WSI' };
+const dimLeggibile = (n) => (n >= 1e9 ? `${(n / 1e9).toFixed(1).replace('.', ',')} GB` : `${Math.max(1, Math.round(n / 1e6))} MB`);
+async function leggiCartellaVetrini() {
+  const st = $('#cl-vtc-stato'), scrivi = (t) => { if (st) st.textContent = t; };
+  const dir = await dbCl('cartella', 'get', 'vetrini'); if (!dir) { scrivi('Scegli prima la cartella dei vetrini.'); return; }
+  try { await permessoLettura(dir); } catch (e) { scrivi(e.message); return; }
+  const file = []; let n = 0;
+  const giro = async (h, base, prof) => {
+    if (prof > 8 || n > 100000) return;
+    for await (const x of h.values()) {
+      if (x.name.startsWith('.')) continue; const p = base + x.name;
+      if (++n % 500 === 0) scrivi(`Leggo la cartella: ${n} file…`);
+      if (x.kind === 'directory') await giro(x, p + '/', prof + 1); else file.push({ p, h: x });
+    }
+  };
+  scrivi('Leggo la cartella…'); await giro(dir, '', 0);
+  const vetrini = [], usati = new Set(), cartellaDi = (p) => p.split('/').slice(0, -1).join('/');
+  const dati = async (x) => { const f = await x.h.getFile(); return { dim: f.size, data: f.lastModified, f }; };
+  // MRXS: file .mrxs + cartella con lo stesso nome accanto; VSI: file .vsi + cartella «_nome_» con i file .ets
+  for (const x of file) {
+    const m = /^(.*\/)?([^/]+)\.(mrxs|vsi)$/i.exec(x.p); if (!m) continue;
+    const fmt = m[3].toLowerCase(), dirP = (m[1] || '') + (fmt === 'mrxs' ? m[2] : `_${m[2]}_`) + '/';
+    const parti = file.filter((y) => y.p.startsWith(dirP)); usati.add(x.p); parti.forEach((y) => usati.add(y.p));
+    const d0 = await dati(x); let dim = d0.dim; for (const y of parti) dim += (await dati(y)).dim;
+    vetrini.push({ nome: m[2], percorsi: [x.p, ...parti.map((y) => y.p)], formato: fmt, dim, data: d0.data, cartella: cartellaDi(x.p), incompleto: !parti.length });
+  }
+  for (const x of file) {
+    if (usati.has(x.p) || !EST_VT.test(x.p)) continue;
+    const est = x.p.split('.').pop().toLowerCase(), d = await dati(x);
+    if (/^tiff?$/.test(est) && d.dim < 5e6) continue;   // TIFF piccoli: immagini normali, non vetrini
+    vetrini.push({ nome: x.p.split('/').pop().replace(/\.[^.]+$/, ''), percorsi: [x.p], formato: est, dim: d.dim, data: d.data, cartella: cartellaDi(x.p) });
+  }
+  // DICOM WSI: i file .dcm dello stesso vetrino (un file per livello, stessa serie)
+  const dicom = new Map();
+  for (const x of file) {
+    if (usati.has(x.p) || !/\.(dcm|dicom)$/i.test(x.p)) continue;
+    try {
+      const { f, dim, data } = await dati(x), b = new Uint8Array(await f.slice(0, Math.min(f.size, 1 << 16)).arrayBuffer());
+      if (dicomParser.readPart10Header(b).string('x00020002')?.replace(/\0/g, '').trim() !== SOP_VETRINO) continue;
+      let uid = cartellaDi(x.p), descr = '';
+      try { const ds = dicomParser.parseDicom(b, { untilTag: 'x7fe00010' }); uid = (ds.string('x0020000e') || '').trim() || uid; descr = (ds.string('x0008103e') || '').trim(); } catch {}
+      const v = dicom.get(uid) || { nome: descr || cartellaDi(x.p).split('/').pop() || x.p, percorsi: [], formato: 'dicom', dim: 0, data, cartella: cartellaDi(x.p) };
+      v.percorsi.push(x.p); v.dim += dim; dicom.set(uid, v);
+    } catch {}
+  }
+  vetrini.push(...dicom.values());
+  vetrini.sort((a, b) => a.cartella.localeCompare(b.cartella) || a.nome.localeCompare(b.nome));
+  await dbCl('indice', 'put', 'vetrini', { quando: Date.now(), cartella: dir.name, vetrini });
+  scrivi(`${vetrini.length} ${vetrini.length === 1 ? 'vetrino' : 'vetrini'} in «${dir.name}» (${file.length} file)`);
+  mostraVetriniCartella();
+}
+async function mostraVetriniCartella() {
+  const box = $('#cl-vtc'); if (!box || !CLIENT) return;
+  box.hidden = !vetriniCartAttiva(); if (box.hidden) return;
+  const idx = await dbCl('indice', 'get', 'vetrini').catch(() => null), q = ($('#cl-vtc-cerca')?.value || '').trim().toLowerCase();
+  $('#cl-vtc-nome').textContent = idx?.cartella ? `«${idx.cartella}»` : '';
+  const l = (idx?.vetrini || []).filter((v) => !q || q.split(/\s+/).every((p) => `${v.nome} ${v.cartella} ${NOMI_FMT_VT[v.formato] || v.formato}`.toLowerCase().includes(p))).slice(0, 300);
+  $('#cl-vtc-lista').innerHTML = l.length ? `<table class="cl-rec-tab"><thead><tr><th>Vetrino</th><th>Formato</th><th>Dimensione</th><th>Data</th><th></th></tr></thead><tbody>${l.map((v, i) => `<tr>
+      <td><b>${esc(v.nome)}</b>${v.cartella ? `<span class="muted small"> · ${esc(v.cartella)}</span>` : ''}${v.incompleto ? ' <span class="cl-fonte" title="Manca la cartella con i dati accanto al file">incompleto</span>' : ''}</td>
+      <td>${esc(NOMI_FMT_VT[v.formato] || v.formato)}</td><td class="num">${dimLeggibile(v.dim)}</td><td class="num">${new Date(v.data).toLocaleDateString('it-IT')}</td>
+      <td class="cl-rec-az"><button type="button" class="primary piccolo" data-vtc="${i}">Apri</button></td></tr>`).join('')}</tbody></table>`
+    : `<p class="muted small">${!idx ? 'Scegli la cartella dei vetrini nelle impostazioni (⚙ qui sotto).' : q ? 'Nessun vetrino trovato.' : 'Nessun vetrino nella cartella: aggiorna l\'elenco se ne hai aggiunti.'}</p>`;
+  box.querySelectorAll('[data-vtc]').forEach((b) => { b.onclick = () => apriVetrinoDaCartella(l[+b.dataset.vtc]).catch((e) => { const st = $('#cl-stato'); st.className = 'stato errore'; st.textContent = 'Vetrino non aperto: ' + e.message; }); });
+}
+async function apriVetrinoDaCartella(v) {
+  const dir = await dbCl('cartella', 'get', 'vetrini'); if (!dir) throw new Error('cartella dei vetrini non impostata');
+  await permessoLettura(dir);
+  const st = $('#cl-stato'); st.className = 'stato'; st.textContent = `Apro il vetrino «${v.nome}»…`;
+  const out = [];
+  for (const p of v.percorsi) {
+    try {
+      const parti = p.split('/'); let h = dir; for (const d of parti.slice(0, -1)) h = await h.getDirectoryHandle(d);
+      const f = await (await h.getFileHandle(parti.at(-1))).getFile(); f._percorso = p;
+      try { Object.defineProperty(f, 'webkitRelativePath', { value: p }); } catch {}   // MRXS e VSI cercano i file accanto per percorso
+      out.push(f);
+    } catch {}
+  }
+  if (!out.length) throw new Error('file non trovati: la cartella è cambiata o il disco è scollegato, aggiorna l\'elenco');
+  return caricaClient(out);
+}
+function initVetriniCartella() {
+  const c = $('#cl-imp-vetrini'), box = $('#cl-vtc-box'); if (!c) return;
+  c.checked = vetriniCartAttiva(); box.hidden = !c.checked; if (!window.showDirectoryPicker) c.disabled = true;
+  c.onchange = async () => {
+    try { localStorage.setItem('rq-cl-vetrini', c.checked ? '1' : '0'); } catch {}
+    box.hidden = !c.checked;
+    if (!c.checked) { await dbCl('cartella', 'del', 'vetrini').catch(() => {}); await dbCl('indice', 'del', 'vetrini').catch(() => {}); $('#cl-vtc-stato').textContent = ''; }
+    mostraVetriniCartella();
+  };
+  $('#cl-vtc-scegli').onclick = async () => { try { const h = await showDirectoryPicker({ id: 'rq-vetrini', mode: 'read' }); await dbCl('cartella', 'put', 'vetrini', h); await leggiCartellaVetrini(); } catch (e) { if (e?.name !== 'AbortError') $('#cl-vtc-stato').textContent = 'Cartella non scelta: ' + e.message; } };
+  const leggi = () => leggiCartellaVetrini().catch((e) => { $('#cl-vtc-stato').textContent = 'Lettura non riuscita: ' + e.message; });
+  $('#cl-vtc-leggi').onclick = leggi; $('#cl-vtc-aggiorna').onclick = leggi;
+  $('#cl-vtc-cerca').oninput = () => mostraVetriniCartella();
+  if (c.checked) dbCl('indice', 'get', 'vetrini').then((i) => { $('#cl-vtc-stato').textContent = i ? `${i.vetrini.length} vetrini in «${i.cartella}» · aggiornato il ${new Date(i.quando).toLocaleString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}` : 'Scegli la cartella dei vetrini.'; }).catch(() => {});
+  mostraVetriniCartella();
 }
 // precedenti automatici: aprendo un esame si cerca tra i recenti e nella cartella predefinita uno studio più vecchio dello
 // stesso paziente (ID, o nome e data di nascita) e della stessa metodica; si propone il confronto affiancato
