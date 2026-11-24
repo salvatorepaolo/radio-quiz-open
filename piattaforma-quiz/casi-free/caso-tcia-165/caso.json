@@ -116,11 +116,19 @@
    23000
   ],
   "domanda": true,
-  "nota": "Carcinoma infiltrante: nidi solidi di cellule atipiche nello stroma fibroso, con linfociti (sotto, tessuto adiposo senza tumore)"
+  "nota": "Carcinoma infiltrante: nidi solidi di cellule atipiche nello stroma fibroso, con linfociti (sotto, tessuto adiposo senza tumore)",
+  "chiedi": "Indica dove si trova il tumore."
  },
  "localizza": true,
  "nota_docente": "Caso di anatomia patologica creato il 24/11/2026: primo caso con un vetrino NON DICOM (Aperio SVS originale, 354 MB, 81871×46773 px a 0,248 µm, JPEG). Scaricato dal GDC (file 966c7061-a5e0-4340-8e51-2d5dd509c663, accesso aperto) e preparato con strumenti/prepara_vetrino.py: nessun codice né testo su etichetta/panoramica (il file del GDC non ha l'etichetta), metadati di scansione azzerati (data, ora, utente, nome del file, ID dello scanner); resta il titolo TCGA-E2-A1L7-01Z-00-DX1, codice pubblico come la fonte. Diagnosi ed esito dai dati GDC già usati nel caso 147 (stessa paziente). Reperti controllati da Claude sulle immagini (nidi solidi di cellule grandi con nucleoli, stroma fibroso con linfociti, tessuto adiposo libero in basso): da confermare da un patologo. Il grado istologico non è dichiarato perché non è nei dati della fonte. Zona del reperto: carcinoma nella banda superiore (x 33500-70500, y 4000-23000 in pixel della scansione), domanda sul vetrino.",
  "id": "caso-tcia-165",
  "visibile": true,
- "aggiornato": "2026-11-24 21:00"
+ "aggiornato": "2026-11-24 21:00",
+ "scheda_vetrino": {
+  "organo": "Mammella",
+  "colorazione": "Ematossilina-eosina",
+  "campione": "Pezzo operatorio",
+  "ingrandimento": "40×",
+  "formato": "Aperio SVS"
+ }
 }

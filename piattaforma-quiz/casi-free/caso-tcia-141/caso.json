@@ -124,6 +124,30 @@
   {
    "caso": "caso-tcia-079",
    "testo": "RM multiparametrica di un carcinoma a cellule chiare"
+  },
+  {
+   "caso": "caso-tcia-068",
+   "testo": "TC: carcinoma a cellule chiare di circa 14 cm"
+  },
+  {
+   "caso": "caso-tcia-069",
+   "testo": "TC: piccolo carcinoma a cellule chiare (2,3 cm)"
+  },
+  {
+   "caso": "caso-tcia-077",
+   "testo": "TC: carcinoma a cellule chiare di circa 10 cm"
+  },
+  {
+   "caso": "caso-tcia-078",
+   "testo": "TC: carcinoma a cellule chiare del polo superiore"
+  },
+  {
+   "caso": "caso-tcia-080",
+   "testo": "RM: carcinoma renale della coorte a cellule chiare"
+  },
+  {
+   "caso": "caso-tcia-062",
+   "testo": "RM encefalo: metastasi cerebrale di carcinoma a cellule renali"
   }
  ],
  "nota_docente": "Caso di anatomia patologica (sezione «Vetrini», 1.274). Vetrino diagnostico FFPE del TCGA da IDC, livelli e miniatura anonimizzati con anonimizza_vetrino.py (etichetta e panoramica scartate). Diagnosi dai dati clinici del GDC (primary_diagnosis); reperti controllati da Claude sulle immagini il 21/11/2026: da confermare da un patologo.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC TCGA-CJ-6033: clear cell adenocarcinoma G4, rene destro, T3a N0 M1 (stadio IV). Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.",
@@ -139,5 +163,11 @@
    43500
   ],
   "nota": "Nidi e alveoli di cellule a citoplasma chiaro o eosinofilo, con emorragia e spazi cistici"
+ },
+ "scheda_vetrino": {
+  "organo": "Rene",
+  "colorazione": "Ematossilina-eosina",
+  "ingrandimento": "40×",
+  "formato": "DICOM"
  }
 }

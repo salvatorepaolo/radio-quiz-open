@@ -109,10 +109,20 @@
   {
    "caso": "caso-tcia-057",
    "testo": "RM: glioblastoma con impregnazione ad anello e centro necrotico, edema perilesionale"
+  },
+  {
+   "caso": "caso-tcia-063",
+   "testo": "RM: astrocitoma IDH-mutato di grado 4, stessa famiglia istologica"
   }
  ],
  "nota_docente": "Caso di anatomia patologica (sezione «Vetrini», 1.274). Vetrino diagnostico FFPE del TCGA da IDC, livelli e miniatura anonimizzati con anonimizza_vetrino.py (etichetta e panoramica scartate). Diagnosi dai dati clinici del GDC (primary_diagnosis); reperti controllati da Claude sulle immagini il 21/11/2026: da confermare da un patologo.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC TCGA-12-0691: glioblastoma, encefalo. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.",
  "id": "caso-tcia-137",
  "visibile": true,
- "aggiornato": "2026-11-21 09:00"
+ "aggiornato": "2026-11-21 09:00",
+ "scheda_vetrino": {
+  "organo": "Encefalo",
+  "colorazione": "Ematossilina-eosina",
+  "ingrandimento": "20×",
+  "formato": "DICOM"
+ }
 }

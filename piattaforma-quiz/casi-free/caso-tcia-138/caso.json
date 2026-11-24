@@ -113,6 +113,10 @@
   {
    "caso": "caso-tcia-090",
    "testo": "TC: piccole metastasi epatiche ipovascolari da carcinoma colorettale"
+  },
+  {
+   "caso": "caso-tcia-131",
+   "testo": "Ecografia: metastasi epatiche ipoecogene da carcinoma colorettale"
   }
  ],
  "nota_docente": "Caso di anatomia patologica (sezione «Vetrini», 1.274). Vetrino diagnostico FFPE del TCGA da IDC, livelli e miniatura anonimizzati con anonimizza_vetrino.py (etichetta e panoramica scartate). Diagnosi dai dati clinici del GDC (primary_diagnosis); reperti controllati da Claude sulle immagini il 21/11/2026: da confermare da un patologo.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC TCGA-AA-3875: adenocarcinoma, colon ascendente, T1 N0 M0, stadio I. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.",
@@ -130,5 +134,11 @@
   "domanda": true,
   "nota": "Adenocarcinoma che infiltra la sottomucosa (pT1): ghiandole irregolari con nuclei allungati e stratificati in uno stroma desmoplastico con infiammazione (in alto la mucosa normale, in basso la parte esofitica della stessa neoplasia)"
  },
- "localizza": true
+ "localizza": true,
+ "scheda_vetrino": {
+  "organo": "Colon",
+  "colorazione": "Ematossilina-eosina",
+  "ingrandimento": "20×",
+  "formato": "DICOM"
+ }
 }

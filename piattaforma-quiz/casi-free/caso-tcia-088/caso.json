@@ -148,5 +148,12 @@
    "caso": "caso-tcia-141",
    "testo": "vetrino della STESSA paziente: carcinoma a cellule chiare G4 della nefrectomia"
   }
- ]
+ ],
+ "scheda_vetrino": {
+  "organo": "Rene",
+  "colorazione": "Ematossilina-eosina",
+  "campione": "Pezzo operatorio",
+  "ingrandimento": "40×",
+  "formato": "DICOM"
+ }
 }

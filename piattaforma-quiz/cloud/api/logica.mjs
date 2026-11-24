@@ -425,6 +425,7 @@ const pulisciCaso = (id, d) => ({
   ...(d.localizza ? { localizza: true } : {}),
   // 1.303 zona del reperto sul vetrino (rettangolo in pixel della scansione): domanda sul vetrino e correzione
   ...(pulisciZonaVetrino(d.zona_vetrino) ? { zona_vetrino: pulisciZonaVetrino(d.zona_vetrino) } : {}),
+  ...(pulisciSchedaVetrino(d.scheda_vetrino) ? { scheda_vetrino: pulisciSchedaVetrino(d.scheda_vetrino) } : {}),
   // segmentazione con IA (TotalSegmentator) già calcolata: si può nascondere caso per caso
   ...(d.ia === false ? { ia: false } : {}),
   // funzioni per gli studenti scelte dall'amministratore caso per caso (assenti = attive)
@@ -597,11 +598,18 @@ function casoAtteso(caso) {
 // 1.303 domanda sul vetrino: punto dello studente {vt, x, y} (pixel della scansione) rispetto alla zona del docente.
 // domanda: true → la domanda sulla figura del caso si fa sul vetrino (casi di solo vetrino); altrimenti la zona si mostra solo nella correzione.
 // «centrato» dentro la zona allargata del 15% del lato maggiore per parte, «vicino» entro un lato maggiore, altrimenti «mancato».
+// 1.323 scheda del vetrino per la pagina «Vetrini» (organo, colorazione, ingrandimento, formato del file, campione)
+export function pulisciSchedaVetrino(s) {
+  if (!s || typeof s !== 'object') return null;
+  const o = {}; for (const k of ['organo', 'colorazione', 'ingrandimento', 'formato', 'campione']) { const v = String(s[k] || '').replace(/\s+/g, ' ').trim().slice(0, 60); if (v) o[k] = v; }
+  return Object.keys(o).length ? o : null;
+}
 export function pulisciZonaVetrino(z) {
   if (!z || typeof z !== 'object' || !Array.isArray(z.r) || z.r.length !== 4 || !z.r.every((x) => Number.isFinite(+x))) return null;
   const v = z.r.map((x) => Math.round(Math.max(0, Math.min(1e7, +x)))), r = [Math.min(v[0], v[2]), Math.min(v[1], v[3]), Math.max(v[0], v[2]), Math.max(v[1], v[3])];
   if (r[2] - r[0] < 2 || r[3] - r[1] < 2) return null;
-  return { i: Math.round(Math.max(0, Math.min(50, Number(z.i) || 0))), r, nota: String(z.nota || '').trim().slice(0, 300), ...(z.domanda === true ? { domanda: true } : {}) };
+  const chiedi = String(z.chiedi || '').replace(/\s+/g, ' ').trim().slice(0, 200);   // 1.323: che cosa indicare (testo per lo studente)
+  return { i: Math.round(Math.max(0, Math.min(50, Number(z.i) || 0))), r, nota: String(z.nota || '').trim().slice(0, 300), ...(z.domanda === true ? { domanda: true } : {}), ...(chiedi ? { chiedi } : {}) };
 }
 export function valutaPuntoVetrino(zona, punto) {
   if (!zona) return null;
@@ -2209,6 +2217,7 @@ export async function gestisci(req, cfg) {
         // origine delle immagini: casi del Polime (predefinito) o da archivi pubblici (es. TCIA), tenuti separati nell'elenco
         ...(c.fonte?.archivio ? { origine: /TCIA|Cancer Imaging Archive/i.test(c.fonte.archivio) ? 'TCIA' : 'Archivio pubblico' } : {}),
         ...(c.area ? { area: c.area } : {}),
+        ...(c.scheda_vetrino ? { schedaVetrino: c.scheda_vetrino } : {}),   // 1.323 pagina «Vetrini»
         ...(autore ? { visibile: visibile(c), difficoltaDocente: c.difficolta || '', ...(s ? { media: s.media, risposte: s.n } : {}),
           ...(indice ? {} : { aggiornato: c.aggiornato || '', controlli: controlliCaso(c), nOpzioni: (c.opzioni || []).length, nSezioni: (c.sezioni || []).length,
             ...(c.proposta ? { proposta: { stato: c.proposta.stato, nome: c.proposta.nome, data: c.proposta.data } } : {}) }) } : {}) };
@@ -2350,7 +2359,7 @@ export async function gestisci(req, cfg) {
     // scale: lo studente sa quali compilare, il risultato del docente arriva con la correzione (gli autori lo vedono subito)
     if (Array.isArray(scale) && scale.length) { resto.scaleRichieste = scale.map((x) => x.id); if (autore || docente) resto.scale = scale; }   // vista e titolo con la diagnosi: solo dopo la risposta / agli autori
     // domanda sulla figura: allo studente si dice solo in quale serie indicare il reperto
-    if (localizza && zona_vetrino?.domanda) resto.localizza = { vetrino: zona_vetrino.i };   // domanda sul vetrino: solo quale vetrino
+    if (localizza && zona_vetrino?.domanda) resto.localizza = { vetrino: zona_vetrino.i, ...(zona_vetrino.chiedi ? { chiedi: zona_vetrino.chiedi } : {}) };   // domanda sul vetrino: quale vetrino e che cosa cercare, mai la zona
     else if (localizza && vista?.segno) resto.localizza = { serie: vista.serie };
     return json(200, { ...resto, id, opzioni: (opzioni || []).map((o) => ({ testo: o.testo, ...(Number.isInteger(o.sezione) ? { sezione: o.sezione } : {}) })) }, await cookieImmagini());
   }

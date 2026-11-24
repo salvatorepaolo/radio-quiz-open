@@ -2718,3 +2718,10 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .cl-es-fonte .cl-nota{margin:6px 0 0;line-height:1.45}
 @media (max-width:820px){.client-home .cl-zona{grid-template-columns:1fr}.cl-esempi-griglia{grid-template-columns:1fr}}
 .client-home .cl-formato a,.client-home .cl-es-az a,.client-home .cl-es-fonte a{color:var(--acc);font-weight:600}
+/* 1.323 pagina Vetrini: filtri e scheda del vetrino */
+#lista-vetrini .vt-filtri{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0 14px}
+#lista-vetrini .vt-filtri button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+#lista-vetrini .vt-sep{margin-left:12px}
+#lista-vetrini .vt-scheda{margin-top:8px;font-size:.88em;color:var(--muto,#667)}
+#lista-vetrini .vt-dom{white-space:nowrap}
+#lista-vetrini .vt-titolo{margin:26px 0 4px;font-size:1.15em}

@@ -5972,6 +5972,12 @@ function aggiornaChiuse() {
     b.title = chiusa ? `Si apre alla tappa ${tappa[V.serie[+b.dataset.i]._i]}: rispondi prima alle domande precedenti` : (b.querySelector('.s-nome')?.textContent || '');
   });
 }
+// 1.323: testo della domanda sul vetrino; con «chiedi» il caso dice che cosa cercare (in grassetto, frase a parte per la traduzione)
+function testoLocVetrino(L) {
+  const box = $('#q-loc-testo');
+  if (!L?.chiedi) { box.textContent = 'Porta il vetrino sulla zona del reperto principale, poi premi «Indica sul vetrino» e cliccaci sopra.'; return; }
+  box.innerHTML = `<b>${esc(L.chiedi)}</b> <span>Porta il vetrino sulla zona, poi premi «Indica sul vetrino» e cliccaci sopra.</span>`;
+}
 function preparaLocalizza() {
   V.punto = null; V.puntaAttivo = false; canvas.classList.remove('punta');
   if (V.segniVetrino) { V.segniVetrino = null; segniSulVetrino(); }
@@ -5979,7 +5985,7 @@ function preparaLocalizza() {
   box.hidden = !L;
   if (!L) return;
   if (Number.isInteger(L.vetrino)) {   // 1.303 domanda sul vetrino
-    $('#q-loc-testo').textContent = 'Porta il vetrino sulla zona del reperto principale, poi premi «Indica sul vetrino» e cliccaci sopra.';
+    testoLocVetrino(L);
     $('#btn-punta').textContent = 'Indica sul vetrino'; $('#btn-punta').disabled = false; return;
   }
   const s = V.serie.find((x) => x._i === L.serie);
@@ -5993,7 +5999,7 @@ async function puntaSulVetrino(L) {
   if (!VT_APERTO) { $('#q-loc-testo').textContent = 'Il vetrino non si è aperto: riprova.'; return; }
   $('#q-loc-testo').textContent = 'Clicca sul reperto nel vetrino (Esc per annullare).';
   const q = await VT_APERTO.chiediPunto('Clicca sul reperto principale (Esc per annullare)');
-  if (!q) { $('#q-loc-testo').textContent = V.punto ? 'Punto già indicato sul vetrino. Puoi cambiarlo prima di confermare.' : 'Porta il vetrino sulla zona del reperto principale, poi premi «Indica sul vetrino» e cliccaci sopra.'; return; }
+  if (!q) { if (V.punto) $('#q-loc-testo').textContent = 'Punto già indicato sul vetrino. Puoi cambiarlo prima di confermare.'; else testoLocVetrino(L); return; }
   V.punto = { vt: q.i, x: q.p[0], y: q.p[1] };
   V.segniVetrino = [{ i: q.i, p: q.p, col: '#22d3ee', testo: 'Il tuo punto' }]; VT_APERTO.segna(V.segniVetrino);
   $('#q-loc-testo').textContent = q.i === L.vetrino ? 'Punto indicato sul vetrino. Puoi cambiarlo prima di confermare.' : 'Punto indicato su un altro vetrino: il reperto va cercato nel vetrino della domanda.';
@@ -7655,12 +7661,34 @@ function htmlRassegna(l) {
     + (altri.length ? `<div class="rassegna"><h3>Lo stesso segno in altri casi</h3><ul>${altri.map(voce).join('')}</ul></div>` : '');
 }
 // pagina «Vetrini» (1.275): casi di anatomia patologica con il vetrino digitale come immagine del caso
+// 1.323 pagina «Vetrini»: scheda del vetrino sotto ogni caso (organo, colorazione, ingrandimento, formato; 🎯 se c'è la
+// domanda sul vetrino), filtri per organo e per stato, e in fondo i casi radiologici con il vetrino dopo la risposta.
+// Ogni parte della scheda è un elemento a sé, così la traduzione inglese la trova uguale.
+let filtroVtOrgano = leggiSessione('quiz-vt-organo', ''), filtroVtStato = leggiSessione('quiz-vt-stato', '');
+const organoVetrino = (c) => c.schedaVetrino?.organo || c.distretto || 'Altro';
+function schedaVetrinoHtml(c) {
+  const s = c.schedaVetrino || {}, parti = [organoVetrino(c), s.colorazione, s.campione, s.ingrandimento, s.formato].filter(Boolean);
+  return `<div class="vt-scheda">🧫 ${parti.map((p) => `<span>${esc(p)}</span>`).join(' · ')}${c.localizza ? ' · <span class="vt-dom" title="Prima di rispondere indichi il reperto sul vetrino">🎯 Indica sul vetrino</span>' : ''}</div>`;
+}
 async function apriVetriniPagina() {
   if (!ELENCO.length) ELENCO = await getJSON('/api/casi');
-  const l = ELENCO.filter(eVetrini), box = $('#lista-vetrini');
-  const svolti = GIOCO ? l.filter((c) => GIOCO.casi?.[c.id] != null).length : 0;
-  $('#vetrini-numeri').textContent = l.length ? `${l.length} ${l.length === 1 ? 'caso' : 'casi'}${GIOCO ? ` · ${svolti} svolti` : ''}` : '';
-  box.innerHTML = l.length ? l.map(cardCaso).join('') : '<p class="muted">Nessun caso con i vetrini disponibile.</p>';
+  const tutti = ELENCO.filter(eVetrini), conRx = ELENCO.filter((c) => !eVetrini(c) && c.schedaVetrino), box = $('#lista-vetrini');
+  const svolto = (c) => GIOCO?.casi?.[c.id] != null;
+  const svolti = GIOCO ? tutti.filter(svolto).length : 0;
+  $('#vetrini-numeri').textContent = tutti.length ? `${tutti.length} ${tutti.length === 1 ? 'caso' : 'casi'}${GIOCO ? ` · ${svolti} svolti` : ''}` : '';
+  const organi = [...new Set([...tutti, ...conRx].map(organoVetrino))].sort((a, b) => a.localeCompare(b, 'it'));
+  if (filtroVtOrgano && !organi.includes(filtroVtOrgano)) filtroVtOrgano = '';
+  const passa = (c) => (!filtroVtOrgano || organoVetrino(c) === filtroVtOrgano) && (!filtroVtStato || (filtroVtStato === 'svolti') === svolto(c));
+  const l = tutti.filter(passa), lr = conRx.filter(passa);
+  const bott = (val, cur, testo, dato) => `<button type="button" class="ghost piccolo${val === cur ? ' on' : ''}" data-${dato}="${esc(val)}" aria-pressed="${val === cur}">${testo}</button>`;
+  const filtri = tutti.length + conRx.length > 3 ? `<div class="vt-filtri" role="group" aria-label="Filtri dei vetrini">
+      <span class="muted small">Organo</span>${bott('', filtroVtOrgano, 'Tutti', 'org')}${organi.map((o) => bott(o, filtroVtOrgano, `<span>${esc(o)}</span>`, 'org')).join('')}
+      ${GIOCO ? `<span class="muted small vt-sep">Stato</span>${bott('', filtroVtStato, 'Tutti', 'st')}${bott('da-fare', filtroVtStato, 'Da fare', 'st')}${bott('svolti', filtroVtStato, 'Svolti', 'st')}` : ''}</div>` : '';
+  const carte = (lista) => lista.map((c) => cardCaso(c).replace(/<\/div>\s*$/, `${schedaVetrinoHtml(c)}</div>`)).join('');
+  box.innerHTML = filtri + (tutti.length ? (l.length ? `<div class="lista">${carte(l)}</div>` : '<p class="muted">Nessun vetrino con questi filtri.</p>') : '<p class="muted">Nessun caso con i vetrini disponibile.</p>')
+    + (lr.length ? `<h2 class="vt-titolo">Radiologia con il vetrino dopo la risposta</h2><p class="muted small">Casi di TC, RM o ecografia: rispondi sulle immagini radiologiche, poi vedi il vetrino dello stesso paziente.</p><div class="lista">${carte(lr)}</div>` : '');
+  box.querySelectorAll('[data-org]').forEach((b) => b.onclick = () => { filtroVtOrgano = b.dataset.org; scriviSessione('quiz-vt-organo', filtroVtOrgano); apriVetriniPagina(); });
+  box.querySelectorAll('[data-st]').forEach((b) => b.onclick = () => { filtroVtStato = b.dataset.st; scriviSessione('quiz-vt-stato', filtroVtStato); apriVetriniPagina(); });
   box.querySelectorAll('.card').forEach((c) => c.onclick = (e) => { if (e.target.closest('a.no-apri')) return; scriviSessione('quiz-casuale', null); scriviSessione('quiz-giro', null); location.hash = `#/caso/${c.dataset.id}`; });
 }
 // 1.279: menu principale in alto (Casi, Vetrini, Allenamento, I miei progressi) e menu 👤 (profilo, esci). Nascosto
@@ -12633,9 +12661,10 @@ async function salvaZonaVetrino() {
   const q = await VT_APERTO.chiediZona('Trascina un rettangolo attorno al reperto (Esc per annullare)'); if (!q) return;
   const nota = prompt('Che cosa c\'è in questa zona? (per esempio «carcinoma infiltrante»; facoltativo)', V.caso?.zona_vetrino?.nota || ''); if (nota === null) { segniSulVetrino(); return; }
   const domanda = V.soloVetrino ? confirm('Chiedere agli studenti di indicare il reperto sul vetrino prima di rispondere? (domanda sulla figura: pesa il 20% del punteggio)') : false;
+  const chiedi = domanda ? prompt('Che cosa devono indicare gli studenti? (per esempio «Indica dove si vede la necrosi»; vuoto = «il reperto principale»)', V.caso?.zona_vetrino?.chiedi || '') : null;
   try {
     const completo = await getJSON(`/api/casi/${V.caso.id}/completo`);
-    const zona = { i: q.i, r: q.r, nota: nota.trim(), ...(domanda ? { domanda: true } : {}) };
+    const zona = { i: q.i, r: q.r, nota: nota.trim(), ...(domanda ? { domanda: true } : {}), ...(chiedi?.trim() ? { chiedi: chiedi.trim() } : {}) };
     await getJSON(`/api/casi/${V.caso.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...completo, zona_vetrino: zona, ...(domanda ? { localizza: true } : {}) }) });
     V.caso.zona_vetrino = zona; V.segniVetrino = (V.segniVetrino || []).filter((g) => !g.r); segniSulVetrino();
     avvisoBreve(domanda ? '🎯 Zona salvata: gli studenti la indicano sul vetrino' : '🎯 Zona del reperto salvata (si vede nella correzione)');

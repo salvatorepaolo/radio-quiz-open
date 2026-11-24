@@ -117,6 +117,14 @@
   {
    "caso": "caso-tcia-129",
    "testo": "TC: epatocarcinoma gigante in fegato non cirrotico"
+  },
+  {
+   "caso": "caso-tcia-004",
+   "testo": "TC: epatocarcinoma multinodulare del lobo destro"
+  },
+  {
+   "caso": "caso-tcia-044",
+   "testo": "Ecografia e CEUS: piccolo epatocarcinoma quasi isoecogeno"
   }
  ],
  "nota_docente": "Caso di anatomia patologica (sezione «Vetrini», 1.274). Vetrino diagnostico FFPE del TCGA da IDC, livelli e miniatura anonimizzati con anonimizza_vetrino.py (etichetta e panoramica scartate). Diagnosi dai dati clinici del GDC (primary_diagnosis); reperti controllati da Claude sulle immagini il 21/11/2026: da confermare da un patologo.\n[controllo dati 22/11/2026] Testo confrontato con la fonte: GDC TCGA-MR-A520: carcinoma epatocellulare G1, T1, stadio I. Coerenti diagnosi, sede, lato e stadio; il contenuto didattico resta da rivedere dal medico.",
@@ -132,5 +140,11 @@
    10600
   ],
   "nota": "Trabecole di cellule di tipo epatocitario con citoplasma chiaro e vacuolizzato"
+ },
+ "scheda_vetrino": {
+  "organo": "Fegato",
+  "colorazione": "Ematossilina-eosina",
+  "ingrandimento": "20×",
+  "formato": "DICOM"
  }
 }

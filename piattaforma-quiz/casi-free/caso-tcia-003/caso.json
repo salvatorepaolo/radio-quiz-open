@@ -178,5 +178,12 @@
    "caso": "caso-tcia-141",
    "testo": "vetrino: carcinoma a cellule chiare di alto grado di un'altra paziente (con metastasi polmonari)"
   }
- ]
+ ],
+ "scheda_vetrino": {
+  "organo": "Rene",
+  "colorazione": "Ematossilina-eosina",
+  "campione": "Pezzo operatorio",
+  "ingrandimento": "40×",
+  "formato": "DICOM"
+ }
 }

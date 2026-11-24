@@ -113,6 +113,10 @@ test('1.303 domanda sul vetrino: pulisciZonaVetrino e valutaPuntoVetrino', () =>
   assert.equal(L.pulisciZonaVetrino({ i: 0, r: [10, 10, 11, 11] }), null);   // troppo piccola
   const z = L.pulisciZonaVetrino({ i: '1', r: [2000, 3000, 1000, 1000], nota: 'x'.repeat(400), domanda: 'si' });
   assert.deepEqual(z.r, [1000, 1000, 2000, 3000]); assert.equal(z.i, 1); assert.equal(z.nota.length, 300); assert.equal(z.domanda, undefined);
+  // 1.323 «chiedi»: testo per lo studente, spazi compattati, al massimo 200 caratteri, assente se vuoto
+  assert.equal(L.pulisciZonaVetrino({ i: 0, r: [0, 0, 100, 100], chiedi: '  Indica   la necrosi ' }).chiedi, 'Indica la necrosi');
+  assert.equal(L.pulisciZonaVetrino({ i: 0, r: [0, 0, 100, 100], chiedi: 'x'.repeat(300) }).chiedi.length, 200);
+  assert.equal('chiedi' in L.pulisciZonaVetrino({ i: 0, r: [0, 0, 100, 100], chiedi: '  ' }), false);
   const zona = { i: 0, r: [1000, 1000, 2000, 2000] };
   assert.equal(L.valutaPuntoVetrino(zona, { vt: 0, x: 1500, y: 1500 }).esito, 'centrato');
   assert.equal(L.valutaPuntoVetrino(zona, { vt: 0, x: 2100, y: 1500 }).esito, 'centrato');   // margine del 15%

@@ -124,5 +124,11 @@
    11700
   ],
   "nota": "Architettura papillare: assi fibrovascolari sottili rivestiti da epitelio con nuclei sovrapposti (ingrandisci per vedere i nuclei chiari con incisure)"
+ },
+ "scheda_vetrino": {
+  "organo": "Tiroide",
+  "colorazione": "Ematossilina-eosina",
+  "ingrandimento": "20×",
+  "formato": "DICOM"
  }
 }
