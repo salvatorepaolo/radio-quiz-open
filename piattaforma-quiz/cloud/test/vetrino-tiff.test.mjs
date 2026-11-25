@@ -119,3 +119,18 @@ test('API vetrino: solo autori, solo in aggiunta; un vetrino non pulito viene ca
   const r3 = await admin(`/api/casi/${ID}/immagini`, { aggiungi: [{ descrizione: 'Serie', files: [f2] }] });
   assert.notEqual(r3.stato, 500);
 });
+
+test('API vetrino a più file (VSI): segnaposto e immagine .ets accettati; .vsi originale cancellato; parti fuori cartella rifiutate', async () => {
+  const c = 'serie/vetrino_b1/', d = 'serie/vetrino_b2/', fv = 'vetrino.vsi', fe = 'vetrino_ets/stack1/frame_t.ets';
+  const u = await admin(`/api/casi/${ID}/caricamento`, { aggiunta: true, files: [c + fv, c + fe, d + fv, d + fe] }); assert.equal(u.stato, 200, u.t);
+  const ets = Buffer.alloc(4096, 3);
+  // .vsi originale (miniature e metadati): più lungo del segnaposto → cancellato
+  await fetch(u.j.urls[c + fv], { method: 'PUT', body: Buffer.alloc(5000, 1) }); await fetch(u.j.urls[c + fe], { method: 'PUT', body: ets });
+  const r1 = await admin(`/api/casi/${ID}/immagini`, { aggiungi: [{ tipo: 'vetrino', descrizione: 'VSI', files: [c + fv, c + fe] }] });
+  assert.equal(r1.stato, 422, r1.t); assert.match(r1.j.errore, /\.vsi/);
+  // parte di un'altra cartella: la voce non vale
+  await fetch(u.j.urls[d + fv], { method: 'PUT', body: M.SEGNAPOSTO + 'um=0.34567\n' }); await fetch(u.j.urls[d + fe], { method: 'PUT', body: ets });
+  assert.equal((await admin(`/api/casi/${ID}/immagini`, { aggiungi: [{ tipo: 'vetrino', files: [d + fv, c + fe] }] })).stato, 400, 'parte fuori cartella');
+  const r2 = await admin(`/api/casi/${ID}/immagini`, { aggiungi: [{ tipo: 'vetrino', descrizione: 'VSI', files: [d + fv, d + fe] }] });
+  assert.equal(r2.stato, 200, r2.t); assert.equal(r2.j.aggiunte, 2);
+});

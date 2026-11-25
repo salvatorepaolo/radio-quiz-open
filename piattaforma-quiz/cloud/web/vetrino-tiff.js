@@ -1,6 +1,6 @@
-// vetrino-tiff.js (1.326): pulizia e controllo dei vetrini TIFF (Aperio SVS, TIFF piramidali; la stessa struttura hanno
-// NDPI, Leica SCN, Ventana BIF, Philips TIFF). Traduzione in JavaScript di strumenti/prepara_vetrino.py (leggi_tiff,
-// livelli_tiff, pulisci_tiff, controlla_tiff, pulisci_testo, sospetti): stesse regole, stessi risultati.
+// vetrino-tiff.js (1.326, 1.327): pulizia e controllo dei vetrini: TIFF (Aperio SVS, TIFF piramidali, NDPI, Leica SCN,
+// Ventana BIF, Philips TIFF) e, dalla 1.327, Zeiss CZI, Philips iSyntax, 3DHISTECH MRXS e Olympus VSI. Traduzione in
+// JavaScript di strumenti/prepara_vetrino.py: stesse regole, stessi file prodotti (confronta_python.mjs, byte per byte).
 // Lo stesso file serve nel browser del docente (web/vetrino-tiff.js: pulizia prima del caricamento dal pannello) e sul
 // server (api/vetrino-tiff.mjs: secondo controllo del file caricato); test/vetrino-tiff.test.mjs verifica che siano uguali.
 // leggi(posizione, byte) → Promise<Uint8Array>: dal File nel browser, da S3 con Range sul server. Nessun'altra dipendenza.
@@ -18,11 +18,19 @@ const CHIAVI = () => /\b(Date|Time|User|Filename|ScanScope ID|Barcode|Patient[\w
 const ATTR = () => /(<Attribute[ \t\r\n\f\v]+Name="(?:DICOM_ACQUISITION_DATETIME|DICOM_DEVICE_SERIAL_NUMBER|PIM_DP_UFS_BARCODE|DICOM_PATIENT\w*|DICOM_ACCESSION\w*|DICOM_STUDY_\w*|DICOM_INSTITUTION\w*|DICOM_\w*_DATE\w*|DICOM_\w*_TIME\w*|DICOM_DATE_OF_LAST_CALIBRATION|DICOM_TIME_OF_LAST_CALIBRATION|DICOM_REFERRING\w*|DICOM_OPERATORS\w*|PIM_DP_SCANNER_\w*SERIAL\w*|DICOM_SPECIMEN\w*|DICOM_CONTAINER\w*)"[^>]*>)([\s\S]*?)(<\/Attribute>)/g;
 const IMMAGINI_XML = () => /(<Attribute[ \t\r\n\f\v]+Name="PIM_DP_IMAGE_DATA"[^>]*>)([\s\S]*?)(<\/Attribute>)/g;   // etichetta e panoramica in base64
 
+const TAG_XML = () => /(<(AcquisitionDateAndTime|CreationDate|LastModifiedDate|UserName|DisplayName|FirstName|LastName|MiddleName|Email|Institution|Phone|Fax|Login|BarCode|Barcode|Comment|Description|Title|Name|Id|Ids|Description)\b[^>/]*>)([^<]*)(<\/\2>)/g;
+const BLOCCO_CZI = () => /<(User|Document)\b[\s\S]*?<\/\1>/g;
+const TAG_CZI = new Set(['AcquisitionDateAndTime', 'CreationDate', 'LastModifiedDate', 'UserName', 'BarCode', 'Barcode', 'Email', 'Phone', 'Login']);
+const vuotaTag = (t, a, n, v, c) => a + ' '.repeat(v.length) + c;
 // stesse lunghezze: si sostituiscono solo i valori
-export function pulisciTesto(s) {
+export function pulisciTesto(s, formato = '') {
   s = s.replace(CHIAVI(), (m, a, b, c) => a + b + 'x'.repeat(c.length));
   s = s.replace(ATTR(), (m, a, b, c) => a + 'x'.repeat(b.length) + c);
   s = s.replace(IMMAGINI_XML(), (m, a, b, c) => a + 'A'.repeat(b.length) + c);
+  if (formato === 'czi') {
+    s = s.replace(BLOCCO_CZI(), (m) => m.replace(TAG_XML(), vuotaTag));
+    s = s.replace(TAG_XML(), (t, a, n, v, c) => (TAG_CZI.has(n) ? vuotaTag(t, a, n, v, c) : t));
+  }
   s = s.replace(DATA(), (m) => '0'.repeat(m.length)).replace(CF(), (m) => 'X'.repeat(m.length)).replace(EMAIL(), (m) => 'x'.repeat(m.length));
   return s;
 }
@@ -199,3 +207,182 @@ export function copiaPulita(file, piano) {
   return new Blob(parti, { type: 'application/octet-stream' });
 }
 export const lettoreBlob = (b) => async (o, n) => new Uint8Array(await b.slice(o, o + n).arrayBuffer());
+
+// ================================================================================================ altri formati (1.327)
+const i32 = (b, o) => new DataView(b.buffer, b.byteOffset, b.byteLength).getInt32(o, true);
+const i64 = (b, o) => Number(new DataView(b.buffer, b.byteOffset, b.byteLength).getBigInt64(o, true));
+const zeroIn = async (leggi, zone, campione = 1 << 16) => { for (const [a, n] of zone) if ((await leggi(a, Math.min(n, campione))).some((x) => x !== 0)) return false; return true; };
+export const SEGNAPOSTO = 'radio-quiz: file principale senza immagini (tolte)\n';
+
+// ------------------------------------------------------------------------------------------------ Zeiss CZI
+async function cziAllegati(leggi) {
+  const ap = i64(await leggi(32 + 72, 8), 0), out = [];
+  if (ap <= 0) return out;
+  const n = i32(await leggi(ap + 32, 4), 0);
+  if (n < 0 || n > 100000) throw new Error('CZI: elenco degli allegati non valido');
+  const e = await leggi(ap + 32 + 256, n * 128);
+  for (let k = 0; k < n; k++) {
+    const r = e.subarray(k * 128, k * 128 + 128), pos = i64(r, 12), nome = latino(r.subarray(48, 128)).split('\0')[0];
+    const lun = i32(await leggi(pos + 32, 4), 0);
+    out.push({ nome, zona: [pos + 32 + 256, Math.max(0, lun)] });
+  }
+  return out;
+}
+async function cziMeta(leggi) {
+  const mp = i64(await leggi(32 + 60, 8), 0); if (mp <= 0) return null;
+  const n = i32(await leggi(mp + 32, 4), 0); return { pos: mp + 32 + 256, testo: latino(await leggi(mp + 32 + 256, n)) };
+}
+async function pianoCzi(leggi) {
+  if (latino(await leggi(0, 4)) !== 'ZISR') throw new Error('non è un file CZI');
+  const al = await cziAllegati(leggi), m = await cziMeta(leggi), testi = [];
+  if (m) { const t = pulisciTesto(m.testo, 'czi'); if (t !== m.testo) testi.push([m.pos, bytes(t)]); }
+  return { accessorie: al.length, zeri: al.map((x) => x.zona).filter(([, n]) => n > 0), testi };
+}
+async function problemiCzi(leggi) {
+  const out = [];
+  for (const x of await cziAllegati(leggi)) if (!(await zeroIn(leggi, [x.zona]))) out.push(`allegato «${x.nome}» non azzerato`);
+  const m = await cziMeta(leggi); if (m) out.push(...sospetti(m.testo));
+  return out;
+}
+
+// ------------------------------------------------------------------------------------------------ Philips iSyntax
+// intestazione XML fino a «\r\n\x04» (entro i primi 64 MB), letta a blocchi di 1 MB
+async function xmlIsyntax(leggi, size) {
+  const MAX = Math.min(size ?? 64 << 20, 64 << 20), B = 1 << 20; let s = '';
+  for (let o = 0; o < MAX; o += B) {
+    const b = await leggi(o, Math.min(B, MAX - o)); if (!b.length) break;
+    s += latino(b); const i = s.indexOf('\r\n\x04', Math.max(0, o - 2)); if (i >= 0) return s.slice(0, i);
+  }
+  throw new Error('iSyntax: intestazione non trovata');
+}
+async function pianoIsyntax(leggi, size) {
+  const x = await xmlIsyntax(leggi, size), t = pulisciTesto(x);
+  return { accessorie: (x.match(IMMAGINI_XML()) || []).length, zeri: [], testi: t !== x ? [[0, bytes(t)]] : [] };
+}
+const problemiIsyntax = async (leggi, size) => sospetti(await xmlIsyntax(leggi, size));
+
+// ------------------------------------------------------------------------------------------------ 3DHISTECH MRXS
+// vetrino.mrxs (foto del vetrino con l'etichetta) → segnaposto; cartella «vetrino»: Slidedat.ini ripulito, nei file Data
+// azzerati codice a barre (etichetta), anteprima e miniatura
+const ini16 = (b) => b.length >= 2 && ((b[0] === 0xff && b[1] === 0xfe) || (b[0] === 0xfe && b[1] === 0xff));
+function testoIni(b) {
+  if (ini16(b)) return new TextDecoder(b[0] === 0xff ? 'utf-16le' : 'utf-16be').decode(b);
+  return new TextDecoder('utf-8').decode(b);
+}
+function leggiIni(b) {
+  const o = {}; let s = null;
+  for (const r of testoIni(b).split(/\r\n|\r|\n/)) {
+    const m = /^\s*\[(.+)\]\s*$/.exec(r);
+    if (m) { s = m[1]; o[s] ||= {}; continue; }
+    const i = r.indexOf('='); if (i >= 0 && s) o[s][r.slice(0, i).trim()] = r.slice(i + 1).trim();
+  }
+  return o;
+}
+const RECORD_MRXS = ['ScanDataLayer_SlideBarcode', 'ScanDataLayer_SlidePreview', 'ScanDataLayer_SlideThumbnail'];
+async function recordMrxs(apri) {   // apri(nome nella cartella) → { size, leggi }
+  const fi = await apri('Slidedat.ini'), I = leggiIni(await fi.leggi(0, fi.size)), H = I.HIERARCHICAL || {}, G = I.GENERAL || {}, DF = I.DATAFILE || {};
+  const fx = await apri(H.INDEXFILE || 'Index.dat'), d = await fx.leggi(0, fx.size), lid = (G.SLIDE_ID || '').length;
+  const nr = i32(d, 9 + lid), out = []; let k = 0;
+  for (let i = 0; i < +(H.NONHIER_COUNT || 0); i++) {
+    const c = +H[`NONHIER_${i}_COUNT`];
+    for (let j = 0; j < c; j++) {
+      const v = H[`NONHIER_${i}_VAL_${j}`];
+      if (!RECORD_MRXS.includes(v)) continue;
+      const p = i32(d, nr + 4 * (k + j)), pg = i32(d, p + 4);
+      if (pg > 0 && i32(d, pg) > 0) out.push({ nome: v, file: DF[`FILE_${i32(d, pg + 24)}`], zona: [i32(d, pg + 16), i32(d, pg + 20)] });
+    }
+    k += c;
+  }
+  return out;
+}
+function iniPulito(b) {
+  if (!ini16(b)) return bytes(pulisciTesto(latino(b)));
+  const u8 = latino(new TextEncoder().encode(testoIni(b)));
+  const t = new TextDecoder('utf-8').decode(bytes(pulisciTesto(u8)));
+  const out = new Uint8Array(2 + t.length * 2); out[0] = 0xff; out[1] = 0xfe;   // UTF-16 con BOM, come Python .encode('utf-16')
+  for (let i = 0; i < t.length; i++) { const c = t.charCodeAt(i); out[2 + i * 2] = c & 255; out[3 + i * 2] = c >> 8; }
+  return out;
+}
+const iniSospetti = (b) => sospetti(ini16(b) ? latino(new TextEncoder().encode(testoIni(b))) : latino(b));
+
+// ------------------------------------------------------------------------------------------------ Olympus VSI
+// del .vsi resta solo un segnaposto con la calibrazione (µm per pixel, letta dal visualizzatore); delle immagini .ets nella
+// cartella «_nome_» resta la più grande (il tessuto), copiata com'è
+export function micronVsi(d) {
+  let um = null; const pat = [4, 1, 0, 0, 0xe3, 7, 0, 0], v = new DataView(d.buffer, d.byteOffset, d.byteLength);
+  for (let i = 0; i + 8 <= d.length; i++) {
+    if (d[i] !== 4) continue;
+    let ok = true; for (let k = 1; k < 8; k++) if (d[i + k] !== pat[k]) { ok = false; break; }
+    if (!ok || i + 32 > d.length || v.getUint32(i + 12, true) !== 16) continue;
+    const x = v.getFloat64(i + 16, true), y = v.getFloat64(i + 24, true);
+    if (x > 0.01 && x < 1000 && Math.abs(y / x - 1) < 0.05 && (um === null || x < um)) um = x;
+  }
+  return um;
+}
+
+// ------------------------------------------------------------------------------------------------ insieme di file → vetrino
+// files: File (o Blob con name) con «rel», il percorso relativo alla cartella scelta (webkitRelativePath o trascinamento).
+// Risultato: file da caricare nella cartella serie/vetrino_N del caso, con i nomi che usa prepara_vetrino.py
+export const ESTENSIONI_VETRINO = /\.(svs|tiff?|ndpi|scn|bif|czi|isyntax|i2syntax|mrxs|vsi)$/i;
+const relDi = (f) => (f.rel || f.webkitRelativePath || f.name).replace(/\\/g, '/');
+export function principaleTra(files) {
+  const p = files.filter((f) => /\.(mrxs|vsi|czi|isyntax|i2syntax)$/i.test(f.name));
+  if (p.length > 1) throw new Error('più di un vetrino tra i file scelti: caricane uno alla volta');
+  if (p.length) return p[0];
+  const t = files.filter((f) => /\.(svs|tiff?|ndpi|scn|bif)$/i.test(f.name));
+  if (t.length > 1) throw new Error('più di un vetrino tra i file scelti: caricane uno alla volta');
+  if (!t.length) throw new Error('nessun vetrino riconosciuto tra i file scelti');
+  return t[0];
+}
+export async function preparaInsieme(files, Blob_ = Blob) {
+  const f = principaleTra(files), nome = f.name.toLowerCase(), stem = f.name.replace(/\.[^.]+$/, '');
+  const L = (x) => async (o, n) => new Uint8Array(await x.slice(o, o + n).arrayBuffer());
+  const pr = relDi(f), dir = pr.includes('/') ? pr.slice(0, pr.lastIndexOf('/') + 1) : '';
+  if (/\.(svs|tiff?|ndpi|scn|bif)$/.test(nome)) {
+    const piano = await pianoPulizia(L(f)), est = nome.slice(nome.lastIndexOf('.'));
+    return { formato: 'tiff', sorgenti: [f], principale: `vetrino${est}`, accessorie: piano.accessorie, testi: piano.testi.length, livelli: piano.livelli, uscita: [{ rel: `vetrino${est}`, blob: copiaPulita(f, piano) }] };
+  }
+  if (nome.endsWith('.czi')) { const piano = await pianoCzi(L(f)); return { formato: 'czi', sorgenti: [f], principale: 'vetrino.czi', accessorie: piano.accessorie, testi: piano.testi.length, uscita: [{ rel: 'vetrino.czi', blob: copiaPulita(f, piano) }] }; }
+  if (/\.i2?syntax$/.test(nome)) { const piano = await pianoIsyntax(L(f), f.size); return { formato: 'isyntax', sorgenti: [f], principale: 'vetrino.isyntax', accessorie: piano.accessorie, testi: piano.testi.length, uscita: [{ rel: 'vetrino.isyntax', blob: copiaPulita(f, piano) }] }; }
+  if (nome.endsWith('.mrxs')) {
+    const parte = files.filter((x) => { const r = relDi(x); return r.startsWith(`${dir}${stem}/`) && !r.slice(`${dir}${stem}/`.length).includes('/'); });
+    const per = new Map(parte.map((x) => [x.name, x]));
+    if (!per.has('Slidedat.ini')) throw new Error(`MRXS: manca la cartella «${stem}» accanto al file .mrxs (scegli la cartella che li contiene tutti e due)`);
+    const apri = async (n) => { const x = per.get(n); if (!x) throw new Error(`MRXS: manca ${n}`); return { size: x.size, leggi: L(x) }; };
+    const rec = await recordMrxs(apri), zone = new Map();
+    for (const r of rec) { if (!per.has(r.file)) throw new Error(`MRXS: manca ${r.file}`); (zone.get(r.file) || zone.set(r.file, []).get(r.file)).push(r.zona); }
+    const ini = per.get('Slidedat.ini'), iniB = new Uint8Array(await ini.arrayBuffer()), iniN = iniPulito(iniB);
+    const uscita = [{ rel: 'vetrino.mrxs', blob: new Blob_([SEGNAPOSTO]) }];
+    for (const n of [...per.keys()].sort()) {
+      const x = per.get(n);
+      uscita.push({ rel: `vetrino/${n}`, blob: n === 'Slidedat.ini' ? new Blob_([iniN]) : zone.has(n) ? copiaPulita(x, { zeri: zone.get(n), testi: [] }) : x });
+    }
+    return { formato: 'mrxs', sorgenti: [f, ...parte], principale: 'vetrino.mrxs', accessorie: rec.length, testi: latino(iniN) === latino(iniB) ? 0 : 1, uscita };
+  }
+  if (nome.endsWith('.vsi')) {
+    const ets = files.filter((x) => { const r = relDi(x); return r.startsWith(`${dir}_${stem}_/`) && /\.ets$/i.test(x.name); });
+    if (!ets.length) throw new Error(`VSI: file .ets non trovati (serve la cartella «_${stem}_» accanto al file .vsi: scegli la cartella che li contiene tutti e due)`);
+    const grande = ets.reduce((a, b) => (b.size > a.size ? b : a)), um = micronVsi(new Uint8Array(await f.arrayBuffer()));
+    return { formato: 'vsi', sorgenti: [f, ...ets], principale: 'vetrino.vsi', accessorie: ets.length - 1, testi: 1, um,
+      uscita: [{ rel: 'vetrino.vsi', blob: new Blob_([SEGNAPOSTO + (um ? `um=${um.toFixed(5)}\n` : '')]) }, { rel: 'vetrino_ets/stack1/frame_t.ets', blob: grande }] };
+  }
+  throw new Error('formato non riconosciuto');
+}
+
+// controllo di un vetrino già preparato (nel browser prima dell'invio, sul server dopo il caricamento). apri(rel relativo
+// alla cartella serie/vetrino_N) → { size, leggi(o, n) }; principale: 'vetrino.svs', 'vetrino.mrxs', …
+export async function problemiInsieme(principale, apri) {
+  const p = principale.toLowerCase(), m = await apri(principale);
+  if (/\.(svs|tiff?|ndpi|scn|bif)$/.test(p)) return problemi(m.leggi);
+  if (p.endsWith('.czi')) return problemiCzi(m.leggi);
+  if (p.endsWith('.isyntax')) return problemiIsyntax(m.leggi, m.size);
+  if (p.endsWith('.vsi')) return m.size <= 64 ? [] : ['il file .vsi (miniature e metadati) non è stato tolto'];
+  if (p.endsWith('.mrxs')) {
+    const out = []; if (m.size > 64) out.push('il file .mrxs (foto del vetrino) non è stato tolto');
+    const dentro = (n) => apri(`vetrino/${n}`);
+    for (const r of await recordMrxs(dentro)) { const x = await dentro(r.file); if (!(await zeroIn(x.leggi, [r.zona]))) out.push(`${r.nome} non azzerato`); }
+    const ini = await dentro('Slidedat.ini'); out.push(...iniSospetti(await ini.leggi(0, ini.size)));
+    return out;
+  }
+  return ['formato non riconosciuto'];
+}

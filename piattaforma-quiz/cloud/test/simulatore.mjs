@@ -110,7 +110,7 @@ if (COP) {
 }
 const server = http.createServer(async (q, s) => {
   try {
-    const u = new URL(q.url, 'http://x'); const pezzi = []; for await (const c of q) pezzi.push(c); const corpoB = Buffer.concat(pezzi), corpo = corpoB.toString();
+    const u = new URL(q.url, 'http://x'); const pezzi = []; for await (const c of q) pezzi.push(c); const corpoB = Buffer.concat(pezzi), corpo = u.pathname.startsWith('/s3put/') && !u.pathname.endsWith('.json') ? '' : corpoB.toString();   // vetrini: centinaia di MB, niente stringa
     if (u.pathname === '/__lavori') { s.writeHead(200, { 'content-type': 'application/json' }); return s.end(JSON.stringify(Object.fromEntries(LAVORI))); }
     if (u.pathname === '/__lavori/fallito') { for (const v of LAVORI.values()) v.stato = 'FAILED'; s.writeHead(200); return s.end('ok'); }
     if (u.pathname === '/__copertura' && COP) { try { const x = JSON.parse(corpo); copPagine.set(x.id, x.o); } catch {} s.writeHead(204); return s.end(); }
@@ -127,7 +127,7 @@ const server = http.createServer(async (q, s) => {
     if (u.pathname.startsWith('/api/') || /^\/s\/[^/]+$/.test(u.pathname)) { const r = await gestisci({ metodo: q.method, percorso: u.pathname, query: Object.fromEntries(u.searchParams), headers: q.headers, corpo }, cfg); s.writeHead(r.stato, r.headers); return s.end(r.corpo); }
     if (u.pathname.startsWith('/s3put/')) {                    // caricamenti: solo serie.json in memoria (niente scritture su disco)
       const m = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/serie\.json$/); if (m) try { serie[m[1]] = JSON.parse(corpo); } catch {}
-      const v = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/(serie\/vetrino_[A-Za-z0-9]+\/vetrino\.[a-z]+)$/);
+      const v = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/(serie\/vetrino_[A-Za-z0-9]+\/(?:vetrino\.[a-z]+|vetrino\/[A-Za-z0-9_.-]+|vetrino_ets\/stack1\/frame_t\.ets))$/);
       if (v && q.method === 'PUT') { fs.mkdirSync(path.dirname(caricato(v[1], v[2])), { recursive: true }); fs.writeFileSync(caricato(v[1], v[2]), corpoB); }
       s.writeHead(200); return s.end(); }
     let file;

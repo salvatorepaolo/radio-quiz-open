@@ -1263,8 +1263,10 @@
   </div>
   <section id="nc-vetrino" class="nc-vetrino" hidden>
     <h3>🔬 Oppure un vetrino di anatomia patologica</h3>
-    <p class="muted small">Aperio SVS, TIFF piramidale, Hamamatsu NDPI, Leica SCN o Ventana BIF, fino a 4 GB. Etichetta, panoramica e dati della scansione (data, operatore, nome del file, codici) vengono tolti <b>qui, nel tuo browser</b>: il file originale non lascia il tuo computer. Dopo il caricamento il server ricontrolla la copia.</p>
-    <label class="btn">Scegli il vetrino<input id="nc-vt-file" type="file" accept=".svs,.tif,.tiff,.ndpi,.scn,.bif" hidden></label>
+    <p class="muted small">Aperio SVS, TIFF piramidale, Hamamatsu NDPI, Leica SCN, Ventana BIF, Zeiss CZI, Philips iSyntax, 3DHISTECH MRXS od Olympus VSI, fino a 4 GB. Etichetta, panoramica e dati della scansione (data, operatore, nome del file, codici) vengono tolti <b>qui, nel tuo browser</b>: il file originale non lascia il tuo computer. Dopo il caricamento il server ricontrolla la copia.</p>
+    <p class="muted small">MRXS e VSI sono fatti di più file: scegli la <b>cartella</b> che contiene il file .mrxs o .vsi e, accanto, la sua cartella di dati.</p>
+    <div class="riga"><label class="btn">Scegli il file del vetrino<input id="nc-vt-file" type="file" accept=".svs,.tif,.tiff,.ndpi,.scn,.bif,.czi,.isyntax,.i2syntax" hidden></label>
+      <label class="btn">Scegli la cartella del vetrino<input id="nc-vt-cartella" type="file" webkitdirectory multiple hidden></label></div>
     <div id="nc-vt-esame" hidden>
       <div class="nc-vt-viste">
         <figure class="nc-vt-tessuto"><div id="nc-vt-mini" class="nc-vt-img"></div><figcaption>Il tessuto: <b>è quello che vedranno gli studenti</b></figcaption></figure>

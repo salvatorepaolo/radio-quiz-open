@@ -190,6 +190,11 @@ export CERTIFICATO
 # esami, pagine principali senza errori JavaScript, un caso risposto, MPR/3D, telefono. Se uno fallisce non si pubblica.
 # In emergenza si saltano con: SALTA_TEST=1 open pubblica.command (sconsigliato).
 titolo "Test di non regressione"
+# 1.328 la sicurezza del codice (osv-scanner + semgrep, ~1 minuto) non dipende dai test: parte subito in parallelo
+SIC_PID=""
+if [ "${SALTA_TEST:-}" != "1" ] && [ "${SALTA_SICUREZZA:-}" != "1" ] && [ -f ../qualita/sicurezza.sh ]; then
+  bash ../qualita/sicurezza.sh > /dev/null 2>&1 & SIC_PID=$!
+fi
 if [ "${SALTA_TEST:-}" = "1" ]; then info "test saltati (SALTA_TEST=1)"
 elif [ -f test/esegui.sh ]; then
   # i test girano sempre come vetrina: le variabili dell'istanza (MODO=azienda…) non devono arrivare al simulatore
@@ -229,8 +234,8 @@ fi
 # sicurezza del codice: vulnerabilità note nelle librerie (osv-scanner) ed errori di sicurezza nel codice (semgrep).
 # Si ferma solo per problemi gravi; il rapporto completo è in cloud/.log-sicurezza.txt. Emergenza: SALTA_SICUREZZA=1
 if [ "${SALTA_TEST:-}" = "1" ] || [ "${SALTA_SICUREZZA:-}" = "1" ]; then info "controlli di sicurezza del codice saltati"
-elif [ -f ../qualita/sicurezza.sh ]; then
-  if bash ../qualita/sicurezza.sh > /dev/null 2>&1; then ok "sicurezza del codice: $(grep -E '^(librerie|codice):' .log-sicurezza.txt | tr '\n' ' ')"
+elif [ -n "${SIC_PID}" ]; then
+  if wait "${SIC_PID}"; then ok "sicurezza del codice: $(grep -E '^(librerie|codice):' .log-sicurezza.txt | tr '\n' ' ')"
   else
     grep -E 'GRAVE' .log-sicurezza.txt | head -15
     errore "Problema di sicurezza grave: non pubblico. Il dettaglio è in cloud/.log-sicurezza.txt"; fine 1
@@ -559,8 +564,10 @@ for f in "${CASI}"/*/caso.json; do
   # senza «AGGIORNA»: si carica se manca online o se la copia nel Mac è più recente di quella online;
   # se è più recente quella online (modificata con l'editor del sito), resta quella
   ONLINE=$(online_di "${ID}")
-  if [ "${FORZA}" != "1" ] && [ -n "${ONLINE}" ] && [ "${ONLINE}" != "None" ] \
-     && node -e 'process.exit(require("fs").statSync(process.argv[1]).mtimeMs > Date.parse(process.argv[2]) ? 1 : 0)' "${f}" "${ONLINE}"; then
+  # 1.328 date confrontate in secondi con date/stat (prima un node per caso: ~10 s in tutto); se la data non si legge si carica
+  ONLINE_S=""
+  [ -n "${ONLINE}" ] && [ "${ONLINE}" != "None" ] && ONLINE_S=$(date -j -u -f "%Y-%m-%dT%H:%M:%S" "${ONLINE%%[.+Z]*}" +%s 2>/dev/null)
+  if [ "${FORZA}" != "1" ] && [ -n "${ONLINE_S}" ] && [ "$(stat -f %m "${f}")" -le "${ONLINE_S}" ]; then
     info "${ID}: online è già aggiornato (le modifiche fatte dall'editor restano)"
   else
     aws s3 cp "${f}" "s3://${DATI}/casi/${ID}/caso.json" --content-type "application/json; charset=utf-8" --only-show-errors \
@@ -574,6 +581,11 @@ aws cloudfront create-invalidation --distribution-id "${DIST}" --paths "/*" >/de
   && ok "cache di CloudFront svuotata" || info "non sono riuscito a svuotare la cache: le modifiche arrivano entro 5 minuti"
 
 # ---------- 8. verifica ----------
+# 1.328 la copia pubblica del codice (~1 minuto) parte qui, in parallelo alla verifica dal sito; il risultato si legge alla fine
+SORG_PID=""
+if [ "${MODO}" = "vetrina" ] && [ "${SALTA_SORGENTI:-}" != "1" ] && [ -f ../../pubblica-sorgenti.sh ]; then
+  bash ../../pubblica-sorgenti.sh > .log-sorgenti.txt 2>&1 & SORG_PID=$!
+fi
 titolo "8. Verifica dal sito"
 BASE="${INDIRIZZO}"
 if [ -n "${INDIRIZZO_DOMINIO}" ] && curl -fsS --max-time 15 -o /dev/null "${INDIRIZZO_DOMINIO}/" 2>/dev/null; then
@@ -655,8 +667,8 @@ else info "indirizzo diretto dell'API non trovato: controllo saltato"; fi
 
 # copia pubblica del codice (github.com/salvatorepaolo/radio-quiz-open): l'ultimo commit, senza storia, dopo i controlli
 # di pubblica-sorgenti.sh. Solo per la vetrina; se non riesce il sito resta pubblicato. Per saltarla: SALTA_SORGENTI=1
-if [ "${MODO}" = "vetrina" ] && [ "${SALTA_SORGENTI:-}" != "1" ] && [ -f ../../pubblica-sorgenti.sh ]; then
-  if bash ../../pubblica-sorgenti.sh > .log-sorgenti.txt 2>&1; then ok "codice pubblico: $(tail -1 .log-sorgenti.txt | sed 's/^[✓·] *//')"
+if [ -n "${SORG_PID}" ]; then
+  if wait "${SORG_PID}"; then ok "codice pubblico: $(tail -1 .log-sorgenti.txt | sed 's/^[✓·] *//')"
   else info "copia pubblica del codice non aggiornata (dettaglio in cloud/.log-sorgenti.txt)"; tail -3 .log-sorgenti.txt; fi
 fi
 

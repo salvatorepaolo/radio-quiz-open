@@ -14,7 +14,7 @@ async function apriNuovo({ aggiungi = null, proposta = false } = {}) {
   if (NC.occupato) return;
   NC.file = []; NC.serie = []; NC.vietate = new Set(); NC.aggiungiA = aggiungi; NC.proposta = proposta;
   A.$('#nc-proposta').hidden = !proposta; A.$('#nc-id-riga').hidden = proposta; A.$('#nc-intro-proposta').hidden = !proposta;
-  A.$('#nc-vetrino').hidden = !aggiungi || proposta; A.$('#nc-vt-esame').hidden = true; A.$('#nc-vt-file').value = ''; NC.vt = null;
+  A.$('#nc-vetrino').hidden = !aggiungi || proposta; A.$('#nc-vt-esame').hidden = true; A.$('#nc-vt-file').value = ''; A.$('#nc-vt-cartella').value = ''; NC.vt = null;
   if (proposta) {
     A.$('#nc-testa').textContent = 'Proponi un caso';
     A.$('#nc-id').value = 'prop-' + Array.from(crypto.getRandomValues(new Uint8Array(8)), (b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
@@ -43,7 +43,7 @@ async function disegnaMieProposte() {
     <td>${p.stato === 'approvata' ? `<a href="#/caso/${A.esc(p.id)}">${A.esc(p.titolo)}</a>` : A.esc(p.titolo)}</td><td>${A.esc(st[p.stato] || p.stato)}${p.motivo ? `<br><small class="muted">${A.esc(p.motivo)}</small>` : ''}</td></tr>`).join('')}</tbody></table>` : '';
 }
 async function leggiVoce(voce, out) {   // trascinamento: cartelle annidate
-  if (voce.isFile) { out.push(await new Promise((r, x) => voce.file(r, x))); return; }
+  if (voce.isFile) { const f = await new Promise((r, x) => voce.file(r, x)); f.rel = voce.fullPath.replace(/^\//, ''); out.push(f); return; }
   if (voce.isDirectory) {
     const lettore = voce.createReader();
     for (;;) {
@@ -854,29 +854,37 @@ function crConsumi(a) {
 // zone di etichetta, panoramica e miniature azzerate, testi dello scanner riscritti con la stessa lunghezza; la copia
 // pulita è un Blob fatto di pezzi dell'originale (nessuna copia in memoria) e si ricontrolla prima dell'invio. Sul
 // server lo stesso controllo, sul file caricato: se non passa il vetrino è cancellato e non entra nel caso.
-const MAX_VT = 4 * 2 ** 30, EST_VT_PANN = /\.(svs|tiff?|ndpi|scn|bif)$/i;
+const MAX_VT = 4 * 2 ** 30, EST_VT_PANN = /\.(svs|tiff?|ndpi|scn|bif|czi|isyntax|i2syntax|mrxs|vsi)$/i;
 const gb = (n) => (n >= 2 ** 30 ? `${(n / 2 ** 30).toFixed(2).replace('.', ',')} GB` : `${Math.max(1, Math.round(n / 2 ** 20))} MB`);
 function mettiImmagine(box, cv) { box.replaceChildren(); if (cv) { cv.className = 'nc-vt-cv'; box.append(cv); } else box.innerHTML = '<span class="muted small">non presente</span>'; }
-async function esaminaVetrino(f) {
-  if (NC.occupato || !f) return;
+async function esaminaVetrino(tutti) {
+  if (NC.occupato || !tutti?.length) return;
   const esame = A.$('#nc-vt-esame'); esame.hidden = true; NC.vt = null;
-  if (!EST_VT_PANN.test(f.name)) { stato('Formato non accettato qui: carica un file .svs, .tif, .tiff, .ndpi, .scn o .bif. Gli altri formati (MRXS, VSI, CZI, iSyntax) per ora passano dal Mac.', 'errore'); return; }
-  if (f.size > MAX_VT) { stato(`Il vetrino è di ${gb(f.size)}: il limite è 4 GB.`, 'errore'); return; }
   NC.occupato = true;
   try {
-    stato(`Leggo il vetrino «${A.esc(f.name)}» (${gb(f.size)})…`);
-    const T = await import('./vetrino-tiff.js'), piano = await T.pianoPulizia(T.lettoreBlob(f));
-    const { anteprimeVetrino } = await import('./vetrini.js'), ap = await anteprimeVetrino([f]).catch(() => null);
+    const T = await import('./vetrino-tiff.js');
+    let f; try { f = T.principaleTra(tutti); } catch (e) { stato(`${A.esc(e.message)}. Formati accettati: SVS, TIFF, NDPI, SCN, BIF, CZI, iSyntax, MRXS (con la sua cartella), VSI (con la sua cartella).`, 'errore'); return; }
+    stato(`Leggo il vetrino «${A.esc(f.name)}»…`);
+    const ins = await T.preparaInsieme(tutti), tot = ins.uscita.reduce((n, u) => n + u.blob.size, 0);
+    if (tot > MAX_VT) { stato(`Il vetrino è di ${gb(tot)}: il limite è 4 GB.`, 'errore'); return; }
+    // anteprime: vetrini.js riconosce MRXS e VSI dal percorso dei file nella cartella
+    for (const x of ins.sorgenti) if (x.rel && !x.webkitRelativePath) try { Object.defineProperty(x, 'webkitRelativePath', { value: x.rel }); } catch {}
+    const { anteprimeVetrino } = await import('./vetrini.js'), ap = await anteprimeVetrino(ins.sorgenti).catch(() => null);
     mettiImmagine(A.$('#nc-vt-mini'), ap?.miniatura); mettiImmagine(A.$('#nc-vt-etich'), ap?.etichetta); mettiImmagine(A.$('#nc-vt-pano'), ap?.panoramica);
     A.$('#nc-vt-etich-box').hidden = !ap?.etichetta; A.$('#nc-vt-pano-box').hidden = !ap?.panoramica;
-    const vari = piano.testi.length;
-    A.$('#nc-vt-riassunto').innerHTML = [
-      `${A.esc(ap?.formato || 'TIFF')}${ap ? `, ${ap.W.toLocaleString('it-IT')} × ${ap.H.toLocaleString('it-IT')} pixel` : ''}${ap?.um ? `, ${ap.um.toFixed(3).replace('.', ',')} µm per pixel` : ''}: ${piano.livelli === 1 ? 'il livello della piramide resta com\'era' : `${piano.livelli} livelli della piramide restano com'erano`}`,
-      `${piano.accessorie ? `${piano.accessorie} ${piano.accessorie === 1 ? 'immagine accessoria azzerata' : 'immagini accessorie azzerate'} (etichetta, panoramica, miniature)` : 'nessuna immagine accessoria da togliere'}`,
-      `${vari ? `${vari} ${vari === 1 ? 'testo' : 'testi'} della scansione ripuliti (data e ora, operatore, nome del file, codici, numero di serie dello scanner)` : 'nessun testo della scansione da ripulire'}`,
-    ].map((x) => `<li>${x}</li>`).join('');
+    const n = ins.accessorie, testa = `${A.esc(ap?.formato || ins.formato.toUpperCase())}${ap ? `, ${ap.W.toLocaleString('it-IT')} × ${ap.H.toLocaleString('it-IT')} pixel` : ''}${ap?.um ? `, ${ap.um.toFixed(3).replace('.', ',')} µm per pixel` : ''}, ${gb(tot)} da caricare`;
+    const righe = {
+      tiff: [ins.livelli === 1 ? 'il livello della piramide resta com\'era' : `${ins.livelli} livelli della piramide restano com'erano`,
+        n ? `${n} ${n === 1 ? 'immagine accessoria azzerata' : 'immagini accessorie azzerate'} (etichetta, panoramica, miniature)` : 'nessuna immagine accessoria da togliere',
+        ins.testi ? `${ins.testi} ${ins.testi === 1 ? 'testo' : 'testi'} della scansione ripuliti (data e ora, operatore, nome del file, codici, numero di serie dello scanner)` : 'nessun testo della scansione da ripulire'],
+      czi: [n ? `${n} ${n === 1 ? 'allegato azzerato' : 'allegati azzerati'} (etichetta, panoramica, miniatura, misure)` : 'nessun allegato da togliere', ins.testi ? 'metadati della scansione ripuliti (date, operatore, codici)' : 'nessun metadato da ripulire'],
+      isyntax: [ins.testi ? 'intestazione ripulita (date, numeri di serie, codici)' : 'nessun dato da ripulire nell\'intestazione', n ? `${n} ${n === 1 ? 'immagine incorporata tolta' : 'immagini incorporate tolte'} (etichetta, panoramica)` : 'nessuna immagine incorporata'],
+      mrxs: ['il file .mrxs (foto del vetrino con l\'etichetta) è sostituito da un segnaposto', `${n} ${n === 1 ? 'immagine azzerata' : 'immagini azzerate'} nei file di dati (codice a barre dell'etichetta, anteprima, miniatura)`, 'Slidedat.ini ripulito (date, operatore, codici)'],
+      vsi: ['il file .vsi (miniature, etichetta e metadati) è sostituito da un segnaposto con la calibrazione', `resta solo l'immagine del tessuto (il file .ets più grande)${n ? `; ${n} ${n === 1 ? 'altra immagine' : 'altre immagini'} della cartella non ${n === 1 ? 'viene caricata' : 'vengono caricate'}` : ''}`],
+    }[ins.formato] || [];
+    A.$('#nc-vt-riassunto').innerHTML = [testa, ...righe].map((x) => `<li>${x}</li>`).join('');
     A.$('#nc-vt-descr').value = ''; A.$('#nc-vt-controllo').checked = false;
-    NC.vt = { f, piano }; esame.hidden = false;
+    NC.vt = { ins }; esame.hidden = false;
     A.$('#nc-stato').hidden = true;
     esame.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (e) { stato(`Vetrino non leggibile: ${A.esc(e.message)}.`, 'errore'); }
@@ -897,21 +905,33 @@ async function caricaVetrino() {
   if (!A.$('#nc-vt-controllo').checked) { stato('Prima di caricare conferma di aver guardato l\'immagine del tessuto (casella sopra il pulsante).', 'errore'); A.$('#nc-vt-controllo').focus(); return; }
   NC.occupato = true; const btn = A.$('#nc-vt-carica'); btn.disabled = true;
   try {
-    const T = await import('./vetrino-tiff.js'), { f, piano } = NC.vt;
-    stato('Pulisco il vetrino e ricontrollo la copia…');
-    const pulito = T.copiaPulita(f, piano), prob = await T.problemi(T.lettoreBlob(pulito));
+    const T = await import('./vetrino-tiff.js'), { ins } = NC.vt;
+    stato('Ricontrollo la copia pulita…');
+    const per = new Map(ins.uscita.map((u) => [u.rel, u.blob]));
+    const prob = await T.problemiInsieme(ins.principale, async (r) => { const b = per.get(r); if (!b) throw new Error('manca ' + r); return { size: b.size, leggi: T.lettoreBlob(b) }; });
     if (prob.length) throw new Error(`nella copia resta ${prob.slice(0, 3).join('; ')}. Caricamento non fatto: usa lo script del Mac`);
-    const est = (f.name.match(EST_VT_PANN) || ['.svs'])[0].toLowerCase(), rel = `serie/vetrino_p${Date.now().toString(36)}/vetrino${est}`;
-    const r = await A.getJSON(`/api/casi/${encodeURIComponent(id)}/caricamento`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ files: [rel], aggiunta: true }) });
-    const t0 = Date.now();
-    await inviaConAvanzamento(r.urls[rel], pulito, (fatti, tot) => {
-      const sec = (Date.now() - t0) / 1000, resto = fatti ? sec / fatti * (tot - fatti) : 0;
-      stato(`Caricamento del vetrino pulito: <b>${gb(fatti)} / ${gb(tot)}</b>${fatti < tot && sec > 3 ? ` · circa ${Math.max(1, Math.ceil(resto / 60))} min rimanenti` : ''}${A.barra(fatti / tot)}<p class="small muted">Non chiudere questa pagina fino alla fine.</p>`);
-    });
+    const cart = `serie/vetrino_p${Date.now().toString(36)}/`, rels = ins.uscita.map((u) => cart + u.rel), urls = {};
+    for (let i = 0; i < rels.length; i += 250) {
+      const r = await A.getJSON(`/api/casi/${encodeURIComponent(id)}/caricamento`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ files: rels.slice(i, i + 250), aggiunta: true }) });
+      Object.assign(urls, r.urls);
+    }
+    const tot = ins.uscita.reduce((n, u) => n + u.blob.size, 0), t0 = Date.now(); let prima = 0;
+    for (const [k, u] of ins.uscita.entries()) {
+      for (let t = 1; ; t++) {
+        try {
+          await inviaConAvanzamento(urls[rels[k]], u.blob, (fatti) => {
+            const tutti = prima + fatti, sec = (Date.now() - t0) / 1000, resto = tutti ? sec / tutti * (tot - tutti) : 0;
+            stato(`Caricamento del vetrino pulito: <b>${gb(tutti)} / ${gb(tot)}</b>${ins.uscita.length > 1 ? ` · file ${k + 1} di ${ins.uscita.length}` : ''}${tutti < tot && sec > 3 ? ` · circa ${Math.max(1, Math.ceil(resto / 60))} min rimanenti` : ''}${A.barra(tutti / tot)}<p class="small muted">Non chiudere questa pagina fino alla fine.</p>`);
+          });
+          break;
+        } catch (e) { if (t >= 3) throw e; await A.pausa(1000 * t); }
+      }
+      prima += u.blob.size;
+    }
     stato('Il server ricontrolla il vetrino…');
-    await A.getJSON(`/api/casi/${encodeURIComponent(id)}/immagini`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ aggiungi: [{ tipo: 'vetrino', descrizione: descr, files: [rel] }] }) });
-    A.$('#nc-vt-esame').hidden = true; A.$('#nc-vt-file').value = ''; NC.vt = null;
-    stato(`Vetrino aggiunto al caso ${A.esc(id)} (${gb(pulito.size)}), senza etichetta, panoramica e dati della scansione. <a href="#/caso/${encodeURIComponent(id)}">Apri il caso</a> · per la domanda sul vetrino e la scheda usa ✎ Modifica.`, 'ok');
+    await A.getJSON(`/api/casi/${encodeURIComponent(id)}/immagini`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ aggiungi: [{ tipo: 'vetrino', descrizione: descr, files: rels }] }) });
+    A.$('#nc-vt-esame').hidden = true; A.$('#nc-vt-file').value = ''; A.$('#nc-vt-cartella').value = ''; NC.vt = null;
+    stato(`Vetrino aggiunto al caso ${A.esc(id)} (${gb(tot)}), senza etichetta, panoramica e dati della scansione. <a href="#/caso/${encodeURIComponent(id)}">Apri il caso</a> · per la domanda sul vetrino e la scheda usa ✎ Modifica.`, 'ok');
   } catch (e) { if (!(e instanceof A.NonAutorizzato)) stato(`Vetrino non caricato: ${A.esc(e.message)}`, 'errore'); }
   finally { NC.occupato = false; btn.disabled = false; }
 }
@@ -926,10 +946,11 @@ export function avvio() {
     const voci = [...e.dataTransfer.items].map((i) => i.webkitGetAsEntry && i.webkitGetAsEntry()).filter(Boolean);
     const files = []; for (const v of voci) await leggiVoce(v, files);
     const tutti = files.length ? files : [...e.dataTransfer.files];
-    if (NC.aggiungiA && !NC.proposta && tutti.length === 1 && EST_VT_PANN.test(tutti[0].name)) { esaminaVetrino(tutti[0]); return; }
+    if (NC.aggiungiA && !NC.proposta && tutti.some((f) => EST_VT_PANN.test(f.name))) { esaminaVetrino(tutti); return; }
     analizzaFile(tutti);
   });
-  A.$('#nc-vt-file').addEventListener('change', (e) => esaminaVetrino(e.target.files[0]));
+  A.$('#nc-vt-file').addEventListener('change', (e) => esaminaVetrino([...e.target.files]));
+  A.$('#nc-vt-cartella').addEventListener('change', (e) => esaminaVetrino([...e.target.files]));
   A.$('#nc-vt-carica').addEventListener('click', () => caricaVetrino());
   A.$('#nc-cartella').addEventListener('change', (e) => analizzaFile([...e.target.files]));
   A.$('#nc-file').addEventListener('change', (e) => analizzaFile([...e.target.files]));
