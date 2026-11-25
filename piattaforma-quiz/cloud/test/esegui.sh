@@ -14,6 +14,7 @@
 #   api-google.test.mjs accesso con Google (Google finto nel simulatore): prima volta, account esistenti, attesa, errori
 #   api-sfide.test.mjs  sfide tra amici: anteprima pubblica, classifica facoltativa, punteggi dopo l'adesione, limiti, uscita
 #   api-proposte.test.mjs casi proposti dagli iscritti: senza controllo dell'anonimato positivo non si pubblicano
+#   vetrino-tiff.test.mjs vetrini dal pannello: pulizia nel browser, secondo controllo del server, solo autori
 #   proprieta.test.mjs regole della correzione su migliaia di casi e risposte a caso (fast-check; FC_GIRI, FC_SEME)
 #   api-fuzz.test.mjs     400 richieste a caso a tutte le rotte: mai errori del server, dettagli interni o dati altrui (API_GIRI)
 #   date.test.mjs         scadenze in ora italiana, cambio dell'ora, fine mese e fine anno, fuso del server indifferente
@@ -32,4 +33,4 @@ if [ ! -d node_modules/playwright ] || [ ! -f .chromium-pronto ]; then
   if npm install --no-audit --no-fund --silent >/dev/null 2>&1 && npx --yes playwright install chromium >/dev/null 2>&1; then touch .chromium-pronto
   else echo "  Playwright non installato: eseguo solo i test dell'API"; fi
 fi
-node --test --test-reporter=spec pagina.test.mjs scale.test.mjs anonimizza.test.mjs anonimizza-fuzz.test.mjs anonimizza-py.test.mjs strumenti-py.test.mjs moduli.test.mjs analisi.test.mjs referto.test.mjs logica.test.mjs logica-avvisi.test.mjs proprieta.test.mjs casi.test.mjs traduzioni.test.mjs api.test.mjs api-iscrizione.test.mjs api-google.test.mjs api-sfide.test.mjs api-proposte.test.mjs api-fuzz.test.mjs date.test.mjs formati.test.mjs azienda.test.mjs limiti.test.mjs automazione.test.mjs account_admin.test.mjs cmr.test.mjs t2star.test.mjs browser.test.mjs
+node --test --test-reporter=spec pagina.test.mjs scale.test.mjs anonimizza.test.mjs anonimizza-fuzz.test.mjs anonimizza-py.test.mjs strumenti-py.test.mjs moduli.test.mjs analisi.test.mjs referto.test.mjs logica.test.mjs logica-avvisi.test.mjs proprieta.test.mjs casi.test.mjs traduzioni.test.mjs api.test.mjs api-iscrizione.test.mjs api-google.test.mjs api-sfide.test.mjs api-proposte.test.mjs vetrino-tiff.test.mjs api-fuzz.test.mjs date.test.mjs formati.test.mjs azienda.test.mjs limiti.test.mjs automazione.test.mjs account_admin.test.mjs cmr.test.mjs t2star.test.mjs browser.test.mjs

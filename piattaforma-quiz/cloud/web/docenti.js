@@ -14,6 +14,7 @@ async function apriNuovo({ aggiungi = null, proposta = false } = {}) {
   if (NC.occupato) return;
   NC.file = []; NC.serie = []; NC.vietate = new Set(); NC.aggiungiA = aggiungi; NC.proposta = proposta;
   A.$('#nc-proposta').hidden = !proposta; A.$('#nc-id-riga').hidden = proposta; A.$('#nc-intro-proposta').hidden = !proposta;
+  A.$('#nc-vetrino').hidden = !aggiungi || proposta; A.$('#nc-vt-esame').hidden = true; A.$('#nc-vt-file').value = ''; NC.vt = null;
   if (proposta) {
     A.$('#nc-testa').textContent = 'Proponi un caso';
     A.$('#nc-id').value = 'prop-' + Array.from(crypto.getRandomValues(new Uint8Array(8)), (b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
@@ -848,6 +849,73 @@ function crConsumi(a) {
   return { nome: l[0][0], max: l[0][1] };
 }
 // istruzioni che app.js eseguiva al caricamento (pulsanti e moduli di queste pagine): ora una volta, al primo uso
+// ---------------------------------------------------------------- vetrino dal pannello (1.326)
+// Il vetrino si pulisce nel browser con le stesse regole dello script del Mac (vetrino-tiff.js = prepara_vetrino.py):
+// zone di etichetta, panoramica e miniature azzerate, testi dello scanner riscritti con la stessa lunghezza; la copia
+// pulita è un Blob fatto di pezzi dell'originale (nessuna copia in memoria) e si ricontrolla prima dell'invio. Sul
+// server lo stesso controllo, sul file caricato: se non passa il vetrino è cancellato e non entra nel caso.
+const MAX_VT = 4 * 2 ** 30, EST_VT_PANN = /\.(svs|tiff?|ndpi|scn|bif)$/i;
+const gb = (n) => (n >= 2 ** 30 ? `${(n / 2 ** 30).toFixed(2).replace('.', ',')} GB` : `${Math.max(1, Math.round(n / 2 ** 20))} MB`);
+function mettiImmagine(box, cv) { box.replaceChildren(); if (cv) { cv.className = 'nc-vt-cv'; box.append(cv); } else box.innerHTML = '<span class="muted small">non presente</span>'; }
+async function esaminaVetrino(f) {
+  if (NC.occupato || !f) return;
+  const esame = A.$('#nc-vt-esame'); esame.hidden = true; NC.vt = null;
+  if (!EST_VT_PANN.test(f.name)) { stato('Formato non accettato qui: carica un file .svs, .tif, .tiff, .ndpi, .scn o .bif. Gli altri formati (MRXS, VSI, CZI, iSyntax) per ora passano dal Mac.', 'errore'); return; }
+  if (f.size > MAX_VT) { stato(`Il vetrino è di ${gb(f.size)}: il limite è 4 GB.`, 'errore'); return; }
+  NC.occupato = true;
+  try {
+    stato(`Leggo il vetrino «${A.esc(f.name)}» (${gb(f.size)})…`);
+    const T = await import('./vetrino-tiff.js'), piano = await T.pianoPulizia(T.lettoreBlob(f));
+    const { anteprimeVetrino } = await import('./vetrini.js'), ap = await anteprimeVetrino([f]).catch(() => null);
+    mettiImmagine(A.$('#nc-vt-mini'), ap?.miniatura); mettiImmagine(A.$('#nc-vt-etich'), ap?.etichetta); mettiImmagine(A.$('#nc-vt-pano'), ap?.panoramica);
+    A.$('#nc-vt-etich-box').hidden = !ap?.etichetta; A.$('#nc-vt-pano-box').hidden = !ap?.panoramica;
+    const vari = piano.testi.length;
+    A.$('#nc-vt-riassunto').innerHTML = [
+      `${A.esc(ap?.formato || 'TIFF')}${ap ? `, ${ap.W.toLocaleString('it-IT')} × ${ap.H.toLocaleString('it-IT')} pixel` : ''}${ap?.um ? `, ${ap.um.toFixed(3).replace('.', ',')} µm per pixel` : ''}: ${piano.livelli === 1 ? 'il livello della piramide resta com\'era' : `${piano.livelli} livelli della piramide restano com'erano`}`,
+      `${piano.accessorie ? `${piano.accessorie} ${piano.accessorie === 1 ? 'immagine accessoria azzerata' : 'immagini accessorie azzerate'} (etichetta, panoramica, miniature)` : 'nessuna immagine accessoria da togliere'}`,
+      `${vari ? `${vari} ${vari === 1 ? 'testo' : 'testi'} della scansione ripuliti (data e ora, operatore, nome del file, codici, numero di serie dello scanner)` : 'nessun testo della scansione da ripulire'}`,
+    ].map((x) => `<li>${x}</li>`).join('');
+    A.$('#nc-vt-descr').value = ''; A.$('#nc-vt-controllo').checked = false;
+    NC.vt = { f, piano }; esame.hidden = false;
+    A.$('#nc-stato').hidden = true;
+    esame.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (e) { stato(`Vetrino non leggibile: ${A.esc(e.message)}.`, 'errore'); }
+  finally { NC.occupato = false; }
+}
+// PUT con avanzamento (fetch non lo dice per l'invio)
+const inviaConAvanzamento = (url, corpo, avanza) => new Promise((ok, ko) => {
+  const x = new XMLHttpRequest(); x.open('PUT', url); x.setRequestHeader('Content-Type', 'application/octet-stream');
+  x.upload.onprogress = (e) => { if (e.lengthComputable) avanza(e.loaded, e.total); };
+  x.onload = () => (x.status >= 200 && x.status < 300 ? ok() : ko(new Error(`HTTP ${x.status}`))); x.onerror = () => ko(new Error('connessione interrotta'));
+  x.send(corpo);
+});
+async function caricaVetrino() {
+  if (NC.occupato || !NC.vt) return;
+  const id = NC.aggiungiA, descr = A.$('#nc-vt-descr').value.trim();
+  if (!id) return;
+  if (descr.length < 3) { stato('Scrivi una breve descrizione del vetrino (campione e colorazione).', 'errore'); A.$('#nc-vt-descr').focus(); return; }
+  if (!A.$('#nc-vt-controllo').checked) { stato('Prima di caricare conferma di aver guardato l\'immagine del tessuto (casella sopra il pulsante).', 'errore'); A.$('#nc-vt-controllo').focus(); return; }
+  NC.occupato = true; const btn = A.$('#nc-vt-carica'); btn.disabled = true;
+  try {
+    const T = await import('./vetrino-tiff.js'), { f, piano } = NC.vt;
+    stato('Pulisco il vetrino e ricontrollo la copia…');
+    const pulito = T.copiaPulita(f, piano), prob = await T.problemi(T.lettoreBlob(pulito));
+    if (prob.length) throw new Error(`nella copia resta ${prob.slice(0, 3).join('; ')}. Caricamento non fatto: usa lo script del Mac`);
+    const est = (f.name.match(EST_VT_PANN) || ['.svs'])[0].toLowerCase(), rel = `serie/vetrino_p${Date.now().toString(36)}/vetrino${est}`;
+    const r = await A.getJSON(`/api/casi/${encodeURIComponent(id)}/caricamento`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ files: [rel], aggiunta: true }) });
+    const t0 = Date.now();
+    await inviaConAvanzamento(r.urls[rel], pulito, (fatti, tot) => {
+      const sec = (Date.now() - t0) / 1000, resto = fatti ? sec / fatti * (tot - fatti) : 0;
+      stato(`Caricamento del vetrino pulito: <b>${gb(fatti)} / ${gb(tot)}</b>${fatti < tot && sec > 3 ? ` · circa ${Math.max(1, Math.ceil(resto / 60))} min rimanenti` : ''}${A.barra(fatti / tot)}<p class="small muted">Non chiudere questa pagina fino alla fine.</p>`);
+    });
+    stato('Il server ricontrolla il vetrino…');
+    await A.getJSON(`/api/casi/${encodeURIComponent(id)}/immagini`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ aggiungi: [{ tipo: 'vetrino', descrizione: descr, files: [rel] }] }) });
+    A.$('#nc-vt-esame').hidden = true; A.$('#nc-vt-file').value = ''; NC.vt = null;
+    stato(`Vetrino aggiunto al caso ${A.esc(id)} (${gb(pulito.size)}), senza etichetta, panoramica e dati della scansione. <a href="#/caso/${encodeURIComponent(id)}">Apri il caso</a> · per la domanda sul vetrino e la scheda usa ✎ Modifica.`, 'ok');
+  } catch (e) { if (!(e instanceof A.NonAutorizzato)) stato(`Vetrino non caricato: ${A.esc(e.message)}`, 'errore'); }
+  finally { NC.occupato = false; btn.disabled = false; }
+}
+
 export function avvio() {
   NC = { file: [], serie: [], vietate: new Set(), sale: '', occupato: false };
   zona = A.$('#nc-zona');
@@ -857,8 +925,12 @@ export function avvio() {
     e.preventDefault(); zona.classList.remove('sopra');
     const voci = [...e.dataTransfer.items].map((i) => i.webkitGetAsEntry && i.webkitGetAsEntry()).filter(Boolean);
     const files = []; for (const v of voci) await leggiVoce(v, files);
-    analizzaFile(files.length ? files : [...e.dataTransfer.files]);
+    const tutti = files.length ? files : [...e.dataTransfer.files];
+    if (NC.aggiungiA && !NC.proposta && tutti.length === 1 && EST_VT_PANN.test(tutti[0].name)) { esaminaVetrino(tutti[0]); return; }
+    analizzaFile(tutti);
   });
+  A.$('#nc-vt-file').addEventListener('change', (e) => esaminaVetrino(e.target.files[0]));
+  A.$('#nc-vt-carica').addEventListener('click', () => caricaVetrino());
   A.$('#nc-cartella').addEventListener('change', (e) => analizzaFile([...e.target.files]));
   A.$('#nc-file').addEventListener('change', (e) => analizzaFile([...e.target.files]));
   A.$('#nc-carica').addEventListener('click', async () => {

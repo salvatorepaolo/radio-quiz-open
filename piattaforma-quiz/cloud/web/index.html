@@ -1261,6 +1261,22 @@
       <label class="btn">Scegli file<input id="nc-file" type="file" multiple hidden></label>
     </div>
   </div>
+  <section id="nc-vetrino" class="nc-vetrino" hidden>
+    <h3>🔬 Oppure un vetrino di anatomia patologica</h3>
+    <p class="muted small">Aperio SVS, TIFF piramidale, Hamamatsu NDPI, Leica SCN o Ventana BIF, fino a 4 GB. Etichetta, panoramica e dati della scansione (data, operatore, nome del file, codici) vengono tolti <b>qui, nel tuo browser</b>: il file originale non lascia il tuo computer. Dopo il caricamento il server ricontrolla la copia.</p>
+    <label class="btn">Scegli il vetrino<input id="nc-vt-file" type="file" accept=".svs,.tif,.tiff,.ndpi,.scn,.bif" hidden></label>
+    <div id="nc-vt-esame" hidden>
+      <div class="nc-vt-viste">
+        <figure class="nc-vt-tessuto"><div id="nc-vt-mini" class="nc-vt-img"></div><figcaption>Il tessuto: <b>è quello che vedranno gli studenti</b></figcaption></figure>
+        <figure class="nc-vt-via" id="nc-vt-etich-box"><div id="nc-vt-etich" class="nc-vt-img"></div><figcaption>Etichetta: <b>viene tolta</b></figcaption></figure>
+        <figure class="nc-vt-via" id="nc-vt-pano-box"><div id="nc-vt-pano" class="nc-vt-img"></div><figcaption>Panoramica: <b>viene tolta</b></figcaption></figure>
+      </div>
+      <ul id="nc-vt-riassunto" class="small"></ul>
+      <label class="campo">Descrizione del vetrino <input id="nc-vt-descr" maxlength="200" placeholder="Es. Biopsia epatica, ematossilina-eosina"></label>
+      <label class="spunta"><input type="checkbox" id="nc-vt-controllo"> <span>Ho guardato l'immagine del tessuto: <b>non ci sono</b> scritte, codici o segni che permettano di riconoscere il paziente. Dichiaro di essere autorizzato dalla struttura di provenienza a usare il vetrino per la didattica.</span></label>
+      <button id="nc-vt-carica" class="primary">Pulisci e carica il vetrino</button>
+    </div>
+  </section>
   <div id="nc-stato" class="stato" hidden></div>
   <div id="nc-serie" hidden>
     <h3>Serie trovate <span class="muted small">— la piattaforma cerca anche il testo impresso nelle immagini e lo evidenzia in rosso: scegli se coprirlo o escludere la serie. Guarda comunque tutte le anteprime.</span></h3>

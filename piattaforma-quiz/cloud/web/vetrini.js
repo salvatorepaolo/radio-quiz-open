@@ -367,7 +367,17 @@ async function regione(V, stato, x0, y0, w, h, f, avanza) {
 // miniatura del vetrino intero (solo il tessuto: mai etichetta o panoramica), lato massimo «lato» pixel; null se il vetrino
 // non ha un livello abbastanza piccolo (per esempio un DICOM senza piramide: migliaia di tessere per una miniatura)
 export async function miniaturaVetrino(files, lato = 160) {
+  const V = (await preparaVetrini(files))[0]; return V ? miniaturaDa(V, lato) : null;
+}
+// 1.326, caricamento dal pannello: che cosa vedranno gli studenti (miniatura) e che cosa viene tolto (etichetta e
+// panoramica), solo sul computer di chi carica
+export async function anteprimeVetrino(files, lato = 320) {
   const V = (await preparaVetrini(files))[0]; if (!V) return null;
+  const intera = async (v) => { if (!v) return null; try { return await immagineIntera(v); } catch { return null; } };
+  let miniatura = null; try { miniatura = await miniaturaDa(V, lato); } catch {}
+  return { formato: V.formato, W: V.W, H: V.H, um: V.sp ? V.sp[0] * 1000 : null, livelli: V.livelli.length, miniatura, etichetta: await intera(V.etichetta), panoramica: await intera(V.panoramica) };
+}
+async function miniaturaDa(V, lato) {
   const f = Math.max(V.W, V.H) / lato, L = [...V.livelli].reverse().find((q) => q.ds <= f * 1.01) || V.livelli[0];
   if (tessereIn(L, 0, 0, V.W / L.ds, V.H / L.ds).length > 400) return null;
   await stimaCanali(V);

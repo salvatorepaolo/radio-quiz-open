@@ -385,6 +385,7 @@ ESCLUSI_ALIAS=()
 while IFS= read -r A; do [ -n "${A}" ] && ESCLUSI_ALIAS+=(--exclude "${A}*"); done < <(node -e 'try { for (const k of Object.keys(JSON.parse(require("fs").readFileSync("alias-immagini.json", "utf8")).alias || {})) console.log(k) } catch {}')
 # casi modificati nell'editor del sito (immagini aggiunte o tolte): prima si riprendono qui le immagini
 # nuove, serie.json e caso.json; le immagini tolte online vanno nella sottocartella «_rimosse» del caso
+RIPRESI=()   # 1.327: casi con immagini o vetrini aggiunti nel sito, ricontrollati subito qui sotto
 for ID in $(aws s3 ls "s3://${DATI}/modifiche-immagini/" 2>/dev/null | awk '{print $4}' | sed 's/\.json$//'); do
   d="${CASI}/${ID}"
   [ -d "${d}" ] || { aws s3 rm "s3://${DATI}/modifiche-immagini/${ID}.json" --only-show-errors; continue; }
@@ -408,7 +409,18 @@ for ID in $(aws s3 ls "s3://${DATI}/modifiche-immagini/" 2>/dev/null | awk '{pri
   aws s3 rm "s3://${DATI}/modifiche-immagini/${ID}.json" --only-show-errors
   ok "${ID}: riprese le modifiche alle immagini fatte nel sito ($(cat /tmp/rimosse.$$) immagini tolte, spostate in ${ID}/_rimosse)"
   rm -f /tmp/rimosse.$$
+  RIPRESI+=("${ID}")
 done
+# 1.327: il controllo dei casi (sopra) gira prima di riprendere dal sito le immagini e i vetrini aggiunti dal pannello:
+# i casi appena ripresi si ricontrollano qui, nella stessa pubblicazione (prima solo alla pubblicazione successiva)
+if [ "${#RIPRESI[@]}" -gt 0 ] && [ -f "../strumenti/controlla.py" ]; then
+  CPY=python3; [ -x "../strumenti/.venv/bin/python" ] && "../strumenti/.venv/bin/python" -c "import pydicom" 2>/dev/null && CPY="../strumenti/.venv/bin/python"
+  TRIP=$(mktemp -d)
+  for ID in "${RIPRESI[@]}"; do ln -s "${CASI}/${ID}" "${TRIP}/${ID}"; done
+  if "${CPY}" "../strumenti/controlla.py" "${TRIP}"; then ok "controllo dei casi modificati nel sito superato (${RIPRESI[*]})"
+  else rm -rf "${TRIP}"; errore "Il controllo dei casi modificati nel sito (${RIPRESI[*]}) ha trovato errori (sopra): sono già online, toglili dal sito (editor del caso, immagini) o correggili e ripubblica."; fine 1; fi
+  rm -rf "${TRIP}"
+fi
 # 1.265: le immagini DICOM si caricano compresse con brotli (Content-Encoding: br, circa metà del traffico; il browser le
 # decomprime da solo). Copie in .casi-br (comprimi-casi.mjs); i vetrini (cartelle «vetrino/») restano come sono, perché
 # il visualizzatore li legge a pezzi con richieste parziali. Gli altri file (anteprime, IA) come prima.

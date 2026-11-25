@@ -13,6 +13,10 @@ const WEB = path.resolve(process.env.WEB || path.join(QUI, '../web'));
 const PORTA = Number(process.env.PORTA || 8097), SEG = 'segreto-dei-test';
 export const CODICE_ADMIN = 'admin-test-0000';
 
+// 1.326: file caricati con gli URL firmati (vetrini dal pannello) in una cartella temporanea, mai nella cartella dei casi
+const CARICATI = fs.mkdtempSync(path.join(os.tmpdir(), 'sim-caricati-'));
+process.on('exit', () => { try { fs.rmSync(CARICATI, { recursive: true, force: true }); } catch {} });
+const caricato = (id, f) => path.join(CARICATI, id, f);
 const casi = {}, serie = {};
 for (const d of fs.readdirSync(CASI)) {
   if (!d.startsWith('caso-') && !d.startsWith('prop-')) continue;   // prop-: casi proposti dagli iscritti (come nell'archivio vero)
@@ -26,7 +30,9 @@ const ris = [], acc = new Map(), classi = new Map(), aziende = new Map(), spons 
 const magazzino = {
   elencoCasi: async () => Object.entries(casi).map(([id, c]) => ({ ...c, id })), leggiCaso: async (id) => (Object.hasOwn(casi, id) ? JSON.parse(JSON.stringify(casi[id])) : null),
   scriviCaso: async (id, c) => { casi[id] = c; }, eliminaCaso: async (id) => { delete casi[id]; return 0; },
-  leggiSerie: async (id) => (Object.hasOwn(serie, id) ? serie[id] : null), scriviSerie: async (id, x) => { serie[id] = x; }, cancellaFile: async () => {}, segnaModificaImmagini: async () => {},
+  leggiSerie: async (id) => (Object.hasOwn(serie, id) ? serie[id] : null), scriviSerie: async (id, x) => { serie[id] = x; }, cancellaFile: async (id, files) => { for (const f of files || []) try { fs.rmSync(caricato(id, f)); } catch {} },
+  dimensioneFile: async (id, f) => { try { return fs.statSync(caricato(id, f)).size; } catch { return 0; } },
+  leggiIntervallo: async (id, f, o, n) => { const fd = fs.openSync(caricato(id, f), 'r'); try { const b = Buffer.alloc(Math.max(0, n)); const k = fs.readSync(fd, b, 0, b.length, o); return new Uint8Array(b.buffer, b.byteOffset, k); } finally { fs.closeSync(fd); } }, segnaModificaImmagini: async () => {},
   salvaRisultato: async (r) => ris.push({ ...r, id: new Date().toISOString() + '#' + Math.random().toString(16).slice(2, 10) }), risultati: async () => [...ris],
   revisionaRisultato: async (id, rev) => { const r = ris.find((x) => x.id === id); if (r) { r.dettagli = { ...(r.dettagli || {}) }; if (rev) r.dettagli.revisione = rev; else delete r.dettagli.revisione; } },
   anonimizzaRisultati: async (id) => { for (const r of ris) if (r.account === id) { r.account = 'eliminato'; r.nome = 'Account eliminato'; } for (let i = esami.length - 1; i >= 0; i--) if (esami[i].account === id) esami.splice(i, 1); for (let i = errori.length - 1; i >= 0; i--) if (errori[i].account === id) errori.splice(i, 1); },
@@ -104,7 +110,7 @@ if (COP) {
 }
 const server = http.createServer(async (q, s) => {
   try {
-    const u = new URL(q.url, 'http://x'); const pezzi = []; for await (const c of q) pezzi.push(c); const corpo = Buffer.concat(pezzi).toString();
+    const u = new URL(q.url, 'http://x'); const pezzi = []; for await (const c of q) pezzi.push(c); const corpoB = Buffer.concat(pezzi), corpo = corpoB.toString();
     if (u.pathname === '/__lavori') { s.writeHead(200, { 'content-type': 'application/json' }); return s.end(JSON.stringify(Object.fromEntries(LAVORI))); }
     if (u.pathname === '/__lavori/fallito') { for (const v of LAVORI.values()) v.stato = 'FAILED'; s.writeHead(200); return s.end('ok'); }
     if (u.pathname === '/__copertura' && COP) { try { const x = JSON.parse(corpo); copPagine.set(x.id, x.o); } catch {} s.writeHead(204); return s.end(); }
@@ -121,6 +127,8 @@ const server = http.createServer(async (q, s) => {
     if (u.pathname.startsWith('/api/') || /^\/s\/[^/]+$/.test(u.pathname)) { const r = await gestisci({ metodo: q.method, percorso: u.pathname, query: Object.fromEntries(u.searchParams), headers: q.headers, corpo }, cfg); s.writeHead(r.stato, r.headers); return s.end(r.corpo); }
     if (u.pathname.startsWith('/s3put/')) {                    // caricamenti: solo serie.json in memoria (niente scritture su disco)
       const m = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/serie\.json$/); if (m) try { serie[m[1]] = JSON.parse(corpo); } catch {}
+      const v = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/(serie\/vetrino_[A-Za-z0-9]+\/vetrino\.[a-z]+)$/);
+      if (v && q.method === 'PUT') { fs.mkdirSync(path.dirname(caricato(v[1], v[2])), { recursive: true }); fs.writeFileSync(caricato(v[1], v[2]), corpoB); }
       s.writeHead(200); return s.end(); }
     let file;
     if (u.pathname.startsWith('/casi/')) {
@@ -136,12 +144,13 @@ const server = http.createServer(async (q, s) => {
         s.writeHead(200, rel.endsWith('.json') ? { 'content-type': 'application/json', 'cache-control': 'no-cache' } : { 'content-type': 'application/octet-stream', 'content-encoding': 'br', 'cache-control': 'public, max-age=31536000, immutable' });
         return fs.createReadStream(pk).pipe(s); }
       file = path.join(CASI, rel);
+      { const [id, ...r] = rel.split('/'); const c = caricato(id, r.join('/')); if (r.length && fs.existsSync(c)) file = c; }
     } else {
       // come la CloudFront Function «IndiciCartelle» (lib/stack.mjs): manuale del client fuori da /client/, cartelle → index.html
       let pn = decodeURIComponent(u.pathname); if (/^\/client\/manuale-client(\.en)?\.html$/.test(pn)) pn = pn.slice(7);
       file = path.join(WEB, pn === '/' ? 'index.html' : pn.endsWith('/') ? pn + 'index.html' : pn);
     }
-    if (!file.startsWith(CASI) && !file.startsWith(WEB)) { s.writeHead(403); return s.end(); }
+    if (!file.startsWith(CASI) && !file.startsWith(WEB) && !file.startsWith(CARICATI)) { s.writeHead(403); return s.end(); }
     if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) { s.writeHead(404); return s.end(); }
     // richieste parziali (Range), come S3 dietro CloudFront
     const rg = /^bytes=(\d+)-(\d*)$/.exec(q.headers.range || ''), tot = fs.statSync(file).size;

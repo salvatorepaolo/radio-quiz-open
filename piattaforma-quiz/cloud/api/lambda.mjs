@@ -1,7 +1,7 @@
 /* Quiz Radiologia — funzione Lambda (Function URL, payload 2.0).
    I casi stanno nel bucket privato BUCKET_DATI (casi/<id>/caso.json),
    i risultati nella tabella DynamoDB TABELLA. */
-import { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command, DeleteObjectsCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command, DeleteObjectsCommand, DeleteObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
 import { DynamoDBClient, PutItemCommand, QueryCommand, GetItemCommand, DeleteItemCommand, UpdateItemCommand, ScanCommand } from '@aws-sdk/client-dynamodb';
 import { gzipSync } from 'node:zlib';
 import { randomBytes } from 'node:crypto';
@@ -264,6 +264,13 @@ const magazzino = {
   // segno per il Mac: alla prossima pubblicazione riprende dal sito immagini, serie.json e caso.json di questo caso
   segnaModificaImmagini: (id, quando) => s3.send(new PutObjectCommand({ Bucket: BUCKET_DATI, Key: `modifiche-immagini/${id}.json`,
     Body: JSON.stringify({ id, quando }), ContentType: 'application/json' })),
+  // 1.326: controllo dei vetrini caricati dal pannello (pezzi del file con Range: mai il file intero)
+  async dimensioneFile(id, f) { try { return (await s3.send(new HeadObjectCommand({ Bucket: BUCKET_SITO, Key: `casi/${id}/${f}` }))).ContentLength || 0; } catch { return 0; } },
+  async leggiIntervallo(id, f, o, n) {
+    if (n <= 0) return new Uint8Array(0);
+    const r = await s3.send(new GetObjectCommand({ Bucket: BUCKET_SITO, Key: `casi/${id}/${f}`, Range: `bytes=${o}-${o + n - 1}` }));
+    return new Uint8Array(await r.Body.transformToByteArray());
+  },
   async cancellaFile(id, files) {
     for (let i = 0; i < files.length; i += 1000) {
       const chiavi = files.slice(i, i + 1000).map((f) => ({ Key: `casi/${id}/${f}` }));

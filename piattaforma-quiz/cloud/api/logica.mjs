@@ -24,6 +24,7 @@
    Gettone (cookie "quiz"):  ruolo.id.scadenza.firmaHMAC
    ============================================================ */
 import { createHash, createHmac, timingSafeEqual, randomBytes, randomInt, scryptSync } from 'node:crypto';
+import { problemi as problemiVetrino } from './vetrino-tiff.mjs';   // 1.326: secondo controllo dei vetrini caricati dal pannello
 import { FORNITORI, inizio as inizioEsterno, scambia as scambiaEsterno, controllaAffermazioni, emailAutorevole, firmato as firmatoEsterno, leggiFirmato, leggiCookie } from './google.mjs';
 
 export const RUOLI = ['admin', 'referente', 'docente', 'specializzando'];
@@ -708,6 +709,9 @@ async function statistiche(M) {
 }   // i casi senza il campo (i primi) sono visibili
 // percorsi accettati per il caricamento delle immagini di un caso
 const PERCORSO_OK = /^(serie\/[A-Za-z0-9_-]{1,80}\/[A-Za-z0-9_.-]{1,80}\.dcm|serie\.json)$/;
+// 1.326: vetrino caricato dal pannello (già pulito nel browser): un file per cartella, solo gli autori, al massimo 4 GB
+const VETRINO_OK = /^serie\/vetrino_[A-Za-z0-9]{1,40}\/vetrino\.(?:svs|tiff?|ndpi|scn|bif)$/, MAX_VETRINO = 4 * 2 ** 30;
+const percorsoOk = (f) => PERCORSO_OK.test(f) || VETRINO_OK.test(f);
 const csvCampo = (v) => { const s = String(v ?? ''); return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
 const pubblicoAccount = (a) => ({ id: a.id, nome: a.nome, ruolo: a.ruolo, attivo: a.attivo !== false,
   creato: a.creato || '', ultimoAccesso: a.ultimoAccesso || '', email: a.email || '', autore: !!a.autore,
@@ -2252,7 +2256,8 @@ export async function gestisci(req, cfg) {
     if (!files.length || files.length > 300) return json(400, { errore: 'da 1 a 300 file per richiesta' });
     const urls = {};
     for (const f of files) {
-      if (typeof f !== 'string' || !PERCORSO_OK.test(f)) return json(400, { errore: `percorso non valido: ${String(f).slice(0, 80)}` });
+      if (typeof f !== 'string' || !percorsoOk(f)) return json(400, { errore: `percorso non valido: ${String(f).slice(0, 80)}` });
+      if (VETRINO_OK.test(f) && (!autore || !aggiunta)) return json(403, { errore: 'i vetrini si aggiungono solo a un caso esistente, dagli autori' });
       urls[f] = cfg.firmaCaricamento(`casi/${id}/${f}`);
     }
     return json(200, { urls });
@@ -2292,15 +2297,34 @@ export async function gestisci(req, cfg) {
     if (!M.leggiSerie || !M.scriviSerie) return json(501, { errore: 'non disponibile' });
     const serie = await M.leggiSerie(id);
     if (!Array.isArray(serie)) return json(409, { errore: 'elenco delle serie non trovato' });
-    const fileOk = (f) => typeof f === 'string' && f !== 'serie.json' && PERCORSO_OK.test(f);
+    const fileOk = (f) => typeof f === 'string' && f !== 'serie.json' && percorsoOk(f);
     const togli = new Set((Array.isArray(dati.togli) ? dati.togli : []).filter(fileOk));
     const esistenti = new Set(serie.flatMap((x) => x.files || []));
-    const nuove = (Array.isArray(dati.aggiungi) ? dati.aggiungi : []).slice(0, 100).map((x) => ({
+    const voci = (Array.isArray(dati.aggiungi) ? dati.aggiungi : []).slice(0, 100);
+    // vetrino: un solo file, già caricato; il server rilegge le intestazioni e le zone azzerate (vetrino-tiff.mjs) e lo
+    // pubblica solo se il controllo è pulito, altrimenti lo cancella
+    const vetrini = voci.filter((x) => x?.tipo === 'vetrino').map((x) => ({ descrizione: String(x?.descrizione || 'Vetrino').slice(0, 200), tipo: 'vetrino',
+      files: (Array.isArray(x?.files) ? x.files : []).filter((f) => fileOk(f) && VETRINO_OK.test(f) && !esistenti.has(f)).slice(0, 1) })).filter((x) => x.files.length);
+    for (const x of vetrini) {
+      if (!M.leggiIntervallo || !M.dimensioneFile) return json(501, { errore: 'non disponibile' });
+      const f = x.files[0], dim = await M.dimensioneFile(id, f);
+      if (!dim) return json(400, { errore: 'vetrino non trovato: caricalo prima' });
+      let prob;
+      if (dim > MAX_VETRINO) prob = ['file più grande di 4 GB'];
+      else try { prob = await problemiVetrino((o, n) => M.leggiIntervallo(id, f, o, Math.max(0, Math.min(n, dim - o)))); } catch (e) { prob = ['file non leggibile come vetrino TIFF']; }
+      if (prob.length) {
+        if (M.cancellaFile) await M.cancellaFile(id, [f]);
+        return json(422, { errore: `Vetrino non pubblicato e cancellato: il controllo del server ha trovato ${prob.slice(0, 3).join('; ')}.` });
+      }
+      x.dimensioni = [dim];
+    }
+    const nuove = voci.filter((x) => x?.tipo !== 'vetrino').map((x) => ({
       descrizione: String(x?.descrizione || 'Serie aggiunta').slice(0, 200), numero: Number.isFinite(+x?.numero) ? Math.trunc(+x.numero) : 0,
       files: (Array.isArray(x?.files) ? x.files : []).filter((f) => fileOk(f) && !esistenti.has(f)).slice(0, 5000),
       ...(x?.regione ? { regione: String(x.regione).slice(0, 40) } : {}), ...(x?.data ? { data: String(x.data).slice(0, 20) } : {}),
       ...(Number.isFinite(+x?.eta) && x?.eta !== null && x?.eta !== '' ? { eta: Math.trunc(+x.eta) } : {}), ...(Number.isFinite(+x?.suv) && +x.suv > 0 ? { suv: +x.suv } : {}),
-    })).filter((x) => x.files.length);
+    })).map((x) => ({ ...x, files: x.files.filter((f) => !VETRINO_OK.test(f)) })).filter((x) => x.files.length);
+    nuove.push(...vetrini);
     // intervalli tra gli studi (ore dal primo), ricalcolati nel browser dai DICOM originali: solo numeri
     const tempi = dati.tempi && typeof dati.tempi === 'object' ? Object.entries(dati.tempi).filter(([i, h]) => /^\d+$/.test(i) && +i < serie.length && Number.isFinite(+h) && +h >= 0 && +h < 24 * 365 * 30) : [];
     for (const [i, h] of tempi) serie[+i] = { ...serie[+i], ore: Math.round(+h * 10) / 10 };

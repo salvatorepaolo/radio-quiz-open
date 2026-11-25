@@ -14,9 +14,12 @@ do {
     if (fs.existsSync(dest) || fs.existsSync(path.join(DIR, '_rimosse', rel))) continue;
     const tmp = path.join(os.tmpdir(), `riprendi-${process.pid}-${nuove}`);
     const testa = JSON.parse(aws('s3api', 'get-object', '--bucket', BUCKET, '--key', o.Key, tmp, '--output', 'json'));
-    let b = fs.readFileSync(tmp); fs.unlinkSync(tmp);
-    if (testa.ContentEncoding === 'br') b = zlib.brotliDecompressSync(b);
-    fs.mkdirSync(path.dirname(dest), { recursive: true }); fs.writeFileSync(dest, b); nuove++;
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    if (testa.ContentEncoding === 'br') { fs.writeFileSync(dest, zlib.brotliDecompressSync(fs.readFileSync(tmp))); fs.unlinkSync(tmp); }
+    else fs.copyFileSync(tmp, dest), fs.unlinkSync(tmp);   // 1.326: vetrini fino a 4 GB, senza leggerli in memoria
+    // data del file = data online: la sincronizzazione successiva non ricarica un vetrino di gigabyte già presente
+    if (o.LastModified) { const t = new Date(o.LastModified); fs.utimesSync(dest, t, t); }
+    nuove++;
   }
   token = r.IsTruncated ? r.NextContinuationToken : null;
 } while (token);
