@@ -17,7 +17,7 @@ test('index.html: modulepreload per app.js e per tutti i moduli che importa (anc
   for (const f of pre) assert.ok(servono.has(f), `${f} è precaricato ma app.js non lo importa più`);
 });
 // moduli caricati a richiesta e nome del ponte con cui ricevono i nomi di app.js
-const A_RICHIESTA = { 'scale.js': 'PONTE_SCALE', 'cmr-ui.js': 'PONTE_CMR', 'gestione-sito.js': 'PONTE_GS', 'docenti.js': 'PONTE_DOC' };
+const A_RICHIESTA = { 'scale.js': 'PONTE_SCALE', 'cmr-ui.js': 'PONTE_CMR', 'gestione-sito.js': 'PONTE_GS', 'docenti.js': 'PONTE_DOC', 'client.js': 'PONTE_CL', 'strumenti-extra.js': 'PONTE_EX' };
 test('i moduli caricati a richiesta non sono precaricati né importati all\'avvio', () => {
   const html = leggi('index.html'), servono = grafo('app.js'), app = leggi('app.js');
   for (const f of [...Object.keys(A_RICHIESTA), 'scale-dati.js']) { assert.ok(!servono.has(f), f); assert.ok(!html.includes(`href="${f}"`), f); }
