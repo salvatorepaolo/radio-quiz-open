@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /casi/
+
+Sitemap: https://radio-quiz.it/sitemap.xml

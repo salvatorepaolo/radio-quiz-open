@@ -18,6 +18,8 @@ export function cambiaLingua(l) {
   if (u.searchParams.has('lang')) { u.searchParams.delete('lang'); location.replace(u.href); } else location.reload();
 }
 document.documentElement.lang = LINGUA;
+// in inglese anche la descrizione per motori di ricerca e anteprime (Google esegue il JavaScript della pagina)
+if (LINGUA === 'en') { const d = document.querySelector('meta[name="description"]'); if (d) d.content = 'Free, open-source radiology training on real de-identified cases: in-browser DICOM viewer with MPR and 3D, multiple-choice diagnosis and reporting, learning paths with certificates. For education only.'; }
 
 const ESATTE = new Map(), PREFISSI = new Map(), SUFFISSI = new Map();
 const norm = (s) => s.replace(/\s+/g, ' ').trim();

@@ -20,6 +20,7 @@ path = [
   "piattaforma-quiz/cloud/web/protocolli.json", "piattaforma-quiz/cloud/web/modelli-referto.json",
   "piattaforma-quiz/cloud/web/lingua/en/**", "piattaforma-quiz/cloud/web/manuale-client.html",
   "piattaforma-quiz/cloud/web/manuale-client.en.html", "piattaforma-quiz/cloud/web/manuale.pdf",
+  "piattaforma-quiz/cloud/web/argomenti/**", "piattaforma-quiz/cloud/web/en/**",
 ]
 SPDX-FileCopyrightText = "2026 Salvatore Paolo Buemi <info@radio-quiz.it>"
 SPDX-License-Identifier = "CC-BY-SA-4.0"
