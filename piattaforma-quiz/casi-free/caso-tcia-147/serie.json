@@ -199,7 +199,8 @@
    "serie/0006_SAG_3D_PRE_CONTRAST/img_00135_00106.dcm",
    "serie/0006_SAG_3D_PRE_CONTRAST/img_00136_00080.dcm"
   ],
-  "data": "dic 2001"
+  "data": "dic 2001",
+  "anteprima": "serie/0006_SAG_3D_PRE_CONTRAST/anteprima.rqa.gz"
  },
  {
   "descrizione": "RM mammelle, T1 3D dopo contrasto: fase 1",
@@ -342,7 +343,8 @@
    "serie/0071_SAG_3D_POST_CONTRASTO_fase_1/img_00135_00013.dcm",
    "serie/0071_SAG_3D_POST_CONTRASTO_fase_1/img_00136_00122.dcm"
   ],
-  "data": "dic 2001"
+  "data": "dic 2001",
+  "anteprima": "serie/0071_SAG_3D_POST_CONTRASTO_fase_1/anteprima.rqa.gz"
  },
  {
   "descrizione": "RM mammelle, T1 3D dopo contrasto: fase 2 (circa 2,5 min dopo la 1)",
@@ -485,7 +487,8 @@
    "serie/0072_SAG_3D_POST_CONTRASTO_fase_2/img_00271_00131.dcm",
    "serie/0072_SAG_3D_POST_CONTRASTO_fase_2/img_00272_00040.dcm"
   ],
-  "data": "dic 2001"
+  "data": "dic 2001",
+  "anteprima": "serie/0072_SAG_3D_POST_CONTRASTO_fase_2/anteprima.rqa.gz"
  },
  {
   "descrizione": "RM mammelle, T1 3D dopo contrasto: fase 3 (circa 5 min dopo la 1)",
@@ -628,6 +631,7 @@
    "serie/0073_SAG_3D_POST_CONTRASTO_fase_3/img_00407_00002.dcm",
    "serie/0073_SAG_3D_POST_CONTRASTO_fase_3/img_00408_00061.dcm"
   ],
-  "data": "dic 2001"
+  "data": "dic 2001",
+  "anteprima": "serie/0073_SAG_3D_POST_CONTRASTO_fase_3/anteprima.rqa.gz"
  }
 ]

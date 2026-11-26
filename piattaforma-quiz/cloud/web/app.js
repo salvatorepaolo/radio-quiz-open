@@ -7181,7 +7181,8 @@ function stampa(titolo, corpo) {
     .att h1{font-size:30px;color:#1f4e79;letter-spacing:.04em}.att .nome{font-size:26px;font-weight:700;margin:18px 0}
     .att .perc{font-size:20px;font-weight:600;margin:10px 0 24px}.firma{display:flex;justify-content:space-between;margin-top:56px;font-size:13px}
     .firma span{border-top:1px solid #333;padding-top:4px;min-width:200px}
-    @media print{button{display:none}body{margin:12mm}}</style></head><body>
+    .linkedin{text-align:center;margin-top:18px}.linkedin a{display:inline-block;background:#0a66c2;color:#fff;padding:9px 18px;border-radius:20px;text-decoration:none;font-weight:600}
+    @media print{button,.noprint{display:none}body{margin:12mm}}</style></head><body>
     <button id="stampa" style="float:right;padding:8px 14px">Stampa / salva in PDF</button>${corpo}</body></html>`);
   w.document.close(); const bs = w.document.getElementById('stampa'); if (bs) bs.onclick = () => w.print();   // niente script in linea (CSP)
 }
@@ -7366,6 +7367,14 @@ async function apriLogbook() {
     ${righe.map((r, i) => `<tr><td>${i + 1}</td><td>${dataIt(r.primo.data)}</td><td>${esc(r.c.titolo || r.id)}</td><td>${esc(metodicaDi(r.c) || '')}</td><td>${esc(r.c.distretto || '')}</td>
       <td class="n${r.primo.perfetta ? ' ok' : ''}">${r.primo.punteggio}%</td><td class="n">${r.migliore}%</td><td class="n">${r.n}</td></tr>`).join('')}</tbody></table>`);
 }
+// «Aggiungi al profilo LinkedIn» (Promozione 3): apre il modulo delle certificazioni di LinkedIn già compilato con il nome
+// del percorso, l'ente (pagina Quiz Radiologia), mese e anno, il codice dell'attestato. Parte solo se l'utente clicca e
+// manda solo quello che si legge nell'attestato (non il suo nome). Non compare nella stampa.
+function bottoneLinkedIn(nome, data, codice) {
+  const d = /^\d{4}-\d{2}/.test(String(data || '')) ? String(data) : new Date().toISOString();
+  const q = new URLSearchParams({ startTask: 'CERTIFICATION_NAME', name: nome, organizationId: '147020022', issueYear: d.slice(0, 4), issueMonth: String(Number(d.slice(5, 7))), certUrl: 'https://radio-quiz.it/', certId: codice });
+  return `<p class="noprint linkedin"><a href="https://www.linkedin.com/profile/add?${esc(q.toString())}" target="_blank" rel="noopener">${esc(trLingua('Aggiungi al profilo LinkedIn') || 'Aggiungi al profilo LinkedIn')}</a></p>`;
+}
 function codiceAttestato(...parti) { let h = 0; for (const ch of parti.join('|')) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h.toString(36).toUpperCase().padStart(7, '0').slice(-7); }
 // attestato dell'esame di livello (8): punteggio, data, numero di casi e codice di riscontro
 function apriAttestatoEsame(e) {
@@ -7374,7 +7383,8 @@ function apriAttestatoEsame(e) {
     <h1>ATTESTATO DI SUPERAMENTO</h1><div>si attesta che</div><div class="nome">${esc(nome)}</div>
     <div>ha superato l'esame simulato di livello</div><div class="perc">«${esc(e.livello)}»</div>
     <div>${e.n} casi clinici a tempo (${ESAME_MIN} minuti a caso), punteggio ${e.punteggio}% (soglia ${SOGLIA_SUPERATO}%), svolto il ${esc(String(e.data).split(' ')[0])}.</div>
-    <div class="firma"><span>Data: ${oggi()} · codice ${codiceAttestato(nome, e.livello, e.data, e.punteggio)}</span><span>Il responsabile della formazione</span></div></div>`);
+    <div class="firma"><span>Data: ${oggi()} · codice ${codiceAttestato(nome, e.livello, e.data, e.punteggio)}</span><span>Il responsabile della formazione</span></div></div>
+    ${bottoneLinkedIn(`Esame simulato di livello «${e.livello}» – Quiz Radiologia`, e.data, codiceAttestato(nome, e.livello, e.data, e.punteggio))}`);
 }
 function apriAttestato(p) {
   const st = statoPercorso(p);
@@ -7387,7 +7397,8 @@ function apriAttestato(p) {
     <div>${st.casi.length} casi clinici svolti, tutti superati (punteggio ≥ ${SOGLIA_SUPERATO}%), punteggio medio migliore ${media}%${fine ? `, completato il ${esc(fine.slice(0, 10).split('-').reverse().join('/'))}` : ''}.</div>
     ${pre && post ? `<div>Test d'ingresso ${pre.punteggio}% → test finale ${post.punteggio}% (${post.punteggio - pre.punteggio >= 0 ? '+' : ''}${post.punteggio - pre.punteggio} punti).</div>` : ''}
     ${p.obiettivi?.length ? `<div class="small">Obiettivi: ${p.obiettivi.map(esc).join('; ')}.</div>` : ''}
-    <div class="firma"><span>Data: ${oggi()} · codice ${codiceAttestato(GIOCO?.nome || '', p.id, fine || '', media)}</span><span>Il responsabile della formazione</span></div></div>`);
+    <div class="firma"><span>Data: ${oggi()} · codice ${codiceAttestato(GIOCO?.nome || '', p.id, fine || '', media)}</span><span>Il responsabile della formazione</span></div></div>
+    ${bottoneLinkedIn(`Percorso «${p.titolo}» – Quiz Radiologia`, fine, codiceAttestato(GIOCO?.nome || '', p.id, fine || '', media))}`);
 }
 function disegnaGioco() {
   const g = GIOCO, chip = $('#gioco-chip'), card = $('#gioco-card');

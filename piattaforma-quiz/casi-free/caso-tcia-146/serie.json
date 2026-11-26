@@ -206,7 +206,8 @@
    "serie/0004_ARTERIAL_2_0_B30f/img_00201_00102.dcm"
   ],
   "data": "feb 2011",
-  "eta": 78
+  "eta": 78,
+  "anteprima": "serie/0004_ARTERIAL_2_0_B30f/anteprima.rqa.gz"
  },
  {
   "descrizione": "TC addome con mdc, fase portale (3 mm)",
@@ -361,6 +362,7 @@
    "serie/0008_VENOUS_3_0_B30f/img_00147_00064.dcm"
   ],
   "data": "feb 2011",
-  "eta": 78
+  "eta": 78,
+  "anteprima": "serie/0008_VENOUS_3_0_B30f/anteprima.rqa.gz"
  }
 ]

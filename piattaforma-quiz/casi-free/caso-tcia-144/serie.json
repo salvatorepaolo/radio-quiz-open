@@ -345,7 +345,8 @@
    "serie/0004_GK_p_v_3/img_00340_00045.dcm"
   ],
   "data": "nov 2002",
-  "eta": 20
+  "eta": 20,
+  "anteprima": "serie/0004_GK_p_v_3/anteprima.rqa.gz"
  },
  {
   "descrizione": "PET FDG total body (corretta per l attenuazione)",
@@ -638,6 +639,7 @@
   ],
   "data": "nov 2002",
   "eta": 20,
-  "suv": 0.00021240759770249876
+  "suv": 0.00021240759770249876,
+  "anteprima": "serie/0007_PET_corr/anteprima.rqa.gz"
  }
 ]
