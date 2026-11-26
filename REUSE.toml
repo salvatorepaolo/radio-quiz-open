@@ -26,7 +26,7 @@ SPDX-License-Identifier = "CC-BY-SA-4.0"
 
 # immagini della home: ricavate da collezioni di The Cancer Imaging Archive (citazioni in licenze.html)
 [[annotations]]
-path = ["piattaforma-quiz/cloud/web/img/galleria/**", "piattaforma-quiz/cloud/web/img/anteprima-caso*", "piattaforma-quiz/cloud/web/img/condivisione.jpg"]
+path = ["docs/*.jpg", "piattaforma-quiz/cloud/web/img/galleria/**", "piattaforma-quiz/cloud/web/img/anteprima-caso*", "piattaforma-quiz/cloud/web/img/condivisione.jpg"]
 SPDX-FileCopyrightText = "The Cancer Imaging Archive, collezioni citate in piattaforma-quiz/cloud/web/licenze.html"
 SPDX-License-Identifier = "CC-BY-4.0"
 

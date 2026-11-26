@@ -14,6 +14,7 @@
 !/pubblica-sorgenti.sh
 !/piattaforma-quiz/
 !/strumenti_claude/
+!/docs/
 
 # dati e immagini
 *.dcm
@@ -31,6 +32,7 @@
 *.jpeg
 !/piattaforma-quiz/cloud/web/**/*.png
 !/piattaforma-quiz/cloud/web/**/*.jpg
+!/docs/*.jpg
 /piattaforma-quiz/casi-free/**/serie/
 /piattaforma-quiz/casi-free/**/_rimosse/
 /piattaforma-quiz/casi-free/**/ia/
