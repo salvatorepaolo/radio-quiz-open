@@ -1,0 +1,22 @@
+[
+ {
+  "descrizione": "RX torace PA",
+  "numero": 2,
+  "files": [
+   "serie/0002_PA/img_00001_00000.dcm"
+  ],
+  "data": "dic 1900",
+  "eta": 47,
+  "anteprima": "serie/0002_PA/anteprima.rqa.gz"
+ },
+ {
+  "descrizione": "RX torace laterale",
+  "numero": 3,
+  "files": [
+   "serie/0003_LATERAL/img_00001_00000.dcm"
+  ],
+  "data": "dic 1900",
+  "eta": 47,
+  "anteprima": "serie/0003_LATERAL/anteprima.rqa.gz"
+ }
+]

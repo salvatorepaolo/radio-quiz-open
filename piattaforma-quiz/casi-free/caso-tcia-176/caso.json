@@ -1,0 +1,104 @@
+{
+ "id": "caso-tcia-176",
+ "visibile": true,
+ "aggiornato": "2026-11-26 20:52",
+ "titolo": "RX torace in un bambino con polmonite",
+ "titolo_interno": "Polmonite batterica del lobo inferiore sinistro, retrocardiaca (Kermany 2018, person411_bacteria_1826)",
+ "distretto": "Torace",
+ "quesito": "polmonite",
+ "modalita": "RX",
+ "difficolta": "Intermedio",
+ "anamnesi": "Bambino tra 1 e 5 anni (età precisa e sesso non forniti dalla collezione) con diagnosi di polmonite batterica. RX del torace in proiezione AP.",
+ "domanda": "Dove si trova la polmonite? Guarda anche dietro il cuore.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Opacità retrocardiaca sinistra: dietro l'ombra del cuore il polmone è più bianco e il profilo mediale dell'emidiaframma sinistro non si vede",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Lettura di Claude: la collezione dice solo «polmonite batterica», senza sede."
+  },
+  {
+   "testo": "Polmone destro trasparente, senza consolidazioni",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Pneumotorace sinistro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Corpo estraneo nel bronco principale destro con iperinsufflazione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Opacità del lobo superiore destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Polmonite del lobo inferiore sinistro, retrocardiaca: terapia secondo la clinica; RX di controllo solo se l'evoluzione non è buona",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "RX normale: nessuna polmonite",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Massa del mediastino posteriore: TC urgente",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Dietro il cuore c'è una parte del lobo inferiore sinistro che nella PA o AP si vede solo attraverso l'ombra cardiaca: è una delle zone nascoste. Si confronta la densità del cuore a destra e a sinistra della colonna, si cerca il profilo dell'aorta discendente e quello mediale dell'emidiaframma sinistro: se scompaiono (segno della silhouette) c'è un'opacità a contatto. Nel bambino la proiezione è spesso AP e il cuore sembra più grande; il timo può simulare un'opacità mediastinica nei più piccoli. La laterale, quando c'è, mostra la consolidazione sopra il diaframma, dietro il cuore. La RX di controllo dopo una polmonite non complicata del bambino non serve se l'evoluzione clinica è buona.",
+ "regola": "Guarda sempre dietro il cuore: densità uguale ai due lati della colonna e profili di aorta discendente ed emidiaframma.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Collezione Kermany 2018: etichetta «polmonite batterica» data da medici esperti; nessuna sede né dato clinico."
+ },
+ "fonte": {
+  "archivio": "Mendeley Data (Cell 2018), non TCIA",
+  "collezione": "Chest X-ray Images (Pneumonia) – Kermany et al.",
+  "soggetto": "person411_bacteria_1826",
+  "doi": "10.17632/rscbjbr9sj.2",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Kermany D., Zhang K., Goldbaum M. (2018). Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification. Mendeley Data, V2. https://doi.org/10.17632/rscbjbr9sj.2",
+  "url": "https://data.mendeley.com/datasets/rscbjbr9sj/2",
+  "nota": "Immagine convertita da JPEG a 8 bit in DICOM da radio-quiz.it: non è un DICOM originale; niente spaziatura dei pixel (nessuna misura in mm)."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "checklist": "obbligatoria",
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Opacità retrocardiaca sinistra"
+ },
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione Kermany 2018 (Mendeley rscbjbr9sj v2, CC BY 4.0), JPEG 1800×1261 convertita in DICOM DX con strumenti_claude/rx/scrivi_176.py. La collezione dà solo l'etichetta «bacteria»: la sede retrocardiaca sinistra è una lettura di Claude, da confermare (in AP pediatrica il confine con un cuore grande o con il timo può ingannare). NON ancora rivisto dal medico."
+}

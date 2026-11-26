@@ -10220,5 +10220,120 @@
    "errori": 5
   },
   "controlli": []
+ },
+ "caso-tcia-175": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 17,
+   "ok": false,
+   "sez": [
+    50,
+    0,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    33,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 83,
+   "ok": false,
+   "sez": [
+    50,
+    100,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 6,
+   "attesi": 6,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 6,
+   "errori": 5
+  },
+  "controlli": []
+ },
+ "caso-tcia-176": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 5
+  },
+  "controlli": []
  }
 }
