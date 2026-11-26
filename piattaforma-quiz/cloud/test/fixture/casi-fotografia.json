@@ -9993,14 +9993,16 @@
    "ok": true,
    "sez": [
     100,
+    100,
     100
    ]
   },
   "soloPrincipale": {
-   "p": 25,
+   "p": 17,
    "ok": false,
    "sez": [
     33,
+    0,
     0
    ]
   },
@@ -10008,6 +10010,7 @@
    "p": 0,
    "ok": false,
    "sez": [
+    0,
     0,
     0
    ]
@@ -10017,28 +10020,30 @@
    "ok": false,
    "sez": [
     0,
+    0,
     0
    ]
   },
   "conDistrattore": {
-   "p": 75,
+   "p": 83,
    "ok": false,
    "sez": [
     67,
+    100,
     100
    ]
   },
   "refertoGiusto": {
    "p": 100,
-   "citati": 4,
-   "attesi": 4,
+   "citati": 6,
+   "attesi": 6,
    "errori": 0
   },
   "refertoSbagliato": {
    "p": 0,
-   "citati": 0,
-   "attesi": 4,
-   "errori": 5
+   "citati": 1,
+   "attesi": 6,
+   "errori": 8
   },
   "comGiusta": 100,
   "comAssente": 0,

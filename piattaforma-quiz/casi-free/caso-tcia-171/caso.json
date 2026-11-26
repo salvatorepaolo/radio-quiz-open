@@ -2,23 +2,31 @@
  "id": "caso-tcia-171",
  "visibile": true,
  "aggiornato": "2026-11-26 19:45",
- "titolo": "RX torace (6/6): donna di 24 anni con drenaggio toracico",
- "titolo_interno": "Pneumotorace sinistro residuo con drenaggio in sede (NIH 00028861_009, riquadro «Pneumothorax»)",
+ "titolo": "RX torace (6/6): donna di 24 anni con drenaggio toracico, due controlli",
+ "titolo_interno": "Pneumotorace sinistro residuo con drenaggio, poi polmone riespanso dopo la rimozione (NIH 00028861_009 e _012)",
  "distretto": "Torace",
  "quesito": "controllo dopo drenaggio",
  "modalita": "RX",
  "difficolta": "Intermedio",
- "anamnesi": "Donna di 24 anni. RX del torace in proiezione PA di controllo; è presente un drenaggio toracico. La collezione non fornisce il motivo del drenaggio.",
- "domanda": "C'è ancora aria nel cavo pleurico? Indicala sull'immagine e concludi.",
+ "anamnesi": "Donna di 24 anni con un drenaggio toracico sinistro. Due RX del torace in PA della stessa paziente: la prima con il drenaggio, la seconda di controllo dopo la rimozione (la collezione non dà le date né il motivo del drenaggio). La seconda radiografia si apre alla terza domanda.",
+ "domanda": "Leggi il primo controllo, decidi che cosa fare, poi confrontalo con il secondo.",
  "sezioni": [
   {
-   "nome": "Reperti",
-   "domanda": "Che cosa vedi?"
+   "nome": "Controllo con il drenaggio",
+   "domanda": "C'è ancora aria nel cavo pleurico? Indicala sull'immagine.",
+   "serie": 0
   },
   {
    "nome": "Conclusioni",
    "domanda": "Qual è la conclusione e che cosa fai?",
-   "singola": true
+   "singola": true,
+   "serie": 0
+  },
+  {
+   "nome": "Controllo dopo la rimozione",
+   "domanda": "Il drenaggio è stato tolto: com'è la radiografia di controllo rispetto alla prima?",
+   "serie": 1,
+   "scopri": true
   }
  ],
  "opzioni": [
@@ -76,13 +84,44 @@
    "corretta": false,
    "tipo": "distrattore",
    "sezione": 1
+  },
+  {
+   "testo": "Polmone sinistro riespanso: la linea pleurica non si vede più e la trama polmonare arriva fino alla parete",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2,
+   "nota": "Confronta l'apice sinistro nelle due radiografie, con la stessa finestra."
+  },
+  {
+   "testo": "Drenaggio toracico rimosso",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 2
+  },
+  {
+   "testo": "Pneumotorace sinistro aumentato rispetto al primo controllo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Versamento pleurico sinistro comparso dopo la rimozione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
+  },
+  {
+   "testo": "Enfisema sottocutaneo esteso della parete sinistra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 2
   }
  ],
- "spiegazione": "Il pneumotorace si riconosce dalla linea pleurica viscerale: una sottile linea bianca parallela alla parete, oltre la quale non c'è trama polmonare. In piedi l'aria sale all'apice; da sdraiati va davanti e in basso (segno del solco profondo). Le pieghe cutanee e i bordi della scapola possono simularlo: la linea pleurica è sottile e curva, la piega è più spessa e spesso continua oltre il torace. Nei controlli dopo drenaggio si guardano tre cose: quanta aria resta, dove passa il tubo (fori laterali dentro il torace) e se compare enfisema sottocutaneo. Lo spostamento del mediastino verso il lato sano con appiattimento del diaframma indica un pneumotorace iperteso, che è un'emergenza clinica.",
- "regola": "Cerca la linea pleurica viscerale; nei controlli valuta aria residua, posizione del tubo, enfisema sottocutaneo.",
+ "spiegazione": "Il pneumotorace si riconosce dalla linea pleurica viscerale: una sottile linea bianca parallela alla parete, oltre la quale non c'è trama polmonare. In piedi l'aria sale all'apice; da sdraiati va davanti e in basso (segno del solco profondo). Le pieghe cutanee e i bordi della scapola possono simularlo: la linea pleurica è sottile e curva, la piega è più spessa e spesso continua oltre il torace. Nei controlli dopo drenaggio si guardano tre cose: quanta aria resta, dove passa il tubo (fori laterali dentro il torace) e se compare enfisema sottocutaneo. Lo spostamento del mediastino verso il lato sano con appiattimento del diaframma indica un pneumotorace iperteso, che è un'emergenza clinica. Il confronto con l'esame precedente è il cuore di questi controlli: stessa proiezione, stessa finestra, si guarda prima la zona del problema (qui l'apice sinistro) e poi tutto il resto. Dopo la rimozione del drenaggio la RX serve a escludere la recidiva del pneumotorace e le complicanze del foro (enfisema sottocutaneo, versamento).",
+ "regola": "Nei controlli confronta sempre con il precedente: stessa proiezione, stessa finestra, prima la zona del problema.",
  "esito_clinico": {
   "tipo": "altro",
-  "testo": "Riquadro della lesione disegnato dai radiologi del NIH (BBox_List_2017: «Pneumothorax»). Nessun dato clinico, istologia o follow-up."
+  "testo": "Primo controllo: riquadro della lesione disegnato dai radiologi del NIH (BBox_List_2017: «Pneumothorax»). Secondo controllo (n. 12 della paziente): etichetta della collezione «No Finding», estratta dai referti con un programma. Nessun dato clinico."
  },
  "fonte": {
   "archivio": "NIH Clinical Center, non TCIA",
@@ -92,7 +131,7 @@
   "citazione": "Wang X., Peng Y., Lu L., Lu Z., Bagheri M., Summers R.M. (2017). ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases. IEEE CVPR, pp. 3462-3471. Dati forniti dal NIH Clinical Center.",
   "url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
   "nota": "Immagini PNG a 8 bit (1024×1024) convertite in DICOM da radio-quiz.it: non sono DICOM originali.",
-  "soggetto": "00028861_009.png (paziente 28861, controllo n. 8; F, 24 anni)"
+  "soggetto": "00028861_009.png e 00028861_012.png (paziente 28861, controlli n. 9 e 12; F, 24 anni)"
  },
  "serie_iniziale": 0,
  "riquadri": 1,
@@ -114,7 +153,7 @@
    }
   }
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00028861_009.png, etichette «Pneumothorax»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). Nella collezione quasi tutti i pneumotoraci con riquadro hanno già un drenaggio: per questo il caso è un controllo e non una prima diagnosi in Pronto soccorso. [revisione indipendente 26/11/2026] Drenaggio a pigtail nell'emitorace sinistro, apice sinistro con aria residua nel riquadro NIH, mediastino in asse. Confermato; il pneumotorace residuo è piccolo e va cercato con la finestra stretta. NON ancora rivisto dal medico.",
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00028861_009.png, etichette «Pneumothorax»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). Nella collezione quasi tutti i pneumotoraci con riquadro hanno già un drenaggio: per questo il caso è un controllo e non una prima diagnosi in Pronto soccorso. [revisione indipendente 26/11/2026] Drenaggio a pigtail nell'emitorace sinistro, apice sinistro con aria residua nel riquadro NIH, mediastino in asse. Confermato; il pneumotorace residuo è piccolo e va cercato con la finestra stretta. NON ancora rivisto dal medico. [tappe 26/11/2026] Aggiunto il controllo n. 12 della stessa paziente (etichetta NLP «No Finding»): drenaggio rimosso, apice sinistro riespanso alla lettura di Claude. Nella collezione non c'è una radiografia della paziente prima del drenaggio (già il controllo n. 7 ha il tubo), per questo il «prima e dopo» è con il drenaggio e dopo la rimozione.",
  "localizza": true,
  "comunicazione": {
   "livello": "urgente",

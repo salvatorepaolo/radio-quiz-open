@@ -1,9 +1,16 @@
 [
  {
-  "descrizione": "RX torace PA",
+  "descrizione": "Controllo 1 · RX torace PA con il drenaggio",
   "numero": 1,
   "files": [
    "serie/0001_RX_torace_PA/img_00001.dcm"
+  ]
+ },
+ {
+  "descrizione": "Controllo 2 · RX torace PA dopo la rimozione del drenaggio",
+  "numero": 2,
+  "files": [
+   "serie/0002_RX_torace_PA_controllo_2/img_00001.dcm"
   ]
  }
 ]
