@@ -123,5 +123,6 @@
    "frattura"
   ],
   "motivo": "Frattura in Pronto soccorso con paziente stabile: basta un referto tempestivo; la comunicazione diretta all'ortopedico è accettabile."
- }
+ },
+ "checklist": "obbligatoria"
 }

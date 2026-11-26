@@ -105,5 +105,6 @@
   "panY": 0,
   "nota": "Polso senza fratture"
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026: FracAtlas IMG0000101.jpg (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel (la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (1). Età, sesso e dinamica non forniti dalla fonte. [revisione indipendente 26/11/2026] Corticali di radio e ulna continue, carpo allineato, metacarpi e falangi integri. Confermato senza fratture visibili. NON ancora rivisto dal medico."
+ "nota_docente": "Caso creato da Claude il 26/11/2026: FracAtlas IMG0000101.jpg (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel (la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (1). Età, sesso e dinamica non forniti dalla fonte. [revisione indipendente 26/11/2026] Corticali di radio e ulna continue, carpo allineato, metacarpi e falangi integri. Confermato senza fratture visibili. NON ancora rivisto dal medico.",
+ "checklist": "obbligatoria"
 }

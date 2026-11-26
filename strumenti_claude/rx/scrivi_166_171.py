@@ -95,6 +95,7 @@ def scrivi(caso, png, titolo, titolo_interno, quesito, diff, anamnesi, domanda, 
     if localizza and png in bb:
         c['localizza'] = True; c['vista']['segno'] = segno(png)
     if comunicazione: c['comunicazione'] = comunicazione
+    c['checklist'] = 'obbligatoria'   # 26/11: casi del primo anno, si legge con la lista prima di rispondere
     os.makedirs(os.path.join(CASI, caso), exist_ok=True)
     json.dump(c, open(os.path.join(CASI, caso, 'caso.json'), 'w'), ensure_ascii=False, indent=1)
     print(caso, png, lab, 'pixel %.3f mm' % sp)

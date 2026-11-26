@@ -109,5 +109,6 @@
   }
  },
  "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00022192_003.png, etichette «Mass»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Etichetta NIH «Mass»; la lettura sull'immagine non permette di confermarla. [revisione indipendente 26/11/2026] Opacità del lobo superiore destro con margine inferiore netto e orizzontale: non si può dire se sia una massa, una consolidazione o un'atelettasia. Il caso è stato riscritto come «opacità da chiarire con la TC» invece di «massa». NON ancora rivisto dal medico.",
- "localizza": true
+ "localizza": true,
+ "checklist": "obbligatoria"
 }

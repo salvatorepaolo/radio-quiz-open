@@ -128,5 +128,6 @@
    "pneumotorace"
   ],
   "motivo": "Aria residua nonostante il drenaggio: chi segue la paziente deve saperlo presto per controllare il tubo; non è iperteso, quindi non serve l'allarme immediato."
- }
+ },
+ "checklist": "obbligatoria"
 }

@@ -109,5 +109,6 @@
   }
  },
  "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00012374_000.png, etichette «Nodule»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Il riquadro NIH (circa 34 × 34 mm) è più grande del nodulo: misurarlo sull'immagine prima di indicarne le dimensioni. [revisione indipendente 26/11/2026] Piccola opacità rotondeggiante nel campo superiore sinistro nel riquadro NIH; resto nella norma. Confermato. NON ancora rivisto dal medico.",
- "localizza": true
+ "localizza": true,
+ "checklist": "obbligatoria"
 }

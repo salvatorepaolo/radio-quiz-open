@@ -109,5 +109,6 @@
   "panY": 0,
   "nota": "RX del torace normale"
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00002246_000.png, etichette «No Finding»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Etichetta NLP «No Finding» (non è un riquadro di radiologo): normalità verificata solo da Claude sull'immagine. [revisione indipendente 26/11/2026] Campi polmonari trasparenti, seni liberi, ili e mediastino regolari, cuore nei limiti: confermata la normalità. NON ancora rivisto dal medico."
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00002246_000.png, etichette «No Finding»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Etichetta NLP «No Finding» (non è un riquadro di radiologo): normalità verificata solo da Claude sull'immagine. [revisione indipendente 26/11/2026] Campi polmonari trasparenti, seni liberi, ili e mediastino regolari, cuore nei limiti: confermata la normalità. NON ancora rivisto dal medico.",
+ "checklist": "obbligatoria"
 }

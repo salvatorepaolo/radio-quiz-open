@@ -486,7 +486,7 @@ async function fileDaManiglie(lista, avanza) {
   };
   try { for (const h of lista) await giro(h, ''); }
   catch (e) {
-    if (/NotFound|NotReadable|could not be found|not be read/i.test(`${e.name} ${e.message}`)) throw new Error('file non trovati o non leggibili: la cartella è stata spostata, il disco o il CD non è collegato, oppure il disco di rete non risponde');
+    if (/NotFound|NotReadable|could not be found|not be read/i.test(`${e.name} ${e.message}`)) throw new Error('file non trovati o non leggibili: la cartella è stata spostata, il disco o il CD non è collegato, oppure il disco di rete non risponde', { cause: e });
     throw e;
   }
   return out;

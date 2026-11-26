@@ -118,5 +118,6 @@
   }
  },
  "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00000661_000.png, etichette «Cardiomegaly»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). [revisione indipendente 26/11/2026] Cuore grande confermato; trovati fili di sternotomia e clip chirurgiche (pregresso intervento cardiochirurgico), aggiunti come reperto. NON ancora rivisto dal medico.",
- "localizza": true
+ "localizza": true,
+ "checklist": "obbligatoria"
 }

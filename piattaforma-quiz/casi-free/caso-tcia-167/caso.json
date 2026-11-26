@@ -115,5 +115,6 @@
   }
  },
  "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00023058_004.png, etichette «Effusion»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). [revisione indipendente 26/11/2026] Opacità basale destra con menisco laterale e seno obliterato; base sinistra libera. Confermato. NON ancora rivisto dal medico.",
- "localizza": true
+ "localizza": true,
+ "checklist": "obbligatoria"
 }

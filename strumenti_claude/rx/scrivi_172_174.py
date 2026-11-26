@@ -89,6 +89,7 @@ def scrivi(caso, jpg, desc, parte, distretto, titolo, titolo_interno, quesito, d
         x, y, w, h = BOX[jpg][0]; c['localizza'] = True
         c['vista']['segno'] = {'a': {'x': round(x), 'y': round(y)}, 'b': {'x': round(x + w), 'y': round(y + h)}}
     if comunicazione: c['comunicazione'] = comunicazione
+    c['checklist'] = 'obbligatoria'   # 26/11: casi del primo anno, si legge con la lista prima di rispondere
     json.dump(c, open(os.path.join(CASI, caso, 'caso.json'), 'w'), ensure_ascii=False, indent=1)
     print(caso, jpg, 'loghi coperti', tolti)
 
