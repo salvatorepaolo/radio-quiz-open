@@ -1,0 +1,113 @@
+{
+ "id": "caso-tcia-166",
+ "visibile": true,
+ "aggiornato": "2026-11-26 19:29",
+ "titolo": "RX torace (1/6): uomo di 44 anni",
+ "titolo_interno": "RX del torace nei limiti della norma (NIH 00002246_000, «No Finding»)",
+ "distretto": "Torace",
+ "quesito": "non fornito",
+ "modalita": "RX",
+ "difficolta": "Base",
+ "anamnesi": "Uomo di 44 anni. RX del torace in proiezione PA. La collezione non fornisce sintomi né motivo dell'esame.",
+ "domanda": "Leggi la radiografia con un ordine fisso e concludi.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Campi polmonari ben espansi e trasparenti, senza opacità focali",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0
+  },
+  {
+   "testo": "Seni costofrenici liberi e cupole diaframmatiche regolari",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Ombra cardiaca nei limiti: rapporto cardio-toracico inferiore a 0,5",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Ili polmonari di forma e sede regolari, mediastino in asse",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo polmonare nel campo medio destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Versamento pleurico sinistro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Pneumotorace apicale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "RX del torace nei limiti della norma",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Cardiomegalia: ecocardiogramma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Opacità sospetta: TC del torace",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Una RX del torace normale va saputa riconoscere prima di quelle patologiche. Conviene leggere sempre nello stesso ordine: qualità (identificazione, proiezione PA, inspirazione: 9-10 archi costali posteriori sopra il diaframma, rotazione: processi spinosi a metà tra le teste delle clavicole), vie aeree e mediastino, ili, polmoni confrontando i due lati zona per zona, pleure e seni costofrenici, diaframma, cuore (rapporto cardio-toracico in PA < 0,5), ossa e tessuti molli, e infine le «zone nascoste»: apici, dietro il cuore, sotto le cupole.",
+ "regola": "Leggi sempre con lo stesso ordine e controlla le zone nascoste: apici, retrocardiaca, sotto le cupole.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Etichetta della collezione: «No Finding» (estratta dai referti con un programma). Nessun dato clinico, istologia o follow-up."
+ },
+ "fonte": {
+  "archivio": "NIH Clinical Center, non TCIA",
+  "collezione": "NIH ChestX-ray14 (ChestX-ray8)",
+  "licenza": "Uso senza restrizioni, con citazione (NIH Clinical Center)",
+  "licenza_url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "citazione": "Wang X., Peng Y., Lu L., Lu Z., Bagheri M., Summers R.M. (2017). ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases. IEEE CVPR, pp. 3462-3471. Dati forniti dal NIH Clinical Center.",
+  "url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "nota": "Immagini PNG a 8 bit (1024×1024) convertite in DICOM da radio-quiz.it: non sono DICOM originali.",
+  "soggetto": "00002246_000.png (paziente 2246, controllo n. 0; M, 44 anni)"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "RX del torace normale"
+ },
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00002246_000.png, etichette «No Finding»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Etichetta NLP «No Finding» (non è un riquadro di radiologo): normalità verificata solo da Claude sull'immagine. NON ancora rivisto dal medico."
+}

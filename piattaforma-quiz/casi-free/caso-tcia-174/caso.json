@@ -1,0 +1,109 @@
+{
+ "id": "caso-tcia-174",
+ "visibile": true,
+ "aggiornato": "2026-11-26 19:29",
+ "titolo": "RX polso sinistro dopo un trauma: dolore al polso",
+ "titolo_interno": "Polso e mano senza fratture (FracAtlas IMG0000101, «non fractured»)",
+ "distretto": "Muscolo-scheletrico",
+ "quesito": "trauma del polso",
+ "modalita": "RX",
+ "difficolta": "Base",
+ "anamnesi": "Paziente con dolore al polso sinistro dopo un trauma (età, sesso e dinamica non forniti dalla collezione). RX del polso e della mano in AP.",
+ "domanda": "Leggi la radiografia: c'è una frattura? Che cosa fai se il dolore è sulla tabacchiera anatomica?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Radio e ulna distali con corticali continue, senza linee di frattura",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0
+  },
+  {
+   "testo": "Ossa del carpo allineate: archi del carpo regolari, spazi articolari conservati",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Metacarpi e falangi visibili senza fratture",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Frattura del radio distale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Frattura dello scafoide evidente",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Lussazione del semilunare",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Nessuna frattura visibile; se c'è dolore alla tabacchiera anatomica: proiezioni dedicate per lo scafoide, oppure immobilizzare e ricontrollare (RM se il sospetto resta)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Frattura: gesso per 6 settimane",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Radiografia normale: nessun controllo in ogni caso, anche con dolore alla tabacchiera",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "Le fratture dello scafoide possono non vedersi subito: con il dolore tipico si immobilizza e si ricontrolla."
+  }
+ ],
+ "spiegazione": "Saper dire «nessuna frattura» è importante quanto trovarla. Nel polso si controllano: corticali di radio e ulna, stiloidi, i tre archi del carpo (Gilula) senza scalini, gli spazi tra le ossa del carpo (uno spazio scafo-lunato largo indica una lesione legamentosa) e lo scafoide. La frattura dello scafoide è la più spesso sfuggente: se c'è dolore alla tabacchiera anatomica servono le proiezioni dedicate e, se negative, immobilizzazione e controllo dopo 10-14 giorni o una RM, perché il rischio è la necrosi del polo prossimale.",
+ "regola": "RX negativa ma dolore alla tabacchiera: lo scafoide non è escluso.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Annotazione della collezione FracAtlas: «non fractured». Nessun dato clinico né sul trattamento."
+ },
+ "fonte": {
+  "archivio": "figshare (Scientific Data), non TCIA",
+  "collezione": "FracAtlas",
+  "doi": "10.6084/m9.figshare.22363012",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Abedeen I., Rahman M.A., Prottyasha F.Z., Ahmed T., Chowdhury T.M., Shatabda S. (2023). FracAtlas: A Dataset for Fracture Classification, Localization and Segmentation of Musculoskeletal Radiographs. Scientific Data 10, 521. https://doi.org/10.1038/s41597-023-02432-4",
+  "url": "https://doi.org/10.6084/m9.figshare.22363012",
+  "nota": "Immagini convertite da JPG a 8 bit in DICOM da radio-quiz.it: non sono DICOM originali. Logo della struttura coperto.",
+  "soggetto": "IMG0000101.jpg"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Polso senza fratture"
+ },
+ "nota_docente": "Caso creato da Claude il 26/11/2026: FracAtlas IMG0000101.jpg (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel (la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (1). Età, sesso e dinamica non forniti dalla fonte. NON ancora rivisto dal medico."
+}

@@ -672,6 +672,29 @@ if [ -n "${SORG_PID}" ]; then
   else info "copia pubblica del codice non aggiornata (dettaglio in cloud/.log-sorgenti.txt)"; tail -3 .log-sorgenti.txt; fi
 fi
 
+# 1.330 spazio su S3: il piano CloudFront Pro include 50 GB di S3 al mese. Somma di tutti i bucket del conto (anche le versioni
+# vecchie e l'archivio tecnico del CDK) dalla metrica giornaliera BucketSizeBytes di CloudWatch; avviso oltre 40 GB. Non ferma nulla.
+if [ "${MODO}" = "vetrina" ]; then
+  S3_GB=$(for R in eu-south-1 us-east-1; do
+      aws cloudwatch list-metrics --region "${R}" --namespace AWS/S3 --metric-name BucketSizeBytes --output text \
+        --query 'Metrics[].Dimensions[?Name==`BucketName`].Value[]' 2>/dev/null | tr '\t' '\n' | sort -u | while read -r BK; do
+        [ -n "${BK}" ] || continue
+        for TIPO in StandardStorage StandardIAStorage IntelligentTieringFAStorage IntelligentTieringIAStorage; do
+          aws cloudwatch get-metric-statistics --region "${R}" --namespace AWS/S3 --metric-name BucketSizeBytes \
+            --dimensions Name=BucketName,Value="${BK}" Name=StorageType,Value="${TIPO}" \
+            --start-time "$(date -u -v-3d +%Y-%m-%dT%H:%M:%S 2>/dev/null || date -u -d '3 days ago' +%Y-%m-%dT%H:%M:%S)" \
+            --end-time "$(date -u +%Y-%m-%dT%H:%M:%S)" --period 86400 --statistics Average \
+            --query 'sort_by(Datapoints,&Timestamp)[-1].Average' --output text 2>/dev/null
+        done
+      done
+    done | awk '$1 ~ /^[0-9.eE+]+$/ { t += $1 } END { printf "%.1f", t / 1e9 }')
+  if [ -n "${S3_GB}" ]; then
+    if awk -v g="${S3_GB}" 'BEGIN { exit !(g >= 40) }'; then
+      printf "\n\033[33m⚠ Spazio su S3: %s GB su 50 inclusi nel piano CloudFront Pro. Oltre i 50 si paga a parte: conviene togliere i doppioni (immagini singole e pacchetti) o le versioni vecchie.\033[0m\n" "${S3_GB}"
+    else ok "spazio su S3: ${S3_GB} GB su 50 inclusi nel piano"; fi
+  fi
+fi
+
 # ---------- fatto ----------
 printf "\n\033[1m──────────────────────────────────────────────\n"
 [ "${PROVE_OK}" = "1" ] && printf "  PUBBLICATO\n" || printf "  PUBBLICATO, MA QUALCHE VERIFICA NON È PASSATA (vedi sopra)\n"

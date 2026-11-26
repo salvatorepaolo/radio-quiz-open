@@ -1,0 +1,119 @@
+{
+ "id": "caso-tcia-167",
+ "visibile": true,
+ "aggiornato": "2026-11-26 19:29",
+ "titolo": "RX torace (2/6): uomo di 52 anni",
+ "titolo_interno": "Versamento pleurico destro (NIH 00023058_004, riquadro «Effusion»)",
+ "distretto": "Torace",
+ "quesito": "non fornito",
+ "modalita": "RX",
+ "difficolta": "Base",
+ "anamnesi": "Uomo di 52 anni. RX del torace in proiezione PA. La collezione non fornisce sintomi né motivo dell'esame.",
+ "domanda": "Descrivi il reperto, indica dove si trova e concludi.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Opacità omogenea della base destra con margine superiore a menisco (concavo verso l'alto, più alto lateralmente)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Riquadro dei radiologi del NIH sulla base destra."
+  },
+  {
+   "testo": "Seno costofrenico destro obliterato",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Base sinistra e seno costofrenico sinistro liberi",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Consolidazione del lobo inferiore destro con broncogramma aereo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Pneumotorace destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Sollevamento dell'emidiaframma destro senza liquido",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Versamento pleurico destro: ecografia del torace per quantificarlo e cercarne la causa (ed eventualmente guidare la toracentesi)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Polmonite basale destra: solo terapia antibiotica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "RX nei limiti della norma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Il versamento pleurico libero si raccoglie nelle parti declivi: in piedi oblitera prima il seno costofrenico posteriore (laterale), poi quello laterale in PA (servono circa 200-300 ml). Il segno tipico è il menisco: margine superiore concavo, più alto lungo la parete. Una consolidazione invece ha margini irregolari, broncogramma aereo e non segue la gravità. L'ecografia conferma il liquido, ne stima la quantità, mostra setti e corpuscolati e guida la toracentesi; la causa (scompenso, infezione, neoplasia) va cercata con la clinica e, se serve, con l'analisi del liquido.",
+ "regola": "Base opaca con menisco e seno obliterato = liquido; cerca sempre il lato opposto e la causa.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Riquadro della lesione disegnato dai radiologi del NIH (BBox_List_2017: «Effusion»). Nessun dato clinico, istologia o follow-up."
+ },
+ "fonte": {
+  "archivio": "NIH Clinical Center, non TCIA",
+  "collezione": "NIH ChestX-ray14 (ChestX-ray8)",
+  "licenza": "Uso senza restrizioni, con citazione (NIH Clinical Center)",
+  "licenza_url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "citazione": "Wang X., Peng Y., Lu L., Lu Z., Bagheri M., Summers R.M. (2017). ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases. IEEE CVPR, pp. 3462-3471. Dati forniti dal NIH Clinical Center.",
+  "url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "nota": "Immagini PNG a 8 bit (1024×1024) convertite in DICOM da radio-quiz.it: non sono DICOM originali.",
+  "soggetto": "00023058_004.png (paziente 23058, controllo n. 4; M, 52 anni)"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Versamento pleurico destro",
+  "segno": {
+   "a": {
+    "x": 38,
+    "y": 562
+   },
+   "b": {
+    "x": 356,
+    "y": 765
+   }
+  }
+ },
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00023058_004.png, etichette «Effusion»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). NON ancora rivisto dal medico.",
+ "localizza": true
+}

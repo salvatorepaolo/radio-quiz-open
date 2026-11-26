@@ -1,0 +1,115 @@
+{
+ "id": "caso-tcia-168",
+ "visibile": true,
+ "aggiornato": "2026-11-26 19:29",
+ "titolo": "RX torace (3/6): uomo di 57 anni",
+ "titolo_interno": "Cardiomegalia (NIH 00000661_000, riquadro «Cardiomegaly»)",
+ "distretto": "Torace",
+ "quesito": "non fornito",
+ "modalita": "RX",
+ "difficolta": "Base",
+ "anamnesi": "Uomo di 57 anni. RX del torace in proiezione PA. La collezione non fornisce sintomi né motivo dell'esame.",
+ "domanda": "Valuta l'ombra cardiaca (puoi misurarla) e concludi.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Ombra cardiaca ingrandita: rapporto cardio-toracico superiore a 0,5",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Diametro trasverso massimo del cuore diviso per il diametro interno massimo del torace, sulla stessa PA."
+  },
+  {
+   "testo": "Campi polmonari senza versamento né edema alveolare evidenti",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Versamento pericardico certo",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0,
+   "nota": "Sulla RX un cuore grande non distingue tra dilatazione delle camere e versamento pericardico: serve l'ecocardiogramma."
+  },
+  {
+   "testo": "Edema polmonare alveolare bilaterale «ad ali di farfalla»",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Mediastino superiore allargato",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Cardiomegalia: ecocardiogramma per capire la causa (camere dilatate, ipertrofia, versamento pericardico)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Cuore normale: in PA l'ombra cardiaca è sempre sovrastimata",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1,
+   "nota": "È la proiezione AP (letto, paziente seduto) a ingrandire il cuore; in PA il rapporto > 0,5 è significativo."
+  },
+  {
+   "testo": "Versamento pericardico: pericardiocentesi",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Il rapporto cardio-toracico (RCT) si misura solo in PA in buona inspirazione: diametro trasverso massimo del cuore (dalla linea mediana al bordo destro più quella al bordo sinistro) diviso per il diametro interno massimo del torace. Oltre 0,5 è cardiomegalia. In AP, in espirazione o con il paziente sdraiato il cuore appare più grande e il valore non è affidabile. La RX non distingue camere dilatate, ipertrofia e versamento pericardico: per questo si fa l'ecocardiogramma. Cerca anche i segni di scompenso: ridistribuzione vascolare, linee B di Kerley, versamenti.",
+ "regola": "RCT > 0,5 solo in PA ben inspirata; poi cerca i segni di scompenso.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Riquadro della lesione disegnato dai radiologi del NIH (BBox_List_2017: «Cardiomegaly»). Nessun dato clinico, istologia o follow-up."
+ },
+ "fonte": {
+  "archivio": "NIH Clinical Center, non TCIA",
+  "collezione": "NIH ChestX-ray14 (ChestX-ray8)",
+  "licenza": "Uso senza restrizioni, con citazione (NIH Clinical Center)",
+  "licenza_url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "citazione": "Wang X., Peng Y., Lu L., Lu Z., Bagheri M., Summers R.M. (2017). ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases. IEEE CVPR, pp. 3462-3471. Dati forniti dal NIH Clinical Center.",
+  "url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "nota": "Immagini PNG a 8 bit (1024×1024) convertite in DICOM da radio-quiz.it: non sono DICOM originali.",
+  "soggetto": "00000661_000.png (paziente 661, controllo n. 1; M, 57 anni)"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Ombra cardiaca ingrandita",
+  "segno": {
+   "a": {
+    "x": 299,
+    "y": 437
+   },
+   "b": {
+    "x": 848,
+    "y": 866
+   }
+  }
+ },
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00000661_000.png, etichette «Cardiomegaly»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). NON ancora rivisto dal medico.",
+ "localizza": true
+}

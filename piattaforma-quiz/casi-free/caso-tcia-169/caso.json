@@ -1,0 +1,113 @@
+{
+ "id": "caso-tcia-169",
+ "visibile": true,
+ "aggiornato": "2026-11-26 19:29",
+ "titolo": "RX torace (4/6): uomo di 34 anni",
+ "titolo_interno": "Nodulo polmonare nel campo superiore sinistro (NIH 00012374_000, riquadro «Nodule»)",
+ "distretto": "Torace",
+ "quesito": "non fornito",
+ "modalita": "RX",
+ "difficolta": "Intermedio",
+ "anamnesi": "Uomo di 34 anni. RX del torace in proiezione PA. La collezione non fornisce sintomi né motivo dell'esame; non ci sono radiografie precedenti.",
+ "domanda": "C'è una lesione? Se sì, indicala sull'immagine e concludi.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione e che cosa fai?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Piccolo nodulo nel campo polmonare superiore sinistro",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Riquadro dei radiologi del NIH nel campo superiore sinistro, sotto la clavicola."
+  },
+  {
+   "testo": "Restanti campi polmonari, seni costofrenici e ombra cardiaca nella norma",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo nel campo inferiore destro",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Massa ilare sinistra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Nessuna lesione focale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Nodulo polmonare isolato senza precedenti per confronto: TC del torace per caratterizzarlo (dimensioni, densità, margini, calcificazioni)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Nessun controllo: a 34 anni un nodulo è sempre benigno",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Ripetere la RX tra due anni",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Un nodulo polmonare è un'opacità rotondeggiante fino a 3 cm (oltre si parla di massa). Prima di tutto si cercano radiografie precedenti: un nodulo stabile da più di 2 anni o con calcificazioni benigne (centrale, diffusa, a «popcorn», lamellare) non richiede altro. Altrimenti si caratterizza con la TC, che dice dimensioni, densità (solido, parzialmente solido, vetro smerigliato) e margini; il percorso successivo segue le linee guida (Fleischner per i noduli incidentali) e il rischio del paziente. Attenzione alle false immagini: capezzolo, incrocio di coste, osteofiti, calcificazioni costali.",
+ "regola": "Davanti a un nodulo: cerca le RX precedenti, poi TC; escludi capezzoli e incroci costali.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Riquadro della lesione disegnato dai radiologi del NIH (BBox_List_2017: «Nodule»). Nessun dato clinico, istologia o follow-up."
+ },
+ "fonte": {
+  "archivio": "NIH Clinical Center, non TCIA",
+  "collezione": "NIH ChestX-ray14 (ChestX-ray8)",
+  "licenza": "Uso senza restrizioni, con citazione (NIH Clinical Center)",
+  "licenza_url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "citazione": "Wang X., Peng Y., Lu L., Lu Z., Bagheri M., Summers R.M. (2017). ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases. IEEE CVPR, pp. 3462-3471. Dati forniti dal NIH Clinical Center.",
+  "url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+  "nota": "Immagini PNG a 8 bit (1024×1024) convertite in DICOM da radio-quiz.it: non sono DICOM originali.",
+  "soggetto": "00012374_000.png (paziente 12374, controllo n. 0; M, 34 anni)"
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "vista": {
+  "serie": 0,
+  "idx": 0,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Nodulo campo superiore sinistro",
+  "segno": {
+   "a": {
+    "x": 656,
+    "y": 257
+   },
+   "b": {
+    "x": 738,
+    "y": 337
+   }
+  }
+ },
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00012374_000.png, etichette «Nodule»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Il riquadro NIH (circa 34 × 34 mm) è più grande del nodulo: misurarlo sull'immagine prima di indicarne le dimensioni. NON ancora rivisto dal medico.",
+ "localizza": true
+}
