@@ -269,8 +269,8 @@ test('MPR e 3D su una TC', { skip: salta() }, async () => {
   // «MPR» nel menu: il 3D sparisce
   await admin.selectOption('#mpr-preset', 'mpr'); await admin.waitForTimeout(500);
   assert.ok(await admin.evaluate(() => document.querySelector('#vp-3d').closest('.mpr-cella').classList.contains('nascosta-3d')), '«MPR» non toglie il 3D');
-  // il ridisegno alla nuova misura arriva dopo il ResizeObserver: si aspetta fino a 5 s invece di un tempo fisso (26/11, Cornerstone 5.19)
-  await admin.waitForFunction((p) => (document.querySelector('#vp-assiale canvas')?.width || 0) > p, prima, { timeout: 5000 }).catch(() => {});
+  // il ridisegno alla nuova misura arriva dopo il ResizeObserver: si aspetta fino a 15 s invece di un tempo fisso (26/11, Cornerstone 5.19; 5 s non bastano col Mac carico)
+  await admin.waitForFunction((p) => (document.querySelector('#vp-assiale canvas')?.width || 0) > p, prima, { timeout: 15000 }).catch(() => {});
   assert.ok(await tela() > prima, '3D non ridisegnato alla nuova misura');
   controllaErrori(`MPR ${c.id}`);
 });

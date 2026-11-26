@@ -10335,5 +10335,63 @@
    "errori": 5
   },
   "controlli": []
+ },
+ "caso-tcia-177": {
+  "tutteGiuste": {
+   "p": 100,
+   "ok": true,
+   "sez": [
+    100,
+    100
+   ]
+  },
+  "soloPrincipale": {
+   "p": 33,
+   "ok": false,
+   "sez": [
+    50,
+    0
+   ]
+  },
+  "tutte": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "nessuna": {
+   "p": 0,
+   "ok": false,
+   "sez": [
+    0,
+    0
+   ]
+  },
+  "conDistrattore": {
+   "p": 67,
+   "ok": false,
+   "sez": [
+    50,
+    100
+   ]
+  },
+  "refertoGiusto": {
+   "p": 100,
+   "citati": 3,
+   "attesi": 3,
+   "errori": 0
+  },
+  "refertoSbagliato": {
+   "p": 0,
+   "citati": 0,
+   "attesi": 3,
+   "errori": 7
+  },
+  "comGiusta": 100,
+  "comAssente": 0,
+  "punto": "centrato",
+  "controlli": []
  }
 }
