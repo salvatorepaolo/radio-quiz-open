@@ -17,6 +17,24 @@
   ]
  },
  {
+  "id": "rx-primo-anno",
+  "titolo": "Primo anno: RX del torace e dello scheletro",
+  "descrizione": "Le radiografie che si refertano dal primo giorno: un torace normale e i quadri più comuni, fratture e una radiografia senza fratture. Si legge sempre con lo stesso ordine.",
+  "casi": [
+   "caso-tcia-166",
+   "caso-tcia-167",
+   "caso-tcia-168",
+   "caso-tcia-169",
+   "caso-tcia-170",
+   "caso-tcia-171",
+   "caso-tcia-172",
+   "caso-tcia-173",
+   "caso-tcia-174",
+   "caso-tcia-098",
+   "caso-tcia-099"
+  ]
+ },
+ {
   "id": "torace",
   "titolo": "Torace: RX e TC",
   "descrizione": "Noduli polmonari, polmonite virale, angio-TC per embolia e stadiazione con PET-TC.",
@@ -44,7 +62,13 @@
    "caso-tcia-110",
    "caso-tcia-111",
    "caso-tcia-112",
-   "caso-tcia-142"
+   "caso-tcia-142",
+   "caso-tcia-166",
+   "caso-tcia-167",
+   "caso-tcia-168",
+   "caso-tcia-169",
+   "caso-tcia-170",
+   "caso-tcia-171"
   ]
  },
  {
@@ -279,7 +303,10 @@
    "caso-tcia-153",
    "caso-tcia-154",
    "caso-tcia-155",
-   "caso-tcia-161"
+   "caso-tcia-161",
+   "caso-tcia-172",
+   "caso-tcia-173",
+   "caso-tcia-174"
   ]
  },
  {
@@ -330,7 +357,9 @@
    "caso-tcia-097",
    "caso-tcia-116",
    "caso-tcia-112",
-   "caso-tcia-155"
+   "caso-tcia-155",
+   "caso-tcia-166",
+   "caso-tcia-174"
   ]
  },
  {

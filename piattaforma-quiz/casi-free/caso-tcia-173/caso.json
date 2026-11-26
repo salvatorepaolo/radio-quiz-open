@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-173",
  "visibile": true,
- "aggiornato": "2026-11-26 19:29",
+ "aggiornato": "2026-11-26 19:45",
  "titolo": "RX gamba dopo un trauma: bambino che non riesce a caricare",
  "titolo_interno": "Frattura obliqua composta della diafisi tibiale (FracAtlas IMG0002322)",
  "distretto": "Muscolo-scheletrico",
@@ -109,7 +109,7 @@
    }
   }
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026: FracAtlas IMG0002322.jpg (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel (la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (0). Età, sesso e dinamica non forniti dalla fonte. Il perone non è giudicato nelle opzioni: in una sola AP non si vede intero con certezza. NON ancora rivisto dal medico.",
+ "nota_docente": "Caso creato da Claude il 26/11/2026: FracAtlas IMG0002322.jpg (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel (la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (0). Età, sesso e dinamica non forniti dalla fonte. Il perone non è giudicato nelle opzioni: in una sola AP non si vede intero con certezza. [revisione indipendente 26/11/2026] Linea obliqua nella diafisi tibiale (passaggio tra terzo medio e distale), allineamento conservato, cartilagini di ginocchio e caviglia aperte (bambino). Confermato. NON ancora rivisto dal medico.",
  "localizza": true,
  "comunicazione": {
   "livello": "differita",

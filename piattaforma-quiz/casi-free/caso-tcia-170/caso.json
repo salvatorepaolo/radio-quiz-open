@@ -1,15 +1,15 @@
 {
  "id": "caso-tcia-170",
  "visibile": true,
- "aggiornato": "2026-11-26 19:29",
+ "aggiornato": "2026-11-26 19:45",
  "titolo": "RX torace (5/6): uomo di 73 anni",
- "titolo_interno": "Massa del campo superiore destro (NIH 00022192_003, riquadro «Mass»)",
+ "titolo_interno": "Opacità del lobo superiore destro: massa, consolidazione o atelettasia (NIH 00022192_003, etichetta «Mass»)",
  "distretto": "Torace",
  "quesito": "non fornito",
  "modalita": "RX",
  "difficolta": "Intermedio",
  "anamnesi": "Uomo di 73 anni. RX del torace in proiezione PA. La collezione non fornisce sintomi né motivo dell'esame.",
- "domanda": "Descrivi la lesione, indicala sull'immagine e scegli il passo successivo.",
+ "domanda": "Descrivi l'opacità, indicala sull'immagine e scegli il passo successivo.",
  "sezioni": [
   {
    "nome": "Reperti",
@@ -23,14 +23,14 @@
  ],
  "opzioni": [
   {
-   "testo": "Grande opacità (massa) nel campo polmonare superiore destro",
+   "testo": "Opacità del campo polmonare superiore destro con margine inferiore netto e orizzontale (sulla scissura orizzontale)",
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "Riquadro dei radiologi del NIH nel campo superiore destro."
+   "nota": "Riquadro dei radiologi del NIH nel campo superiore destro (etichetta «Mass»)."
   },
   {
-   "testo": "Lesione di diametro superiore a 3 cm: si parla di massa, non di nodulo",
+   "testo": "Dalla sola RX non si distingue tra massa, consolidazione e atelettasia del lobo superiore destro: serve un altro esame",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0
@@ -54,7 +54,7 @@
    "sezione": 0
   },
   {
-   "testo": "Massa polmonare in un paziente anziano: TC del torace con mezzo di contrasto (e dell'addome superiore) per caratterizzare e stadiare, poi diagnosi istologica",
+   "testo": "Opacità del lobo superiore destro in un paziente di 73 anni: TC del torace con mezzo di contrasto per cercare una massa (anche dentro o dietro un'atelettasia) e, se c'è, stadiarla",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 1
@@ -72,8 +72,8 @@
    "sezione": 1
   }
  ],
- "spiegazione": "Un'opacità polmonare oltre i 3 cm è una massa: nell'adulto e nell'anziano fumatore va considerata un tumore finché non si dimostra il contrario. La RX ne dice la sede, ma non basta: la TC con mezzo di contrasto la caratterizza (margini, cavitazione, rapporti con mediastino e parete), cerca linfonodi e metastasi e guida la biopsia. Una polmonite può somigliare a una massa: se si sceglie l'antibiotico, la RX di controllo dopo 6-8 settimane è obbligatoria, perché una «polmonite che non guarisce» può nascondere un tumore. Cerca sempre anche erosioni costali, versamento, sollevamento del diaframma (paralisi del frenico).",
- "regola": "Oltre 3 cm è una massa: TC con mezzo di contrasto e istologia; non fermarti all'antibiotico.",
+ "spiegazione": "Un'opacità che riempie il lobo superiore destro e si ferma con un margine netto e orizzontale è delimitata dalla scissura orizzontale. Le cause principali sono tre: consolidazione (polmonite: volume conservato, broncogramma aereo), atelettasia (perdita di volume: scissura che sale, ilo e trachea tirati verso l'alto e verso destra) e massa. Una massa all'ilo che chiude il bronco dà un'atelettasia con il margine a «S» (segno di Golden): è il quadro da non perdere nell'anziano fumatore. Per questo un'opacità del lobo superiore a questa età si studia con la TC con mezzo di contrasto; se si tratta come polmonite, la RX di controllo dopo 6-8 settimane è obbligatoria, perché una «polmonite che non guarisce» può nascondere un tumore.",
+ "regola": "Opacità lobare nell'anziano: cerca perdita di volume e massa all'ilo; poi TC, oppure controllo obbligato dopo l'antibiotico.",
  "esito_clinico": {
   "tipo": "altro",
   "testo": "Riquadro della lesione disegnato dai radiologi del NIH (BBox_List_2017: «Mass»). Nessun dato clinico, istologia o follow-up."
@@ -96,7 +96,7 @@
   "zoom": 1,
   "panX": 0,
   "panY": 0,
-  "nota": "Massa campo superiore destro",
+  "nota": "Opacità lobo superiore destro",
   "segno": {
    "a": {
     "x": 176,
@@ -108,6 +108,6 @@
    }
   }
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00022192_003.png, etichette «Mass»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Lettura di Claude da confermare: opacità del campo superiore destro con margine inferiore netto e orizzontale; oltre a una massa va considerata una consolidazione o atelettasia del lobo superiore destro (l'etichetta della collezione è «Mass»). NON ancora rivisto dal medico.",
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00022192_003.png, etichette «Mass»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Etichetta NIH «Mass»; la lettura sull'immagine non permette di confermarla. [revisione indipendente 26/11/2026] Opacità del lobo superiore destro con margine inferiore netto e orizzontale: non si può dire se sia una massa, una consolidazione o un'atelettasia. Il caso è stato riscritto come «opacità da chiarire con la TC» invece di «massa». NON ancora rivisto dal medico.",
  "localizza": true
 }

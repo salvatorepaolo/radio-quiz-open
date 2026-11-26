@@ -14,6 +14,15 @@ DX = '1.2.840.10008.5.1.4.1.1.1.1'
 de = {r['Image Index']: r for r in csv.DictReader(open(os.path.join(QUI, 'Data_Entry_2017_v2020.csv')))}
 bb = {r[0]: (r[1], *map(float, r[2:6])) for r in list(csv.reader(open(os.path.join(QUI, 'BBox_List_2017.csv'))))[1:]}
 OGGI = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+# seconda lettura di Claude sull'immagine intera (26/11/2026, sera): non sostituisce la revisione del medico
+REV = {
+    'caso-tcia-166': '[revisione indipendente 26/11/2026] Campi polmonari trasparenti, seni liberi, ili e mediastino regolari, cuore nei limiti: confermata la normalità. ',
+    'caso-tcia-167': '[revisione indipendente 26/11/2026] Opacità basale destra con menisco laterale e seno obliterato; base sinistra libera. Confermato. ',
+    'caso-tcia-168': '[revisione indipendente 26/11/2026] Cuore grande confermato; trovati fili di sternotomia e clip chirurgiche (pregresso intervento cardiochirurgico), aggiunti come reperto. ',
+    'caso-tcia-169': '[revisione indipendente 26/11/2026] Piccola opacità rotondeggiante nel campo superiore sinistro nel riquadro NIH; resto nella norma. Confermato. ',
+    'caso-tcia-170': '[revisione indipendente 26/11/2026] Opacità del lobo superiore destro con margine inferiore netto e orizzontale: non si può dire se sia una massa, una consolidazione o un\'atelettasia. Il caso è stato riscritto come «opacità da chiarire con la TC» invece di «massa». ',
+    'caso-tcia-171': '[revisione indipendente 26/11/2026] Drenaggio a pigtail nell\'emitorace sinistro, apice sinistro con aria residua nel riquadro NIH, mediastino in asse. Confermato; il pneumotorace residuo è piccolo e va cercato con la finestra stretta. ',
+}
 
 FONTE = {
     'archivio': 'NIH Clinical Center, non TCIA',
@@ -82,7 +91,7 @@ def scrivi(caso, png, titolo, titolo_interno, quesito, diff, anamnesi, domanda, 
          'vista': {'serie': 0, 'idx': 0, 'zoom': 1, 'panX': 0, 'panY': 0, 'nota': nota_vista},
          'nota_docente': ('Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (%s, etichette «%s»), convertita da PNG 8 bit 1024×1024 in DICOM DX con '
                           'strumenti_claude/rx/scrivi_166_171.py; pixel %.3f mm (spaziatura originale × riduzione). %s'
-                          'NON ancora rivisto dal medico.' % (png, d['Finding Labels'], sp, extra_nota))}
+                          '%sNON ancora rivisto dal medico.' % (png, d['Finding Labels'], sp, extra_nota, REV.get(caso, '')))}
     if localizza and png in bb:
         c['localizza'] = True; c['vista']['segno'] = segno(png)
     if comunicazione: c['comunicazione'] = comunicazione
@@ -147,6 +156,8 @@ scrivi('caso-tcia-168', '00000661_000.png',
        [op('Ombra cardiaca ingrandita: rapporto cardio-toracico superiore a 0,5', True, 'principale', 0,
            'Diametro trasverso massimo del cuore diviso per il diametro interno massimo del torace, sulla stessa PA.'),
         op('Campi polmonari senza versamento né edema alveolare evidenti', True, 'secondario', 0),
+        op('Fili metallici di sternotomia e clip chirurgiche nel mediastino: pregresso intervento cardiochirurgico', True, 'secondario', 0,
+           'Un reperto da riportare sempre: dopo un intervento sul cuore (bypass, valvole) l\'ombra cardiaca è spesso grande.'),
         op('Versamento pericardico certo', False, 'distrattore', 0,
            'Sulla RX un cuore grande non distingue tra dilatazione delle camere e versamento pericardico: serve l\'ecocardiogramma.'),
         op('Edema polmonare alveolare bilaterale «ad ali di farfalla»', False, 'distrattore', 0),
@@ -158,7 +169,8 @@ scrivi('caso-tcia-168', '00000661_000.png',
        'Il rapporto cardio-toracico (RCT) si misura solo in PA in buona inspirazione: diametro trasverso massimo del cuore (dalla linea mediana al bordo destro più quella '
        'al bordo sinistro) diviso per il diametro interno massimo del torace. Oltre 0,5 è cardiomegalia. In AP, in espirazione o con il paziente sdraiato il cuore appare '
        'più grande e il valore non è affidabile. La RX non distingue camere dilatate, ipertrofia e versamento pericardico: per questo si fa l\'ecocardiogramma. '
-       'Cerca anche i segni di scompenso: ridistribuzione vascolare, linee B di Kerley, versamenti.',
+       'Cerca anche i segni di scompenso (ridistribuzione vascolare, linee B di Kerley, versamenti) e quelli di interventi precedenti: '
+       'fili di sternotomia, clip, protesi valvolari, pacemaker.',
        'RCT > 0,5 solo in PA ben inspirata; poi cerca i segni di scompenso.',
        'Ombra cardiaca ingrandita')
 
@@ -188,26 +200,28 @@ scrivi('caso-tcia-169', '00012374_000.png',
 
 # ---------------------------------------------------------------- 170 massa
 scrivi('caso-tcia-170', '00022192_003.png',
-       'RX torace (5/6): uomo di 73 anni', 'Massa del campo superiore destro (NIH 00022192_003, riquadro «Mass»)',
+       'RX torace (5/6): uomo di 73 anni', 'Opacità del lobo superiore destro: massa, consolidazione o atelettasia (NIH 00022192_003, etichetta «Mass»)',
        'non fornito', 'Intermedio',
        'Uomo di 73 anni. RX del torace in proiezione PA. La collezione non fornisce sintomi né motivo dell\'esame.',
-       'Descrivi la lesione, indicala sull\'immagine e scegli il passo successivo.',
-       [op('Grande opacità (massa) nel campo polmonare superiore destro', True, 'principale', 0,
-           'Riquadro dei radiologi del NIH nel campo superiore destro.'),
-        op('Lesione di diametro superiore a 3 cm: si parla di massa, non di nodulo', True, 'secondario', 0),
+       'Descrivi l\'opacità, indicala sull\'immagine e scegli il passo successivo.',
+       [op('Opacità del campo polmonare superiore destro con margine inferiore netto e orizzontale (sulla scissura orizzontale)', True, 'principale', 0,
+           'Riquadro dei radiologi del NIH nel campo superiore destro (etichetta «Mass»).'),
+        op('Dalla sola RX non si distingue tra massa, consolidazione e atelettasia del lobo superiore destro: serve un altro esame', True, 'secondario', 0),
         op('Versamento pleurico destro massivo', False, 'distrattore', 0),
         op('Pneumotorace apicale destro', False, 'distrattore', 0),
         op('Cardiomegalia', False, 'distrattore', 0),
-        op('Massa polmonare in un paziente anziano: TC del torace con mezzo di contrasto (e dell\'addome superiore) per caratterizzare e stadiare, poi diagnosi istologica', True, 'secondario', 1),
+        op('Opacità del lobo superiore destro in un paziente di 73 anni: TC del torace con mezzo di contrasto per cercare una massa (anche dentro o dietro un\'atelettasia) e, se c\'è, stadiarla', True, 'secondario', 1),
         op('Polmonite: solo antibiotico, nessun controllo', False, 'distrattore', 1),
         op('Nessun accertamento: reperto di nessun rilievo', False, 'distrattore', 1)],
-       'Un\'opacità polmonare oltre i 3 cm è una massa: nell\'adulto e nell\'anziano fumatore va considerata un tumore finché non si dimostra il contrario. '
-       'La RX ne dice la sede, ma non basta: la TC con mezzo di contrasto la caratterizza (margini, cavitazione, rapporti con mediastino e parete), cerca linfonodi '
-       'e metastasi e guida la biopsia. Una polmonite può somigliare a una massa: se si sceglie l\'antibiotico, la RX di controllo dopo 6-8 settimane è obbligatoria, '
-       'perché una «polmonite che non guarisce» può nascondere un tumore. Cerca sempre anche erosioni costali, versamento, sollevamento del diaframma (paralisi del frenico).',
-       'Oltre 3 cm è una massa: TC con mezzo di contrasto e istologia; non fermarti all\'antibiotico.',
-       'Massa campo superiore destro',
-       extra_nota='Lettura di Claude da confermare: opacità del campo superiore destro con margine inferiore netto e orizzontale; oltre a una massa va considerata una consolidazione o atelettasia del lobo superiore destro (l\'etichetta della collezione è «Mass»). ')
+       'Un\'opacità che riempie il lobo superiore destro e si ferma con un margine netto e orizzontale è delimitata dalla scissura orizzontale. '
+       'Le cause principali sono tre: consolidazione (polmonite: volume conservato, broncogramma aereo), atelettasia (perdita di volume: scissura che sale, '
+       'ilo e trachea tirati verso l\'alto e verso destra) e massa. Una massa all\'ilo che chiude il bronco dà un\'atelettasia con il margine a «S» '
+       '(segno di Golden): è il quadro da non perdere nell\'anziano fumatore. Per questo un\'opacità del lobo superiore a questa età si studia con la TC con '
+       'mezzo di contrasto; se si tratta come polmonite, la RX di controllo dopo 6-8 settimane è obbligatoria, perché una «polmonite che non guarisce» '
+       'può nascondere un tumore.',
+       'Opacità lobare nell\'anziano: cerca perdita di volume e massa all\'ilo; poi TC, oppure controllo obbligato dopo l\'antibiotico.',
+       'Opacità lobo superiore destro',
+       extra_nota='Etichetta NIH «Mass»; la lettura sull\'immagine non permette di confermarla. ')
 
 # ---------------------------------------------------------------- 171 pneumotorace con drenaggio
 scrivi('caso-tcia-171', '00028861_009.png',

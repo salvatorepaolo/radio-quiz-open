@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-168",
  "visibile": true,
- "aggiornato": "2026-11-26 19:29",
+ "aggiornato": "2026-11-26 19:45",
  "titolo": "RX torace (3/6): uomo di 57 anni",
  "titolo_interno": "Cardiomegalia (NIH 00000661_000, riquadro «Cardiomegaly»)",
  "distretto": "Torace",
@@ -34,6 +34,13 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0
+  },
+  {
+   "testo": "Fili metallici di sternotomia e clip chirurgiche nel mediastino: pregresso intervento cardiochirurgico",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Un reperto da riportare sempre: dopo un intervento sul cuore (bypass, valvole) l'ombra cardiaca è spesso grande."
   },
   {
    "testo": "Versamento pericardico certo",
@@ -74,7 +81,7 @@
    "sezione": 1
   }
  ],
- "spiegazione": "Il rapporto cardio-toracico (RCT) si misura solo in PA in buona inspirazione: diametro trasverso massimo del cuore (dalla linea mediana al bordo destro più quella al bordo sinistro) diviso per il diametro interno massimo del torace. Oltre 0,5 è cardiomegalia. In AP, in espirazione o con il paziente sdraiato il cuore appare più grande e il valore non è affidabile. La RX non distingue camere dilatate, ipertrofia e versamento pericardico: per questo si fa l'ecocardiogramma. Cerca anche i segni di scompenso: ridistribuzione vascolare, linee B di Kerley, versamenti.",
+ "spiegazione": "Il rapporto cardio-toracico (RCT) si misura solo in PA in buona inspirazione: diametro trasverso massimo del cuore (dalla linea mediana al bordo destro più quella al bordo sinistro) diviso per il diametro interno massimo del torace. Oltre 0,5 è cardiomegalia. In AP, in espirazione o con il paziente sdraiato il cuore appare più grande e il valore non è affidabile. La RX non distingue camere dilatate, ipertrofia e versamento pericardico: per questo si fa l'ecocardiogramma. Cerca anche i segni di scompenso (ridistribuzione vascolare, linee B di Kerley, versamenti) e quelli di interventi precedenti: fili di sternotomia, clip, protesi valvolari, pacemaker.",
  "regola": "RCT > 0,5 solo in PA ben inspirata; poi cerca i segni di scompenso.",
  "esito_clinico": {
   "tipo": "altro",
@@ -110,6 +117,6 @@
    }
   }
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00000661_000.png, etichette «Cardiomegaly»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). NON ancora rivisto dal medico.",
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00000661_000.png, etichette «Cardiomegaly»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.383 mm (spaziatura originale × riduzione). [revisione indipendente 26/11/2026] Cuore grande confermato; trovati fili di sternotomia e clip chirurgiche (pregresso intervento cardiochirurgico), aggiunti come reperto. NON ancora rivisto dal medico.",
  "localizza": true
 }

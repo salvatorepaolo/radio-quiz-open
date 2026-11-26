@@ -9829,10 +9829,10 @@
    ]
   },
   "soloPrincipale": {
-   "p": 33,
+   "p": 25,
    "ok": false,
    "sez": [
-    50,
+    33,
     0
    ]
   },
@@ -9853,23 +9853,23 @@
    ]
   },
   "conDistrattore": {
-   "p": 67,
+   "p": 75,
    "ok": false,
    "sez": [
-    50,
+    67,
     100
    ]
   },
   "refertoGiusto": {
    "p": 85,
-   "citati": 3,
-   "attesi": 3,
+   "citati": 4,
+   "attesi": 4,
    "errori": 1
   },
   "refertoSbagliato": {
    "p": 0,
    "citati": 1,
-   "attesi": 3,
+   "attesi": 4,
    "errori": 4
   },
   "punto": "centrato",

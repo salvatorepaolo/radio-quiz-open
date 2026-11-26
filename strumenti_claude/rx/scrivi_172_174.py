@@ -13,6 +13,11 @@ CASI = '/Volumes/Caloggero/piattaforma-quiz/casi-free'
 FA = '/Volumes/Caloggero/piattaforma-quiz/_tcia_grezzi/fracatlas/FracAtlas'
 DX = '1.2.840.10008.5.1.4.1.1.1.1'
 OGGI = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+REV = {
+    'caso-tcia-172': '[revisione indipendente 26/11/2026] Linee di frattura nel radio distale nel riquadro della collezione, ulna integra in AP; manca la laterale per lo spostamento. Confermato. ',
+    'caso-tcia-173': '[revisione indipendente 26/11/2026] Linea obliqua nella diafisi tibiale (passaggio tra terzo medio e distale), allineamento conservato, cartilagini di ginocchio e caviglia aperte (bambino). Confermato. ',
+    'caso-tcia-174': '[revisione indipendente 26/11/2026] Corticali di radio e ulna continue, carpo allineato, metacarpi e falangi integri. Confermato senza fratture visibili. ',
+}
 coco = json.load(open(glob.glob(FA + '/Annotations/COCO JSON/*.json')[0]))
 idn = {i['id']: i['file_name'] for i in coco['images']}
 BOX = {}
@@ -79,7 +84,7 @@ def scrivi(caso, jpg, desc, parte, distretto, titolo, titolo_interno, quesito, d
          'vista': {'serie': 0, 'idx': 0, 'zoom': 1, 'panX': 0, 'panY': 0, 'nota': nota_vista},
          'nota_docente': ('Caso creato da Claude il 26/11/2026: FracAtlas %s (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel '
                           '(la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (%d). '
-                          'Età, sesso e dinamica non forniti dalla fonte. %sNON ancora rivisto dal medico.' % (jpg, tolti, extra))}
+                          'Età, sesso e dinamica non forniti dalla fonte. %s%sNON ancora rivisto dal medico.' % (jpg, tolti, extra, REV.get(caso, '')))}
     if jpg in BOX:
         x, y, w, h = BOX[jpg][0]; c['localizza'] = True
         c['vista']['segno'] = {'a': {'x': round(x), 'y': round(y)}, 'b': {'x': round(x + w), 'y': round(y + h)}}

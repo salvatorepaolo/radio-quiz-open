@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-172",
  "visibile": true,
- "aggiornato": "2026-11-26 19:29",
+ "aggiornato": "2026-11-26 19:45",
  "titolo": "RX polso destro dopo un trauma: dolore e tumefazione",
  "titolo_interno": "Frattura del radio distale (FracAtlas IMG0002355)",
  "distretto": "Muscolo-scheletrico",
@@ -109,7 +109,7 @@
    }
   }
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026: FracAtlas IMG0002355.jpg (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel (la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (1). Età, sesso e dinamica non forniti dalla fonte. NON ancora rivisto dal medico.",
+ "nota_docente": "Caso creato da Claude il 26/11/2026: FracAtlas IMG0002355.jpg (2304×2880), convertita da JPG 8 bit in DICOM DX senza spaziatura dei pixel (la fonte non la dà: niente misure in mm) con strumenti_claude/rx/scrivi_172_174.py; logo della struttura coperto (1). Età, sesso e dinamica non forniti dalla fonte. [revisione indipendente 26/11/2026] Linee di frattura nel radio distale nel riquadro della collezione, ulna integra in AP; manca la laterale per lo spostamento. Confermato. NON ancora rivisto dal medico.",
  "localizza": true,
  "comunicazione": {
   "livello": "differita",

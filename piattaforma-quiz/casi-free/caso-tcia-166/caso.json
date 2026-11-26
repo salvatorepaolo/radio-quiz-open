@@ -1,7 +1,7 @@
 {
  "id": "caso-tcia-166",
  "visibile": true,
- "aggiornato": "2026-11-26 19:29",
+ "aggiornato": "2026-11-26 19:45",
  "titolo": "RX torace (1/6): uomo di 44 anni",
  "titolo_interno": "RX del torace nei limiti della norma (NIH 00002246_000, «No Finding»)",
  "distretto": "Torace",
@@ -109,5 +109,5 @@
   "panY": 0,
   "nota": "RX del torace normale"
  },
- "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00002246_000.png, etichette «No Finding»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Etichetta NLP «No Finding» (non è un riquadro di radiologo): normalità verificata solo da Claude sull'immagine. NON ancora rivisto dal medico."
+ "nota_docente": "Caso creato da Claude il 26/11/2026 dalla collezione NIH ChestX-ray14 (00002246_000.png, etichette «No Finding»), convertita da PNG 8 bit 1024×1024 in DICOM DX con strumenti_claude/rx/scrivi_166_171.py; pixel 0.418 mm (spaziatura originale × riduzione). Etichetta NLP «No Finding» (non è un riquadro di radiologo): normalità verificata solo da Claude sull'immagine. [revisione indipendente 26/11/2026] Campi polmonari trasparenti, seni liberi, ili e mediastino regolari, cuore nei limiti: confermata la normalità. NON ancora rivisto dal medico."
 }
