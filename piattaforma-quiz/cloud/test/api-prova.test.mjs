@@ -45,6 +45,13 @@ test('regole pure: robot, motivo della revisione, nota dopo la revisione', () =>
   assert.match(c, /NON ancora rivisto/); assert.match(c, /da correggere: il lato è sbagliato$/);
 });
 
+test('DynamoDB: i campi nuovi dell\'account si salvano davvero (EXTRA in lambda.mjs; il simulatore salva tutto)', async () => {
+  const fs = await import('node:fs');
+  const src = fs.readFileSync(path.join(QUI, '../api/lambda.mjs'), 'utf8'), m = src.match(/const EXTRA = \[([^\]]*)\]/);
+  const extra = m[1].split(',').map((x) => x.trim().replace(/^'|'$/g, ''));
+  for (const k of ['revisore', 'settimana', 'settimanaInviata', 'avvisi', 'sfide']) assert.ok(extra.includes(k), k);
+});
+
 test('caso della settimana per email: solo a chi lo chiede, una volta per caso, solo nella sua settimana', async () => {
   const acc = [{ id: 'a1', nome: 'Ada', email: 'a@x.it', settimana: true }, { id: 'a2', nome: 'Bea', email: 'b@x.it' },
     { id: 'a3', nome: 'Cleo', email: 'c@x.it', settimana: true, settimanaInviata: '2026-11-23' }, { id: 'a4', nome: 'Dino', email: 'd@x.it', settimana: true, stato: 'attesa' }];
