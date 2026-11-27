@@ -1709,9 +1709,9 @@ function densitaVasiA(R, corpo, soglia) {
   medie.sort((a, b) => a - b);
   return medie.length >= 3 ? medie[Math.floor(medie.length * 0.85)] : null;
 }
-function vasi(R, corpo) {
+function vasi(R, corpo, conCalcio = OPZ_VASI.calcio) {
   const { r, W, H, N } = R, n = W * H * N, ct = VOL.unita === 'HU', vv = R.sp[0] * R.sp[1] * R.sp[2];
-  let lo, semeOsso = 450, dv = null;
+  let lo, semeOsso = 450, dv = null, calc = null;
   if (ct) { dv = densitaVasi(R, corpo); lo = dv ? Math.max(140, dv * 0.6) : 160; if (dv) semeOsso = Math.max(450, Math.round(dv * 1.4 + 60)); }
   else { const c = []; let mx = 0; for (let p = 0; p < n; p += 13) if (r[p] > mx) mx = r[p];
     for (let p = 0; p < n; p += 13) if (r[p] > mx * 0.03) c.push(r[p]); c.sort((a, b) => a - b); lo = c[Math.floor(c.length * 0.985)] || mx / 2; }
@@ -1722,7 +1722,8 @@ function vasi(R, corpo) {
     // poi i buchi riempiti strato per strato e un voxel di margine
     let o = new Uint8Array(n); for (let p = 0; p < n; p++) o[p] = R.rmax[p] >= semeOsso ? 1 : 0;
     // le calcificazioni dei vasi non sono osso: prima facevano da seme e si portavano via un pezzo di vaso
-    const calc = OPZ_VASI.calcio ? calcificazioniR(R, o, dv, semeOsso) : null;
+    // prima passata senza la regola: i vasi sicuri, il cui lume fa da riferimento
+    calc = conCalcio && dv >= 250 ? calcificazioniR(R, o, dv, semeOsso, vasi(R, corpo, false).m) : null;
     if (calc) for (let p = 0; p < n; p++) if (calc[p]) o[p] = 0;
     const spong = new Uint8Array(n); for (let p = 0; p < n; p++) spong[p] = r[p] >= 170 ? 1 : 0;
     o = riempiBuchi(dilataIn(o, spong, W, H, N, 5), W, H, N);
@@ -1757,25 +1758,34 @@ function vasi(R, corpo) {
     for (const c of C2) { const vol = c.n * vv / 1000; if (vol < 0.3 || (vol < 8 && nv[c.L] / c.n > 0.25)) via[c.L] = 1; else ncomp++; }
     tot = 0; for (let p = 0; p < n; p++) { if (via[L2[p]]) m[p] = 0; tot += m[p]; }
   } else ncomp = A.ok.reduce((a, b) => a + b, 0);
-  ultimiVasi = { m, R, dv, semeOsso };
+  ultimiVasi = { m, R, dv, semeOsso, calc };
   return { m, soglia: Math.round(lo), componenti: ncomp, tot };
 }
 // Calcificazioni dei vasi (griglia ridotta): componenti dei semi densi piccole (<= 6 cm³) che per almeno un quarto del
-// contorno toccano il lume dei vasi principali (sangue opacizzato, 0,75-1,35 × densità dei vasi, in una regione grande). Solo con i vasi ben opacizzati (≥ 250 HU):
+// contorno toccano il lume dei vasi principali (sangue opacizzato, 0,75-1,35 × densità dei vasi, già riconosciuto come vaso da una prima passata senza la regola). Solo con i vasi ben opacizzati (≥ 250 HU):
 // in fase venosa il midollo osseo ha la densità del sangue e non si distingue.
 let OPZ_VASI = { calcio: true }, ultimiVasi = null;
-function calcificazioniR(R, semi, dv, seme) {
+function calcificazioniR(R, semi, dv, seme, vasiBase) {
   if (!dv || dv < 250) return null;
   const { r, W, H, N } = R, n = W * H * N, WH = W * H, vv = R.sp[0] * R.sp[1] * R.sp[2];
   const { lab, comp } = componenti3d(semi, W, H, N), bordo = new Float64Array(comp.length + 1), sangue = new Float64Array(comp.length + 1);
   const lo = dv * 0.75, hi = Math.min(seme, dv * 1.35);
   // lume dei vasi principali: regioni di sangue opacizzato grandi (il midollo delle coste è piccolo e chiuso nella corticale)
   const bl = new Uint8Array(n); for (let p = 0; p < n; p++) bl[p] = !semi[p] && r[p] >= lo && r[p] < hi ? 1 : 0;
-  const S = componenti3d(bl, W, H, N), maxS = S.comp.reduce((a, c) => Math.max(a, c.n), 0), minS = Math.min(30000 / vv, maxS * 0.25);
-  const lume = new Uint8Array(S.comp.length + 1); for (const c of S.comp) if (c.n >= minS) lume[c.L] = 1;
+  // lume: regioni di sangue opacizzato di almeno 2 cm³ che per almeno metà stanno nei vasi della prima passata
+  // e non racchiuse dall'osso (il midollo di sterno e vertebre tocca la corticale densa per buona parte del contorno)
+  const S = componenti3d(erodi(bl, W, H, N, 1), W, H, N), dentro = new Float64Array(S.comp.length + 1), cont = new Float64Array(S.comp.length + 1), contO = new Float64Array(S.comp.length + 1);
+  for (let p = 0; p < n; p++) { const L = S.lab[p]; if (!L) continue; if (vasiBase[p]) dentro[L]++;
+    const i = p % W, j = ((p / W) | 0) % H, k = (p / WH) | 0;
+    for (const [q, ok] of [[p - 1, i > 0], [p + 1, i < W - 1], [p - W, j > 0], [p + W, j < H - 1], [p - WH, k > 0], [p + WH, k < N - 1]])
+      if (ok && S.lab[q] !== L) { cont[L]++; if (semi[q]) contO[L]++; } }
+  const lume = new Uint8Array(S.comp.length + 1);
+  for (const c of S.comp) if (c.n * vv >= 2000 && dentro[c.L] >= c.n * 0.5 && contO[c.L] < cont[c.L] * 0.2) lume[c.L] = 1;
+  let lm = new Uint8Array(n); for (let p = 0; p < n; p++) if (lume[S.lab[p]]) lm[p] = 1;
+  lm = dilataIn(lm, bl, W, H, N, 2);
   for (let p = 0; p < n; p++) { const L = lab[p]; if (!L) continue; const i = p % W, j = ((p / W) | 0) % H, k = (p / WH) | 0;
     for (const [q, ok] of [[p - 1, i > 0], [p + 1, i < W - 1], [p - W, j > 0], [p + W, j < H - 1], [p - WH, k > 0], [p + WH, k < N - 1]])
-      if (ok && !semi[q]) { bordo[L]++; if (lume[S.lab[q]]) sangue[L]++; } }
+      if (ok && !semi[q]) { bordo[L]++; if (lm[q]) sangue[L]++; } }
   const ok = new Uint8Array(comp.length + 1); let tot = 0;
   for (const c of comp) if (c.n * vv <= 6000 && bordo[c.L] && sangue[c.L] / bordo[c.L] >= 0.25) { ok[c.L] = 1; tot += c.n; }
   if (!tot) return null;
@@ -1791,10 +1801,55 @@ function calcioPerOsso() {
     const R = ridottaC(), dv = densitaVasi(R, corpo3dR().m);
     if (dv) { const seme = Math.max(450, Math.round(dv * 1.4 + 60)), n = R.r.length, s0 = new Uint8Array(n);
       for (let p = 0; p < n; p++) s0[p] = R.rmax[p] >= seme ? 1 : 0;
-      const m = calcificazioniR(R, s0, dv, seme); if (m) c = { m, W: R.W, H: R.H, N: R.N }; }
+      const m = calcificazioniR(R, s0, dv, seme, vasi(R, corpo3dR().m, false).m); if (m) c = { m, W: R.W, H: R.H, N: R.N }; }
   }
   cacheCalcio = { vol: VOL, c };
   return c;
+}
+let vasiSalvati = null;
+export function _salvaVasi() { vasiSalvati = ultimiVasi ? ultimiVasi.m.slice() : null; return !!vasiSalvati; }
+/** confronto con la maschera salvata: voxel aggiunti / tolti e aggiunti lontani (> 3 voxel) dai vasi di prima */
+export function _confrontoVasi() {
+  if (!vasiSalvati || !ultimiVasi || vasiSalvati.length !== ultimiVasi.m.length) return null;
+  const { m, R, semeOsso } = ultimiVasi, { W, H, N } = R, n = W * H * N, vv = R.sp[0] * R.sp[1] * R.sp[2] / 1000;
+  const vic = dilataIn(vasiSalvati, new Uint8Array(n).fill(1), W, H, N, 3), lont = new Uint8Array(n);
+  let ag = 0, to = 0, nl = 0, densi = 0;
+  for (let p = 0; p < n; p++) { if (m[p] && !vasiSalvati[p]) { ag++; if (!vic[p]) { lont[p] = 1; nl++; if (R.rmax[p] >= semeOsso) densi++; } } else if (!m[p] && vasiSalvati[p]) to++; }
+  const { comp } = componenti3d(lont, W, H, N), grandi = comp.filter((c) => c.n * vv >= 0.3).sort((a, b) => b.n - a.n).map((c) => Math.round(c.n * vv * 10) / 10 + '@' + Math.round(c.cz));
+  const cm = (x) => Math.round(x * vv * 100) / 100;
+  return { aggiunti: cm(ag), tolti: cm(to), lontani: cm(nl), lontaniDensi: cm(densi), pezziLontani: grandi.slice(0, 8), prima: cm(vasiSalvati.reduce((a, b) => a + b, 0)), dopo: cm(m.reduce((a, b) => a + b, 0)) };
+}
+/** dataURL PNG: a sinistra proiezione coronale (x, z), a destra sagittale (y, z) */
+export function _mappaConfronto() {
+  if (!vasiSalvati || !ultimiVasi) return null;
+  const { m, R, dv, semeOsso } = ultimiVasi, { W, H, N } = R, n = W * H * N, WH = W * H;
+  const s0 = new Uint8Array(n); for (let p = 0; p < n; p++) s0[p] = R.rmax[p] >= semeOsso ? 1 : 0;
+  const cal = ultimiVasi.calc || new Uint8Array(n);
+  const vic = dilataIn(vasiSalvati, new Uint8Array(n).fill(1), W, H, N, 3);
+  // classe per voxel: 1 prima, 2 aggiunto vicino, 3 aggiunto lontano, 4 calcificazione, 5 tolto (priorità crescente)
+  const zs = Math.max(1, R.sp[2] / R.sp[0]), Hz = Math.round(N * zs), cw = W + H + 10;
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = Hz; const g = cv.getContext('2d'), img = g.createImageData(cw, Hz);
+  const pc = new Uint8Array(W * N), ps = new Uint8Array(H * N);
+  for (let p = 0; p < n; p++) { let c = 0;
+    if (vasiSalvati[p] && !m[p]) c = 5; else if (cal[p] && m[p]) c = 4; else if (m[p] && !vasiSalvati[p]) c = vic[p] ? 2 : 3; else if (m[p]) c = 1;
+    if (!c) continue; const i = p % W, j = ((p / W) | 0) % H, k = (p / WH) | 0;
+    if (c > pc[k * W + i]) pc[k * W + i] = c; if (c > ps[k * H + j]) ps[k * H + j] = c; }
+  const col = [[0, 0, 0], [150, 150, 150], [40, 200, 60], [240, 40, 40], [255, 230, 0], [60, 120, 255]];
+  const su = VOL.assi?.[2]?.[2] >= 0;
+  for (let y = 0; y < Hz; y++) { const k0 = Math.min(N - 1, Math.floor(y / zs)), k = su ? N - 1 - k0 : k0;
+    for (let x = 0; x < cw; x++) { let c = 0; if (x < W) c = pc[k * W + x]; else if (x >= W + 10) c = ps[k * H + (x - W - 10)]; const o = (y * cw + x) * 4, cc = col[c];
+      img.data[o] = cc[0]; img.data[o + 1] = cc[1]; img.data[o + 2] = cc[2]; img.data[o + 3] = 255; } }
+  g.putImageData(img, 0, 0);
+  return cv.toDataURL('image/png');
+}
+export function _fettaConfronto(k) {
+  if (!ultimiVasi) return null;
+  const { m, R, calc } = ultimiVasi, { r, W, H } = R, WH = W * H, o = k * WH, prima = vasiSalvati || m;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d'), img = g.createImageData(W, H);
+  for (let q = 0; q < WH; q++) { const p = o + q, v = Math.max(0, Math.min(255, (r[p] + 160) / 400 * 255)); let c = [v, v, v];
+    if (calc?.[p] && m[p]) c = [255, 230, 0]; else if (m[p] && !prima[p]) c = [240, 40, 40]; else if (m[p]) c = [v * 0.5, v * 0.5 + 60, v * 0.5 + 120];
+    img.data[q * 4] = c[0]; img.data[q * 4 + 1] = c[1]; img.data[q * 4 + 2] = c[2]; img.data[q * 4 + 3] = 255; }
+  g.putImageData(img, 0, 0); return cv.toDataURL('image/png');
 }
 export function _opzioniVasi(o = {}) { Object.assign(OPZ_VASI, o); cacheCalcio = null; return { ...OPZ_VASI }; }
 /** Diagnosi: calcificazioni e lume vicino, quanto ne resta nell'ultima maschera dei vasi (griglia ridotta). */
@@ -1802,7 +1857,7 @@ export function _diagnosiCalcio() {
   if (!ultimiVasi?.dv) return null;
   const { m, R, dv, semeOsso } = ultimiVasi, { r, W, H, N } = R, n = W * H * N, WH = W * H, s0 = new Uint8Array(n);
   for (let p = 0; p < n; p++) s0[p] = R.rmax[p] >= semeOsso ? 1 : 0;
-  const c = calcificazioniR(R, s0, dv, semeOsso);
+  const c = ultimiVasi.calc;
   if (!c) return { dv: Math.round(dv), calcificazioni: 0 };
   const vic = dilataIn(c, new Uint8Array(n).fill(1), W, H, N, 2), vv = R.sp[0] * R.sp[1] * R.sp[2] / 1000;
   let nc = 0, ncm = 0, nl = 0, nlm = 0;
