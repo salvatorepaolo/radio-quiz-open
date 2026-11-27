@@ -979,7 +979,8 @@ export async function promemoria(cfg, oggi = new Date()) {
   }
   // il lunedì: riepilogo settimanale ai docenti
   const riepiloghi = oggi.getUTCDay() === 1 ? await riepilogoDocenti(cfg, oggi) : 0;
-  return { inviati, cancellati, riepiloghi, settimana };
+  const revisori = oggi.getUTCDay() === 1 ? (await avvisoRevisori(cfg, oggi).catch((e) => { console.error('revisori', e?.message || e); return { inviati: 0 }; })).inviati : 0;
+  return { inviati, cancellati, riepiloghi, settimana, ...(revisori ? { revisori } : {}) };
 }
 export const firmaSettimana = (segreto, id) => createHmac('sha256', String(segreto || '')).update('settimana:' + id).digest('hex').slice(0, 24);
 /** Caso della settimana per email (27/11): dal file pubblico settimana.json, a chi l'ha chiesto (settimana: true),
@@ -1004,6 +1005,34 @@ export async function emailSettimana(cfg, oggi = new Date(), leggi = null) {
     } catch (e) { console.error('settimana', e?.message || e); }
   }
   return n;
+}
+/** Avviso ai revisori dei casi (27/11): elenco dei casi da rivedere (stesso criterio della pagina «Casi da rivedere»),
+ *  al più una volta ogni 7 giorni per revisore salvo forza; nota facoltativa dell'amministratore (domande per il medico). */
+export async function avvisoRevisori(cfg, oggi = new Date(), { forza = false, nota = '' } = {}) {
+  const M = cfg.magazzino;
+  if (!cfg.inviaEmail) return { inviati: 0, casi: 0 };
+  const casi = (await M.elencoCasi()).filter((c) => c.visibile !== false).map((c) => ({ c, motivo: motivoRevisione(c) }))
+    .filter((x) => x.motivo && x.c.revisione?.esito !== 'confermato').sort((a, b) => (a.c.id < b.c.id ? -1 : 1));
+  if (!casi.length) return { inviati: 0, casi: 0 };
+  const sito = radice(cfg.indirizzo), soglia = new Date(oggi.getTime() - 6.5 * 86400000).toISOString().slice(0, 16).replace('T', ' ');
+  const testoNota = String(nota || '').trim().slice(0, 4000).split('\n').map((r) => r.trimEnd());
+  let inviati = 0;
+  for (const a of await M.elencoAccount()) {
+    if (!a.revisore || !a.autore || a.ruolo !== 'docente' || !a.email || a.attivo === false || a.stato === 'attesa') continue;
+    if (!forza && (a.avvisi === false || (a.avvisoRevisore && a.avvisoRevisore > soglia))) continue;
+    const r = [`Ciao ${a.nome},`, casi.length === 1 ? 'c\'è 1 caso in attesa della tua revisione medica su Quiz Radiologia:'
+      : `ci sono ${casi.length} casi in attesa della tua revisione medica su Quiz Radiologia:`];
+    casi.slice(0, 25).forEach((x) => r.push(`   – n. ${x.c.id.replace(/^caso-tcia-/, '')} · ${x.c.titolo || x.c.id} (${x.motivo})`));
+    if (casi.length > 25) r.push(`   – … e altri ${casi.length - 25}`);
+    r.push('', 'Per ogni caso: aprilo dalla pagina «Casi da rivedere», controlla immagini, risposte e spiegazione, poi «Confermo» oppure «Da correggere» con una nota.');
+    if (testoNota.some(Boolean)) r.push('', ...testoNota);
+    try {
+      await cfg.inviaEmail(a.email, `Quiz Radiologia: ${casi.length} ${casi.length === 1 ? 'caso' : 'casi'} da rivedere`, corpoEmail(r, `${sito}/#/revisione`,
+        { pulsante: 'Apri i casi da rivedere', piede: 'Ricevi questo messaggio perché sei revisore dei casi di Quiz Radiologia. Puoi disattivare gli avvisi per email dal tuo profilo («Il mio profilo»).' }));
+      await M.scriviAccount({ ...a, avvisoRevisore: oggi.toISOString().slice(0, 16).replace('T', ' ') }); inviati++;
+    } catch (e) { console.error('revisori', e?.message || e); }
+  }
+  return { inviati, casi: casi.length };
 }
 const PIEDE_DOCENTE = 'Ricevi questo messaggio perché sei docente su Quiz Radiologia. Puoi disattivare gli avvisi per email dal tuo profilo («Il mio profilo»).';
 /** Riepilogo settimanale per ogni docente: attività di chi lo ha scelto negli ultimi 7 giorni e compiti in scadenza. */
@@ -2338,6 +2367,12 @@ export async function gestisci(req, cfg) {
     const ord = (a, b) => (a.id < b.id ? -1 : 1);
     return json(200, { daRivedere: l.filter((c) => c.motivo && c.revisione?.esito !== 'confermato').sort(ord),
       rivisti: l.filter((c) => c.revisione).sort((a, b) => String(b.revisione.data).localeCompare(String(a.revisione.data))).slice(0, 200) });
+  }
+
+  // avviso ai revisori per email, subito (solo amministratore), con nota facoltativa
+  if (parti[1] === 'revisione' && parti[2] === 'avvisa' && parti.length === 3 && metodo === 'POST') {
+    if (!admin) return json(403, { errore: 'solo l\'amministratore' });
+    return json(200, await avvisoRevisori(cfg, new Date(), { forza: true, nota: String(dati?.nota || '') }));
   }
 
   // ---------------- casi

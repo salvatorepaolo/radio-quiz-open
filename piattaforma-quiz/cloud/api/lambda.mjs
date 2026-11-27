@@ -45,7 +45,7 @@ const firmaCaricamento = (chiave) => urlFirmato({ bucket: BUCKET_SITO, regione: 
 
 // account: pk "ACCOUNT", sk = id
 // i dati dell'iscrizione (impronta della password, categoria, docenti scelti, gettoni di conferma…) stanno in «dati» (JSON)
-const EXTRA = ['pw', 'categoria', 'sede', 'anno', 'docenti', 'stato', 'conferma', 'reset', 'noDocente', 'avvisi', 'errori', 'bloccatoFino', 'ultimoInvio', 'privacy', 'condizioni', 'sessioneDa', 'avvisoInattivo', 'google', 'linkedin', 'sfide', 'revisore', 'settimana', 'settimanaInviata'];   // 27/11: revisore dei casi, caso della settimana per email
+const EXTRA = ['pw', 'categoria', 'sede', 'anno', 'docenti', 'stato', 'conferma', 'reset', 'noDocente', 'avvisi', 'errori', 'bloccatoFino', 'ultimoInvio', 'privacy', 'condizioni', 'sessioneDa', 'avvisoInattivo', 'google', 'linkedin', 'sfide', 'revisore', 'settimana', 'settimanaInviata', 'avvisoRevisore'];   // 27/11: revisore dei casi, caso della settimana per email
 const daItem = (i) => {
   if (!i) return i;
   let extra = {};
