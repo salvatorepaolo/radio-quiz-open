@@ -130,6 +130,7 @@ function pannelloAccesso(nome) {
   if (!numeriVetrina.fatto) { numeriVetrina.fatto = true; numeriVetrina(); }
   qsAll('#vista-accesso [data-pannello]').forEach((el) => { el.hidden = el.dataset.pannello !== nome; });
   $('#acc-presenta').hidden = nome !== 'iscriviti' && nome !== 'entra';
+  if ($('#hv-eroe')) $('#hv-eroe').hidden = $('#acc-presenta').hidden;
   // la pagina di iscrizione ha un indirizzo suo (radio-quiz.it/#/iscriviti), da condividere
   if (nome === 'iscriviti' && location.hash !== '#/iscriviti') history.replaceState(null, '', '#/iscriviti');
   else if (nome !== 'iscriviti' && location.hash === '#/iscriviti') history.replaceState(null, '', '#/');
