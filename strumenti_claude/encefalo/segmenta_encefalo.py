@@ -32,7 +32,7 @@ ARTERIE = ["", "ACA sin", "ACA dx", "lenticolostriate mediali sin", "lenticolost
            "lenticolostriate laterali dx", "ACM frontale sin", "ACM frontale dx", "ACM parietale sin", "ACM parietale dx", "ACM temporale sin",
            "ACM temporale dx", "ACM occipitale sin", "ACM occipitale dx", "ACM insulare sin", "ACM insulare dx", "ACP temporale sin",
            "ACP temporale dx", "ACP occipitale sin", "ACP occipitale dx", "coroidee posteriori e talamoperforanti sin",
-           "coroidee posteriori e talamoperforanti dx", "coroidea anteriore e talamoperforanti sin", "coroidea anteriore e talamoperforanti dx",
+           "coroidee posteriori e talamoperforanti dx", "coroidea anteriore (carotide interna) sin", "coroidea anteriore (carotide interna) dx",
            "basilare sin", "basilare dx", "cerebellare superiore sin", "cerebellare superiore dx", "cerebellari inferiori sin",
            "cerebellari inferiori dx"]
 

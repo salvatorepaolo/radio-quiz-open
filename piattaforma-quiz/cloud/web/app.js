@@ -5638,7 +5638,7 @@ function nomeAtlante(d, q) {
   const v = etichettaIn(d, q), n = d.geo.etichette[v]; if (!v) return '';
   const lato = AE.scomponi(n).lato, sl = lato ? ` ${lato === 'sin' ? 'sin.' : 'dx'}` : '';
   if (ATL.modo === 'giri') return AE.nomeStruttura(n);
-  if (ATL.modo === 'lobi') { const l = etichettaIn(strato(d, 'lobi'), q), L = AE.LOBI[l]?.[0]; return L ? `${L}${sl} · ${AE.nomeStruttura(n).replace(/ (sin\.|dx)$/, '')}` : AE.nomeStruttura(n); }
+  if (ATL.modo === 'lobi') { const l = etichettaIn(strato(d, 'lobi'), q), L = AE.nomeLobo(l, n); return L ? `${L}${sl} · ${AE.nomeStruttura(n).replace(/ (sin\.|dx)$/, '')}` : AE.nomeStruttura(n); }
   const o = strato(d, ATL.modo), a = o && AE.arteria(etichettaIn(o, q));
   if (!a) return AE.nomeStruttura(n);
   return (ATL.modo === 'arterie' ? `territorio dell'${AE.PRINCIPALI[a.p][0]}` : a.n) + ` ${a.lato === 'sin' ? 'sin.' : 'dx'}`;
@@ -5686,7 +5686,7 @@ function pannelloAtlante() {
       <label class="small"><input type="checkbox" id="atl-nomi"${ATL.nomi ? ' checked' : ''}> Nome sotto il puntatore</label>
       <label class="small">Opacità <input type="range" id="atl-opac" min="0.15" max="0.85" step="0.05" value="${ATL.opac}"></label>
       <div class="atl-legenda">${legendaAtlante(d)}</div>
-      <p class="small muted">Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}. Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
+      <p class="small muted">Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}. Nelle lesioni il colore indica la sede anatomica stimata, non il tessuto. I territori sono quelli più frequenti: variano da persona a persona (varianti del poligono di Willis). Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
   }
   box.innerHTML = testa + corpo;
   $('#atl-chiudi').onclick = () => { box.hidden = true; };

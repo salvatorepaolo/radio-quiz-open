@@ -6,7 +6,7 @@
 
 // ---------------------------------------------------------------- nomi italiani
 const GIRI = {
-  bankssts: 'banca del solco temporale superiore', caudalanteriorcingulate: 'cingolo anteriore (parte caudale)',
+  bankssts: 'sponde del solco temporale superiore', caudalanteriorcingulate: 'cingolo anteriore (parte caudale)',
   caudalmiddlefrontal: 'giro frontale medio (parte caudale)', cuneus: 'cuneo', entorhinal: 'corteccia entorinale', fusiform: 'giro fusiforme',
   inferiorparietal: 'lobulo parietale inferiore', inferiortemporal: 'giro temporale inferiore', isthmuscingulate: 'istmo del cingolo',
   lateraloccipital: 'corteccia occipitale laterale', lateralorbitofrontal: 'corteccia orbitofrontale laterale', lingual: 'giro linguale',
@@ -45,7 +45,7 @@ export const eAtlanteEncefalo = (n) => /^ctx-(lh|rh)-|^(Left|Right)-(Cerebral|Ce
 export const LOBI = {
   1: ['lobo frontale', [72, 120, 230]], 2: ['lobo parietale', [236, 190, 50]], 3: ['lobo temporale', [70, 190, 110]],
   4: ['lobo occipitale', [228, 82, 82]], 5: ['insula', [170, 110, 220]], 6: ['lobo limbico', [40, 200, 210]],
-  7: ['nuclei della base e talamo', [235, 150, 190]], 8: ['tronco encefalico', [190, 160, 120]], 9: ['cervelletto', [150, 200, 150]],
+  7: ['nuclei della base, talamo e diencefalo', [235, 150, 190]], 8: ['tronco encefalico', [190, 160, 120]], 9: ['cervelletto', [150, 200, 150]],
   10: ['corpo calloso', [230, 230, 230]],
 };
 const DEL_LOBO = {
@@ -65,6 +65,8 @@ export function loboDi(n) {
   if (/^CC_/.test(s.base)) return 10;
   return 0;                                   // sostanza bianca (si assegna al lobo più vicino), ventricoli, liquor
 }
+// nome del lobo per il puntatore: il lobulo paracentrale è a cavallo tra frontale (parte anteriore) e parietale
+export function nomeLobo(l, n) { return scomponi(n).base === 'paracentral' ? 'lobi frontale e parietale' : LOBI[l]?.[0] || ''; }
 // colore del giro: tinta del lobo, chiarezza diversa per ogni giro
 export function coloreStruttura(n) {
   const s = scomponi(n), l = loboDi(n);
@@ -79,6 +81,7 @@ export function coloreStruttura(n) {
 export const PRINCIPALI = {
   ACA: ['arteria cerebrale anteriore', [70, 130, 240]], ACM: ['arteria cerebrale media', [235, 90, 70]],
   ACP: ['arteria cerebrale posteriore', [80, 190, 100]], VB: ['sistema vertebro-basilare', [175, 110, 220]],
+  CI: ['arteria coroidea anteriore (dalla carotide interna)', [170, 140, 20]],
 };
 const T = (n, p, c) => ({ n, p, c });
 export const ARTERIE = {
@@ -87,9 +90,11 @@ export const ARTERIE = {
   9: T('ACM, rami parietali', 'ACM', [245, 130, 50]), 11: T('ACM, rami temporali', 'ACM', [240, 200, 60]),
   13: T('ACM, rami occipitali', 'ACM', [250, 150, 150]), 15: T('ACM, rami insulari', 'ACM', [220, 100, 160]),
   17: T('ACP, rami temporali', 'ACP', [90, 200, 110]), 19: T('ACP, rami occipitali', 'ACP', [40, 150, 80]),
-  21: T('coroidee posteriori e talamoperforanti (ACP)', 'ACP', [110, 220, 200]), 23: T('coroidea anteriore e talamoperforanti', 'ACP', [160, 220, 120]),
-  25: T('arteria basilare', 'VB', [160, 90, 210]), 27: T('arteria cerebellare superiore', 'VB', [200, 150, 240]),
-  29: T('arterie cerebellari inferiori', 'VB', [140, 120, 200]),
+  21: T('coroidee posteriori e talamoperforanti (ACP)', 'ACP', [110, 220, 200]),
+  // coroidea anteriore: l'atlante JHU la raggruppa con i territori posteriori, ma nasce dalla carotide interna
+  23: T('arteria coroidea anteriore (carotide interna)', 'CI', [170, 140, 20]),
+  25: T('arteria basilare (perforanti del tronco)', 'VB', [160, 90, 210]), 27: T('arteria cerebellare superiore', 'VB', [200, 150, 240]),
+  29: T('arterie cerebellari inferiori (anteriore e posteriore)', 'VB', [140, 120, 200]),
 };
 // i numeri dispari sono a sinistra, i pari a destra (stesso territorio)
 export function arteria(v) { const a = ARTERIE[v % 2 ? v : v - 1]; return a ? { ...a, lato: v % 2 ? 'sin' : 'dx' } : null; }
