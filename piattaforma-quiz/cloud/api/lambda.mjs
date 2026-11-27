@@ -345,7 +345,7 @@ export async function handler(event) {
       metodo: event.requestContext?.http?.method || 'GET',
       percorso: event.rawPath || '/',
       query: event.queryStringParameters || {},
-      headers: { cookie: cookieHeader, 'user-agent': event.headers?.['user-agent'] || '' },
+      headers: { cookie: cookieHeader, 'user-agent': event.headers?.['user-agent'] || '', referer: event.headers?.referer || '' },
       corpo,
     }, { hashAdmin: HASH_ADMIN, segreto: SEGRETO, magazzino, firmaCaricamento, inviaEmail, indirizzo: INDIRIZZO, istanza: ISTANZA, traffico, creazione, avvisiA: RISPONDI_A || '',
       google: GOOGLE_ID && GOOGLE_SEGRETO ? { id: GOOGLE_ID, segreto: GOOGLE_SEGRETO } : null,

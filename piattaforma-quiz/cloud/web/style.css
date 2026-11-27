@@ -2767,3 +2767,16 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .rv-casi { margin: 0 0 1.2rem; }
 .rvc-lista { display: grid; gap: .45rem; padding-left: 1.4rem; }
 @media (max-width: 700px) { .guida-barra { font-size: .9rem; padding: .45rem .7rem; } .guida-barra .gb-testo > span { display: block; } .hv-cta .hv-prova { order: -1; width: 100%; } }
+
+/* 27/11: passaparola, casi da condividere, attestato pronto */
+.esito-condividi.forte { padding: .7rem .9rem; border-radius: 10px; background: var(--accento-tenue, #e8f1ff); border: 1px solid var(--bordo, #cfd8e3); }
+.esito-condividi .ec-tit { margin: 0 0 .45rem; }
+.manda-caso { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .7rem; margin: .5rem 0; }
+.attestato-pronto { margin: .8rem 0; padding: .8rem 1rem; border-radius: 12px; border: 1px solid #e3c766; background: #fff8e1; color: #3b2f00; }
+.attestato-pronto p { margin: .2rem 0; }
+.cd-lista { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; gap: .6rem; }
+.cd-caso { display: flex; gap: .7rem; align-items: flex-start; }
+.cd-caso img { border-radius: 8px; background: #000; flex: none; }
+.cd-az { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .3rem; }
+.cd-az button { padding: .2rem .55rem; font-size: .85rem; }
+.manda-caso .stato:empty, .cd-box .stato:empty { display: none; }

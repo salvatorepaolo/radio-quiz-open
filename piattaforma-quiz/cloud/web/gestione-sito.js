@@ -29,6 +29,33 @@ function graficoGiorni(giorni, serie, { alto = 190, formato = trNum } = {}) {
     <svg class="tr-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${A.esc(serie.map((s) => s.nome).join(', '))} per giorno">${tacche}${barre}${linee}${etich}</svg>`;
 }
 const trRighe = (voci) => { const m = Math.max(1, ...voci.map((v) => v.n)); return `<ul class="tr-righe">${voci.map((v) => `<li><span class="nome" title="${A.esc(v.nome)}">${A.esc(v.nome)}</span><span class="n">${trNum(v.n)}</span><span class="barra"><span style="width:${(100 * v.n / m).toFixed(1)}%"></span></span></li>`).join('')}</ul>`; };
+// 27/11: da dove arrivano le visite (prima pagina della sessione) e le iscrizioni
+const NOMI_ORIGINI = { instagram: 'Instagram', 'instagram-bio': 'Instagram (link nella bio)', facebook: 'Facebook', linkedin: 'LinkedIn', whatsapp: 'WhatsApp', telegram: 'Telegram',
+  google: 'Google', bing: 'Bing', duckduckgo: 'DuckDuckGo', x: 'X (Twitter)', reddit: 'Reddit', hackernews: 'Hacker News', youtube: 'YouTube', github: 'GitHub', tiktok: 'TikTok',
+  amico: 'Link mandato da un iscritto', diretto: 'Diretto (indirizzo scritto, app, link senza etichetta)', 'altro-sito': 'Altri siti', 'link-caso': 'Link a un caso (origine non nota)', argomenti: 'Pagine per argomento (Google)' };
+function trProvenienze(l) {
+  if (!Array.isArray(l)) return '';
+  const righe = l.map((x) => `<tr><td>${A.esc(NOMI_ORIGINI[x.da] || x.da)}</td><td class="n">${trNum(x.visite)}</td><td class="n">${trNum(x.iscrizioni)}</td><td class="n">${x.visite ? trNum(100 * x.iscrizioni / x.visite, 1) : '–'}</td></tr>`).join('');
+  return `<div class="tr-box" style="margin-bottom:14px"><h3>Da dove arrivano</h3>${l.length ? `<table class="tab"><thead><tr><th>Provenienza</th><th>Visite</th><th>Iscrizioni</th><th>Iscrizioni ogni 100 visite</th></tr></thead><tbody>${righe}</tbody></table>` : '<p class="muted small">Ancora nessun dato: i conteggi partono dal 27/11/2026.</p>'}
+    <p class="muted small">Dalla prima pagina di ogni visita: l'etichetta del link (<code>?da=…</code>) o il sito di provenienza (solo la categoria, mai l'indirizzo). WhatsApp e molte app non dicono da dove arriva la visita: usa i link con l'etichetta, qui sotto.</p></div>`;
+}
+// 27/11: casi di prova da condividere: link con l'anteprima per i social (/c/<caso>) e testo pronto, per canale
+async function trCondividi() {
+  if (!trCondividi.click) {   // una volta sola, alla prima apertura (i moduli a richiesta non eseguono nulla al caricamento)
+    trCondividi.click = true;
+    document.addEventListener('click', async (e) => {
+      const b = e.target.closest?.('.cd-box [data-copia]'); if (!b) return;
+      const m = A.$('#cd-msg');
+      try { await navigator.clipboard.writeText(b.dataset.copia); if (m) m.textContent = 'Copiato: ' + b.dataset.copia.slice(0, 80); } catch { if (m) m.textContent = b.dataset.copia; }
+    });
+  }
+  let p; try { p = await A.getJSON('/api/prova'); } catch { return ''; }
+  if (!p?.casi?.length) return '';
+  const o = location.origin, CANALI = [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['linkedin', 'LinkedIn'], ['whatsapp', 'WhatsApp']];
+  const riga = (c) => `<li class="cd-caso"><img src="/img/condividi/${A.esc(c.id)}.jpg" alt="" width="72" height="72" loading="lazy"><div><b>${A.esc(c.titolo)}</b>${c.id === p.giorno ? ' <span class="badge">caso del giorno</span>' : ''}<div class="muted small">${A.esc(c.domanda || '')}</div>
+    <div class="cd-az">${CANALI.map(([k, n]) => `<button type="button" class="ghost" data-copia="${A.esc(`${o}/c/${c.id}?da=${k}`)}">🔗 ${n}</button>`).join('')}<button type="button" class="ghost" data-copia="${A.esc(`${c.titolo}: che cosa vedi? ${c.domanda || ''} Prova il caso senza iscriverti: ${o}/c/${c.id}?da=social`)}">📝 Testo del post</button></div></div></li>`;
+  return `<div class="tr-box cd-box" style="margin-bottom:14px"><h3>Casi da condividere</h3><p class="muted small">Si aprono senza iscrizione. Il link <code>/c/…</code> mostra sui social l'immagine e la domanda del caso, e conta da dove arrivano le visite. Link per la bio di Instagram: <button type="button" class="ghost" data-copia="${A.esc(`${o}/?da=instagram-bio#/prova`)}">🔗 copia</button> <span class="stato small" id="cd-msg"></span></p><ul class="cd-lista">${p.casi.map(riga).join('')}</ul></div>`;
+}
 // 27/11: dalla visita al primo caso, per capire dove si perdono le persone (percentuale sul passo da cui si parte)
 function trImbuto(i) {
   if (!i) return '';
@@ -71,7 +98,7 @@ async function apriTraffico(n = TR_GIORNI) {
       <div class="tr-box"><h3>Andamento giornaliero</h3>${graficoGiorni(G, [{ k: 'pagine', nome: 'Pagine viste', c: 'var(--acc)' }, { k: 'utenti', nome: 'Persone attive', c: 'var(--warn)', asse2: true }, { k: 'login', nome: 'Accessi', c: 'var(--ok)', asse2: true }])}</div>
       <div class="tr-box"><h3>Pagine più usate</h3>${d.pagine.length ? trRighe(d.pagine.slice(0, 10).map((x) => ({ nome: NOMI_PAGINE[x.p] || x.p, n: x.n }))) : '<p class="muted small">Ancora nessun dato: i conteggi partono da questa versione.</p>'}</div>
     </div>`;
-    h += trImbuto(d.imbuto);
+    h += trImbuto(d.imbuto) + trProvenienze(d.provenienze) + await trCondividi();
     if (d.casi.length) h += `<div class="tr-box" style="margin-bottom:14px"><h3>Casi più aperti</h3>${trRighe(d.casi.map((x) => ({ nome: x.titolo, n: x.n })))}</div>`;
     h += trAws(d.aws);
     h += `<p class="tr-nota">Dal ${A.esc(trData(d.da, true))} · solo totali giornalieri, nessun dato personale. L'amministratore non viene contato; il visualizzatore scaricabile non invia nulla. Aggiornato alle ${A.esc(new Date(d.generato).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }))}.</p>`;

@@ -213,7 +213,7 @@ $('#form-iscrizione').addEventListener('submit', (e) => { e.preventDefault(); co
   if (!controllaPassword()) { $('#msg-accesso').textContent = $('#isc-pw-info').textContent; return; }
   const r = await inviaAccesso('/api/iscrizione', { nome: $('#isc-nome').value, email, password: $('#isc-pw').value,
     categoria: $('#isc-categoria').value, sede: $('#isc-sede').value, anno: $('#isc-categoria').value === 'specializzando' ? $('#isc-anno').value : '',
-    docente: $('#isc-docente').checked, settimana: $('#isc-settimana')?.checked === true, privacy: $('#isc-privacy').checked, maggiorenne: $('#isc-maggiorenne').checked, sito: $('#isc-sito').value });
+    docente: $('#isc-docente').checked, settimana: $('#isc-settimana')?.checked === true, da: ORIGINE, privacy: $('#isc-privacy').checked, maggiorenne: $('#isc-maggiorenne').checked, sito: $('#isc-sito').value });
   if (!r.ok) { $('#msg-accesso').textContent = r.dati.errore || 'Iscrizione non riuscita.'; return; }
   $('#isc-pw').value = $('#isc-pw2').value = ''; controllaPassword();
   avvisoAccesso(r.dati.messaggio + ' Controlla anche la posta indesiderata.', email);
@@ -274,7 +274,7 @@ $('#gg-categoria').addEventListener('change', () => annoVisibile('#gg-categoria'
 $('#form-google').addEventListener('submit', (e) => { e.preventDefault(); conBottone(e.target, async () => {
   const r = await inviaAccesso(`/api/${ESTERNO_NUOVO}/completa`, { nome: $('#gg-nome').value, categoria: $('#gg-categoria').value, sede: $('#gg-sede').value,
     anno: $('#gg-categoria').value === 'specializzando' ? $('#gg-anno').value : '', docente: $('#gg-docente').checked,
-    privacy: $('#gg-privacy').checked, maggiorenne: $('#gg-maggiorenne').checked });
+    privacy: $('#gg-privacy').checked, maggiorenne: $('#gg-maggiorenne').checked, da: ORIGINE });
   if (!r.ok) { $('#msg-accesso').textContent = r.dati.errore || 'Iscrizione non riuscita.'; return; }
   entrato(r.dati, '#/benvenuto');
 }); });
@@ -6187,7 +6187,7 @@ $('#btn-conferma').addEventListener('click', async () => {
       if (pt) { pt.after(az); if (!$('#btn-reperto').hidden) az.append($('#btn-reperto')); if (!$('#btn-prossimo').hidden) az.append($('#btn-prossimo')); if (!az.children.length) az.remove(); }
       { const h = htmlTraccia(r); if (h) { const t = document.createElement('div'); t.innerHTML = h; const dopo = az.isConnected ? az : pt; if (dopo) dopo.after(t.firstElementChild); else $('#q-esito').prepend(t.firstElementChild); } }
       if (!OSPITE) aggiungiCondivisioneCaso(r);
-      dopoRispostaGuidata();
+      dopoRispostaGuidata(); aggiungiMandaCaso();
       disegnaSchema();
       requestAnimationFrame(() => $('#q-esito').scrollIntoView({ block: 'start', behavior: 'smooth' })); }
   } catch (e) {
@@ -6206,8 +6206,9 @@ function aggiungiCondivisioneCaso(r) {
     const g = leggiSessione('quiz-giro', null); if (g?.tipo === 'esame' && g.casi?.includes(V.caso.id)) return;
     qs1('#q-esito .esito-condividi')?.remove();
     const dopo = qs1('#q-esito .esito-azioni') || qs1('#q-esito .esito-testa'); if (!dopo) return;
-    const box = document.createElement('div'); box.className = 'esito-condividi';
-    box.innerHTML = `<button type="button" class="ghost" id="btn-sfida-caso">🏁 Sfida un amico su questo caso</button>${AZIENDA() ? '' : '<button type="button" class="ghost" id="btn-cartolina">📸 Condividi il risultato</button>'}<p class="stato small" id="esito-condividi-msg" role="status"></p><div id="cartolina-box" hidden></div>`;
+    const box = document.createElement('div'); box.className = 'esito-condividi' + (r.punteggio >= 70 ? ' forte' : '');
+    // 27/11: dopo una buona risposta il passaparola in evidenza (ogni sfida è un link mandato a un collega)
+    box.innerHTML = `${r.punteggio >= 70 ? `<p class="ec-tit"><b>${r.perfetta ? 'Risposta esatta!' : 'Bel risultato!'}</b> Sfida un collega su questo caso: vediamo chi lo legge meglio.</p>` : ''}<button type="button" class="${r.punteggio >= 70 ? 'primary' : 'ghost'}" id="btn-sfida-caso">🏁 Sfida un amico su questo caso</button>${AZIENDA() ? '' : '<button type="button" class="ghost" id="btn-cartolina">📸 Condividi il risultato</button>'}<p class="stato small" id="esito-condividi-msg" role="status"></p><div id="cartolina-box" hidden></div>`;
     dopo.after(box);
     const msg = (t) => { const m = $('#esito-condividi-msg'); if (m) m.textContent = t; };
     $('#btn-sfida-caso').onclick = async (e) => {
@@ -6373,6 +6374,33 @@ function iniziaQui() {
   box.hidden = false;
   box.querySelector('[data-iq="caso"]').onclick = () => primoCasoFacile();
   box.querySelector('[data-iq="percorso"]').onclick = () => avviaPercorso(PERCORSO_PRIMO);
+}
+// 27/11: casi di prova (si aprono senza iscrizione): «Manda il caso a un collega» con il link per i social /c/<caso>
+function aggiungiMandaCaso() {
+  if (CLIENT || AZIENDA() || !V.caso) return;
+  elencoProva().then((p) => {
+    if (!p.casi.some((c) => c.id === V.caso?.id) || qs1('#q-esito .manda-caso')) return;
+    const dopo = qs1('#q-esito .esito-condividi') || qs1('#q-esito .guida-dopo') || qs1('#q-esito .esito-azioni') || qs1('#q-esito .esito-testa'); if (!dopo) return;
+    const url = `${location.origin}/c/${V.caso.id}?da=amico`, testo = `${V.caso.titolo || 'Un caso di radiologia'}: che cosa vedi? Si apre senza iscriversi.`;
+    const d = document.createElement('div'); d.className = 'manda-caso';
+    d.innerHTML = `<button type="button" class="ghost" data-manda>🔗 Manda il caso a un collega</button><span class="muted small">Lo apre subito, anche senza account.</span><span class="stato small" data-msg></span>`;
+    d.querySelector('[data-manda]').onclick = async () => {
+      if (navigator.share) { try { await navigator.share({ title: 'Quiz Radiologia', text: testo, url }); return; } catch (e) { if (e?.name === 'AbortError') return; } }
+      try { await navigator.clipboard.writeText(`${testo} ${url}`); d.querySelector('[data-msg]').textContent = 'Link copiato: incollalo in un messaggio.'; } catch { d.querySelector('[data-msg]').textContent = url; }
+    };
+    dopo.after(d);
+  }).catch(() => {});
+}
+// 27/11: percorso appena finito: attestato e LinkedIn in evidenza in testa alla home
+function attestatoPronto() {
+  const id = leggiSessione('quiz-attestato', null); qs1('#attestato-pronto')?.remove();
+  if (!id || !UTENTE) return;
+  const p = PERCORSI.find((x) => x.id === id); if (!p) return;
+  const box = document.createElement('div'); box.id = 'attestato-pronto'; box.className = 'attestato-pronto';
+  box.innerHTML = `<p><b>🎓 Hai completato il percorso «${esc(p.titolo)}».</b> Scarica l'attestato e aggiungilo al tuo profilo LinkedIn: dalla pagina dell'attestato un clic.</p><p class="riga"><button type="button" class="primary" data-att>🎓 Apri l'attestato</button> <button type="button" class="ghost" data-chiudi>Più tardi</button></p>`;
+  box.querySelector('[data-att]').onclick = () => { scriviSessione('quiz-attestato', null); box.remove(); apriAttestato(p); };
+  box.querySelector('[data-chiudi]').onclick = () => { scriviSessione('quiz-attestato', null); box.remove(); };
+  const prima = $('#lista-casi'); if (prima) prima.before(box);
 }
 // revisione dei casi (pagina «Revisione delle bozze», in testa per il revisore)
 async function casiDaRivedere() {
@@ -7615,7 +7643,7 @@ async function apriElenco() {
   let av = $('#avviso-elenco');
   if (!av) { av = Object.assign(document.createElement('p'), { id: 'avviso-elenco', className: 'avviso-ok' }); $('#lista-casi').before(av); }
   av.textContent = avvisoElenco; av.hidden = !avvisoElenco; avvisoElenco = '';
-  disegnaElenco(); numeriHome(); iniziaQui(); mostraSponsor($('#sponsor-home'), 'home');
+  disegnaElenco(); numeriHome(); iniziaQui(); attestatoPronto(); mostraSponsor($('#sponsor-home'), 'home');
 }
 // numeri in testa alla home: casi, metodiche, percorsi e (se c'è) i casi già svolti
 function numeriHome() {
@@ -7843,7 +7871,7 @@ function prossimoGiro() {
   const dopo = g.tipo === 'percorso'
     ? g.casi.slice(i + 1).find((id) => (GIOCO?.casi?.[id] ?? -1) < SOGLIA_SUPERATO) ?? g.casi[i + 1]
     : g.tipo === 'compito' ? g.casi.slice(i + 1).find((id) => GIOCO?.casi?.[id] == null) ?? g.casi[i + 1] : g.casi[i + 1];
-  if (!dopo) { scriviSessione('quiz-giro', null); avvisoElenco = `${{ ripasso: 'Ripasso', compito: 'Compito', percorso: 'Percorso' }[g.tipo]} «${g.titolo}» completato.`; location.hash = '#/'; return true; }
+  if (!dopo) { scriviSessione('quiz-giro', null); avvisoElenco = `${{ ripasso: 'Ripasso', compito: 'Compito', percorso: 'Percorso' }[g.tipo]} «${g.titolo}» completato.`; if (g.tipo === 'percorso') scriviSessione('quiz-attestato', g.id); location.hash = '#/'; return true; }
   location.hash = `#/caso/${dopo}`; return true;
 }
 // ---------------------------------------------------------------- esame simulato
@@ -8407,13 +8435,34 @@ $('#btn-editor').addEventListener('click', () => { location.hash = `#/editor/${V
 // ---------------------------------------------------------------- traffico: pagine viste (solo totali giornalieri, nessun identificativo)
 const PAGINE_VISITA = new Set(['sfida', 'sfide', 'cruscotto', 'vetrini', 'allenamento', 'progressi', 'elenco', 'caso', 'editor', 'nuovo', 'aggiungi', 'analisi', 'esame', 'confronto', 'mie-statistiche', 'proponi', 'errore', 'aiuto', 'profilo',
   'gestione-casi', 'classi', 'percorsi', 'revisione', 'account']);
+// 27/11: provenienza della visita, solo alla prima pagina della sessione: etichetta «?da=» del link (anche dopo il #,
+// che si toglie subito dall'indirizzo) o categoria del sito di origine (instagram, google…); mai l'indirizzo completo
+const ORIGINE = (() => {
+  if (CLIENT) return '';
+  let da = '';
+  try { da = new URLSearchParams(location.search).get('da') || ''; } catch {}
+  const h = location.hash, i = h.indexOf('?');
+  if (i >= 0) { try { da = da || new URLSearchParams(h.slice(i + 1)).get('da') || ''; } catch {} history.replaceState(null, '', location.pathname + location.search + h.slice(0, i)); }
+  let o = String(da).toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30);
+  if (!o) {
+    let host = ''; try { host = document.referrer ? new URL(document.referrer).hostname.toLowerCase() : ''; } catch {}
+    const interno = host && (host === location.hostname || host.endsWith('.radio-quiz.it'));
+    const ORIG = [[/(^|\.)instagram\.com$/, 'instagram'], [/(^|\.)facebook\.com$|(^|\.)fb\.com$|^fb\.me$/, 'facebook'], [/(^|\.)linkedin\.com$|^lnkd\.in$/, 'linkedin'],
+      [/(^|\.)whatsapp\.(com|net)$|^wa\.me$/, 'whatsapp'], [/^t\.me$|(^|\.)telegram\.org$/, 'telegram'], [/(^|\.)google\.[a-z.]+$/, 'google'], [/(^|\.)bing\.com$/, 'bing'],
+      [/(^|\.)duckduckgo\.com$/, 'duckduckgo'], [/^t\.co$|(^|\.)x\.com$|(^|\.)twitter\.com$/, 'x'], [/(^|\.)reddit\.com$/, 'reddit'], [/^news\.ycombinator\.com$/, 'hackernews'],
+      [/(^|\.)youtube\.com$|^youtu\.be$/, 'youtube'], [/(^|\.)github\.com$/, 'github'], [/(^|\.)tiktok\.com$/, 'tiktok']];
+    o = interno ? '' : !host ? 'diretto' : (ORIG.find(([r]) => r.test(host)) || [null, 'altro-sito'])[1];
+  }
+  try { if (o && !sessionStorage.getItem('rq-origine')) sessionStorage.setItem('rq-origine', o); return sessionStorage.getItem('rq-origine') || o; } catch { return o; }
+})();
+
 let ULTIMA_VISITA = '';
 function segnaVisita(p, c = '') {
   if (CLIENT || ADMIN || !CLOUD || FINESTRA_N) return;         // il client scaricabile non invia nulla; l'amministratore e le finestre aggiunte non si contano
   const k = p + '|' + c; if (k === ULTIMA_VISITA) return; ULTIMA_VISITA = k;
   let s = 0; try { if (!sessionStorage.getItem('rq-visita')) { sessionStorage.setItem('rq-visita', '1'); s = 1; } } catch {}
   const m = s && matchMedia('(pointer:coarse)').matches ? 1 : 0;
-  try { fetch('/api/visita', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ p, c, s, m }), keepalive: true, credentials: 'same-origin' }).catch(() => {}); } catch {}
+  try { fetch('/api/visita', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ p, c, s, m, ...(s && ORIGINE ? { o: ORIGINE } : {}) }), keepalive: true, credentials: 'same-origin' }).catch(() => {}); } catch {}
 }
 // Amministrazione: traffico, sponsor, piattaforme dei clienti, statistiche d'uso, iscritti e docenti: in gestione-sito.js, scaricato la prima volta che serve (1.272). Qui il ponte e le funzioni di ingresso.
 const PONTE_GS = { get $() { return $; }, get AZIENDA() { return AZIENDA; }, get CATEGORIE() { return CATEGORIE; }, get ELENCO() { return ELENCO; }, set ELENCO(v) { ELENCO = v; }, get ISTANZA() { return ISTANZA; }, get NonAutorizzato() { return NonAutorizzato; }, get PERCORSI() { return PERCORSI; }, get PERCORSI_FISSI() { return PERCORSI_FISSI; }, get SOGLIA_SUPERATO() { return SOGLIA_SUPERATO; }, get SPONSOR() { return SPONSOR; }, set SPONSOR(v) { SPONSOR = v; }, get UTENTE() { return UTENTE; }, get caricaPercorsi() { return caricaPercorsi; }, get esc() { return esc; }, get getJSON() { return getJSON; }, get normal() { return normal; }, get postJSON() { return postJSON; }, get qsAll() { return qsAll; } };

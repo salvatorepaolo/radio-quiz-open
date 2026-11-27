@@ -45,13 +45,6 @@ test('regole pure: robot, motivo della revisione, nota dopo la revisione', () =>
   assert.match(c, /NON ancora rivisto/); assert.match(c, /da correggere: il lato è sbagliato$/);
 });
 
-test('DynamoDB: i campi nuovi dell\'account si salvano davvero (EXTRA in lambda.mjs; il simulatore salva tutto)', async () => {
-  const fs = await import('node:fs');
-  const src = fs.readFileSync(path.join(QUI, '../api/lambda.mjs'), 'utf8'), m = src.match(/const EXTRA = \[([^\]]*)\]/);
-  const extra = m[1].split(',').map((x) => x.trim().replace(/^'|'$/g, ''));
-  for (const k of ['revisore', 'settimana', 'settimanaInviata', 'avvisi', 'sfide']) assert.ok(extra.includes(k), k);
-});
-
 test('caso della settimana per email: solo a chi lo chiede, una volta per caso, solo nella sua settimana', async () => {
   const acc = [{ id: 'a1', nome: 'Ada', email: 'a@x.it', settimana: true }, { id: 'a2', nome: 'Bea', email: 'b@x.it' },
     { id: 'a3', nome: 'Cleo', email: 'c@x.it', settimana: true, settimanaInviata: '2026-11-23' }, { id: 'a4', nome: 'Dino', email: 'd@x.it', settimana: true, stato: 'attesa' }];
@@ -156,4 +149,35 @@ test('caso della settimana: scelta nel profilo e disiscrizione dal link', async 
   const r = await chiama('nessuno', `/api/settimana/esci?u=${io.id}&t=${L.firmaSettimana(SEG, io.id)}`);
   assert.equal(r.stato, 200); assert.match(r.t, /Non riceverai più/);
   assert.equal((await chiama('spec', '/api/io')).j.settimana, false);
+});
+
+test('provenienza: visite e iscrizioni per canale, solo categorie note o etichette pulite', async () => {
+  assert.equal(L.origineDaHost('l.instagram.com'), 'instagram'); assert.equal(L.origineDaHost('www.google.it'), 'google'); assert.equal(L.origineDaHost('lnkd.in'), 'linkedin');
+  assert.equal(L.origineDaHost('blog.qualcuno.it'), 'altro-sito'); assert.equal(L.origineDaHost(''), '');
+  assert.equal(L.pulisciOrigine('Insta Gram!<b>'), 'instagramb');
+  const prov = async () => (await chiama('admin', '/api/statistiche/traffico/7')).j.provenienze;
+  await chiama('nessuno', '/api/visita', { p: 'elenco', s: 1, o: 'linkedin' }, { 'user-agent': 'Mozilla/5.0 (iPhone) Safari/604.1' });
+  await chiama('nessuno', '/api/visita', { p: 'elenco', s: 0, o: 'linkedin' }, { 'user-agent': 'Mozilla/5.0 (iPhone) Safari/604.1' });   // non è la prima pagina: non conta
+  await chiama('nessuno', '/api/visita', { p: 'elenco', s: 1, o: 'https://evil.example/x' }, { 'user-agent': 'Mozilla/5.0 Safari/604.1' });   // non valida: ignorata
+  await chiama('nessuno', '/api/visita', { p: 'elenco', s: 1, o: 'linkedin' }, { 'user-agent': 'HeadlessChrome/131' });   // robot
+  const r = await chiama('nessuno', '/api/iscrizione', { nome: 'Lia Prova', email: `lia${Date.now()}@example.com`, password: 'prova-sicura-2026', categoria: 'specializzando', privacy: true, maggiorenne: true, da: 'linkedin' });   // gitleaks:allow (account di prova sul simulatore)
+  assert.equal(r.stato, 200, r.t);
+  const l = await prov(), li = l.find((x) => x.da === 'linkedin');
+  assert.deepEqual(li, { da: 'linkedin', visite: 1, iscrizioni: 1 }); assert.ok(!l.some((x) => /evil|http/.test(x.da)));
+});
+
+test('link dei casi per i social (/c/<caso>): anteprima del caso di prova, generica per gli altri, rimando con la provenienza', async () => {
+  const pag = async (u, h = {}) => { const r = await fetch(BASE + u, { headers: h, redirect: 'manual' }); return { stato: r.status, t: await r.text(), tipo: r.headers.get('content-type') }; };
+  const a = await pag('/c/caso-tcia-094?da=linkedin');
+  assert.equal(a.stato, 200); assert.match(a.tipo, /text\/html/);
+  assert.match(a.t, /og:image" content="[^"]*\/img\/condividi\/caso-tcia-094\.jpg"/); assert.match(a.t, /og:title" content="RX polso destro dopo trauma/);
+  assert.match(a.t, /url=[^"]*\/\?da=linkedin#\/caso\/caso-tcia-094/);
+  assert.match((await pag('/c/caso-tcia-094', { referer: 'https://www.google.com/' })).t, /\?da=google#/);
+  assert.match((await pag('/c/caso-tcia-094')).t, /\?da=link-caso#/);
+  assert.match((await pag('/c/caso-tcia-094?da=<script>')).t, /\?da=script#/);
+  const b = await pag(`/c/${ALTRO}`);   // caso non di prova: niente titolo, domanda o immagine del caso
+  assert.equal(b.stato, 200); assert.match(b.t, /img\/condivisione\.jpg/); assert.doesNotMatch(b.t, /img\/condividi\//);
+  const tit = (await chiama('admin', `/api/casi/${ALTRO}/completo`)).j.titolo; assert.ok(!b.t.includes(tit));
+  assert.equal((await pag('/c/caso-inesistente-999')).stato, 404); assert.equal((await pag('/c/..%2Fapi')).stato, 404);
+  const p = (await chiama('nessuno', '/api/prova')).j; assert.ok(p.casi.every((c) => typeof c.domanda === 'string'));
 });

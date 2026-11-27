@@ -124,7 +124,7 @@ const server = http.createServer(async (q, s) => {
       s.writeHead(302, { location: `${p.get('redirect_uri')}?code=${Buffer.from(JSON.stringify(c)).toString('base64url')}&state=${p.get('state')}` }); return s.end();
     }
     if (u.pathname === '/__posta') { s.writeHead(200, { 'content-type': 'application/json' }); return s.end(JSON.stringify(posta)); }
-    if (u.pathname.startsWith('/api/') || /^\/s\/[^/]+$/.test(u.pathname)) { const r = await gestisci({ metodo: q.method, percorso: u.pathname, query: Object.fromEntries(u.searchParams), headers: q.headers, corpo }, cfg); s.writeHead(r.stato, r.headers); return s.end(r.corpo); }
+    if (u.pathname.startsWith('/api/') || /^\/[sc]\/[^/]+$/.test(u.pathname)) { const r = await gestisci({ metodo: q.method, percorso: u.pathname, query: Object.fromEntries(u.searchParams), headers: q.headers, corpo }, cfg); s.writeHead(r.stato, r.headers); return s.end(r.corpo); }
     if (u.pathname.startsWith('/s3put/')) {                    // caricamenti: solo serie.json in memoria (niente scritture su disco)
       const m = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/serie\.json$/); if (m) try { serie[m[1]] = JSON.parse(corpo); } catch {}
       const v = u.pathname.match(/^\/s3put\/casi\/([^/]+)\/(serie\/vetrino_[A-Za-z0-9]+\/(?:vetrino\.[a-z]+|vetrino\/[A-Za-z0-9_.-]+|vetrino_ets\/stack1\/frame_t\.ets))$/);

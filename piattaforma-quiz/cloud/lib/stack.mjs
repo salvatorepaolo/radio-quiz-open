@@ -335,6 +335,15 @@ function handler(event) {
           originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
           functionAssociations: [risposta],
         },
+        // 27/11: link dei casi da condividere (radio-quiz.it/c/<caso>): anteprima per i social, come le sfide
+        '/c/*': {
+          origin: origineApi,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          functionAssociations: [risposta],
+        },
         '/api/*': {
           origin: origineApi,
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.HTTPS_ONLY,
