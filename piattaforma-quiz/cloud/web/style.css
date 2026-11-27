@@ -2746,3 +2746,24 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .nc-vt-via .nc-vt-img::after{content:'✕';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:56px;color:#dc2626;opacity:.75;pointer-events:none}
 .nc-vt-viste figcaption{font-size:.85em;color:var(--mut)}
 #nc-vt-riassunto{margin:6px 0 12px;padding-left:20px}
+
+/* 27/11: prova senza registrazione, primo accesso guidato, revisione dei casi */
+.guida-barra { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem; padding: .55rem 1rem; background: var(--accento-tenue, #e8f1ff); border-bottom: 1px solid var(--bordo, #cfd8e3); font-size: .95rem; }
+.guida-barra[hidden] { display: none; }
+.guida-barra .gb-testo { flex: 1 1 18rem; }
+.guida-barra .gb-az { display: flex; gap: .4rem; flex-wrap: wrap; }
+.guida-barra.revisione { background: #eaf7ef; }
+.guida-barra.revisione input { flex: 1 1 14rem; min-width: 0; }
+.guida-barra .gb-chiudi { margin-left: auto; }
+.guida-dopo { margin: .8rem 0; padding: .8rem 1rem; border: 1px solid var(--bordo, #cfd8e3); border-left: 4px solid var(--accento, #2a6fdb); border-radius: 10px; background: var(--pannello, #fff); }
+.guida-dopo h3 { margin: 0 0 .3rem; }
+.hv-cta .hv-prova { background: #1f8a4c; color: #fff; border-color: #1f8a4c; }
+.hv-cta .hv-prova[hidden] { display: none; }
+.inizia-qui { margin: .8rem 0; padding: .8rem 1rem; border-radius: 12px; border: 1px solid var(--bordo, #cfd8e3); background: var(--pannello, #fff); }
+.inizia-qui h2 { margin: 0 0 .5rem; font-size: 1.1rem; }
+.iq-passi { margin: 0; padding-left: 1.2rem; display: grid; gap: .45rem; }
+.iq-passi li { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .7rem; }
+.iq-passi li.fatto > button { opacity: .75; }
+.rv-casi { margin: 0 0 1.2rem; }
+.rvc-lista { display: grid; gap: .45rem; padding-left: 1.4rem; }
+@media (max-width: 700px) { .guida-barra { font-size: .9rem; padding: .45rem .7rem; } .guida-barra .gb-testo > span { display: block; } .hv-cta .hv-prova { order: -1; width: 100%; } }

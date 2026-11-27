@@ -116,5 +116,6 @@
  },
  "nota_docente": "Controllato il 25/10/2026: frattura del radio verificata; ulna riformulata. Caso nuovo 25/10/2026 (Claude). GRAZPEDWRI-DX paziente 5611 (5611_1105152410_01_WRI-L1_M009 AP, 5611_1105152510_01_WRI-L2_M009 laterale); età 9,3, maschio, polso sinistro, primo esame, pixel 0,144 mm; AO 23r-M/3.1; 23u-M/2.1. Convertite da PNG 16 bit in DICOM. Lettura di Claude: linea trasversa metafisaria del radio in AP, angolazione dorsale in laterale; ulna incurvata. Angolo non misurato. [revisione indipendente 25/10/2026] Radio: linea trasversa metafisaria in AP; in laterale scalino corticale e superficie articolare inclinata dorsalmente (stima a occhio, angolo non misurato). Ulna: la frattura incompleta annotata (23u-M/2.1) non è visibile con certezza in queste proiezioni: l'opzione è stata riformulata come reperto dubbio da cercare, tolto il distrattore «Ulna integra», resa prudente la conclusione e la spiegazione. Correzioni anche: «visibile» invece di «ben visibile» in laterale, titolo «dopo trauma».",
  "id": "caso-tcia-096",
- "visibile": true
+ "visibile": true,
+ "prova": true
 }

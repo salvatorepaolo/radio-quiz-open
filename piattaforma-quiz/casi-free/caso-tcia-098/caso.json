@@ -118,5 +118,6 @@
  },
  "nota_docente": "Controllato il 25/10/2026: frattura verificata sull'immagine. Caso nuovo 25/10/2026 (Claude). FracAtlas IMG0002337.jpg (hip, fractured, 1 frattura, nessun mezzo di sintesi), convertita da JPG 8 bit in DICOM DX senza pixel spacing (la fonte non lo dà: niente misure in mm). Nessun testo nell'immagine. Età, sesso e lato non forniti dalla fonte. Lettura di Claude: frattura scomposta del femore prossimale, verosimilmente del collo, con risalita del femore; da confermare se collo o regione trocanterica. [revisione indipendente 25/10/2026] Testa femorale nell'acetabolo sul lato sinistro dell'immagine, collo non riconoscibile, femore risalito con grande trocantere sopra il livello della testa: frattura scomposta del femore prossimale, verosimilmente del collo (non si può distinguere con certezza dalla regione basicervicale in una sola AP; i margini del moncone appaiono piuttosto arrotondati, quindi una lesione non recente non è esclusa dalla sola immagine). Anca controlaterale nella norma, nessun testo nell'immagine. Le opzioni parlano correttamente solo di «femore prossimale». Correzione: «trauma» invece di «caduta» in titolo e anamnesi (la dinamica non è nota).",
  "id": "caso-tcia-098",
- "visibile": true
+ "visibile": true,
+ "prova": true
 }

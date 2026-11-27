@@ -108,12 +108,13 @@ function impostaUtente(d) {
 
 // ---------------------------------------------------------------- utilità
 class NonAutorizzato extends Error {}
+let OSPITE = false;   // 27/11: caso di prova aperto senza accesso
 // rete assente o interrotta: un messaggio comprensibile al posto di quello tecnico del browser («Failed to fetch», «Load failed»…)
 const SENZA_RETE = 'connessione assente o interrotta';
 async function getJSON(url, opts) {
   let r;
   try { r = await fetch(url, { credentials: 'same-origin', ...opts }); } catch (e) { if (e?.name === 'AbortError') throw e; throw new Error(SENZA_RETE, { cause: e }); }
-  if (r.status === 401) { mostraAccesso(); throw new NonAutorizzato('accesso richiesto'); }
+  if (r.status === 401) { if (!OSPITE) mostraAccesso(); throw new NonAutorizzato('accesso richiesto'); }
   if (!r.ok) { let m = ''; try { m = (await r.json()).errore || ''; } catch {} throw new Error(m || `${r.status} ${url}`); }
   return r.json();
 }
@@ -136,6 +137,7 @@ function pannelloAccesso(nome) {
   if (primo) setTimeout(() => { if (matchMedia('(min-width: 901px)').matches) primo.focus({ preventScroll: true }); else if (accessoToccato) primo.closest('.accesso-scheda')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
 }
 function mostraAccesso(msg = '', pannello = 'entra') {
+  OSPITE = false; barraGuida('');
   segnaVisita(pannello === 'iscriviti' ? 'iscriviti' : 'accesso');
   mostraSponsor($('#sponsor-accesso'), 'accesso');
   for (const v of ['elenco', 'caso', 'editor', 'account', 'profilo', 'aiuto', 'statistiche']) $(`#vista-${v}`).hidden = true;
@@ -211,7 +213,7 @@ $('#form-iscrizione').addEventListener('submit', (e) => { e.preventDefault(); co
   if (!controllaPassword()) { $('#msg-accesso').textContent = $('#isc-pw-info').textContent; return; }
   const r = await inviaAccesso('/api/iscrizione', { nome: $('#isc-nome').value, email, password: $('#isc-pw').value,
     categoria: $('#isc-categoria').value, sede: $('#isc-sede').value, anno: $('#isc-categoria').value === 'specializzando' ? $('#isc-anno').value : '',
-    docente: $('#isc-docente').checked, privacy: $('#isc-privacy').checked, maggiorenne: $('#isc-maggiorenne').checked, sito: $('#isc-sito').value });
+    docente: $('#isc-docente').checked, settimana: $('#isc-settimana')?.checked === true, privacy: $('#isc-privacy').checked, maggiorenne: $('#isc-maggiorenne').checked, sito: $('#isc-sito').value });
   if (!r.ok) { $('#msg-accesso').textContent = r.dati.errore || 'Iscrizione non riuscita.'; return; }
   $('#isc-pw').value = $('#isc-pw2').value = ''; controllaPassword();
   avvisoAccesso(r.dati.messaggio + ' Controlla anche la posta indesiderata.', email);
@@ -274,7 +276,7 @@ $('#form-google').addEventListener('submit', (e) => { e.preventDefault(); conBot
     anno: $('#gg-categoria').value === 'specializzando' ? $('#gg-anno').value : '', docente: $('#gg-docente').checked,
     privacy: $('#gg-privacy').checked, maggiorenne: $('#gg-maggiorenne').checked });
   if (!r.ok) { $('#msg-accesso').textContent = r.dati.errore || 'Iscrizione non riuscita.'; return; }
-  entrato(r.dati, '#/profilo/benvenuto');
+  entrato(r.dati, '#/benvenuto');
 }); });
 async function linkDaEmail(tipo, codice) {
   if (tipo === 'conferma') {
@@ -282,7 +284,7 @@ async function linkDaEmail(tipo, codice) {
     const r = await inviaAccesso('/api/conferma', { codice });
     if (r.ok && r.dati.giaAttivo) { mostraAccesso('L\'account è già attivo: entra con email e password.'); history.replaceState(null, '', '#/'); return; }
     if (!r.ok) { mostraAccesso(r.dati.errore || 'Link non valido.'); history.replaceState(null, '', '#/'); return; }
-    entrato(r.dati, '#/profilo/benvenuto');
+    entrato(r.dati, '#/benvenuto');
     return;
   }
   CODICE_NUOVA = codice; mostraAccesso('', 'nuova'); history.replaceState(null, '', '#/');
@@ -291,13 +293,13 @@ $('#btn-esci').addEventListener('click', async () => {
   await fetch('/api/esci', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
   DOCENTE = ADMIN = REFERENTE = AUTORE = false; UTENTE = null; pronto = null; mostraAccesso();
 });
-async function chiSono() {
+async function chiSono(muto = false) {
   if (CLIENT) return true;                                  // versione client: nessun account
   try {
     const r = (await rispostaPrima('io')) || await fetch('/api/io', { credentials: 'same-origin' });
     if (r.status === 404) return true;                       // server locale: niente accesso
     CLOUD = true;
-    if (r.status === 401) { mostraAccesso(); return false; }
+    if (r.status === 401) { if (!muto) mostraAccesso(); return false; }
     if (r.ok) { impostaUtente(await r.json()); return true; }
   } catch {}
   return true;
@@ -6184,7 +6186,8 @@ $('#btn-conferma').addEventListener('click', async () => {
     { const pt = qs1('#q-esito .esito-testa') || qs1('#q-esito .punteggio'), az = document.createElement('div'); az.className = 'esito-azioni';
       if (pt) { pt.after(az); if (!$('#btn-reperto').hidden) az.append($('#btn-reperto')); if (!$('#btn-prossimo').hidden) az.append($('#btn-prossimo')); if (!az.children.length) az.remove(); }
       { const h = htmlTraccia(r); if (h) { const t = document.createElement('div'); t.innerHTML = h; const dopo = az.isConnected ? az : pt; if (dopo) dopo.after(t.firstElementChild); else $('#q-esito').prepend(t.firstElementChild); } }
-      aggiungiCondivisioneCaso(r);
+      if (!OSPITE) aggiungiCondivisioneCaso(r);
+      dopoRispostaGuidata();
       disegnaSchema();
       requestAnimationFrame(() => $('#q-esito').scrollIntoView({ block: 'start', behavior: 'smooth' })); }
   } catch (e) {
@@ -6283,6 +6286,108 @@ async function caricaSettimana() {
   a.hidden = false;
 }
 istanzaPronta.then(() => caricaSettimana()).catch(() => {});
+// ---------------------------------------------------------------- prova senza registrazione e primo accesso guidato (27/11/2026)
+// /api/prova: i casi aperti a tutti (scelti dall'amministratore con «prova») e il caso del giorno. Chi non è entrato li apre
+// da ospite: barra in alto con l'invito a iscriversi, correzione completa, nessun dato salvato. Dopo l'iscrizione
+// (#/benvenuto) si apre subito un caso facile e breve, poi si propone il percorso del primo anno; in home, finché non ha
+// risolto 3 casi, il riquadro «Inizia da qui». Il revisore dei casi trova in alto nel caso «Confermo» e «Da correggere».
+const PERCORSO_PRIMO = 'rx-primo-anno';
+let PROVA_P = null;
+const elencoProva = () => (PROVA_P ||= fetch('/api/prova', { credentials: 'same-origin', cache: 'no-store' })
+  .then((r) => (r.ok ? r.json() : { giorno: '', casi: [] })).catch(() => { PROVA_P = null; return { giorno: '', casi: [] }; }));
+const provaFatti = () => { try { const l = JSON.parse(localStorage.getItem('rq-prova-fatti') || '[]'); return Array.isArray(l) ? l : []; } catch { return []; } };
+function barraGuida(tipo = '') {
+  const b = $('#guida-barra'); if (!b) return;
+  b.hidden = !tipo; b.className = 'guida-barra' + (tipo ? ' ' + tipo : '');
+  if (!tipo) { b.innerHTML = ''; return; }
+  if (tipo === 'ospite') b.innerHTML = `<span class="gb-testo"><b>Stai provando senza account.</b> <span>Iscriviti gratis per salvare i progressi e aprire tutti i casi.</span></span><span class="gb-az"><a class="btn primario" href="#/iscriviti">Iscriviti gratis</a><a class="btn" href="#/" data-guida="entra">Entra</a></span>`;
+  else if (tipo === 'benvenuto') b.innerHTML = `<span class="gb-testo"><b>Benvenuto! Il tuo primo caso.</b> <span>Scorri le immagini (rotellina, o trascina con il dito), poi rispondi alle domande e conferma: la correzione arriva subito.</span></span><button type="button" class="ghost gb-chiudi" data-guida="chiudi" aria-label="Chiudi">✕</button>`;
+  else if (tipo === 'revisione') b.innerHTML = `<span class="gb-testo"><b>Revisione del caso</b></span><input id="gb-nota" maxlength="1000" placeholder="Nota (obbligatoria per «Da correggere»)" aria-label="Nota della revisione"><span class="gb-az"><button type="button" class="primary" data-guida="confermato">✅ Confermo</button><button type="button" data-guida="da-correggere">✏️ Da correggere</button><a class="btn" href="#/revisione">Casi da rivedere</a></span><span id="gb-msg" class="small"></span>`;
+  b.querySelector('[data-guida="chiudi"]')?.addEventListener('click', () => { b.hidden = true; });
+  b.querySelectorAll('[data-guida="confermato"], [data-guida="da-correggere"]').forEach((x) => x.addEventListener('click', async () => {
+    const esito = x.dataset.guida, nota = $('#gb-nota').value.trim();
+    if (esito === 'da-correggere' && nota.length < 3) { $('#gb-msg').textContent = 'Scrivi che cosa va corretto.'; $('#gb-nota').focus(); return; }
+    try { await postJSON(`/api/casi/${encodeURIComponent(V.caso.id)}/revisione`, { esito, nota }); }
+    catch (e) { if (!(e instanceof NonAutorizzato)) $('#gb-msg').textContent = e.message; return; }
+    scriviSessione('quiz-revisione', null); avvisoBreve(esito === 'confermato' ? 'Caso confermato: grazie!' : 'Richiesta di correzione registrata.'); location.hash = '#/revisione';
+  }));
+}
+function lasciaOspite() { if (!OSPITE) return; OSPITE = false; barraGuida(''); }
+async function apriOspite(id) {
+  OSPITE = true;
+  $('#btn-profilo').hidden = $('#btn-esci').hidden = $('#btn-editor').hidden = $('#menu-gestione').hidden = true;
+  $('#chi').hidden = true; $('#gioco-chip').hidden = true; if ($('#menu-utente')) $('#menu-utente').hidden = true;
+  $('#vista-accesso').hidden = true;
+  try { const x = JSON.parse(localStorage.getItem('rq-caso-dopo')); if (x?.c === id) localStorage.removeItem('rq-caso-dopo'); } catch {}
+  segnaVisita('caso', id);
+  await apriCaso(id);
+  if (!OSPITE || V.caso?.id !== id) return;
+  barraGuida('ospite'); autoNeuro();
+  if (!(V.caso?.disposizione || []).length && !(V.caso?.riquadri >= 1)) await disposizioneClient().catch(() => {});
+}
+// primo caso facile: tra i casi di prova, uno non ancora fatto (anche da ospite), di preferenza una radiografia
+async function primoCasoFacile() {
+  const p = await elencoProva(), fatti = new Set([...provaFatti(), ...Object.keys(GIOCO?.casi || {})]);
+  const l = p.casi.filter((c) => !fatti.has(c.id)), c = l.find((x) => x.modalita === 'RX') || l.find((x) => x.difficolta === 'Base') || l[0];
+  if (!c) { location.hash = '#/'; return; }
+  scriviSessione('quiz-benvenuto', c.id); location.hash = '#/caso/' + c.id;
+}
+async function avviaPercorso(id) {
+  if (!ELENCO.length) await caricaElencoDati().catch(() => {});
+  if (!PERCORSI.length) await caricaPercorsi().catch(() => {});
+  const p = PERCORSI.find((x) => x.id === id); if (!p) { location.hash = '#/allenamento'; return; }
+  const st = statoPercorso(p); if (!st.casi.length) { location.hash = '#/allenamento'; return; }
+  iniziaGiro({ tipo: 'percorso', id: p.id, titolo: p.titolo, casi: st.casi }, st.prossimo);
+}
+async function chiediSettimana(btn) {
+  btn.disabled = true;
+  try { await postJSON('/api/io/profilo', { settimana: true }); if (UTENTE) UTENTE.settimana = true; btn.textContent = '✓ Riceverai il caso della settimana'; }
+  catch (e) { btn.disabled = false; if (!(e instanceof NonAutorizzato)) alertInline(e.message); }
+}
+// dopo la correzione: all'ospite l'invito a iscriversi; al nuovo iscritto il passo successivo
+function dopoRispostaGuidata() {
+  const box = $('#q-esito'); if (!box || !V.caso) return;
+  const dopo = qs1('#q-esito .esito-azioni') || qs1('#q-esito .esito-testa');
+  const card = document.createElement('div'); card.className = 'guida-dopo';
+  if (OSPITE) {
+    try { const f = provaFatti(); if (!f.includes(V.caso.id)) localStorage.setItem('rq-prova-fatti', JSON.stringify([...f, V.caso.id].slice(-20))); } catch {}
+    card.innerHTML = `<h3>Ti è piaciuto?</h3><p>Con un account gratuito trovi più di 170 casi in tutte le metodiche, percorsi con attestato, i tuoi progressi e gli errori da ripassare.</p><p class="riga"><a class="btn primario" href="#/iscriviti">Iscriviti gratis</a> <button type="button" class="ghost" data-altro>Prova un altro caso</button></p>`;
+    card.querySelector('[data-altro]').onclick = async () => {
+      const p = await elencoProva(), f = provaFatti(), c = p.casi.find((x) => !f.includes(x.id) && x.id !== V.caso.id) || p.casi.find((x) => x.id !== V.caso.id);
+      if (c) location.hash = '#/caso/' + c.id;
+    };
+  } else if (UTENTE && leggiSessione('quiz-benvenuto', null) === V.caso.id) {
+    scriviSessione('quiz-benvenuto', null); barraGuida('');
+    card.innerHTML = `<h3>Primo caso fatto!</h3><p>Il passo successivo che ti consigliamo: il percorso «Primo anno: RX del torace e dello scheletro», casi scelti dal più semplice.</p><p class="riga"><button type="button" class="primary" data-percorso>🧭 Inizia il percorso</button> <a class="btn" href="#/">Tutti i casi</a> <a class="btn" href="#/profilo">Completa il profilo</a></p>${UTENTE.settimana ? '' : '<p class="riga"><button type="button" class="ghost" data-settimana>🗓 Mandami per email il caso della settimana</button> <span class="muted small">Una email a settimana; la togli quando vuoi.</span></p>'}`;
+    card.querySelector('[data-percorso]').onclick = () => avviaPercorso(PERCORSO_PRIMO);
+    card.querySelector('[data-settimana]')?.addEventListener('click', (e) => chiediSettimana(e.currentTarget));
+  } else return;
+  if (dopo) dopo.after(card); else box.prepend(card);
+}
+// home: «Inizia da qui» finché il nuovo iscritto non ha risolto 3 casi
+function iniziaQui() {
+  const box = $('#inizia-qui'); if (!box) return;
+  const n = GIOCO ? Object.keys(GIOCO.casi || {}).length : null;
+  if (!UTENTE || ADMIN || DOCENTE || CLIENT || AZIENDA() || n === null || n >= 3) { box.hidden = true; return; }
+  box.innerHTML = `<h2>Inizia da qui</h2><ol class="iq-passi"><li class="${n ? 'fatto' : ''}"><button type="button" class="primary" data-iq="caso">▶ Un caso facile</button><span class="muted small">5 minuti: immagini, domande, correzione</span></li><li><button type="button" data-iq="percorso">🧭 Percorso del primo anno</button><span class="muted small">RX del torace e dello scheletro, dal caso più semplice</span></li><li><a class="btn" href="#/profilo">👤 Completa il profilo</a><span class="muted small">scuola, anno di corso e docenti</span></li></ol>`;
+  box.hidden = false;
+  box.querySelector('[data-iq="caso"]').onclick = () => primoCasoFacile();
+  box.querySelector('[data-iq="percorso"]').onclick = () => avviaPercorso(PERCORSO_PRIMO);
+}
+// revisione dei casi (pagina «Revisione delle bozze», in testa per il revisore)
+async function casiDaRivedere() {
+  const box = $('#rv-casi'); if (!box) return;
+  if (!UTENTE?.revisore || !CLOUD) { box.hidden = true; return; }
+  box.hidden = false; box.innerHTML = '<p class="muted">Carico…</p>';
+  let d; try { d = await getJSON('/api/revisione/casi'); } catch (e) { box.innerHTML = e instanceof NonAutorizzato ? '' : `<p class="ko">${esc(e.message)}</p>`; return; }
+  const motivi = { 'non ancora rivisto dal medico': 'non ancora rivisto dal medico', 'dubbi aperti nella nota': 'dubbi aperti nella nota', 'correzioni chieste dal revisore': 'correzioni chieste dal revisore' };
+  const riga = (c) => `<li><a href="#/caso/${esc(c.id)}" data-rv="${esc(c.id)}"><b>${esc(c.titolo_interno || c.titolo)}</b></a><br><span class="muted small">${esc(c.id.replace(/^caso-tcia-/, 'n. '))} · ${esc(c.modalita)} · ${esc(motivi[c.motivo] || c.motivo)}</span>${c.revisione?.nota ? `<div class="small">${esc(c.revisione.nota)}</div>` : ''}</li>`;
+  box.innerHTML = `<h2>Casi da rivedere <small class="muted">${d.daRivedere.length}</small></h2><p class="muted">Casi già visibili agli studenti, preparati con l'aiuto dell'IA o con dubbi aperti nella nota. Apri il caso: in alto trovi «Confermo» e «Da correggere». La revisione resta nel caso, con il tuo nome e la data.</p>`
+    + (d.daRivedere.length ? `<ol class="rvc-lista">${d.daRivedere.map(riga).join('')}</ol>` : '<p>Nessun caso da rivedere.</p>')
+    + (d.rivisti.length ? `<details class="rvc-rivisti"><summary>Già rivisti (${d.rivisti.length})</summary><ul class="rvc-lista">${d.rivisti.map((c) => `<li>${esc(c.titolo_interno || c.titolo)}<br><span class="muted small">${c.revisione.esito === 'confermato' ? '✅ confermato' : '✏️ da correggere'} · ${esc(c.revisione.da || '')} · ${esc(String(c.revisione.data || '').slice(0, 10))}</span></li>`).join('')}</ul></details>` : '');
+  box.querySelectorAll('[data-rv]').forEach((a) => a.addEventListener('click', () => scriviSessione('quiz-revisione', a.dataset.rv)));
+}
+if (!CLIENT) istanzaPronta.then(() => (AZIENDA() ? null : elencoProva())).then((p) => { const b = $('#hv-prova'); if (b && p?.casi.length) b.hidden = false; }).catch(() => {});   // mai nel visualizzatore scaricabile (nessuna richiesta)
 // correzione del referto libero con il modello open source nel browser (refertolocale.js), se attivata
 // dall'amministratore; autori e docenti la possono sempre provare
 async function correggiRefertoIA(testo) {
@@ -7161,7 +7266,7 @@ function caricaProgressi() {
   if (!CLOUD) return Promise.resolve();
   return (PROGRESSI_IN_CORSO ||= (async () => {
     try { GIOCO = await getJSON('/api/io/progressi'); } catch (e) { if (e instanceof NonAutorizzato) throw e; GIOCO = null; }
-    disegnaGioco();
+    disegnaGioco(); iniziaQui();
   })().finally(() => { PROGRESSI_IN_CORSO = null; }));
 }
 function barraLivello(l, punti) {
@@ -7510,7 +7615,7 @@ async function apriElenco() {
   let av = $('#avviso-elenco');
   if (!av) { av = Object.assign(document.createElement('p'), { id: 'avviso-elenco', className: 'avviso-ok' }); $('#lista-casi').before(av); }
   av.textContent = avvisoElenco; av.hidden = !avvisoElenco; avvisoElenco = '';
-  disegnaElenco(); numeriHome(); mostraSponsor($('#sponsor-home'), 'home');
+  disegnaElenco(); numeriHome(); iniziaQui(); mostraSponsor($('#sponsor-home'), 'home');
 }
 // numeri in testa alla home: casi, metodiche, percorsi e (se c'è) i casi già svolti
 function numeriHome() {
@@ -8193,6 +8298,8 @@ $('#filtro-diff').addEventListener('change', (e) => { filtroDiff = e.target.valu
 async function router() {
   const [, tipo, id] = location.hash.split('/');
   if (CLIENT) return routerClient(tipo);
+  if (OSPITE && tipo !== 'caso' && tipo !== 'prova') lasciaOspite();
+  if (tipo !== 'caso') barraGuida('');
   // pagine raggiungibili anche senza accesso: link ricevuti per email e aiuto (con l'informativa sui dati)
   if ((tipo === 'conferma' || tipo === 'nuova-password') && id) return linkDaEmail(tipo, decodeURIComponent(id));
   if ((tipo === 'google' || tipo === 'linkedin') && id) return esitoEsterno(tipo, id);
@@ -8214,12 +8321,27 @@ async function router() {
     if (!UTENTE) { pronto = null; vista('sfida'); $('#vista-accesso').hidden = true; segnaVisita('sfida'); await (await caricaSfide()).apriPubblica(decodeURIComponent(id)); return; }
     if (!ok) return;
   }
+  // 27/11: prova senza registrazione: «#/prova» apre il caso del giorno, un caso di prova si apre da ospite;
+  // gli altri casi chiedono l'accesso e si riaprono dopo
+  if ((tipo === 'prova' || (tipo === 'caso' && id)) && !UTENTE && !FINESTRA_N) {
+    const ok = await (pronto ||= chiSono(true));
+    if (!UTENTE && CLOUD) {
+      pronto = null;
+      const p = await elencoProva(), idc = tipo === 'prova' ? (decodeURIComponent(id || '') || p.giorno) : decodeURIComponent(id);
+      if (idc && p.casi.some((c) => c.id === idc)) { try { await apriOspite(idc); } catch (e) { if (!(e instanceof NonAutorizzato)) alertInline('Errore: ' + e.message); } return; }
+      lasciaOspite();
+      if (tipo === 'caso' && /^caso-[a-z0-9-]{1,40}$/i.test(idc)) try { localStorage.setItem('rq-caso-dopo', JSON.stringify({ c: idc, t: Date.now() })); } catch {}
+      mostraAccesso(); return;
+    }
+    if (!ok) return;
+  }
+  if (tipo === 'prova') { location.hash = '#/'; return; }
   if (!pronto) pronto = chiSono();
   if (!(await pronto)) { pronto = null; return; }
   // dopo l'accesso o l'iscrizione partiti dalla pagina di una sfida: si torna lì
   // dopo l'accesso o l'iscrizione partiti dal «Caso della settimana» della home: si apre il caso
   { let x = null; try { x = JSON.parse(localStorage.getItem('rq-caso-dopo')); localStorage.removeItem('rq-caso-dopo'); } catch {}
-    if (x && Date.now() - x.t < 864e5 && /^caso-[a-z0-9-]{1,40}$/i.test(x.c) && !(tipo === 'caso' && id === x.c)) { location.hash = '#/caso/' + x.c; return; } }
+    if (x && Date.now() - x.t < 864e5 && /^caso-[a-z0-9-]{1,40}$/i.test(x.c) && !(tipo === 'caso' && id === x.c)) { if (tipo === 'benvenuto') scriviSessione('quiz-benvenuto', x.c); location.hash = '#/caso/' + x.c; return; } }
   if (tipo !== 'sfida' && localStorage.getItem('rq-sfida-dopo')) { const c = (await caricaSfide()).inSospeso(); if (c) { location.hash = '#/sfida/' + c; return; } }
   if (ANN.hashCaso && location.hash !== ANN.hashCaso) {
     // si lascia il caso: prima le annotazioni non salvate (Salva / Non salvare / Annulla)
@@ -8238,6 +8360,7 @@ async function router() {
     }
     else if (tipo === 'caso' && id) {
       await apriCaso(decodeURIComponent(id));   // 11/11: all'apertura un solo riquadro (niente confronto automatico)
+      barraGuida(UTENTE?.revisore && leggiSessione('quiz-revisione', null) === V.caso?.id ? 'revisione' : leggiSessione('quiz-benvenuto', null) === V.caso?.id ? 'benvenuto' : '');
       autoNeuro();
       $('#btn-gsps').hidden = !esportaPermesso(); if ($('#btn-sr')) $('#btn-sr').hidden = !esportaPermesso();
       // disposizione automatica (la propria «ricordata», mammografia nelle 4 viste, fasi affiancate), se il docente non ne ha scelta una
@@ -8269,6 +8392,7 @@ async function router() {
     else if ((tipo === 'statistiche' || tipo === 'sponsor') && ADMIN) { vista('statistiche'); apriTraffico(); await apriSponsor(); if (tipo === 'sponsor') $('#sp-gest').scrollIntoView({ block: 'start' }); }
     else if (tipo === 'tenant' && ADMIN && !AZIENDA()) { vista('tenant'); await apriTenant(); }
     else if (tipo === 'account' && ADMIN) { vista('account'); $('#acc-codice').hidden = true; await apriAccount(); }
+    else if (tipo === 'benvenuto' && CLOUD && UTENTE) await primoCasoFacile();
     else await apriElenco();
   } catch (e) {
     if (e instanceof NonAutorizzato) { pronto = null; return; }
@@ -8339,7 +8463,7 @@ async function apriProfilo(benvenuto = false) {
   $('#pr-nome').value = io.nome; $('#pr-email').value = io.email; $('#pr-email').readOnly = io.conPassword;
   $('#pr-email').title = io.conPassword ? 'È l\'indirizzo con cui entri: non si può cambiare da qui' : 'Indirizzo per gli avvisi e per entrare con la password';
   $('#pr-categoria').value = io.categoria || 'altro'; $('#pr-sede').value = io.sede; $('#pr-anno').value = io.anno || '';
-  $('#pr-avvisi').checked = io.avvisi; annoVisibile('#pr-categoria', '#pr-anno-campo');
+  $('#pr-avvisi').checked = io.avvisi; if ($('#pr-settimana')) $('#pr-settimana').checked = !!io.settimana; annoVisibile('#pr-categoria', '#pr-anno-campo');
   $('#pw-attuale').hidden = !io.conPassword;
   // accessi collegati (Google, LinkedIn): stato e pulsante «Collega»
   for (const [prov, con] of [['google', io.conGoogle], ['linkedin', io.conLinkedin]]) {
@@ -8381,7 +8505,7 @@ $('#form-profilo').addEventListener('submit', async (e) => {
   e.preventDefault();
   try {
     const io = await postJSON(UTENTE?.conPassword ? '/api/io/profilo' : '/api/io/email', { nome: $('#pr-nome').value, categoria: $('#pr-categoria').value, sede: $('#pr-sede').value,
-      anno: $('#pr-categoria').value === 'specializzando' ? $('#pr-anno').value : '', avvisi: $('#pr-avvisi').checked, ...(UTENTE?.conPassword ? {} : { email: $('#pr-email').value.trim() }) });
+      anno: $('#pr-categoria').value === 'specializzando' ? $('#pr-anno').value : '', avvisi: $('#pr-avvisi').checked, settimana: $('#pr-settimana')?.checked === true, ...(UTENTE?.conPassword ? {} : { email: $('#pr-email').value.trim() }) });
     impostaUtente({ ...UTENTE, ...io }); $('#pr-msg').textContent = 'Salvato ✓';
   } catch (e2) { if (!(e2 instanceof NonAutorizzato)) $('#pr-msg').textContent = 'Errore: ' + e2.message; }
 });
@@ -8418,7 +8542,7 @@ let caricaDocenti_P = null;
 const caricaDocenti = () => (caricaDocenti_P ||= import('./docenti.js').then((m) => { m.collega(PONTE_DOC); m.avvio(); return m; }).catch((e) => { caricaDocenti_P = null; throw e; }));
 function apriNuovo(...a) { return caricaDocenti().then((m) => m.apriNuovo(...a)); }
 function apriClassi(...a) { return caricaDocenti().then((m) => m.apriClassi(...a)); }
-function apriRevisione(...a) { return caricaDocenti().then((m) => m.apriRevisione(...a)); }
+function apriRevisione(...a) { casiDaRivedere(); return caricaDocenti().then((m) => m.apriRevisione(...a)); }
 function apriPercorsiDoc(...a) { return caricaDocenti().then((m) => m.apriPercorsiDoc(...a)); }
 function apriGestioneCasi(...a) { return caricaDocenti().then((m) => m.apriGestioneCasi(...a)); }
 function apriAnalisi(...a) { return caricaDocenti().then((m) => m.apriAnalisi(...a)); }

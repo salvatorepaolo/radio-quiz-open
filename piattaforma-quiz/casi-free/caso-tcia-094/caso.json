@@ -122,5 +122,6 @@
  },
  "nota_docente": "Controllato il 25/10/2026: lesione e classificazione verificate in AP e laterale. Caso nuovo 25/10/2026 (Claude). GRAZPEDWRI-DX paziente 5357, studio 1, file 5357_0715450325_01_WRI-R1_M013 (AP) e 5357_0715450401_01_WRI-R2_M013 (laterale); età 13,3, maschio, polso destro, primo esame, senza gesso, pixel 0,144 mm; AO 23r-E/2.1; 23u-E/7 dalla tabella della collezione. Convertite da PNG 16 bit in DICOM DX (strumenti_claude/vm/rx2dcm.py), pixel invariati. Lettura di Claude: in laterale epifisi del radio spostata dorsalmente con frammento metafisario dorsale; in AP linea metafisaria e piccolo frammento dello stiloide ulnare. [revisione indipendente 25/10/2026] In laterale epifisi radiale spostata in senso dorsale (lato volare riconosciuto dall'eminenza tenar) con frammento metafisario dorsale: Salter-Harris II confermato; in AP piccolo frammento dello stiloide ulnare. Lato (marcatore R), anonimizzazione e assenza di testo personale verificati. Correzione: titolo «dopo trauma» invece di «dopo caduta» (la dinamica non è nota).",
  "id": "caso-tcia-094",
- "visibile": true
+ "visibile": true,
+ "prova": true
 }

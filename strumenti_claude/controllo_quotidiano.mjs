@@ -97,12 +97,14 @@ try {
       const btn = await p.waitForSelector('#btn-vetrini:not([hidden])', { timeout: 30000 }).catch(() => null);
       if (!btn) problemi.push('[vetrino] il pulsante del vetrino non compare nel caso 003');
       else {
-        await btn.click(); let col = 0;
-        for (let k = 0; k < 12 && col < 0.05; k++) { await p.waitForTimeout(2500); col = await p.evaluate(() => { for (const c of document.querySelectorAll('.vista-vetrino canvas, #vista-vetrino canvas')) { if (!c.width || !c.offsetWidth) continue; try { const t = document.createElement('canvas'); t.width = 64; t.height = 64; const g = t.getContext('2d'); g.drawImage(c, 0, 0, 64, 64); const d = g.getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (Math.max(d[i], d[i + 1], d[i + 2]) - Math.min(d[i], d[i + 1], d[i + 2]) > 30) n++; if (n) return n / 4096; } catch {} } return 0; }); }
+        await btn.click(); let col = 0, secondo = false;
+        // 27/11: se il tessuto non si vede (una volta 0 byte scaricati, Mac appena svegliato) si riapre il caso e si riprova una volta
+        for (let k = 0; k < 24 && col < 0.05; k++) { if (k === 12) { secondo = true; await p.goto(B + '/#/'); await p.waitForTimeout(1000); await p.goto(B + '/#/caso/caso-tcia-003'); const b2 = await p.waitForSelector('#btn-vetrini:not([hidden])', { timeout: 30000 }).catch(() => null); if (!b2) break; await b2.click(); }
+          await p.waitForTimeout(2500); col = await p.evaluate(() => { for (const c of document.querySelectorAll('.vista-vetrino canvas, #vista-vetrino canvas')) { if (!c.width || !c.offsetWidth) continue; try { const t = document.createElement('canvas'); t.width = 64; t.height = 64; const g = t.getContext('2d'); g.drawImage(c, 0, 0, 64, 64); const d = g.getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (Math.max(d[i], d[i + 1], d[i + 2]) - Math.min(d[i], d[i + 1], d[i + 2]) > 30) n++; if (n) return n / 4096; } catch {} } return 0; }); }
         if (col < 0.05) problemi.push('[vetrino] il tessuto del vetrino non si vede');
         if (intere) problemi.push(`[vetrino] ${intere} file del vetrino scaricati interi invece che a parti`);
         if (byte > 80e6) problemi.push(`[vetrino] scaricati ${(byte / 1e6).toFixed(0)} MB per aprire il vetrino`);
-        note.push(`vetrino: ${Math.round(col * 100)}% di tessuto colorato, ${(byte / 1e6).toFixed(1)} MB scaricati`);
+        note.push(`vetrino: ${Math.round(col * 100)}% di tessuto colorato, ${(byte / 1e6).toFixed(1)} MB scaricati${secondo && col >= 0.05 ? ' (visto solo al secondo tentativo)' : ''}`);
       }
       p.off('response', conta); }
     await ctx.close();

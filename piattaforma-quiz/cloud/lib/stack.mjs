@@ -214,16 +214,18 @@ function alias(req) {
 }
 // tutti tranne l'amministratore (chiunque può dichiararsi docente): serve il cookie «qc» del caso, rilasciato dall'API
 // quando il caso viene aperto (le bozze solo agli autori); le cartelle delle serie nascoste elencate nel cookie restano chiuse
-function casoConsentito(req) {
+// 27/11: per i casi di prova aperti senza accesso l'API rilascia invece il cookie «qo» (firma con un altro prefisso)
+function casoConsentito(req, nome) {
+  nome = nome || 'qc';
   var u = req.uri.split('/');                      // ['', 'casi', id, ...resto]
   if (u.length < 4 || u[1] !== 'casi' || !u[2]) return false;
   var m = [null, u[2], u.slice(3).join('/')];
-  var q = req.cookies && req.cookies.qc, valori = [];
+  var q = req.cookies && req.cookies[nome], valori = [];
   if (q) { valori.push(q.value); (q.multiValue || []).forEach(function (x) { valori.push(x.value); }); }
   for (var i = 0; i < valori.length; i++) {
     var v = String(valori[i]).split('~');
     if (v.length !== 4 || v[0] !== m[1] || !(Number(v[1]) > Date.now() / 1000)) continue;
-    if (crypto.createHmac('sha256', SEGRETO).update('qc.' + v[0] + '.' + v[1] + '.' + v[2]).digest('hex') !== v[3]) continue;
+    if (crypto.createHmac('sha256', SEGRETO).update(nome + '.' + v[0] + '.' + v[1] + '.' + v[2]).digest('hex') !== v[3]) continue;
     var cartella = m[2].indexOf('serie/') === 0 ? m[2].split('/')[1] : '';
     return !(cartella && v[2] && v[2].split('*').indexOf(cartella) >= 0);
   }
@@ -238,9 +240,15 @@ function handler(event) {
     if (f === p[3] && (p[0] === 'admin' || casoConsentito(event.request))) {
       delete event.request.cookies.quiz;   // i cookie non servono a S3 e non devono entrare nella cache
       delete event.request.cookies.qc;
+      delete event.request.cookies.qo;
       alias(event.request);
       return event.request;
     }
+  }
+  if (casoConsentito(event.request, 'qo')) {
+    if (event.request.cookies) { delete event.request.cookies.quiz; delete event.request.cookies.qc; delete event.request.cookies.qo; }
+    alias(event.request);
+    return event.request;
   }
   return { statusCode: 403, statusDescription: 'Forbidden', headers: { 'cache-control': { value: 'no-store' } } };
 }`),

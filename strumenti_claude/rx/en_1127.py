@@ -1,0 +1,56 @@
+# en_1127.py: traduzioni inglesi dei testi nuovi del 27/11 (prova senza registrazione, benvenuto, revisione, email settimanale)
+import json
+f = '/Volumes/Caloggero/piattaforma-quiz/cloud/web/lingua/en.json'
+d = json.load(open(f))
+N = {
+ 'Stai provando senza account.': 'You are trying it without an account.',
+ 'Iscriviti gratis per salvare i progressi e aprire tutti i casi.': 'Sign up for free to save your progress and open all the cases.',
+ 'Benvenuto! Il tuo primo caso.': 'Welcome! Your first case.',
+ 'Scorri le immagini (rotellina, o trascina con il dito), poi rispondi alle domande e conferma: la correzione arriva subito.': 'Scroll through the images (mouse wheel, or drag with your finger), then answer the questions and confirm: the feedback comes straight away.',
+ 'Revisione del caso': 'Case review',
+ 'Nota (obbligatoria per «Da correggere»)': 'Note (required for «Needs changes»)',
+ 'Nota della revisione': 'Review note',
+ '✅ Confermo': '✅ Confirm',
+ '✏️ Da correggere': '✏️ Needs changes',
+ 'Casi da rivedere': 'Cases to review',
+ 'Scrivi che cosa va corretto.': 'Write what needs to be changed.',
+ 'Caso confermato: grazie!': 'Case confirmed: thank you!',
+ 'Richiesta di correzione registrata.': 'Change request recorded.',
+ '✓ Riceverai il caso della settimana': '✓ You will receive the case of the week',
+ 'Ti è piaciuto?': 'Did you like it?',
+ 'Con un account gratuito trovi più di 170 casi in tutte le metodiche, percorsi con attestato, i tuoi progressi e gli errori da ripassare.': 'With a free account you get more than 170 cases in every modality, learning paths with certificates, your progress and the mistakes to review.',
+ 'Prova un altro caso': 'Try another case',
+ 'Primo caso fatto!': 'First case done!',
+ 'Il passo successivo che ti consigliamo: il percorso «Primo anno: RX del torace e dello scheletro», casi scelti dal più semplice.': 'Our suggested next step: the learning path «First year: chest and skeletal X-rays», cases picked starting from the simplest.',
+ '🧭 Inizia il percorso': '🧭 Start the learning path',
+ 'Tutti i casi': 'All cases',
+ 'Completa il profilo': 'Complete your profile',
+ '🗓 Mandami per email il caso della settimana': '🗓 Email me the case of the week',
+ 'Una email a settimana; la togli quando vuoi.': 'One email a week; turn it off whenever you like.',
+ 'Inizia da qui': 'Start here',
+ '▶ Un caso facile': '▶ An easy case',
+ '5 minuti: immagini, domande, correzione': '5 minutes: images, questions, feedback',
+ '🧭 Percorso del primo anno': '🧭 First-year learning path',
+ 'RX del torace e dello scheletro, dal caso più semplice': 'Chest and skeletal X-rays, starting from the simplest case',
+ '👤 Completa il profilo': '👤 Complete your profile',
+ 'scuola, anno di corso e docenti': 'school, year and teachers',
+ 'Casi già visibili agli studenti, preparati con l\'aiuto dell\'IA o con dubbi aperti nella nota. Apri il caso: in alto trovi «Confermo» e «Da correggere». La revisione resta nel caso, con il tuo nome e la data.': 'Cases already visible to students, prepared with the help of AI or with open questions in the note. Open the case: at the top you will find «Confirm» and «Needs changes». The review is stored in the case, with your name and the date.',
+ 'Nessun caso da rivedere.': 'No cases to review.',
+ 'Già rivisti ({x})': 'Already reviewed ({x})',
+ '✅ confermato': '✅ confirmed',
+ '✏️ da correggere': '✏️ needs changes',
+ 'non ancora rivisto dal medico': 'not yet reviewed by a doctor',
+ 'dubbi aperti nella nota': 'open questions in the note',
+ 'correzioni chieste dal revisore': 'changes requested by the reviewer',
+ '▶ Prova un caso, senza iscriverti': '▶ Try a case, no sign-up',
+ 'Ricevi per email il caso della settimana (una email a settimana)': 'Receive the case of the week by email (one email a week)',
+ 'Mandami per email il caso della settimana (facoltativo, lo togli quando vuoi)': 'Email me the case of the week (optional, turn it off whenever you like)',
+ 'Entra': d.get('Entra', 'Sign in'),
+ 'Iscriviti gratis': d.get('Iscriviti gratis', 'Sign up for free'),
+ 'solo il revisore dei casi': 'only the case reviewer',
+ 'esito non valido': 'invalid outcome',
+}
+nuove = {k: v for k, v in N.items() if k not in d}
+d.update(nuove)
+json.dump(d, open(f, 'w'), ensure_ascii=False)
+print('aggiunte', len(nuove))

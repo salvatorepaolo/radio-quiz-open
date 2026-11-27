@@ -111,7 +111,7 @@
     <p class="hv-kicker">Formazione in radiologia · gratuita · <a class="hv-kicker-link" href="https://github.com/salvatorepaolo/radio-quiz-open" rel="noopener" title="Il codice della piattaforma su GitHub (licenza EUPL 1.2)">open source</a></p>
     <h1>Impara a refertare su casi veri</h1>
     <p class="hv-sub">Apri un esame vero e anonimo, leggilo con gli strumenti di una workstation, rispondi come in un referto e ricevi subito la correzione, con l'immagine in cui il reperto si vede meglio.</p>
-    <div class="hv-cta"><a class="btn primario hv-grande" href="#/iscriviti">Iscriviti gratis</a><a class="btn hv-grande hv-sec" href="#" data-vai="entra">Ho già un account</a></div>
+    <div class="hv-cta"><a class="btn hv-grande hv-prova" id="hv-prova" href="#/prova" hidden>▶ Prova un caso, senza iscriverti</a><a class="btn primario hv-grande" href="#/iscriviti">Iscriviti gratis</a><a class="btn hv-grande hv-sec" href="#" data-vai="entra">Ho già un account</a></div>
     <p class="hv-video"><a href="#/aiuto/video">▶ Guarda i video tutorial</a></p>
     <p class="hv-social">Seguici <span class="social" role="group" aria-label="Quiz Radiologia sui social"><a class="social-facebook" href="https://www.facebook.com/profile.php?id=61596866219499" target="_blank" rel="noopener" aria-label="Quiz Radiologia su Facebook" title="Quiz Radiologia su Facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.6 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.9v3h2.6V21z"/></svg></a><a class="social-instagram" href="https://www.instagram.com/quiz.radiologia/" target="_blank" rel="noopener" aria-label="Quiz Radiologia su Instagram" title="Quiz Radiologia su Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a class="social-linkedin" href="https://www.linkedin.com/company/radio-quiz" target="_blank" rel="noopener" aria-label="Quiz Radiologia su LinkedIn" title="Quiz Radiologia su LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4.5 9h3.2v10.5H4.5zM6.1 3.8a1.85 1.85 0 1 1 0 3.7 1.85 1.85 0 0 1 0-3.7zM9.7 9h3.1v1.4h.05c.43-.82 1.48-1.68 3.05-1.68 3.26 0 3.86 2.15 3.86 4.94v5.84h-3.2v-5.18c0-1.24-.02-2.83-1.72-2.83-1.73 0-2 1.35-2 2.74v5.27H9.7z"/></svg></a><a class="social-youtube" href="https://www.youtube.com/playlist?list=PLaHrPgfGWitU" target="_blank" rel="noopener" aria-label="Video tutorial su YouTube" title="Video tutorial su YouTube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></span></p>
     <a class="hv-settimana" id="hv-settimana" href="#/" hidden></a>
@@ -217,6 +217,7 @@
         <input id="isc-sede" placeholder="Scuola, ospedale o università" maxlength="120"></label>
       <label class="campo" id="isc-anno-campo">Anno di corso <span class="muted small">(facoltativo)</span>
         <select id="isc-anno"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+      <label class="check"><input type="checkbox" id="isc-settimana"> <span>Mandami per email il caso della settimana (facoltativo, lo togli quando vuoi)</span></label>
       <label class="check"><input type="checkbox" id="isc-docente"> <span>Sono anche docente: voglio seguire studenti o colleghi (ti vedranno solo quelli che ti scelgono)</span></label>
       <fieldset class="isc-condizioni">
         <legend>Prima di iscriverti, leggi e accetta</legend>
@@ -511,6 +512,7 @@
   <p class="muted small" id="ref-avviso">⚠ Strumento didattico, non è un dispositivo medico. Il referto e i dati del paziente restano su questo computer: la bozza si salva in questo browser.</p>
   <p class="ref-pulsanti"><button type="button" id="ref-stampa" class="primary">🖨 Stampa</button><button type="button" id="ref-pdf">⤓ PDF</button><button type="button" id="ref-word">⤓ Word (.docx)</button><button type="button" id="ref-txt" class="ghost">Testo</button><span id="ref-stato" class="muted small"></span></p>
 </dialog>
+<div id="guida-barra" class="guida-barra" role="status" hidden></div>
 <main id="vista-elenco" class="elenco">
   <section class="home-hero">
     <div class="home-hero-testo">
@@ -518,6 +520,7 @@
       <div class="riga testa-elenco"><h1>Casi clinici</h1></div>
       <p>Apri un caso, esamina le immagini nel visualizzatore e scegli le diagnosi corrette (una o più).</p>
       <div id="home-numeri" class="home-numeri"></div>
+      <section id="inizia-qui" class="inizia-qui" hidden></section>
       <div class="home-cta">
         <button id="btn-casuale" class="primary" title="Apre un caso a caso tra quelli della metodica scelta; dopo la risposta passi al successivo">Allenamento casuale</button>
         <button id="btn-esame" class="ghost" title="Esame simulato: casi a tempo, correzione alla fine e confronto con la media degli iscritti">⏱ Esame simulato</button>
@@ -1062,6 +1065,7 @@
     <label class="campo">Sede <input id="pr-sede" maxlength="120" placeholder="Scuola di specializzazione, ospedale o università"></label>
     <label class="campo" id="pr-anno-campo">Anno di corso <select id="pr-anno"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
     <label class="check"><input type="checkbox" id="pr-avvisi"> Ricevi per email gli avvisi dei compiti assegnati e i promemoria delle scadenze</label>
+    <label class="check"><input type="checkbox" id="pr-settimana"> Ricevi per email il caso della settimana (una email a settimana)</label>
     <button class="primary" type="submit">Salva</button> <span id="pr-msg" class="muted small"></span>
   </form>
 
@@ -1230,6 +1234,7 @@
 <main id="vista-revisione" class="classi" hidden>
   <div class="riga testa-elenco"><h1>Revisione delle bozze</h1><span class="spacer"></span><a class="btn" href="#/gestione-casi">Tutti i casi</a></div>
   <p class="muted">Per ogni caso: cosa controllare (dalla nota del docente e dai controlli automatici). Apri il caso con le immagini, poi «Confermo e pubblico» se va bene così, oppure «Correggo» per modificarlo. La conferma toglie il blocco «DA CONTROLLARE» dalla nota e lo rende visibile agli studenti.</p>
+  <section id="rv-casi" class="rv-casi" hidden></section>
   <div id="rv-lista"></div>
 </main>
 

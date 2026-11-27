@@ -16,19 +16,32 @@ const trBreve = (v, f) => (v >= 1e6 ? trNum(v / 1e6, 1) + ' M' : v >= 1e4 ? trNu
 const trData = (g, lungo) => new Date(g + 'T12:00:00Z').toLocaleDateString('it-IT', lungo ? { day: 'numeric', month: 'long', year: 'numeric' } : { day: 'numeric', month: 'short' });
 // grafico per giorno: la prima serie a barre, le altre a linee; ogni serie con la sua scala se `asse2`
 function graficoGiorni(giorni, serie, { alto = 190, formato = trNum } = {}) {
-  const W = 640, H = alto, sx = 42, dx = 8, su = 10, giu = 22, L = W - sx - dx, A = H - su - giu, n = giorni.length || 1;
+  const W = 640, H = alto, sx = 42, dx = 8, su = 10, giu = 22, L = W - sx - dx, ALT = H - su - giu, n = giorni.length || 1;   // 27/11: ALT (altezza utile) e non A, che è il ponte con app.js (con «A» il grafico dava «A.esc is not a function» dalla 1.272)
   const max = (k) => Math.max(1, ...giorni.map((g) => g[k] || 0));
   const m0 = max(serie[0].k), passo = L / n, x = (i) => sx + i * passo + passo / 2;
-  const tacche = [0, 0.5, 1].map((f) => `<line class="asse" x1="${sx}" x2="${W - dx}" y1="${su + A * (1 - f)}" y2="${su + A * (1 - f)}" stroke-dasharray="${f ? '2 3' : ''}"/><text x="${sx - 4}" y="${su + A * (1 - f) + 3}" text-anchor="end">${A.esc(trBreve(m0 * f, formato))}</text>`).join('');
+  const tacche = [0, 0.5, 1].map((f) => `<line class="asse" x1="${sx}" x2="${W - dx}" y1="${su + ALT * (1 - f)}" y2="${su + ALT * (1 - f)}" stroke-dasharray="${f ? '2 3' : ''}"/><text x="${sx - 4}" y="${su + ALT * (1 - f) + 3}" text-anchor="end">${A.esc(trBreve(m0 * f, formato))}</text>`).join('');
   const bw = Math.max(1.5, passo * 0.68);
-  const barre = giorni.map((g, i) => { const h = A * (g[serie[0].k] || 0) / m0; return `<rect class="b" x="${x(i) - bw / 2}" y="${su + A - h}" width="${bw}" height="${Math.max(h, 0)}" rx="${Math.min(3, bw / 3)}" fill="${serie[0].c}"><title>${A.esc(trData(g.giorno, true))}\n${serie.map((s) => `${s.nome}: ${formato(g[s.k] || 0)}`).join('\n')}</title></rect>`; }).join('');
-  const linee = serie.slice(1).map((s) => { const m = s.asse2 ? max(s.k) : m0; const pts = giorni.map((g, i) => `${x(i).toFixed(1)},${(su + A - A * (g[s.k] || 0) / m).toFixed(1)}`).join(' ');
-    return `<polyline points="${pts}" fill="none" stroke="${s.c}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>${n <= 45 ? giorni.map((g, i) => `<circle cx="${x(i)}" cy="${su + A - A * (g[s.k] || 0) / m}" r="2.4" fill="${s.c}"/>`).join('') : ''}`; }).join('');
+  const barre = giorni.map((g, i) => { const h = ALT * (g[serie[0].k] || 0) / m0; return `<rect class="b" x="${x(i) - bw / 2}" y="${su + ALT - h}" width="${bw}" height="${Math.max(h, 0)}" rx="${Math.min(3, bw / 3)}" fill="${serie[0].c}"><title>${A.esc(trData(g.giorno, true))}\n${serie.map((s) => `${s.nome}: ${formato(g[s.k] || 0)}`).join('\n')}</title></rect>`; }).join('');
+  const linee = serie.slice(1).map((s) => { const m = s.asse2 ? max(s.k) : m0; const pts = giorni.map((g, i) => `${x(i).toFixed(1)},${(su + ALT - ALT * (g[s.k] || 0) / m).toFixed(1)}`).join(' ');
+    return `<polyline points="${pts}" fill="none" stroke="${s.c}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>${n <= 45 ? giorni.map((g, i) => `<circle cx="${x(i)}" cy="${su + ALT - ALT * (g[s.k] || 0) / m}" r="2.4" fill="${s.c}"/>`).join('') : ''}`; }).join('');
   const etich = [0, Math.floor((n - 1) / 2), n - 1].filter((v, i, a) => a.indexOf(v) === i).map((i) => `<text x="${x(i)}" y="${H - 6}" text-anchor="${i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'}">${A.esc(trData(giorni[i].giorno))}</text>`).join('');
   return `<div class="leg">${serie.map((s) => `<span><i style="background:${s.c}"></i>${A.esc(s.nome)}${s.asse2 ? ' (scala propria)' : ''}</span>`).join('')}</div>
     <svg class="tr-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${A.esc(serie.map((s) => s.nome).join(', '))} per giorno">${tacche}${barre}${linee}${etich}</svg>`;
 }
 const trRighe = (voci) => { const m = Math.max(1, ...voci.map((v) => v.n)); return `<ul class="tr-righe">${voci.map((v) => `<li><span class="nome" title="${A.esc(v.nome)}">${A.esc(v.nome)}</span><span class="n">${trNum(v.n)}</span><span class="barra"><span style="width:${(100 * v.n / m).toFixed(1)}%"></span></span></li>`).join('')}</ul>`; };
+// 27/11: dalla visita al primo caso, per capire dove si perdono le persone (percentuale sul passo da cui si parte)
+function trImbuto(i) {
+  if (!i) return '';
+  const pc = (a, b) => (b ? ` · ${Math.round(100 * a / b)}%` : '');
+  return `<div class="tr-box" style="margin-bottom:14px"><h3>Dalla visita al primo caso</h3>${trRighe([
+    { nome: 'Visite', n: i.visite || 0 },
+    { nome: `Casi di prova aperti senza account${pc(i.provaApri, i.visite)}`, n: i.provaApri || 0 },
+    { nome: `Casi di prova risolti senza account${pc(i.prova, i.provaApri)}`, n: i.prova || 0 },
+    { nome: `Nuovi iscritti${pc(i.iscrizioni, i.visite)}`, n: i.iscrizioni || 0 },
+    { nome: `Iscritti che hanno risolto un caso${pc(i.primoCaso, i.iscrizioni)}`, n: i.primoCaso || 0 },
+    { nome: `Iscritti tornati un altro giorno${pc(i.tornati, i.iscrizioni)}`, n: i.tornati || 0 }])}
+    <p class="muted small">Percentuali sul passo da cui si parte. Dal 27/11/2026 le visite dei browser automatici (controllo quotidiano, test, motori di ricerca) non si contano.</p></div>`;
+}
 function trMetro(nome, usato, soglia, fmt, proiez) {
   const f = usato / soglia, p = proiez / soglia, cl = Math.max(f, p) >= 0.85 ? 'alto' : Math.max(f, p) >= 0.6 ? 'medio' : '';
   return `<div class="tr-metro ${cl}"><div class="t"><span>${A.esc(nome)}</span><b>${A.esc(fmt(usato))} / ${A.esc(fmt(soglia))}</b></div>
@@ -58,6 +71,7 @@ async function apriTraffico(n = TR_GIORNI) {
       <div class="tr-box"><h3>Andamento giornaliero</h3>${graficoGiorni(G, [{ k: 'pagine', nome: 'Pagine viste', c: 'var(--acc)' }, { k: 'utenti', nome: 'Persone attive', c: 'var(--warn)', asse2: true }, { k: 'login', nome: 'Accessi', c: 'var(--ok)', asse2: true }])}</div>
       <div class="tr-box"><h3>Pagine più usate</h3>${d.pagine.length ? trRighe(d.pagine.slice(0, 10).map((x) => ({ nome: NOMI_PAGINE[x.p] || x.p, n: x.n }))) : '<p class="muted small">Ancora nessun dato: i conteggi partono da questa versione.</p>'}</div>
     </div>`;
+    h += trImbuto(d.imbuto);
     if (d.casi.length) h += `<div class="tr-box" style="margin-bottom:14px"><h3>Casi più aperti</h3>${trRighe(d.casi.map((x) => ({ nome: x.titolo, n: x.n })))}</div>`;
     h += trAws(d.aws);
     h += `<p class="tr-nota">Dal ${A.esc(trData(d.da, true))} · solo totali giornalieri, nessun dato personale. L'amministratore non viene contato; il visualizzatore scaricabile non invia nulla. Aggiornato alle ${A.esc(new Date(d.generato).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }))}.</p>`;
