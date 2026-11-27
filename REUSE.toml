@@ -81,3 +81,14 @@ SPDX-License-Identifier = "MIT AND BSD-2-Clause"
 path = "piattaforma-quiz/cloud/web/lib/codec/jpegimage.js"
 SPDX-FileCopyrightText = ["Chris Hafey", "Mozilla Foundation"]
 SPDX-License-Identifier = "MIT AND Apache-2.0"
+
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/lib/brainchop/**"
+SPDX-FileCopyrightText = ["2024-2026 spikedoanz, Sergey Plis", "2020 Chris Rorden's Lab (niimath)"]
+SPDX-License-Identifier = "MIT AND BSD-2-Clause"
+
+# atlante dell'encefalo: territori arteriosi (Johns Hopkins University) e centri delle strutture sul template ICBM 2009c
+[[annotations]]
+path = "piattaforma-quiz/cloud/web/atlante/**"
+SPDX-FileCopyrightText = ["2021 The Johns Hopkins University (Digital 3D Brain MRI Arterial Territories Atlas)", "1993-2004 Louis Collins, McConnell Brain Imaging Centre, Montreal Neurological Institute, McGill University (ICBM 2009c)"]
+SPDX-License-Identifier = "CC-BY-SA-4.0"

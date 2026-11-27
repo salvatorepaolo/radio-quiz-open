@@ -2780,3 +2780,11 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 .cd-az { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .3rem; }
 .cd-az button { padding: .2rem .55rem; font-size: .85rem; }
 .manda-caso .stato:empty, .cd-box .stato:empty { display: none; }
+
+/* atlante dell'encefalo */
+.atl-pannello .atl-modi { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 6px; }
+.atl-pannello .atl-modi button.on { background: var(--acc, #4ea1ff); color: #fff; }
+.atl-pannello label { display: block; margin: 3px 0; }
+.atl-pannello .atl-legenda { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 6px 0; font-size: 12px; }
+.atl-pannello .atl-voce { display: inline-flex; align-items: center; gap: 4px; }
+.atl-pannello .atl-voce i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }

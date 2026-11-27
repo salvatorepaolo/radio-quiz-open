@@ -32,6 +32,7 @@
 *.jpeg
 !/piattaforma-quiz/cloud/web/**/*.png
 !/piattaforma-quiz/cloud/web/**/*.jpg
+!/piattaforma-quiz/cloud/web/atlante/*.gz
 !/docs/*.jpg
 /piattaforma-quiz/casi-free/**/serie/
 /piattaforma-quiz/casi-free/**/_rimosse/

@@ -8,6 +8,7 @@ const pigro = (url) => { let pr = null; const f = () => (pr ||= import(url).then
 let CM = null;   // cmr.js, con cmr-ui.js (caricaCmrUi)
 const modAnon = pigro('./anonimizza.js'), modAnalisi = pigro('./analisi.js'), modEco = pigro('./ecosemi.js'), modCmr = pigro('./cmr.js'), modT2s = pigro('./t2star.js'), modRL = pigro('./refertolocale.js');
 import { SCALE_INDICE } from './scale-indice.js';
+import * as AE from './atlante-encefalo.js';   // atlante dell'encefalo: giri, lobi, territori arteriosi
 
 // il referto può stare in una finestra separata (Document Picture-in-Picture): i suoi elementi si cercano anche lì
 const FIN_REF = { win: null };
@@ -914,6 +915,7 @@ async function selezionaSerie(si, k = V.attivo, { idx } = {}) {
   p.frames = s.files.map((f) => ({ url: `/casi/${V.caso.id}/${f}` }));
   p.cache.clear(); p.piano = null;
   try { if (k === V.attivo) { noduliSerie(si); aggiornaBottoneNoduli(); } } catch {}
+  try { if (k === V.attivo) { setTimeout(aggiornaBottoneAtlante, 0); setTimeout(aggiornaBottoneAtlante, 1500); } } catch {}
   p.idx = Number.isInteger(idx) ? Math.min(idx, p.frames.length - 1) : ME_NOME.test(s.descrizione || '') && isMultiEco({ sIdx: si }) ? 0 : Math.floor(p.frames.length / 2);   // multi-eco: dal primo eco
   p.zoom = 1; p.panX = p.panY = 0; p.rot = 0; p.fl = false; p.img = null; p.wl0 = false; p.adc = false; $('#btn-adc')?.classList.remove('on');
   evidenziaSerie();
@@ -3744,6 +3746,7 @@ function attiva(k) {
   if (k === V.attivo) return;
   V.attivo = k; evidenziaSerie(); aggiornaMenuFinestre(); mostraSlabAttivo(); const sl = $('#slider'); sl.max = Math.max(0, P().frames.length - 1); sl.value = P().idx; disegna();
   try { aggiornaBottoneNoduli(); } catch {}
+  try { aggiornaBottoneAtlante(); } catch {}
 }
 
 canvas.addEventListener('wheel', (e) => {
@@ -5543,6 +5546,164 @@ function pannelloNoduli() {
   $('#nod-occhio').onclick = () => { NOD.nascosti = !NOD.nascosti; aggiornaBottoneNoduli(); pannelloNoduli(); disegna(); };
   legaTrascinaPannello(box);
 }
+// ---- atlante dell'encefalo sopra le immagini (come i visualizzatori di neuroradiologia): giri e strutture, lobi,
+// territori arteriosi; nome della struttura sotto il puntatore. Nei casi del sito strutture e territori sono calcolati
+// sul Mac e pubblicati con il caso (ia/<serie>.json con «atlante: encefalo»); nel visualizzatore gratuito si calcolano
+// su questo computer con MindSnap (@brainchop/core, open source) e l'atlante arterioso JHU: le immagini non escono.
+const ATL = { on: false, modo: (() => { try { return localStorage.getItem('rq-atl-modo') || 'giri'; } catch { return 'giri'; } })(), nomi: true, opac: 0.45,
+  dati: new Map(), pronti: new Map(), stato: new Map(), sotto: null, raf: 0, colori: new WeakMap() };
+const ATL_MODI = { giri: 'Giri e strutture', lobi: 'Lobi', arterie: 'Territori arteriosi', dettaglio: 'Rami arteriosi (dettaglio)' };
+// chiave dello studio: l'atlante vale per tutte le serie dello stesso esame (stesse coordinate del paziente)
+const kAtl = (si) => { const s = V.serie[si]; if (!s) return '-'; const st = studioDi(s)?.id ?? ''; return CLIENT ? `cl:${st}` : `${V.caso?.id}:${st}`; };
+const atlanteConsentito = () => CLIENT || (!!V.caso && !bloccoEsame() && !funzioneSpenta('anatomia') && repertiIAConsentiti());
+// RM dell'encefalo adatta al calcolo nel browser: almeno 60 immagini, strato fino a 2 mm, non una TC
+function rmEncefaloClient(si) {
+  const s = V.serie[si], q = V.pannelli.find((x) => x.sIdx === si && x.frames?.length), img = q?.img;
+  if (!s || !img || img.modalita !== 'MR' || img.rgb || !img.iop || (s.files?.length || 0) < 60) return false;
+  return (img.spessore || 1) <= 2.0;
+}
+async function caricaAtlanteSito(si) {
+  const ia = await iaDelloStudio(si);
+  if (!ia?.geo || ia.geo.atlante !== 'encefalo') return null;
+  const d = { geo: ia.geo, lab: ia.lab, art: null, residuo: ia.geo.arterie?.residuo_mm };
+  if (ia.geo.arterie?.file) {
+    try {
+      const r = await fetch(`/casi/${V.caso.id}/ia/${ia.geo.arterie.file}`, { credentials: 'same-origin' });
+      if (r.ok) d.art = new Uint8Array(await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
+    } catch { /* senza territori arteriosi */ }
+  }
+  return d;
+}
+// dati dell'atlante per la serie (null se non ci sono); nel sito si caricano alla prima richiesta
+function atlanteDi(si) {
+  const k = kAtl(si);
+  if (ATL.pronti.has(k)) return ATL.pronti.get(k);
+  if (!CLIENT && !ATL.dati.has(k) && V.caso && V.caso.ia !== false) {
+    ATL.dati.set(k, caricaAtlanteSito(si).catch(() => null).then((d) => { ATL.pronti.set(k, d); aggiornaBottoneAtlante(); if (d && ATL.on) disegna(); return d; }));
+  }
+  return null;
+}
+async function calcolaAtlanteClient(si) {
+  const k = kAtl(si); if (ATL.dati.has(k)) return ATL.dati.get(k);
+  const pr = (async () => {
+    const mostra = () => { if (!$('#atl-pannello').hidden) pannelloAtlante(); };
+    ATL.stato.set(k, { f: 0, msg: 'Carico le immagini…' }); mostra();
+    const vol = await volumeDi(si, (a, b) => { ATL.stato.set(k, { f: 0.1 * a / b, msg: `Carico le immagini (${a}/${b})…` }); mostra(); });
+    ATL.stato.set(k, { f: 0.1, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra();
+    let ultimo = 0;
+    const r = await AE.segmentaNelBrowser(vol, (f) => { const t = performance.now(); if (t - ultimo > 300) { ultimo = t; ATL.stato.set(k, { f: 0.1 + 0.8 * f, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra(); } });
+    if (Object.keys(r.geo.etichette).length < 60) throw new Error('nella serie non si riconosce un encefalo intero (serve una RM 3D dell\'encefalo, meglio pesata in T1)');
+    ATL.stato.set(k, { f: 0.92, msg: 'Adatto l\'atlante dei territori arteriosi…' }); mostra();
+    const t = await AE.territori(r.lab, r.geo).catch(() => null);
+    const d = { geo: r.geo, lab: r.lab, art: t && t.residuo <= 6 ? t.art : null, residuo: t?.residuo, backend: r.backend, ms: r.ms };
+    ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
+    return d;
+  })().catch((e) => { ATL.dati.delete(k); ATL.stato.set(k, { msg: 'Calcolo non riuscito: ' + (e?.message || e) }); if (!$('#atl-pannello').hidden) pannelloAtlante(); return null; });
+  ATL.dati.set(k, pr); return pr;
+}
+// volume da mostrare per il modo scelto (oggetto { geo, lab } come le segmentazioni IA, per etichetteImmagine/etichettaIn)
+function strato(d, modo) {
+  if (!d) return null;
+  if (modo === 'giri') return d;
+  if (modo === 'lobi') { d.vLobi ||= { geo: d.geo, lab: AE.volumeLobi(d.lab, d.geo.dim, d.geo.etichette) }; return d.vLobi; }
+  if (!d.art) return null;
+  d.vArt ||= { geo: d.geo, lab: d.art }; return d.vArt;
+}
+function lutAtlante(d, modo) {
+  const l = new Array(256).fill(null);
+  if (modo === 'giri') for (const [k, n] of Object.entries(d.geo.etichette)) l[+k] = AE.coloreStruttura(n);
+  else if (modo === 'lobi') for (const [k, v] of Object.entries(AE.LOBI)) l[+k] = v[1];
+  else for (let v = 1; v <= 30; v++) { const a = AE.arteria(v); if (a) l[v] = modo === 'arterie' ? AE.PRINCIPALI[a.p][1] : a.c; }
+  return l;
+}
+function disegnaAtlante(k, g, img) {
+  if (!ATL.on || !atlanteConsentito()) return;
+  const p = P(k), d = atlanteDi(p.sIdx), o = strato(d, ATL.modo); if (!o) return;
+  const passo = img.cols > 400 || img.rows > 400 ? 2 : 1, m = etichetteImmagine(o, img, passo);
+  const chiave = `${ATL.modo}|${ATL.opac}`;
+  let c = ATL.colori.get(m);
+  if (c?.chiave !== chiave) {
+    const cv = document.createElement('canvas'); cv.width = m.w; cv.height = m.h;
+    const cx = cv.getContext('2d'), id = cx.createImageData(m.w, m.h), lut = lutAtlante(d, ATL.modo), a = Math.round(255 * ATL.opac);
+    for (let i = 0; i < m.l.length; i++) { const col = lut[m.l[i]]; if (!col) continue; const j = i * 4; id.data[j] = col[0]; id.data[j + 1] = col[1]; id.data[j + 2] = col[2]; id.data[j + 3] = a; }
+    cx.putImageData(id, 0, 0); c = { chiave, cv }; ATL.colori.set(m, c);
+  }
+  ctx.save(); ruotaCtx(g); ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(c.cv, g.x, g.y, m.w * m.passo * g.sx, m.h * m.passo * g.sy); ctx.restore();
+  const t = ATL.sotto;
+  if (t && t.k === k && t.nome) { ctx.save(); ctx.font = 'bold 13px system-ui, sans-serif'; testoContorno(t.nome, t.x + 14, t.y - 10, '#fff'); ctx.restore(); }
+}
+// nome sotto il puntatore, secondo il modo
+function nomeAtlante(d, q) {
+  const v = etichettaIn(d, q), n = d.geo.etichette[v]; if (!v) return '';
+  const lato = AE.scomponi(n).lato, sl = lato ? ` ${lato === 'sin' ? 'sin.' : 'dx'}` : '';
+  if (ATL.modo === 'giri') return AE.nomeStruttura(n);
+  if (ATL.modo === 'lobi') { const l = etichettaIn(strato(d, 'lobi'), q), L = AE.LOBI[l]?.[0]; return L ? `${L}${sl} · ${AE.nomeStruttura(n).replace(/ (sin\.|dx)$/, '')}` : AE.nomeStruttura(n); }
+  const o = strato(d, ATL.modo), a = o && AE.arteria(etichettaIn(o, q));
+  if (!a) return AE.nomeStruttura(n);
+  return (ATL.modo === 'arterie' ? `territorio dell'${AE.PRINCIPALI[a.p][0]}` : a.n) + ` ${a.lato === 'sin' ? 'sin.' : 'dx'}`;
+}
+canvas.addEventListener('pointermove', (e) => {
+  if (!ATL.on || !ATL.nomi || e.buttons || e.pointerType === 'touch') { if (ATL.sotto) { ATL.sotto = null; disegna(); } return; }
+  const r = canvas.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, k = pannelloSotto(x, y), p = P(k);
+  const d = p?.img?.ipp && atlanteConsentito() ? atlanteDi(p.sIdx) : null;
+  const nome = d ? nomeAtlante(d, aPaziente(p.img, aImmagine(geometriaDi(k), x, y))) : '';
+  ATL.sotto = nome ? { k, x, y, nome } : null;
+  ATL.raf ||= requestAnimationFrame(() => { ATL.raf = 0; disegna(); });
+});
+canvas.addEventListener('pointerleave', () => { if (ATL.sotto) { ATL.sotto = null; disegna(); } });
+if (new URLSearchParams(location.search).has('prova')) window.__atl = { ATL, nomeAtlante, atlanteDi };   // solo per le prove automatiche
+function aggiornaBottoneAtlante() {
+  const b = $('#btn-atlante'); if (!b) return;
+  const si = P()?.sIdx, d = si != null ? atlanteDi(si) : null;
+  const visibile = CLIENT ? (!!d || visibili().some(([q]) => rmEncefaloClient(q.sIdx)) || ATL.stato.has(kAtl(si))) : visibili().some(([q]) => atlanteDi(q.sIdx));
+  b.hidden = !visibile; b.classList.toggle('on', ATL.on && !!d);
+  if (!$('#atl-pannello').hidden) pannelloAtlante();
+}
+function legendaAtlante(d) {
+  const voce = (c, t) => `<span class="atl-voce"><i style="background:rgb(${c.join(',')})"></i>${esc(t)}</span>`;
+  if (ATL.modo === 'lobi') return Object.values(AE.LOBI).map(([t, c]) => voce(c, t)).join('');
+  if (ATL.modo === 'arterie') return Object.values(AE.PRINCIPALI).map(([t, c]) => voce(c, t)).join('');
+  if (ATL.modo === 'dettaglio') return Object.values(AE.ARTERIE).map((a) => voce(a.c, a.n)).join('');
+  return [1, 2, 3, 4, 5, 6, 7].map((l) => voce(AE.LOBI[l][1], AE.LOBI[l][0].replace(/^lobo /, ''))).join('') + '<span class="small muted"> · ogni giro con una tonalità del suo lobo</span>';
+}
+function pannelloAtlante() {
+  const box = $('#atl-pannello'), si = P()?.sIdx, k = kAtl(si), d = si != null ? atlanteDi(si) : null, st = ATL.stato.get(k);
+  box.hidden = false;
+  const testa = `<div class="riga eco-testa" title="Trascina per spostare il pannello"><b>🧠 Atlante dell'encefalo</b><span class="spacer"></span><button type="button" class="ghost piccolo" id="atl-chiudi" title="Chiudi">✕</button></div>`;
+  let corpo = '';
+  if (!CLIENT && !atlanteConsentito()) corpo = '<p class="small muted">L\'atlante si vede dopo la risposta: prima guarda le immagini da solo.</p>';
+  else if (st) corpo = st.f != null ? `<p class="small"><progress max="1" value="${st.f}"></progress> ${esc(st.msg || '')}</p><p class="small muted">Il calcolo gira su questo computer: le immagini non escono.</p>` : `<p class="small">${esc(st.msg || '')}</p>`;
+  else if (!d) {
+    corpo = CLIENT
+      ? (rmEncefaloClient(si) ? '<p class="small">Calcola giri, lobi e territori arteriosi su questa serie (RM 3D dell\'encefalo, meglio pesata in T1). Il modello (circa 4 MB) si scarica una volta e gira su questo computer: le immagini non escono.</p><button type="button" class="primary piccolo" id="atl-avvia">Calcola l\'atlante</button>'
+        : '<p class="small muted">Serve una RM 3D dell\'encefalo (almeno 60 immagini, strato fino a 2 mm), meglio pesata in T1: scegli quella serie nel riquadro attivo.</p>')
+      : '<p class="small muted">Per questo esame l\'atlante non è disponibile.</p>';
+  } else {
+    const modi = Object.entries(ATL_MODI).map(([m, t]) => `<button type="button" class="ghost piccolo${ATL.modo === m ? ' on' : ''}" data-atl-modo="${m}"${m !== 'giri' && m !== 'lobi' && !d.art ? ' disabled title="Territori arteriosi non disponibili: l\'atlante non si adatta bene a questo esame"' : ''}>${t}</button>`).join('');
+    corpo = `<div class="atl-modi">${modi}</div>
+      <label class="small"><input type="checkbox" id="atl-on"${ATL.on ? ' checked' : ''}> Mostra sulle immagini</label>
+      <label class="small"><input type="checkbox" id="atl-nomi"${ATL.nomi ? ' checked' : ''}> Nome sotto il puntatore</label>
+      <label class="small">Opacità <input type="range" id="atl-opac" min="0.15" max="0.85" step="0.05" value="${ATL.opac}"></label>
+      <div class="atl-legenda">${legendaAtlante(d)}</div>
+      <p class="small muted">Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}. Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
+  }
+  box.innerHTML = testa + corpo;
+  $('#atl-chiudi').onclick = () => { box.hidden = true; };
+  if ($('#atl-avvia')) $('#atl-avvia').onclick = () => { calcolaAtlanteClient(P().sIdx); pannelloAtlante(); };
+  box.querySelectorAll('[data-atl-modo]').forEach((b) => { b.onclick = () => { ATL.modo = b.dataset.atlModo; ATL.on = true; try { localStorage.setItem('rq-atl-modo', ATL.modo); } catch {} pannelloAtlante(); aggiornaBottoneAtlante(); disegna(); }; });
+  if ($('#atl-on')) $('#atl-on').onchange = (e) => { ATL.on = e.target.checked; aggiornaBottoneAtlante(); disegna(); };
+  if ($('#atl-nomi')) $('#atl-nomi').onchange = (e) => { ATL.nomi = e.target.checked; ATL.sotto = null; disegna(); };
+  if ($('#atl-opac')) $('#atl-opac').oninput = (e) => { ATL.opac = +e.target.value; disegna(); };
+  legaTrascinaPannello(box);
+}
+$('#btn-atlante')?.addEventListener('click', () => {
+  const box = $('#atl-pannello');
+  if (!box.hidden) { box.hidden = true; return; }
+  if (!CLIENT && !atlanteConsentito()) { anatomiaConsentita(); }
+  if (atlanteDi(P().sIdx)) { ATL.on = true; disegna(); }
+  pannelloAtlante(); aggiornaBottoneAtlante();
+});
 function legaTrascinaPannello(box) {
   box.querySelector('.eco-testa').onpointerdown = (e) => {
     if (e.target.closest('button')) return;
@@ -8904,6 +9065,7 @@ const IA_NOMI = { spleen: 'milza', kidney: 'rene', gallbladder: 'colecisti', liv
   ventricle_temporal_horn: 'corno temporale', ventricle_trigone: 'trigono ventricolare', third_ventricle: 'III ventricolo', fourth_ventricle: 'IV ventricolo',
   pleural_effusion: 'versamento pleurico', pericardial_effusion: 'versamento pericardico', lung_nodules: 'noduli polmonari', liver_lesions: 'lesioni epatiche' };
 function nomeIA(n) {
+  if (AE.eAtlanteEncefalo(n)) return AE.nomeStruttura(n);
   let m; if ((m = n.match(/^vertebrae_([A-Z]\d+)$/))) return `vertebra ${m[1]}`;
   if ((m = n.match(/^rib_(left|right)_(\d+)$/))) return `${m[2]}ª costa ${m[1] === 'left' ? 'sin.' : 'dx'}`;
   const lato = /_left$/.test(n) ? ' sin.' : /_right$/.test(n) ? ' dx' : ''; const b = n.replace(/_(left|right)$/, '');
@@ -9020,13 +9182,13 @@ function etichettaIn(ia, q) {
   return i < 0 || j < 0 || k < 0 || i >= W || j >= H || k >= N ? 0 : lab[(k * H + j) * W + i];
 }
 // mappa delle etichette sull'immagine (passo di 2 pixel), in cache per immagine
-function etichetteImmagine(ia, img) {
-  const chiave = `${img.ipp?.join(',')}|${img.iop?.join(',')}|${img.cols}`;
+function etichetteImmagine(ia, img, passoV = 2) {
+  const chiave = `${img.ipp?.join(',')}|${img.iop?.join(',')}|${img.cols}|${passoV}`;
   if (!ANAT.maschere.has(ia)) ANAT.maschere.set(ia, new Map());
   const cacheIa = ANAT.maschere.get(ia);
   let m = cacheIa.get(chiave);
   if (m) return m;
-  const passo = 2, w = Math.ceil(img.cols / passo), h = Math.ceil(img.rows / passo), out = new Uint8Array(w * h);
+  const passo = passoV, w = Math.ceil(img.cols / passo), h = Math.ceil(img.rows / passo), out = new Uint8Array(w * h);
   const { geo, lab } = ia, [W, H, N] = geo.dim, r = img.iop.slice(0, 3), c = img.iop.slice(3, 6);
   // per ogni asse della segmentazione: valore all'origine dell'immagine e incrementi per colonna e per riga
   const base = [0, 1, 2].map((a) => ((img.ipp[0] - geo.origine[0]) * geo.assi[a][0] + (img.ipp[1] - geo.origine[1]) * geo.assi[a][1] + (img.ipp[2] - geo.origine[2]) * geo.assi[a][2]) / geo.sp[a]);
@@ -9056,6 +9218,7 @@ function contornoStruttura(k, g, img, ia, id, colore) {
 }
 function disegnaAnatomia(k, g, img) {
   if (!img?.ipp || !img.iop) return;
+  disegnaAtlante(k, g, img);
   const p = P(k);
   const e = ANAT.etichetta;
   if (e && e.sIdx === p.sIdx && e.ia) {

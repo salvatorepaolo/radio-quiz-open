@@ -1,0 +1,6 @@
+# dati scaricati o rigenerabili, prove, log, ambiente
+.venv/
+atlante/
+prove/
+*.log
+patch_*.py
