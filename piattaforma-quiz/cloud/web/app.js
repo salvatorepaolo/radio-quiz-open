@@ -5750,12 +5750,12 @@ function sceltaSerieAtlante(si) {
 // qualità: strutture riconosciute (su 103) e scarto mediano dell'adattamento dei territori arteriosi
 function qualitaAtlante(d) {
   if (d.tm) {
-    const det = `la segmentazione automatica non era affidabile su questa serie (${d.tm.strutture} strutture riconosciute su 103${d.tm.residuoSeg != null ? `, scarto ${virgola(d.tm.residuoSeg, 1)} mm` : ''}): è mostrato l'atlante del template allineato all'esame (trasformazione affine)`;
+    const det = `la segmentazione automatica non era affidabile su questa serie (${d.tm.strutture} strutture riconosciute su 103${d.tm.residuoSeg != null ? `, scarto ${virgola(d.tm.residuoSeg, 1)} mm` : ''}): è mostrato l'atlante del template allineato all'esame (affine${d.tm.deformazione != null ? `, poi adattato alla forma di questo encefalo: spostamento medio ${virgola(d.tm.deformazione, 1)} mm` : ''})`;
     return d.tm.dice >= 0.75 ? { t: 'discreta', c: 'q-discreta', det: det + '; lobi e territori arteriosi orientativi, i nomi dei giri indicativi' }
       : { t: 'scarsa', c: 'q-scarsa', det: det + '; allineamento incerto: controllalo prima di fidarti dei nomi' };
   }
   if (d.tc) {
-    const det = `TC: atlante del template allineato all'esame (trasformazione affine); coincide per il ${Math.round(d.tc.dice * 100)}% con l'interno del cranio`;
+    const det = `TC: atlante del template allineato all'esame (affine${d.tc.deformazione != null ? `, poi adattato a ventricoli e solchi: spostamento medio ${virgola(d.tc.deformazione, 1)} mm` : ''}); coincide per il ${Math.round(d.tc.dice * 100)}% con l'interno del cranio`;
     // i ventricoli dell'atlante devono cadere sul liquor: almeno 6 HU meno della sostanza bianca
     const contrasto = d.tc.huVentricoli != null && d.tc.huBianca != null ? d.tc.huBianca - d.tc.huVentricoli : null;
     if (d.tc.tagliato) return { t: 'scarsa', c: 'q-scarsa', det: det + '; la TC non copre tutto l\'encefalo (manca la volta o la base): l\'allineamento è meno sicuro' };
@@ -5948,7 +5948,7 @@ function pannelloAtlante() {
       <label class="small"><input type="checkbox" id="atl-nomi"${ATL.nomi ? ' checked' : ''}> Nome sotto il puntatore</label>
       <label class="small">Opacità <input type="range" id="atl-opac" min="0.15" max="0.85" step="0.05" value="${ATL.opac}"></label>
       <div class="atl-legenda">${legendaAtlante(d)}</div>
-      <p class="small muted">${d.tm ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) allineato alla RM con una trasformazione affine (informazione mutua)' : d.tc ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) portato sulla TC con un allineamento affine' : `Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}`}. Nelle lesioni il colore indica la sede anatomica stimata, non il tessuto. I territori sono quelli più frequenti: variano da persona a persona (varianti del poligono di Willis). Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
+      <p class="small muted">${d.tm ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) allineato alla RM con una trasformazione affine (informazione mutua), poi adattato all\'esame con una registrazione deformabile; i bordi tra liquor, grigia e bianca seguono le intensità dell\'esame' : d.tc ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) portato sulla TC con un allineamento affine e poi deformabile; i bordi tra liquor e parenchima seguono le densità della TC' : `Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}`}. Nelle lesioni il colore indica la sede anatomica stimata, non il tessuto. I territori sono quelli più frequenti: variano da persona a persona (varianti del poligono di Willis). Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
   }
   box.innerHTML = testa + corpo;
   $('#atl-chiudi').onclick = () => { box.hidden = true; };
