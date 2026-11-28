@@ -5791,18 +5791,23 @@ function lutAtlante(d, modo) {
 function disegnaAtlante(k, g, img) {
   if (!ATL.on || !atlanteConsentito()) return;
   const p = P(k), d = atlanteDi(p.sIdx), o = strato(d, ATL.modo); if (!o) return;
-  // un pixel per etichetta fino a 1024 (bordi netti; con 2 pixel i confini apparivano a gradini e spostati di mezzo pixel)
-  const passo = img.cols > 1024 || img.rows > 1024 ? 2 : 1, m = etichetteImmagine(o, img, passo);
+  // mappa alla risoluzione dello schermo (fino a 4 punti per pixel dell'immagine, al massimo circa 1600 per lato),
+  // con le etichette interpolate: bordi arrotondati che seguono le strutture invece dei quadretti dei voxel
+  const dpr = window.devicePixelRatio || 1, lato = Math.max(img.cols, img.rows);
+  const f = Math.max(1, Math.min(4, Math.round(Math.abs(g.sx) * dpr), Math.floor(1600 / lato)));
+  const m = lato > 1024 ? etichetteImmagine(o, img, 2) : etichetteLisce(o, img, f);
   const chiave = `${ATL.modo}|${ATL.opac}|${ATL.contorni ? 1 : 0}`;
   let c = ATL.colori.get(m);
   if (c?.chiave !== chiave) {
     const cv = document.createElement('canvas'); cv.width = m.w; cv.height = m.h;
     const cx = cv.getContext('2d'), id = cx.createImageData(m.w, m.h), lut = lutAtlante(d, ATL.modo), a = Math.round(255 * ATL.opac);
-    const L = m.l, W = m.w, bordo = (i, v) => { const x = i % W; return (x > 0 && L[i - 1] !== v) || (x < W - 1 && L[i + 1] !== v) || (i >= W && L[i - W] !== v) || (i + W < L.length && L[i + W] !== v); };
+    // nei contorni la linea resta spessa circa un pixel dello schermo anche con la mappa più fine (s punti per lato)
+    const L = m.l, W = m.w, s = m.passo < 1 ? Math.max(1, Math.round(0.5 / m.passo)) : 1;
+    const bordo = (i, v) => { const x = i % W; for (let q = 1; q <= s; q++) if ((x >= q && L[i - q] !== v) || (x < W - q && L[i + q] !== v) || (i >= q * W && L[i - q * W] !== v) || (i + q * W < L.length && L[i + q * W] !== v)) return true; return false; };
     for (let i = 0; i < L.length; i++) { const col = lut[L[i]]; if (!col || (ATL.contorni && !bordo(i, L[i]))) continue; const j = i * 4; id.data[j] = col[0]; id.data[j + 1] = col[1]; id.data[j + 2] = col[2]; id.data[j + 3] = ATL.contorni ? 240 : a; }
     cx.putImageData(id, 0, 0); c = { chiave, cv }; ATL.colori.set(m, c);
   }
-  ctx.save(); ruotaCtx(g); ctx.imageSmoothingEnabled = false;
+  ctx.save(); ruotaCtx(g); ctx.imageSmoothingEnabled = m.passo < 1;
   ctx.drawImage(c.cv, g.x, g.y, m.w * m.passo * g.sx, m.h * m.passo * g.sy); ctx.restore();
   const t = ATL.sotto;
   if (t && t.k === k && t.nome) { ctx.save(); ctx.font = 'bold 13px system-ui, sans-serif'; testoContorno(t.nome, t.x + 14, t.y - 10, '#fff'); ctx.restore(); }
@@ -5826,7 +5831,7 @@ canvas.addEventListener('pointermove', (e) => {
   ATL.raf ||= requestAnimationFrame(() => { ATL.raf = 0; disegna(); });
 });
 canvas.addEventListener('pointerleave', () => { if (ATL.sotto) { ATL.sotto = null; disegna(); } });
-if (new URLSearchParams(location.search).has('prova')) window.__atl = { ATL, nomeAtlante, atlanteDi };   // solo per le prove automatiche
+if (new URLSearchParams(location.search).has('prova')) { window.__atl = { ATL, nomeAtlante, atlanteDi }; window.__etL = (d, img, f) => { ANAT.maschere.delete(d); return etichetteLisce(d, img, f); }; }   // solo per le prove automatiche
 function aggiornaBottoneAtlante() {
   const b = $('#btn-atlante'); if (!b) return;
   const si = P()?.sIdx, d = si != null ? atlanteDi(si) : null;
@@ -9417,6 +9422,51 @@ function etichetteImmagine(ia, img, passoV = 2) {
   }
   m = { w, h, passo, l: out };
   cacheIa.set(chiave, m); if (cacheIa.size > 40) cacheIa.delete(cacheIa.keys().next().value);
+  return m;
+}
+// come etichetteImmagine ma con f punti per pixel dell'immagine e le etichette interpolate: dove gli 8 voxel attorno
+// hanno la stessa etichetta vale quella; vicino a un bordo votano i 27 voxel attorno con peso gaussiano e vince
+// l'etichetta con più peso. Bordi arrotondati e continui invece dei quadretti dei voxel, anche ingrandendo
+function etichetteLisce(ia, img, f = 2) {
+  const chiave = `L|${img.ipp?.join(',')}|${img.iop?.join(',')}|${img.cols}|${f}`;
+  if (!ANAT.maschere.has(ia)) ANAT.maschere.set(ia, new Map());
+  const cacheIa = ANAT.maschere.get(ia);
+  let m = cacheIa.get(chiave);
+  if (m) return m;
+  const w = img.cols * f, h = img.rows * f, out = new Uint8Array(w * h);
+  const { geo, lab } = ia, [W, H, N] = geo.dim, r = img.iop.slice(0, 3), c = img.iop.slice(3, 6), WH = W * H;
+  const base = [0, 1, 2].map((a) => ((img.ipp[0] - geo.origine[0]) * geo.assi[a][0] + (img.ipp[1] - geo.origine[1]) * geo.assi[a][1] + (img.ipp[2] - geo.origine[2]) * geo.assi[a][2]) / geo.sp[a]);
+  const dx = [0, 1, 2].map((a) => (r[0] * geo.assi[a][0] + r[1] * geo.assi[a][1] + r[2] * geo.assi[a][2]) * img.spCol / f / geo.sp[a]);
+  const dy = [0, 1, 2].map((a) => (c[0] * geo.assi[a][0] + c[1] * geo.assi[a][1] + c[2] * geo.assi[a][2]) * img.spRow / f / geo.sp[a]);
+  // il punto (x, y) della mappa è al centro del suo sotto-pixel: (x + 0,5) / f − 0,5 in pixel dell'immagine
+  const o0 = (0.5 / f - 0.5) * f;
+  const lv = (i, j, k) => (i < 0 || j < 0 || k < 0 || i >= W || j >= H || k >= N ? 0 : lab[k * WH + j * W + i]);
+  const eL = new Uint8Array(27), eP = new Float32Array(27);
+  for (let y = 0; y < h; y++) {
+    const yy = y + o0;
+    for (let x = 0; x < w; x++) {
+      const xx = x + o0;
+      const u = base[0] + dx[0] * xx + dy[0] * yy, v = base[1] + dx[1] * xx + dy[1] * yy, z = base[2] + dx[2] * xx + dy[2] * yy;
+      if (u < -0.5 || v < -0.5 || z < -0.5 || u > W - 0.5 || v > H - 0.5 || z > N - 0.5) continue;
+      const i = Math.floor(u), j = Math.floor(v), k = Math.floor(z), tu = u - i, tv = v - j, tz = z - k;
+      const a0 = lv(i, j, k), a1 = lv(i + 1, j, k), a2 = lv(i, j + 1, k), a3 = lv(i + 1, j + 1, k);
+      const a4 = lv(i, j, k + 1), a5 = lv(i + 1, j, k + 1), a6 = lv(i, j + 1, k + 1), a7 = lv(i + 1, j + 1, k + 1);
+      if (a0 === a1 && a0 === a2 && a0 === a3 && a0 === a4 && a0 === a5 && a0 === a6 && a0 === a7) { out[y * w + x] = a0; continue; }
+      // vicino al bordo: votano i 27 voxel attorno, con peso gaussiano sulla distanza dal punto (sigma 0,85 voxel).
+      // Il bordo si arrotonda e i voxel isolati (rumore della segmentazione) non disegnano puntini
+      const ci = Math.round(u), cj = Math.round(v), ck = Math.round(z);
+      let n = 0;
+      for (let oz = -1; oz <= 1; oz++) for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) {
+        const qi = ci + ox, qj = cj + oy, qk = ck + oz, e = lv(qi, qj, qk), du = qi - u, dv = qj - v, dz = qk - z;
+        const pw = Math.exp(-(du * du + dv * dv + dz * dz) * 0.692);
+        let t = 0; while (t < n && eL[t] !== e) t++; if (t === n) { eL[n] = e; eP[n] = 0; n++; } eP[t] += pw;
+      }
+      let best = 0; for (let t = 1; t < n; t++) if (eP[t] > eP[best]) best = t;
+      out[y * w + x] = eL[best];
+    }
+  }
+  m = { w, h, passo: 1 / f, l: out };
+  cacheIa.set(chiave, m); if (cacheIa.size > 16) cacheIa.delete(cacheIa.keys().next().value);   // mappe grandi: poche in memoria
   return m;
 }
 // contorno di una struttura nell'immagine (riquadro k), colore a scelta
