@@ -7,24 +7,35 @@ const { chromium } = createRequire(CL + '/test/package.json')('playwright');
 const P = 8937, sim = spawn(process.execPath, [CL + '/test/simulatore.mjs'], { cwd: CL, env: { ...process.env, PORTA: String(P), CASI }, stdio: ['ignore', 'pipe', 'inherit'] });
 await new Promise((ok) => sim.stdout.on('data', (d) => { if (/pronto/.test(d)) ok(); }));
 const B = `http://localhost:${P}`, err = [];
-const b = await chromium.launch(process.env.GPU ? { args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', '--enable-unsafe-webgpu'] } : {});
+const b = await chromium.launch(process.env.GPU ? { args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', ...(process.env.SENZA_WEBGPU ? ['--disable-features=WebGPU,Vulkan', '--disable-webgpu'] : ['--enable-unsafe-webgpu'])] } : {});
 const dcm = (dir) => { const f = []; const giro = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const x = path.join(d, e.name); if (e.isDirectory()) giro(x); else if (/\.dcm$/i.test(e.name) || !/\./.test(e.name)) f.push(x); } }; giro(dir); return f; };
-const esami = process.argv.slice(2).map((a) => a.startsWith('/') ? a : path.join(CASI, a, 'serie'));
+const esami = process.argv.slice(2).map((a) => a.startsWith('/') || a.startsWith('sito:') ? a : path.join(CASI, a, 'serie'));
 try {
   for (const dir of esami) {
     const p = await (await b.newContext({ locale: 'it-IT', viewport: { width: 1400, height: 900 } })).newPage();
     p.on('pageerror', (e) => err.push(e.message));
+    if (dir.startsWith('sito:')) {        // caso del sito, da amministratore (atlante precalcolato o calcolato nel browser)
+      const id = dir.slice(5);
+      await p.goto(B + '/?prova#/'); await p.waitForSelector('[data-vai="codice"]'); await p.click('[data-vai="codice"]'); await p.fill('#codice', 'admin-test-0000'); await p.press('#codice', 'Enter');
+      await p.waitForSelector('#vista-elenco:not([hidden])'); await p.goto(B + '/?prova#/caso/' + id); await p.waitForFunction(() => window.__dbg?.P(0)?.img, null, { timeout: 60000 }); await p.waitForTimeout(3000);
+      await p.click('#btn-atlante'); await p.waitForTimeout(1500);
+      if (await p.$('#atl-avvia')) await p.click('#atl-avvia');
+      await p.waitForSelector('#atl-pannello .atl-qual', { timeout: 120000 });
+    } else {
     await p.goto(B + '/client/index.html?prova'); await p.waitForSelector('#vista-client:not([hidden])', { timeout: 30000 });
     await p.waitForSelector('#dlg-privacy-cl[open]', { timeout: 10000 }).then(() => p.click('#pr-accetto')).catch(() => {});
     await p.setInputFiles('#cl-file', dcm(dir));
     await p.waitForFunction(() => window.__dbg?.V?.img && location.hash === '#/caso/locale', null, { timeout: 120000 }); await p.waitForTimeout(3000);
     if (!(await p.isVisible('#btn-atlante'))) { console.log(path.basename(path.dirname(dir)), 'nessun bottone atlante'); continue; }
+    if (process.env.MOTORE) await p.evaluate((m) => { window.__atl.ATL.motore = m; }, process.env.MOTORE);
     if (process.env.FORZA_TEMPLATE) await p.evaluate(() => { window.__atl.ATL.forzaTemplate = true; });
     await p.click('#btn-atlante'); await p.waitForSelector('#atl-avvia'); await p.click('#atl-avvia');
     await p.waitForSelector('#atl-pannello .atl-qual', { timeout: 300000 });
+    }
+    const motore = await p.evaluate(() => { const d = window.__atl.atlanteDi(window.__dbg.P(window.__dbg.V.attivo ?? 0).sIdx); return d?.backend || d?.geo?.modello || ''; }).catch(() => '');
     const qual = (await p.textContent('#atl-pannello .atl-qual')) + ' · ' + ((await p.textContent('#atl-pannello')).match(/\d+ strutture[^.]*|la segmentazione automatica[^:]*/)?.[0] || '');
     await p.click('#atl-chiudi');
-    console.log('==', dir.split('/').slice(-2).join('/'), qual);
+    console.log('==', dir.startsWith('sito:') ? dir : dir.split('/').slice(-2).join('/'), qual, '· motore:', motore);
     for (const vista of ['nativa', 'Cor', 'Sag', 'OMP']) {
       if (vista !== 'nativa') { const ok = await p.click(`text="${vista}"`, { timeout: 3000 }).then(() => true).catch(() => false); if (!ok) { console.log('  ', vista, 'non disponibile'); continue; } await p.waitForTimeout(2500); }
       const r = await p.evaluate(async () => {

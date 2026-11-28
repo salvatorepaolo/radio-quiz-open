@@ -1,0 +1,132 @@
+{
+ "id": "caso-tcia-180",
+ "visibile": true,
+ "aggiornato": "2026-11-28 12:30",
+ "titolo": "RM encefalo: grande lesione fronto-insulare destra in uomo di 27 anni",
+ "titolo_interno": "Astrocitoma IDH-mutato, grado 2 OMS, insulare destro di circa 68 mL (ReMIND-026)",
+ "distretto": "Encefalo",
+ "modalita": "RM",
+ "difficolta": "Base",
+ "quesito": "caratterizzazione di lesione encefalica",
+ "anamnesi": "Uomo di 27 anni. RM dell'encefalo con mezzo di contrasto a 1,5 T prima dell'intervento (T1 3D dopo mdc, FLAIR 3D sagittale). Nessun intervento precedente sull'encefalo.",
+ "domanda": "Descrivi la lesione e indica l'ipotesi più probabile.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Voluminosa lesione dell'insula e dell'opercolo frontale destri, circa 7 × 5 × 6 cm (circa 68 mL), omogeneamente iperintensa in FLAIR e ipointensa in T1",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Segmentazione degli esperti: 68,3 mL, circa 73 × 47 × 64 mm."
+  },
+  {
+   "testo": "Nessuna impregnazione dopo mezzo di contrasto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Effetto massa sul ventricolo laterale destro",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Impregnazione ad anello con necrosi centrale ed edema vasogenico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesione extra-assiale con coda durale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Sangue acuto nella lesione",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Voluminosa lesione dell'insula destra non captante: glioma diffuso a basso grado, sospetto astrocitoma IDH-mutato; servono istologia e profilo molecolare",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Glioblastoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Linfoma primitivo del sistema nervoso centrale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Infarto subacuto della cerebrale media destra",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Massa omogenea, non captante, ipointensa in T1 e iperintensa in FLAIR, che espande l'insula e l'opercolo in un giovane adulto: il quadro tipico del glioma diffuso a basso grado, spesso IDH-mutato. L'insula è una sede frequente. Non è un infarto: c'è effetto massa e la forma non segue un territorio arterioso (prova l'atlante dei territori dopo la risposta). Il glioblastoma ha di solito impregnazione ad anello e necrosi; il linfoma è captante in modo omogeneo e periventricolare.\nNel referto: sede e volume, rapporto con capsula interna, nuclei della base e vasi lenticolostriati, effetto massa.",
+ "regola": "Massa non captante in FLAIR in un giovane adulto: glioma a basso grado finché non si dimostra il contrario.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Astrocitoma IDH-mutato, grado 2 OMS (dati della collezione ReMIND). Resezione con RM intraoperatoria."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "ReMIND (Brain Resection Multimodal Imaging Database)",
+  "doi": "10.7937/3RAG-D070",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Juvekar P., Dorent R., Kögl F., et al. (2023). The Brain Resection Multimodal Imaging Database (ReMIND) (Version 1) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/3RAG-D070",
+  "url": "https://www.cancerimagingarchive.net/collection/remind/",
+  "soggetto": "ReMIND-026"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  0
+ ],
+ "checklist": "obbligatoria",
+ "vista": {
+  "serie": 1,
+  "idx": 118,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Massa insulare destra iperintensa in FLAIR"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "glioma"
+  ],
+  "motivo": "Lesione voluminosa senza erniazione: comunicazione nei tempi brevi."
+ },
+ "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-026 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc (specchiata in convenzione radiologica) e FLAIR 3D sagittale (RM Siemens Avanto 1,5 T secondo la tabella clinica). Clinica della collezione: M27, Right Insular, astrocitoma IDH+ OMS 2, enhancement no, 68,3 mL. Segmentazione esperta: 73 × 47 × 64 mm; massima nella T1 all'immagine 65, nella FLAIR sagittale all'immagine 118. È la stessa situazione della segnalazione del 28/11 (FLAIR 3D sagittale a 1,5 T): serve anche come prova dell'atlante. NON ancora rivisto dal medico."
+}

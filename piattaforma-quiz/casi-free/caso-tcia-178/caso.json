@@ -1,0 +1,139 @@
+{
+ "id": "caso-tcia-178",
+ "visibile": true,
+ "aggiornato": "2026-11-28 12:30",
+ "titolo": "RM encefalo: lesione temporale sinistra in uomo di 51 anni",
+ "titolo_interno": "Oligodendroglioma IDH-mutato con codelezione 1p/19q, grado 2 OMS, del giro temporale medio sinistro (ReMIND-109)",
+ "distretto": "Encefalo",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "quesito": "caratterizzazione di lesione encefalica",
+ "anamnesi": "Uomo di 51 anni. RM dell'encefalo con mezzo di contrasto a 3 T prima dell'intervento (T1 3D dopo mdc, FLAIR 3D, T2 3D). Nessun intervento precedente sull'encefalo.",
+ "domanda": "Descrivi la lesione e indica l'ipotesi più probabile.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Lesione cortico-sottocorticale del lobo temporale sinistro, nel giro temporale medio, circa 6 × 3 × 3 cm (circa 23 mL), iperintensa in T2 e FLAIR",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Segmentazione degli esperti della collezione: 23,3 mL, circa 57 × 29 mm sul piano assiale."
+  },
+  {
+   "testo": "Componenti cistiche nella lesione, ben visibili in T2",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Impregnazione dopo contrasto presente ma modesta e disomogenea",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0,
+   "nota": "Negli oligodendrogliomi l'impregnazione è frequente anche nel grado 2: da sola non indica un grado alto."
+  },
+  {
+   "testo": "Lieve effetto massa, senza edema perilesionale esteso né spostamento della linea mediana",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesione extra-assiale a base durale con coda durale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Lesioni multiple alla giunzione tra grigia e bianca con ampio edema vasogenico",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Area triangolare a base corticale nel territorio della cerebrale media, senza effetto massa",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Glioma a crescita lenta con coinvolgimento corticale: sospetto oligodendroglioma; servono istologia e profilo molecolare (IDH, 1p/19q)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Ascesso cerebrale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Metastasi singola",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Infarto ischemico subacuto",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Lesione intra-assiale che coinvolge la corteccia e la sostanza bianca sottostante del giro temporale medio sinistro, con cisti e impregnazione modesta, in un adulto di mezza età: il quadro tipico dell'oligodendroglioma. Dal 2021 (classificazione OMS dei tumori del sistema nervoso centrale, 5ª edizione) la diagnosi è molecolare: IDH mutato e codelezione 1p/19q. Le calcificazioni sono frequenti: si cercano alla TC o nelle sequenze di suscettibilità.\nNel referto: sede precisa (giro e lobo: usa l'atlante dell'encefalo dopo la risposta), rapporto con le aree del linguaggio dell'emisfero sinistro, dimensioni, impregnazione, effetto massa.",
+ "regola": "Glioma che arriva alla corteccia, con cisti o calcificazioni, in un adulto: pensa all'oligodendroglioma.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Oligodendroglioma, IDH-mutato e con codelezione 1p/19q, grado 2 OMS (dati della collezione ReMIND). Resezione con RM intraoperatoria."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "ReMIND (Brain Resection Multimodal Imaging Database)",
+  "doi": "10.7937/3RAG-D070",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Juvekar P., Dorent R., Kögl F., et al. (2023). The Brain Resection Multimodal Imaging Database (ReMIND) (Version 1) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/3RAG-D070",
+  "url": "https://www.cancerimagingarchive.net/collection/remind/",
+  "soggetto": "ReMIND-109"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  0
+ ],
+ "checklist": "obbligatoria",
+ "vista": {
+  "serie": 1,
+  "idx": 149,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Lesione del giro temporale medio sinistro"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "nessuna"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "glioma"
+  ],
+  "motivo": "Lesione nota in valutazione prima dell'intervento, senza segni di urgenza: referto nei tempi normali."
+ },
+ "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-109 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc, FLAIR 3D, T2 3D (RM Philips Achieva 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M51, Left Middle Temporal Gyrus, oligodendroglioma IDH+ 1p/19q codeleto MGMT metilato, OMS 2, enhancement sì, eloquente, gyral e subgyral, 23,3 mL. Segmentazione esperta: 57 × 29 mm assiale, 32 mm cranio-caudale; massima nella T1 all'immagine 157, nella FLAIR all'immagine 149. Lettura di Claude: cisti in T2, impregnazione modesta e disomogenea, nessun edema esteso. Serie usata anche per le prove dell'atlante su RM Philips (segnalazione del 28/11). NON ancora rivisto dal medico."
+}

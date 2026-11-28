@@ -4973,6 +4973,15 @@ function schermoIntero() {
   const el = $('#vista-caso .viewer');
   try { if (document.fullscreenElement) document.exitFullscreen(); else el.requestFullscreen?.(); } catch {}
 }
+// 28/11: aspetto del visualizzatore scelto dall'utente: scuro «workstation» (predefinito) o chiaro; resta nel browser
+function applicaVisTema(v) {
+  document.documentElement.dataset.vis = v; try { localStorage.setItem('quiz-vis-tema', v); } catch {}
+  const b = $('#btn-vis-tema'); if (!b) return;
+  b.setAttribute('aria-pressed', String(v === 'chiaro'));
+  b.title = v === 'chiaro' ? 'Visualizzatore chiaro: clic per tornare scuro' : 'Visualizzatore scuro: clic per passare al chiaro';
+}
+try { applicaVisTema(localStorage.getItem('quiz-vis-tema') === 'chiaro' ? 'chiaro' : 'scuro'); } catch { applicaVisTema('scuro'); }
+$('#btn-vis-tema')?.addEventListener('click', () => { applicaVisTema(document.documentElement.dataset.vis === 'chiaro' ? 'scuro' : 'chiaro'); try { disegna(); } catch {} });
 $('#btn-schermo').addEventListener('click', schermoIntero);
 // 1.302 «solo immagini»: barre, serie e pannello delle domande nascosti (tasto F; F o Esc per tornare)
 function soloImmagini(on = !document.body.classList.contains('solo-immagini')) {
@@ -5585,7 +5594,11 @@ const ATL = { on: false, modo: (() => { try { return localStorage.getItem('rq-at
   dati: new Map(), pronti: new Map(), stato: new Map(), sotto: null, raf: 0, colori: new WeakMap() };
 const ATL_MODI = { giri: 'Giri e strutture', lobi: 'Lobi', arterie: 'Territori arteriosi', dettaglio: 'Rami arteriosi (dettaglio)' };
 // chiave dello studio: l'atlante vale per tutte le serie dello stesso esame (stesse coordinate del paziente)
-const kAtl = (si) => { const s = V.serie[si]; if (!s) return '-'; const st = studioDi(s)?.id ?? ''; return CLIENT ? `cl:${st}` : `${V.caso?.id}:${st}`; };
+// 28/11: nel sito ogni serie usa il proprio atlante, se calcolato (per esempio sia sulla T1 3D sia sulla FLAIR 3D),
+// altrimenti quello di un'altra serie dello stesso studio. Il riferimento spaziale (Frame of Reference) non basta a
+// decidere: in alcune collezioni (ReMIND) ogni serie ha il suo, ma le serie sono allineate entro 1 mm.
+const forDi = (si) => { const s = V.serie[si]; if (!s) return ''; const q = V.pannelli.find((x) => x.sIdx === si && x.img)?.img; return q?.for || V.metaSerie?.[s.files?.[0]]?.[1] || ''; };
+const kAtl = (si) => { const s = V.serie[si]; if (!s) return '-'; const st = studioDi(s)?.id ?? ''; return CLIENT ? `cl:${st}` : `${V.caso?.id}:${st}:${si}`; };
 const tcSito = () => !CLIENT && !!V.caso && V.caso.modalita === 'TC' && /encefal|cranio/i.test(V.caso.distretto || '');
 const atlanteConsentito = () => CLIENT || (!!V.caso && !bloccoEsame() && !funzioneSpenta('anatomia') && repertiIAConsentiti());
 // RM dell'encefalo adatta al calcolo nel browser: almeno 60 immagini, strato fino a 2 mm, non una TC
@@ -5680,9 +5693,21 @@ function qualitaAtlante(d) {
   return { t: 'scarsa', c: 'q-scarsa', det: det + (r == null || r > 6 ? ': territori arteriosi nascosti' : '') };
 }
 async function caricaAtlanteSito(si) {
-  const ia = await iaDelloStudio(si);
-  if (!ia?.geo || ia.geo.atlante !== 'encefalo') return null;
-  const d = { geo: ia.geo, lab: ia.lab, art: null, residuo: ia.geo.arterie?.residuo_mm };
+  // la serie stessa, poi le altre dello studio con lo stesso riferimento spaziale
+  if (V.caso?.ia === false || !(await impostazioniIA())) return null;
+  const st = studioDi(V.serie[si]).id, f = forDi(si);
+  const cand = [si, ...V.serie.map((_, q) => q).filter((q) => q !== si && studioDi(V.serie[q]).id === st && V.serie[q].files.length >= 40)];
+  let ia = null;
+  for (const q of cand) {
+    const cart = V.serie[q].files[0].split('/')[1];
+    try {
+      const geo = await geoIA(cart); if (geo.atlante !== 'encefalo') continue;
+      const r = await fetch(`/casi/${V.caso.id}/ia/${cart}.lab.gz`, { credentials: 'same-origin' }); if (!r.ok) continue;
+      ia = { geo, lab: new Uint8Array(await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer()) }; break;
+    } catch { /* nessun atlante per questa serie */ }
+  }
+  if (!ia) return null;
+  const d = { geo: ia.geo, lab: ia.lab, art: null, residuo: ia.geo.arterie?.residuo_mm, for: f };
   if (ia.geo.arterie?.file) {
     try {
       const r = await fetch(`/casi/${V.caso.id}/ia/${ia.geo.arterie.file}`, { credentials: 'same-origin' });
@@ -5702,8 +5727,11 @@ function atlanteDi(si) {
 }
 async function calcolaAtlanteClient(si) {
   const k = kAtl(si); if (ATL.dati.has(k) && ATL.pronti.get(k) !== null) return ATL.dati.get(k);
+  ATL.inCorso = k;
   const pr = (async () => {
     const mostra = () => { if (!$('#atl-pannello').hidden) pannelloAtlante(); };
+    // nel sito (TC calcolata nel browser) vale per tutte le serie dello studio: si registra anche sotto le loro chiavi
+    const pronto = (d) => { ATL.pronti.set(k, d); if (!CLIENT) V.serie.forEach((x, q) => { if (studioDi(x).id === studioDi(V.serie[si]).id) { ATL.pronti.set(kAtl(q), d); ATL.dati.set(kAtl(q), Promise.resolve(d)); } }); };
     ATL.stato.set(k, { f: 0, msg: 'Carico le immagini…' }); mostra();
     const vol = await volumeDi(si, (a, b) => { ATL.stato.set(k, { f: 0.1 * a / b, msg: `Carico le immagini (${a}/${b})…` }); mostra(); });
     if (vol.meta?.modalita === 'CT') {      // TC: l'atlante del template si allinea all'esame (atlante-tc.js)
@@ -5711,15 +5739,22 @@ async function calcolaAtlanteClient(si) {
       ATL.stato.set(k, { f: 0.1, msg: 'Allineo l\'atlante alla TC (su questo computer)…' }); mostra();
       const TC = await import('./atlante-tc.js');
       const r = await TC.atlanteTC(vol, { avanza: (f, msg) => { ATL.stato.set(k, { f: 0.1 + 0.85 * f, msg }); mostra(); } });
-      const d = { geo: r.geo, lab: r.lab, art: r.art, residuo: null, tc: r.tc, ms: r.ms, serie: studioDi(V.serie[si]).nome };
-      ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
+      const d = { geo: r.geo, lab: r.lab, art: r.art, residuo: null, tc: r.tc, ms: r.ms, serie: studioDi(V.serie[si]).nome, for: vol.meta?.for || '' };
+      pronto(d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
       return d;
     }
     if (vol.meta?.modalita && vol.meta.modalita !== 'MR') throw new Error('la serie scelta non è né una RM né una TC');
     if (vol.sp[2] > 2.05) throw new Error(`strato di ${virgola(vol.sp[2], 1)} mm: serve una serie 3D con strato fino a 2 mm`);
     ATL.stato.set(k, { f: 0.1, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra();
     let ultimo = 0;
-    const r = await AE.segmentaNelBrowser(vol, (f) => { const t = performance.now(); if (t - ultimo > 300) { ultimo = t; ATL.stato.set(k, { f: 0.1 + 0.8 * f, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra(); } });
+    const segmenta = (motore) => AE.segmentaNelBrowser(vol, (f) => { const t = performance.now(); if (t - ultimo > 300) { ultimo = t; ATL.stato.set(k, { f: 0.1 + 0.8 * f, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra(); } }, motore);
+    let r = await segmenta(ATL.motore || 'auto');
+    // 28/11: su alcune schede grafiche il calcolo con WebGPU dà risultati sbagliati (poche strutture, etichette fuori dalla
+    // testa): prima del ripiego si riprova con WebGL2
+    if (Object.keys(r.geo.etichette).length < 90 && r.backend === 'webgpu' && !ATL.motore) {
+      ATL.stato.set(k, { f: 0.1, msg: 'Risultato poco affidabile: riprovo con l\'altro motore grafico (WebGL2)…' }); mostra();
+      const r2 = await segmenta('webgl2').catch(() => null); if (r2 && Object.keys(r2.geo.etichette).length > Object.keys(r.geo.etichette).length) r = { ...r2, riprova: r.backend };
+    }
     // 28/11: su alcune FLAIR o T2 MindSnap riconosce poche strutture e le mette fuori posto (anche fuori dalla testa):
     // allora si allinea all'esame il template con l'informazione mutua (atlante-tc.js, atlanteRM)
     const nStr = Object.keys(r.geo.etichette).length; let t = null;
@@ -5728,12 +5763,12 @@ async function calcolaAtlanteClient(si) {
       ATL.stato.set(k, { f: 0.9, msg: 'La segmentazione non è affidabile su questa serie: allineo il template all\'esame…' }); mostra();
       const TC = await import('./atlante-tc.js');
       const m = await TC.atlanteRM(vol, { avanza: (f, msg) => { ATL.stato.set(k, { f: 0.9 + 0.09 * f, msg }); mostra(); } });
-      const d = { geo: m.geo, lab: m.lab, art: m.art, residuo: null, tm: { ...m.tm, strutture: nStr, residuoSeg: t?.residuo ?? null }, ms: (r.ms || 0) + m.ms, serie: studioDi(V.serie[si]).nome };
-      ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
+      const d = { geo: m.geo, lab: m.lab, art: m.art, residuo: null, tm: { ...m.tm, strutture: nStr, residuoSeg: t?.residuo ?? null }, ms: (r.ms || 0) + m.ms, serie: studioDi(V.serie[si]).nome, for: vol.meta?.for || '', motoreSeg: r.backend };
+      pronto(d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
       return d;
     }
-    const d = { geo: r.geo, lab: r.lab, art: t && t.residuo <= 6 ? t.art : null, residuo: t?.residuo, backend: r.backend, ms: r.ms, serie: studioDi(V.serie[si]).nome };
-    ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
+    const d = { geo: r.geo, lab: r.lab, art: t && t.residuo <= 6 ? t.art : null, residuo: t?.residuo, backend: r.backend, riprova: r.riprova, ms: r.ms, serie: studioDi(V.serie[si]).nome, for: vol.meta?.for || '' };
+    pronto(d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
     return d;
   })().catch((e) => { ATL.dati.delete(k); ATL.stato.set(k, { msg: 'Calcolo non riuscito: ' + (e?.message || e) }); if (!$('#atl-pannello').hidden) pannelloAtlante(); return null; });
   ATL.dati.set(k, pr); return pr;
@@ -5807,7 +5842,7 @@ function legendaAtlante(d) {
   return [1, 2, 3, 4, 5, 6, 7].map((l) => voce(AE.LOBI[l][1], AE.LOBI[l][0].replace(/^lobo /, ''))).join('') + '<span class="small muted"> · ogni giro con una tonalità del suo lobo</span>';
 }
 function pannelloAtlante() {
-  const box = $('#atl-pannello'), si = P()?.sIdx, k = kAtl(si), d = si != null ? atlanteDi(si) : null, st = ATL.stato.get(k);
+  const box = $('#atl-pannello'), si = P()?.sIdx, k = kAtl(si), d = si != null ? atlanteDi(si) : null, st = ATL.stato.get(k) || (ATL.inCorso && ATL.stato.get(ATL.inCorso));
   box.hidden = false;
   const testa = `<div class="riga eco-testa" title="Trascina per spostare il pannello"><b>🧠 Atlante dell'encefalo</b><span class="spacer"></span><button type="button" class="ghost piccolo" id="atl-chiudi" title="Chiudi">✕</button></div>`;
   let corpo = '';
@@ -5822,7 +5857,7 @@ function pannelloAtlante() {
     const ql = qualitaAtlante(d);
     corpo = `<div class="atl-modi">${modi}</div>
       <div class="atl-qual-riga"><span class="atl-qual ${ql.c}" title="${esc(ql.det)}">Qualità: ${ql.t}</span><button type="button" class="ghost piccolo${ATL.contorni ? ' on' : ''}" id="atl-contorni" title="Mostra solo i bordi delle strutture: si vede se seguono l'anatomia sottostante">Controlla l'allineamento</button></div>
-      <p class="small muted">${esc(ql.det)}.${(CLIENT || tcSito()) && d.serie ? ` Calcolato su «${esc(d.serie)}»${d.ms ? ` in ${Math.max(1, Math.round(d.ms / 1000))} s` : ''}. <button type="button" class="ghost piccolo" id="atl-rifai">Calcola su un'altra serie</button>` : ''}</p>
+      <p class="small muted">${esc(ql.det)}.${(CLIENT || tcSito()) && d.serie ? ` Calcolato su «${esc(d.serie)}»${d.ms ? ` in ${Math.max(1, Math.round(d.ms / 1000))} s` : ''}${d.backend ? ` (${d.backend === 'webgpu' ? 'WebGPU' : d.backend === 'webgl2' ? 'WebGL2' : 'processore'}${d.riprova ? ', dopo un primo tentativo non riuscito' : ''})` : ''}. <button type="button" class="ghost piccolo" id="atl-rifai">Calcola su un'altra serie</button>` : ''}</p>
       <label class="small"><input type="checkbox" id="atl-on"${ATL.on ? ' checked' : ''}> Mostra sulle immagini</label>
       <label class="small"><input type="checkbox" id="atl-nomi"${ATL.nomi ? ' checked' : ''}> Nome sotto il puntatore</label>
       <label class="small">Opacità <input type="range" id="atl-opac" min="0.15" max="0.85" step="0.05" value="${ATL.opac}"></label>

@@ -1,0 +1,134 @@
+{
+ "id": "caso-tcia-179",
+ "visibile": true,
+ "aggiornato": "2026-11-28 12:30",
+ "titolo": "RM encefalo: controllo dopo intervento per glioma insulare destro in uomo di 38 anni",
+ "titolo_interno": "Astrocitoma IDH-mutato, grado 2 OMS, residuo o recidiva attorno alla cavità chirurgica insulare destra (ReMIND-048)",
+ "distretto": "Encefalo",
+ "modalita": "RM",
+ "difficolta": "Intermedio",
+ "quesito": "controllo dopo intervento per glioma",
+ "anamnesi": "Uomo di 38 anni, già operato (craniotomia) per un glioma insulare destro. RM dell'encefalo con mezzo di contrasto a 3 T prima di un nuovo intervento (T2 e FLAIR assiali, T1 3D dopo mdc).",
+ "domanda": "Che cosa vedi attorno alla zona operata? È tumore?",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Area iperintensa in T2 e FLAIR a margini sfumati nell'insula e nell'opercolo destri, circa 4 × 4 cm, attorno alla cavità chirurgica",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Segmentazione degli esperti: 13,3 mL, circa 4,4 × 4 cm sul piano assiale."
+  },
+  {
+   "testo": "Piccola cavità di resezione con liquor (circa 2,5 mL)",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Nessuna impregnazione patologica dopo mezzo di contrasto",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Raccolta ematica acuta nella cavità chirurgica",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Impregnazione nodulare spessa con necrosi centrale",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Raccolta con impregnazione ad anello e contenuto denso",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Residuo o recidiva di glioma a basso grado non captante attorno alla cavità chirurgica",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Solo esiti chirurgici (gliosi), nessun tumore",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Ascesso postoperatorio",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Trasformazione in glioblastoma",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Dopo l'intervento per un glioma a basso grado non captante, il tumore residuo o recidivo si vede come iperintensità in T2 e FLAIR, a margini sfumati, attorno alla cavità: confronta sempre con l'esame precedente. La gliosi è più sottile e regolare lungo i margini della cavità e non cresce nel tempo. Una nuova impregnazione nodulare o la crescita rapida suggeriscono la trasformazione verso un grado più alto: qui non c'è impregnazione.\nNel referto: estensione rispetto alla cavità, sedi funzionali vicine (insula, opercolo, capsula interna), impregnazione, confronto con il controllo precedente.",
+ "regola": "Glioma a basso grado operato: segui la FLAIR attorno alla cavità e cerca nuove impregnazioni.",
+ "esito_clinico": {
+  "tipo": "istologia",
+  "testo": "Astrocitoma IDH-mutato, grado 2 OMS (dati della collezione ReMIND). Nuova resezione con RM intraoperatoria."
+ },
+ "fonte": {
+  "archivio": "The Cancer Imaging Archive (TCIA)",
+  "collezione": "ReMIND (Brain Resection Multimodal Imaging Database)",
+  "doi": "10.7937/3RAG-D070",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Juvekar P., Dorent R., Kögl F., et al. (2023). The Brain Resection Multimodal Imaging Database (ReMIND) (Version 1) [Data set]. The Cancer Imaging Archive. https://doi.org/10.7937/3RAG-D070",
+  "url": "https://www.cancerimagingarchive.net/collection/remind/",
+  "soggetto": "ReMIND-048"
+ },
+ "serie_iniziale": 1,
+ "riquadri": 2,
+ "disposizione": [
+  1,
+  2
+ ],
+ "checklist": "obbligatoria",
+ "vista": {
+  "serie": 1,
+  "idx": 19,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Iperintensità FLAIR insulare destra attorno alla cavità"
+ },
+ "comunicazione": {
+  "livello": "differita",
+  "accettabili": [
+   "nessuna"
+  ],
+  "destinatari": [
+   "richiedente"
+  ],
+  "parole": [
+   "recidiva",
+   "residuo",
+   "glioma"
+  ],
+  "motivo": "Controllo programmato prima dell'intervento, senza segni di urgenza."
+ },
+ "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-048 (TCIA, CC BY 4.0), studio preoperatorio: T2 e FLAIR 2D assiali, T1 3D dopo mdc (RM Philips Ingenia 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M38, Right Insular, craniotomia precedente, astrocitoma IDH+ OMS 2, enhancement no, 13,3 mL. Segmentazioni esperte: tumore 13,3 mL (44 × 40 mm assiale, massimo nella FLAIR all'immagine 19); cavità di resezione precedente 2,5 mL, adiacente (FLAIR immagine 17). La conclusione «residuo o recidiva» è di Claude: la collezione non dice se è residuo o recidiva. NON ancora rivisto dal medico."
+}

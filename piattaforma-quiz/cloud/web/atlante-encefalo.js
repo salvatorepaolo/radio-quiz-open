@@ -260,10 +260,10 @@ export const NOMI_MINDSNAP = ['BG', ...ORDINE_GIRI.map((g) => 'ctx-lh-' + g), ..
   '3rd-Ventricle', '4th-Ventricle', 'CSF', 'Brain-Stem', 'Left-Cerebellum-White-Matter', 'Right-Cerebellum-White-Matter', 'Left-Cerebellum-Cortex',
   'Right-Cerebellum-Cortex', 'CC_Posterior', 'CC_Mid_Posterior', 'CC_Central', 'CC_Mid_Anterior', 'CC_Anterior'];
 // segmentazione con MindSnap sul computer di chi usa il visualizzatore (WebGPU, altrimenti WebGL2)
-export async function segmentaNelBrowser(vol, avanza = () => {}) {
+export async function segmentaNelBrowser(vol, avanza = () => {}, backend = 'auto') {
   const B = await import('./lib/brainchop/mindsnap.js');
   const base = new URL('./lib/brainchop/', import.meta.url).href;
-  const r = await B.segment(nifti(vol), { model: 'mindsnap', worker: true, assetPath: base, gzipOutput: false,
+  const r = await B.segment(nifti(vol), { model: 'mindsnap', worker: true, assetPath: base, gzipOutput: false, backend,
     onProgress: (e) => avanza(e.progress ?? 0, e.stage) });
   const { dim, lab } = await leggiEtichette(r.image);
   if (dim[0] !== vol.W || dim[1] !== vol.H || dim[2] !== vol.N) throw new Error('la segmentazione ha una geometria diversa dalla serie');

@@ -2882,13 +2882,13 @@ details.sf-scheda summary{cursor:pointer;font-weight:600}
 @media (max-width:760px){.home-foto{width:100%;opacity:.22}.home-hero-testo{max-width:none}}
 
 /* caso: la zona delle immagini è scura come una workstation, in entrambi i temi */
-#vista-caso>.viewer,#vista-caso>aside.serie{--bg:#0b0f16;--pan:#121925;--pan2:#18212f;--bord:#263345;--txt:#e6edf5;--mut:#9aabbd;color:var(--txt);color-scheme:dark}
-#vista-caso>.viewer{background:linear-gradient(180deg,#0b0f16,#070a10)}
-#vista-caso>aside.serie{background:#0b0f16;border-color:#1b2533}
-#vista-caso>.viewer .stage{border-radius:12px;box-shadow:0 0 0 1px #1b2533}
-#vista-caso>.viewer>.barra-unica,#vista-caso>.viewer>.toolbar{background:#111824;border-color:#1f2b3b;box-shadow:none}
-#vista-caso>.viewer .barra-unica button:hover,#vista-caso>.viewer .toolbar button:hover{background:#1a2433;border-color:#2b3a50}
-#vista-caso>.viewer button.on{background:var(--elettrico);border-color:var(--elettrico);color:#04111f}
+:root:not([data-vis="chiaro"]) #vista-caso>.viewer,:root:not([data-vis="chiaro"]) #vista-caso>aside.serie{--bg:#0b0f16;--pan:#121925;--pan2:#18212f;--bord:#263345;--txt:#e6edf5;--mut:#9aabbd;color:var(--txt);color-scheme:dark}
+:root:not([data-vis="chiaro"]) #vista-caso>.viewer{background:linear-gradient(180deg,#0b0f16,#070a10)}
+:root:not([data-vis="chiaro"]) #vista-caso>aside.serie{background:#0b0f16;border-color:#1b2533}
+:root:not([data-vis="chiaro"]) #vista-caso>.viewer .stage{border-radius:12px;box-shadow:0 0 0 1px #1b2533}
+:root:not([data-vis="chiaro"]) #vista-caso>.viewer>.barra-unica,:root:not([data-vis="chiaro"]) #vista-caso>.viewer>.toolbar{background:#111824;border-color:#1f2b3b;box-shadow:none}
+:root:not([data-vis="chiaro"]) #vista-caso>.viewer .barra-unica button:hover,:root:not([data-vis="chiaro"]) #vista-caso>.viewer .toolbar button:hover{background:#1a2433;border-color:#2b3a50}
+:root:not([data-vis="chiaro"]) #vista-caso>.viewer button.on{background:var(--elettrico);border-color:var(--elettrico);color:#04111f}
 
 /* contrasto (axe): riquadro «Inizia da qui» dentro l'intestazione scura, numeri nei filtri attivi, etichetta del caso del giorno */
 .home-hero .inizia-qui{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);color:var(--sala-txt)}
@@ -2921,3 +2921,12 @@ button.on small{color:inherit!important;opacity:.9}
 .rvd-motivo { display: inline-block; padding: .1rem .45rem; border-radius: 999px; background: var(--pan2, #eef2f7); font-size: .8rem; white-space: nowrap; }
 .rvd-dubbio { margin-top: .2rem; color: var(--warn, #9a6700); }
 @media (max-width: 700px) { .rvd-tab th:nth-child(2), .rvd-tab td:nth-child(2) { display: none; } }
+
+/* 28/11: visualizzatore chiaro, a scelta dell'utente (pulsante ☀ nella barra): colori chiari anche se il sito è scuro */
+:root[data-vis="chiaro"] #vista-caso>.viewer,:root[data-vis="chiaro"] #vista-caso>aside.serie{--bg:#f4f6f9;--pan:#ffffff;--pan2:#eef1f5;--bord:#cfd6df;--txt:#16202b;--mut:#5d6b7a;--acc:#1a62bb;--pan-trasp:rgba(255,255,255,.95);color:var(--txt);color-scheme:light}
+:root[data-vis="chiaro"] #vista-caso>.viewer{background:var(--bg)}
+:root[data-vis="chiaro"] #vista-caso>aside.serie{background:var(--bg);border-color:var(--bord)}
+:root[data-vis="chiaro"] #vista-caso>.viewer button.on{color:#fff}
+#btn-vis-tema .vt-luna{display:none}
+:root[data-vis="chiaro"] #btn-vis-tema .vt-sole{display:none}
+:root[data-vis="chiaro"] #btn-vis-tema .vt-luna{display:inline}

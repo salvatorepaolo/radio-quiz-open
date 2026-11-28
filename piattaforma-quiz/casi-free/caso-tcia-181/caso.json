@@ -1,0 +1,149 @@
+{
+ "id": "caso-tcia-181",
+ "visibile": true,
+ "aggiornato": "2026-11-28 12:30",
+ "titolo": "🧪 SIMULATO – TC encefalo senza mdc: al risveglio non riesce a parlare e muove male la mano destra",
+ "titolo_interno": "Caso simulato: infarto acuto della divisione superiore della cerebrale media sinistra (insula, opercolo frontale e convessità frontale anteriore), ASPECTS circa 7, senza emorragia (TotalSegmentator s0103, immagini modificate)",
+ "distretto": "Encefalo",
+ "modalita": "TC",
+ "difficolta": "Intermedio",
+ "quesito": "sospetto ictus",
+ "anamnesi": "CASO SIMULATO: la TC è vera (archivio pubblico, encefalo normale), l'infarto è stato aggiunto al computer; storia clinica di fantasia. Uomo di 41 anni. Si è svegliato alle 8 senza riuscire a parlare, con la bocca storta e la mano destra debole; stava bene alle 23 della sera prima, quando è andato a dormire. TC dell'encefalo senza contrasto alle 8:40.",
+ "domanda": "Che cosa vedi? Calcola l'ASPECTS e di' che cosa serve adesso.",
+ "sezioni": [
+  {
+   "nome": "Reperti",
+   "domanda": "Che cosa vedi?"
+  },
+  {
+   "nome": "Conclusioni",
+   "domanda": "Qual è la conclusione?",
+   "singola": true
+  }
+ ],
+ "opzioni": [
+  {
+   "testo": "Ipodensità con perdita della differenziazione tra grigia e bianca nell'insula e nell'opercolo frontale sinistri (scomparsa del nastro insulare)",
+   "corretta": true,
+   "tipo": "principale",
+   "sezione": 0,
+   "nota": "Immagini circa 46-60 con finestra stretta (centro 35, ampiezza 40). Nell'esame originale i due lati erano uguali."
+  },
+  {
+   "testo": "Ipodensità corticale e sottocorticale della parte anteriore della convessità frontale sinistra, sopra i nuclei della base, con solchi meno visibili",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Nuclei della base, capsula interna, lobi temporale e parietale risparmiati; nessuna emorragia",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 0
+  },
+  {
+   "testo": "Ematoma iperdenso nei nuclei della base",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Ipodensità della faccia mediale del lobo frontale (territorio della cerebrale anteriore)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Ipodensità del lobo occipitale (territorio della cerebrale posteriore)",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 0
+  },
+  {
+   "testo": "Infarto acuto della divisione superiore della cerebrale media sinistra, ASPECTS circa 7 (insula, M1, M4), senza sangue: subito angio-TC (e perfusione) per cercare un'occlusione di un grosso vaso e decidere sulla trombectomia; comunicare subito al neurologo",
+   "corretta": true,
+   "tipo": "secondario",
+   "sezione": 1
+  },
+  {
+   "testo": "Esame negativo, siamo nelle 4 ore e mezza: trombolisi subito senza altri esami",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Emorragia cerebrale: trombolisi controindicata",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  },
+  {
+   "testo": "Tumore cerebrale: RM con gadolinio programmata",
+   "corretta": false,
+   "tipo": "distrattore",
+   "sezione": 1
+  }
+ ],
+ "spiegazione": "Nell'ictus al risveglio l'ora di esordio è sconosciuta: conta l'ultima volta in cui il paziente era visto bene (qui 9 ore e mezza prima). La TC senza contrasto esclude il sangue e cerca i segni precoci di ischemia: perdita del nastro insulare, sfumatura dei nuclei della base, ipodensità della corteccia e solchi meno visibili. L'ASPECTS divide il territorio della cerebrale media in 10 regioni (caudato, lenticolare, capsula interna, insula, M1-M3 al livello dei nuclei della base, M4-M6 sopra) e toglie un punto per ognuna colpita: qui insula, M1 e M4, quindi circa 7. Con ASPECTS di 6 o più e un'occlusione di un grosso vaso all'angio-TC la trombectomia è possibile anche oltre le 6 ore (fino a 24 ore con i criteri di selezione); la trombolisi oltre le 4 ore e mezza richiede la selezione con RM o perfusione.\nUsa l'atlante dei territori arteriosi dopo la risposta: l'ipodensità cade nei territori frontale e insulare della cerebrale media sinistra.",
+ "regola": "Sospetto ictus: escludi il sangue, cerca il nastro insulare e conta l'ASPECTS; poi subito angio-TC.",
+ "esito_clinico": {
+  "tipo": "altro",
+  "testo": "Caso simulato: ipodensità ischemica della divisione superiore della cerebrale media sinistra aggiunta al computer su una TC dell'encefalo senza patologia (TotalSegmentator s0103, uomo di 41 anni, TC per politrauma)."
+ },
+ "fonte": {
+  "archivio": "Zenodo (TotalSegmentator v2), non TCIA",
+  "collezione": "TotalSegmentator dataset v2.0.1",
+  "soggetto": "s0103 (immagini modificate)",
+  "doi": "10.5281/zenodo.10047292",
+  "licenza": "CC BY 4.0",
+  "licenza_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citazione": "Wasserthal J. et al. (2023). TotalSegmentator: Robust Segmentation of 104 Anatomic Structures in CT Images. Radiology: Artificial Intelligence 5(5):e230024. Dataset v2.0.1, Zenodo, https://doi.org/10.5281/zenodo.10047292. Immagini modificate per la didattica: infarto ischemico aggiunto al computer (caso simulato).",
+  "url": "https://zenodo.org/records/10047292",
+  "nota": "Volume NIfTI della collezione (ricampionato a 1,5 mm) convertito in DICOM da radio-quiz.it: non è un DICOM originale."
+ },
+ "serie_iniziale": 0,
+ "riquadri": 1,
+ "checklist": "obbligatoria",
+ "vista": {
+  "serie": 0,
+  "idx": 56,
+  "wc": 35,
+  "ww": 40,
+  "zoom": 1,
+  "panX": 0,
+  "panY": 0,
+  "nota": "Insula e opercolo frontale sinistri ipodensi, nastro insulare scomparso"
+ },
+ "comunicazione": {
+  "livello": "immediata",
+  "accettabili": [
+   "urgente"
+  ],
+  "destinatari": [
+   "ps",
+   "richiedente"
+  ],
+  "parole": [
+   "ischemia",
+   "infarto",
+   "ASPECTS",
+   "angio"
+  ],
+  "motivo": "Ictus acuto: il neurologo deve saperlo subito (niente sangue, segni precoci, ASPECTS) per decidere su angio-TC e trombectomia."
+ },
+ "richiesta": {
+  "reparto": "Pronto soccorso",
+  "priorita": "PS",
+  "lab": [
+   [
+    "Glicemia",
+    "104 mg/dL (dato di fantasia)"
+   ]
+  ],
+  "allergie": "",
+  "farmaci": "Nessuno",
+  "dispositivi": "",
+  "gravidanza": ""
+ },
+ "nota_docente": "CASO SIMULATO creato da Claude il 28/11/2026. Base: TotalSegmentator v2.0.1 s0103 (la stessa TC del caso 177, CC BY 4.0), 178×178×117 a 1,5 mm. Simulazione (strumenti_claude/sim/ischemia/simula.py): territori JHU «ACM frontale sin» (solo il 40% anteriore dell'emisfero) e «ACM insulare sin» portati sulla TC dall'atlante del visualizzatore; esclusi nuclei della base e capsula interna (oltre 28 mm dalla linea mediana a quel livello); corteccia -11 HU e bianca -4 HU circa (media 36,5 → 27 HU), solchi +10 HU, bordi sfumati e irregolari, rumore originale conservato; 53 mL. ASPECTS voluto: insula, M1, M4 = 7 (il confine M4/M5 è approssimativo). La conclusione su angio-TC e trombectomia segue le linee guida (ultimo visto bene a 9,5 ore). NON ancora rivisto dal medico."
+}
