@@ -6707,18 +6707,56 @@ function attestatoPronto() {
   box.querySelector('[data-chiudi]').onclick = () => { scriviSessione('quiz-attestato', null); box.remove(); };
   const prima = $('#lista-casi'); if (prima) prima.before(box);
 }
-// revisione dei casi (pagina «Revisione delle bozze», in testa per il revisore)
+// revisione dei casi: cruscotto dei revisori (28/11) in testa alla pagina «Revisione delle bozze»
+const RVD = { cerca: '', mod: '', mot: '', ord: 'uso', d: null };
 async function casiDaRivedere() {
   const box = $('#rv-casi'); if (!box) return;
   if (!UTENTE?.revisore || !CLOUD) { box.hidden = true; return; }
   box.hidden = false; box.innerHTML = '<p class="muted">Carico…</p>';
   let d; try { d = await getJSON('/api/revisione/casi'); } catch (e) { box.innerHTML = e instanceof NonAutorizzato ? '' : `<p class="ko">${esc(e.message)}</p>`; return; }
-  const motivi = { 'non ancora rivisto dal medico': 'non ancora rivisto dal medico', 'dubbi aperti nella nota': 'dubbi aperti nella nota', 'correzioni chieste dal revisore': 'correzioni chieste dal revisore' };
-  const riga = (c) => `<li><a href="#/caso/${esc(c.id)}" data-rv="${esc(c.id)}"><b>${esc(c.titolo_interno || c.titolo)}</b></a><br><span class="muted small">${esc(c.id.replace(/^caso-tcia-/, 'n. '))} · ${esc(c.modalita)} · ${esc(motivi[c.motivo] || c.motivo)}</span>${c.revisione?.nota ? `<div class="small">${esc(c.revisione.nota)}</div>` : ''}</li>`;
-  box.innerHTML = `<h2>Casi da rivedere <small class="muted">${d.daRivedere.length}</small></h2><p class="muted">Casi già visibili agli studenti, preparati con l'aiuto dell'IA o con dubbi aperti nella nota. Apri il caso: in alto trovi «Confermo» e «Da correggere». La revisione resta nel caso, con il tuo nome e la data.</p>`
-    + (d.daRivedere.length ? `<ol class="rvc-lista">${d.daRivedere.map(riga).join('')}</ol>` : '<p>Nessun caso da rivedere.</p>')
-    + (d.rivisti.length ? `<details class="rvc-rivisti"><summary>Già rivisti (${d.rivisti.length})</summary><ul class="rvc-lista">${d.rivisti.map((c) => `<li>${esc(c.titolo_interno || c.titolo)}<br><span class="muted small">${c.revisione.esito === 'confermato' ? '✅ confermato' : '✏️ da correggere'} · ${esc(c.revisione.da || '')} · ${esc(String(c.revisione.data || '').slice(0, 10))}</span></li>`).join('')}</ul></details>` : '');
+  RVD.d = d;
+  const t = d.totali || { daRivedere: d.daRivedere.length, confermati: 0, daCorreggere: 0, corretti: 0 };
+  const tot = t.confermati + t.daRivedere, perc = tot ? Math.round((100 * t.confermati) / tot) : 100;
+  const mie = d.perRevisore?.[UTENTE?.nome || ''];
+  const kpi = (cls, tit, val, sub) => `<div class="cmr-kpi ${cls}"><span class="k-tit">${tit}</span><span class="k-val">${val}</span>${sub ? `<span class="k-sub">${sub}</span>` : ''}</div>`;
+  const opz = (l, v) => l.map((x) => `<option value="${esc(x)}"${x === v ? ' selected' : ''}>${esc(x)}</option>`).join('');
+  const mod = [...new Set(d.daRivedere.map((c) => c.modalita).filter(Boolean))].sort();
+  const mot = [...new Set(d.daRivedere.map((c) => c.motivo).filter(Boolean))].sort();
+  box.innerHTML = `<h2>Cruscotto della revisione</h2>
+    <p class="muted">Casi già visibili agli studenti, preparati con l'aiuto dell'IA o con dubbi aperti nella nota. Apri il caso: in alto trovi «Confermo» e «Da correggere». La revisione resta nel caso, con il tuo nome e la data.</p>
+    <div class="cmr-kpis">${kpi(t.daRivedere ? 'dubbio' : 'ok', 'Da rivedere', t.daRivedere, t.corretti ? `<span>${t.corretti}</span> <span>corretti, da riconfermare</span>` : '')}${kpi('ok', 'Confermati', t.confermati, mie ? `<span>${mie.confermati}</span> <span>da te</span>` : '')}${kpi(t.daCorreggere ? 'ko' : '', 'Correzioni chieste', t.daCorreggere, '')}${kpi('', 'Avanzamento', perc + '%', `<span>${t.confermati}</span> <span>su</span> <span>${tot}</span>`)}</div>
+    <progress class="rvd-barra" max="${tot || 1}" value="${t.confermati}" aria-label="Avanzamento della revisione"></progress>
+    ${d.daRivedere.length ? `<div class="rvd-filtri">
+      <input type="search" id="rvd-cerca" placeholder="Cerca titolo o numero" value="${esc(RVD.cerca)}">
+      <select id="rvd-mod"><option value="">Tutte le metodiche</option>${opz(mod, RVD.mod)}</select>
+      <select id="rvd-mot"><option value="">Tutti i motivi</option>${opz(mot, RVD.mot)}</select>
+      <select id="rvd-ord">${[['uso', 'Prima i più usati dagli studenti'], ['media', 'Prima la media più bassa'], ['num', 'Per numero'], ['mod', 'Per metodica']].map(([v, s]) => `<option value="${v}"${v === RVD.ord ? ' selected' : ''}>${s}</option>`).join('')}</select>
+    </div>
+    <p class="small muted">Prima i casi più usati: un errore lì pesa su più studenti. Una media molto bassa può indicare un caso ambiguo o una risposta sbagliata.</p>
+    <div id="rvd-lista"></div>` : '<p>Nessun caso da rivedere.</p>'}
+    ${d.rivisti.length ? `<details class="rvc-rivisti"><summary>Già rivisti (${d.rivisti.length})</summary>
+      ${Object.keys(d.perRevisore || {}).length ? `<p class="small">${Object.entries(d.perRevisore).map(([n, r]) => `<b>${esc(n)}</b>: <span>${r.confermati}</span> <span>confermati</span>, <span>${r.daCorreggere}</span> <span>da correggere</span>`).join(' · ')}</p>` : ''}
+      <ul class="rvc-lista">${d.rivisti.map((c) => `<li><a href="#/caso/${esc(c.id)}" data-rv="${esc(c.id)}">${esc(c.titolo_interno || c.titolo)}</a><br><span class="muted small">${c.revisione.esito === 'confermato' ? '✅ confermato' : c.corretto ? '🔁 corretto, da riconfermare' : '✏️ da correggere'} · ${esc(c.revisione.da || '')} · ${esc(String(c.revisione.data || '').slice(0, 10))}</span></li>`).join('')}</ul></details>` : ''}`;
+  const lega = (id, k, ev) => { const el = $('#' + id); if (el) el.addEventListener(ev, () => { RVD[k] = el.value; rvdLista(); }); };
+  lega('rvd-cerca', 'cerca', 'input'); lega('rvd-mod', 'mod', 'change'); lega('rvd-mot', 'mot', 'change'); lega('rvd-ord', 'ord', 'change');
   box.querySelectorAll('[data-rv]').forEach((a) => a.addEventListener('click', () => scriviSessione('quiz-revisione', a.dataset.rv)));
+  rvdLista();
+}
+function rvdLista() {
+  const el = $('#rvd-lista'); if (!el || !RVD.d) return;
+  const q = RVD.cerca.trim().toLowerCase();
+  const num = (c) => c.id.replace(/^caso-tcia-/, 'n. ');
+  let l = RVD.d.daRivedere.filter((c) => (!RVD.mod || c.modalita === RVD.mod) && (!RVD.mot || c.motivo === RVD.mot)
+    && (!q || `${c.titolo_interno} ${c.titolo} ${num(c)} ${c.id} ${c.distretto}`.toLowerCase().includes(q)));
+  const per = { uso: (a, b) => b.risposte - a.risposte, media: (a, b) => (a.media ?? 101) - (b.media ?? 101), num: () => 0, mod: (a, b) => a.modalita.localeCompare(b.modalita) };
+  l = [...l].sort((a, b) => (per[RVD.ord] || per.uso)(a, b) || (a.id < b.id ? -1 : 1));
+  if (!l.length) { el.innerHTML = '<p class="muted">Nessun caso con questi filtri.</p>'; return; }
+  el.innerHTML = `<div class="rvd-tab-box"><table class="rvd-tab"><thead><tr><th>Caso</th><th>Metodica</th><th>Motivo</th><th class="num">Risposte</th><th class="num">Media</th></tr></thead><tbody>${l.map((c) => `<tr${c.corretto ? ' class="rvd-corretto"' : ''}>
+    <td><a href="#/caso/${esc(c.id)}" data-rv="${esc(c.id)}"><b>${esc(c.titolo_interno || c.titolo)}</b></a><br><span class="muted small">${esc(num(c))}${c.distretto ? ' · ' + esc(c.distretto) : ''}</span>
+      ${c.dubbio ? `<div class="small rvd-dubbio">❓ ${esc(c.dubbio)}</div>` : ''}${c.revisione?.nota ? `<div class="small">✏️ ${esc(c.revisione.nota)}</div>` : ''}${c.corretto ? `<div class="small ok">🔁 <span>Corretto dall'autore il</span> ${esc(c.corretto.slice(0, 10))}<span>: da riconfermare</span></div>` : ''}</td>
+    <td>${esc(c.modalita)}</td><td><span class="rvd-motivo">${esc(c.motivo)}</span></td><td class="num">${c.risposte}</td><td class="num${c.media != null && c.media < 40 ? ' ko' : ''}">${c.media != null ? c.media + '%' : '—'}</td></tr>`).join('')}</tbody></table></div>
+    <p class="small muted"><span>${l.length}</span> <span>casi mostrati</span></p>`;
+  el.querySelectorAll('[data-rv]').forEach((a) => a.addEventListener('click', () => scriviSessione('quiz-revisione', a.dataset.rv)));
 }
 if (!CLIENT) istanzaPronta.then(() => (AZIENDA() ? null : elencoProva())).then((p) => { const b = $('#hv-prova'); if (b && p?.casi.length) b.hidden = false; }).catch(() => {});   // mai nel visualizzatore scaricabile (nessuna richiesta)
 // correzione del referto libero con il modello open source nel browser (refertolocale.js), se attivata

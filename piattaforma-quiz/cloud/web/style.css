@@ -2907,3 +2907,17 @@ button.on small{color:inherit!important;opacity:.9}
 .atl-pannello .atl-qual.q-scarsa { background: #991b1b; color: #fee2e2; }
 .atl-pannello #atl-contorni.on { background: var(--acc, #4ea1ff); color: #fff; }
 .atl-pannello select { max-width: 100%; }
+
+/* 28/11: cruscotto dei revisori */
+.rv-casi .rvd-barra { width: 100%; height: 10px; margin: 0 0 .8rem; accent-color: var(--ok, #1f8a4c); }
+.rvd-filtri { display: flex; flex-wrap: wrap; gap: .5rem; margin: .4rem 0; }
+.rvd-filtri input[type=search] { flex: 1 1 14rem; min-width: 0; }
+.rvd-tab-box { overflow-x: auto; }
+.rvd-tab { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.rvd-tab th, .rvd-tab td { padding: .45rem .5rem; border-bottom: 1px solid var(--bord, #cfd8e3); text-align: left; vertical-align: top; }
+.rvd-tab th { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--mut); }
+.rvd-tab .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rvd-tab tr.rvd-corretto td { background: color-mix(in srgb, var(--ok, #1f8a4c) 8%, transparent); }
+.rvd-motivo { display: inline-block; padding: .1rem .45rem; border-radius: 999px; background: var(--pan2, #eef2f7); font-size: .8rem; white-space: nowrap; }
+.rvd-dubbio { margin-top: .2rem; color: var(--warn, #9a6700); }
+@media (max-width: 700px) { .rvd-tab th:nth-child(2), .rvd-tab td:nth-child(2) { display: none; } }

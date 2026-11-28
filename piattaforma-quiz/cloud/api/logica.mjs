@@ -695,6 +695,28 @@ export function notaDopoRevisione(nota, esito, chi, data, testo = '') {
   n = (n ? n.trimEnd() + '\n' : '') + riga;
   return n.length > 5000 ? n.slice(n.length - 5000) : n;
 }
+// 28/11: cruscotto dei revisori: totali, avanzamento per revisore, casi da rivedere con le risposte degli studenti
+// (priorità ai più usati) e la riga di dubbio della nota; «corretto» = l'autore ha salvato il caso dopo la richiesta di correzione
+export function cruscottoRevisione(casi, stat = {}) {
+  const l = casi.filter(visibile).map((c) => {
+    const s = stat[c.id], motivo = motivoRevisione(c), rv = c.revisione;
+    const dubbio = motivo && motivo !== 'correzioni chieste dal revisore'
+      ? ((righe) => righe.find((r) => /verificar|da controllare/i.test(r)) || righe.find((r) => /dubbi/i.test(r)) || '')(String(c.nota_docente || '').split('\n').filter((r) => !/^\s*\[/.test(r)).join('\n').split(/(?<=[.;?!])\s+|\n/).map((r) => r.trim()).filter(Boolean)).slice(0, 240) : '';
+    return { id: c.id, titolo: c.titolo || c.id, titolo_interno: c.titolo_interno || '', modalita: c.modalita || '', distretto: c.distretto || '',
+      motivo, risposte: s?.n || 0, ...(s?.n ? { media: s.media } : {}), ...(dubbio ? { dubbio } : {}), ...(rv ? { revisione: rv } : {}),
+      ...(rv?.esito === 'da-correggere' && c.aggiornato && String(c.aggiornato) > String(rv.data || '') ? { corretto: String(c.aggiornato) } : {}) };
+  });
+  const daRivedere = l.filter((c) => c.motivo && c.revisione?.esito !== 'confermato').sort((a, b) => (a.id < b.id ? -1 : 1));
+  const rivisti = l.filter((c) => c.revisione).sort((a, b) => String(b.revisione.data).localeCompare(String(a.revisione.data)));
+  const perRevisore = {};
+  for (const c of rivisti) {
+    const r = perRevisore[c.revisione.da || 'Revisore'] ||= { confermati: 0, daCorreggere: 0 };
+    if (c.revisione.esito === 'confermato') r.confermati++; else r.daCorreggere++;
+  }
+  const confermati = rivisti.filter((c) => c.revisione.esito === 'confermato').length;
+  return { totali: { visibili: l.length, daRivedere: daRivedere.length, confermati, daCorreggere: rivisti.length - confermati,
+    corretti: daRivedere.filter((c) => c.corretto).length }, perRevisore, daRivedere, rivisti: rivisti.slice(0, 200) };
+}
 export function controlliCaso(c) {
   const o = c.opzioni || [], z = c.sezioni || [], out = [];
   if (o.length < 2) out.push('meno di 2 risposte');
@@ -2362,11 +2384,7 @@ export async function gestisci(req, cfg) {
   const revisore = admin || (io.ruolo === 'docente' && !!io.autore && !!io.revisore);
   if (parti[1] === 'revisione' && parti[2] === 'casi' && parti.length === 3 && metodo === 'GET') {
     if (!revisore) return json(403, { errore: 'solo il revisore dei casi' });
-    const l = (await M.elencoCasi()).filter(visibile).map((c) => ({ id: c.id, titolo: c.titolo || c.id, titolo_interno: c.titolo_interno || '', modalita: c.modalita || '',
-      distretto: c.distretto || '', motivo: motivoRevisione(c), ...(c.revisione ? { revisione: c.revisione } : {}) }));
-    const ord = (a, b) => (a.id < b.id ? -1 : 1);
-    return json(200, { daRivedere: l.filter((c) => c.motivo && c.revisione?.esito !== 'confermato').sort(ord),
-      rivisti: l.filter((c) => c.revisione).sort((a, b) => String(b.revisione.data).localeCompare(String(a.revisione.data))).slice(0, 200) });
+    return json(200, cruscottoRevisione(await M.elencoCasi(), M.risultati ? await statistiche(M) : {}));
   }
 
   // avviso ai revisori per email, subito (solo amministratore), con nota facoltativa
