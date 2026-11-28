@@ -2,13 +2,13 @@
  "id": "caso-tcia-179",
  "visibile": true,
  "aggiornato": "2026-11-28 12:30",
- "titolo": "RM encefalo: controllo dopo intervento per glioma insulare destro in uomo di 38 anni",
+ "titolo": "RM encefalo: controllo dopo intervento per una lesione insulare destra in uomo di 38 anni",
  "titolo_interno": "Astrocitoma IDH-mutato, grado 2 OMS, residuo o recidiva attorno alla cavità chirurgica insulare destra (ReMIND-048)",
  "distretto": "Encefalo",
  "modalita": "RM",
  "difficolta": "Intermedio",
  "quesito": "controllo dopo intervento per glioma",
- "anamnesi": "Uomo di 38 anni, già operato (craniotomia) per un glioma insulare destro. RM dell'encefalo con mezzo di contrasto a 3 T prima di un nuovo intervento (T2 e FLAIR assiali, T1 3D dopo mdc).",
+ "anamnesi": "Uomo di 38 anni, già operato (craniotomia) per una lesione insulare destra. RM dell'encefalo con mezzo di contrasto a 3 T prima di un nuovo intervento (T2 e FLAIR assiali, T1 3D dopo mdc).",
  "domanda": "Che cosa vedi attorno alla zona operata? È tumore?",
  "sezioni": [
   {
@@ -130,5 +130,5 @@
   ],
   "motivo": "Controllo programmato prima dell'intervento, senza segni di urgenza."
  },
- "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-048 (TCIA, CC BY 4.0), studio preoperatorio: T2 e FLAIR 2D assiali, T1 3D dopo mdc (RM Philips Ingenia 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M38, Right Insular, craniotomia precedente, astrocitoma IDH+ OMS 2, enhancement no, 13,3 mL. Segmentazioni esperte: tumore 13,3 mL (44 × 40 mm assiale, massimo nella FLAIR all'immagine 19); cavità di resezione precedente 2,5 mL, adiacente (FLAIR immagine 17). La conclusione «residuo o recidiva» è di Claude: la collezione non dice se è residuo o recidiva. NON ancora rivisto dal medico."
+ "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-048 (TCIA, CC BY 4.0), studio preoperatorio: T2 e FLAIR 2D assiali, T1 3D dopo mdc (RM Philips Ingenia 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M38, Right Insular, craniotomia precedente, astrocitoma IDH+ OMS 2, enhancement no, 13,3 mL. Segmentazioni esperte: tumore 13,3 mL (44 × 40 mm assiale, massimo nella FLAIR all'immagine 19); cavità di resezione precedente 2,5 mL, adiacente (FLAIR immagine 17). La conclusione «residuo o recidiva» è di Claude: la collezione non dice se è residuo o recidiva, né il motivo della craniotomia precedente (la cavità è nella stessa sede, quindi verosimilmente la stessa lesione). Controllo 28/11 sulle immagini: cavità chirurgica opercolare frontale destra (T1 76-80, FLAIR 15-17) con tragitto verso la corteccia; iperintensità FLAIR insulare, opercolare e della capsula esterna destre (FLAIR 17-21); nessuna impregnazione evidente nella T1 dopo mdc. NON ancora rivisto dal medico."
 }

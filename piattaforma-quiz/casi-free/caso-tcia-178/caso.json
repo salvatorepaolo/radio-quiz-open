@@ -40,7 +40,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Negli oligodendrogliomi l'impregnazione è frequente anche nel grado 2: da sola non indica un grado alto."
+   "nota": "Negli oligodendrogliomi l'impregnazione è frequente anche nel grado 2: da sola non indica un grado alto. Manca la T1 prima del mezzo di contrasto: l'impregnazione si giudica sul confronto con la corteccia e sul dato della collezione."
   },
   {
    "testo": "Lieve effetto massa, senza edema perilesionale esteso né spostamento della linea mediana",
@@ -135,5 +135,5 @@
   ],
   "motivo": "Lesione nota in valutazione prima dell'intervento, senza segni di urgenza: referto nei tempi normali."
  },
- "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-109 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc, FLAIR 3D, T2 3D (RM Philips Achieva 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M51, Left Middle Temporal Gyrus, oligodendroglioma IDH+ 1p/19q codeleto MGMT metilato, OMS 2, enhancement sì, eloquente, gyral e subgyral, 23,3 mL. Segmentazione esperta: 57 × 29 mm assiale, 32 mm cranio-caudale; massima nella T1 all'immagine 157, nella FLAIR all'immagine 149. Lettura di Claude: cisti in T2, impregnazione modesta e disomogenea, nessun edema esteso. Serie usata anche per le prove dell'atlante su RM Philips (segnalazione del 28/11). NON ancora rivisto dal medico."
+ "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-109 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc, FLAIR 3D, T2 3D (RM Philips Achieva 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M51, Left Middle Temporal Gyrus, oligodendroglioma IDH+ 1p/19q codeleto MGMT metilato, OMS 2, enhancement sì, eloquente, gyral e subgyral, 23,3 mL. Segmentazione esperta: 57 × 29 mm assiale, 32 mm cranio-caudale; massima nella T1 all'immagine 157, nella FLAIR all'immagine 149. Lettura di Claude, ricontrollata il 28/11: lesione del giro temporale medio sinistro nella T1 152-165 e nella FLAIR 142-163, cisti in T2 (112-126), modesta impregnazione periferica, nessun edema esteso; non c'è la T1 prima del mdc. Serie usata anche per le prove dell'atlante su RM Philips (segnalazione del 28/11). NON ancora rivisto dal medico."
 }

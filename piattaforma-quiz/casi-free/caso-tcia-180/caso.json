@@ -23,7 +23,7 @@
  ],
  "opzioni": [
   {
-   "testo": "Voluminosa lesione dell'insula e dell'opercolo frontale destri, circa 7 × 5 × 6 cm (circa 68 mL), omogeneamente iperintensa in FLAIR e ipointensa in T1",
+   "testo": "Voluminosa lesione dell'insula destra estesa all'opercolo frontale, alla sostanza bianca frontale profonda e al polo temporale, circa 7 × 5 × 6 cm (circa 68 mL), omogeneamente iperintensa in FLAIR e ipointensa in T1",
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
@@ -128,5 +128,5 @@
   ],
   "motivo": "Lesione voluminosa senza erniazione: comunicazione nei tempi brevi."
  },
- "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-026 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc (specchiata in convenzione radiologica) e FLAIR 3D sagittale (RM Siemens Avanto 1,5 T secondo la tabella clinica). Clinica della collezione: M27, Right Insular, astrocitoma IDH+ OMS 2, enhancement no, 68,3 mL. Segmentazione esperta: 73 × 47 × 64 mm; massima nella T1 all'immagine 65, nella FLAIR sagittale all'immagine 118. È la stessa situazione della segnalazione del 28/11 (FLAIR 3D sagittale a 1,5 T): serve anche come prova dell'atlante. NON ancora rivisto dal medico."
+ "nota_docente": "Caso creato da Claude il 28/11/2026. ReMIND-026 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc (specchiata in convenzione radiologica) e FLAIR 3D sagittale (RM Siemens Avanto 1,5 T secondo la tabella clinica). Clinica della collezione: M27, Right Insular, astrocitoma IDH+ OMS 2, enhancement no, 68,3 mL. Segmentazione esperta: 73 × 47 × 64 mm; massima nella T1 all'immagine 65, nella FLAIR sagittale all'immagine 118. Controllo 28/11 sulle immagini: massa ipointensa in T1 (immagini 50-96) dall'opercolo frontale e dalla sostanza bianca frontale profonda all'insula e al polo temporale destro, corno frontale destro compresso; FLAIR omogeneamente iperintensa (sagittali 100-126); nessuna impregnazione evidente. È la stessa situazione della segnalazione del 28/11 (FLAIR 3D sagittale a 1,5 T): serve anche come prova dell'atlante. NON ancora rivisto dal medico."
 }

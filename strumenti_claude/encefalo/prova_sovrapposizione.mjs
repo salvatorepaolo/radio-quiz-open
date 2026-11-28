@@ -7,7 +7,7 @@ const { chromium } = createRequire(CL + '/test/package.json')('playwright');
 const P = 8937, sim = spawn(process.execPath, [CL + '/test/simulatore.mjs'], { cwd: CL, env: { ...process.env, PORTA: String(P), CASI }, stdio: ['ignore', 'pipe', 'inherit'] });
 await new Promise((ok) => sim.stdout.on('data', (d) => { if (/pronto/.test(d)) ok(); }));
 const B = `http://localhost:${P}`, err = [];
-const b = await chromium.launch(process.env.GPU ? { args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', ...(process.env.SENZA_WEBGPU ? ['--disable-features=WebGPU,Vulkan', '--disable-webgpu'] : ['--enable-unsafe-webgpu'])] } : {});
+const b = await chromium.launch(process.env.CANALE ? { channel: process.env.CANALE, headless: !process.env.VISIBILE, args: ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist'] } : process.env.GPU ? { args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', ...(process.env.SENZA_WEBGPU ? ['--disable-features=WebGPU,Vulkan', '--disable-webgpu'] : ['--enable-unsafe-webgpu'])] } : {});
 const dcm = (dir) => { const f = []; const giro = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const x = path.join(d, e.name); if (e.isDirectory()) giro(x); else if (/\.dcm$/i.test(e.name) || !/\./.test(e.name)) f.push(x); } }; giro(dir); return f; };
 const esami = process.argv.slice(2).map((a) => a.startsWith('/') || a.startsWith('sito:') ? a : path.join(CASI, a, 'serie'));
 try {

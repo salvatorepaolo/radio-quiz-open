@@ -49,7 +49,7 @@ c = {
             True, 'principale', 0, 'Segmentazione degli esperti della collezione: 23,3 mL, circa 57 × 29 mm sul piano assiale.', 'Expert segmentation from the collection: 23.3 mL, about 57 × 29 mm in the axial plane.'),
         opz('Componenti cistiche nella lesione, ben visibili in T2', 'Cystic components within the lesion, well seen on T2', True, 'secondario', 0),
         opz('Impregnazione dopo contrasto presente ma modesta e disomogenea', 'Contrast enhancement present but mild and heterogeneous', True, 'secondario', 0,
-            'Negli oligodendrogliomi l\'impregnazione è frequente anche nel grado 2: da sola non indica un grado alto.', 'In oligodendrogliomas enhancement is common even in grade 2: on its own it does not indicate a high grade.'),
+            'Negli oligodendrogliomi l\'impregnazione è frequente anche nel grado 2: da sola non indica un grado alto. Manca la T1 prima del mezzo di contrasto: l\'impregnazione si giudica sul confronto con la corteccia e sul dato della collezione.', 'In oligodendrogliomas enhancement is common even in grade 2: on its own it does not indicate a high grade. There is no pre-contrast T1: enhancement is judged by comparison with the cortex and from the collection data.'),
         opz('Lieve effetto massa, senza edema perilesionale esteso né spostamento della linea mediana', 'Mild mass effect, without extensive perilesional oedema or midline shift', True, 'secondario', 0),
         opz('Lesione extra-assiale a base durale con coda durale', 'Extra-axial dural-based lesion with a dural tail', False, 'distrattore', 0),
         opz('Lesioni multiple alla giunzione tra grigia e bianca con ampio edema vasogenico', 'Multiple lesions at the grey-white junction with extensive vasogenic oedema', False, 'distrattore', 0),
@@ -70,7 +70,7 @@ c = {
     'vista': {'serie': 1, 'idx': 149, 'zoom': 1, 'panX': 0, 'panY': 0, 'nota': t('Lesione del giro temporale medio sinistro', 'Lesion of the left middle temporal gyrus')},
     'comunicazione': {'livello': 'differita', 'accettabili': ['nessuna'], 'destinatari': ['richiedente'], 'parole': ['glioma'],
                       'motivo': t('Lesione nota in valutazione prima dell\'intervento, senza segni di urgenza: referto nei tempi normali.', 'Known lesion assessed before surgery, without urgent signs: report in the normal time frame.')},
-    'nota_docente': "Caso creato da Claude il 28/11/2026. ReMIND-109 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc, FLAIR 3D, T2 3D (RM Philips Achieva 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M51, Left Middle Temporal Gyrus, oligodendroglioma IDH+ 1p/19q codeleto MGMT metilato, OMS 2, enhancement sì, eloquente, gyral e subgyral, 23,3 mL. Segmentazione esperta: 57 × 29 mm assiale, 32 mm cranio-caudale; massima nella T1 all'immagine 157, nella FLAIR all'immagine 149. Lettura di Claude: cisti in T2, impregnazione modesta e disomogenea, nessun edema esteso. Serie usata anche per le prove dell'atlante su RM Philips (segnalazione del 28/11). NON ancora rivisto dal medico.",
+    'nota_docente': "Caso creato da Claude il 28/11/2026. ReMIND-109 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc, FLAIR 3D, T2 3D (RM Philips Achieva 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M51, Left Middle Temporal Gyrus, oligodendroglioma IDH+ 1p/19q codeleto MGMT metilato, OMS 2, enhancement sì, eloquente, gyral e subgyral, 23,3 mL. Segmentazione esperta: 57 × 29 mm assiale, 32 mm cranio-caudale; massima nella T1 all'immagine 157, nella FLAIR all'immagine 149. Lettura di Claude, ricontrollata il 28/11: lesione del giro temporale medio sinistro nella T1 152-165 e nella FLAIR 142-163, cisti in T2 (112-126), modesta impregnazione periferica, nessun edema esteso; non c'è la T1 prima del mdc. Serie usata anche per le prove dell'atlante su RM Philips (segnalazione del 28/11). NON ancora rivisto dal medico.",
 }
 casi.append((c, T, ['neuro', 'oncologia']))
 
@@ -78,13 +78,13 @@ casi.append((c, T, ['neuro', 'oncologia']))
 T, t, opz = nuovo()
 c = {
     'id': 'caso-tcia-179', 'visibile': True, 'aggiornato': AGG,
-    'titolo': t('RM encefalo: controllo dopo intervento per glioma insulare destro in uomo di 38 anni', 'Brain MRI: follow-up after surgery for a right insular glioma in a 38-year-old man'),
+    'titolo': t('RM encefalo: controllo dopo intervento per una lesione insulare destra in uomo di 38 anni', 'Brain MRI: follow-up after surgery for a right insular lesion in a 38-year-old man'),
     'titolo_interno': t('Astrocitoma IDH-mutato, grado 2 OMS, residuo o recidiva attorno alla cavità chirurgica insulare destra (ReMIND-048)',
                         'IDH-mutant astrocytoma, WHO grade 2, residual or recurrent tumour around the right insular surgical cavity (ReMIND-048)'),
     'distretto': 'Encefalo', 'modalita': 'RM', 'difficolta': 'Intermedio',
     'quesito': t('controllo dopo intervento per glioma', 'follow-up after glioma surgery'),
-    'anamnesi': t("Uomo di 38 anni, già operato (craniotomia) per un glioma insulare destro. RM dell'encefalo con mezzo di contrasto a 3 T prima di un nuovo intervento (T2 e FLAIR assiali, T1 3D dopo mdc).",
-                  'A 38-year-old man, previously operated on (craniotomy) for a right insular glioma. Contrast-enhanced 3 T brain MRI before a new operation (axial T2 and FLAIR, post-contrast 3D T1).'),
+    'anamnesi': t("Uomo di 38 anni, già operato (craniotomia) per una lesione insulare destra. RM dell'encefalo con mezzo di contrasto a 3 T prima di un nuovo intervento (T2 e FLAIR assiali, T1 3D dopo mdc).",
+                  'A 38-year-old man, previously operated on (craniotomy) for a right insular lesion. Contrast-enhanced 3 T brain MRI before a new operation (axial T2 and FLAIR, post-contrast 3D T1).'),
     'domanda': t('Che cosa vedi attorno alla zona operata? È tumore?', 'What do you see around the operated area? Is it tumour?'),
     'sezioni': SEZ(t),
     'opzioni': [
@@ -110,7 +110,7 @@ c = {
     'vista': {'serie': 1, 'idx': 19, 'zoom': 1, 'panX': 0, 'panY': 0, 'nota': t('Iperintensità FLAIR insulare destra attorno alla cavità', 'Right insular FLAIR hyperintensity around the cavity')},
     'comunicazione': {'livello': 'differita', 'accettabili': ['nessuna'], 'destinatari': ['richiedente'], 'parole': ['recidiva', 'residuo', 'glioma'],
                       'motivo': t('Controllo programmato prima dell\'intervento, senza segni di urgenza.', 'Scheduled pre-operative follow-up, without urgent signs.')},
-    'nota_docente': "Caso creato da Claude il 28/11/2026. ReMIND-048 (TCIA, CC BY 4.0), studio preoperatorio: T2 e FLAIR 2D assiali, T1 3D dopo mdc (RM Philips Ingenia 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M38, Right Insular, craniotomia precedente, astrocitoma IDH+ OMS 2, enhancement no, 13,3 mL. Segmentazioni esperte: tumore 13,3 mL (44 × 40 mm assiale, massimo nella FLAIR all'immagine 19); cavità di resezione precedente 2,5 mL, adiacente (FLAIR immagine 17). La conclusione «residuo o recidiva» è di Claude: la collezione non dice se è residuo o recidiva. NON ancora rivisto dal medico.",
+    'nota_docente': "Caso creato da Claude il 28/11/2026. ReMIND-048 (TCIA, CC BY 4.0), studio preoperatorio: T2 e FLAIR 2D assiali, T1 3D dopo mdc (RM Philips Ingenia 3 T secondo la tabella clinica). Specchiate in convenzione radiologica. Clinica della collezione: M38, Right Insular, craniotomia precedente, astrocitoma IDH+ OMS 2, enhancement no, 13,3 mL. Segmentazioni esperte: tumore 13,3 mL (44 × 40 mm assiale, massimo nella FLAIR all'immagine 19); cavità di resezione precedente 2,5 mL, adiacente (FLAIR immagine 17). La conclusione «residuo o recidiva» è di Claude: la collezione non dice se è residuo o recidiva, né il motivo della craniotomia precedente (la cavità è nella stessa sede, quindi verosimilmente la stessa lesione). Controllo 28/11 sulle immagini: cavità chirurgica opercolare frontale destra (T1 76-80, FLAIR 15-17) con tragitto verso la corteccia; iperintensità FLAIR insulare, opercolare e della capsula esterna destre (FLAIR 17-21); nessuna impregnazione evidente nella T1 dopo mdc. NON ancora rivisto dal medico.",
 }
 casi.append((c, T, ['neuro', 'oncologia']))
 
@@ -127,8 +127,8 @@ c = {
     'domanda': t("Descrivi la lesione e indica l'ipotesi più probabile.", 'Describe the lesion and give the most likely diagnosis.'),
     'sezioni': SEZ(t),
     'opzioni': [
-        opz("Voluminosa lesione dell'insula e dell'opercolo frontale destri, circa 7 × 5 × 6 cm (circa 68 mL), omogeneamente iperintensa in FLAIR e ipointensa in T1",
-            'Large lesion of the right insula and frontal operculum, about 7 × 5 × 6 cm (about 68 mL), homogeneously hyperintense on FLAIR and hypointense on T1',
+        opz("Voluminosa lesione dell'insula destra estesa all'opercolo frontale, alla sostanza bianca frontale profonda e al polo temporale, circa 7 × 5 × 6 cm (circa 68 mL), omogeneamente iperintensa in FLAIR e ipointensa in T1",
+            'Large lesion of the right insula extending into the frontal operculum, the deep frontal white matter and the temporal pole, about 7 × 5 × 6 cm (about 68 mL), homogeneously hyperintense on FLAIR and hypointense on T1',
             True, 'principale', 0, 'Segmentazione degli esperti: 68,3 mL, circa 73 × 47 × 64 mm.', 'Expert segmentation: 68.3 mL, about 73 × 47 × 64 mm.'),
         opz('Nessuna impregnazione dopo mezzo di contrasto', 'No contrast enhancement', True, 'secondario', 0),
         opz('Effetto massa sul ventricolo laterale destro', 'Mass effect on the right lateral ventricle', True, 'secondario', 0),
@@ -149,7 +149,7 @@ c = {
     'vista': {'serie': 1, 'idx': 118, 'zoom': 1, 'panX': 0, 'panY': 0, 'nota': t('Massa insulare destra iperintensa in FLAIR', 'Right insular FLAIR-hyperintense mass')},
     'comunicazione': {'livello': 'differita', 'accettabili': ['urgente'], 'destinatari': ['richiedente'], 'parole': ['glioma'],
                       'motivo': t('Lesione voluminosa senza erniazione: comunicazione nei tempi brevi.', 'Large lesion without herniation: report promptly.')},
-    'nota_docente': "Caso creato da Claude il 28/11/2026. ReMIND-026 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc (specchiata in convenzione radiologica) e FLAIR 3D sagittale (RM Siemens Avanto 1,5 T secondo la tabella clinica). Clinica della collezione: M27, Right Insular, astrocitoma IDH+ OMS 2, enhancement no, 68,3 mL. Segmentazione esperta: 73 × 47 × 64 mm; massima nella T1 all'immagine 65, nella FLAIR sagittale all'immagine 118. È la stessa situazione della segnalazione del 28/11 (FLAIR 3D sagittale a 1,5 T): serve anche come prova dell'atlante. NON ancora rivisto dal medico.",
+    'nota_docente': "Caso creato da Claude il 28/11/2026. ReMIND-026 (TCIA, CC BY 4.0), studio preoperatorio: T1 3D dopo mdc (specchiata in convenzione radiologica) e FLAIR 3D sagittale (RM Siemens Avanto 1,5 T secondo la tabella clinica). Clinica della collezione: M27, Right Insular, astrocitoma IDH+ OMS 2, enhancement no, 68,3 mL. Segmentazione esperta: 73 × 47 × 64 mm; massima nella T1 all'immagine 65, nella FLAIR sagittale all'immagine 118. Controllo 28/11 sulle immagini: massa ipointensa in T1 (immagini 50-96) dall'opercolo frontale e dalla sostanza bianca frontale profonda all'insula e al polo temporale destro, corno frontale destro compresso; FLAIR omogeneamente iperintensa (sagittali 100-126); nessuna impregnazione evidente. È la stessa situazione della segnalazione del 28/11 (FLAIR 3D sagittale a 1,5 T): serve anche come prova dell'atlante. NON ancora rivisto dal medico.",
 }
 casi.append((c, T, ['neuro', 'oncologia']))
 
