@@ -9,7 +9,7 @@ const b = await chromium.launch({ args: ['--use-angle=metal', '--enable-gpu', '-
 try {
   for (const id of casi) {
     const p = await (await b.newContext({ locale: 'it-IT', viewport: { width: 1400, height: 900 }, deviceScaleFactor: 2 })).newPage();
-    p.on('pageerror', (e) => err.push(e.message));
+    p.on('pageerror', (e) => err.push(e.message)); p.on('console', (m) => { if (m.text().includes('W/L sulla CPU')) err.push(m.text()); });
     await p.goto(B + '/?prova#/'); await p.waitForSelector('[data-vai="codice"]'); await p.click('[data-vai="codice"]'); await p.fill('#codice', 'admin-test-0000'); await p.press('#codice', 'Enter');
     await p.waitForSelector('#vista-elenco:not([hidden])'); await p.goto(B + '/?prova#/caso/' + id); await p.waitForFunction(() => window.__dbg?.P(0)?.img, null, { timeout: 60000 }); await p.waitForTimeout(3000);
     await p.click('#btn-atlante'); await p.waitForTimeout(1500);

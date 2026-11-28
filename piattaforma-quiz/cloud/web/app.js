@@ -1365,12 +1365,16 @@ function gpu2d() {
 in vec2 p; out vec2 uv; void main() { uv = vec2((p.x + 1.0) * 0.5, (1.0 - p.y) * 0.5); gl_Position = vec4(p, 0.0, 1.0); }`));
     gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `#version 300 es
 precision highp float; uniform highp sampler2D t; uniform float lo, ww; uniform int inv; in vec2 uv; out vec4 o;
-// interpolazione bilineare dei valori veri (HU, segnale) prima della finestra: ingrandendo i bordi restano continui
-// invece di diventare gradini (finestrare prima e interpolare dopo dà scalini sui contorni ad alto contrasto)
-void main() { ivec2 d = textureSize(t, 0); vec2 q = uv * vec2(d) - 0.5; ivec2 a = ivec2(floor(q)); vec2 f = q - floor(q); ivec2 m = d - 1;
-  float v00 = texelFetch(t, clamp(a, ivec2(0), m), 0).r, v10 = texelFetch(t, clamp(a + ivec2(1, 0), ivec2(0), m), 0).r;
-  float v01 = texelFetch(t, clamp(a + ivec2(0, 1), ivec2(0), m), 0).r, v11 = texelFetch(t, clamp(a + ivec2(1, 1), ivec2(0), m), 0).r;
-  float v = mix(mix(v00, v10, f.x), mix(v01, v11, f.x), f.y);
+// interpolazione bicubica (Catmull-Rom, 4×4 pixel) dei valori veri (HU, segnale) prima della finestra: ingrandendo i
+// bordi restano continui e nitidi (finestrare prima e interpolare dopo dà scalini sui contorni ad alto contrasto).
+// Il valore resta tra il minimo e il massimo dei 4 pixel più vicini: niente aloni chiari o scuri accanto ai bordi
+float px(ivec2 a, ivec2 m) { return texelFetch(t, clamp(a, ivec2(0), m), 0).r; }
+vec4 cr(float x) { float x2 = x * x, x3 = x2 * x; return vec4(-0.5 * x3 + x2 - 0.5 * x, 1.5 * x3 - 2.5 * x2 + 1.0, -1.5 * x3 + 2.0 * x2 + 0.5 * x, 0.5 * x3 - 0.5 * x2); }
+void main() { ivec2 d = textureSize(t, 0), m = d - 1; vec2 q = uv * vec2(d) - 0.5; ivec2 a = ivec2(floor(q)); vec2 f = q - floor(q);
+  vec4 wx = cr(f.x), wy = cr(f.y); float v = 0.0;
+  for (int j = 0; j < 4; j++) { float r = 0.0; for (int i = 0; i < 4; i++) r += wx[i] * px(a + ivec2(i - 1, j - 1), m); v += wy[j] * r; }
+  float v00 = px(a, m), v10 = px(a + ivec2(1, 0), m), v01 = px(a + ivec2(0, 1), m), v11 = px(a + ivec2(1, 1), m);
+  v = clamp(v, min(min(v00, v10), min(v01, v11)), max(max(v00, v10), max(v01, v11)));
   float g = clamp((v - lo) / ww, 0.0, 1.0); if (inv == 1) g = 1.0 - g; o = vec4(g, g, g, 1.0); }`));
     gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
     gl.useProgram(pr);
