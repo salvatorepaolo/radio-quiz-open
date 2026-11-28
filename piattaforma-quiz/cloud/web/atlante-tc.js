@@ -89,10 +89,10 @@ function matrice(p, cP, cM) {
   return { A, t };
 }
 
-export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/atlante/' } = {}) {
+export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/atlante/', partenze = [[-0.35, 0, 0], [0, 0, 0], [0.35, 0, 0]] } = {}) {
   const t0 = Date.now();
   const M = mni || await datiMNI(base), G = M.griglia, [MX, MY, MZ] = G.dim, mo = G.origine, mp = G.passo;
-  const { W, H, N, dati, assi, sp, origine } = vol;
+  const { W, H, N, dati, assi, sp, origine } = vol, tg = vol.taglio || [0, 0, 0];   // taglio: gantry inclinato
   // 1. griglia di lavoro a circa 2 mm
   const f = sp.map((s) => Math.max(1, Math.round(2 / s))), X = Math.floor(W / f[0]), Y = Math.floor(H / f[1]), Z = Math.floor(N / f[2]);
   if (X < 20 || Y < 20 || Z < 10) throw new Error('la TC copre troppo poco per riconoscere l\'encefalo');
@@ -101,8 +101,8 @@ export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/a
     let s = 0; for (let c = 0; c < f[2]; c++) for (let b = 0; b < f[1]; b++) { const o = ((z * f[2] + c) * H + y * f[1] + b) * W + x * f[0]; for (let a = 0; a < f[0]; a++) s += dati[o + a]; }
     C[q] = s / (f[0] * f[1] * f[2]);
   }
-  const pazL = (x, y, z) => { const u = (x * f[0] + (f[0] - 1) / 2) * sp[0], v = (y * f[1] + (f[1] - 1) / 2) * sp[1], w = (z * f[2] + (f[2] - 1) / 2) * sp[2];
-    return [0, 1, 2].map((r) => origine[r] + u * assi[0][r] + v * assi[1][r] + w * assi[2][r]); };
+  const pazL = (x, y, z) => { const u = (x * f[0] + (f[0] - 1) / 2) * sp[0], v = (y * f[1] + (f[1] - 1) / 2) * sp[1], k = z * f[2] + (f[2] - 1) / 2, w = k * sp[2];
+    return [0, 1, 2].map((r) => origine[r] + u * assi[0][r] + v * assi[1][r] + w * assi[2][r] + k * tg[r]); };
   const rasL = (x, y, z) => { const p = pazL(x, y, z); return [-p[0], -p[1], p[2]]; };
   avanza(0.1, 'Riconosco il cranio…');
   // 2. interno del cranio
@@ -111,6 +111,24 @@ export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/a
   for (let i = 0; i < C.length; i++) molle[i] = C[i] > -10 && C[i] < 100 && !osso[i] ? 1 : 0;
   let I = new Uint8Array(C.length); for (let i = 0; i < C.length; i++) I[i] = din[i] && molle[i] ? 1 : 0;
   I = erodi(I, X, Y, Z); I = piuGrande(I, X, Y, Z); I = erodi(I, X, Y, Z, molle, true); I = erodi(I, X, Y, Z, molle, true);
+  // sotto la fossa posteriore: canale vertebrale e collo (TC testa-collo) spostano il baricentro e l'inclinazione.
+  // Si misura l'area per fasce di 4 mm in altezza e si toglie ciò che sta sotto la prima fascia (scendendo dalla
+  // più ampia) con meno del 12% dell'area massima.
+  { const zz = new Float32Array(C.length); let zmin = Infinity, zmax = -Infinity;
+    for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) if (I[q]) { const h = rasL(x, y, z)[2]; zz[q] = h; if (h < zmin) zmin = h; if (h > zmax) zmax = h; }
+    // fascia almeno grande quanto il passo della griglia in altezza (strato spesso: nessuna fascia vuota tra le fette)
+    const fascia = Math.max(4, ...[0, 1, 2].map((a) => Math.abs(assi[a][2]) * f[a] * sp[a] * 1.05));
+    const nb = Math.floor((zmax - zmin) / fascia) + 1, area = new Uint32Array(nb); for (let q = 0; q < C.length; q++) if (I[q]) area[Math.floor((zz[q] - zmin) / fascia)]++;
+    let bm = 0; for (let k = 1; k < nb; k++) if (area[k] > area[bm]) bm = k;
+    let taglia = -1; for (let k = bm; k >= 0; k--) if (area[k] < 0.12 * area[bm]) { taglia = k; break; }
+    if (taglia >= 0) for (let q = 0; q < C.length; q++) if (I[q] && Math.floor((zz[q] - zmin) / fascia) < taglia) I[q] = 0; }
+  // encefalo tagliato dal campo di vista: interno del cranio sulle facce della griglia (oltre 15 cm²)
+  let tagliato = false;
+  { const facce = [[0, X, Y, Z, (a, b) => (b * Y + a) * X, f[1] * sp[1] * f[2] * sp[2]], [0, Y, X, Z, (a, b) => (b * Y) * X + a, f[0] * sp[0] * f[2] * sp[2]], [0, Z, X, Y, (a, b) => b * X + a, f[0] * sp[0] * f[1] * sp[1]]];
+    for (const [, n, A, B, idx, mm2] of facce) for (const t of [0, n - 1]) {
+      let c = 0; for (let b = 0; b < B; b++) for (let a = 0; a < A; a++) { const base = idx(a, b), q = n === X ? base + t : n === Y ? base + t * X : base + t * X * Y; if (I[q]) c++; }
+      if (c * mm2 > 1500) tagliato = true;
+    } }
   const vox = f[0] * sp[0] * f[1] * sp[1] * f[2] * sp[2] / 1000; let nI = 0, cP = [0, 0, 0];
   for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) if (I[q]) { nI++; const r = rasL(x, y, z); cP[0] += r[0]; cP[1] += r[1]; cP[2] += r[2]; }
   const mL = nI * vox;
@@ -162,10 +180,10 @@ export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/a
   };
   const s0 = Math.log(Math.cbrt((nM * mp ** 3 / 1000) / mL));
   let migliore = null;
-  for (const [i, rx] of [-0.35, 0, 0.35].entries()) {
-    avanza(0.25 + 0.15 * i, 'Allineo l\'atlante alla TC…');
+  for (const [i, [rx, ry, rz]] of partenze.entries()) {
+    avanza(0.25 + 0.45 * i / partenze.length, 'Allineo l\'atlante alla TC…');
     await new Promise((r) => setTimeout(r));
-    const r = ottimizza([0, 0, 0, rx, 0, 0, s0, s0, s0, 0, 0, 0], 3);
+    const r = ottimizza([0, 0, 0, rx, ry, rz, s0, s0, s0, 0, 0, 0], 3);
     if (!migliore || r.c < migliore.c) migliore = r;
   }
   avanza(0.7, 'Rifinisco l\'allineamento…'); await new Promise((r) => setTimeout(r));
@@ -174,19 +192,30 @@ export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/a
   const indice = (m) => { const x = Math.round((m[0] - mo[0]) / mp), y = Math.round((m[1] - mo[1]) / mp), z = Math.round((m[2] - mo[2]) / mp);
     return x >= 0 && y >= 0 && z >= 0 && x < MX && y < MY && z < MZ ? (z * MY + y) * MX + x : -1; };
   // sovrapposizione (Dice) tra l'encefalo del template portato sulla TC e l'interno del cranio
-  let inter = 0, nT = 0;
-  for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) { const k = indice(aMNI(rasL(x, y, z))), m = k >= 0 && M.str[k] ? 1 : 0; nT += m; if (m && I[q]) inter++; }
-  const dice = 2 * inter / (nT + nI);
+  // e densità della TC dove l'atlante mette i ventricoli laterali e la sostanza bianca (i ventricoli devono essere liquor)
+  const vent = new Uint8Array(256), bianca = new Uint8Array(256); NOMI_MINDSNAP.forEach((nm, k) => { vent[k] = /Lateral-Ventricle/.test(nm) ? 1 : 0; bianca[k] = /Cerebral-White-Matter/.test(nm) ? 1 : 0; });
+  let inter = 0, nT = 0, sv = 0, nv = 0, sw = 0, nw = 0;
+  for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) {
+    const k = indice(aMNI(rasL(x, y, z))), e = k >= 0 ? M.str[k] : 0, m = e ? 1 : 0; nT += m; if (m && I[q]) inter++;
+    if (I[q] && C[q] > -10 && C[q] < 80) { if (vent[e]) { sv += C[q]; nv++; } else if (bianca[e]) { sw += C[q]; nw++; } }
+  }
+  const dice = 2 * inter / (nT + nI), huVentricoli = nv ? sv / nv : null, huBianca = nw ? sw / nw : null;
   avanza(0.85, 'Porto giri, lobi e territori sulla TC…'); await new Promise((r) => setTimeout(r));
   // 5. etichette sulla griglia della serie (nel piano al più un voxel ogni ~0,9 mm)
-  const q0 = Math.max(1, Math.round(0.9 / sp[0])), q1 = Math.max(1, Math.round(0.9 / sp[1])), Wo = Math.floor(W / q0), Ho = Math.floor(H / q1), No = N;
-  const spo = [sp[0] * q0, sp[1] * q1, sp[2]], oo = [0, 1, 2].map((r) => origine[r] + assi[0][r] * sp[0] * (q0 - 1) / 2 + assi[1][r] * sp[1] * (q1 - 1) / 2);
+  // griglia ortogonale (assi della serie): con il gantry inclinato si allarga nel piano di quanto scivolano le fette
+  const q0 = Math.max(1, Math.round(0.9 / sp[0])), q1 = Math.max(1, Math.round(0.9 / sp[1])), spo = [sp[0] * q0, sp[1] * q1, sp[2]];
+  const sr = (N - 1) * (tg[0] * assi[0][0] + tg[1] * assi[0][1] + tg[2] * assi[0][2]), sc = (N - 1) * (tg[0] * assi[1][0] + tg[1] * assi[1][1] + tg[2] * assi[1][2]);
+  const Wo = Math.floor(W / q0) + Math.ceil(Math.abs(sr) / spo[0]), Ho = Math.floor(H / q1) + Math.ceil(Math.abs(sc) / spo[1]), No = N;
+  const oo = [0, 1, 2].map((r) => origine[r] + assi[0][r] * (sp[0] * (q0 - 1) / 2 + Math.min(0, sr)) + assi[1][r] * (sp[1] * (q1 - 1) / 2 + Math.min(0, sc)));
+  const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
   const n = Wo * Ho * No, lab = new Uint8Array(n), art = new Uint8Array(n), mask = new Uint8Array(n);
   for (let k = 0, q = 0; k < No; k++) for (let j = 0; j < Ho; j++) for (let i = 0; i < Wo; i++, q++) {
-    const xw = Math.min(X - 1, Math.floor((i * q0 + (q0 - 1) / 2) / f[0])), yw = Math.min(Y - 1, Math.floor((j * q1 + (q1 - 1) / 2) / f[1])), zw = Math.min(Z - 1, Math.floor(k / f[2]));
+    const p = [0, 1, 2].map((r) => oo[r] + i * spo[0] * assi[0][r] + j * spo[1] * assi[1][r] + k * spo[2] * assi[2][r]);
+    const dq = [0, 1, 2].map((r) => p[r] - origine[r] - k * (sp[2] * assi[2][r] + tg[r])), ii = dot(dq, assi[0]) / sp[0], jj = dot(dq, assi[1]) / sp[1];
+    if (ii < -0.5 || jj < -0.5 || ii > W - 0.5 || jj > H - 0.5) continue;
+    const xw = Math.min(X - 1, Math.max(0, Math.floor(ii / f[0]))), yw = Math.min(Y - 1, Math.max(0, Math.floor(jj / f[1]))), zw = Math.min(Z - 1, Math.floor(k / f[2]));
     if (!I[(zw * Y + yw) * X + xw]) continue;
     mask[q] = 1;
-    const p = [0, 1, 2].map((r) => oo[r] + i * spo[0] * assi[0][r] + j * spo[1] * assi[1][r] + k * spo[2] * assi[2][r]);
     const m = indice(aMNI([-p[0], -p[1], p[2]])); if (m < 0) continue;
     lab[q] = M.str[m]; const a = M.art[m]; art[q] = a === 31 || a === 32 ? 0 : a;
   }
@@ -205,5 +234,5 @@ export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/a
   const presenti = new Set(lab);
   const etichette = Object.fromEntries(NOMI_MINDSNAP.map((nm, k) => [k, nm]).filter(([k]) => k > 0 && presenti.has(k)));
   const geo = { dim: [Wo, Ho, No], sp: spo, origine: oo, assi, etichette, atlante: 'encefalo', modello: 'atlante MNI portato sulla TC (allineamento affine)' };
-  return { geo, lab, art, tc: { dice, ncc: -fin.c, volume: mL, parametri: fin.p }, ms: Date.now() - t0 };
+  return { geo, lab, art, tc: { dice, ncc: -fin.c, volume: mL, parametri: fin.p, huVentricoli, huBianca, tagliato }, ms: Date.now() - t0 };
 }

@@ -593,7 +593,10 @@ async function volumeDi(si, avanza) {
       for (let q = 0; q < W * H; q++) dati[o + q] = px[q] * sl + it;
     }
     const { pix, ...meta } = f0;
-    return { si, W, H, N, dati, assi: [f0.iop.slice(0, 3), f0.iop.slice(3, 6), n], sp: [f0.spCol, f0.spRow, dz], origine: fette[0].ipp, meta };
+    // gantry inclinato: le fette avanzano lungo il tavolo, non lungo la normale; «taglio» = spostamento nel piano per fetta (mm)
+    const ultima = fette[fette.length - 1].ipp, L = d[d.length - 1] - d[0], resto = [0, 1, 2].map((r) => ultima[r] - fette[0].ipp[r] - L * n[r]);
+    const taglio = L > 0 && Math.hypot(...resto) > 0.5 ? resto.map((v) => v * dz / L) : [0, 0, 0];
+    return { si, W, H, N, dati, assi: [f0.iop.slice(0, 3), f0.iop.slice(3, 6), n], sp: [f0.spCol, f0.spRow, dz], origine: fette[0].ipp, taglio, meta };
   })();
   VOLS.set(chiave, pr); pr.catch(() => VOLS.delete(chiave));
   while (VOLS.size > 5) VOLS.delete(VOLS.keys().next().value);   // 11/11: fino a 4 esami a confronto
@@ -5574,7 +5577,17 @@ function punteggioAtlante(t) {
 }
 // TC dell'encefalo: dal nome della serie o del caso (una TC del torace non ha l'atlante)
 const RE_TESTA = /encefal|cerebr|cranio|crani|head|brain|testa|capo|neuro|ictus|stroke|cervello/i;
-function testaTC(si) { const s = V.serie[si]; return !!s && RE_TESTA.test(`${s.descrizione || ''} ${V.caso?.titolo || ''} ${V.caso?.distretto || ''}`); }
+// Nomi generici («Plain», «Axial 5 mm»): si guardano anche descrizione dello studio e parte del corpo (DICOM) e, se nulla
+// indica un altro distretto, il campo di vista (testa: fino a ~28 cm; torace e addome: 32–50 cm).
+const RE_NON_TESTA = /torac|chest|thorax|polmon|lung|addom|abdom|pelv|fegat|liver|ren[ei]|renal|cuor|cardi|coron|rachide|spine|colonna|lomb|dorsal|bacino|\barti\b|extrem|ginocch|knee|spalla|shoulder/i;
+function testaTC(si) {
+  const s = V.serie[si]; if (!s) return false;
+  const st = studioDi(s).id, imgs = V.pannelli.filter((x) => x.img && V.serie[x.sIdx] && studioDi(V.serie[x.sIdx]).id === st).map((x) => x.img);
+  const testo = `${s.descrizione || ''} ${s.studio || ''} ${V.caso?.titolo || ''} ${V.caso?.distretto || ''} ${imgs.map((i) => `${i.esame?.studio || ''} ${i.esame?.serie || ''} ${i.esame?.parte || ''}`).join(' ')}`;
+  if (RE_TESTA.test(testo)) return true;
+  if (RE_NON_TESTA.test(testo)) return false;
+  const i = imgs.find((x) => x.modalita === 'CT'); return !!i && i.cols * (i.spCol || 1) <= 280;
+}
 function punteggioTC(t) {
   t = String(t || ''); let p = 1;
   if (/encef|brain|cerebr|parench|soft|molli|h[2-4]\d?s?\b|j[34]\d|br[2-4]\d|std|standard/i.test(t)) p += 1;
@@ -5617,6 +5630,10 @@ function sceltaSerieAtlante(si) {
 function qualitaAtlante(d) {
   if (d.tc) {
     const det = `TC: atlante del template allineato all'esame (trasformazione affine); coincide per il ${Math.round(d.tc.dice * 100)}% con l'interno del cranio`;
+    // i ventricoli dell'atlante devono cadere sul liquor: almeno 6 HU meno della sostanza bianca
+    const contrasto = d.tc.huVentricoli != null && d.tc.huBianca != null ? d.tc.huBianca - d.tc.huVentricoli : null;
+    if (d.tc.tagliato) return { t: 'scarsa', c: 'q-scarsa', det: det + '; la TC non copre tutto l\'encefalo (manca la volta o la base): l\'allineamento è meno sicuro' };
+    if (contrasto != null && contrasto < 6) return { t: 'scarsa', c: 'q-scarsa', det: det + '; i ventricoli dell\'atlante non coincidono con quelli della TC (ventricoli piccoli o spostati, per esempio da una lesione): controlla l\'allineamento prima di fidarti dei nomi' };
     return d.tc.dice >= 0.85 && d.tc.ncc >= 0.45 ? { t: 'discreta', c: 'q-discreta', det: det + '; lobi e territori arteriosi orientativi, i nomi dei giri indicativi' }
       : { t: 'scarsa', c: 'q-scarsa', det: det + '; allineamento incerto: controllalo prima di fidarti dei nomi' };
   }
