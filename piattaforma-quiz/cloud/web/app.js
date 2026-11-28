@@ -5556,6 +5556,7 @@ const ATL = { on: false, modo: (() => { try { return localStorage.getItem('rq-at
 const ATL_MODI = { giri: 'Giri e strutture', lobi: 'Lobi', arterie: 'Territori arteriosi', dettaglio: 'Rami arteriosi (dettaglio)' };
 // chiave dello studio: l'atlante vale per tutte le serie dello stesso esame (stesse coordinate del paziente)
 const kAtl = (si) => { const s = V.serie[si]; if (!s) return '-'; const st = studioDi(s)?.id ?? ''; return CLIENT ? `cl:${st}` : `${V.caso?.id}:${st}`; };
+const tcSito = () => !CLIENT && !!V.caso && V.caso.modalita === 'TC' && /encefal|cranio/i.test(V.caso.distretto || '');
 const atlanteConsentito = () => CLIENT || (!!V.caso && !bloccoEsame() && !funzioneSpenta('anatomia') && repertiIAConsentiti());
 // RM dell'encefalo adatta al calcolo nel browser: almeno 60 immagini, strato fino a 2 mm, non una TC
 function rmEncefaloClient(si) {
@@ -5571,22 +5572,42 @@ function punteggioAtlante(t) {
   if (/\+c|\bgd\b|post|mdc|contrast/i.test(t)) p -= 0.3;
   return p;
 }
+// TC dell'encefalo: dal nome della serie o del caso (una TC del torace non ha l'atlante)
+const RE_TESTA = /encefal|cerebr|cranio|crani|head|brain|testa|capo|neuro|ictus|stroke|cervello/i;
+function testaTC(si) { const s = V.serie[si]; return !!s && RE_TESTA.test(`${s.descrizione || ''} ${V.caso?.titolo || ''} ${V.caso?.distretto || ''}`); }
+function punteggioTC(t) {
+  t = String(t || ''); let p = 1;
+  if (/encef|brain|cerebr|parench|soft|molli|h[2-4]\d?s?\b|j[34]\d|br[2-4]\d|std|standard/i.test(t)) p += 1;
+  if (/bone|oss[oa]|h[6-7]\d|j7\d|br6|sharp|polmon|lung/i.test(t)) p -= 0.8;
+  return p;
+}
+function modalitaStudio(st) { const q = V.pannelli.find((x) => x.img && V.serie[x.sIdx] && studioDi(V.serie[x.sIdx]).id === st); return q?.img?.modalita || ''; }
 function candidatiAtlante(si) {
   const s0 = V.serie[si]; if (!s0) return [];
-  const st = studioDi(s0).id;
+  const st = studioDi(s0).id, mod = modalitaStudio(st);
   return V.serie.map((s, q) => ({ s, q })).filter(({ s, q }) => {
-    if (studioDi(s).id !== st || (s.files?.length || 0) < 60) return false;
-    if (/\b(tof|dwi|adc|swi|perf|pwi|asl|dti|dsc|localizer|scout|survey|mip)\b/i.test(studioDi(s).nome)) return false;
-    const img = V.pannelli.find((x) => x.sIdx === q && x.img)?.img;
+    if (studioDi(s).id !== st) return false;
+    const img = V.pannelli.find((x) => x.sIdx === q && x.img)?.img, m = img?.modalita || mod, nome = studioDi(s).nome;
+    if (m === 'CT') {
+      if ((s.files?.length || 0) < 20 || !testaTC(q) || /\b(angio|cta|perf|mip|minip|scout|topo|localizer|dose|3d|vr)\b/i.test(nome)) return false;
+      return !img || (!img.rgb && (img.spessore || 1) <= 5.5);
+    }
+    if ((s.files?.length || 0) < 60) return false;
+    if (/\b(tof|dwi|adc|swi|perf|pwi|asl|dti|dsc|localizer|scout|survey|mip)\b/i.test(nome)) return false;
     return !img || (img.modalita === 'MR' && !img.rgb && (img.spessore || 1) <= 2.0);
-  }).map(({ s, q }) => ({ q, nome: studioDi(s).nome || `serie ${q + 1}`, punti: punteggioAtlante(studioDi(s).nome) }))
+  }).map(({ s, q }) => { const nome = studioDi(s).nome || `serie ${q + 1}`, img = V.pannelli.find((x) => x.sIdx === q && x.img)?.img, tc = (img?.modalita || mod) === 'CT';
+    return { q, nome, tc, punti: tc ? punteggioTC(nome) : punteggioAtlante(nome) }; })
     .sort((a, b) => b.punti - a.punti || a.q - b.q);
 }
 function sceltaSerieAtlante(si) {
   const c = candidatiAtlante(si);
-  if (!c.length) return '<p class="small muted">Serve una RM 3D dell\'encefalo (almeno 60 immagini, strato fino a 2 mm), meglio pesata in T1 o una FLAIR 3D: in questo esame non la trovo.</p>';
+  if (!c.length) return '<p class="small muted">Serve una RM 3D dell\'encefalo (almeno 60 immagini, strato fino a 2 mm, meglio pesata in T1 o una FLAIR 3D) oppure una TC dell\'encefalo (strato fino a 5 mm): in questo esame non la trovo.</p>';
   const sel = c.some((x) => x.q === ATL.scelta) ? ATL.scelta : c[0].q;
   const opz = c.map((x, i) => `<option value="${x.q}"${x.q === sel ? ' selected' : ''}>${esc(x.nome)}${i === 0 ? ' (consigliata)' : ''}</option>`).join('');
+  if (c[0].tc) return `<p class="small">Scegli la TC dell'encefalo su cui portare giri, lobi e territori arteriosi (meglio il filtro per il parenchima, strato sottile). Sulla TC l'atlante del template si allinea all'esame: è meno preciso che sulla RM, i nomi dei giri sono indicativi.</p>
+    <label class="small">Serie <select id="atl-serie">${opz}</select></label>
+    <button type="button" class="primary piccolo" id="atl-avvia">Calcola l'atlante</button>
+    <p class="small muted">Il calcolo dura pochi secondi e gira su questo computer: le immagini non escono.</p>`;
   return `<p class="small">Scegli la serie su cui calcolare giri, lobi e territori arteriosi: una RM 3D dell'encefalo, meglio pesata in T1 (va bene anche una FLAIR 3D). L'atlante si vede poi su tutte le serie dello stesso esame.</p>
     <label class="small">Serie <select id="atl-serie">${opz}</select></label>
     <button type="button" class="primary piccolo" id="atl-avvia">Calcola l'atlante</button>
@@ -5594,6 +5615,11 @@ function sceltaSerieAtlante(si) {
 }
 // qualità: strutture riconosciute (su 103) e scarto mediano dell'adattamento dei territori arteriosi
 function qualitaAtlante(d) {
+  if (d.tc) {
+    const det = `TC: atlante del template allineato all'esame (trasformazione affine); coincide per il ${Math.round(d.tc.dice * 100)}% con l'interno del cranio`;
+    return d.tc.dice >= 0.85 && d.tc.ncc >= 0.45 ? { t: 'discreta', c: 'q-discreta', det: det + '; lobi e territori arteriosi orientativi, i nomi dei giri indicativi' }
+      : { t: 'scarsa', c: 'q-scarsa', det: det + '; allineamento incerto: controllalo prima di fidarti dei nomi' };
+  }
   if (d.presenti == null) { const n = new Uint32Array(256); for (let i = 0; i < d.lab.length; i++) n[d.lab[i]]++; d.presenti = 0; for (let v = 1; v < 256; v++) if (n[v] >= 30) d.presenti++; }
   const r = d.residuo, p = d.presenti;
   const det = `${p} strutture riconosciute su 103${r != null ? `; scarto mediano dei territori arteriosi ${virgola(r, 1)} mm` : '; territori arteriosi non adattati'}`;
@@ -5626,12 +5652,21 @@ function atlanteDi(si) {
   return null;
 }
 async function calcolaAtlanteClient(si) {
-  const k = kAtl(si); if (ATL.dati.has(k)) return ATL.dati.get(k);
+  const k = kAtl(si); if (ATL.dati.has(k) && ATL.pronti.get(k) !== null) return ATL.dati.get(k);
   const pr = (async () => {
     const mostra = () => { if (!$('#atl-pannello').hidden) pannelloAtlante(); };
     ATL.stato.set(k, { f: 0, msg: 'Carico le immagini…' }); mostra();
     const vol = await volumeDi(si, (a, b) => { ATL.stato.set(k, { f: 0.1 * a / b, msg: `Carico le immagini (${a}/${b})…` }); mostra(); });
-    if (vol.meta?.modalita && vol.meta.modalita !== 'MR') throw new Error('la serie scelta non è una RM');
+    if (vol.meta?.modalita === 'CT') {      // TC: l'atlante del template si allinea all'esame (atlante-tc.js)
+      if (vol.sp[2] > 5.5) throw new Error(`strato di ${virgola(vol.sp[2], 1)} mm: serve una TC dell'encefalo con strato fino a 5 mm`);
+      ATL.stato.set(k, { f: 0.1, msg: 'Allineo l\'atlante alla TC (su questo computer)…' }); mostra();
+      const TC = await import('./atlante-tc.js');
+      const r = await TC.atlanteTC(vol, { avanza: (f, msg) => { ATL.stato.set(k, { f: 0.1 + 0.85 * f, msg }); mostra(); } });
+      const d = { geo: r.geo, lab: r.lab, art: r.art, residuo: null, tc: r.tc, ms: r.ms, serie: studioDi(V.serie[si]).nome };
+      ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
+      return d;
+    }
+    if (vol.meta?.modalita && vol.meta.modalita !== 'MR') throw new Error('la serie scelta non è né una RM né una TC');
     if (vol.sp[2] > 2.05) throw new Error(`strato di ${virgola(vol.sp[2], 1)} mm: serve una serie 3D con strato fino a 2 mm`);
     ATL.stato.set(k, { f: 0.1, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra();
     let ultimo = 0;
@@ -5701,7 +5736,7 @@ if (new URLSearchParams(location.search).has('prova')) window.__atl = { ATL, nom
 function aggiornaBottoneAtlante() {
   const b = $('#btn-atlante'); if (!b) return;
   const si = P()?.sIdx, d = si != null ? atlanteDi(si) : null;
-  const visibile = CLIENT ? (!!d || visibili().some(([q]) => rmEncefaloClient(q.sIdx) || (q.img?.modalita === 'MR' && candidatiAtlante(q.sIdx).length > 0)) || ATL.stato.has(kAtl(si))) : visibili().some(([q]) => atlanteDi(q.sIdx));
+  const visibile = CLIENT ? (!!d || visibili().some(([q]) => rmEncefaloClient(q.sIdx) || ((q.img?.modalita === 'MR' || (q.img?.modalita === 'CT' && testaTC(q.sIdx))) && candidatiAtlante(q.sIdx).length > 0)) || ATL.stato.has(kAtl(si))) : (tcSito() || visibili().some(([q]) => atlanteDi(q.sIdx)));
   b.hidden = !visibile; b.classList.toggle('on', ATL.on && !!d);
   if (!$('#atl-pannello').hidden) pannelloAtlante();
 }
@@ -5718,22 +5753,22 @@ function pannelloAtlante() {
   const testa = `<div class="riga eco-testa" title="Trascina per spostare il pannello"><b>🧠 Atlante dell'encefalo</b><span class="spacer"></span><button type="button" class="ghost piccolo" id="atl-chiudi" title="Chiudi">✕</button></div>`;
   let corpo = '';
   if (!CLIENT && !atlanteConsentito()) corpo = '<p class="small muted">L\'atlante si vede dopo la risposta: prima guarda le immagini da solo.</p>';
-  else if (st) corpo = st.f != null ? `<p class="small"><progress max="1" value="${st.f}"></progress> ${esc(st.msg || '')}</p><p class="small muted">Il calcolo gira su questo computer: le immagini non escono.</p>` : `<p class="small">${esc(st.msg || '')}</p>` + (CLIENT ? sceltaSerieAtlante(si) : '');
+  else if (st) corpo = st.f != null ? `<p class="small"><progress max="1" value="${st.f}"></progress> ${esc(st.msg || '')}</p><p class="small muted">Il calcolo gira su questo computer: le immagini non escono.</p>` : `<p class="small">${esc(st.msg || '')}</p>` + (CLIENT || tcSito() ? sceltaSerieAtlante(si) : '');
   else if (!d) {
     corpo = CLIENT
       ? sceltaSerieAtlante(si)
-      : '<p class="small muted">Per questo esame l\'atlante non è disponibile.</p>';
+      : tcSito() ? sceltaSerieAtlante(si) : '<p class="small muted">Per questo esame l\'atlante non è disponibile.</p>';
   } else {
     const modi = Object.entries(ATL_MODI).map(([m, t]) => `<button type="button" class="ghost piccolo${ATL.modo === m ? ' on' : ''}" data-atl-modo="${m}"${m !== 'giri' && m !== 'lobi' && !d.art ? ' disabled title="Territori arteriosi non disponibili: l\'atlante non si adatta bene a questo esame"' : ''}>${t}</button>`).join('');
     const ql = qualitaAtlante(d);
     corpo = `<div class="atl-modi">${modi}</div>
       <div class="atl-qual-riga"><span class="atl-qual ${ql.c}" title="${esc(ql.det)}">Qualità: ${ql.t}</span><button type="button" class="ghost piccolo${ATL.contorni ? ' on' : ''}" id="atl-contorni" title="Mostra solo i bordi delle strutture: si vede se seguono l'anatomia sottostante">Controlla l'allineamento</button></div>
-      <p class="small muted">${esc(ql.det)}.${CLIENT && d.serie ? ` Calcolato su «${esc(d.serie)}»${d.ms ? ` in ${Math.max(1, Math.round(d.ms / 1000))} s` : ''}. <button type="button" class="ghost piccolo" id="atl-rifai">Calcola su un'altra serie</button>` : ''}</p>
+      <p class="small muted">${esc(ql.det)}.${(CLIENT || tcSito()) && d.serie ? ` Calcolato su «${esc(d.serie)}»${d.ms ? ` in ${Math.max(1, Math.round(d.ms / 1000))} s` : ''}. <button type="button" class="ghost piccolo" id="atl-rifai">Calcola su un'altra serie</button>` : ''}</p>
       <label class="small"><input type="checkbox" id="atl-on"${ATL.on ? ' checked' : ''}> Mostra sulle immagini</label>
       <label class="small"><input type="checkbox" id="atl-nomi"${ATL.nomi ? ' checked' : ''}> Nome sotto il puntatore</label>
       <label class="small">Opacità <input type="range" id="atl-opac" min="0.15" max="0.85" step="0.05" value="${ATL.opac}"></label>
       <div class="atl-legenda">${legendaAtlante(d)}</div>
-      <p class="small muted">Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}. Nelle lesioni il colore indica la sede anatomica stimata, non il tessuto. I territori sono quelli più frequenti: variano da persona a persona (varianti del poligono di Willis). Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
+      <p class="small muted">${d.tc ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) portato sulla TC con un allineamento affine' : `Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}`}. Nelle lesioni il colore indica la sede anatomica stimata, non il tessuto. I territori sono quelli più frequenti: variano da persona a persona (varianti del poligono di Willis). Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
   }
   box.innerHTML = testa + corpo;
   $('#atl-chiudi').onclick = () => { box.hidden = true; };

@@ -27,3 +27,18 @@ json.dump({"spazio": rif["spazio"], "centri": rif["centri"],
                      "Strutture: MindSnap (brainchop 1.1.2, MIT) calcolato sul template"]},
           open(os.path.join(DEST, "riferimento.json"), "w"), ensure_ascii=False, separators=(",", ":"))
 print(out.shape, os.path.getsize(os.path.join(DEST, "arterie-mni-2mm.bin.gz")), "byte", np.unique(out).size - 1, "territori")
+
+# 28/11 — strutture MindSnap sul template a 2 mm (per la TC: l'atlante si porta sull'esame con una trasformazione affine)
+snap = nib.load(os.path.join(D, "mni_snap.nii.gz")); S = np.asarray(snap.dataobj).astype(np.uint8)
+assert np.allclose(snap.affine, aff), (snap.affine, aff)
+b = S[:2 * X, :2 * Y, :2 * Z].reshape(X, 2, Y, 2, Z, 2).transpose(0, 2, 4, 1, 3, 5).reshape(X, Y, Z, 8)
+best = np.zeros((X, Y, Z), np.int8); st = np.zeros((X, Y, Z), np.uint8)
+for v in range(1, 104):
+    c = (b == v).sum(-1).astype(np.int8); m = c > best; best[m] = c[m]; st[m] = v
+st[(b > 0).sum(-1) < 4] = 0
+with gzip.open(os.path.join(DEST, "strutture-mni-2mm.bin.gz"), "wb", compresslevel=9) as f:
+    f.write(np.ascontiguousarray(st.transpose(2, 1, 0)).tobytes())
+r = json.load(open(os.path.join(DEST, "riferimento.json")))
+r["strutture"] = {"dim": [X, Y, Z], "origine": origine, "passo": 2.0, "file": "strutture-mni-2mm.bin.gz"}
+json.dump(r, open(os.path.join(DEST, "riferimento.json"), "w"), ensure_ascii=False, separators=(",", ":"))
+print("strutture", st.shape, os.path.getsize(os.path.join(DEST, "strutture-mni-2mm.bin.gz")), "byte", np.unique(st).size - 1, "etichette")

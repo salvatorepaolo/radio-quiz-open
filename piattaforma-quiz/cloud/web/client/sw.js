@@ -2,10 +2,10 @@
 // /client/index.html (e ogni pagina sotto /client/) riceve la pagina del sito; /client/<file> → /<file>.
 // Prima la rete (aggiornamenti), poi la copia salvata. /api/ e /casi/ non passano di qui. Nessun dato del paziente
 // viene salvato: in cache vanno solo i file del sito.
-const CACHE = 'rq-client-17';
+const CACHE = 'rq-client-18';
 const PROPRI = /^\/client\/(sw\.js|avvio\.js|manifest\.json|icona-\d+\.png)$/;
 const FILE = ['/index.html', '/app.js', '/style.css', '/logo.svg', '/versione.json', '/licenze.html', '/anonimizza.js', '/analisi.js', '/cmr.js', '/ecosemi.js',
-  '/t2star.js', '/refertolocale.js', '/scale.js', '/scale-dati.js', '/scale-indice.js', '/prima.js', '/rotta.js', '/cmr-ui.js', '/docenti.js', '/client.js', '/strumenti-extra.js', '/gestione-sito.js', '/noduli-client.js', '/atlante-encefalo.js', '/noduli-worker.js', '/aiuto.json', '/schede.json', '/modelli-referto.json', '/protocolli.json', '/percorsi.json',
+  '/t2star.js', '/refertolocale.js', '/scale.js', '/scale-dati.js', '/scale-indice.js', '/prima.js', '/rotta.js', '/cmr-ui.js', '/docenti.js', '/client.js', '/strumenti-extra.js', '/gestione-sito.js', '/noduli-client.js', '/atlante-encefalo.js', '/atlante-tc.js', '/atlante/riferimento.json', '/atlante/arterie-mni-2mm.bin.gz', '/atlante/strutture-mni-2mm.bin.gz', '/noduli-worker.js', '/aiuto.json', '/schede.json', '/modelli-referto.json', '/protocolli.json', '/percorsi.json',
   '/lib/dicomParser.min.js', '/lib/lossless-min.js', '/lib/mpr3d.js', '/lib/mp4-muxer.js', '/lib/openseadragon.min.js', '/vetrini.js', '/vetrini-sop.js', '/vetrini-ann.js', '/vetrini-dec.js', '/vetrini-worker.js', '/vetrini-formati.js', '/vetrini-formati2.js', '/lib/jpegxr.mjs', '/lib/fzstd.mjs', '/lib/isyntax.mjs', '/vetrini-isyntax-worker.js',
   '/lib/codec/openjpegwasm_decode.js', '/lib/codec/openjpegwasm_decode.wasm', '/lib/codec/charlswasm_decode.js', '/lib/codec/charlswasm_decode.wasm',
   '/lib/codec/libjpegturbowasm_decode.js', '/lib/codec/libjpegturbowasm_decode.wasm', '/lib/codec/jpegimage.js',
