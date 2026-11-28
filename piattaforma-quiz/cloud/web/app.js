@@ -565,6 +565,31 @@ function pianoPossibile(p) {
   if (!/^(CT|MR|PT|NM)$/.test(img.modalita || '')) return false;
   return !isCine(p) && !isMultiEco(p);
 }
+// 28/11: TC con gantry inclinato. Le fette avanzano lungo il tavolo: ogni fetta è spostata nel piano rispetto alla
+// precedente (taglio). Il volume si ricampiona su una griglia ortogonale (stessi assi e passi, allargata di quanto
+// scivolano le fette), così ricostruzioni (Cor, Sag, OMP), misure, 3D e atlante cadono nel punto giusto del paziente.
+function raddrizzaTaglio(v, taglio) {
+  const { W, H, N, dati, assi, sp } = v, dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  const tr = dot(taglio, assi[0]) / sp[0], tc = dot(taglio, assi[1]) / sp[1];          // spostamento per fetta, in pixel
+  const er = (N - 1) * tr, ec = (N - 1) * tc, m0 = Math.min(0, er), m1 = Math.min(0, ec);
+  const W2 = W + Math.ceil(Math.abs(er)), H2 = H + Math.ceil(Math.abs(ec));
+  let fondo = Infinity; for (let i = 0; i < dati.length; i += 97) if (dati[i] < fondo) fondo = dati[i];
+  const out = new dati.constructor(W2 * H2 * N), intero = !(dati instanceof Float32Array);
+  for (let k = 0; k < N; k++) {
+    const dx = m0 - k * tr, dy = m1 - k * tc, o = k * W * H, o2 = k * W2 * H2;
+    for (let j = 0; j < H2; j++) {
+      const y = j + dy, y0 = Math.floor(y), fy = y - y0;
+      for (let i = 0; i < W2; i++) {
+        const x = i + dx, x0 = Math.floor(x), fx = x - x0;
+        let val = fondo;
+        if (x0 >= 0 && y0 >= 0 && x0 < W - 1 && y0 < H - 1) { const q = o + y0 * W + x0; val = (dati[q] * (1 - fx) + dati[q + 1] * fx) * (1 - fy) + (dati[q + W] * (1 - fx) + dati[q + W + 1] * fx) * fy; }
+        out[o2 + j * W2 + i] = intero ? Math.round(val) : val;
+      }
+    }
+  }
+  const origine = [0, 1, 2].map((r) => v.origine[r] + m0 * sp[0] * assi[0][r] + m1 * sp[1] * assi[1][r]);
+  return { ...v, W: W2, H: H2, dati: out, origine, taglio: [0, 0, 0], tagliatoGantry: taglio };
+}
 async function volumeDi(si, avanza) {
   const chiave = V.serie[si];
   if (VOLS.has(chiave)) { const v = VOLS.get(chiave); VOLS.delete(chiave); VOLS.set(chiave, v); return v; }
@@ -596,7 +621,9 @@ async function volumeDi(si, avanza) {
     // gantry inclinato: le fette avanzano lungo il tavolo, non lungo la normale; «taglio» = spostamento nel piano per fetta (mm)
     const ultima = fette[fette.length - 1].ipp, L = d[d.length - 1] - d[0], resto = [0, 1, 2].map((r) => ultima[r] - fette[0].ipp[r] - L * n[r]);
     const taglio = L > 0 && Math.hypot(...resto) > 0.5 ? resto.map((v) => v * dz / L) : [0, 0, 0];
-    return { si, W, H, N, dati, assi: [f0.iop.slice(0, 3), f0.iop.slice(3, 6), n], sp: [f0.spCol, f0.spRow, dz], origine: fette[0].ipp, taglio, meta };
+    const assi = [f0.iop.slice(0, 3), f0.iop.slice(3, 6), n];
+    if (taglio.some((v) => v)) return raddrizzaTaglio({ si, W, H, N, dati, assi, sp: [f0.spCol, f0.spRow, dz], origine: fette[0].ipp, meta }, taglio);
+    return { si, W, H, N, dati, assi, sp: [f0.spCol, f0.spRow, dz], origine: fette[0].ipp, taglio, meta };
   })();
   VOLS.set(chiave, pr); pr.catch(() => VOLS.delete(chiave));
   while (VOLS.size > 5) VOLS.delete(VOLS.keys().next().value);   // 11/11: fino a 4 esami a confronto
@@ -5578,7 +5605,7 @@ function punteggioAtlante(t) {
 // TC dell'encefalo: dal nome della serie o del caso (una TC del torace non ha l'atlante)
 const RE_TESTA = /encefal|cerebr|cranio|crani|head|brain|testa|capo|neuro|ictus|stroke|cervello/i;
 // Nomi generici («Plain», «Axial 5 mm»): si guardano anche descrizione dello studio e parte del corpo (DICOM) e, se nulla
-// indica un altro distretto, il campo di vista (testa: fino a ~28 cm; torace e addome: 32–50 cm).
+// indica un altro distretto, il campo di vista (testa: fino a ~30 cm; torace e addome: 32–50 cm).
 const RE_NON_TESTA = /torac|chest|thorax|polmon|lung|addom|abdom|pelv|fegat|liver|ren[ei]|renal|cuor|cardi|coron|rachide|spine|colonna|lomb|dorsal|bacino|\barti\b|extrem|ginocch|knee|spalla|shoulder/i;
 function testaTC(si) {
   const s = V.serie[si]; if (!s) return false;
@@ -5586,7 +5613,7 @@ function testaTC(si) {
   const testo = `${s.descrizione || ''} ${s.studio || ''} ${V.caso?.titolo || ''} ${V.caso?.distretto || ''} ${imgs.map((i) => `${i.esame?.studio || ''} ${i.esame?.serie || ''} ${i.esame?.parte || ''}`).join(' ')}`;
   if (RE_TESTA.test(testo)) return true;
   if (RE_NON_TESTA.test(testo)) return false;
-  const i = imgs.find((x) => x.modalita === 'CT'); return !!i && i.cols * (i.spCol || 1) <= 280;
+  const i = imgs.find((x) => x.modalita === 'CT'); return !!i && i.cols * (i.spCol || 1) <= 300;
 }
 function punteggioTC(t) {
   t = String(t || ''); let p = 1;
@@ -5715,7 +5742,8 @@ function lutAtlante(d, modo) {
 function disegnaAtlante(k, g, img) {
   if (!ATL.on || !atlanteConsentito()) return;
   const p = P(k), d = atlanteDi(p.sIdx), o = strato(d, ATL.modo); if (!o) return;
-  const passo = img.cols > 400 || img.rows > 400 ? 2 : 1, m = etichetteImmagine(o, img, passo);
+  // un pixel per etichetta fino a 1024 (bordi netti; con 2 pixel i confini apparivano a gradini e spostati di mezzo pixel)
+  const passo = img.cols > 1024 || img.rows > 1024 ? 2 : 1, m = etichetteImmagine(o, img, passo);
   const chiave = `${ATL.modo}|${ATL.opac}|${ATL.contorni ? 1 : 0}`;
   let c = ATL.colori.get(m);
   if (c?.chiave !== chiave) {
