@@ -19,9 +19,10 @@ try {
     await p.setInputFiles('#cl-file', dcm(dir));
     await p.waitForFunction(() => window.__dbg?.V?.img && location.hash === '#/caso/locale', null, { timeout: 120000 }); await p.waitForTimeout(3000);
     if (!(await p.isVisible('#btn-atlante'))) { console.log(path.basename(path.dirname(dir)), 'nessun bottone atlante'); continue; }
+    if (process.env.FORZA_TEMPLATE) await p.evaluate(() => { window.__atl.ATL.forzaTemplate = true; });
     await p.click('#btn-atlante'); await p.waitForSelector('#atl-avvia'); await p.click('#atl-avvia');
     await p.waitForSelector('#atl-pannello .atl-qual', { timeout: 300000 });
-    const qual = (await p.textContent('#atl-pannello .atl-qual')) + ' · ' + ((await p.textContent('#atl-pannello')).match(/Calcolato su «[^»]*»/)?.[0] || '');
+    const qual = (await p.textContent('#atl-pannello .atl-qual')) + ' · ' + ((await p.textContent('#atl-pannello')).match(/\d+ strutture[^.]*|la segmentazione automatica[^:]*/)?.[0] || '');
     await p.click('#atl-chiudi');
     console.log('==', dir.split('/').slice(-2).join('/'), qual);
     for (const vista of ['nativa', 'Cor', 'Sag', 'OMP']) {

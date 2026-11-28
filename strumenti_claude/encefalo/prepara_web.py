@@ -42,3 +42,16 @@ r = json.load(open(os.path.join(DEST, "riferimento.json")))
 r["strutture"] = {"dim": [X, Y, Z], "origine": origine, "passo": 2.0, "file": "strutture-mni-2mm.bin.gz"}
 json.dump(r, open(os.path.join(DEST, "riferimento.json"), "w"), ensure_ascii=False, separators=(",", ":"))
 print("strutture", st.shape, os.path.getsize(os.path.join(DEST, "strutture-mni-2mm.bin.gz")), "byte", np.unique(st).size - 1, "etichette")
+
+# 28/11 — template T1 (testa intera) a 2 mm, 0–255: per allineare l'atlante alle RM su cui la segmentazione automatica
+# non è affidabile (informazione mutua, indipendente dal contrasto: FLAIR, T2, ...)
+t1 = nib.load(os.path.join(D, "tpl-MNI152NLin2009cAsym_res-01_T1w.nii.gz")); T = np.asarray(t1.dataobj).astype(np.float32)
+assert np.allclose(t1.affine, aff), (t1.affine, aff)
+Tb = T[:2 * X, :2 * Y, :2 * Z].reshape(X, 2, Y, 2, Z, 2).mean(axis=(1, 3, 5))
+Tb = np.clip(Tb / np.percentile(Tb[Tb > 0], 99.5) * 255, 0, 255).astype(np.uint8)
+with gzip.open(os.path.join(DEST, "t1-mni-2mm.bin.gz"), "wb", compresslevel=9) as f:
+    f.write(np.ascontiguousarray(Tb.transpose(2, 1, 0)).tobytes())
+r = json.load(open(os.path.join(DEST, "riferimento.json")))
+r["t1"] = {"dim": [X, Y, Z], "origine": origine, "passo": 2.0, "file": "t1-mni-2mm.bin.gz"}
+json.dump(r, open(os.path.join(DEST, "riferimento.json"), "w"), ensure_ascii=False, separators=(",", ":"))
+print("t1", Tb.shape, os.path.getsize(os.path.join(DEST, "t1-mni-2mm.bin.gz")), "byte")

@@ -236,3 +236,113 @@ export async function atlanteTC(vol, { avanza = () => {}, mni = null, base = '/a
   const geo = { dim: [Wo, Ho, No], sp: spo, origine: oo, assi, etichette, atlante: 'encefalo', modello: 'atlante MNI portato sulla TC (allineamento affine)' };
   return { geo, lab, art, tc: { dice, ncc: -fin.c, volume: mL, parametri: fin.p, huVentricoli, huBianca, tagliato }, ms: Date.now() - t0 };
 }
+
+// ---------------------------------------------------------------- RM su cui la segmentazione automatica non è affidabile
+// (28/11). MindSnap è addestrato soprattutto sul T1: su alcune FLAIR o T2 (per esempio FLAIR 3D a 1,5 T) riconosce
+// poche strutture e le mette fuori posto. Qui il template T1 (testa intera) si allinea all'esame con una trasformazione
+// affine che massimizza l'informazione mutua: funziona con qualsiasi contrasto. Poi si portano giri e territori come
+// sulla TC. Meno preciso di una buona segmentazione, ma non mette etichette fuori dalla testa.
+async function t1MNI(base) {
+  if (!DATI.t1) DATI.t1 = (async () => { const r = await (await fetch(base + 'riferimento.json')).json(); return gunzip(base + r.t1.file); })().catch((e) => { DATI.t1 = null; throw e; });
+  return DATI.t1;
+}
+export async function atlanteRM(vol, { avanza = () => {}, mni = null, t1 = null, base = '/atlante/', partenze = [[-0.3, 0, 0], [0, 0, 0], [0.3, 0, 0], [0, 0, -0.45], [0, 0, 0.45]], scala = null } = {}) {
+  const t0 = Date.now();
+  const M = mni || await datiMNI(base), TM = t1 || await t1MNI(base), G = M.griglia, [MX, MY, MZ] = G.dim, mo = G.origine, mp = G.passo;
+  const { W, H, N, dati, assi, sp, origine } = vol;
+  const f = sp.map((s) => Math.max(1, Math.round(2 / s))), X = Math.floor(W / f[0]), Y = Math.floor(H / f[1]), Z = Math.floor(N / f[2]);
+  if (X < 20 || Y < 20 || Z < 10) throw new Error('la serie copre troppo poco per allineare l\'atlante');
+  const C = new Float32Array(X * Y * Z);
+  for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) {
+    let s = 0; for (let c = 0; c < f[2]; c++) for (let b = 0; b < f[1]; b++) { const o = ((z * f[2] + c) * H + y * f[1] + b) * W + x * f[0]; for (let a = 0; a < f[0]; a++) s += dati[o + a]; }
+    C[q] = s / (f[0] * f[1] * f[2]);
+  }
+  const rasL = (x, y, z) => { const u = (x * f[0] + (f[0] - 1) / 2) * sp[0], v = (y * f[1] + (f[1] - 1) / 2) * sp[1], w = (z * f[2] + (f[2] - 1) / 2) * sp[2];
+    const p = [0, 1, 2].map((r) => origine[r] + u * assi[0][r] + v * assi[1][r] + w * assi[2][r]); return [-p[0], -p[1], p[2]]; };
+  // intensità: 1° e 99,5° percentile dei voxel non nulli; testa = sopra l'8% del 99,5°
+  const cam = []; for (let i = 0; i < C.length; i += 7) if (C[i] > 0) cam.push(C[i]); cam.sort((a, b) => a - b);
+  if (cam.length < 1000) throw new Error('la serie è quasi vuota');
+  const lo = cam[Math.floor(cam.length * 0.01)], hi = cam[Math.floor(cam.length * 0.995)];
+  let testa = new Uint8Array(C.length); for (let i = 0; i < C.length; i++) testa[i] = C[i] > lo + 0.08 * (hi - lo) ? 1 : 0;
+  testa = piuGrande(testa, X, Y, Z);
+  avanza(0.15, 'Allineo il template all\'esame…');
+  // template: testa = valore > 20
+  let nM = 0, cM = [0, 0, 0];
+  for (let z = 0, q = 0; z < MZ; z++) for (let y = 0; y < MY; y++) for (let x = 0; x < MX; x++, q++) if (TM[q] > 20) { nM++; cM[0] += mo[0] + x * mp; cM[1] += mo[1] + y * mp; cM[2] += mo[2] + z * mp; }
+  cM = cM.map((v) => v / nM);
+  // punti: testa allargata di 4 mm (il bordo testa/aria dà la forma), al più 30 000
+  const tb = erodi(erodi(testa, X, Y, Z, null, true), X, Y, Z, null, true), cand = []; let nT = 0, cP = [0, 0, 0];
+  for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) { if (testa[q]) { nT++; const r = rasL(x, y, z); cP[0] += r[0]; cP[1] += r[1]; cP[2] += r[2]; } if (tb[q]) cand.push(q); }
+  cP = cP.map((v) => v / nT);
+  const vox = f[0] * sp[0] * f[1] * sp[1] * f[2] * sp[2];
+  const passo = Math.max(1, Math.ceil(cand.length / 30000)), NB = 32; let np = Math.ceil(cand.length / passo), px = new Float32Array(np * 3), pb = new Uint8Array(np);
+  for (let k = 0, j = 0; k < cand.length; k += passo, j++) { const i = cand[k], x = i % X, y = ((i / X) | 0) % Y, z = (i / (X * Y)) | 0, r = rasL(x, y, z); px[j * 3] = r[0]; px[j * 3 + 1] = r[1]; px[j * 3 + 2] = r[2]; pb[j] = Math.max(0, Math.min(NB - 1, Math.floor(NB * (C[i] - lo) / (hi - lo)))); }
+  const TF = Float32Array.from(TM), campiona = (x, y, z) => {
+    const fx = (x - mo[0]) / mp, fy = (y - mo[1]) / mp, fz = (z - mo[2]) / mp;
+    if (fx < 0 || fy < 0 || fz < 0 || fx >= MX - 1 || fy >= MY - 1 || fz >= MZ - 1) return 0;
+    const i = fx | 0, j = fy | 0, k = fz | 0, a = fx - i, b = fy - j, c = fz - k, o = (k * MY + j) * MX + i, S = MX * MY, v = TF;
+    return ((v[o] * (1 - a) + v[o + 1] * a) * (1 - b) + (v[o + MX] * (1 - a) + v[o + MX + 1] * a) * b) * (1 - c)
+      + ((v[o + S] * (1 - a) + v[o + S + 1] * a) * (1 - b) + (v[o + S + MX] * (1 - a) + v[o + S + MX + 1] * a) * b) * c;
+  };
+  const Hst = new Float64Array(NB * NB), costo = (p) => {
+    const { A, t } = matrice(p, cP, cM); Hst.fill(0);
+    for (let j = 0; j < np; j++) { const x = px[j * 3], y = px[j * 3 + 1], z = px[j * 3 + 2];
+      const v = campiona(A[0][0] * x + A[0][1] * y + A[0][2] * z + t[0], A[1][0] * x + A[1][1] * y + A[1][2] * z + t[1], A[2][0] * x + A[2][1] * y + A[2][2] * z + t[2]);
+      Hst[pb[j] * NB + Math.min(NB - 1, (v * NB / 256) | 0)]++; }
+    const pa = new Float64Array(NB), pt = new Float64Array(NB); for (let a = 0; a < NB; a++) for (let b = 0; b < NB; b++) { const h = Hst[a * NB + b] / np; pa[a] += h; pt[b] += h; }
+    let ha = 0, ht = 0, hj = 0; for (let a = 0; a < NB; a++) { if (pa[a]) ha -= pa[a] * Math.log(pa[a]); if (pt[a]) ht -= pt[a] * Math.log(pt[a]); }
+    for (let i = 0; i < NB * NB; i++) { const h = Hst[i] / np; if (h) hj -= h * Math.log(h); }
+    return -(ha + ht) / hj;     // informazione mutua normalizzata (cambiata di segno)
+  };
+  const passi0 = [4, 4, 4, 0.07, 0.07, 0.07, 0.04, 0.04, 0.04, 0.03, 0.03, 0.03];
+  const ottimizza = (p, livelli) => { let c = costo(p), st = passi0.slice();
+    for (let l = 0; l < livelli; l++) { for (let giro = 0, meglio = true; meglio && giro < 8; giro++) { meglio = false;
+      for (let k = 0; k < 12; k++) for (const s of [1, -1]) { const q = p.slice(); q[k] += s * st[k]; const cq = costo(q); if (cq < c - 1e-7) { p = q; c = cq; meglio = true; } } }
+      st = st.map((v) => v / 2); }
+    return { p, c }; };
+  // la testa nell'esame dipende dal campo di vista (collo, viso): si parte dalla scala 1 (encefalo adulto come il template)
+  const s0 = scala ?? 0;
+  let migliore = null;
+  for (const [i, [rx, ry, rz]] of partenze.entries()) {
+    avanza(0.2 + 0.45 * i / partenze.length, 'Allineo il template all\'esame…'); await new Promise((r) => setTimeout(r));
+    const r = ottimizza([0, 0, 0, rx, ry, rz, s0, s0, s0, 0, 0, 0], 3); if (!migliore || r.c < migliore.c) migliore = r;
+  }
+  avanza(0.6, 'Rifinisco l\'allineamento…'); await new Promise((r) => setTimeout(r));
+  const tappa1 = ottimizza(migliore.p, 6);
+  // seconda tappa: solo l'encefalo (allargato di 6 mm) con le intensità dell'encefalo: ventricoli e solchi, scuri sia
+  // nel T1 del template sia in FLAIR e T2, guidano l'allineamento interno
+  { const cerv = new Uint8Array(M.str.length); for (let i = 0; i < cerv.length; i++) cerv[i] = M.str[i] ? 1 : 0;
+    let cd = cerv; for (let e = 0; e < 3; e++) cd = erodi(cd, MX, MY, MZ, null, true);
+    const { A: A1, t: t1v } = matrice(tappa1.p, cP, cM), sel = [], val = [];
+    for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) {
+      if (!testa[q]) continue; const r = rasL(x, y, z), m = [0, 1, 2].map((a) => A1[a][0] * r[0] + A1[a][1] * r[1] + A1[a][2] * r[2] + t1v[a]);
+      const ix = Math.round((m[0] - mo[0]) / mp), iy = Math.round((m[1] - mo[1]) / mp), iz = Math.round((m[2] - mo[2]) / mp);
+      if (ix < 0 || iy < 0 || iz < 0 || ix >= MX || iy >= MY || iz >= MZ || !cd[(iz * MY + iy) * MX + ix]) continue; sel.push(q); val.push(C[q]); }
+    if (sel.length > 2000) {
+      const ord = val.slice().sort((a, b) => a - b), l2 = ord[Math.floor(ord.length * 0.01)], h2 = ord[Math.floor(ord.length * 0.99)], ps = Math.max(1, Math.ceil(sel.length / 30000));
+      np = Math.ceil(sel.length / ps); px = new Float32Array(np * 3); pb = new Uint8Array(np);
+      for (let k = 0, j = 0; k < sel.length; k += ps, j++) { const i = sel[k], x = i % X, y = ((i / X) | 0) % Y, z = (i / (X * Y)) | 0, r = rasL(x, y, z); px[j * 3] = r[0]; px[j * 3 + 1] = r[1]; px[j * 3 + 2] = r[2]; pb[j] = Math.max(0, Math.min(NB - 1, Math.floor(NB * (C[i] - l2) / (h2 - l2 + 1e-6)))); }
+    } }
+  const fin = ottimizza(tappa1.p, 6), { A, t } = matrice(fin.p, cP, cM);
+  const aMNI = (r) => [A[0][0] * r[0] + A[0][1] * r[1] + A[0][2] * r[2] + t[0], A[1][0] * r[0] + A[1][1] * r[1] + A[1][2] * r[2] + t[1], A[2][0] * r[0] + A[2][1] * r[1] + A[2][2] * r[2] + t[2]];
+  const indice = (m) => { const x = Math.round((m[0] - mo[0]) / mp), y = Math.round((m[1] - mo[1]) / mp), z = Math.round((m[2] - mo[2]) / mp);
+    return x >= 0 && y >= 0 && z >= 0 && x < MX && y < MY && z < MZ ? (z * MY + y) * MX + x : -1; };
+  // coincidenza testa del template / testa dell'esame (Dice)
+  let inter = 0, nTT = 0; for (let z = 0, q = 0; z < Z; z++) for (let y = 0; y < Y; y++) for (let x = 0; x < X; x++, q++) { const k = indice(aMNI(rasL(x, y, z))), m = k >= 0 && TM[k] > 20 ? 1 : 0; nTT += m; if (m && testa[q]) inter++; }
+  const dice = 2 * inter / (nTT + nT);
+  avanza(0.85, 'Porto giri, lobi e territori sull\'esame…'); await new Promise((r) => setTimeout(r));
+  const q0 = Math.max(1, Math.round(0.9 / sp[0])), q1 = Math.max(1, Math.round(0.9 / sp[1])), spo = [sp[0] * q0, sp[1] * q1, sp[2]], Wo = Math.floor(W / q0), Ho = Math.floor(H / q1), No = N;
+  const oo = [0, 1, 2].map((r) => origine[r] + assi[0][r] * sp[0] * (q0 - 1) / 2 + assi[1][r] * sp[1] * (q1 - 1) / 2);
+  const n = Wo * Ho * No, lab = new Uint8Array(n), art = new Uint8Array(n);
+  for (let k = 0, q = 0; k < No; k++) for (let j = 0; j < Ho; j++) for (let i = 0; i < Wo; i++, q++) {
+    const xw = Math.min(X - 1, Math.floor((i * q0 + (q0 - 1) / 2) / f[0])), yw = Math.min(Y - 1, Math.floor((j * q1 + (q1 - 1) / 2) / f[1])), zw = Math.min(Z - 1, Math.floor(k / f[2]));
+    if (!testa[(zw * Y + yw) * X + xw]) continue;
+    const p = [0, 1, 2].map((r) => oo[r] + i * spo[0] * assi[0][r] + j * spo[1] * assi[1][r] + k * spo[2] * assi[2][r]);
+    const m = indice(aMNI([-p[0], -p[1], p[2]])); if (m < 0) continue;
+    lab[q] = M.str[m]; const a = M.art[m]; art[q] = a === 31 || a === 32 || liquor(NOMI_MINDSNAP[lab[q]]) ? 0 : a;
+  }
+  const presenti = new Set(lab);
+  const etichette = Object.fromEntries(NOMI_MINDSNAP.map((nm, k) => [k, nm]).filter(([k]) => k > 0 && presenti.has(k)));
+  const geo = { dim: [Wo, Ho, No], sp: spo, origine: oo, assi, etichette, atlante: 'encefalo', modello: 'atlante MNI allineato alla RM (affine, informazione mutua)' };
+  return { geo, lab, art, tm: { dice, nmi: -fin.c, parametri: fin.p }, ms: Date.now() - t0 };
+}

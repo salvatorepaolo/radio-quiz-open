@@ -5655,6 +5655,11 @@ function sceltaSerieAtlante(si) {
 }
 // qualità: strutture riconosciute (su 103) e scarto mediano dell'adattamento dei territori arteriosi
 function qualitaAtlante(d) {
+  if (d.tm) {
+    const det = `la segmentazione automatica non era affidabile su questa serie (${d.tm.strutture} strutture riconosciute su 103${d.tm.residuoSeg != null ? `, scarto ${virgola(d.tm.residuoSeg, 1)} mm` : ''}): è mostrato l'atlante del template allineato all'esame (trasformazione affine)`;
+    return d.tm.dice >= 0.75 ? { t: 'discreta', c: 'q-discreta', det: det + '; lobi e territori arteriosi orientativi, i nomi dei giri indicativi' }
+      : { t: 'scarsa', c: 'q-scarsa', det: det + '; allineamento incerto: controllalo prima di fidarti dei nomi' };
+  }
   if (d.tc) {
     const det = `TC: atlante del template allineato all'esame (trasformazione affine); coincide per il ${Math.round(d.tc.dice * 100)}% con l'interno del cranio`;
     // i ventricoli dell'atlante devono cadere sul liquor: almeno 6 HU meno della sostanza bianca
@@ -5715,9 +5720,18 @@ async function calcolaAtlanteClient(si) {
     ATL.stato.set(k, { f: 0.1, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra();
     let ultimo = 0;
     const r = await AE.segmentaNelBrowser(vol, (f) => { const t = performance.now(); if (t - ultimo > 300) { ultimo = t; ATL.stato.set(k, { f: 0.1 + 0.8 * f, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra(); } });
-    if (Object.keys(r.geo.etichette).length < 60) throw new Error('nella serie non si riconosce un encefalo intero (serve una RM 3D dell\'encefalo, meglio pesata in T1)');
-    ATL.stato.set(k, { f: 0.92, msg: 'Adatto l\'atlante dei territori arteriosi…' }); mostra();
-    const t = await AE.territori(r.lab, r.geo).catch(() => null);
+    // 28/11: su alcune FLAIR o T2 MindSnap riconosce poche strutture e le mette fuori posto (anche fuori dalla testa):
+    // allora si allinea all'esame il template con l'informazione mutua (atlante-tc.js, atlanteRM)
+    const nStr = Object.keys(r.geo.etichette).length; let t = null;
+    if (nStr >= 60) { ATL.stato.set(k, { f: 0.92, msg: 'Adatto l\'atlante dei territori arteriosi…' }); mostra(); t = await AE.territori(r.lab, r.geo).catch(() => null); }
+    if (ATL.forzaTemplate || nStr < 90 || !t || t.residuo > 8) {
+      ATL.stato.set(k, { f: 0.9, msg: 'La segmentazione non è affidabile su questa serie: allineo il template all\'esame…' }); mostra();
+      const TC = await import('./atlante-tc.js');
+      const m = await TC.atlanteRM(vol, { avanza: (f, msg) => { ATL.stato.set(k, { f: 0.9 + 0.09 * f, msg }); mostra(); } });
+      const d = { geo: m.geo, lab: m.lab, art: m.art, residuo: null, tm: { ...m.tm, strutture: nStr, residuoSeg: t?.residuo ?? null }, ms: (r.ms || 0) + m.ms, serie: studioDi(V.serie[si]).nome };
+      ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
+      return d;
+    }
     const d = { geo: r.geo, lab: r.lab, art: t && t.residuo <= 6 ? t.art : null, residuo: t?.residuo, backend: r.backend, ms: r.ms, serie: studioDi(V.serie[si]).nome };
     ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
     return d;
@@ -5813,7 +5827,7 @@ function pannelloAtlante() {
       <label class="small"><input type="checkbox" id="atl-nomi"${ATL.nomi ? ' checked' : ''}> Nome sotto il puntatore</label>
       <label class="small">Opacità <input type="range" id="atl-opac" min="0.15" max="0.85" step="0.05" value="${ATL.opac}"></label>
       <div class="atl-legenda">${legendaAtlante(d)}</div>
-      <p class="small muted">${d.tc ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) portato sulla TC con un allineamento affine' : `Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}`}. Nelle lesioni il colore indica la sede anatomica stimata, non il tessuto. I territori sono quelli più frequenti: variano da persona a persona (varianti del poligono di Willis). Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
+      <p class="small muted">${d.tm ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) allineato alla RM con una trasformazione affine (informazione mutua)' : d.tc ? 'Atlante del template MNI ICBM 2009c (giri e strutture calcolati con MindSnap sul template, territori arteriosi della Johns Hopkins University) portato sulla TC con un allineamento affine' : `Atlante automatico: strutture e giri con MindSnap (Desikan-Killiany, brainchop), territori arteriosi dall'atlante della Johns Hopkins University adattato all'esame${d.residuo != null ? ` (scarto mediano ${virgola(d.residuo, 1)} mm)` : ''}`}. Nelle lesioni il colore indica la sede anatomica stimata, non il tessuto. I territori sono quelli più frequenti: variano da persona a persona (varianti del poligono di Willis). Può sbagliare, soprattutto vicino alle lesioni: strumento didattico, non per la diagnosi.</p>`;
   }
   box.innerHTML = testa + corpo;
   $('#atl-chiudi').onclick = () => { box.hidden = true; };
