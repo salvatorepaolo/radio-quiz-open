@@ -57,7 +57,7 @@ const magazzino = {
   statVisite: async (da) => [...visite].map(([k, n]) => { const i = k.indexOf('#'); return { giorno: k.slice(0, i), voce: k.slice(i + 1), n }; }).filter((r) => r.giorno >= da),
 };
 const cfg = { hashAdmin: impronta(CODICE_ADMIN), segreto: SEG, magazzino, sicuro: false, indirizzo: `http://localhost:${PORTA}`,
-  inviaEmail: async (a, o, c) => { posta.push({ a, o, testo: c?.testo }); }, firmaCaricamento: (k) => `http://localhost:${PORTA}/s3put/${k}`,
+  inviaEmail: async (a, o, c) => { posta.push({ a, o, testo: c?.testo, ...(c?.rispondiA ? { rispondiA: c.rispondiA } : {}) }); }, firmaCaricamento: (k) => `http://localhost:${PORTA}/s3put/${k}`,
   // creazione automatica delle piattaforme (finta): il «lavoro AWS» resta in corso finché il test non manda l'esito
   creazione: process.env.CREAZIONE_FINTA ? { avvia: async (x) => { LAVORI.set(x.id, { ...x, stato: 'IN_PROGRESS' }); return 'lavoro:' + x.id; },
     stato: async (ids) => Object.fromEntries(ids.map((i) => [i, LAVORI.get(i.replace(/^lavoro:/, ''))?.stato || 'IN_PROGRESS'])) } : null,

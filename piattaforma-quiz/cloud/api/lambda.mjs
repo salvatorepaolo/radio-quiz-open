@@ -27,8 +27,8 @@ const ISTANZA = { modo: process.env.MODO || 'vetrina', nome: process.env.NOME_IS
 // avvisi per email (Amazon SES): attivi solo se la pubblicazione ha configurato il mittente
 // nome del mittente con lettere accentate (es. il nome dell'azienda): codificato come vuole lo standard delle email (RFC 2047)
 const MITT = MITTENTE && /[^\x20-\x7e]/.test(MITTENTE) ? MITTENTE.replace(/^(.*?)\s*<([^>]+)>$/, (_, n, e) => `=?UTF-8?B?${Buffer.from(n, 'utf8').toString('base64')}?= <${e}>`) : MITTENTE;
-const inviaEmail = MITTENTE ? (a, oggetto, { testo, html }) => ses.send(new SendEmailCommand({ FromEmailAddress: MITT, Destination: { ToAddresses: [a] },
-  ...(RISPONDI_A ? { ReplyToAddresses: [RISPONDI_A] } : {}),
+const inviaEmail = MITTENTE ? (a, oggetto, { testo, html, rispondiA }) => ses.send(new SendEmailCommand({ FromEmailAddress: MITT, Destination: { ToAddresses: [a] },
+  ...(rispondiA || RISPONDI_A ? { ReplyToAddresses: [rispondiA || RISPONDI_A] } : {}),   // 28/11: le segnalazioni rispondono a chi le ha scritte
   Content: { Simple: { Subject: { Data: oggetto, Charset: 'UTF-8' }, Body: { Text: { Data: testo, Charset: 'UTF-8' }, Html: { Data: html, Charset: 'UTF-8' } } } } })) : null;
 // creazione delle piattaforme dei clienti (vetrina): lavoro AWS CodeBuild che esegue crea-tenant.sh
 const PROGETTO = process.env.PROGETTO_CREAZIONE;

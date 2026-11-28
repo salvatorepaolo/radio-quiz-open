@@ -28,6 +28,11 @@ test('segnalazioni: da ospite e da iscritto, robot ignorati, solo l\'amministrat
   assert.equal((await chiama('nessuno', '/api/segnalazioni', { tipo: 'idea', testo: 'Comprami questo', sito: 'http://spam' })).stato, 200);
   assert.equal((await chiama('nessuno', '/api/segnalazioni', { tipo: 'idea', testo: 'Aggiungete i casi di <b>ecografia</b> pediatrica', email: 'Ospite@Esempio.it', pagina: '/#/elenco', versione: '1.355' })).stato, 200);
   assert.equal((await chiama('spec', '/api/segnalazioni', { tipo: 'boh', testo: 'Il pulsante Avanti non risponde', email: 'non@serve.it', pagina: '/#/caso/caso-tcia-001' })).stato, 200);
+  // email al gestore: una per segnalazione (non per il robot), «Rispondi» verso chi ha scritto se ha un'email
+  const posta = (await (await fetch(BASE + '/__posta')).json()).filter((m) => /nuova segnalazione/.test(m.o));
+  assert.equal(posta.length, 2); assert.ok(posta.every((m) => m.a === 'info@prova.example'));
+  const mo = posta.find((m) => /Suggerimento/.test(m.o)); assert.equal(mo.rispondiA, 'ospite@esempio.it'); assert.match(mo.testo, /ecografia/); assert.match(mo.testo, /Pagina: .*#\/elenco/);
+  const ms = posta.find((m) => /Altro/.test(m.o)); assert.match(ms.testo, /Sara Segnala/); assert.match(ms.testo, /#\/segnalazioni/);
   assert.equal((await chiama('spec', '/api/segnalazioni')).stato, 403, 'lo studente non le legge');
   assert.equal((await chiama('nessuno', '/api/segnalazioni')).stato, 401);
   const l = (await chiama('admin', '/api/segnalazioni')).j;

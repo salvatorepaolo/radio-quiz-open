@@ -1579,11 +1579,16 @@ export async function gestisci(req, cfg) {
       ...(chi ? { account: chi.id } : {}), ...(email ? { email } : {}) };
     await M.scriviSegnalazione(s);
     if (cfg.inviaEmail && cfg.avvisiA) {
-      const sito = radice(cfg.indirizzo);
+      // 28/11: avviso al gestore; «Rispondi» nel programma di posta va direttamente a chi ha scritto, se ha un'email
+      const sito = radice(cfg.indirizzo), suaEmail = email || (chi?.id !== 'admin' ? pulisciEmail(chi?.email) : '');
+      const autore = chi ? `${chi.nome || 'un iscritto'}${chi.ruolo && chi.ruolo !== 'admin' ? ' (' + chi.ruolo + ')' : ''}` : 'un ospite';
       try {
-        await cfg.inviaEmail(cfg.avvisiA, `Quiz Radiologia: nuova segnalazione (${TIPI_SEGNALAZIONE[tipo]})`, corpoEmail([
-          `${TIPI_SEGNALAZIONE[tipo]} da ${chi ? (chi.nome || 'un iscritto') : (email ? 'un ospite (' + email + ')' : 'un ospite senza email')}${s.pagina ? ', dalla pagina ' + s.pagina : ''}:`,
-          testo.length > 1200 ? testo.slice(0, 1200) + '…' : testo], `${sito}/#/segnalazioni`, { pulsante: 'Apri le segnalazioni' }));
+        await cfg.inviaEmail(cfg.avvisiA, `Quiz Radiologia: nuova segnalazione (${TIPI_SEGNALAZIONE[tipo]})`, { ...corpoEmail([
+          `Tipo: ${TIPI_SEGNALAZIONE[tipo]}`, `Da: ${autore}${suaEmail ? ' · ' + suaEmail : ' · nessuna email'}`,
+          ...(s.pagina ? [`Pagina: ${sito}${s.pagina.startsWith('/') ? '' : '/'}${s.pagina}`] : []), `Versione: ${s.versione || '—'}`,
+          '', ...(testo.length > 2000 ? testo.slice(0, 2000) + '…' : testo).split('\n'), '',
+          suaEmail ? 'Per rispondere basta «Rispondi»: la risposta va direttamente a chi ha scritto.' : 'Chi ha scritto non ha lasciato un\'email.'],
+          `${sito}/#/segnalazioni`, { pulsante: 'Apri le segnalazioni' }), ...(suaEmail ? { rispondiA: suaEmail } : {}) });
       } catch (e) { console.error('segnalazione', e?.message || e); }
     }
     return json(200, { ok: true });
