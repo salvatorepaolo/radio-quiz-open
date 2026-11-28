@@ -5563,6 +5563,47 @@ function rmEncefaloClient(si) {
   if (!s || !img || img.modalita !== 'MR' || img.rgb || !img.iop || (s.files?.length || 0) < 60) return false;
   return (img.spessore || 1) <= 2.0;
 }
+// serie dello stesso esame su cui calcolare l'atlante, la consigliata per prima: 3D T1, poi FLAIR, poi le altre
+function punteggioAtlante(t) {
+  t = String(t || '');
+  let p = /t1|mp-?rage|bravo|spgr|tfe|ffe|vibe|\bmpr\b/i.test(t) ? 3 : /flair/i.test(t) ? 2 : /t2|space|cube/i.test(t) ? 1 : 0.5;
+  if (/3d|3-d|\bvol|\biso/i.test(t)) p += 0.5;
+  if (/\+c|\bgd\b|post|mdc|contrast/i.test(t)) p -= 0.3;
+  return p;
+}
+function candidatiAtlante(si) {
+  const s0 = V.serie[si]; if (!s0) return [];
+  const st = studioDi(s0).id;
+  return V.serie.map((s, q) => ({ s, q })).filter(({ s, q }) => {
+    if (studioDi(s).id !== st || (s.files?.length || 0) < 60) return false;
+    if (/\b(tof|dwi|adc|swi|perf|pwi|asl|dti|dsc|localizer|scout|survey|mip)\b/i.test(studioDi(s).nome)) return false;
+    const img = V.pannelli.find((x) => x.sIdx === q && x.img)?.img;
+    return !img || (img.modalita === 'MR' && !img.rgb && (img.spessore || 1) <= 2.0);
+  }).map(({ s, q }) => ({ q, nome: studioDi(s).nome || `serie ${q + 1}`, punti: punteggioAtlante(studioDi(s).nome) }))
+    .sort((a, b) => b.punti - a.punti || a.q - b.q);
+}
+function sceltaSerieAtlante(si) {
+  const c = candidatiAtlante(si);
+  if (!c.length) return '<p class="small muted">Serve una RM 3D dell\'encefalo (almeno 60 immagini, strato fino a 2 mm), meglio pesata in T1 o una FLAIR 3D: in questo esame non la trovo.</p>';
+  const sel = c.some((x) => x.q === ATL.scelta) ? ATL.scelta : c[0].q;
+  const opz = c.map((x, i) => `<option value="${x.q}"${x.q === sel ? ' selected' : ''}>${esc(x.nome)}${i === 0 ? ' (consigliata)' : ''}</option>`).join('');
+  return `<p class="small">Scegli la serie su cui calcolare giri, lobi e territori arteriosi: una RM 3D dell'encefalo, meglio pesata in T1 (va bene anche una FLAIR 3D). L'atlante si vede poi su tutte le serie dello stesso esame.</p>
+    <label class="small">Serie <select id="atl-serie">${opz}</select></label>
+    <button type="button" class="primary piccolo" id="atl-avvia">Calcola l'atlante</button>
+    <p class="small muted">Il modello (circa 4 MB) si scarica una volta e gira su questo computer: le immagini non escono.</p>`;
+}
+// qualità: strutture riconosciute (su 103) e scarto mediano dell'adattamento dei territori arteriosi
+function qualitaAtlante(d) {
+  if (d.presenti == null) { const n = new Uint32Array(256); for (let i = 0; i < d.lab.length; i++) n[d.lab[i]]++; d.presenti = 0; for (let v = 1; v < 256; v++) if (n[v] >= 30) d.presenti++; }
+  const r = d.residuo, p = d.presenti;
+  const det = `${p} strutture riconosciute su 103${r != null ? `; scarto mediano dei territori arteriosi ${virgola(r, 1)} mm` : '; territori arteriosi non adattati'}`;
+  // MindSnap è addestrato soprattutto su T1: su FLAIR o T2 i confini tra le strutture sono meno sicuri
+  const nonT1 = d.serie && !/t1|mp-?rage|bravo|spgr|tfe|ffe|vibe|\bmpr\b/i.test(d.serie);
+  if (p >= 95 && r != null && r <= 3.5 && !nonT1) return { t: 'buona', c: 'q-buona', det };
+  if (nonT1 && p >= 85 && r != null && r <= 6) return { t: 'discreta', c: 'q-discreta', det: det + '; serie non pesata in T1: ai margini tra due strutture i nomi possono sbagliare' };
+  if (p >= 85 && r != null && r <= 6) return { t: 'discreta', c: 'q-discreta', det };
+  return { t: 'scarsa', c: 'q-scarsa', det: det + (r == null || r > 6 ? ': territori arteriosi nascosti' : '') };
+}
 async function caricaAtlanteSito(si) {
   const ia = await iaDelloStudio(si);
   if (!ia?.geo || ia.geo.atlante !== 'encefalo') return null;
@@ -5590,13 +5631,15 @@ async function calcolaAtlanteClient(si) {
     const mostra = () => { if (!$('#atl-pannello').hidden) pannelloAtlante(); };
     ATL.stato.set(k, { f: 0, msg: 'Carico le immagini…' }); mostra();
     const vol = await volumeDi(si, (a, b) => { ATL.stato.set(k, { f: 0.1 * a / b, msg: `Carico le immagini (${a}/${b})…` }); mostra(); });
+    if (vol.meta?.modalita && vol.meta.modalita !== 'MR') throw new Error('la serie scelta non è una RM');
+    if (vol.sp[2] > 2.05) throw new Error(`strato di ${virgola(vol.sp[2], 1)} mm: serve una serie 3D con strato fino a 2 mm`);
     ATL.stato.set(k, { f: 0.1, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra();
     let ultimo = 0;
     const r = await AE.segmentaNelBrowser(vol, (f) => { const t = performance.now(); if (t - ultimo > 300) { ultimo = t; ATL.stato.set(k, { f: 0.1 + 0.8 * f, msg: 'Riconosco giri e strutture (MindSnap, su questo computer)…' }); mostra(); } });
     if (Object.keys(r.geo.etichette).length < 60) throw new Error('nella serie non si riconosce un encefalo intero (serve una RM 3D dell\'encefalo, meglio pesata in T1)');
     ATL.stato.set(k, { f: 0.92, msg: 'Adatto l\'atlante dei territori arteriosi…' }); mostra();
     const t = await AE.territori(r.lab, r.geo).catch(() => null);
-    const d = { geo: r.geo, lab: r.lab, art: t && t.residuo <= 6 ? t.art : null, residuo: t?.residuo, backend: r.backend, ms: r.ms };
+    const d = { geo: r.geo, lab: r.lab, art: t && t.residuo <= 6 ? t.art : null, residuo: t?.residuo, backend: r.backend, ms: r.ms, serie: studioDi(V.serie[si]).nome };
     ATL.pronti.set(k, d); ATL.stato.delete(k); ATL.on = true; aggiornaBottoneAtlante(); mostra(); disegna();
     return d;
   })().catch((e) => { ATL.dati.delete(k); ATL.stato.set(k, { msg: 'Calcolo non riuscito: ' + (e?.message || e) }); if (!$('#atl-pannello').hidden) pannelloAtlante(); return null; });
@@ -5621,12 +5664,13 @@ function disegnaAtlante(k, g, img) {
   if (!ATL.on || !atlanteConsentito()) return;
   const p = P(k), d = atlanteDi(p.sIdx), o = strato(d, ATL.modo); if (!o) return;
   const passo = img.cols > 400 || img.rows > 400 ? 2 : 1, m = etichetteImmagine(o, img, passo);
-  const chiave = `${ATL.modo}|${ATL.opac}`;
+  const chiave = `${ATL.modo}|${ATL.opac}|${ATL.contorni ? 1 : 0}`;
   let c = ATL.colori.get(m);
   if (c?.chiave !== chiave) {
     const cv = document.createElement('canvas'); cv.width = m.w; cv.height = m.h;
     const cx = cv.getContext('2d'), id = cx.createImageData(m.w, m.h), lut = lutAtlante(d, ATL.modo), a = Math.round(255 * ATL.opac);
-    for (let i = 0; i < m.l.length; i++) { const col = lut[m.l[i]]; if (!col) continue; const j = i * 4; id.data[j] = col[0]; id.data[j + 1] = col[1]; id.data[j + 2] = col[2]; id.data[j + 3] = a; }
+    const L = m.l, W = m.w, bordo = (i, v) => { const x = i % W; return (x > 0 && L[i - 1] !== v) || (x < W - 1 && L[i + 1] !== v) || (i >= W && L[i - W] !== v) || (i + W < L.length && L[i + W] !== v); };
+    for (let i = 0; i < L.length; i++) { const col = lut[L[i]]; if (!col || (ATL.contorni && !bordo(i, L[i]))) continue; const j = i * 4; id.data[j] = col[0]; id.data[j + 1] = col[1]; id.data[j + 2] = col[2]; id.data[j + 3] = ATL.contorni ? 240 : a; }
     cx.putImageData(id, 0, 0); c = { chiave, cv }; ATL.colori.set(m, c);
   }
   ctx.save(); ruotaCtx(g); ctx.imageSmoothingEnabled = false;
@@ -5657,7 +5701,7 @@ if (new URLSearchParams(location.search).has('prova')) window.__atl = { ATL, nom
 function aggiornaBottoneAtlante() {
   const b = $('#btn-atlante'); if (!b) return;
   const si = P()?.sIdx, d = si != null ? atlanteDi(si) : null;
-  const visibile = CLIENT ? (!!d || visibili().some(([q]) => rmEncefaloClient(q.sIdx)) || ATL.stato.has(kAtl(si))) : visibili().some(([q]) => atlanteDi(q.sIdx));
+  const visibile = CLIENT ? (!!d || visibili().some(([q]) => rmEncefaloClient(q.sIdx) || (q.img?.modalita === 'MR' && candidatiAtlante(q.sIdx).length > 0)) || ATL.stato.has(kAtl(si))) : visibili().some(([q]) => atlanteDi(q.sIdx));
   b.hidden = !visibile; b.classList.toggle('on', ATL.on && !!d);
   if (!$('#atl-pannello').hidden) pannelloAtlante();
 }
@@ -5674,15 +5718,17 @@ function pannelloAtlante() {
   const testa = `<div class="riga eco-testa" title="Trascina per spostare il pannello"><b>🧠 Atlante dell'encefalo</b><span class="spacer"></span><button type="button" class="ghost piccolo" id="atl-chiudi" title="Chiudi">✕</button></div>`;
   let corpo = '';
   if (!CLIENT && !atlanteConsentito()) corpo = '<p class="small muted">L\'atlante si vede dopo la risposta: prima guarda le immagini da solo.</p>';
-  else if (st) corpo = st.f != null ? `<p class="small"><progress max="1" value="${st.f}"></progress> ${esc(st.msg || '')}</p><p class="small muted">Il calcolo gira su questo computer: le immagini non escono.</p>` : `<p class="small">${esc(st.msg || '')}</p>`;
+  else if (st) corpo = st.f != null ? `<p class="small"><progress max="1" value="${st.f}"></progress> ${esc(st.msg || '')}</p><p class="small muted">Il calcolo gira su questo computer: le immagini non escono.</p>` : `<p class="small">${esc(st.msg || '')}</p>` + (CLIENT ? sceltaSerieAtlante(si) : '');
   else if (!d) {
     corpo = CLIENT
-      ? (rmEncefaloClient(si) ? '<p class="small">Calcola giri, lobi e territori arteriosi su questa serie (RM 3D dell\'encefalo, meglio pesata in T1). Il modello (circa 4 MB) si scarica una volta e gira su questo computer: le immagini non escono.</p><button type="button" class="primary piccolo" id="atl-avvia">Calcola l\'atlante</button>'
-        : '<p class="small muted">Serve una RM 3D dell\'encefalo (almeno 60 immagini, strato fino a 2 mm), meglio pesata in T1: scegli quella serie nel riquadro attivo.</p>')
+      ? sceltaSerieAtlante(si)
       : '<p class="small muted">Per questo esame l\'atlante non è disponibile.</p>';
   } else {
     const modi = Object.entries(ATL_MODI).map(([m, t]) => `<button type="button" class="ghost piccolo${ATL.modo === m ? ' on' : ''}" data-atl-modo="${m}"${m !== 'giri' && m !== 'lobi' && !d.art ? ' disabled title="Territori arteriosi non disponibili: l\'atlante non si adatta bene a questo esame"' : ''}>${t}</button>`).join('');
+    const ql = qualitaAtlante(d);
     corpo = `<div class="atl-modi">${modi}</div>
+      <div class="atl-qual-riga"><span class="atl-qual ${ql.c}" title="${esc(ql.det)}">Qualità: ${ql.t}</span><button type="button" class="ghost piccolo${ATL.contorni ? ' on' : ''}" id="atl-contorni" title="Mostra solo i bordi delle strutture: si vede se seguono l'anatomia sottostante">Controlla l'allineamento</button></div>
+      <p class="small muted">${esc(ql.det)}.${CLIENT && d.serie ? ` Calcolato su «${esc(d.serie)}»${d.ms ? ` in ${Math.max(1, Math.round(d.ms / 1000))} s` : ''}. <button type="button" class="ghost piccolo" id="atl-rifai">Calcola su un'altra serie</button>` : ''}</p>
       <label class="small"><input type="checkbox" id="atl-on"${ATL.on ? ' checked' : ''}> Mostra sulle immagini</label>
       <label class="small"><input type="checkbox" id="atl-nomi"${ATL.nomi ? ' checked' : ''}> Nome sotto il puntatore</label>
       <label class="small">Opacità <input type="range" id="atl-opac" min="0.15" max="0.85" step="0.05" value="${ATL.opac}"></label>
@@ -5691,7 +5737,10 @@ function pannelloAtlante() {
   }
   box.innerHTML = testa + corpo;
   $('#atl-chiudi').onclick = () => { box.hidden = true; };
-  if ($('#atl-avvia')) $('#atl-avvia').onclick = () => { calcolaAtlanteClient(P().sIdx); pannelloAtlante(); };
+  if ($('#atl-serie')) $('#atl-serie').onchange = (e) => { ATL.scelta = +e.target.value; };
+  if ($('#atl-avvia')) $('#atl-avvia').onclick = () => { const q = $('#atl-serie') ? +$('#atl-serie').value : P().sIdx; ATL.scelta = q; calcolaAtlanteClient(q); pannelloAtlante(); };
+  if ($('#atl-contorni')) $('#atl-contorni').onclick = () => { ATL.contorni = !ATL.contorni; ATL.on = true; pannelloAtlante(); aggiornaBottoneAtlante(); disegna(); };
+  if ($('#atl-rifai')) $('#atl-rifai').onclick = () => { const k = kAtl(P().sIdx); ATL.pronti.delete(k); ATL.dati.delete(k); ATL.stato.delete(k); pannelloAtlante(); aggiornaBottoneAtlante(); disegna(); };
   box.querySelectorAll('[data-atl-modo]').forEach((b) => { b.onclick = () => { ATL.modo = b.dataset.atlModo; ATL.on = true; try { localStorage.setItem('rq-atl-modo', ATL.modo); } catch {} pannelloAtlante(); aggiornaBottoneAtlante(); disegna(); }; });
   if ($('#atl-on')) $('#atl-on').onchange = (e) => { ATL.on = e.target.checked; aggiornaBottoneAtlante(); disegna(); };
   if ($('#atl-nomi')) $('#atl-nomi').onchange = (e) => { ATL.nomi = e.target.checked; ATL.sotto = null; disegna(); };

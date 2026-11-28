@@ -2899,3 +2899,11 @@ button.on small{color:inherit!important;opacity:.9}
 .cd-caso .badge{background:#f5b84a!important;color:#2a1d00!important}
 .home-hero button:not(.primary):not(.on){background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:#fff}
 .home-hero button:not(.primary):not(.on):hover{border-color:var(--elettrico);background:rgba(56,189,248,.12)}
+/* 28/11 atlante dell'encefalo: qualità e controllo dell'allineamento */
+.atl-pannello .atl-qual-riga { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0; }
+.atl-pannello .atl-qual { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; cursor: help; }
+.atl-pannello .atl-qual.q-buona { background: #14532d; color: #dcfce7; }
+.atl-pannello .atl-qual.q-discreta { background: #b45309; color: #fff7ed; }
+.atl-pannello .atl-qual.q-scarsa { background: #991b1b; color: #fee2e2; }
+.atl-pannello #atl-contorni.on { background: var(--acc, #4ea1ff); color: #fff; }
+.atl-pannello select { max-width: 100%; }
