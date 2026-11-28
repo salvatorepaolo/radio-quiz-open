@@ -64,14 +64,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "T1 FS dinamiche immagine 22; T2 FS assiale immagine 20 (serie 3)."
+   "nota": "T1 FS dinamiche immagine 23; T2 FS assiale immagine 21."
   },
   {
    "testo": "Impregnazione scarsa, molto inferiore alla corticale: assente nella parte centrale (spontaneamente iperintensa in T1), lieve e lentamente crescente alla periferia (da giudicare sulle sottrazioni)",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 8-10 e sottrazioni (serie 11 e 12) alle immagini 22-23. ROI (post meno pre): centro della massa da circa -30 a +20 in tutte le fasi, cioè nessuna impregnazione misurabile; periferia circa +35-60 in fase 1 e +70-100 in tardiva; corticale circa +200-245."
+   "nota": "Fasi dopo mdc e sottrazioni alle immagini 23-24. ROI (post meno pre): centro della massa da circa -30 a +20 in tutte le fasi, cioè nessuna impregnazione misurabile; periferia circa +35-60 in fase 1 e +70-100 in tardiva; corticale circa +200-245."
   },
   {
    "testo": "In T2 la massa è disomogeneamente iperintensa: aspetto meno tipico per il papillare (aree cistiche, necrotiche o emorragiche)",

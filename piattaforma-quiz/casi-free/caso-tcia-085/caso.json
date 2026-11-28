@@ -64,14 +64,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "T2 HASTE assiale immagini 11-12; T1 FS e dinamiche immagine 31. L'ipointensità in T2 è modesta: il dato più utile è il comportamento dopo contrasto."
+   "nota": "T2 HASTE assiale immagini 12-13; T1 FS e dinamiche immagine 32. L'ipointensità in T2 è modesta: il dato più utile è il comportamento dopo contrasto."
   },
   {
    "testo": "In fase arteriosa si impregna poco, molto meno della corticale; l'impregnazione aumenta lentamente nelle fasi successive",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Confronta le serie 6-9 all'immagine 31 e le sottrazioni (serie 10 e 11): debole in arteriosa, più evidente in venosa."
+   "nota": "Confronta le fasi dopo mdc all'immagine 32 e le sottrazioni: debole in arteriosa, più evidente in venosa."
   },
   {
    "testo": "Nessun grasso macroscopico e nessuna caduta di segnale significativa fuori fase",

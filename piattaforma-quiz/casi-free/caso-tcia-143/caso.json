@@ -49,14 +49,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 1,
-   "nota": "Immagine 2 (CC destra): massa densa di circa 1,5 cm. Immagine 3 (MLO destra): la stessa massa nella parte inferiore della mammella, circa 1,3 cm. È più densa del tessuto intorno e i margini sono indistinti, non netti."
+   "nota": "Immagine 3 (CC destra): massa densa di circa 1,5 cm. Immagine 4 (MLO destra): la stessa massa nella parte inferiore della mammella, circa 1,3 cm. È più densa del tessuto intorno e i margini sono indistinti, non netti."
   },
   {
    "testo": "Nessuna massa corrispondente nella mammella sinistra: è un reperto vero, non tessuto sovrapposto",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 1,
-   "nota": "La massa c'è in due proiezioni e non ha un corrispondente a sinistra (immagini 0 e 1)."
+   "nota": "La massa c'è in due proiezioni e non ha un corrispondente a sinistra (immagini 1 e 2)."
   },
   {
    "testo": "Asimmetria visibile in una sola proiezione, da sovrapposizione di tessuto normale",

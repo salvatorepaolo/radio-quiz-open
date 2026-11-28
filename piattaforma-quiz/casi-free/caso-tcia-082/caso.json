@@ -64,14 +64,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "Confronta T1 assiale (serie 3) e T1 FS assiale (serie 4) all'immagine 8: il contenuto non perde segnale con la soppressione del grasso, quindi è sangue e non grasso."
+   "nota": "Confronta T1 assiale e T1 FS assiale senza mdc all'immagine 9: il contenuto non perde segnale con la soppressione del grasso, quindi è sangue e non grasso."
   },
   {
    "testo": "In T2 il contenuto è ipointenso rispetto al liquido semplice, con lieve gradiente più scuro nella parte declive («shading»)",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "T2 assiale obliqua, immagine 5 (serie 2)."
+   "nota": "T2 assiale obliqua, immagine 6."
   },
   {
    "testo": "Piccolo focolaio molto ipointenso in T2 vicino alla parete («T2 dark spot»)",
@@ -85,7 +85,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Confronta T1 FS senza e con mdc (serie 4 e 6 assiali, 5 e 7 sagittali). Il contenuto ematico è già chiaro prima del contrasto: per dimostrare che non si impregna servono le sottrazioni (post meno pre), che in questo esame non ci sono."
+   "nota": "Confronta T1 FS senza e con mdc (assiali e sagittali). Il contenuto ematico è già chiaro prima del contrasto: per dimostrare che non si impregna servono le sottrazioni (post meno pre), che in questo esame non ci sono."
   },
   {
    "testo": "Il contenuto perde segnale con la soppressione del grasso (grasso macroscopico)",

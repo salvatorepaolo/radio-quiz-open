@@ -64,21 +64,21 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "T1 FS assiale senza mdc, immagine 11 (serie 4): entrambe molto chiare."
+   "nota": "T1 FS assiale senza mdc, immagine 12: entrambe molto chiare."
   },
   {
    "testo": "In T2 sono ipointense rispetto all'urina, con «shading»; a sinistra c'è un piccolo focolaio molto scuro («T2 dark spot»)",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "T2 assiale obliqua, immagine 11 (serie 1)."
+   "nota": "T2 assiale obliqua, immagine 12."
   },
   {
    "testo": "Dopo il contrasto il contenuto resta chiaro come prima (è sangue, non si impregna); si impregna solo la parete sottile, senza noduli solidi",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Confronta T1 FS senza e con mdc (serie 4 e 5). Il contenuto ematico è già chiaro prima del contrasto: per dimostrare che non si impregna servono le sottrazioni (post meno pre), che in questo esame non ci sono."
+   "nota": "Confronta T1 FS assiale senza e con mdc. Il contenuto ematico è già chiaro prima del contrasto: per dimostrare che non si impregna servono le sottrazioni (post meno pre), che in questo esame non ci sono."
   },
   {
    "testo": "Cisti follicolari semplici bilaterali, ipointense in T1 e omogeneamente iperintense in T2 come l'urina",

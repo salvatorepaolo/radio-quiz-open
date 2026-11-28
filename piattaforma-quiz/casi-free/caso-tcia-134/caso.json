@@ -35,7 +35,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 0 senza contrasto (5 mm), serie 1 venosa (3 mm), serie 2 tardiva con urina opacizzata dal contrasto (3 mm), serie 3 coronale in fase venosa."
+   "nota": "Senza contrasto (5 mm), fase venosa (3 mm), fase tardiva con urina opacizzata dal contrasto (3 mm), ricostruzione coronale in fase venosa."
   },
   {
    "testo": "TC senza mezzo di contrasto a bassa dose per colica renale, con sole ricostruzioni assiali di 5 mm",
@@ -49,14 +49,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 1,
-   "nota": "Serie 2 (tardiva), immagini 114-132, meglio la 126: il contrasto che si stratifica in basso disegna il profilo lobulato della massa; in coronale (serie 3, immagini 45-50) la massa sporge nel lume dal lato sinistro."
+   "nota": "Fase tardiva, immagini 115-133, meglio la 127: il contrasto che si stratifica in basso disegna il profilo lobulato della massa; in coronale (immagini 46-51) la massa sporge nel lume dal lato sinistro."
   },
   {
    "testo": "La massa si impregna: circa 24 HU senza contrasto, circa 50 HU in fase venosa e circa 60 HU in fase tardiva",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 1,
-   "nota": "Misure con ROI nella parte centrale della massa (serie 0 immagine 76, serie 1 e 2 immagine 126). Un coagulo non si impregna."
+   "nota": "Misure con ROI nella parte centrale della massa (senza contrasto immagine 77, fase venosa e tardiva immagine 127). Un coagulo non si impregna."
   },
   {
    "testo": "Coagulo endovescicale che si sposta e non si impregna dopo il contrasto",
@@ -84,14 +84,14 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 2,
-   "nota": "Serie 2, immagini 55-110: calici, pelvi e ureteri si opacizzano senza difetti evidenti; nessuna idronefrosi. Il carcinoma uroteliale può essere multifocale: le vie alte vanno sempre guardate."
+   "nota": "Fase tardiva, immagini 56-111: calici, pelvi e ureteri si opacizzano senza difetti evidenti; nessuna idronefrosi. Il carcinoma uroteliale può essere multifocale: le vie alte vanno sempre guardate."
   },
   {
    "testo": "Grasso perivescicale senza infiltrazione evidente",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 2,
-   "nota": "Dietro la massa (serie 1 e 2, immagini 120-130) il grasso è conservato; ci sono vasi e le vescicole seminali. La TC non distingue i diversi strati della parete: l'invasione del muscolo si valuta con la resezione endoscopica (TURB) e con la RM (VI-RADS)."
+   "nota": "Dietro la massa (fase venosa e tardiva, immagini 121-131) il grasso è conservato; ci sono vasi e le vescicole seminali. La TC non distingue i diversi strati della parete: l'invasione del muscolo si valuta con la resezione endoscopica (TURB) e con la RM (VI-RADS)."
   },
   {
    "testo": "Linfonodi iliaci ingranditi e necrotici",

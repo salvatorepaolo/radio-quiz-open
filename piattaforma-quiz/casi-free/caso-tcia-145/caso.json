@@ -35,7 +35,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 0 e metà sinistra delle immagini della serie 1: la lesione si distingue a fatica dal parenchima."
+   "nota": "B-mode e metà sinistra delle immagini CEUS: la lesione si distingue a fatica dal parenchima."
   },
   {
    "testo": "Lesione anecogena a pareti sottili con rinforzo posteriore (cisti semplice)",
@@ -49,7 +49,7 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 1,
-   "nota": "Serie 1, metà destra: a 0:18-0:26 (immagini 2 e 3) anello di impregnazione intorno a un centro scuro; a 0:54, 1:25, 2:00, 3:04 e 5:04 (immagini 4-8) il centro resta senza segnale, circa 1,8 cm (immagine 5)."
+   "nota": "CEUS, metà destra: a 0:18-0:26 (immagini 3 e 4) anello di impregnazione intorno a un centro scuro; a 0:54, 1:25, 2:00, 3:04 e 5:04 (immagini 5-9) il centro resta senza segnale, circa 1,8 cm (immagine 6)."
   },
   {
    "testo": "Iperimpregnazione arteriosa globale e omogenea, senza wash-out",

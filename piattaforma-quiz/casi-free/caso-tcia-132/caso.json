@@ -31,14 +31,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "T2 sagittale (serie 0) immagini 9-16, meglio la 12: la cavità è riempita da tessuto a segnale intermedio, disomogeneo; nel T1 con gadolinio (serie 5, stesse immagini) il tessuto si impregna meno del sottile miometrio che lo circonda. La segmentazione del tumore fornita dalla collezione misura circa 8 × 6,5 × 4,3 cm (antero-posteriore × trasversale × cranio-caudale)."
+   "nota": "T2 sagittale, immagini 10-17, meglio la 13: la cavità è riempita da tessuto a segnale intermedio, disomogeneo; nel T1 con gadolinio (stesse immagini) il tessuto si impregna meno del sottile miometrio che lo circonda. La segmentazione del tumore fornita dalla collezione misura circa 8 × 6,5 × 4,3 cm (antero-posteriore × trasversale × cranio-caudale)."
   },
   {
    "testo": "Restrizione della diffusione nella massa (ADC basso)",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Mappa ADC (serie 4), immagini 14-21: la massa è grigio scura rispetto all'urina e ai liquidi; valori di circa 500-800 al centro della massa (verosimilmente × 10⁻⁶ mm²/s, cioè circa 0,5-0,8 × 10⁻³ mm²/s), più bassi del miometrio, tipici del tessuto tumorale cellulato."
+   "nota": "Mappa ADC, immagini 15-22: la massa è grigio scura rispetto all'urina e ai liquidi; valori di circa 500-800 al centro della massa (verosimilmente × 10⁻⁶ mm²/s, cioè circa 0,5-0,8 × 10⁻³ mm²/s), più bassi del miometrio, tipici del tessuto tumorale cellulato."
   },
   {
    "testo": "Leiomioma intramurale degenerato",
@@ -59,7 +59,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 1,
-   "nota": "Nel T1 con gadolinio (serie 5, immagine 12) il miometrio forma un orletto che si impregna, spesso circa 3-5 mm. Attenzione: una massa polipoide molto voluminosa può assottigliare il miometrio anche senza invaderlo; il dato istologico della collezione è pT1b."
+   "nota": "Nel T1 con gadolinio (immagine 13) il miometrio forma un orletto che si impregna, spesso circa 3-5 mm. Attenzione: una massa polipoide molto voluminosa può assottigliare il miometrio anche senza invaderlo; il dato istologico della collezione è pT1b."
   },
   {
    "testo": "Nessun segno evidente di estensione allo stroma cervicale o ai parametri",
@@ -73,7 +73,7 @@
    "corretta": false,
    "tipo": "distrattore",
    "sezione": 1,
-   "nota": "La vescica, poco distesa, sta sotto e davanti all'utero (T2 sagittale, immagini 10-13) con parete regolare; non si vede tessuto tumorale nella parete."
+   "nota": "La vescica, poco distesa, sta sotto e davanti all'utero (T2 sagittale, immagini 11-14) con parete regolare; non si vede tessuto tumorale nella parete."
   },
   {
    "testo": "Linfonodi iliaci esterni e otturatori voluminosi e necrotici, sospetti per metastasi",

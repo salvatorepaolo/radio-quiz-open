@@ -26,28 +26,28 @@
    "testo": "Lesione di circa 4,5 cm del lobo destro, ipodensa in basale con densità simile ai vasi",
    "corretta": true,
    "tipo": "secondario",
-   "nota": "Basale fetta ~42.",
+   "nota": "Basale fetta ~43.",
    "sezione": 0
   },
   {
    "testo": "In fase arteriosa enhancement periferico discontinuo, nodulare, con la stessa densità dell'aorta",
    "corretta": true,
    "tipo": "secondario",
-   "nota": "Arteriosa fetta ~32: i noduli periferici seguono il sangue (aorta), non sono un anello continuo.",
+   "nota": "Arteriosa fetta ~33: i noduli periferici seguono il sangue (aorta), non sono un anello continuo.",
    "sezione": 0
   },
   {
    "testo": "In fase tardiva riempimento centripeto quasi completo, isodenso ai vasi, con piccola area centrale non riempita",
    "corretta": true,
    "tipo": "secondario",
-   "nota": "Tardiva fetta ~28.",
+   "nota": "Tardiva fetta ~29.",
    "sezione": 0
   },
   {
    "testo": "Piccola lesione di circa 1 cm a densità liquida (~5 HU) che non si modifica nelle fasi (cisti semplice)",
    "corretta": true,
    "tipo": "secondario",
-   "nota": "Fette ~53 (basale), ~48 (arteriosa), ~40 (tardiva).",
+   "nota": "Fette ~54 (basale), ~49 (arteriosa), ~41 (tardiva).",
    "sezione": 0
   },
   {

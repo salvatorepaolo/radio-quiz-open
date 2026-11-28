@@ -53,7 +53,7 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 1,
-   "nota": "Serie 0 (giorno 0): opacità bilaterali a chiazze, più evidenti nei campi medi e inferiori di entrambi i lati; apici relativamente risparmiati. È la distribuzione tipica della polmonite da SARS-CoV-2 (bilaterale, periferica e basale)."
+   "nota": "Giorno 0: opacità bilaterali a chiazze, più evidenti nei campi medi e inferiori di entrambi i lati; apici relativamente risparmiati. È la distribuzione tipica della polmonite da SARS-CoV-2 (bilaterale, periferica e basale)."
   },
   {
    "testo": "Consolidazione di un solo lobo con broncogramma aereo, come nella polmonite pneumococcica",
@@ -74,7 +74,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 2,
-   "nota": "Serie 1 (giorno 3, mattina): opacità diffuse bilaterali, più estese che all'ingresso. Serie 2 (sera): consolidazione estesa soprattutto a sinistra e alle basi."
+   "nota": "Giorno 3, mattina: opacità diffuse bilaterali, più estese che all'ingresso. Giorno 3, sera: consolidazione estesa soprattutto a sinistra e alle basi."
   },
   {
    "testo": "Al giorno 3 le opacità si sono ridotte: buona risposta alla terapia",
@@ -88,7 +88,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 3,
-   "nota": "Serie 2: il tubo endotracheale scende lungo la linea mediana nella trachea. Con il mediastino denso e la scarsa penetrazione la carena si vede male: se la punta non è chiaramente sopra la carena va chiesto un controllo."
+   "nota": "RX della sera del giorno 3: il tubo endotracheale scende lungo la linea mediana nella trachea. Con il mediastino denso e la scarsa penetrazione la carena si vede male: se la punta non è chiaramente sopra la carena va chiesto un controllo."
   },
   {
    "testo": "Sondino orogastrico: il percorso va seguito lungo l'esofago fino a sotto il diaframma; la punta deve stare nello stomaco",
@@ -102,7 +102,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 3,
-   "nota": "Serie 2: il catetere entra dal collo a destra e scende a destra della trachea. Dopo ogni catetere si cercano anche pneumotorace e malposizioni."
+   "nota": "RX della sera del giorno 3: il catetere entra dal collo a destra e scende a destra della trachea. Dopo ogni catetere si cercano anche pneumotorace e malposizioni."
   },
   {
    "testo": "Tubo endotracheale nel bronco principale destro, con il polmone sinistro collassato",

@@ -26,7 +26,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Immagini 0-172 circa (vista a 60). Il flap è continuo tra immagini contigue e ruota a spirale lungo l'aorta."
+   "nota": "Immagini 1-173 circa (vista a 61). Il flap è continuo tra immagini contigue e ruota a spirale lungo l'aorta."
   },
   {
    "testo": "Lume vero più piccolo e più denso (anteriore, verso destra); lume falso più ampio e meno opacizzato (posteriore, verso sinistra)",
@@ -40,21 +40,21 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Celiaco circa immagini 91-97, AMS 105-112, renali 114-121. In un referto di dissezione va sempre detto da quale lume nascono i rami viscerali e se gli organi sono perfusi."
+   "nota": "Celiaco circa immagini 92-98, AMS 106-113, renali 115-122. In un referto di dissezione va sempre detto da quale lume nascono i rami viscerali e se gli organi sono perfusi."
   },
   {
    "testo": "Breve interruzione del flap nell'aorta sottorenale (rientro) e fine della dissezione circa 1,5-2 cm sopra la biforcazione; iliache comuni non interessate",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Rientro immagini 150-156; il lume falso si chiude verso le immagini 168-175; biforcazione circa 190."
+   "nota": "Rientro immagini 151-157; il lume falso si chiude verso le immagini 169-176; biforcazione circa 190."
   },
   {
    "testo": "Piccola formazione solida di circa 2 cm del rene destro, non vascolare, da caratterizzare",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Reperto REALE della collezione (immagini circa 108-125): carcinoma a cellule chiare pT1a di 2 cm. Anche in urgenza i reperti incidentali vanno descritti."
+   "nota": "Reperto REALE della collezione (immagini circa 109-126): carcinoma a cellule chiare pT1a di 2 cm. Anche in urgenza i reperti incidentali vanno descritti."
   },
   {
    "testo": "Ispessimento a semiluna della parete aortica senza flap né doppio lume (ematoma intramurale)",

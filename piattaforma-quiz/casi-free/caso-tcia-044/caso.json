@@ -27,28 +27,28 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 0, immagine 2 (calibro 1,56 cm) e lato B-mode delle immagini CEUS (1,33-1,81 cm). Rapporto di intensità nodulo/parenchima circostante in B-mode circa 1,0: senza i calibri il nodulo si vedrebbe a fatica."
+   "nota": "B-mode (panoramica), immagine 3 (calibro 1,56 cm) e lato B-mode delle immagini CEUS (1,33-1,81 cm). Rapporto di intensità nodulo/parenchima circostante in B-mode circa 1,0: senza i calibri il nodulo si vedrebbe a fatica."
   },
   {
    "testo": "In fase arteriosa (0:16) il nodulo si impregna più del parenchima, in modo diffuso e non a orletto, con un vaso che lo raggiunge (iperenhancement arterioso)",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 1, immagine 0 (T1 0:16): rapporto nodulo/anello di parenchima alla stessa profondità circa 1,5. Immagine 1 (tempo non riportato, catturata subito dopo: secondo calibro 2,01 cm): ancora più impregnato (circa 1,3)."
+   "nota": "CEUS, immagine 1 (T1 0:16): rapporto nodulo/anello di parenchima alla stessa profondità circa 1,5. Immagine 2 (tempo non riportato, catturata subito dopo: secondo calibro 2,01 cm): ancora più impregnato (circa 1,3)."
   },
   {
    "testo": "Nelle fasi tardive il nodulo diventa più scuro del fegato: moderatamente a 2:52, nettamente a 4:08 (wash-out)",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 1, immagini 2 (T1 2:52, rapporto circa 0,7) e 3 (T1 4:08, circa 0,5). Non ci sono immagini tra circa 30 secondi e 2:52: l'inizio esatto del wash-out non è documentato, ma a 2:52 è ancora moderato (non «punched-out» entro 2 minuti)."
+   "nota": "CEUS, immagini 3 (T1 2:52, rapporto circa 0,7) e 4 (T1 4:08, circa 0,5). Non ci sono immagini tra circa 30 secondi e 2:52: l'inizio esatto del wash-out non è documentato, ma a 2:52 è ancora moderato (non «punched-out» entro 2 minuti)."
   },
   {
    "testo": "Nodulo nettamente ipoecogeno con alone ipoecogeno periferico, ben visibile in B-mode",
    "corretta": false,
    "tipo": "distrattore",
    "sezione": 0,
-   "nota": "In questo caso il nodulo è quasi isoecogeno: è la CEUS a renderlo evidente. Attenzione: la formazione ipoecogena ovalare profonda visibile nella panoramica (serie 0, immagine 1, circa 12 cm di profondità) non è il nodulo misurato dall'operatore, è fuori dal campo della CEUS e non è caratterizzabile con queste immagini."
+   "nota": "In questo caso il nodulo è quasi isoecogeno: è la CEUS a renderlo evidente. Attenzione: la formazione ipoecogena ovalare profonda visibile nella panoramica (B-mode, immagine 2, circa 12 cm di profondità) non è il nodulo misurato dall'operatore, è fuori dal campo della CEUS e non è caratterizzabile con queste immagini."
   },
   {
    "testo": "In fase arteriosa impregnazione periferica ad anello (rim) con centro ipovascolare",

@@ -26,28 +26,28 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Il flap si segue dall'arco distale (immagini 7-15) fino alle iliache comuni (immagine ~200). Nel torace il falso lume ha un'area circa 3 volte quella del vero."
+   "nota": "Il flap si segue dall'arco distale (immagini 8-16) fino alle iliache comuni (immagine ~201). Nel torace il falso lume ha un'area circa 3 volte quella del vero."
   },
   {
    "testo": "Aorta ascendente senza flap",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Immagini 25-60: ascendente omogenea. È il punto che decide tipo A o B."
+   "nota": "Immagini 26-61: ascendente omogenea. È il punto che decide tipo A o B."
   },
   {
    "testo": "La dissezione si estende in basso fino alle arterie iliache comuni",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Immagini ~190-200: due lumi anche nelle iliache comuni."
+   "nota": "Immagini ~191-201: due lumi anche nelle iliache comuni."
   },
   {
    "testo": "Tronco celiaco e arteria renale sinistra nascono dal falso lume, la renale destra dal lume vero; reni entrambi perfusi",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Immagini ~130 (celiaco), ~142-148 (renali), secondo la segmentazione degli esperti. Va detto nel referto perché guida un eventuale trattamento endovascolare."
+   "nota": "Immagini ~131 (celiaco), ~143-149 (renali), secondo la segmentazione degli esperti. Va detto nel referto perché guida un eventuale trattamento endovascolare."
   },
   {
    "testo": "Aorta discendente non aneurismatica (diametro massimo circa 35-40 mm)",

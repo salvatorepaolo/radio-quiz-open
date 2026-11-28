@@ -64,14 +64,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "T1 FS 1 min, immagine 38 (serie 5); confronta con la stessa fetta senza mdc (serie 4)."
+   "nota": "T1 FS 1 min, immagine 39; confronta con la stessa fetta senza mdc («T1 FS senza mdc»)."
   },
   {
    "testo": "In T2 la lesione è disomogenea, a segnale intermedio-alto, con aree liquide centrali",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "T2 HASTE e T2 FS, immagini 11-12 (area liquida centrale più evidente alla 12 della T2 FS)."
+   "nota": "T2 HASTE e T2 FS, immagini 12-13 (area liquida centrale più evidente all'immagine 13 della T2 FS)."
   },
   {
    "testo": "Lesione prevalentemente intraparenchimale che deforma lievemente il profilo del rene, a contatto con il seno renale senza invaderlo in modo evidente",

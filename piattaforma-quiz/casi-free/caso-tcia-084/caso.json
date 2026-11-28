@@ -64,21 +64,21 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "T2 FS assiale immagine 14 (serie 3); coronali T2."
+   "nota": "T2 FS assiale immagine 15; coronali T2."
   },
   {
    "testo": "Piccoli focolai iperintensi in T1 senza mdc (sangue) all'interno della massa",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "T1 FS senza mdc, immagine 45 (serie 6)."
+   "nota": "T1 FS senza mdc, immagine 46."
   },
   {
    "testo": "Impregnazione intensa e disomogenea in fase arteriosa, con aree centrali non captanti; le sottrazioni confermano che la massa si impregna",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 7-12, immagine 45: nelle sottrazioni (serie 11 e 12) i focolai emorragici spariscono e resta la vera impregnazione."
+   "nota": "Fasi dopo mdc e sottrazioni, immagine 46: nelle sottrazioni i focolai emorragici spariscono e resta la vera impregnazione."
   },
   {
    "testo": "Lesione cistica senza componenti captanti (Bosniak II)",

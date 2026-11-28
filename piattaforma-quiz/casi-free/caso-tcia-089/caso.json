@@ -64,14 +64,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "T1 FS senza mdc immagine 54 (serie 7); T2 FS assiale immagini 17-26 (serie 2)."
+   "nota": "T1 FS senza mdc immagine 55; T2 FS assiale immagini 18-27."
   },
   {
    "testo": "Dopo il contrasto le immagini sembrano chiare per il sangue già presente: le sottrazioni mostrano solo un'impregnazione scarsa, periferica e dei setti",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Sottrazioni serie 13 e 14 all'immagine 54, confrontate con le serie 8-12."
+   "nota": "Sottrazioni all'immagine 55, confrontate con le fasi dopo mdc."
   },
   {
    "testo": "In T2 la massa è disomogenea con aree iperintense e setti, senza grasso macroscopico",

@@ -56,7 +56,7 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 1,
-   "nota": "Immagini assiali 15-25 (meglio la 19) e coronali 38-46: la parete posteriore e mediale del cardias forma una massa di tessuto solido che restringe il lume; la normale parete gastrica distesa misura pochi millimetri."
+   "nota": "Immagini assiali 16-26 (meglio la 20) e coronali 39-47: la parete posteriore e mediale del cardias forma una massa di tessuto solido che restringe il lume; la normale parete gastrica distesa misura pochi millimetri."
   },
   {
    "testo": "Ernia iatale da scivolamento con pareti regolari della giunzione e del fondo, senza ispessimenti",
@@ -77,21 +77,21 @@
    "corretta": false,
    "tipo": "distrattore",
    "sezione": 1,
-   "nota": "Il tessuto patologico circonda il lume del cardias ed è in continuità con la parete gastrica; la coda del pancreas decorre dietro lo stomaco lungo i vasi splenici, davanti al rene sinistro (immagini 21-23), e non è il centro della lesione."
+   "nota": "Il tessuto patologico circonda il lume del cardias ed è in continuità con la parete gastrica; la coda del pancreas decorre dietro lo stomaco lungo i vasi splenici, davanti al rene sinistro (immagini 22-24), e non è il centro della lesione."
   },
   {
    "testo": "Piccole lesioni ipodense nel fegato (circa 1 cm), sospette per metastasi, da caratterizzare",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 2,
-   "nota": "Per esempio nel segmento anteriore del lobo destro sotto la capsula (immagine 8) e posteriormente vicino al rene (immagine 29). Sono piccole: in TC non si caratterizzano con certezza; RM con diffusione o biopsia."
+   "nota": "Per esempio nel segmento anteriore del lobo destro sotto la capsula (immagine 9) e posteriormente vicino al rene (immagine 30). Sono piccole: in TC non si caratterizzano con certezza; RM con diffusione o biopsia."
   },
   {
    "testo": "Piano adiposo tra stomaco e milza in gran parte conservato",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 2,
-   "nota": "Nelle immagini 19-21 si vede una sottile linea di grasso tra il fondo e la milza: nessun segno sicuro di infiltrazione splenica."
+   "nota": "Nelle immagini 20-22 si vede una sottile linea di grasso tra il fondo e la milza: nessun segno sicuro di infiltrazione splenica."
   },
   {
    "testo": "Ascite abbondante con noduli peritoneali diffusi",

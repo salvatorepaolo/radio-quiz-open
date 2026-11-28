@@ -31,21 +31,21 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "Immagini 50-66, meglio la 58: il lobo destro è sostituito da un nodulo lobulato che si impregna in modo disomogeneo (circa 140 HU nelle parti solide), con aree centrali più scure; il lobo sinistro ha dimensioni e densità normali."
+   "nota": "Immagini 51-67, meglio la 59: il lobo destro è sostituito da un nodulo lobulato che si impregna in modo disomogeneo (circa 140 HU nelle parti solide), con aree centrali più scure; il lobo sinistro ha dimensioni e densità normali."
   },
   {
    "testo": "Trachea spostata verso sinistra, senza restringimento significativo del lume",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Immagini 58-64: la trachea è spinta a sinistra e lievemente improntata sul lato destro (diametro trasverso circa 11-12 mm contro circa 15 mm antero-posteriore); il lume resta pervio."
+   "nota": "Immagini 59-65: la trachea è spinta a sinistra e lievemente improntata sul lato destro (diametro trasverso circa 11-12 mm contro circa 15 mm antero-posteriore); il lume resta pervio."
   },
   {
    "testo": "Gozzo multinodulare bilaterale con estensione mediastinica",
    "corretta": false,
    "tipo": "distrattore",
    "sezione": 0,
-   "nota": "Il lobo sinistro è normale e il nodulo finisce sopra lo stretto toracico superiore (immagine 66 circa)."
+   "nota": "Il lobo sinistro è normale e il nodulo finisce sopra lo stretto toracico superiore (immagine 67 circa)."
   },
   {
    "testo": "Linfonodo necrotico laterocervicale destro",
@@ -59,7 +59,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 1,
-   "nota": "Immagini 56-62: la carotide comune e la giugulare destre sono spinte lateralmente, con un piano di separazione; nessun inglobamento."
+   "nota": "Immagini 57-63: la carotide comune e la giugulare destre sono spinte lateralmente, con un piano di separazione; nessun inglobamento."
   },
   {
    "testo": "Nessuna adenopatia laterocervicale o del compartimento centrale evidente",

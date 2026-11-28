@@ -35,14 +35,14 @@
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "Serie 2 (T1 dopo contrasto, fase 1), immagini 103-113 circa, meglio la 109: massa irregolare di circa 3 × 3,5 cm nella parte alta della mammella destra; l'anello si impregna, il centro no."
+   "nota": "T1 dopo contrasto, fase 1, immagini 104-114 circa, meglio la 110: massa irregolare di circa 3 × 3,5 cm nella parte alta della mammella destra; l'anello si impregna, il centro no."
   },
   {
    "testo": "Il centro non impregnato corrisponde a necrosi, frequente nei carcinomi triplo negativi",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Nella sequenza T2 (serie 0) il centro necrotico può essere iperintenso."
+   "nota": "Nella sequenza T2 il centro necrotico può essere iperintenso."
   },
   {
    "testo": "Impregnazione non a massa con distribuzione segmentaria, senza una massa",
@@ -70,7 +70,7 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 2,
-   "nota": "Nella mammella sinistra (immagini 12-52 circa delle fasi dopo contrasto) non ci sono masse sospette, solo l'impregnazione di fondo del parenchima. Le ascelle sono coperte solo in parte da queste sezioni sagittali: i linfonodi vanno valutati anche con l'ecografia."
+   "nota": "Nella mammella sinistra (immagini 13-53 circa delle fasi dopo contrasto) non ci sono masse sospette, solo l'impregnazione di fondo del parenchima. Le ascelle sono coperte solo in parte da queste sezioni sagittali: i linfonodi vanno valutati anche con l'ecografia."
   },
   {
    "testo": "La RM serve solo a misurare il tumore noto: la mammella sinistra non va guardata",

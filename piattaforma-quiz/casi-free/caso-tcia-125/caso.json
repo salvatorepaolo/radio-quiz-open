@@ -26,21 +26,21 @@
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 0 e lato sinistro delle immagini CEUS: area appena più scura del parenchima, sotto la superficie; i calibri dell'ecografo misurano 1,2-1,6 cm."
+   "nota": "B-mode e lato sinistro delle immagini CEUS: area appena più scura del parenchima, sotto la superficie; i calibri dell'ecografo misurano 1,2-1,6 cm."
   },
   {
    "testo": "In fase arteriosa (21 s) il nodulo si impregna più del parenchima circostante",
    "corretta": true,
    "tipo": "secondario",
    "sezione": 0,
-   "nota": "Serie 1, immagini 0-4 (T1 0:21): il nodulo è già nettamente più impregnato del parenchima, che a quel tempo è ancora poco opacizzato. Sulle immagini statiche l'impregnazione non appare a rima."
+   "nota": "CEUS, immagini 1-5 (T1 0:21): il nodulo è già nettamente più impregnato del parenchima, che a quel tempo è ancora poco opacizzato. Sulle immagini statiche l'impregnazione non appare a rima."
   },
   {
    "testo": "Wash-out precoce: già a 55 secondi il nodulo è meno impregnato del fegato; a 2 minuti è nettamente più scuro e a 4-6 minuti è quasi privo di segnale (wash-out marcato)",
    "corretta": true,
    "tipo": "principale",
    "sezione": 0,
-   "nota": "Serie 1, immagini 5-6 (0:55), 7-8 (2:01), 9-10 (4:06), 11-12 (5:58). È il segno chiave del caso: il wash-out prima di 60 secondi basta da solo per LR-M."
+   "nota": "CEUS, immagini 6-7 (0:55), 8-9 (2:01), 10-11 (4:06), 12-13 (5:58). È il segno chiave del caso: il wash-out prima di 60 secondi basta da solo per LR-M."
   },
   {
    "testo": "Wash-out tardivo (oltre 60 secondi) e lieve",
