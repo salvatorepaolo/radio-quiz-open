@@ -247,6 +247,10 @@ const magazzino = {
   partecipantiSfida: async (c) => (await interroga('SFIDA#' + c)).map((i) => { try { return JSON.parse(i.dati.S); } catch { return null; } }).filter(Boolean),
   scriviPartecipante: (c, p) => db.send(new PutItemCommand({ TableName: TABELLA, Item: { pk: { S: 'SFIDA#' + c }, sk: { S: p.account }, dati: { S: JSON.stringify(p) } } })),
   eliminaPartecipante: (c, a) => db.send(new DeleteItemCommand({ TableName: TABELLA, Key: { pk: { S: 'SFIDA#' + c }, sk: { S: a } } })),
+  // segnalazioni sul programma (28/11): pk "SEGNALAZIONE", sk = id, dati JSON
+  elencoSegnalazioni: async () => (await interroga('SEGNALAZIONE')).map((i) => { try { return JSON.parse(i.dati.S); } catch { return null; } }).filter(Boolean),
+  scriviSegnalazione: (s) => db.send(new PutItemCommand({ TableName: TABELLA, Item: { pk: { S: 'SEGNALAZIONE' }, sk: { S: s.id }, dati: { S: JSON.stringify(s) } } })),
+  eliminaSegnalazione: (id) => db.send(new DeleteItemCommand({ TableName: TABELLA, Key: { pk: { S: 'SEGNALAZIONE' }, sk: { S: id } } })),
   // classi: pk "CLASSE", sk = id, dati JSON
   elencoClassi: async () => (await interroga('CLASSE')).map((i) => { try { return JSON.parse(i.dati.S); } catch { return null; } }).filter(Boolean),
   scriviClasse: (c) => db.send(new PutItemCommand({ TableName: TABELLA, Item: { pk: { S: 'CLASSE' }, sk: { S: c.id }, dati: { S: JSON.stringify(c) } } })),

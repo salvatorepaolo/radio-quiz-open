@@ -776,6 +776,8 @@ const pubblicoAccount = (a) => ({ id: a.id, nome: a.nome, ruolo: a.ruolo, attivo
 const pulisciTesto = (t, n) => String(t ?? '').replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 const ritardo = (ms) => new Promise((r) => setTimeout(r, ms));
 const EMAIL_OK = /^[^\s@<>",;]{1,64}@[^\s@<>",;]{1,190}\.[a-z]{2,24}$/i;
+// 28/11: tipi delle segnalazioni sul programma
+export const TIPI_SEGNALAZIONE = { errore: 'Qualcosa non funziona', caso: 'Errore in un caso clinico', idea: 'Suggerimento', altro: 'Altro' };
 const pulisciEmail = (e) => { const x = String(e || '').trim().toLowerCase().slice(0, 254); return EMAIL_OK.test(x) ? x : ''; };
 // Date «italiane» (1.261, test/date.test.mjs): le scadenze sono giorni del calendario italiano, mentre le date salvate
 // sono in UTC («AAAA-MM-GG HH:MM»). Senza conversione, un compito che scade il 20 restava aperto fino all'1 o alle 2 di
@@ -976,6 +978,11 @@ export async function promemoria(cfg, oggi = new Date()) {
         'Se vuoi tenerlo, basta entrare una volta prima di allora.'], radice(cfg.indirizzo) + '/', { pulsante: 'Entra in Quiz Radiologia', piede: 'Messaggio di servizio: non è necessario rispondere.' }))
         .then(() => M.scriviAccount({ ...a, avvisoInattivo: ora16() })).catch((e) => console.error('inattivo', e?.message || e));
     }
+  }
+  // 28/11: le segnalazioni sul programma restano 12 mesi
+  if (M.elencoSegnalazioni && M.eliminaSegnalazione) {
+    const limite = new Date(oggi.getTime() - 365 * 86400000).toISOString().slice(0, 16).replace('T', ' ');
+    for (const s of await M.elencoSegnalazioni().catch(() => [])) if (String(s.data) < limite) await M.eliminaSegnalazione(s.id).catch(() => {});
   }
   const settimana = await emailSettimana(cfg, oggi).catch((e) => { console.error('settimana', e?.message || e); return 0; });
   if (!cfg.inviaEmail || !M.elencoClassi) return { inviati: 0, cancellati, settimana };
@@ -1549,6 +1556,37 @@ export async function gestisci(req, cfg) {
     const testo = a ? 'Non riceverai più il caso della settimana per email. Puoi riattivarlo dal tuo profilo.' : 'Link non valido o scaduto.';
     return { stato: a ? 200 : 400, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' },
       corpo: `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quiz Radiologia</title><body style="font-family:system-ui;max-width:32rem;margin:3rem auto;padding:0 1rem"><h1>Quiz Radiologia</h1><p>${testo}</p><p><a href="/">Vai al sito</a></p>` };
+  }
+  // ---------------- segnalazioni e suggerimenti sul programma (28/11): da ogni pagina, anche senza accesso.
+  // Si salvano tipo, testo, pagina, versione e browser; l'account se c'è (nome ed email si leggono solo quando
+  // l'amministratore le apre), l'email solo se la scrive un ospite. Al più 10 al giorno per account, 50 al giorno da ospiti.
+  if (parti[1] === 'segnalazioni' && parti.length === 2 && metodo === 'POST') {
+    if (!M.scriviSegnalazione || !M.elencoSegnalazioni) return json(404, { errore: 'non disponibile' });
+    if (String(dati?.sito || '')) return json(200, { ok: true });   // campo nascosto: lo riempiono solo i robot
+    const tipo = TIPI_SEGNALAZIONE[dati?.tipo] ? dati.tipo : 'altro';
+    const testo = pulisciTesto(dati?.testo, 3000);
+    if (testo.length < 5) return json(400, { errore: 'Scrivi almeno qualche parola.' });
+    const g0 = leggiGettone(cfg.segreto, cookie(req.headers));
+    let chi = null;
+    if (g0?.id === 'admin' && g0.ruolo === 'admin') chi = { id: 'admin', nome: 'Amministratore' };
+    else if (g0?.id) { const a = await M.leggiAccount(g0.id).catch(() => null); if (a && a.attivo !== false) chi = a; }
+    const email = chi ? '' : pulisciEmail(dati?.email);
+    const adesso = ora16(), diOggi = (await M.elencoSegnalazioni()).filter((s) => String(s.data).slice(0, 10) === adesso.slice(0, 10));
+    if (chi && diOggi.filter((s) => s.account === chi.id).length >= 10) return json(429, { errore: 'Hai già mandato 10 segnalazioni oggi: grazie! Riprova domani.' });
+    if (!chi && diOggi.filter((s) => !s.account).length >= 50) return json(429, { errore: 'Oggi sono arrivate troppe segnalazioni senza accesso: entra con il tuo account o riprova domani.' });
+    const s = { id: adesso.replace(/\D/g, '') + '-' + randomBytes(3).toString('hex'), data: adesso, tipo, testo, stato: 'nuova',
+      pagina: pulisciTesto(dati?.pagina, 200), versione: pulisciTesto(dati?.versione, 20), browser: String(req.headers?.['user-agent'] || '').slice(0, 200),
+      ...(chi ? { account: chi.id } : {}), ...(email ? { email } : {}) };
+    await M.scriviSegnalazione(s);
+    if (cfg.inviaEmail && cfg.avvisiA) {
+      const sito = radice(cfg.indirizzo);
+      try {
+        await cfg.inviaEmail(cfg.avvisiA, `Quiz Radiologia: nuova segnalazione (${TIPI_SEGNALAZIONE[tipo]})`, corpoEmail([
+          `${TIPI_SEGNALAZIONE[tipo]} da ${chi ? (chi.nome || 'un iscritto') : (email ? 'un ospite (' + email + ')' : 'un ospite senza email')}${s.pagina ? ', dalla pagina ' + s.pagina : ''}:`,
+          testo.length > 1200 ? testo.slice(0, 1200) + '…' : testo], `${sito}/#/segnalazioni`, { pulsante: 'Apri le segnalazioni' }));
+      } catch (e) { console.error('segnalazione', e?.message || e); }
+    }
+    return json(200, { ok: true });
   }
   // ---------------- prova senza registrazione (27/11): i casi con «prova: true» si aprono e si correggono anche senza
   // accesso (solo nel sito pubblico); la risposta dell'ospite non viene salvata. /api/prova dice quali sono e il caso del giorno.
@@ -2375,6 +2413,31 @@ export async function gestisci(req, cfg) {
       if (s.creatore !== io.id) return json(403, { errore: 'Solo chi ha creato la sfida può chiuderla.' });
       await M.scriviSfida({ ...s, chiusa: true });
       return json(200, { ok: true });
+    }
+    return json(404, { errore: 'percorso non valido' });
+  }
+
+  // ---------------- segnalazioni: elenco, stato e nota interna, eliminazione (solo amministratore)
+  if (parti[1] === 'segnalazioni' && parti.length === 2 && metodo === 'GET') {
+    if (!admin) return json(403, { errore: 'solo l\'amministratore' });
+    const l = M.elencoSegnalazioni ? (await M.elencoSegnalazioni()).sort((a, b) => String(b.data).localeCompare(String(a.data))) : [];
+    const chi = new Map();
+    for (const id of new Set(l.map((s) => s.account).filter((x) => x && x !== 'admin'))) {
+      const a = await M.leggiAccount(id).catch(() => null);
+      chi.set(id, a ? { nome: a.nome || '', email: a.email || '', ruolo: a.ruolo || '' } : { nome: 'account cancellato' });
+    }
+    return json(200, l.map((s) => ({ ...s, ...(s.account ? { chi: s.account === 'admin' ? { nome: 'Amministratore' } : chi.get(s.account) } : {}) })));
+  }
+  if (parti[1] === 'segnalazioni' && parti.length === 4 && metodo === 'POST') {
+    if (!admin) return json(403, { errore: 'solo l\'amministratore' });
+    const s = /^[0-9]{12}-[0-9a-f]{6}$/.test(parti[2]) ? (await M.elencoSegnalazioni()).find((x) => x.id === parti[2]) : null;
+    if (!s) return json(404, { errore: 'segnalazione non trovata' });
+    if (parti[3] === 'elimina') { await M.eliminaSegnalazione(s.id); return json(200, { ok: true }); }
+    if (parti[3] === 'stato') {
+      const stato = ['nuova', 'letta', 'risolta'].includes(dati?.stato) ? dati.stato : s.stato;
+      const n = { ...s, stato, nota: pulisciTesto(dati?.nota, 1000), aggiornata: ora16() };
+      if (!n.nota) delete n.nota;
+      await M.scriviSegnalazione(n); return json(200, { ok: true, stato });
     }
     return json(404, { errore: 'percorso non valido' });
   }

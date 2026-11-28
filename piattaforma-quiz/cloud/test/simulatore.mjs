@@ -27,6 +27,7 @@ const visite = new Map();
 const LAVORI = new Map();
 const sfide = new Map(), partSfide = new Map();
 const ris = [], acc = new Map(), classi = new Map(), aziende = new Map(), spons = new Map(), sstat = new Map(), perc = new Map(), esami = [], errori = [], tent = new Map(), posta = [], IMP = {};
+const segnalazioni = new Map();   // 28/11
 const magazzino = {
   elencoCasi: async () => Object.entries(casi).map(([id, c]) => ({ ...c, id })), leggiCaso: async (id) => (Object.hasOwn(casi, id) ? JSON.parse(JSON.stringify(casi[id])) : null),
   scriviCaso: async (id, c) => { casi[id] = c; }, eliminaCaso: async (id) => { delete casi[id]; return 0; },
@@ -42,6 +43,7 @@ const magazzino = {
   partecipantiSfida: async (c) => [...(partSfide.get(c) || new Map()).values()].map((x) => ({ ...x })),
   scriviPartecipante: async (c, x) => { if (!partSfide.has(c)) partSfide.set(c, new Map()); partSfide.get(c).set(x.account, { ...x }); },
   eliminaPartecipante: async (c, a) => { partSfide.get(c)?.delete(a); },
+  elencoSegnalazioni: async () => [...segnalazioni.values()].map((x) => ({ ...x })), scriviSegnalazione: async (s) => { segnalazioni.set(s.id, { ...s }); }, eliminaSegnalazione: async (id) => { segnalazioni.delete(id); },
   elencoClassi: async () => [...classi.values()], scriviClasse: async (c) => { classi.set(c.id, c); }, eliminaClasse: async (id) => { classi.delete(id); },
   elencoAziende: async () => [...aziende.values()], leggiAzienda: async (id) => aziende.get(id) || null, scriviAzienda: async (a) => { aziende.set(a.id, a); }, eliminaAzienda: async (id) => { aziende.delete(id); },
   elencoSponsor: async () => [...spons.values()], scriviSponsor: async (x) => { spons.set(x.id, x); }, eliminaSponsor: async (id) => { spons.delete(id); },

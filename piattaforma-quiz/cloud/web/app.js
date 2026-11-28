@@ -1365,7 +1365,13 @@ function gpu2d() {
 in vec2 p; out vec2 uv; void main() { uv = vec2((p.x + 1.0) * 0.5, (1.0 - p.y) * 0.5); gl_Position = vec4(p, 0.0, 1.0); }`));
     gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `#version 300 es
 precision highp float; uniform highp sampler2D t; uniform float lo, ww; uniform int inv; in vec2 uv; out vec4 o;
-void main() { float g = clamp((texture(t, uv).r - lo) / ww, 0.0, 1.0); if (inv == 1) g = 1.0 - g; o = vec4(g, g, g, 1.0); }`));
+// interpolazione bilineare dei valori veri (HU, segnale) prima della finestra: ingrandendo i bordi restano continui
+// invece di diventare gradini (finestrare prima e interpolare dopo dà scalini sui contorni ad alto contrasto)
+void main() { ivec2 d = textureSize(t, 0); vec2 q = uv * vec2(d) - 0.5; ivec2 a = ivec2(floor(q)); vec2 f = q - floor(q); ivec2 m = d - 1;
+  float v00 = texelFetch(t, clamp(a, ivec2(0), m), 0).r, v10 = texelFetch(t, clamp(a + ivec2(1, 0), ivec2(0), m), 0).r;
+  float v01 = texelFetch(t, clamp(a + ivec2(0, 1), ivec2(0), m), 0).r, v11 = texelFetch(t, clamp(a + ivec2(1, 1), ivec2(0), m), 0).r;
+  float v = mix(mix(v00, v10, f.x), mix(v01, v11, f.x), f.y);
+  float g = clamp((v - lo) / ww, 0.0, 1.0); if (inv == 1) g = 1.0 - g; o = vec4(g, g, g, 1.0); }`));
     gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
     gl.useProgram(pr);
     const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
@@ -1375,7 +1381,7 @@ void main() { float g = clamp((texture(t, uv).r - lo) / ww, 0.0, 1.0); if (inv =
     GPU2D.gl = gl; return gl;
   } catch (e) { console.info('W/L sulla CPU:', e.message); GPU2D.ko = true; return null; }
 }
-function finestraGPU(img, lo, ww, inv, off) {
+function finestraGPU(img, lo, ww, inv, off, fz = 1) {
   const gl = gpu2d(); if (!gl) return false;
   const W = img.cols, H = img.rows, n = W * H;
   if (W > gl.getParameter(gl.MAX_TEXTURE_SIZE) || H > gl.getParameter(gl.MAX_TEXTURE_SIZE)) return false;
@@ -1391,8 +1397,10 @@ function finestraGPU(img, lo, ww, inv, off) {
     GPU2D.tex.set(img, t);
     while (GPU2D.tex.size > 6) { const [k0, t0] = GPU2D.tex.entries().next().value; gl.deleteTexture(t0); GPU2D.tex.delete(k0); }
   } else { GPU2D.tex.delete(img); GPU2D.tex.set(img, t); gl.bindTexture(gl.TEXTURE_2D, t); }
-  const cv = gl.canvas; if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
-  gl.viewport(0, 0, W, H);
+  // fz punti per pixel dell'immagine: l'ingrandimento lo fa lo shader con i valori veri
+  const cv = gl.canvas, OW = W * fz, OH = H * fz; if (cv.width !== OW || cv.height !== OH) { cv.width = OW; cv.height = OH; }
+  if (off.width !== OW || off.height !== OH) { off.width = OW; off.height = OH; }
+  gl.viewport(0, 0, OW, OH);
   gl.uniform1f(GPU2D.loc.lo, lo); gl.uniform1f(GPU2D.loc.ww, Math.max(1e-6, ww)); gl.uniform1i(GPU2D.loc.inv, inv ? 1 : 0);
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   if (gl.getError() !== gl.NO_ERROR) return false;
@@ -1404,16 +1412,22 @@ function disegnaPannello(k) {
   ctx.save(); ctx.beginPath(); ctx.rect(R.x, R.y, R.w, R.h); ctx.clip();
   ctx.fillStyle = '#000'; ctx.fillRect(R.x, R.y, R.w, R.h);
   if (img) {
-    const off = p.off, offCtx = off.getContext('2d');
-    if (off.width !== img.cols || off.height !== img.rows || !p.imgData) { off.width = img.cols; off.height = img.rows; p.imgData = offCtx.createImageData(img.cols, img.rows); p._fatto = null; }
+    const off = p.off, offCtx = off.getContext('2d'), g = geometriaDi(k);
+    // ingrandendo, sulla scheda grafica l'immagine si calcola a più punti per pixel (fino a 4, al massimo 2048 per lato)
+    // interpolando i valori veri prima della finestra: niente quadrettoni né scalini sui bordi
+    const usaGPU = !img.rgb && !V.nitid && !!img.pix && !!gpu2d(), scala = Math.abs(g.sx) * (window.devicePixelRatio || 1);
+    const fz = usaGPU && scala > 1.2 ? Math.max(1, Math.min(4, Math.ceil(scala), Math.floor(2048 / Math.max(img.cols, img.rows)))) : 1;
+    if (!p.imgData || p.imgData.width !== img.cols || p.imgData.height !== img.rows) { p.imgData = offCtx.createImageData(img.cols, img.rows); p._fatto = null; }
+    if (!usaGPU && (off.width !== img.cols || off.height !== img.rows)) { off.width = img.cols; off.height = img.rows; p._fatto = null; }
     const d = p.imgData.data, px = img.pix, n = px.length;
     const lo = p.wc - p.ww / 2, sc = 255 / Math.max(1, p.ww), sl = img.slope, it = img.inter;
     const inv = V.inverti !== !!img.mono1;          // MONOCHROME1: valori alti = nero
     // l'immagine finestrata si ricalcola solo se cambia qualcosa (non a ogni movimento del mouse, zoom o misura)
-    const fatto = p._fatto, uguale = fatto && fatto.img === img && fatto.wc === p.wc && fatto.ww === p.ww && fatto.inv === inv && fatto.nitid === V.nitid;
+    const fatto = p._fatto, uguale = fatto && fatto.img === img && fatto.wc === p.wc && fatto.ww === p.ww && fatto.inv === inv && fatto.nitid === V.nitid && fatto.fz === fz;
     if (uguale) { /* già pronta nel canvas fuori schermo */ }
-    else if (!img.rgb && !V.nitid && img.pix && finestraGPU(img, lo, p.ww, inv, off)) p._fatto = { img, wc: p.wc, ww: p.ww, inv, nitid: V.nitid };
-    else { p._fatto = { img, wc: p.wc, ww: p.ww, inv, nitid: V.nitid };
+    else if (usaGPU && finestraGPU(img, lo, p.ww, inv, off, fz)) p._fatto = { img, wc: p.wc, ww: p.ww, inv, nitid: V.nitid, fz };
+    else { p._fatto = { img, wc: p.wc, ww: p.ww, inv, nitid: V.nitid, fz: 1 };
+    if (off.width !== img.cols || off.height !== img.rows) { off.width = img.cols; off.height = img.rows; }
     if (img.rgb) {
       const c = img.rgb;
       for (let i = 0, j = 0; i < n; i++, j += 4) for (let q = 0; q < 3; q++) {
@@ -1440,8 +1454,7 @@ function disegnaPannello(k) {
     }
     offCtx.putImageData(p.imgData, 0, 0);
     }
-    const g = geometriaDi(k);
-    ctx.imageSmoothingEnabled = p.zoom < 3;
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
     ctx.save(); ruotaCtx(g); ctx.drawImage(off, g.x, g.y, g.w, g.h); ctx.restore();
     disegnaFusione(k, g);
     if (!V.senzaScritte) { disegnaMisure(k, g); disegnaSelezione(k, g); }
@@ -4982,6 +4995,70 @@ function applicaVisTema(v) {
 }
 try { applicaVisTema(localStorage.getItem('quiz-vis-tema') === 'chiaro' ? 'chiaro' : 'scuro'); } catch { applicaVisTema('scuro'); }
 $('#btn-vis-tema')?.addEventListener('click', () => { applicaVisTema(document.documentElement.dataset.vis === 'chiaro' ? 'scuro' : 'chiaro'); try { disegna(); } catch {} });
+// ---------------------------------------------------------------- 28/11: segnalazioni e suggerimenti da ogni pagina
+// pulsante 💬 in alto, link nel piede e nel menu del profilo: modulo sopra la pagina, anche senza accesso
+function apriSegnala(tipo) {
+  const d = $('#dlg-segnala'); if (!d) return;
+  if (tipo) { const r = d.querySelector(`input[name="sg-tipo"][value="${tipo}"]`); if (r) r.checked = true; }
+  $('#sg-email-riga').hidden = !!UTENTE; $('#sg-esito').textContent = ''; $('#sg-esito').className = 'small'; $('#sg-invia').disabled = false;
+  $('#menu-utente')?.removeAttribute('open');
+  if (!d.open) d.showModal();
+  $('#sg-testo').focus();
+}
+{
+  const b = $('#btn-segnala'); if (b && CLIENT) b.hidden = true;
+  b?.addEventListener('click', () => { let caso = false; try { caso = !$('#vista-caso').hidden; } catch {} apriSegnala(caso ? 'caso' : ''); });
+  document.addEventListener('click', (e) => { const a = e.target.closest?.('[data-segnala]'); if (!a) return; e.preventDefault(); apriSegnala(a.dataset.segnala || ''); });
+  $('#sg-annulla')?.addEventListener('click', () => $('#dlg-segnala').close());
+  $('#sg-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const testo = $('#sg-testo').value.trim(), es = $('#sg-esito');
+    if (testo.length < 5) { es.className = 'small ko'; es.textContent = 'Scrivi almeno qualche parola.'; $('#sg-testo').focus(); return; }
+    $('#sg-invia').disabled = true; es.className = 'small'; es.textContent = 'Invio…';
+    try {
+      await postJSON('/api/segnalazioni', { tipo: $('#dlg-segnala').querySelector('input[name="sg-tipo"]:checked')?.value || 'altro', testo,
+        email: UTENTE ? '' : $('#sg-email').value.trim(), sito: $('#sg-sito').value, pagina: (location.pathname + location.hash).slice(0, 200), versione: VERSIONE.versione || '' });
+      $('#sg-testo').value = ''; es.className = 'small ok'; es.textContent = 'Grazie! La segnalazione è arrivata.';
+      setTimeout(() => { const d = $('#dlg-segnala'); if (d.open) d.close(); }, 2200);
+    } catch (err) { es.className = 'small ko'; es.textContent = err?.message || 'Invio non riuscito: riprova.'; $('#sg-invia').disabled = false; }
+  });
+}
+const SGL = { filtro: 'aperte' };
+const SGL_TIPI = { errore: '🐞 Non funziona', caso: '🩻 Caso clinico', idea: '💡 Suggerimento', altro: '✉️ Altro' };
+const SGL_STATI = { nuova: 'Nuova', letta: 'Letta', risolta: 'Risolta' };
+async function apriSegnalazioni() {
+  const box = $('#sgl-lista'); if (!box) return;
+  box.innerHTML = '<p class="muted">Carico…</p>';
+  let l; try { l = await getJSON('/api/segnalazioni'); } catch (e) { box.innerHTML = e instanceof NonAutorizzato ? '' : `<p class="ko">${esc(e.message)}</p>`; return; }
+  const n = (st) => l.filter((s) => s.stato === st).length;
+  const vedi = l.filter((s) => SGL.filtro === 'tutte' || (SGL.filtro === 'aperte' ? s.stato !== 'risolta' : s.stato === SGL.filtro));
+  const kpi = (cls, tit, val) => `<div class="cmr-kpi ${cls}"><span class="k-tit">${tit}</span><span class="k-val">${val}</span></div>`;
+  const chi = (s) => s.chi ? `${esc(s.chi.nome || '')}${s.chi.ruolo ? ` <span class="muted">(${esc(s.chi.ruolo)})</span>` : ''}` : `<span class="muted">ospite</span>${s.email ? ' · ' + esc(s.email) : ''}`;
+  const email = (s) => s.email || s.chi?.email || '';
+  const voce = (s) => `<li class="sgl-v st-${esc(s.stato)}">
+    <div class="sgl-testa"><b>${SGL_TIPI[s.tipo] || esc(s.tipo)}</b> <span class="sgl-stato">${esc(SGL_STATI[s.stato] || s.stato)}</span>
+      <span class="muted small">${esc(String(s.data || '').slice(8, 10))}/${esc(String(s.data || '').slice(5, 7))} ${esc(String(s.data || '').slice(11, 16))} · ${chi(s)}${s.pagina ? ` · <a href="${esc(s.pagina.startsWith('/') ? s.pagina : '/' + s.pagina)}">${esc(s.pagina)}</a>` : ''}</span></div>
+    <p class="sgl-testo">${esc(s.testo).replace(/\n/g, '<br>')}</p>
+    <details class="small muted"><summary>Dettagli tecnici</summary>versione ${esc(s.versione || '—')} · ${esc(s.browser || '—')}</details>
+    <div class="sgl-azioni"><select data-st="${esc(s.id)}" aria-label="Stato">${Object.entries(SGL_STATI).map(([k, v]) => `<option value="${k}"${k === s.stato ? ' selected' : ''}>${v}</option>`).join('')}</select>
+      <input data-nota="${esc(s.id)}" maxlength="1000" placeholder="Nota interna (facoltativa)" value="${esc(s.nota || '')}">
+      <button type="button" data-salva="${esc(s.id)}">Salva</button>
+      ${email(s) ? `<a class="btn ghost" href="mailto:${encodeURIComponent(email(s))}?subject=${encodeURIComponent('La tua segnalazione su Quiz Radiologia')}">✉️ Rispondi</a>` : ''}
+      <button type="button" class="ghost" data-elimina="${esc(s.id)}">Elimina</button></div></li>`;
+  box.innerHTML = `<div class="cmr-kpis">${kpi(n('nuova') ? 'dubbio' : 'ok', 'Nuove', n('nuova'))}${kpi('', 'Lette', n('letta'))}${kpi('ok', 'Risolte', n('risolta'))}${kpi('', 'Totale', l.length)}</div>
+    <div class="rvd-filtri"><select id="sgl-filtro" aria-label="Quali segnalazioni">${[['aperte', 'Da gestire (nuove e lette)'], ['nuova', 'Solo nuove'], ['letta', 'Solo lette'], ['risolta', 'Risolte'], ['tutte', 'Tutte']].map(([v, s]) => `<option value="${v}"${v === SGL.filtro ? ' selected' : ''}>${s}</option>`).join('')}</select></div>
+    ${vedi.length ? `<ul class="sgl-lista">${vedi.map(voce).join('')}</ul>` : '<p class="muted">Nessuna segnalazione da mostrare.</p>'}`;
+  $('#sgl-filtro').addEventListener('change', (e) => { SGL.filtro = e.target.value; apriSegnalazioni(); });
+  box.querySelectorAll('[data-salva]').forEach((b) => b.addEventListener('click', async () => {
+    const id = b.dataset.salva; b.disabled = true;
+    try { await postJSON(`/api/segnalazioni/${id}/stato`, { stato: box.querySelector(`[data-st="${id}"]`).value, nota: box.querySelector(`[data-nota="${id}"]`).value }); avvisoBreve('Salvato.'); apriSegnalazioni(); }
+    catch (e) { b.disabled = false; avvisoBreve(e.message); }
+  }));
+  box.querySelectorAll('[data-elimina]').forEach((b) => b.addEventListener('click', async () => {
+    if (b.dataset.conferma !== '1') { b.dataset.conferma = '1'; b.textContent = 'Conferma: elimina'; b.classList.add('pericolo'); return; }
+    try { await postJSON(`/api/segnalazioni/${b.dataset.elimina}/elimina`, {}); apriSegnalazioni(); } catch (e) { avvisoBreve(e.message); }
+  }));
+}
 $('#btn-schermo').addEventListener('click', schermoIntero);
 // 1.302 «solo immagini»: barre, serie e pannello delle domande nascosti (tasto F; F o Esc per tornare)
 function soloImmagini(on = !document.body.classList.contains('solo-immagini')) {
@@ -7107,7 +7184,7 @@ function vista(nome) {
   // tablet: il promemoria della domanda occupa il suo spazio subito, non quando arriva il testo del caso
   if (nome === 'caso' && !CLIENT && matchMedia('(max-width:1100px)').matches) { const pr = $('#q-promemoria'); if (pr && pr.hidden && !$('#q-prom-domanda').textContent) { $('#q-prom-domanda').textContent = '…'; pr.hidden = false; } }
   $('#btn-indietro').hidden = nome === 'elenco' || nome === 'accesso';
-  for (const v of ['elenco', 'caso', 'editor', 'accesso', 'account', 'nuovo', 'analisi', 'cruscotto', 'vetrini', 'allenamento', 'progressi', 'classi', 'percorsi', 'revisione', 'gestione-casi', 'aiuto', 'profilo', 'statistiche', 'esame', 'errore', 'confronto', 'client', 'tenant', 'sfida']) $(`#vista-${v}`).hidden = v !== nome;
+  for (const v of ['elenco', 'caso', 'editor', 'accesso', 'account', 'nuovo', 'analisi', 'cruscotto', 'vetrini', 'allenamento', 'progressi', 'classi', 'percorsi', 'revisione', 'gestione-casi', 'aiuto', 'profilo', 'statistiche', 'esame', 'errore', 'confronto', 'client', 'tenant', 'sfida', 'segnalazioni']) $(`#vista-${v}`).hidden = v !== nome;
   if (!['caso', 'editor'].includes(nome)) $('#titolo-caso').textContent = '';
   // menù «Gestione»: amministratori (casi, aziende, account), referenti (account), docenti (classi, specializzandi, risultati)
   $('#mg-casi').hidden = !(AUTORE && CLOUD); $('#btn-nuovo-menu').hidden = !(AUTORE && CLOUD);
@@ -7115,7 +7192,7 @@ function vista(nome) {
   $('#menu-gestione').hidden = !(CLOUD && DOCENTE); $('#menu-gestione').open = false;
   $('#btn-classi').hidden = !(DOCENTE && CLOUD); $('#btn-percorsi-doc').hidden = !(DOCENTE && CLOUD); $('#mg-revisione').hidden = !(AUTORE && CLOUD);
   $('#btn-nuovo').hidden = !(AUTORE && CLOUD);
-  $('#btn-account').hidden = !ADMIN; $('#mg-statistiche').hidden = !ADMIN; $('#mg-sponsor').hidden = !ADMIN || AZIENDA(); $('#mg-tenant').hidden = !ADMIN || AZIENDA();
+  $('#btn-account').hidden = !ADMIN; $('#mg-statistiche').hidden = !ADMIN; { const m = $('#mg-segnalazioni'); if (m) m.hidden = !ADMIN || !CLOUD; } $('#mg-sponsor').hidden = !ADMIN || AZIENDA(); $('#mg-tenant').hidden = !ADMIN || AZIENDA();
   $('#btn-editor').hidden = !(AUTORE && nome === 'caso');
   $('#btn-risultati').hidden = !(DOCENTE && CLOUD);
   $('#btn-esci').hidden = !CLOUD;
@@ -8799,6 +8876,7 @@ async function router() {
     else if (tipo === 'gestione-casi' && AUTORE && CLOUD) { vista('gestione-casi'); await apriGestioneCasi(); }
     else if (tipo === 'classi' && DOCENTE && CLOUD) { vista('classi'); await apriClassi(); }
     else if (tipo === 'percorsi' && DOCENTE && CLOUD) { vista('percorsi'); await apriPercorsiDoc(); }
+    else if (tipo === 'segnalazioni' && ADMIN && CLOUD) { vista('segnalazioni'); await apriSegnalazioni(); }
     else if (tipo === 'revisione' && AUTORE && CLOUD) { vista('revisione'); await apriRevisione(); }
     else if ((tipo === 'statistiche' || tipo === 'sponsor') && ADMIN) { vista('statistiche'); apriTraffico(); await apriSponsor(); if (tipo === 'sponsor') $('#sp-gest').scrollIntoView({ block: 'start' }); }
     else if (tipo === 'tenant' && ADMIN && !AZIENDA()) { vista('tenant'); await apriTenant(); }

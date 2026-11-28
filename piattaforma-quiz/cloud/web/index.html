@@ -63,6 +63,7 @@
   <a class="gioco-chip" id="gioco-chip" href="#" title="I tuoi progressi" hidden></a>
   <a id="btn-client" class="btn btn-client" href="/client/index.html" target="_blank" rel="noopener" title="Visualizzatore DICOM gratuito per i tuoi esami: si apre in una nuova scheda e le immagini restano sul tuo computer"><span aria-hidden="true">🖥</span><span class="et">Visualizzatore DICOM</span></a>
   <button id="btn-lingua" class="ghost no-tr btn-lingua" type="button" title="Switch to English" aria-label="Switch to English">EN</button>
+  <button id="btn-segnala" class="ghost btn-segnala" type="button" title="Segnalazioni e suggerimenti: scrivici un problema o un'idea" aria-label="Segnalazioni e suggerimenti">💬</button>
   <a id="btn-aiuto" class="ghost btn" href="#/aiuto" title="Aiuto e manuale">?</a>
   <button id="btn-tema" class="ghost" title="Tema chiaro / scuro" aria-label="Tema chiaro o scuro"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button>
   <details id="menu-utente" class="menu-gestione menu-utente" hidden>
@@ -88,11 +89,13 @@
       <div class="mg-gruppo"><div class="mg-tit">Piattaforma</div>
       <a id="btn-account" href="#/account" hidden><span class="mg-ic" style="--c:#6b74ff">👥</span><span class="mg-t"><b>Iscritti e docenti</b><small>ruoli, inviti, accessi</small></span></a>
       <a id="mg-statistiche" href="#/statistiche" hidden><span class="mg-ic" style="--c:#22a17a">📈</span><span class="mg-t"><b>Dashboard e statistiche</b><small>accessi, pagine, traffico</small></span></a>
+      <a id="mg-segnalazioni" href="#/segnalazioni" hidden><span class="mg-ic" style="--c:#e0533d">💬</span><span class="mg-t"><b>Segnalazioni</b><small>problemi e suggerimenti degli utenti</small></span></a>
       <a id="mg-sponsor" href="#/sponsor" hidden><span class="mg-ic" style="--c:#d9a21b">🤝</span><span class="mg-t"><b>Sponsor</b><small>spazi nella versione gratuita</small></span></a>
       <a id="mg-tenant" href="#/tenant" hidden><span class="mg-ic" style="--c:#e0533d">🏥</span><span class="mg-t"><b>Clienti e piattaforme</b><small>installazioni riservate</small></span></a>
       </div>
     </nav>
   </details>
+    <a href="#" data-segnala="" class="mu-segnala">💬 Segnalazioni e suggerimenti</a>
     <button id="btn-esci" class="ghost" hidden>Esci</button>
     </nav>
   </details>
@@ -1213,6 +1216,7 @@
 
 <main id="vista-aiuto" class="aiuto-pagina" hidden>
   <div class="riga testa-elenco aiuto-testa"><button type="button" id="aiuto-indietro" class="btn" title="Torna indietro (Esc)">← Indietro</button><h1>Aiuto</h1><span class="spacer"></span><a class="btn primario" href="/manuale.pdf" download>⬇ Manuale in PDF</a><button type="button" id="aiuto-chiudi" class="ghost btn" title="Chiudi l'aiuto (Esc)" aria-label="Chiudi l'aiuto">✕</button></div>
+  <p class="aiuto-segnala"><a href="#" data-segnala="">💬 Hai trovato un problema o hai un suggerimento? Scrivici</a></p>
   <nav id="aiuto-indice" class="aiuto-indice"></nav>
   <div id="aiuto-corpo"></div>
 </main>
@@ -1484,7 +1488,30 @@
   </div>
 </main>
 
-<footer class="piede-sito"><span>radio-quiz.it · ideato e realizzato dall'<b>Ing. Salvatore Paolo Buemi</b> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a> · <a href="https://www.linkedin.com/in/salvatorepaolobuemi/" target="_blank" rel="noopener">LinkedIn</a></span><span><a href="/client/index.html" target="_blank" rel="noopener">Visualizzatore DICOM</a> · <a href="/argomenti/">Argomenti</a> · <a href="/en/" hreflang="en" lang="en">English</a> · <a href="/vetrini-aperti.html">Vetrini aperti</a> · <a href="/qualita.html">Qualità e sicurezza del software</a> · <a href="/licenze.html">Licenze e crediti</a> · <a href="https://github.com/salvatorepaolo/radio-quiz-open" rel="noopener">Codice sorgente</a> · strumento didattico, non è un dispositivo medico</span><span class="piede-social solo-vetrina">Seguici <span class="social social-piccolo" role="group" aria-label="Quiz Radiologia sui social"><a class="social-facebook" href="https://www.facebook.com/profile.php?id=61596866219499" target="_blank" rel="noopener" aria-label="Quiz Radiologia su Facebook" title="Quiz Radiologia su Facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.6 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.9v3h2.6V21z"/></svg></a><a class="social-instagram" href="https://www.instagram.com/quiz.radiologia/" target="_blank" rel="noopener" aria-label="Quiz Radiologia su Instagram" title="Quiz Radiologia su Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a class="social-linkedin" href="https://www.linkedin.com/company/radio-quiz" target="_blank" rel="noopener" aria-label="Quiz Radiologia su LinkedIn" title="Quiz Radiologia su LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4.5 9h3.2v10.5H4.5zM6.1 3.8a1.85 1.85 0 1 1 0 3.7 1.85 1.85 0 0 1 0-3.7zM9.7 9h3.1v1.4h.05c.43-.82 1.48-1.68 3.05-1.68 3.26 0 3.86 2.15 3.86 4.94v5.84h-3.2v-5.18c0-1.24-.02-2.83-1.72-2.83-1.73 0-2 1.35-2 2.74v5.27H9.7z"/></svg></a><a class="social-youtube" href="https://www.youtube.com/playlist?list=PLaHrPgfGWitU" target="_blank" rel="noopener" aria-label="Video tutorial su YouTube" title="Video tutorial su YouTube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></span></span><span class="piede-avviso">Piattaforma open source a scopo esclusivamente formativo, per medici e studenti. I contenuti sono preparati con il supporto dell'intelligenza artificiale e revisionati da medici: possono contenere errori. <a href="#/aiuto/condizioni">Condizioni d'uso</a> · Segnalazioni: <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span></footer>
+<!-- 28/11: segnalazioni e suggerimenti, da ogni pagina -->
+<dialog id="dlg-segnala" class="dlg-segnala" aria-labelledby="sg-titolo"><form id="sg-form" method="dialog" novalidate>
+  <h2 id="sg-titolo">💬 Segnalazioni e suggerimenti</h2>
+  <p class="muted small">Hai trovato un errore, qualcosa non funziona o hai un'idea per migliorare Quiz Radiologia? Scrivici: leggiamo tutto.</p>
+  <fieldset class="sg-tipi"><legend>Di che cosa si tratta?</legend>
+    <label><input type="radio" name="sg-tipo" value="errore" checked> 🐞 Qualcosa non funziona</label>
+    <label><input type="radio" name="sg-tipo" value="caso"> 🩻 Errore in un caso clinico</label>
+    <label><input type="radio" name="sg-tipo" value="idea"> 💡 Suggerimento</label>
+    <label><input type="radio" name="sg-tipo" value="altro"> ✉️ Altro</label>
+  </fieldset>
+  <label class="sg-campo"><span>Descrivi</span><textarea id="sg-testo" rows="6" maxlength="3000" placeholder="Che cosa stavi facendo, che cosa è successo, che cosa ti aspettavi"></textarea></label>
+  <label class="sg-campo" id="sg-email-riga" hidden><span>Email per la risposta (facoltativa)</span><input id="sg-email" type="email" maxlength="200" autocomplete="email"></label>
+  <label class="sg-trappola" aria-hidden="true">Sito <input id="sg-sito" tabindex="-1" autocomplete="off"></label>
+  <p class="small muted">Insieme al testo inviamo la pagina in cui sei, la versione del sito e il tipo di browser, per capire meglio il problema. Non scrivere dati di pazienti.</p>
+  <p id="sg-esito" class="small" role="status"></p>
+  <div class="sg-azioni"><button type="button" class="ghost" id="sg-annulla">Chiudi</button><button type="submit" class="primary" id="sg-invia">Invia</button></div>
+</form></dialog>
+<!-- SEGNALAZIONI (amministratore) -->
+<main id="vista-segnalazioni" class="classi" hidden>
+  <div class="riga testa-elenco"><h1>Segnalazioni e suggerimenti</h1></div>
+  <p class="muted">Quello che gli utenti scrivono con il pulsante 💬, da qualsiasi pagina. Restano 12 mesi, poi si cancellano da sole.</p>
+  <div id="sgl-lista"></div>
+</main>
+<footer class="piede-sito"><span>radio-quiz.it · ideato e realizzato dall'<b>Ing. Salvatore Paolo Buemi</b> · <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a> · <a href="https://www.linkedin.com/in/salvatorepaolobuemi/" target="_blank" rel="noopener">LinkedIn</a></span><span><a href="/client/index.html" target="_blank" rel="noopener">Visualizzatore DICOM</a> · <a href="#" data-segnala="">💬 Segnalazioni e suggerimenti</a> · <a href="/argomenti/">Argomenti</a> · <a href="/en/" hreflang="en" lang="en">English</a> · <a href="/vetrini-aperti.html">Vetrini aperti</a> · <a href="/qualita.html">Qualità e sicurezza del software</a> · <a href="/licenze.html">Licenze e crediti</a> · <a href="https://github.com/salvatorepaolo/radio-quiz-open" rel="noopener">Codice sorgente</a> · strumento didattico, non è un dispositivo medico</span><span class="piede-social solo-vetrina">Seguici <span class="social social-piccolo" role="group" aria-label="Quiz Radiologia sui social"><a class="social-facebook" href="https://www.facebook.com/profile.php?id=61596866219499" target="_blank" rel="noopener" aria-label="Quiz Radiologia su Facebook" title="Quiz Radiologia su Facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.6 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.9v3h2.6V21z"/></svg></a><a class="social-instagram" href="https://www.instagram.com/quiz.radiologia/" target="_blank" rel="noopener" aria-label="Quiz Radiologia su Instagram" title="Quiz Radiologia su Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a class="social-linkedin" href="https://www.linkedin.com/company/radio-quiz" target="_blank" rel="noopener" aria-label="Quiz Radiologia su LinkedIn" title="Quiz Radiologia su LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4.5 9h3.2v10.5H4.5zM6.1 3.8a1.85 1.85 0 1 1 0 3.7 1.85 1.85 0 0 1 0-3.7zM9.7 9h3.1v1.4h.05c.43-.82 1.48-1.68 3.05-1.68 3.26 0 3.86 2.15 3.86 4.94v5.84h-3.2v-5.18c0-1.24-.02-2.83-1.72-2.83-1.73 0-2 1.35-2 2.74v5.27H9.7z"/></svg></a><a class="social-youtube" href="https://www.youtube.com/playlist?list=PLaHrPgfGWitU" target="_blank" rel="noopener" aria-label="Video tutorial su YouTube" title="Video tutorial su YouTube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></span></span><span class="piede-avviso">Piattaforma open source a scopo esclusivamente formativo, per medici e studenti. I contenuti sono preparati con il supporto dell'intelligenza artificiale e revisionati da medici: possono contenere errori. <a href="#/aiuto/condizioni">Condizioni d'uso</a> · Segnalazioni: <a href="mailto:info@radio-quiz.it">info@radio-quiz.it</a></span></footer>
 <script type="module" src="app.js"></script>
 </body>
 </html>
